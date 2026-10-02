@@ -135,7 +135,7 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
         markersRef.current.set(item.id, { marker, index: item.index });
       }
     });
-    if (!coordinates.length) {
+    if (!coordinates.length && validCoordinates(city.coordinates)) {
       const label = document.createElement('span');
       label.textContent = `${city.name} · centre indicatif`;
       const content = document.createElement('div');
@@ -157,9 +157,9 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
     if (overview && coordinates.length > 1) L.polyline(coordinates, { color: '#64826c', weight: 2, opacity: 0.75, dashArray: '6 9', interactive: false }).addTo(layer);
     if (coordinates.length > 1) map.fitBounds(L.latLngBounds(coordinates), { padding: [46, 46], maxZoom: 14, animate: false });
     else if (coordinates.length === 1) map.setView(coordinates[0], overview ? 7 : 13, { animate: false });
-    else map.setView([centerLat, centerLng], 11, { animate: false });
+    else map.setView([centerLat, centerLng], validCoordinates(city.coordinates) ? 11 : 4, { animate: false });
     return () => { layer.remove(); markersRef.current.clear(); };
-  }, [mapItems, centerLat, centerLng, overview, city.name, city.chineseName]);
+  }, [mapItems, centerLat, centerLng, overview, city.name, city.chineseName, city.coordinates]);
 
   useEffect(() => {
     markersRef.current.forEach(({ marker, index }, id) => {
@@ -180,7 +180,7 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
       </div>
       <div className="trip-map-footer">
         <span className="trip-map-legend-dot" aria-hidden="true" />
-        <span>Repères approximatifs · itinéraires dans Amap</span>
+        <span>Repères approximatifs · itinéraires dans Amap</span>{!overview && <span className="trip-map-route-note">{plottedSteps.length} / {(steps ?? city.days.flatMap(day=>day.steps)).length} étapes repérées · autres adresses dans le planning</span>}
         {overview && <span className="trip-map-route-note">Pointillés : ordre des étapes, pas un itinéraire routier.</span>}
       </div>
       {tilesUnavailable && (

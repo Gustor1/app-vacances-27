@@ -4,7 +4,7 @@ import type { City } from '../types'
 // sont des repères WGS84 indicatifs, pas des points d'entrée ou de navigation.
 const amap = (query: string) => `https://uri.amap.com/search?keyword=${encodeURIComponent(query)}&callnative=1`
 
-export const initialCities: City[] = [
+export const legacyCatalog: City[] = [
   {
     id: 'shenzhen', name: 'Shenzhen', chineseName: '深圳', subtitle: 'Premiers pas entre gratte-ciel et bord de mer',
     color: '#648e76', coordinates: [22.5431, 114.0579], nights: 2,
@@ -117,7 +117,7 @@ export const initialCities: City[] = [
       ] },
       { id: 'chongqing-3', title: 'Excursion à Wulong', steps: [
         { id: 'cq-3-hotel', title: 'Départ de l’hôtel', description: 'Préparer l’excursion à Wulong.', category: 'hotel' },
-        { id: 'cq-3-east', title: 'Gare de Chongqing Est', chineseName: '重庆东站', description: 'Prendre le train vers Wulong Sud et organiser le billet de retour. Horaires à préciser.', category: 'transport', booking: true, amapUrl: amap('重庆东站') },
+        { id: 'cq-3-east', title: 'Gare de Chongqing Est', chineseName: '重庆东站', description: 'Prendre le train vers Wulong Sud. Horaire à préciser.', category: 'transport', amapUrl: amap('重庆东站') },
         { id: 'cq-3-south', title: 'Gare de Wulong Sud', chineseName: '武隆南站', description: 'Arrivée à Wulong, puis liaison vers le centre d’accueil à organiser.', category: 'transport', amapUrl: amap('武隆南站') },
         { id: 'cq-3-center', title: 'Centre d’accueil de Wulong', chineseName: '武隆游客接待中心', description: 'Rejoindre le centre d’accueil pour accéder au site. Vérifier le point de départ des navettes.', category: 'transport', amapUrl: amap('武隆 游客接待中心') },
         { id: 'cq-3-bridges', title: 'Trois Ponts naturels', chineseName: '天生三桥', description: 'Visiter les grands ponts naturels et les paysages karstiques de Wulong.', category: 'visit', amapUrl: amap('武隆 天生三桥') },
@@ -154,7 +154,7 @@ export const initialCities: City[] = [
         { id: 'cd-1-return', title: 'Retour à l’hôtel', description: 'Repos après la soirée.', category: 'hotel' },
       ] },
       { id: 'chengdu-2', title: 'Pandas, Wuhou et soirée au bord de l’eau', steps: [
-        { id: 'cd-2-pandas', title: 'Base des pandas', chineseName: '成都大熊猫繁育研究基地', description: 'Arriver dès l’ouverture. Horaire, accès et billets à vérifier.', category: 'visit', booking: true, period: 'Dès l’ouverture', coordinates: [30.733, 104.145], amapUrl: amap('成都大熊猫繁育研究基地') },
+        { id: 'cd-2-pandas', title: 'Base des pandas', chineseName: '成都大熊猫繁育研究基地', description: 'Arriver dès l’ouverture. Horaire, accès et billets à vérifier.', category: 'visit', period: 'Dès l’ouverture', coordinates: [30.733, 104.145], amapUrl: amap('成都大熊猫繁育研究基地') },
         { id: 'cd-2-lunch', title: 'Déjeuner', description: 'Pause déjeuner après la visite des pandas.', category: 'food' },
         { id: 'cd-2-wuhou', title: 'Wuhou et son allée rouge', chineseName: '武侯祠', description: 'Visiter Wuhou et son allée bordée de murs rouges et de bambous.', category: 'visit', coordinates: [30.646, 104.048], amapUrl: amap('成都 武侯祠 红墙') },
         { id: 'cd-2-jinli', title: 'Rue Jinli', chineseName: '锦里', description: 'Promenade dans la rue Jinli, à côté de Wuhou.', category: 'walk', coordinates: [30.646, 104.049], amapUrl: amap('成都 锦里') },
@@ -174,7 +174,7 @@ export const initialCities: City[] = [
         { id: 'cd-3-summer', title: 'To Summer · Guānxià', chineseName: '观夏蜀馆', description: 'Boutique située au 16 Citang Street, d’après le planning.', category: 'shopping', amapUrl: amap('成都 观夏蜀馆 祠堂街16号') },
         { id: 'cd-3-luggage', title: 'Récupérer les bagages', description: 'Repasser à l’hôtel avant de rejoindre l’aéroport.', category: 'hotel' },
         { id: 'cd-3-airport', title: 'Transfert vers l’aéroport', description: 'Aéroport, terminal et moyen de transfert à préciser selon le vol.', category: 'transport' },
-        { id: 'cd-3-shanghai', title: 'Vol vers Shanghai', description: 'Poursuite du voyage à Shanghai. Vol, horaire et aéroport d’arrivée à compléter.', category: 'transport', booking: true },
+        { id: 'cd-3-shanghai', title: 'Vol vers Shanghai', description: 'Poursuite du voyage à Shanghai. Vol, horaire et aéroport d’arrivée à compléter.', category: 'transport' },
       ] },
     ],
   },

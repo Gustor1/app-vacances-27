@@ -1,7 +1,11 @@
 export type Category = 'visit' | 'food' | 'transport' | 'hotel' | 'walk' | 'shopping';
-export type Step = { id: string; title: string; chineseName?: string; description: string; category: Category; period?: string; optional?: boolean; booking?: boolean; coordinates?: [number, number]; amapUrl?: string };
-export type Day = { id: string; title: string; steps: Step[] };
-export type City = { id: string; name: string; chineseName: string; subtitle: string; color: string; coordinates: [number, number]; image: string; days: Day[]; notes: string[]; nights?: number };
+export type Step = { id: string; title: string; chineseName?: string; description: string; address?: string; category: Category; period?: string; optional?: boolean; booking?: boolean; coordinates?: [number, number]; amapUrl?: string };
+export type Day = { id: string; title: string; steps: Step[]; date?: string };
+export type City = { id: string; name: string; chineseName: string; subtitle: string; color: string; coordinates?: [number, number]; image: string; days: Day[]; notes: string[]; nights?: number };
 export type Bonus = { id: string; cityId: string; title: string; chineseName?: string; category: 'food' | 'photo' | 'visit' | 'shopping'; description: string; address?: string; budget?: string; tip?: string; amapUrl?: string; sourceUrl?: string };
-export type View = 'planning' | 'map' | 'bonus' | 'transport' | 'notebook';
-export type StoredState = { version: 1; cities: City[]; favorites: string[]; done: string[]; bookings: string[]; notes: Record<string, string>; departureDate: string };
+export type View = 'planning' | 'map' | 'bonus' | 'transport' | 'notebook' | 'practical' | 'overview';
+export type Expense = { id: string; cityId: string; label: string; amount: number; currency: 'CNY' | 'EUR'; category: 'food' | 'transport' | 'hotel' | 'visit' | 'shopping' | 'other'; date?: string };
+export type Stay = { cityId: string; name: string; chineseName: string; address: string; checkIn: string; checkOut: string; notes: string };
+export type Transfer = { id: string; fromCityId: string; toCityId: string; label: string; mode: 'train' | 'plane' | 'bus' | 'car' | 'other'; departure: string; arrival: string; fromStation: string; toStation: string; reference: string; notes: string; booked: boolean };
+export type PackingItem = { id: string; label: string; packed: boolean };
+export type StoredState = { version: 1; cities: City[]; favorites: string[]; done: string[]; bookings: string[]; notes: Record<string, string>; departureDate: string; customBonus?: Bonus[]; expenses?: Expense[]; budgetCny?: number; cnyPerEuro?: number; stays?: Stay[]; transfers?: Transfer[]; packing?: PackingItem[]; catalogBase?: City[] };

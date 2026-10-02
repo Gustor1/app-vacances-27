@@ -35,6 +35,7 @@ try {
   await page.reload();
   assert.equal(await page.getByLabel('Ma note pour Shenzhen').inputValue(), 'Note conservée hors ligne');
   await page.getByRole('button', { name: 'Mon carnet pratique', exact: true }).click();
+  await page.getByRole('heading', { name: 'Ton carnet est prêt pour le hors-ligne', exact: true }).waitFor();
   await page.getByRole('button', { name: 'Consulter le planning d’origine', exact: true }).click();
   await page.getByRole('dialog').getByRole('heading', { name: /SHENZHEN/ }).waitFor();
   await page.getByRole('dialog').getByRole('button', { name: 'Fermer', exact: true }).click();

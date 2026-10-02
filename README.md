@@ -4,7 +4,7 @@ Application de voyage en français, responsive, réalisée à partir des deux do
 
 ## Démarrer
 
-Node.js 20.19+ (ou 22.12+ ; validé avec Node 24) et npm sont nécessaires.
+Node.js 22.18+ (validé avec Node 24) et npm sont nécessaires.
 
 ```sh
 npm ci
@@ -24,21 +24,25 @@ Les tests utilisent `/usr/bin/chromium` dans l’environnement cloud. Sur un aut
 
 - 7 étapes : Shenzhen, Guangzhou, Yangshuo, Chongqing/Wulong, Chengdu, Shanghai à compléter, excursion Suzhou.
 - 17 journées préparées et 130 fiches bonus. Les bonus restent séparés du planning jusqu’à leur ajout explicite à une journée.
-- Édition des activités, ordre, ajout de villes et de journées, favoris, visites effectuées, réservations, notes et date de départ.
+- Édition des activités, déplacement entre journées, ordre des villes, ajout de villes et de journées, favoris, visites effectuées, réservations et notes.
+- Vue d’ensemble, dates explicites par journée, export calendrier ICS et impression du voyage complet.
+- Adresses bonus personnelles avec adresse précise conservée lors de leur ajout au planning.
 - Carte des villes et repères disponibles. Noms chinois, copie, recherches et fiches Amap.
-- Carnet pratique, transferts à organiser, notes originales consultables intégralement.
-- Export/import JSON validé. Les données personnelles restent dans le stockage local du navigateur, sans compte ni synchronisation entre appareils.
+- Fiches de transport modifiables : gares, horaires locaux en Chine, références, notes et réservation.
+- Hébergements avec adresses Amap, budget en CNY/EUR avec taux manuel facultatif, valise et phrases chinoises à copier.
+- Notes originales consultables intégralement.
+- Export/import JSON validé, sauvegarde de récupération et synchronisation entre onglets du même navigateur. Un fichier corrompu peut être téléchargé sans modification avant restauration. Les données personnelles restent dans le stockage local du navigateur, sans compte ni synchronisation entre appareils.
 - Cache hors ligne après une première ouverture réussie de la version de production et l’installation de son service worker. Les documents, les polices et le fond géographique général sont inclus. Ouvrir le site une fois en ligne avant le départ ; conserver aussi un export JSON.
 
 ## Faire évoluer le voyage
 
 Le planning initial est dans `src/data/trip.ts`, les bonus dans `src/data/bonus.ts`, les types dans `src/types.ts`. Chaque ville, jour, activité et bonus possède un identifiant stable. Conserver ces identifiants pour les entrées existantes, afin de préserver les favoris et les coches.
 
-Les modifications faites dans l’interface sont prioritaires : si le navigateur possède déjà un carnet local, une nouvelle version du planning initial ne le remplace pas. Pour reporter une évolution sur un appareil existant, exporter son carnet, fusionner les changements et importer la sauvegarde résultante. Ne jamais effacer silencieusement la sauvegarde locale.
+Les mises à jour du planning initial sont fusionnées avec le carnet local grâce à un instantané du catalogue précédent : les nouvelles entrées sont ajoutées et les champs restés inchangés sont actualisés. Les modifications et suppressions personnelles sont conservées. `src/data/legacy-catalog.ts` sert de référence pour migrer les anciens carnets. Garder ces identifiants et cette référence stables ; exporter le JSON avant une mise à jour importante. Deux onglets fusionnent aussi leurs modifications indépendantes ; si le même champ est modifié en concurrence, la dernière écriture de ce champ prévaut.
 
 La date de départ est un repère personnel ; elle ne calcule pas automatiquement les dates des journées. Les journées d’arrivée et de départ entre deux villes peuvent se recouper. Les 17 journées préparées ne constituent pas une durée totale confirmée.
 
-`TransportView` contient un récapitulatif des liaisons des documents d’origine, puis la liste dynamique des étapes transport du planning. Mettre à jour ce récapitulatif si l’ordre des villes change dans une future évolution.
+`TransportView` distingue les trajets personnels, le récapitulatif des liaisons des documents d’origine et les étapes transport du planning. Le récapitulatif source est filtré selon les villes présentes ; il ne représente pas des billets réservés. Les horaires personnels sont saisis en heure locale chinoise (UTC+8). Les dépenses en EUR restent séparées des CNY tant qu’aucun taux manuel n’est renseigné.
 
 ## Cartographie et données
 
