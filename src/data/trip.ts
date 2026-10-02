@@ -1,0 +1,206 @@
+import type { City } from '../types'
+
+// Les étapes et leur ordre proviennent du planning fourni. Les coordonnées
+// sont des repères WGS84 indicatifs, pas des points d'entrée ou de navigation.
+const amap = (query: string) => `https://uri.amap.com/search?keyword=${encodeURIComponent(query)}&callnative=1`
+
+export const initialCities: City[] = [
+  {
+    id: 'shenzhen', name: 'Shenzhen', chineseName: '深圳', subtitle: 'Premiers pas entre gratte-ciel et bord de mer',
+    color: '#648e76', coordinates: [22.5431, 114.0579], nights: 2,
+    image: '/china-landscape.svg',
+    notes: [
+      'Séjour prévu : 3 jours et 2 nuits. Dates et hôtel à compléter.',
+      'À réserver : entrée du musée et train pour Guangzhou. Aucune réservation confirmée dans le document.',
+      'Le musée d’histoire naturelle est indiqué à Pingshan dans le planning : vérifier le nom exact, l’adresse, l’ouverture et la billetterie avant de fixer le trajet.',
+      'Si Huaqiangbei prend plus de temps que prévu, supprimer Qianhai Stone Park.',
+    ],
+    days: [
+      { id: 'shenzhen-1', title: 'Arrivée', steps: [
+        { id: 'sz-1-arrival', title: 'Arrivée à Shenzhen', description: 'Rejoindre Shenzhen ; horaire et point d’arrivée à compléter.', category: 'transport' },
+        { id: 'sz-1-hotel', title: 'Installation à Futian', chineseName: '福田区', description: 'Rejoindre l’hôtel dans le quartier de Futian. Établissement à préciser.', category: 'hotel', amapUrl: amap('深圳 福田区') },
+        { id: 'sz-1-dinner', title: 'Dîner dans le quartier', description: 'Première soirée et dîner près de l’hôtel, à Futian.', category: 'food', period: 'Soir' },
+      ] },
+      { id: 'shenzhen-2', title: 'Musée et panorama', steps: [
+        { id: 'sz-2-museum', title: 'Shenzhen Natural History Museum', chineseName: '深圳自然博物馆', description: 'Visite du musée, indiqué à Pingshan dans le document. Localisation et ouverture à vérifier avant réservation.', category: 'visit', booking: true, amapUrl: amap('深圳自然博物馆') },
+        { id: 'sz-2-lunch', title: 'Déjeuner', description: 'Pause déjeuner après le musée.', category: 'food' },
+        { id: 'sz-2-park', title: 'Lianhuashan Park', chineseName: '莲花山公园', description: 'Promenade dans le parc jusqu’à la statue de Deng Xiaoping.', category: 'walk', coordinates: [22.555, 114.059], amapUrl: amap('深圳 莲花山公园 邓小平铜像') },
+        { id: 'sz-2-sky', title: 'Free Sky · Ping An Finance Center', chineseName: '平安金融中心 云际观光层', description: 'Monter au point de vue avant le coucher du soleil.', category: 'visit', period: 'Avant le coucher du soleil', coordinates: [22.536, 114.051], amapUrl: amap('深圳 平安金融中心 云际观光层') },
+        { id: 'sz-2-dinner', title: 'Dîner à Futian', description: 'Retour à Futian pour le dîner.', category: 'food', period: 'Soir', amapUrl: amap('深圳 福田区') },
+      ] },
+      { id: 'shenzhen-3', title: 'Marché, bord de mer et Guangzhou', steps: [
+        { id: 'sz-3-market', title: 'Huaqiangbei · SEG Electronics Market', chineseName: '华强北 赛格电子市场', description: 'Explorer le quartier et le marché de l’électronique.', category: 'shopping', coordinates: [22.543, 114.086], amapUrl: amap('深圳 华强北 赛格电子市场') },
+        { id: 'sz-3-lunch', title: 'Déjeuner', description: 'Pause déjeuner après Huaqiangbei.', category: 'food' },
+        { id: 'sz-3-luggage', title: 'Récupérer les bagages', description: 'Repasser à l’hôtel avant de poursuivre vers le bord de mer.', category: 'hotel' },
+        { id: 'sz-3-qianhai', title: 'Qianhai Stone Park', chineseName: '前海石公园', description: 'Étape facultative à supprimer si Huaqiangbei a pris plus de temps que prévu.', category: 'walk', optional: true, amapUrl: amap('深圳 前海石公园') },
+        { id: 'sz-3-harbour', title: 'Happy Harbour · OH Bay', chineseName: '欢乐港湾', description: 'Promenade, grande roue et coucher de soleil au bord de l’eau.', category: 'walk', period: 'Coucher du soleil', coordinates: [22.548, 113.885], amapUrl: amap('深圳 欢乐港湾') },
+        { id: 'sz-3-station', title: 'Gare de Shenzhen North', chineseName: '深圳北站', description: 'Rejoindre la gare avec une marge adaptée au départ du train.', category: 'transport', coordinates: [22.609, 114.029], amapUrl: amap('深圳北站') },
+        { id: 'sz-3-train', title: 'Train pour Guangzhou', description: 'Trajet Shenzhen → Guangzhou. Train, horaire et gare d’arrivée à préciser.', category: 'transport', booking: true },
+      ] },
+    ],
+  },
+  {
+    id: 'guangzhou', name: 'Guangzhou', chineseName: '广州', subtitle: 'Quartiers historiques et lumières de Canton',
+    color: '#b58c51', coordinates: [23.1291, 113.2644], nights: 2,
+    image: '/china-landscape.svg',
+    notes: ['Séjour prévu : 3 jours et 2 nuits. Dates et hôtel à compléter.', 'Prévoir une demi-journée pour Baiyun Mountain.', 'Le transport entre Guangzhou et Yangshuo reste à organiser.'],
+    days: [
+      { id: 'guangzhou-1', title: 'Arrivée en soirée', steps: [
+        { id: 'gz-1-hotel', title: 'Installation à l’hôtel', description: 'Arrivée à Guangzhou en soirée et dépôt des bagages.', category: 'hotel', period: 'Soir' },
+        { id: 'gz-1-beijing', title: 'Beijing Road', chineseName: '北京路步行街', description: 'Première promenade dans le quartier animé de Beijing Road.', category: 'walk', coordinates: [23.125, 113.27], amapUrl: amap('广州 北京路步行街') },
+        { id: 'gz-1-dafo', title: 'Temple Dafo', chineseName: '大佛寺', description: 'Visite si vous avez encore de l’énergie après l’arrivée.', category: 'visit', optional: true, coordinates: [23.121, 113.27], amapUrl: amap('广州 大佛寺') },
+      ] },
+      { id: 'guangzhou-2', title: 'Visites et Canton Tower', steps: [
+        { id: 'gz-2-chen', title: 'Chen Clan Ancestral Hall', chineseName: '陈家祠', description: 'Commencer la journée par la maison ancestrale du clan Chen.', category: 'visit', coordinates: [23.129, 113.24], amapUrl: amap('广州 陈家祠') },
+        { id: 'gz-2-lychee', title: 'Lychee Bay', chineseName: '荔枝湾', description: 'Découvrir les canaux et le quartier de Lychee Bay.', category: 'walk', amapUrl: amap('广州 荔枝湾') },
+        { id: 'gz-2-yongqing', title: 'Yongqing Fang et Enning Road', chineseName: '永庆坊 恩宁路', description: 'Poursuivre dans les rues historiques de Yongqing Fang et d’Enning Road.', category: 'walk', amapUrl: amap('广州 永庆坊 恩宁路') },
+        { id: 'gz-2-shamian', title: 'Shamian Island', chineseName: '沙面岛', description: 'Promenade sur l’île de Shamian.', category: 'walk', coordinates: [23.109, 113.238], amapUrl: amap('广州 沙面岛') },
+        { id: 'gz-2-break', title: 'Pause', description: 'Garder un moment de repos avant la soirée.', category: 'walk' },
+        { id: 'gz-2-square', title: 'Huacheng Square', chineseName: '花城广场', description: 'Rejoindre la grande place du quartier moderne.', category: 'walk', coordinates: [23.119, 113.324], amapUrl: amap('广州 花城广场') },
+        { id: 'gz-2-bridge', title: 'Haixin Bridge', chineseName: '海心桥', description: 'Poursuivre vers le pont piéton au-dessus de la rivière des Perles.', category: 'walk', amapUrl: amap('广州 海心桥') },
+        { id: 'gz-2-tower', title: 'Canton Tower de nuit', chineseName: '广州塔', description: 'Profiter de la tour illuminée. Créneau souhaité dans le planning : 20 h–22 h ; ce n’est pas une réservation.', category: 'visit', period: '20 h–22 h · prévu', coordinates: [23.106, 113.324], amapUrl: amap('广州塔') },
+      ] },
+      { id: 'guangzhou-3', title: 'Matinée nature', steps: [
+        { id: 'gz-3-baiyun', title: 'Baiyun Mountain', chineseName: '白云山', description: 'Prévoir une demi-journée pour découvrir la montagne et ses panoramas.', category: 'walk', period: 'Matinée · une demi-journée', coordinates: [23.184, 113.298], amapUrl: amap('广州 白云山') },
+      ] },
+    ],
+  },
+  {
+    id: 'yangshuo', name: 'Yangshuo', chineseName: '阳朔', subtitle: 'Rivières paisibles et reliefs karstiques',
+    color: '#5d8b71', coordinates: [24.7785, 110.4966], nights: 2,
+    image: '/china-landscape.svg',
+    notes: ['Séjour prévu : 3 jours et 2 nuits. Dates et hôtel à compléter.', 'Le train pour Chongqing est souhaité l’après-midi du troisième jour ; horaire et disponibilité à vérifier.'],
+    days: [
+      { id: 'yangshuo-1', title: 'Arrivée et West Street', steps: [
+        { id: 'ys-1-arrival', title: 'Arrivée à Yangshuo', description: 'Mode de transport et horaire d’arrivée à compléter.', category: 'transport' },
+        { id: 'ys-1-hotel', title: 'Installation à l’hôtel', description: 'Déposer les bagages et s’installer.', category: 'hotel' },
+        { id: 'ys-1-west', title: 'West Street', chineseName: '西街', description: 'Découvrir la rue animée de Yangshuo.', category: 'walk', coordinates: [24.773, 110.491], amapUrl: amap('阳朔 西街') },
+      ] },
+      { id: 'yangshuo-2', title: 'La vallée de Yulong', steps: [
+        { id: 'ys-2-raft', title: 'Radeau sur la rivière Yulong', chineseName: '遇龙河', description: 'Descente en radeau. Embarcadère et portion de rivière à choisir.', category: 'visit', amapUrl: amap('阳朔 遇龙河 竹筏') },
+        { id: 'ys-2-valley', title: 'Balade dans la vallée de Yulong', chineseName: '遇龙河', description: 'Prendre le temps de découvrir les paysages de la vallée.', category: 'walk', amapUrl: amap('阳朔 遇龙河') },
+        { id: 'ys-2-cave', title: 'Silver Cave', chineseName: '银子岩', description: 'Visiter la grotte de Silver Cave.', category: 'visit', amapUrl: amap('荔浦 银子岩') },
+        { id: 'ys-2-sunset', title: 'Coucher de soleil au bord de la Yulong', chineseName: '遇龙河', description: 'Revenir au bord de la rivière pour le coucher du soleil, si possible.', category: 'walk', period: 'Coucher du soleil', optional: true, amapUrl: amap('阳朔 遇龙河') },
+        { id: 'ys-2-hotel', title: 'Retour à l’hôtel', description: 'Repos après la journée dans la vallée.', category: 'hotel' },
+      ] },
+      { id: 'yangshuo-3', title: 'Lever de soleil et départ', steps: [
+        { id: 'ys-3-mountain', title: 'Xianggong Mountain', chineseName: '相公山', description: 'Réserver une voiture aller-retour et confirmer l’accès avant l’aube, l’attente et les conditions de report météo. Prévoir une lampe et des chaussures de marche.', category: 'visit', booking: true, period: 'Lever du soleil', amapUrl: amap('阳朔 相公山') },
+        { id: 'ys-3-luggage', title: 'Récupérer les valises', description: 'Retour à l’hôtel avant le départ.', category: 'hotel' },
+        { id: 'ys-3-station', title: 'Gare de Yangshuo', chineseName: '阳朔站', description: 'Rejoindre la gare de Yangshuo.', category: 'transport', amapUrl: amap('阳朔站') },
+        { id: 'ys-3-train', title: 'Train vers Chongqing', description: 'Départ idéalement dans l’après-midi. Réserver le train, vérifier une éventuelle correspondance et confirmer la gare d’arrivée avant de fixer les activités.', category: 'transport', booking: true, period: 'Après-midi souhaité' },
+      ] },
+    ],
+  },
+  {
+    id: 'chongqing', name: 'Chongqing & Wulong', chineseName: '重庆 · 武隆', subtitle: 'La ville verticale et les Trois Ponts naturels',
+    color: '#bc755c', coordinates: [29.563, 106.5516], nights: 3,
+    image: '/china-landscape.svg',
+    notes: ['Séjour prévu : 4 jours et 3 nuits. Dates et hôtel à compléter.', 'Pour Wulong : vérifier les trains Chongqing Est ↔ Wulong Sud ainsi que la liaison vers le centre d’accueil.', 'Le départ du quatrième jour se fait par gare ou aéroport ; le transport vers Chengdu reste à préciser.'],
+    days: [
+      { id: 'chongqing-1', title: 'Arrivée et centre-ville', steps: [
+        { id: 'cq-1-station', title: 'Arrivée en gare de Chongqing', description: 'La gare exacte dépendra du train réservé.', category: 'transport' },
+        { id: 'cq-1-hotel', title: 'Installation à l’hôtel', description: 'Déposer les bagages avant de découvrir la ville.', category: 'hotel' },
+        { id: 'cq-1-raffles', title: 'Skywalk de Raffles City', chineseName: '重庆来福士 云中漫步', description: 'Réserver un billet mentionnant bien 云中漫步 / Skywalk. Prévoir l’activité avant le coucher du soleil et un repli si la météo empêche l’accès.', category: 'visit', booking: true, period: 'Coucher du soleil', coordinates: [29.565, 106.588], amapUrl: amap('重庆 来福士 云中漫步') },
+        { id: 'cq-1-dinner', title: 'Dîner à Jiefangbei', chineseName: '解放碑', description: 'Dîner dans le quartier de Jiefangbei.', category: 'food', coordinates: [29.558, 106.577], amapUrl: amap('重庆 解放碑') },
+        { id: 'cq-1-hongya', title: 'Hongyadong vu d’en bas', chineseName: '洪崖洞', description: 'Observer les façades illuminées depuis le niveau inférieur.', category: 'visit', coordinates: [29.562, 106.578], amapUrl: amap('重庆 洪崖洞') },
+        { id: 'cq-1-bridge', title: 'Pont Qiansimen', chineseName: '千厮门大桥', description: 'Poursuivre la promenade vers le pont pour les vues nocturnes.', category: 'walk', coordinates: [29.566, 106.579], amapUrl: amap('重庆 千厮门大桥') },
+        { id: 'cq-1-return', title: 'Retour à l’hôtel', description: 'Fin de la première soirée.', category: 'hotel' },
+      ] },
+      { id: 'chongqing-2', title: 'Ciqikou et rives du fleuve', steps: [
+        { id: 'cq-2-hotel', title: 'Départ de l’hôtel', description: 'Rejoindre Ciqikou.', category: 'hotel' },
+        { id: 'cq-2-ciqikou', title: 'Ciqikou', chineseName: '磁器口古镇', description: 'Explorer les ruelles du quartier ancien.', category: 'walk', coordinates: [29.582, 106.449], amapUrl: amap('重庆 磁器口古镇') },
+        { id: 'cq-2-theatre', title: 'Théâtre Chongqing 1949', chineseName: '重庆1949大剧院', description: 'Réserver le spectacle Chongqing 1949. Vérifier la séance choisie ; ce théâtre est à Ciqikou, distinct du Grand Theatre près de Jiangbeizui.', category: 'visit', booking: true, amapUrl: amap('重庆1949大剧院') },
+        { id: 'cq-2-jiangbei', title: 'Parc de Jiangbeizui', chineseName: '江北嘴江滩公园', description: 'Profiter du parc et des vues au coucher du soleil.', category: 'walk', period: 'Coucher du soleil', amapUrl: amap('重庆 江北嘴江滩公园') },
+        { id: 'cq-2-longmen', title: 'Longmenhao', chineseName: '龙门浩老街', description: 'Découvrir le quartier au bord du fleuve.', category: 'walk', amapUrl: amap('重庆 龙门浩老街') },
+        { id: 'cq-2-nanbin', title: 'Promenade sur Nanbin Road', chineseName: '南滨路', description: 'Marcher le long de la rive et profiter de la vue sur Chongqing.', category: 'walk', amapUrl: amap('重庆 南滨路') },
+        { id: 'cq-2-return', title: 'Retour à l’hôtel', description: 'Fin de la journée.', category: 'hotel' },
+      ] },
+      { id: 'chongqing-3', title: 'Excursion à Wulong', steps: [
+        { id: 'cq-3-hotel', title: 'Départ de l’hôtel', description: 'Préparer l’excursion à Wulong.', category: 'hotel' },
+        { id: 'cq-3-east', title: 'Gare de Chongqing Est', chineseName: '重庆东站', description: 'Prendre le train vers Wulong Sud. Horaire à préciser.', category: 'transport', amapUrl: amap('重庆东站') },
+        { id: 'cq-3-south', title: 'Gare de Wulong Sud', chineseName: '武隆南站', description: 'Arrivée à Wulong, puis liaison vers le centre d’accueil à organiser.', category: 'transport', amapUrl: amap('武隆南站') },
+        { id: 'cq-3-center', title: 'Centre d’accueil de Wulong', chineseName: '武隆游客接待中心', description: 'Rejoindre le centre d’accueil pour accéder au site. Vérifier le point de départ des navettes.', category: 'transport', amapUrl: amap('武隆 游客接待中心') },
+        { id: 'cq-3-bridges', title: 'Trois Ponts naturels', chineseName: '天生三桥', description: 'Visiter les grands ponts naturels et les paysages karstiques de Wulong.', category: 'visit', amapUrl: amap('武隆 天生三桥') },
+        { id: 'cq-3-return', title: 'Retour à Chongqing', description: 'Revenir à Chongqing après la visite ; correspondances et horaires à vérifier.', category: 'transport' },
+      ] },
+      { id: 'chongqing-4', title: 'Shopping et départ', steps: [
+        { id: 'cq-4-hotel', title: 'Départ de l’hôtel', description: 'Préparer les bagages avant la dernière balade.', category: 'hotel' },
+        { id: 'cq-4-shopping', title: 'Shopping à Jiefangbei', chineseName: '解放碑', description: 'Derniers achats dans le quartier commerçant.', category: 'shopping', coordinates: [29.558, 106.577], amapUrl: amap('重庆 解放碑') },
+        { id: 'cq-4-departure', title: 'Gare ou aéroport', description: 'Départ de Chongqing. Mode de transport et terminal à compléter.', category: 'transport' },
+      ] },
+    ],
+  },
+  {
+    id: 'chengdu', name: 'Chengdu', chineseName: '成都', subtitle: 'Pandas, maisons de thé et promenades nocturnes',
+    color: '#7d8962', coordinates: [30.5728, 104.0668], nights: 2,
+    image: '/china-landscape.svg',
+    notes: [
+      'Séjour prévu : 3 jours et 2 nuits. Dates et hôtel à compléter.',
+      'Si l’arrivée est tardive, aller directement à U Fun puis aux tours jumelles. Le document indique une fermeture de HARMAY à 22 h : horaire à revérifier.',
+      'La base des pandas est prévue dès l’ouverture. Consulter la billetterie et les horaires en vigueur.',
+      'Jianshe Alley ajoute un trajet en voiture. En cas de fatigue après les pandas, dîner plutôt à Wangping Street et commencer directement la promenade.',
+      'Parcours détaillé de la promenade : 望平街 → 天仙桥北路 → 东门码头 → 水津桥 → 合江亭 → 音乐广场 → 安顺廊桥 → 九眼桥.',
+      'Le document mentionne « Billets pandas », « Allée rouge de Wuhou » et « Marché de Jianshe Alley » sans fournir de liens.',
+    ],
+    days: [
+      { id: 'chengdu-1', title: 'Arrivée et illuminations', steps: [
+        { id: 'cd-1-arrival', title: 'Arrivée à Chengdu', description: 'Horaire et point d’arrivée à compléter.', category: 'transport' },
+        { id: 'cd-1-hotel', title: 'Installation à l’hôtel', description: 'Déposer les bagages avant la soirée.', category: 'hotel' },
+        { id: 'cd-1-skp', title: 'Tour lumineuse de SKP', chineseName: '生机之塔', description: 'Découvrir les installations lumineuses de SKP.', category: 'visit', amapUrl: amap('成都 SKP 生机之塔') },
+        { id: 'cd-1-ufun', title: 'Dîner à U Fun', chineseName: '悠方', description: 'Dîner dans le centre U Fun avant le shopping.', category: 'food', amapUrl: amap('成都 悠方') },
+        { id: 'cd-1-harmay', title: 'Petit shopping chez HARMAY', chineseName: '話梅 悠方', description: 'Boutique HARMAY à U Fun. Fermeture indiquée à 22 h dans le document, à confirmer.', category: 'shopping', amapUrl: amap('成都 HARMAY 話梅 悠方') },
+        { id: 'cd-1-jiaozi', title: 'Pont circulaire de Jiaozi', chineseName: '交子之环', description: 'Poursuivre la balade vers le pont circulaire.', category: 'walk', amapUrl: amap('成都 交子之环') },
+        { id: 'cd-1-towers', title: 'Tours jumelles illuminées', chineseName: '天府双塔', description: 'Profiter de la vue sur les tours jumelles de nuit.', category: 'visit', period: 'Soir', amapUrl: amap('成都 天府双塔') },
+        { id: 'cd-1-return', title: 'Retour à l’hôtel', description: 'Repos après la soirée.', category: 'hotel' },
+      ] },
+      { id: 'chengdu-2', title: 'Pandas, Wuhou et soirée au bord de l’eau', steps: [
+        { id: 'cd-2-pandas', title: 'Base des pandas', chineseName: '成都大熊猫繁育研究基地', description: 'Arriver dès l’ouverture. Horaire, accès et billets à vérifier.', category: 'visit', period: 'Dès l’ouverture', coordinates: [30.733, 104.145], amapUrl: amap('成都大熊猫繁育研究基地') },
+        { id: 'cd-2-lunch', title: 'Déjeuner', description: 'Pause déjeuner après la visite des pandas.', category: 'food' },
+        { id: 'cd-2-wuhou', title: 'Wuhou et son allée rouge', chineseName: '武侯祠', description: 'Visiter Wuhou et son allée bordée de murs rouges et de bambous.', category: 'visit', coordinates: [30.646, 104.048], amapUrl: amap('成都 武侯祠 红墙') },
+        { id: 'cd-2-jinli', title: 'Rue Jinli', chineseName: '锦里', description: 'Promenade dans la rue Jinli, à côté de Wuhou.', category: 'walk', coordinates: [30.646, 104.049], amapUrl: amap('成都 锦里') },
+        { id: 'cd-2-jianshe', title: 'Marché de nuit de Jianshe Alley', chineseName: '建设巷', description: 'Étape gourmande avec un trajet en voiture supplémentaire. Si vous êtes fatigué, dîner à Wangping Street à la place.', category: 'food', period: 'Soir', optional: true, amapUrl: amap('成都 建设巷') },
+        { id: 'cd-2-wangping', title: 'Wangping Street', chineseName: '望平街', description: 'Départ de la promenade le long du Jinjiang. Possibilité d’y dîner à la place de Jianshe Alley.', category: 'walk', amapUrl: amap('成都 望平街') },
+        { id: 'cd-2-tianxian', title: 'Tianxianqiao North Road', chineseName: '天仙桥北路', description: 'Suivre la promenade depuis Wangping Street vers Tianxianqiao North Road.', category: 'walk', amapUrl: amap('成都 天仙桥北路') },
+        { id: 'cd-2-dongmen', title: 'Quai de Dongmen', chineseName: '东门码头', description: 'Poursuivre le parcours au bord du Jinjiang jusqu’au quai.', category: 'walk', amapUrl: amap('成都 东门码头') },
+        { id: 'cd-2-shuijin', title: 'Pont Shuijin', chineseName: '水津桥', description: 'Étape suivante de la promenade le long de l’eau.', category: 'walk', amapUrl: amap('成都 水津桥') },
+        { id: 'cd-2-hejiang', title: 'Pavillon Hejiang', chineseName: '合江亭', description: 'Rejoindre le pavillon à la confluence.', category: 'walk', amapUrl: amap('成都 合江亭') },
+        { id: 'cd-2-music', title: 'Place de la musique', chineseName: '音乐广场', description: 'Continuer la balade vers la place de la musique près du parcours au bord de l’eau.', category: 'walk', amapUrl: amap('成都 合江亭 音乐广场') },
+        { id: 'cd-2-anshun', title: 'Pont Anshun', chineseName: '安顺廊桥', description: 'Profiter du pont et de ses illuminations au-dessus du Jinjiang.', category: 'walk', coordinates: [30.636, 104.083], amapUrl: amap('成都 安顺廊桥') },
+        { id: 'cd-2-jiuyan', title: 'Pont Jiuyan', chineseName: '九眼桥', description: 'Dernière étape du parcours détaillé fourni.', category: 'walk', amapUrl: amap('成都 九眼桥') },
+      ] },
+      { id: 'chengdu-3', title: 'Matinée tranquille puis Shanghai', steps: [
+        { id: 'cd-3-park', title: 'Parc du Peuple', chineseName: '人民公园', description: 'Commencer la journée par une promenade tranquille.', category: 'walk', period: 'Matin', coordinates: [30.657, 104.055], amapUrl: amap('成都 人民公园') },
+        { id: 'cd-3-tea', title: 'Thé à Heming', chineseName: '鹤鸣茶社', description: 'Prendre un thé à la maison de thé Heming dans le parc.', category: 'food', amapUrl: amap('成都 人民公园 鹤鸣茶社') },
+        { id: 'cd-3-summer', title: 'To Summer · Guānxià', chineseName: '观夏蜀馆', description: 'Boutique située au 16 Citang Street, d’après le planning.', category: 'shopping', amapUrl: amap('成都 观夏蜀馆 祠堂街16号') },
+        { id: 'cd-3-luggage', title: 'Récupérer les bagages', description: 'Repasser à l’hôtel avant de rejoindre l’aéroport.', category: 'hotel' },
+        { id: 'cd-3-airport', title: 'Transfert vers l’aéroport', description: 'Aéroport, terminal et moyen de transfert à préciser selon le vol.', category: 'transport' },
+        { id: 'cd-3-shanghai', title: 'Vol vers Shanghai', description: 'Poursuite du voyage à Shanghai. Vol, horaire et aéroport d’arrivée à compléter.', category: 'transport' },
+      ] },
+    ],
+  },
+  {
+    id: 'shanghai', name: 'Shanghai', chineseName: '上海', subtitle: 'La suite du voyage reste à imaginer',
+    color: '#69849a', coordinates: [31.2304, 121.4737],
+    image: '/china-landscape.svg',
+    notes: ['Arrivée prévue depuis Chengdu en avion.', 'Planning, durée du séjour, hôtel et dates à compléter.', 'Une excursion à Suzhou figure déjà dans le planning.'], days: [],
+  },
+  {
+    id: 'suzhou', name: 'Suzhou', chineseName: '苏州', subtitle: 'Une excursion entre jardins, canaux et skyline',
+    color: '#788e7a', coordinates: [31.2989, 120.5853],
+    image: '/china-landscape.svg',
+    notes: ['Excursion d’une journée, placée après Shanghai dans le document. Date et trajets aller-retour à préciser.', '« Jinji Yi 09 » est le nom fourni pour le point de vue au lac Jinji ; confirmer le lieu exact sur Amap.'],
+    days: [
+      { id: 'suzhou-1', title: 'Jardins, vieille ville et lac Jinji', steps: [
+        { id: 'su-1-station', title: 'Suzhou Station', chineseName: '苏州站', description: 'Début de l’excursion à la gare de Suzhou.', category: 'transport', coordinates: [31.324, 120.606], amapUrl: amap('苏州站') },
+        { id: 'su-1-tiger', title: 'Tiger Hill', chineseName: '虎丘', description: 'Première visite de la journée à la colline du Tigre.', category: 'visit', coordinates: [31.338, 120.576], amapUrl: amap('苏州 虎丘') },
+        { id: 'su-1-shantang', title: 'Shantang Street', chineseName: '山塘街', description: 'Promenade dans le quartier historique et le long du canal.', category: 'walk', amapUrl: amap('苏州 山塘街') },
+        { id: 'su-1-beisi', title: 'Pagode Beisi', chineseName: '北寺塔', description: 'Poursuivre vers la pagode du temple du Nord.', category: 'visit', coordinates: [31.322, 120.616], amapUrl: amap('苏州 北寺塔') },
+        { id: 'su-1-garden', title: 'Jardin de l’Humble Administrateur', chineseName: '拙政园', description: 'Découvrir l’un des grands jardins classiques de Suzhou.', category: 'visit', coordinates: [31.325, 120.629], amapUrl: amap('苏州 拙政园') },
+        { id: 'su-1-pingjiang', title: 'Pingjiang Road', chineseName: '平江路', description: 'Marcher le long des canaux de Pingjiang Road.', category: 'walk', amapUrl: amap('苏州 平江路') },
+        { id: 'su-1-jinji', title: 'Jinji Yi 09 · lac Jinji', description: 'Point de vue sur la skyline au lac Jinji, selon le planning. Confirmer le lieu exact avant le déplacement.', category: 'visit', amapUrl: amap('苏州 金鸡湖 金鸡驿09') },
+        { id: 'su-1-gate', title: 'Gate of the Orient', chineseName: '东方之门', description: 'Dernière étape près de l’emblématique porte de l’Orient.', category: 'visit', coordinates: [31.319, 120.67], amapUrl: amap('苏州 东方之门') },
+        { id: 'su-1-return', title: 'Retour en gare', description: 'Rejoindre la gare pour le retour. Gare et train à confirmer.', category: 'transport' },
+      ] },
+    ],
+  },
+]

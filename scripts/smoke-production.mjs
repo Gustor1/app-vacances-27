@@ -1,0 +1,51 @@
+import assert from 'node:assert/strict';
+import { chromium } from '@playwright/test';
+
+const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || '/usr/bin/chromium', args: ['--no-sandbox'] });
+try {
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto(process.env.PRODUCTION_TEST_URL || 'http://127.0.0.1:4173/');
+  await page.getByRole('heading', { name: 'Un grand voyage, de beaux détours.' }).waitFor();
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
+  const cached = await page.evaluate(async () => {
+    const names = await caches.keys();
+    const name = names.find(name => name.startsWith('a-l-est-'));
+    const cache = await caches.open(name);
+    return { count: (await cache.keys()).length, planning: Boolean(await cache.match('/documents/planning-original.md')), bonus: Boolean(await cache.match('/documents/bonus-original.md')), geography: Boolean(await cache.match('/asia-geography.json')) };
+  });
+  assert.ok(cached.count > 15 && cached.planning && cached.bonus && cached.geography, 'All offline assets must be cached');
+  await page.getByRole('button', { name: 'Jour 2', exact: true }).click();
+  await page.locator('.leaflet-marker-icon[title="3. Lianhuashan Park"]').click();
+  await page.locator('.leaflet-popup-content').getByRole('link', { name: /Rechercher dans Amap/ }).waitFor();
+  assert.match(await page.locator('#step-sz-2-park').getAttribute('class'), /highlighted/);
+  await page.screenshot({ path: '/tmp/carnet-desktop-final.png', fullPage: true });
+  await page.getByRole('button', { name: 'La carte du voyage', exact: true }).click();
+  await page.locator('.leaflet-geographicBackground-pane path').first().waitFor();
+  await page.screenshot({ path: '/tmp/carnet-carte-final.png', fullPage: true });
+  await context.setOffline(true);
+  await page.getByText('Tu es hors ligne.', { exact: false }).waitFor();
+  await page.reload();
+  await page.getByRole('heading', { name: 'Un grand voyage, de beaux détours.' }).waitFor();
+  assert.equal(await page.evaluate(async () => { try { await fetch('/__uncached_offline_probe'); return false; } catch { return true; } }), true, 'Uncached network requests must fail in offline mode');
+  await page.getByLabel('Ma note pour Shenzhen').fill('Note conservée hors ligne');
+  await page.reload();
+  assert.equal(await page.getByLabel('Ma note pour Shenzhen').inputValue(), 'Note conservée hors ligne');
+  await page.getByRole('button', { name: 'Mon carnet pratique', exact: true }).click();
+  await page.getByRole('button', { name: 'Consulter le planning d’origine', exact: true }).click();
+  await page.getByRole('dialog').getByRole('heading', { name: /SHENZHEN/ }).waitFor();
+  await page.getByRole('dialog').getByRole('button', { name: 'Fermer', exact: true }).click();
+  await page.getByRole('button', { name: 'Consulter la liste bonus', exact: true }).click();
+  await page.getByRole('dialog').getByRole('heading', { name: 'Chengdu Bonus', exact: true }).waitFor();
+  await page.getByRole('dialog').getByRole('button', { name: 'Fermer', exact: true }).click();
+  await page.getByRole('button', { name: 'Mon planning', exact: true }).click();
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+  await page.screenshot({ path: '/tmp/carnet-mobile-final.png', fullPage: true });
+  assert.deepEqual(errors, []);
+  console.log('Production smoke passed: map selection, local geography, service worker, offline reload, offline notes, both source documents, mobile overflow, zero runtime errors.');
+  console.log(`Offline cache verified: ${cached.count} requests.`);
+} finally { await browser.close(); }
