@@ -46,7 +46,20 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   await page.screenshot({ path: '/tmp/carnet-mobile-final.png', fullPage: true });
+  await page.getByRole('button', { name: 'Préférences', exact: true }).click();
+  await page.getByRole('dialog').getByRole('radio', { name: 'Sombre', exact: true }).check();
+  await page.getByRole('dialog').getByRole('radio', { name: 'English', exact: true }).check();
+  await page.keyboard.press('Escape');
+  await page.reload();
+  assert.equal(await page.locator('html').getAttribute('lang'), 'en');
+  assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
+  assert.equal(await page.getByLabel('My note for Shenzhen', { exact: true }).inputValue(), 'Note conservée hors ligne');
+  await page.locator('.mobile-bottom-nav').getByRole('button', { name: 'Tools', exact: true }).click();
+  await page.getByRole('tab', { name: 'Useful phrases', exact: true }).click();
+  await page.getByText('请少放辣椒。', { exact: true }).waitFor();
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+  await page.screenshot({ path: '/tmp/carnet-mobile-dark-english.png', fullPage: true });
   assert.deepEqual(errors, []);
-  console.log('Production smoke passed: map selection, local geography, service worker, offline reload, offline notes, both source documents, mobile overflow, zero runtime errors.');
+  console.log('Production smoke passed: map selection, local geography, service worker, offline reload, offline notes, both source documents, mobile overflow, dark/English preferences offline, Chinese phrases, zero runtime errors.');
   console.log(`Offline cache verified: ${cached.count} requests.`);
 } finally { await browser.close(); }

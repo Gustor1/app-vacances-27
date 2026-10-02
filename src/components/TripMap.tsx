@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import type { City, Step } from '../types';
 import { amapLink, amapSearch } from '../lib';
 import './TripMap.css';
+import { useLocale } from '../i18n';
 
 type TripMapProps = {
   cities: City[];
@@ -34,6 +35,7 @@ function markerIcon(index: number, selected = false): L.DivIcon {
 }
 
 export default function TripMap({ cities, city, steps, selectedStepId, onSelectStep, overview = false, className = '' }: TripMapProps) {
+  const { t } = useLocale();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef(new Map<string, { marker: L.Marker; index: number }>());
@@ -55,8 +57,8 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
     const map = L.map(containerRef.current, { scrollWheelZoom: false, zoomControl: true }).setView(validCoordinates(city.coordinates) ? city.coordinates : [35, 105], 11);
     mapRef.current = map;
     map.zoomControl.setPosition('bottomright');
-    map.zoomControl.getContainer()?.querySelector('.leaflet-control-zoom-in')?.setAttribute('aria-label', 'Zoomer sur la carte');
-    map.zoomControl.getContainer()?.querySelector('.leaflet-control-zoom-out')?.setAttribute('aria-label', 'Dézoomer sur la carte');
+    map.zoomControl.getContainer()?.querySelector('.leaflet-control-zoom-in')?.setAttribute('aria-label', t('Zoomer sur la carte'));
+    map.zoomControl.getContainer()?.querySelector('.leaflet-control-zoom-out')?.setAttribute('aria-label', t('Dézoomer sur la carte'));
     // Bundled public-domain country outlines remain usable without tile services.
     const backgroundPane = map.createPane('geographicBackground');
     backgroundPane.style.zIndex = '150';
@@ -121,7 +123,7 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
       link.href = item.url;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.textContent = 'Rechercher dans Amap ↗';
+      link.textContent = t('Rechercher dans Amap ↗');
       content.append(link);
       const marker = L.marker(item.coordinates, { icon: markerIcon(item.index), title: `${item.index + 1}. ${item.title}`, keyboard: true })
         .bindPopup(content)
@@ -137,20 +139,20 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
     });
     if (!coordinates.length && validCoordinates(city.coordinates)) {
       const label = document.createElement('span');
-      label.textContent = `${city.name} · centre indicatif`;
+      label.textContent = t('{city} · centre indicatif', {city: city.name});
       const content = document.createElement('div');
       content.className = 'trip-map-popup';
       const heading = document.createElement('strong');
-      heading.textContent = `${city.name} · centre indicatif`;
+      heading.textContent = t('{city} · centre indicatif', {city: city.name});
       const link = document.createElement('a');
       link.href = searchUrl(city);
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.textContent = 'Rechercher la ville dans Amap ↗';
+      link.textContent = t('Rechercher la ville dans Amap ↗');
       content.append(heading, link);
       L.marker([centerLat, centerLng], {
         icon: L.divIcon({ className: 'trip-map-marker trip-map-center-marker', html: '<span>·</span>', iconSize: [30, 30], iconAnchor: [15, 15], popupAnchor: [0, -18] }),
-        title: `${city.name} · centre indicatif`,
+        title: t('{city} · centre indicatif', {city: city.name}),
         keyboard: true,
       }).bindPopup(content).bindTooltip(label, { permanent: true, direction: 'bottom', offset: [0, 18], className: 'trip-map-city-label', opacity: 1 }).addTo(layer);
     }
@@ -159,7 +161,13 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
     else if (coordinates.length === 1) map.setView(coordinates[0], overview ? 7 : 13, { animate: false });
     else map.setView([centerLat, centerLng], validCoordinates(city.coordinates) ? 11 : 4, { animate: false });
     return () => { layer.remove(); markersRef.current.clear(); };
-  }, [mapItems, centerLat, centerLng, overview, city.name, city.chineseName, city.coordinates]);
+  }, [mapItems, centerLat, centerLng, overview, city.name, city.chineseName, city.coordinates, t]);
+
+  useEffect(() => {
+    const controls = mapRef.current?.zoomControl.getContainer();
+    controls?.querySelector('.leaflet-control-zoom-in')?.setAttribute('aria-label', t('Zoomer sur la carte'));
+    controls?.querySelector('.leaflet-control-zoom-out')?.setAttribute('aria-label', t('Dézoomer sur la carte'));
+  }, [t]);
 
   useEffect(() => {
     markersRef.current.forEach(({ marker, index }, id) => {
@@ -170,25 +178,25 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
         if (!mapRef.current?.getBounds().contains(marker.getLatLng())) mapRef.current?.panTo(marker.getLatLng());
       }
     });
-  }, [selectedStepId, mapItems, centerLat, centerLng, overview]);
+  }, [selectedStepId, mapItems, centerLat, centerLng, overview, t]);
 
   return (
-    <section className={`trip-map ${className}`} aria-label={overview ? 'Carte des villes du voyage' : `Carte des étapes à ${city.name}`}>
+    <section className={`trip-map ${className}`} aria-label={overview ? t('Carte des villes du voyage') : t('Carte des étapes à {city}', {city:city.name})}>
       <div className="trip-map-stage">
         <div className="trip-map-canvas" ref={containerRef} />
-        {!hasCoordinates && <div className="trip-map-notice" role="status">Vue de {city.name} · Ces étapes n’ont pas encore de repère précis.</div>}
+        {!hasCoordinates && <div className="trip-map-notice" role="status">{t('Vue de {city} · Ces étapes n’ont pas encore de repère précis.', {city:city.name})}</div>}
       </div>
       <div className="trip-map-footer">
         <span className="trip-map-legend-dot" aria-hidden="true" />
-        <span>Repères approximatifs · itinéraires dans Amap</span>{!overview && <span className="trip-map-route-note">{plottedSteps.length} / {(steps ?? city.days.flatMap(day=>day.steps)).length} étapes repérées · autres adresses dans le planning</span>}
-        {overview && <span className="trip-map-route-note">Pointillés : ordre des étapes, pas un itinéraire routier.</span>}
+        <span>{t('Repères approximatifs · itinéraires dans Amap')}</span>{!overview && <span className="trip-map-route-note">{t('{count} / {total} étapes repérées · autres adresses dans le planning', {count:plottedSteps.length,total:(steps ?? city.days.flatMap(day=>day.steps)).length})}</span>}
+        {overview && <span className="trip-map-route-note">{t('Pointillés : ordre des étapes, pas un itinéraire routier.')}</span>}
       </div>
       {tilesUnavailable && (
         <div className="trip-map-fallback" role="status">
-          <p>{overview ? 'Fond détaillé indisponible · contours des pays et repères indicatifs.' : 'Fond détaillé indisponible · repères indicatifs, sans rues. Itinéraires dans Amap.'}</p>
+          <p>{t(overview ? 'Fond détaillé indisponible · contours des pays et repères indicatifs.' : 'Fond détaillé indisponible · repères indicatifs, sans rues. Itinéraires dans Amap.')}</p>
           <div className="trip-map-fallback-links">
             {overview ? cities.slice(0, 5).map(item => <a key={item.id} href={searchUrl(item)} target="_blank" rel="noopener noreferrer">{item.name} ↗</a>) : (steps ?? city.days.flatMap(day => day.steps)).slice(0, 4).map(step => <a key={step.id} href={searchUrl(city, step)} target="_blank" rel="noopener noreferrer">{step.title} ↗</a>)}
-            {!overview && <a href={searchUrl(city)} target="_blank" rel="noopener noreferrer">Carte de {city.name} ↗</a>}
+            {!overview && <a href={searchUrl(city)} target="_blank" rel="noopener noreferrer">{t('Carte de {city} ↗',{city:city.name})}</a>}
           </div>
         </div>
       )}

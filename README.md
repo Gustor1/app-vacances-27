@@ -24,6 +24,8 @@ Les tests utilisent `/usr/bin/chromium` dans l’environnement cloud. Sur un aut
 
 - 7 étapes : Shenzhen, Guangzhou, Yangshuo, Chongqing/Wulong, Chengdu, Shanghai à compléter, excursion Suzhou.
 - 17 journées préparées et 130 fiches bonus. Les bonus restent séparés du planning jusqu’à leur ajout explicite à une journée.
+- Thèmes clair, sombre et automatique, interface française ou anglaise via le bouton Préférences. Les documents sources et les textes personnels restent dans leur langue d’origine.
+- Navigation mobile fixe, onglets qui gardent la sélection visible, raccourcis Aujourd’hui et Reprendre, respect des réglages de mouvement réduit.
 - Édition des activités, déplacement entre journées, ordre des villes, ajout de villes et de journées, favoris, visites effectuées, réservations et notes.
 - Vue d’ensemble, dates explicites par journée, export calendrier ICS et impression du voyage complet.
 - Adresses bonus personnelles avec adresse précise conservée lors de leur ajout au planning.
@@ -31,7 +33,7 @@ Les tests utilisent `/usr/bin/chromium` dans l’environnement cloud. Sur un aut
 - Fiches de transport modifiables : gares, horaires locaux en Chine, références, notes et réservation.
 - Hébergements avec adresses Amap, budget en CNY/EUR avec taux manuel facultatif, valise et phrases chinoises à copier.
 - Notes originales consultables intégralement.
-- Export/import JSON validé, sauvegarde de récupération et synchronisation entre onglets du même navigateur. Un fichier corrompu peut être téléchargé sans modification avant restauration. Les données personnelles restent dans le stockage local du navigateur, sans compte ni synchronisation entre appareils.
+- Export/import JSON validé, sauvegarde de récupération et synchronisation entre onglets du même navigateur. Un fichier corrompu peut être téléchargé sans modification avant restauration. Les données personnelles restent dans le stockage local du navigateur, sans compte ni synchronisation entre appareils. Les préférences de thème/langue sont enregistrées séparément du carnet et se synchronisent entre onglets.
 - Cache hors ligne après une première ouverture réussie de la version de production et l’installation de son service worker. Les documents, les polices et le fond géographique général sont inclus. Ouvrir le site une fois en ligne avant le départ ; conserver aussi un export JSON.
 
 ## Faire évoluer le voyage
@@ -58,6 +60,10 @@ Les documents d’origine et le planning initial sont inclus dans les fichiers s
 
 ## Vérification de la version de production
 
-Après `npm run build`, démarrer `npm run preview -- --port 4173` dans un terminal, puis `npm run test:production` dans un autre. Ce contrôle vérifie la sélection d’un repère, le fond géographique local, le cache du service worker, le rechargement hors ligne, les notes, les deux documents et l’absence de débordement mobile. `PRODUCTION_TEST_URL` permet de changer l’URL du serveur de test. Des captures de validation sont enregistrées dans `/tmp`.
+Après `npm run build`, démarrer `npm run preview -- --port 4173` dans un terminal, puis `npm run test:production` dans un autre. Ce contrôle vérifie aussi les préférences sombre/anglais après rechargement hors ligne et les phrases chinoises. Il vérifie la sélection d’un repère, le fond géographique local, le cache du service worker, le rechargement hors ligne, les notes, les deux documents et l’absence de débordement mobile. `PRODUCTION_TEST_URL` permet de changer l’URL du serveur de test. Des captures de validation sont enregistrées dans `/tmp`.
 
 Pour reconstruire le fond géographique à partir des dépendances verrouillées : `npm run generate:map`.
+
+## Modifier les traductions et les thèmes
+
+`src/i18n.tsx` fournit les préférences et le contexte de langue, `src/locale-utils.ts` valide les options et interpole les traductions. Les dictionnaires anglais sont dans `src/locales/` et utilisent le texte français comme clé ; conserver les variables `{name}` identiques dans les deux langues. `src/theme.css` couvre le thème sombre, Leaflet, la navigation mobile, les zones sûres et le mouvement réduit. Le thème automatique suit l’appareil ; le choix explicite reste prioritaire.
