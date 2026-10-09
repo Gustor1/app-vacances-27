@@ -1,5 +1,7 @@
 # Collaborer sur Détours avec Codex et Claude Code
 
+Pour transmettre toutes les étapes au nouveau collaborateur et à Claude : [guide complet de démarrage](../../GUIDE-DEMARRAGE-CLAUDE-CODE.md), avec les informations d'invitation, les comptes, les installations, les connecteurs et le prompt de prise en main.
+
 Base de collaboration : **`codex/carnets-universels`**, dans [Gustor1/app-vacances-27](https://github.com/Gustor1/app-vacances-27). `main` conserve la version ancienne ; cloner la branche indiquée pour récupérer le travail récent. Le code, les tests, les migrations et les documents se partagent par Git ; chaque personne garde son PC, son compte IA et ses conversations.
 
 ## 1. Invitation GitHub par le propriétaire
