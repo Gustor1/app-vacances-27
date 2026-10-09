@@ -1,5 +1,5 @@
 export const commonEnglish: Record<string, string> = {
-  'À l’Est — Mon carnet de Chine': 'À l’Est — My China travel journal',
+  'Détours — Mon carnet de Chine': 'Détours — My China travel journal',
   'Préférences': 'Preferences',
   'Personnalise ton carnet': 'Make your journal your own',
   'Apparence': 'Appearance',
@@ -13,7 +13,7 @@ export const commonEnglish: Record<string, string> = {
   'Ces réglages restent actifs pour cette session, mais leur sauvegarde est indisponible.': 'These preferences work for this session, but could not be saved.',
   'Fermer': 'Close',
   'Ce fichier ne contient pas un JSON valide.': 'This file does not contain valid JSON.',
-  'Ce fichier ne correspond pas à une sauvegarde À l’Est valide.': 'This file is not a valid À l’Est backup.',
+  'Ce fichier ne correspond pas à une sauvegarde Détours valide.': 'This file is not a valid Détours backup.',
   'Cette copie automatique date du {date}. Elle remplacera le carnet actuel.': 'This automatic copy was saved on {date}. It will replace the current journal.',
   'Zoomer sur la carte': 'Zoom in on the map',
   'Dézoomer sur la carte': 'Zoom out on the map',

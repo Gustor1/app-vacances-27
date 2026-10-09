@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures';
 
 test('Reprendre retrouve la première activité restante de la ville sélectionnée', async ({ page }) => {
   await page.goto('/');

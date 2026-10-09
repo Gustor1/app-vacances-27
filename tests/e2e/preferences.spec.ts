@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page } from './fixtures';
 
 async function preferences(page: Page) {
   await page.getByRole('button', { name: /^(Préférences|Preferences)$/ }).click();
@@ -80,12 +80,12 @@ test('English navigation and editable forms cover all main views', async ({ page
 test('interface language does not translate or rewrite personal notes and source content', async ({ page }) => {
   const note = 'Mon rendez-vous personnel 中文 à 14 h';
   await page.getByLabel('Ma note pour Shenzhen', { exact: true }).fill(note);
-  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('a-l-est-v1')!).notes.shenzhen)).toBe(note);
-  const before = await page.evaluate(() => localStorage.getItem('a-l-est-v1'));
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('a-l-est-trip-v2:china-legacy')!).state.notes.shenzhen)).toBe(note);
+  const before = await page.evaluate(() => localStorage.getItem('a-l-est-trip-v2:china-legacy'));
   await english(page);
   await expect(page.getByLabel('My note for Shenzhen', { exact: true })).toHaveValue(note);
   await expect(page.getByRole('heading', { name: 'Arrivée à Shenzhen', exact: true })).toBeVisible();
-  expect(await page.evaluate(() => localStorage.getItem('a-l-est-v1'))).toBe(before);
+  expect(await page.evaluate(() => localStorage.getItem('a-l-est-trip-v2:china-legacy'))).toBe(before);
   await page.reload();
   await expect(page.getByLabel('My note for Shenzhen', { exact: true })).toHaveValue(note);
 });
@@ -152,5 +152,5 @@ test('selected map markers remain selected and their Amap popup follows the lang
   await expect(marker).toHaveClass(/is-selected/);
   await english(page);
   await expect(marker).toHaveClass(/is-selected/);
-  await expect(page.locator('.leaflet-popup-content').getByRole('link', { name: 'Search in Amap ↗', exact: true })).toBeVisible();
+  await expect(page.locator('.leaflet-popup-content').getByRole('link', { name: 'Open map ↗', exact: true })).toBeVisible();
 });

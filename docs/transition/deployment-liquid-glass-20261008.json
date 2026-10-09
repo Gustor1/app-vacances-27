@@ -1,0 +1,145 @@
+{
+  "date": "2026-10-08",
+  "deploymentId": "dpl_7yaT9kXbjpH8z1bRWazqAmK64Xap",
+  "url": "https://app-vacances-27-dogqoxt0w-eliottle.vercel.app",
+  "alias": "https://app-vacances-27-beta-eliottle.vercel.app/",
+  "target": "preview",
+  "readyState": "READY",
+  "previousDeploymentId": "dpl_C8CLFY8DcesHj9AapGbCqnkUeQNj",
+  "projectId": "prj_GdllwjlfvjDogyKdH2ABRJay350a",
+  "teamId": "team_lVeovobBaIvDqajTP8FZ3UvH",
+  "changes": [
+    "Liquid Glass chrome in light and dark themes",
+    "Centred mobile dock, maximum 340px width and 54px observed height",
+    "Scroll opacity increases from 0.68 to 0.96",
+    "Solid fallback for increased contrast and reduced transparency"
+  ],
+  "checks": {
+    "typeScriptAndProductionBuild": "passed",
+    "targetedBrowserTestsPassed": 8,
+    "mobileWidths": [
+      320,
+      390
+    ],
+    "remoteFiles": 18,
+    "remoteHashMismatches": 0,
+    "unexpectedRemoteFiles": 0,
+    "liveScripts": [
+      "/assets/index-WY0DEf9e.js"
+    ],
+    "liveStyles": [
+      "/assets/index-CSesoQDt.css"
+    ],
+    "liveMobileWidth": 390,
+    "liveScrollMaterial": "rgba(38, 38, 43, 0.96)",
+    "liveBlur": "blur(26px) saturate(1.8)",
+    "liveHorizontalOverflow": false,
+    "liveConsoleErrors": []
+  },
+  "preserved": {
+    "stableOrigin": true,
+    "existingAliasProtectionOverride": true,
+    "dataStorageFormat": true,
+    "gitNotPushed": true
+  },
+  "rollback": {
+    "deploymentId": "dpl_C8CLFY8DcesHj9AapGbCqnkUeQNj",
+    "alias": "app-vacances-27-beta-eliottle.vercel.app",
+    "sourceBackup": "C:/Users/eliot/Documents/app-vacances-27-backups/2026-10-08-liquid-glass"
+  },
+  "screenshots": {
+    "localMobileDock": "docs/design/screenshots/liquid-glass-mobile-20261008.jpg",
+    "liveScrolledHome": "docs/design/screenshots/liquid-glass-live-20261008.jpg"
+  },
+  "files": [
+    {
+      "file": "asia-geography.json",
+      "sha": "de6ae7e302ac2eef3e10bc82b37e94f24845b394",
+      "size": 1002221
+    },
+    {
+      "file": "china-landscape.svg",
+      "sha": "fc77537b6f85a58472d56271d58ccad08a479ba5",
+      "size": 2559
+    },
+    {
+      "file": "favicon.svg",
+      "sha": "4ce9ea5a6ab5cd1e8ebf2fd0d545b5c4684bd883",
+      "size": 277
+    },
+    {
+      "file": "index.html",
+      "sha": "2b2216dd0c09c550e169e13e2a02c4208ae43daa",
+      "size": 1412
+    },
+    {
+      "file": "manifest.webmanifest",
+      "sha": "be41173e1c4d2564c5f2deb708afb36b272f4b77",
+      "size": 250
+    },
+    {
+      "file": "sw.js",
+      "sha": "4b4606dcdfd1423b532ec8134f368a401fdc65a8",
+      "size": 1322
+    },
+    {
+      "file": "travel-landscape.svg",
+      "sha": "d73ccfffe06c5609d9483060d161a0b6daf30258",
+      "size": 620
+    },
+    {
+      "file": "world-geography.json",
+      "sha": "e69a333e72f16695b76aceb6c0e9b39d43f78457",
+      "size": 3938398
+    },
+    {
+      "file": "assets/cloud-NXRyLVor.js",
+      "sha": "ae99cbe906f775bbfc892fb2893ddd051b33b9f9",
+      "size": 223381
+    },
+    {
+      "file": "assets/index-CSesoQDt.css",
+      "sha": "aec0039f2959b1e323a3c9371c1031c7cdea262e",
+      "size": 158773
+    },
+    {
+      "file": "assets/index-WY0DEf9e.js",
+      "sha": "42119930b170d8ab285848fa0001b6bb4a7bc1d0",
+      "size": 596556
+    },
+    {
+      "file": "assets/map-B7rZ0Bz1.js",
+      "sha": "27b2f52b8d1bd4d5f4a4f1f1133ac93f109e9a0b",
+      "size": 149432
+    },
+    {
+      "file": "assets/markdown-4snFLCN-.js",
+      "sha": "813a1bbd56df7f313984f10bd7b0ea27e45f1a87",
+      "size": 166077
+    },
+    {
+      "file": "assets/translations-BYI_KNq7.js",
+      "sha": "df5b57c8383bfffc239b2dbcc051406de4326c1e",
+      "size": 199172
+    },
+    {
+      "file": "assets/WorldView-BghYxwvH.js",
+      "sha": "8060d2bb7ace382751169b9f6173ba4736d33f29",
+      "size": 10257
+    },
+    {
+      "file": "documents/bonus-original.md",
+      "sha": "2f8b3f052dbb07410deac0e0ae7e9de9e434408d",
+      "size": 59650
+    },
+    {
+      "file": "documents/planning-original.md",
+      "sha": "d21e668d2918933997e711d9efb0a35aa1a723b2",
+      "size": 3907
+    },
+    {
+      "file": "vercel.json",
+      "sha": "52894ea0973e807ddf7e76aa38e27964ae925204"
+    }
+  ]
+}

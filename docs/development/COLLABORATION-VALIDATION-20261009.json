@@ -1,0 +1,179 @@
+{
+  "purpose": "Version partagée pour collaboration Codex / Claude Code",
+  "date": "2026-10-09",
+  "timezone": "Asia/Shanghai",
+  "branch": "codex/carnets-universels",
+  "validation": {
+    "date": "2026-10-09",
+    "generatedAt": "2026-10-09T10:06:00.754Z",
+    "timezone": "Asia/Shanghai",
+    "baseRevision": "9858aaa91e7139da14232585d75b8ee28f820e95",
+    "sourceFingerprint": "0cb4988849f21232f7d2aa7dbe05a6e67898a9809dd1d33af32a0989889ff81f",
+    "fingerprintScope": "Git-visible code, configs, tests and assets; docs/ and Markdown excluded; ignored files excluded",
+    "sourceUnchanged": true,
+    "buildId": "a50b185e13afa5a9c4efd799b106634579e882560d758841edb1031f66c74586",
+    "environment": {
+      "platform": "win32",
+      "node": "v24.15.0",
+      "browser": "Playwright Chromium / installed Chrome",
+      "backend": "simulated, isolated profiles"
+    },
+    "exitCode": 0,
+    "checks": [
+      {
+        "name": "types produit",
+        "startedAt": "2026-10-09T09:55:48.013Z",
+        "finishedAt": "2026-10-09T09:56:03.215Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "types tests/configurations",
+        "startedAt": "2026-10-09T09:56:03.215Z",
+        "finishedAt": "2026-10-09T09:56:07.872Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "lint",
+        "startedAt": "2026-10-09T09:56:07.872Z",
+        "finishedAt": "2026-10-09T09:56:19.283Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "tests unitaires",
+        "startedAt": "2026-10-09T09:56:19.283Z",
+        "finishedAt": "2026-10-09T09:56:23.611Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "build Vite",
+        "startedAt": "2026-10-09T09:56:23.611Z",
+        "finishedAt": "2026-10-09T09:56:36.916Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "service worker et manifeste",
+        "startedAt": "2026-10-09T09:56:36.916Z",
+        "finishedAt": "2026-10-09T09:56:37.349Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "intégrité du build",
+        "startedAt": "2026-10-09T09:56:37.349Z",
+        "finishedAt": "2026-10-09T09:56:37.588Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "compatibilité SQL L6",
+        "startedAt": "2026-10-09T09:56:37.588Z",
+        "finishedAt": "2026-10-09T09:56:42.871Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "tests navigateur retenus",
+        "startedAt": "2026-10-09T09:56:42.871Z",
+        "finishedAt": "2026-10-09T10:01:25.478Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "états L4/L5/L6 et préférences dans le navigateur",
+        "startedAt": "2026-10-09T10:01:25.478Z",
+        "finishedAt": "2026-10-09T10:03:48.239Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "smoke-production",
+        "startedAt": "2026-10-09T10:03:48.239Z",
+        "finishedAt": "2026-10-09T10:04:18.939Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "smoke-backup",
+        "startedAt": "2026-10-09T10:04:18.94Z",
+        "finishedAt": "2026-10-09T10:04:26.094Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "smoke-ui",
+        "startedAt": "2026-10-09T10:04:26.094Z",
+        "finishedAt": "2026-10-09T10:04:51.093Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "smoke-common-sharing",
+        "startedAt": "2026-10-09T10:04:51.093Z",
+        "finishedAt": "2026-10-09T10:05:14.572Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "smoke-l4-offline",
+        "startedAt": "2026-10-09T10:05:14.572Z",
+        "finishedAt": "2026-10-09T10:05:25.403Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "smoke-l4-persistence",
+        "startedAt": "2026-10-09T10:05:25.403Z",
+        "finishedAt": "2026-10-09T10:05:34.625Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "smoke-l5-now",
+        "startedAt": "2026-10-09T10:05:34.625Z",
+        "finishedAt": "2026-10-09T10:05:41.529Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "smoke-l6-preparation",
+        "startedAt": "2026-10-09T10:05:41.529Z",
+        "finishedAt": "2026-10-09T10:05:49.415Z",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "name": "smoke-l8-release",
+        "startedAt": "2026-10-09T10:05:49.415Z",
+        "finishedAt": "2026-10-09T10:06:00.148Z",
+        "exitCode": 0,
+        "status": "passed"
+      }
+    ],
+    "notRun": [],
+    "limits": [
+      "No remote service, Google OAuth, physical device or full browser suite verification",
+      "Browser external DNS blocked; loopback and intercepted mocks available; network test commands not invoked"
+    ],
+    "output": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-verify-onpHwg"
+  },
+  "cleanInstall": {
+    "npmCiExitCode": 0,
+    "buildExitCode": 0,
+    "privateEnvironmentFiles": "excluded",
+    "directory": "C:/Users/eliot/Documents/detours-collaboration-20261009-175700/source"
+  },
+  "gitReview": {
+    "commonCredentialSignatures": "No match in Git-visible source snapshot",
+    "ignoredFiles": ".env.local, .vercel, dist, node_modules, personal Claude settings",
+    "whitespace": "No trailing whitespace or conflict markers; three pre-existing extra EOF blank lines retained"
+  },
+  "limits": [
+    "Local simulated backend and isolated SQL only; remote OAuth and physical devices not revalidated",
+    "GitHub push shares code; no main merge, production deployment, backend migration or membership change requested"
+  ]
+}

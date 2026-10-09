@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page } from './fixtures';
 import { readFile } from 'node:fs/promises';
 
 async function nav(page: Page, name: string) {
@@ -22,53 +22,54 @@ test('deux onglets conservent des notes distinctes et une visite après recharge
   await page.reload();
   await expect(page.getByLabel('Ma note pour Shenzhen', { exact: true })).toHaveValue('Note dans le premier onglet');
   await expect(page.getByRole('button', { name: 'Marquer à faire : Arrivée à Shenzhen', exact: true })).toHaveAttribute('aria-pressed', 'true');
-  await page.locator('main').getByRole('button', { name: /Guangzhou/ }).click();
+  await page.locator('.city-tabs').getByRole('button', { name: /Guangzhou/ }).click();
   await expect(page.getByLabel('Ma note pour Guangzhou', { exact: true })).toHaveValue('Note dans le second onglet');
   await second.close();
 });
 
 test('sauvegarde corrompue télécharge exactement les octets originaux', async ({ page }) => {
   const raw = '{bad-json\n  "notes": "à récupérer 中文"';
-  await page.evaluate(value => localStorage.setItem('a-l-est-v1', value), raw);
+  await page.evaluate(value => localStorage.setItem('a-l-est-trip-v2:china-legacy', value), raw);
   await page.reload();
-  await expect(page.getByRole('alert')).toContainText('illisible');
+  await expect(page.getByRole('alert')).toContainText('La source est conservée');
   expect(await downloadedText(page, () => page.getByRole('button', { name: 'Télécharger le fichier original', exact: true }).click())).toBe(raw);
-  expect(await page.evaluate(() => localStorage.getItem('a-l-est-v1'))).toBe(raw);
+  expect(await page.evaluate(() => localStorage.getItem('a-l-est-trip-v2:china-legacy'))).toBe(raw);
 });
 
 test('nouvelle ville sans coordonnées n’invente aucun repère', async ({ page }) => {
   await page.locator('main').getByRole('button', { name: 'Ajouter une ville', exact: true }).click();
   const dialog = page.getByRole('dialog');
-  await dialog.getByLabel('Nom de la ville', { exact: true }).fill('Hangzhou');
+  await dialog.getByLabel('Ville, région ou lieu de séjour', { exact: true }).fill('Hangzhou');
   await dialog.getByRole('button', { name: 'Enregistrer la ville', exact: true }).click();
   await expect(page.locator('.leaflet-marker-icon')).toHaveCount(0);
   await nav(page, 'La carte du voyage');
   await page.getByRole('button', { name: 'Tout le voyage', exact: true }).click();
   await expect(page.locator('.leaflet-marker-icon[title*="Hangzhou"]')).toHaveCount(0);
   await page.reload();
-  await page.locator('main').getByRole('button', { name: /Hangzhou/ }).click();
+  await page.getByRole('button', { name: 'Hangzhou', exact: true }).click();
   await expect(page.locator('.leaflet-marker-icon')).toHaveCount(0);
 });
 
 test('budget garde les devises séparées puis convertit au taux manuel', async ({ page }) => {
+  await page.route('https://api.frankfurter.dev/v2/rates?**', route => route.fulfill({status:503,json:{message:'fixture-unavailable'}}));
   await nav(page, 'Mes outils sur place'); await page.getByRole('tab', { name: 'Budget', exact: true }).click();
   for (const [label, amount, currency] of [['Taxi', '70', 'CNY'], ['Billet', '10', 'EUR']]) {
     await page.getByLabel('Libellé', { exact: true }).fill(label);
     await page.getByLabel('Montant', { exact: true }).fill(amount);
-    await page.getByRole('combobox', { name: 'Devise', exact: true }).selectOption(currency);
+    await page.getByRole('combobox', { name: 'Devise', exact: true }).fill(currency);
     await page.getByRole('button', { name: 'Ajouter la dépense', exact: true }).click();
   }
   const summary = page.locator('.practical-card').filter({ has: page.getByRole('heading', { name: 'Mes dépenses', exact: true }) });
-  await expect(summary).toContainText('Renseignez votre taux');
-  await expect(summary).not.toContainText('Total en yuans');
-  await page.getByLabel('1 euro = combien de yuans ?', { exact: true }).fill('7,5');
+  await expect(summary).toContainText('Taux manquants');
+  await expect(summary).not.toContainText('Total en CNY');
+  await page.getByLabel('1 unité de cette devise = combien de CNY ?', { exact: true }).fill('7,5');
   await page.getByRole('button', { name: 'Enregistrer les réglages', exact: true }).click();
-  await expect(summary).toContainText(/Total en yuans :\s*145,00/);
+  await expect(summary).toContainText(/Total en CNY :\s*145,00/);
   await page.reload(); await nav(page, 'Mes outils sur place'); await page.getByRole('tab', { name: 'Budget', exact: true }).click();
-  await expect(summary).toContainText(/Total en yuans :\s*145,00/);
-  await page.getByLabel('1 euro = combien de yuans ?', { exact: true }).fill('');
+  await expect(summary).toContainText(/Total en CNY :\s*145,00/);
+  await page.getByLabel('1 unité de cette devise = combien de CNY ?', { exact: true }).fill('');
   await page.getByRole('button', { name: 'Enregistrer les réglages', exact: true }).click();
-  await expect(summary).not.toContainText('Total en yuans');
+  await expect(summary).toContainText(/Total en CNY :\s*145,00/);
 });
 
 test('hébergement conserve nom chinois et adresse précise dans Amap', async ({ page }) => {
@@ -76,7 +77,7 @@ test('hébergement conserve nom chinois et adresse précise dans Amap', async ({
   const card = page.locator('article').filter({ has: page.getByRole('heading', { name: 'Shenzhen 深圳', exact: true }) });
   await card.getByRole('button', { name: 'Ajouter un hébergement', exact: true }).click();
   await card.getByLabel('Nom de l’hébergement', { exact: true }).fill('Mon hôtel');
-  await card.getByLabel('Nom chinois', { exact: true }).fill('深圳酒店');
+  await card.getByLabel('Nom local (facultatif)', { exact: true }).fill('深圳酒店');
   await card.getByLabel('Adresse', { exact: true }).fill('福田区 101号');
   await card.getByRole('button', { name: 'Enregistrer', exact: true }).click();
   await page.reload(); await nav(page, 'Mes outils sur place');
@@ -88,14 +89,14 @@ test('hébergement conserve nom chinois et adresse précise dans Amap', async ({
 test('trajet garde référence billet et heures chinoises après rechargement', async ({ page }) => {
   await nav(page, 'Mes transports'); await page.getByRole('button', { name: 'Ajouter un trajet', exact: true }).click();
   await page.getByLabel('Nom du trajet (facultatif)', { exact: true }).fill('Train audit');
-  await page.getByLabel('Départ · heure chinoise (facultatif)', { exact: true }).fill('2027-05-02T09:15');
-  await page.getByLabel('Arrivée · heure chinoise (facultatif)', { exact: true }).fill('2027-05-02T10:30');
+  await page.getByLabel('Départ · heure locale (facultatif)', { exact: true }).fill('2027-05-02T09:15');
+  await page.getByLabel('Arrivée · heure locale (facultatif)', { exact: true }).fill('2027-05-02T10:30');
   await page.getByLabel('Référence du billet (facultative)', { exact: true }).fill('E123456789');
   await page.getByRole('checkbox', { name: 'Billet réservé', exact: true }).check();
   await page.getByRole('button', { name: 'Enregistrer le trajet', exact: true }).click();
   await page.reload(); await nav(page, 'Mes transports');
   const card = page.locator('article').filter({ has: page.getByRole('heading', { name: 'Train audit', exact: true }) });
-  await expect(card).toContainText('02/05/2027 à 09:15'); await expect(card).toContainText('02/05/2027 à 10:30');
+  await expect(card).toContainText('02/05/2027 09:15'); await expect(card).toContainText('02/05/2027 10:30');
   await expect(card).toContainText('E123456789'); await expect(card.getByText('Réservé', { exact: true })).toBeVisible();
 });
 
@@ -139,7 +140,7 @@ test('adresse personnelle ajoutée au programme conserve sa recherche Amap', asy
   await nav(page, 'Mes envies & bonus'); await page.getByRole('button', { name: 'Ajouter une adresse', exact: true }).click();
   let dialog = page.getByRole('dialog');
   await dialog.getByLabel('Nom de l’adresse', { exact: true }).fill('Restaurant audit');
-  await dialog.getByLabel('Nom chinois', { exact: true }).fill('测试餐厅');
+  await dialog.getByLabel('Nom local (facultatif)', { exact: true }).fill('测试餐厅');
   await dialog.getByLabel('Adresse précise', { exact: true }).fill('福田区 12号');
   await dialog.getByRole('button', { name: 'Enregistrer l’adresse', exact: true }).click();
   await page.getByRole('button', { name: 'Restaurant audit', exact: true }).click(); dialog = page.getByRole('dialog');

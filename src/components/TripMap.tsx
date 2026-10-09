@@ -1,9 +1,13 @@
+import { activeSteps } from '../day-preparation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import type { City, Step } from '../types';
-import { amapLink, amapSearch } from '../lib';
+import { amapLink } from '../lib';
 import './TripMap.css';
+import { useMapPreferences } from '../MapPreferences';
+import { preferredMapCity, type MapProvider } from '../map-preferences';
+
 import { useLocale } from '../i18n';
 
 type TripMapProps = {
@@ -20,8 +24,8 @@ function validCoordinates(point?: [number, number]): point is [number, number] {
   return Boolean(point && Number.isFinite(point[0]) && Number.isFinite(point[1]) && Math.abs(point[0]) <= 90 && Math.abs(point[1]) <= 180);
 }
 
-function searchUrl(city: City, step?: Step): string {
-  return step ? amapLink(city, step) : amapSearch(city.chineseName || city.name, '');
+function searchUrl(city: City, step: Step | undefined, provider: MapProvider): string {
+  return amapLink(preferredMapCity(city,provider), step || {title:''});
 }
 
 function markerIcon(index: number, selected = false): L.DivIcon {
@@ -36,25 +40,26 @@ function markerIcon(index: number, selected = false): L.DivIcon {
 
 export default function TripMap({ cities, city, steps, selectedStepId, onSelectStep, overview = false, className = '' }: TripMapProps) {
   const { t } = useLocale();
+  const { provider } = useMapPreferences();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef(new Map<string, { marker: L.Marker; index: number }>());
   const onSelectRef = useRef(onSelectStep);
   const [tilesUnavailable, setTilesUnavailable] = useState(false);
   onSelectRef.current = onSelectStep;
-  const plottedSteps = (steps ?? city.days.flatMap(day => day.steps)).filter(step => validCoordinates(step.coordinates));
+  const plottedSteps = (steps ?? city.days.flatMap(day => activeSteps(day))).filter(step => validCoordinates(step.coordinates));
   const hasCoordinates = overview ? cities.some(item => validCoordinates(item.coordinates)) : plottedSteps.length > 0;
   // Only geographic content affects the layers. Editing a note must not reset the map.
   const geographicContent = JSON.stringify(overview
-    ? cities.map((item, index) => ({ id: item.id, title: item.name, chineseName: item.chineseName, coordinates: item.coordinates, url: searchUrl(item), index }))
-    : (steps ?? city.days.flatMap(day => day.steps)).map((step, index) => ({ id: step.id, title: step.title, chineseName: step.chineseName, coordinates: step.coordinates, url: searchUrl(city, step), index })));
+    ? cities.map((item, index) => ({ id: item.id, title: item.name, chineseName: item.chineseName, coordinates: item.coordinates, url: searchUrl(item,undefined,provider), index }))
+    : (steps ?? city.days.flatMap(day => activeSteps(day))).map((step, index) => ({ id: step.id, title: step.title, chineseName: step.chineseName, coordinates: step.coordinates, url: searchUrl(city,step,provider), index })));
   const mapItems = useMemo(() => JSON.parse(geographicContent) as { id: string; title: string; chineseName?: string; coordinates?: [number, number]; url: string; index: number }[], [geographicContent]);
-  const centerLat = validCoordinates(city.coordinates) ? city.coordinates[0] : 35;
-  const centerLng = validCoordinates(city.coordinates) ? city.coordinates[1] : 105;
+  const centerLat = validCoordinates(city.coordinates) ? city.coordinates[0] : 20;
+  const centerLng = validCoordinates(city.coordinates) ? city.coordinates[1] : 0;
 
   useEffect(() => {
     if (!containerRef.current) return;
-    const map = L.map(containerRef.current, { scrollWheelZoom: false, zoomControl: true }).setView(validCoordinates(city.coordinates) ? city.coordinates : [35, 105], 11);
+    const map = L.map(containerRef.current, { scrollWheelZoom: false, zoomControl: true }).setView(validCoordinates(city.coordinates) ? city.coordinates : [20, 0], validCoordinates(city.coordinates) ? 11 : 2);
     mapRef.current = map;
     map.zoomControl.setPosition('bottomright');
     map.zoomControl.getContainer()?.querySelector('.leaflet-control-zoom-in')?.setAttribute('aria-label', t('Zoomer sur la carte'));
@@ -64,7 +69,7 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
     backgroundPane.style.zIndex = '150';
     backgroundPane.style.pointerEvents = 'none';
     const backgroundRequest = new AbortController();
-    fetch(`${import.meta.env.BASE_URL}asia-geography.json`, { signal: backgroundRequest.signal })
+    fetch(`${import.meta.env.BASE_URL}world-geography.json`, { signal: backgroundRequest.signal })
       .then(response => { if (!response.ok) throw new Error('Country map unavailable'); return response.json(); })
       .then(data => {
         if (backgroundRequest.signal.aborted) return;
@@ -97,7 +102,6 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
       markersRef.current.clear();
     };
     // The map instance is created once; the following effect updates its contents.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -123,7 +127,7 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
       link.href = item.url;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.textContent = t('Rechercher dans Amap ↗');
+      link.textContent = t('Ouvrir la carte ↗');
       content.append(link);
       const marker = L.marker(item.coordinates, { icon: markerIcon(item.index), title: `${item.index + 1}. ${item.title}`, keyboard: true })
         .bindPopup(content)
@@ -145,10 +149,10 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
       const heading = document.createElement('strong');
       heading.textContent = t('{city} · centre indicatif', {city: city.name});
       const link = document.createElement('a');
-      link.href = searchUrl(city);
+      link.href = searchUrl(city,undefined,provider);
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.textContent = t('Rechercher la ville dans Amap ↗');
+      link.textContent = t('Ouvrir la carte ↗');
       content.append(heading, link);
       L.marker([centerLat, centerLng], {
         icon: L.divIcon({ className: 'trip-map-marker trip-map-center-marker', html: '<span>·</span>', iconSize: [30, 30], iconAnchor: [15, 15], popupAnchor: [0, -18] }),
@@ -159,9 +163,9 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
     if (overview && coordinates.length > 1) L.polyline(coordinates, { color: '#64826c', weight: 2, opacity: 0.75, dashArray: '6 9', interactive: false }).addTo(layer);
     if (coordinates.length > 1) map.fitBounds(L.latLngBounds(coordinates), { padding: [46, 46], maxZoom: 14, animate: false });
     else if (coordinates.length === 1) map.setView(coordinates[0], overview ? 7 : 13, { animate: false });
-    else map.setView([centerLat, centerLng], validCoordinates(city.coordinates) ? 11 : 4, { animate: false });
+    else map.setView([centerLat, centerLng], validCoordinates(city.coordinates) ? 11 : 2, { animate: false });
     return () => { layer.remove(); markersRef.current.clear(); };
-  }, [mapItems, centerLat, centerLng, overview, city.name, city.chineseName, city.coordinates, t]);
+  }, [mapItems, centerLat, centerLng, overview, city.name, city.chineseName, city.coordinates, provider, t]);
 
   useEffect(() => {
     const controls = mapRef.current?.zoomControl.getContainer();
@@ -181,22 +185,22 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
   }, [selectedStepId, mapItems, centerLat, centerLng, overview, t]);
 
   return (
-    <section className={`trip-map ${className}`} aria-label={overview ? t('Carte des villes du voyage') : t('Carte des étapes à {city}', {city:city.name})}>
+    <section className={`trip-map ${className}`} aria-label={overview ? t('Carte des villes du voyage') : city.name ? t('Carte des étapes à {city}', {city:city.name}) : t('La carte du monde')}>
       <div className="trip-map-stage">
         <div className="trip-map-canvas" ref={containerRef} />
-        {!hasCoordinates && <div className="trip-map-notice" role="status">{t('Vue de {city} · Ces étapes n’ont pas encore de repère précis.', {city:city.name})}</div>}
+        {!hasCoordinates && <div className="trip-map-notice" role="status">{city.name ? t('Vue de {city} · Ces étapes n’ont pas encore de repère précis.',{city:city.name}) : t('Ajoute des étapes et leurs coordonnées pour retrouver tes repères ici.')}</div>}
       </div>
       <div className="trip-map-footer">
         <span className="trip-map-legend-dot" aria-hidden="true" />
-        <span>{t('Repères approximatifs · itinéraires dans Amap')}</span>{!overview && <span className="trip-map-route-note">{t('{count} / {total} étapes repérées · autres adresses dans le planning', {count:plottedSteps.length,total:(steps ?? city.days.flatMap(day=>day.steps)).length})}</span>}
+        <span>{t('Repères indicatifs · itinéraires par liens externes')}</span>{!overview && <span className="trip-map-route-note">{t('{count} / {total} étapes repérées · autres adresses dans le planning', {count:plottedSteps.length,total:(steps ?? city.days.flatMap(day=>activeSteps(day))).length})}</span>}
         {overview && <span className="trip-map-route-note">{t('Pointillés : ordre des étapes, pas un itinéraire routier.')}</span>}
       </div>
       {tilesUnavailable && (
         <div className="trip-map-fallback" role="status">
-          <p>{t(overview ? 'Fond détaillé indisponible · contours des pays et repères indicatifs.' : 'Fond détaillé indisponible · repères indicatifs, sans rues. Itinéraires dans Amap.')}</p>
+          <p>{t(overview ? 'Fond détaillé indisponible · contours des pays et repères indicatifs.' : 'Fond détaillé indisponible · repères indicatifs, sans rues.')}</p>
           <div className="trip-map-fallback-links">
-            {overview ? cities.slice(0, 5).map(item => <a key={item.id} href={searchUrl(item)} target="_blank" rel="noopener noreferrer">{item.name} ↗</a>) : (steps ?? city.days.flatMap(day => day.steps)).slice(0, 4).map(step => <a key={step.id} href={searchUrl(city, step)} target="_blank" rel="noopener noreferrer">{step.title} ↗</a>)}
-            {!overview && <a href={searchUrl(city)} target="_blank" rel="noopener noreferrer">{t('Carte de {city} ↗',{city:city.name})}</a>}
+            {overview ? cities.slice(0, 5).map(item => <a key={item.id} href={searchUrl(item,undefined,provider)} target="_blank" rel="noopener noreferrer">{item.name} ↗</a>) : (steps ?? city.days.flatMap(day => activeSteps(day))).slice(0, 4).map(step => <a key={step.id} href={searchUrl(city,step,provider)} target="_blank" rel="noopener noreferrer">{step.title} ↗</a>)}
+            {!overview && <a href={searchUrl(city,undefined,provider)} target="_blank" rel="noopener noreferrer">{t('Carte de {city} ↗',{city:city.name})}</a>}
           </div>
         </div>
       )}

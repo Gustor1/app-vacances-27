@@ -1,3 +1,4 @@
+import { activeSteps } from './day-preparation.ts';
 import type { StoredState } from './types';
 import { amapLink } from './lib.ts';
 
@@ -49,18 +50,18 @@ export function datedDayCount(state: StoredState): number {
 }
 
 export function createTripCalendar(state: StoredState, now = new Date()): string {
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//A l Est//Carnet de voyage//FR', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Detours//Carnet de voyage//FR', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
   const stamp = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
   for (const city of state.cities) for (const day of city.days) {
     if (!day.date || !validCalendarDate(day.date) || day.date === '9999-12-31') continue;
-    const description = [city.chineseName, ...city.notes, ...day.steps.map(step => [
+    const description = [city.chineseName, ...city.notes, ...activeSteps(day).map(step => [
       `${step.period ? step.period + ' · ' : ''}${step.title}${step.chineseName ? ' · ' + step.chineseName : ''}`,
       step.description, step.address || '',
       state.notes[step.id] ? `Note : ${state.notes[step.id]}` : '',
       state.bookings.includes(step.id) ? 'Réservation confirmée' : step.booking ? 'Réservation à prévoir' : '',
       amapLink(city, step),
     ].filter(Boolean).join('\n')), state.notes[day.id] || '', state.notes[city.id] || ''].filter(Boolean).join('\n\n');
-    lines.push('BEGIN:VEVENT', `UID:${calendarUid(day.id)}`, `DTSTAMP:${stamp}`,
+    lines.push('BEGIN:VEVENT', `UID:${calendarUid(`${state.journey?.id || "legacy"}:${day.id}`)}`, `DTSTAMP:${stamp}`,
       `DTSTART;VALUE=DATE:${day.date.replace(/-/g, '')}`, `DTEND;VALUE=DATE:${followingDate(day.date).replace(/-/g, '')}`,
       `SUMMARY:${escapeCalendarText(`${city.name} · ${day.title}`)}`,
       `LOCATION:${escapeCalendarText([city.name, city.chineseName].filter(Boolean).join(' · '))}`,

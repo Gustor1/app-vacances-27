@@ -157,7 +157,7 @@ export const appEnglish: Record<string, string> = {
   "Une copie du carnet avant une modification est conservée sur cet appareil. Dernière copie :": "A copy of your notebook before a change is saved on this device. Latest copy:",
   "Télécharger la copie précédente": "Download the previous copy",
   "Elle remplacera le carnet actuel. Exporte ton carnet actuel si tu souhaites garder les deux versions.": "It will replace your current notebook. Export your current notebook if you want to keep both versions.",
-  "À l’est, et au gré des envies.": "Eastward, wherever your curiosity leads.",
+  "Le monde, au gré des envies.": "The world, wherever your curiosity leads.",
   "Ton voyage évolue. Ton carnet aussi.": "Your trip evolves. Your notebook does too.",
   "Fermer la notification": "Close notification",
   "Une nouvelle ville, un nouveau chapitre": "A new city, a new chapter",

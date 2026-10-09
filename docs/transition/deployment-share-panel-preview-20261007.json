@@ -1,0 +1,158 @@
+{
+  "date": "2026-10-07",
+  "deploymentId": "dpl_HtkdPTjGaiKKs4X2Ba4vcLm2run8",
+  "url": "https://app-vacances-27-mlnaijhc3-eliottle.vercel.app",
+  "alias": "https://app-vacances-27-beta-eliottle.vercel.app/",
+  "target": "preview",
+  "readyState": "READY",
+  "changes": [
+    "Dedicated sharing modal: compact help, invite card, readable link and copy actions, separate members/invitations, structured history and privacy/export card.",
+    "Account conflict card: spaced export buttons, two readable radio choices with expandable details, responsive layout.",
+    "Existing shared read-only itinerary redesign retained."
+  ],
+  "checks": {
+    "unitTests": "52/52 passed",
+    "build": "TypeScript and Vite passed; preexisting large main bundle warning remains.",
+    "uiSmoke": "Passed: 320/390/1440px, conflict export gap and both file contents, radio choice enables apply, other UI/account/cache checks.",
+    "sharingSmoke": "Passed: sharing modal spacing/padding, help, link, names and roles, invite/readonly/editor/revoke flows, privacy-safe copy/export, empty/populated reader layout; sessions/API simulated.",
+    "productionSmoke": "Passed service-worker upgrade and offline/multi-journal/four-language scenarios.",
+    "remoteHashesMatched": 24,
+    "betaPublicExceptionPreserved": true,
+    "realBrowser": {
+      "staleTabsFound": "Both existing Chrome beta tabs still loaded /assets/index-TTyxDfC_.js before reload.",
+      "afterReload": "Both load /assets/index-DwUJib4m.js.",
+      "sharingModal": "New modal visually verified while signed in, including actual member and invitation/history rows; no invitation created or permissions changed."
+    },
+    "database": "No changes.",
+    "git": "Dirty working tree deployed directly, no commit/push."
+  },
+  "screenshots": [
+    "docs/sync/screenshots/sharing-redesign-desktop.png",
+    "docs/sync/screenshots/sharing-redesign-mobile.png",
+    "docs/sync/screenshots/conflict-redesign-1440.png",
+    "docs/sync/screenshots/conflict-redesign-390.png"
+  ],
+  "screenshotData": "Disposable simulated account and journal.",
+  "files": [
+    {
+      "file": "asia-geography.json",
+      "size": 1002221,
+      "sha": "de6ae7e302ac2eef3e10bc82b37e94f24845b394"
+    },
+    {
+      "file": "assets/cloud-NXRyLVor.js",
+      "size": 223381,
+      "sha": "ae99cbe906f775bbfc892fb2893ddd051b33b9f9"
+    },
+    {
+      "file": "assets/dm-sans-latin-ext-wght-normal-BOFOeGcA.woff2",
+      "size": 18228,
+      "sha": "f78180b12b6a10916c19c50b9f8e7736d63bed4a"
+    },
+    {
+      "file": "assets/dm-sans-latin-wght-normal-Xz1IZZA0.woff2",
+      "size": 36932,
+      "sha": "c57593e0adc4cf99dd9e67cb782242220a061a9d"
+    },
+    {
+      "file": "assets/index-Cx1yDROb.css",
+      "size": 117833,
+      "sha": "ccfb4b769e23c0b8f4806480f1e0ce7e8805ee97"
+    },
+    {
+      "file": "assets/index-DwUJib4m.js",
+      "size": 559477,
+      "sha": "1628da01c95c62da877d5ec7f27dfc0f2231f3a2"
+    },
+    {
+      "file": "assets/manrope-cyrillic-wght-normal-Dvxsihut.woff2",
+      "size": 14500,
+      "sha": "d8fc94bf7a39043a7759bd564a7e16b3ea080736"
+    },
+    {
+      "file": "assets/manrope-greek-wght-normal-DL7QRZyv.woff2",
+      "size": 9444,
+      "sha": "1cb6f3caaeef825e203d6abdb2ba7d63703cb498"
+    },
+    {
+      "file": "assets/manrope-latin-ext-wght-normal-Ch3YOpNY.woff2",
+      "size": 15120,
+      "sha": "1f62546fa0a051004f4faa3f40a4a8074a2e06ea"
+    },
+    {
+      "file": "assets/manrope-latin-wght-normal-DHIcAJRg.woff2",
+      "size": 24836,
+      "sha": "b42951014c5eca12749d87a4706caf22dc4fe081"
+    },
+    {
+      "file": "assets/manrope-vietnamese-wght-normal-usUDDRr7.woff2",
+      "size": 8520,
+      "sha": "89cd8db6d29cfed5ebf56c2795bddb38034c9147"
+    },
+    {
+      "file": "assets/map-B7rZ0Bz1.js",
+      "size": 149432,
+      "sha": "27b2f52b8d1bd4d5f4a4f1f1133ac93f109e9a0b"
+    },
+    {
+      "file": "assets/markdown-4snFLCN-.js",
+      "size": 166077,
+      "sha": "813a1bbd56df7f313984f10bd7b0ea27e45f1a87"
+    },
+    {
+      "file": "assets/translations-CWkZRHN6.js",
+      "size": 178742,
+      "sha": "6a6a345fea76b3adb4b916fd06685f8ad9a7206d"
+    },
+    {
+      "file": "assets/WorldView-BkOaEV6v.js",
+      "size": 10582,
+      "sha": "da155b03b03c4e966a64b2b0534578f61a6fc01a"
+    },
+    {
+      "file": "china-landscape.svg",
+      "size": 2559,
+      "sha": "fc77537b6f85a58472d56271d58ccad08a479ba5"
+    },
+    {
+      "file": "documents/bonus-original.md",
+      "size": 59650,
+      "sha": "2f8b3f052dbb07410deac0e0ae7e9de9e434408d"
+    },
+    {
+      "file": "documents/planning-original.md",
+      "size": 3907,
+      "sha": "d21e668d2918933997e711d9efb0a35aa1a723b2"
+    },
+    {
+      "file": "favicon.svg",
+      "size": 226,
+      "sha": "2b0cdd0311c9772e3ef3f16ea0f54c5703fa9043"
+    },
+    {
+      "file": "index.html",
+      "size": 1412,
+      "sha": "d154c298d836be2126150346ebe3385bf62b1c2d"
+    },
+    {
+      "file": "manifest.webmanifest",
+      "size": 251,
+      "sha": "e5f8f4c748daafca4965c7c2c1d15c5e4a2884ba"
+    },
+    {
+      "file": "sw.js",
+      "size": 1695,
+      "sha": "514b294955b3a9ca91cf5cb178d17760fbff1538"
+    },
+    {
+      "file": "travel-landscape.svg",
+      "size": 620,
+      "sha": "d73ccfffe06c5609d9483060d161a0b6daf30258"
+    },
+    {
+      "file": "world-geography.json",
+      "size": 3938398,
+      "sha": "e69a333e72f16695b76aceb6c0e9b39d43f78457"
+    }
+  ]
+}

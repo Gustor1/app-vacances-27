@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-07",
+  "deploymentId": "dpl_4oyEQVjBTfAYCefMRDCxfbEQ8vTz",
+  "url": "https://app-vacances-27-pc3nhicvc-eliottle.vercel.app",
+  "alias": "https://app-vacances-27-beta-eliottle.vercel.app/",
+  "target": "preview",
+  "readyState": "READY",
+  "aliasVerifiedAgainstProject": true,
+  "productionAliasesStillTarget": "dpl_BXVDtw67sw39P4B9mchX4oaW4jon",
+  "supabase": {
+    "project": "ehvgecfakbxeatrcnfhm",
+    "publicKeyAccepted": true,
+    "googleEnabled": true,
+    "anonymousTripRead": "denied 401/42501 as expected",
+    "migration": "success reported by user",
+    "redirectConfiguration": "awaiting user",
+    "twoAccountTests": "not run"
+  },
+  "checks": {
+    "unitTests": 52,
+    "productionOfflineSmoke": "passed",
+    "googleButtonAndPKCE": "passed locally; authorize request intercepted without signing in",
+    "uploadedHashesMatched": 25,
+    "remoteBrowser": "not run"
+  },
+  "files": [
+    {
+      "file": "asia-geography.json",
+      "size": 1002221,
+      "sha": "de6ae7e302ac2eef3e10bc82b37e94f24845b394"
+    },
+    {
+      "file": "assets/cloud-NXRyLVor.js",
+      "size": 223381,
+      "sha": "ae99cbe906f775bbfc892fb2893ddd051b33b9f9"
+    },
+    {
+      "file": "assets/dm-sans-latin-ext-wght-normal-BOFOeGcA.woff2",
+      "size": 18228,
+      "sha": "f78180b12b6a10916c19c50b9f8e7736d63bed4a"
+    },
+    {
+      "file": "assets/dm-sans-latin-wght-normal-Xz1IZZA0.woff2",
+      "size": 36932,
+      "sha": "c57593e0adc4cf99dd9e67cb782242220a061a9d"
+    },
+    {
+      "file": "assets/index-B15gavDF.js",
+      "size": 549793,
+      "sha": "64a98f840fc3bb0892e90f0f3250bb8ddb0e8662"
+    },
+    {
+      "file": "assets/index-VhVJW_tU.css",
+      "size": 96255,
+      "sha": "efd17333babf3bd16cd1fee423488c3e31e92bae"
+    },
+    {
+      "file": "assets/manrope-cyrillic-wght-normal-Dvxsihut.woff2",
+      "size": 14500,
+      "sha": "d8fc94bf7a39043a7759bd564a7e16b3ea080736"
+    },
+    {
+      "file": "assets/manrope-greek-wght-normal-DL7QRZyv.woff2",
+      "size": 9444,
+      "sha": "1cb6f3caaeef825e203d6abdb2ba7d63703cb498"
+    },
+    {
+      "file": "assets/manrope-latin-ext-wght-normal-Ch3YOpNY.woff2",
+      "size": 15120,
+      "sha": "1f62546fa0a051004f4faa3f40a4a8074a2e06ea"
+    },
+    {
+      "file": "assets/manrope-latin-wght-normal-DHIcAJRg.woff2",
+      "size": 24836,
+      "sha": "b42951014c5eca12749d87a4706caf22dc4fe081"
+    },
+    {
+      "file": "assets/manrope-vietnamese-wght-normal-usUDDRr7.woff2",
+      "size": 8520,
+      "sha": "89cd8db6d29cfed5ebf56c2795bddb38034c9147"
+    },
+    {
+      "file": "assets/map-B7rZ0Bz1.js",
+      "size": 149432,
+      "sha": "27b2f52b8d1bd4d5f4a4f1f1133ac93f109e9a0b"
+    },
+    {
+      "file": "assets/markdown-4snFLCN-.js",
+      "size": 166077,
+      "sha": "813a1bbd56df7f313984f10bd7b0ea27e45f1a87"
+    },
+    {
+      "file": "assets/translations-Ba8H-wZl.js",
+      "size": 173823,
+      "sha": "771e124cacec0ae99efbc8b45c16026b9e7eca16"
+    },
+    {
+      "file": "assets/WorldView-B6rd2jDD.css",
+      "size": 3940,
+      "sha": "4187bd9550bd27590ed082091d63666dbbfb6918"
+    },
+    {
+      "file": "assets/WorldView-CAyYR1wB.js",
+      "size": 10582,
+      "sha": "4afd6a92fd4c95d789e4184f2c6c25d07cb8b3ce"
+    },
+    {
+      "file": "china-landscape.svg",
+      "size": 2559,
+      "sha": "fc77537b6f85a58472d56271d58ccad08a479ba5"
+    },
+    {
+      "file": "documents/bonus-original.md",
+      "size": 59650,
+      "sha": "2f8b3f052dbb07410deac0e0ae7e9de9e434408d"
+    },
+    {
+      "file": "documents/planning-original.md",
+      "size": 3907,
+      "sha": "d21e668d2918933997e711d9efb0a35aa1a723b2"
+    },
+    {
+      "file": "favicon.svg",
+      "size": 226,
+      "sha": "2b0cdd0311c9772e3ef3f16ea0f54c5703fa9043"
+    },
+    {
+      "file": "index.html",
+      "size": 1412,
+      "sha": "61382d459aa3046fe93c00c0d1a971575d17da81"
+    },
+    {
+      "file": "manifest.webmanifest",
+      "size": 251,
+      "sha": "e5f8f4c748daafca4965c7c2c1d15c5e4a2884ba"
+    },
+    {
+      "file": "sw.js",
+      "size": 1728,
+      "sha": "7e95b99ca8ef1b68bf9e956aa7fa725f58fa15c5"
+    },
+    {
+      "file": "travel-landscape.svg",
+      "size": 620,
+      "sha": "d73ccfffe06c5609d9483060d161a0b6daf30258"
+    },
+    {
+      "file": "world-geography.json",
+      "size": 3938398,
+      "sha": "e69a333e72f16695b76aceb6c0e9b39d43f78457"
+    }
+  ]
+}

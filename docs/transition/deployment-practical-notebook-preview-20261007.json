@@ -1,0 +1,157 @@
+{
+  "date": "2026-10-07",
+  "deploymentId": "dpl_4jeyd8acAST3NwmiRqawP94Tx8Zq",
+  "url": "https://app-vacances-27-7pgk1dzj4-eliottle.vercel.app",
+  "alias": "https://app-vacances-27-beta-eliottle.vercel.app/",
+  "target": "preview",
+  "readyState": "READY",
+  "changes": [
+    "Notebook cards now have consistent inner padding and visible gaps between documents, expandable details and source documents.",
+    "Dedicated document header and responsive document list, preserving complete filenames and download/open actions.",
+    "Compact native expandable details with readable list spacing; responsive backup and source actions.",
+    "Styles scoped to the practical notebook; existing reader/editor/category controls retained."
+  ],
+  "rootCause": "Only .tools-grid > .panel and the source card had padding. Documents and details inherited a border-only generic panel, with 0px inner padding and no spacing between sibling blocks.",
+  "checks": {
+    "before": "smoke-notebook failed with documents padding left/top=0.",
+    "unitTests": "55/55 passed",
+    "build": "TypeScript and Vite passed; existing large main chunk warning remains.",
+    "notebookSmoke": "Passed 320/390/1440px, light/dark, card padding, inter-card gaps, compact closed details, long filename without overflow, document import/open/download preserving contents, zero page errors. Isolated local profile.",
+    "sharingSmoke": "Passed same interface owner/reader/editor, common notes/docs, category masking, edits, conflicts, demotion/revocation; API/sessions simulated.",
+    "productionSmoke": "Passed current worker upgrade, offline reload/notes/documents, maps, four languages and several journals; zero runtime errors.",
+    "remoteHashesMatched": 24,
+    "publicOverridePreserved": true,
+    "browser": "Public beta reloaded without Vercel sign-in; observed /assets/index-AgNKqfJ8.js and /assets/index-DE09iLfV.css.",
+    "database": "No database changes.",
+    "git": "Dirty workspace deployed directly; no commit/push."
+  },
+  "screenshots": [
+    "docs/sync/screenshots/notebook-layout-current.png",
+    "docs/sync/screenshots/notebook-redesign-dark-1440.png",
+    "docs/sync/screenshots/notebook-redesign-dark-390.png",
+    "docs/sync/screenshots/notebook-redesign-light-desktop.png"
+  ],
+  "screenshotData": "Isolated local test journal and document; no real account or personal documents.",
+  "files": [
+    {
+      "file": "asia-geography.json",
+      "size": 1002221,
+      "sha": "de6ae7e302ac2eef3e10bc82b37e94f24845b394"
+    },
+    {
+      "file": "assets/cloud-NXRyLVor.js",
+      "size": 223381,
+      "sha": "ae99cbe906f775bbfc892fb2893ddd051b33b9f9"
+    },
+    {
+      "file": "assets/dm-sans-latin-ext-wght-normal-BOFOeGcA.woff2",
+      "size": 18228,
+      "sha": "f78180b12b6a10916c19c50b9f8e7736d63bed4a"
+    },
+    {
+      "file": "assets/dm-sans-latin-wght-normal-Xz1IZZA0.woff2",
+      "size": 36932,
+      "sha": "c57593e0adc4cf99dd9e67cb782242220a061a9d"
+    },
+    {
+      "file": "assets/index-AgNKqfJ8.js",
+      "size": 570310,
+      "sha": "313f81137f401cccd1f0f65b6c3a10b8a45772b9"
+    },
+    {
+      "file": "assets/index-DE09iLfV.css",
+      "size": 123562,
+      "sha": "90a4f71fc107519a1135798b0e55472e39019742"
+    },
+    {
+      "file": "assets/manrope-cyrillic-wght-normal-Dvxsihut.woff2",
+      "size": 14500,
+      "sha": "d8fc94bf7a39043a7759bd564a7e16b3ea080736"
+    },
+    {
+      "file": "assets/manrope-greek-wght-normal-DL7QRZyv.woff2",
+      "size": 9444,
+      "sha": "1cb6f3caaeef825e203d6abdb2ba7d63703cb498"
+    },
+    {
+      "file": "assets/manrope-latin-ext-wght-normal-Ch3YOpNY.woff2",
+      "size": 15120,
+      "sha": "1f62546fa0a051004f4faa3f40a4a8074a2e06ea"
+    },
+    {
+      "file": "assets/manrope-latin-wght-normal-DHIcAJRg.woff2",
+      "size": 24836,
+      "sha": "b42951014c5eca12749d87a4706caf22dc4fe081"
+    },
+    {
+      "file": "assets/manrope-vietnamese-wght-normal-usUDDRr7.woff2",
+      "size": 8520,
+      "sha": "89cd8db6d29cfed5ebf56c2795bddb38034c9147"
+    },
+    {
+      "file": "assets/map-B7rZ0Bz1.js",
+      "size": 149432,
+      "sha": "27b2f52b8d1bd4d5f4a4f1f1133ac93f109e9a0b"
+    },
+    {
+      "file": "assets/markdown-4snFLCN-.js",
+      "size": 166077,
+      "sha": "813a1bbd56df7f313984f10bd7b0ea27e45f1a87"
+    },
+    {
+      "file": "assets/translations-DinaD6d7.js",
+      "size": 190153,
+      "sha": "cb29c70b2c07062b75ffe426d2453f4d2bd554ff"
+    },
+    {
+      "file": "assets/WorldView-DaB_nddT.js",
+      "size": 10582,
+      "sha": "f3a15daffb3963a76fd002d36e0a47848c8d1814"
+    },
+    {
+      "file": "china-landscape.svg",
+      "size": 2559,
+      "sha": "fc77537b6f85a58472d56271d58ccad08a479ba5"
+    },
+    {
+      "file": "documents/bonus-original.md",
+      "size": 59650,
+      "sha": "2f8b3f052dbb07410deac0e0ae7e9de9e434408d"
+    },
+    {
+      "file": "documents/planning-original.md",
+      "size": 3907,
+      "sha": "d21e668d2918933997e711d9efb0a35aa1a723b2"
+    },
+    {
+      "file": "favicon.svg",
+      "size": 226,
+      "sha": "2b0cdd0311c9772e3ef3f16ea0f54c5703fa9043"
+    },
+    {
+      "file": "index.html",
+      "size": 1412,
+      "sha": "05c9ac5826d4a0925dbc495c41fa6f3e1d1dfc14"
+    },
+    {
+      "file": "manifest.webmanifest",
+      "size": 251,
+      "sha": "e5f8f4c748daafca4965c7c2c1d15c5e4a2884ba"
+    },
+    {
+      "file": "sw.js",
+      "size": 1695,
+      "sha": "a4c9235484cba6eb263398a2f944b9aece6495ad"
+    },
+    {
+      "file": "travel-landscape.svg",
+      "size": 620,
+      "sha": "d73ccfffe06c5609d9483060d161a0b6daf30258"
+    },
+    {
+      "file": "world-geography.json",
+      "size": 3938398,
+      "sha": "e69a333e72f16695b76aceb6c0e9b39d43f78457"
+    }
+  ]
+}

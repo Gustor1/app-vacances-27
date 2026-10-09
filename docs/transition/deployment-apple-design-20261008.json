@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-08",
+  "deploymentId": "dpl_C8CLFY8DcesHj9AapGbCqnkUeQNj",
+  "url": "https://app-vacances-27-a2wcm7vfj-eliottle.vercel.app",
+  "alias": "https://app-vacances-27-beta-eliottle.vercel.app/",
+  "target": "preview",
+  "readyState": "READY",
+  "projectId": "prj_GdllwjlfvjDogyKdH2ABRJay350a",
+  "teamId": "team_lVeovobBaIvDqajTP8FZ3UvH",
+  "previousDeploymentId": "dpl_AJpBhe6qBTTc8WbJMLkgGBbNwRc8",
+  "publication": "Existing stable beta alias reassigned after READY state and exact file hash verification.",
+  "checks": {
+    "remoteFiles": 18,
+    "remoteHashMismatches": 0,
+    "unexpectedRemoteFiles": 0,
+    "unitTestsPassed": 67,
+    "browserTestsPassed": 60,
+    "browserTestsIncludedTargetedReruns": true,
+    "productionOfflineSmoke": "passed",
+    "liveScripts": [
+      "/assets/index-B-H07c3x.js"
+    ],
+    "liveStyles": [
+      "/assets/index-kPTdgsOp.css"
+    ],
+    "livePrimaryButton": "rgb(0, 113, 227)",
+    "liveHorizontalOverflow": false,
+    "liveWorldMapContours": 241,
+    "liveConsoleErrors": []
+  },
+  "preserved": {
+    "stableOrigin": true,
+    "existingAliasProtectionOverride": true,
+    "authenticationConfiguration": true,
+    "dataStorageFormat": true,
+    "gitNotPushed": true
+  },
+  "rollback": {
+    "deploymentId": "dpl_AJpBhe6qBTTc8WbJMLkgGBbNwRc8",
+    "alias": "app-vacances-27-beta-eliottle.vercel.app",
+    "sourceBackup": "C:/Users/eliot/Documents/app-vacances-27-backups/2026-10-08-apple-design/avant-refonte.zip"
+  },
+  "screenshot": "docs/design/screenshots/en-ligne-2026-10-08.jpg",
+  "files": [
+    {
+      "file": "asia-geography.json",
+      "sha": "de6ae7e302ac2eef3e10bc82b37e94f24845b394",
+      "size": 1002221
+    },
+    {
+      "file": "china-landscape.svg",
+      "sha": "fc77537b6f85a58472d56271d58ccad08a479ba5",
+      "size": 2559
+    },
+    {
+      "file": "favicon.svg",
+      "sha": "4ce9ea5a6ab5cd1e8ebf2fd0d545b5c4684bd883",
+      "size": 277
+    },
+    {
+      "file": "index.html",
+      "sha": "41b932dc815fc391c66138ac1f750c72d9d0bd85",
+      "size": 1412
+    },
+    {
+      "file": "manifest.webmanifest",
+      "sha": "be41173e1c4d2564c5f2deb708afb36b272f4b77",
+      "size": 250
+    },
+    {
+      "file": "sw.js",
+      "sha": "24f6a1c5ba459cc9b101c2dbffbb3a8e1545f1bd",
+      "size": 1322
+    },
+    {
+      "file": "travel-landscape.svg",
+      "sha": "d73ccfffe06c5609d9483060d161a0b6daf30258",
+      "size": 620
+    },
+    {
+      "file": "world-geography.json",
+      "sha": "e69a333e72f16695b76aceb6c0e9b39d43f78457",
+      "size": 3938398
+    },
+    {
+      "file": "assets/cloud-NXRyLVor.js",
+      "sha": "ae99cbe906f775bbfc892fb2893ddd051b33b9f9",
+      "size": 223381
+    },
+    {
+      "file": "assets/index-B-H07c3x.js",
+      "sha": "a07bfb3184a0f317d519db3313cbf03355cd5a42",
+      "size": 596094
+    },
+    {
+      "file": "assets/index-kPTdgsOp.css",
+      "sha": "2cbc882d79a7afb0d3cd695efb194c77dd646de8",
+      "size": 157145
+    },
+    {
+      "file": "assets/map-B7rZ0Bz1.js",
+      "sha": "27b2f52b8d1bd4d5f4a4f1f1133ac93f109e9a0b",
+      "size": 149432
+    },
+    {
+      "file": "assets/markdown-4snFLCN-.js",
+      "sha": "813a1bbd56df7f313984f10bd7b0ea27e45f1a87",
+      "size": 166077
+    },
+    {
+      "file": "assets/translations-BYI_KNq7.js",
+      "sha": "df5b57c8383bfffc239b2dbcc051406de4326c1e",
+      "size": 199172
+    },
+    {
+      "file": "assets/WorldView-xC8Ti-qR.js",
+      "sha": "af26cdd3f62c3640b84955bd5ec465673ce1c9d4",
+      "size": 10257
+    },
+    {
+      "file": "documents/bonus-original.md",
+      "sha": "2f8b3f052dbb07410deac0e0ae7e9de9e434408d",
+      "size": 59650
+    },
+    {
+      "file": "documents/planning-original.md",
+      "sha": "d21e668d2918933997e711d9efb0a35aa1a723b2",
+      "size": 3907
+    },
+    {
+      "file": "vercel.json",
+      "sha": "52894ea0973e807ddf7e76aa38e27964ae925204"
+    }
+  ]
+}

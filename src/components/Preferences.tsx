@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Check, Languages, Monitor, Moon, SlidersHorizontal, Sun, X } from 'lucide-react';
 import { useLocale } from '../i18n';
 import type { Theme } from '../i18n';
+import { interfaceLanguages } from '../locale-utils';
 import './Preferences.css';
 
 export default function PreferencesButton() {
@@ -25,7 +26,7 @@ export default function PreferencesButton() {
     {open && <dialog ref={dialog} className="preferences-dialog" aria-labelledby="preferences-title" onCancel={event => { event.preventDefault(); setOpen(false); }} onClick={event => { if (event.target === event.currentTarget) { const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) setOpen(false); } }}>
       <header><div><p className="eyebrow">{t('Personnalise ton carnet')}</p><h2 id="preferences-title">{t('Préférences')}</h2></div><button type="button" className="icon-btn" aria-label={t('Fermer')} onClick={() => setOpen(false)}><X size={20}/></button></header>
       <fieldset><legend>{t('Apparence')}</legend><div className="theme-options">{options.map(({ id, label, icon: Icon }) => <label key={id} className={theme === id ? 'selected' : ''}><input type="radio" name="theme" value={id} checked={theme === id} onChange={() => setTheme(id)}/><Icon size={23}/><span>{t(label)}</span>{theme === id && <Check size={13} className="theme-check" aria-hidden="true"/>}</label>)}</div><p className="muted">{t('Suit les réglages de ton appareil.')}</p></fieldset>
-      <fieldset><legend><Languages size={17}/> {t('Langue de l’interface')}</legend><div className="language-options">{(['fr', 'en'] as const).map(id => <label key={id} className={language === id ? 'selected' : ''}><input type="radio" name="language" value={id} checked={language === id} onChange={() => setLanguage(id)}/><span lang={id}>{id === 'fr' ? 'Français' : 'English'}</span>{language === id && <Check size={15} aria-hidden="true"/>}</label>)}</div><p className="muted">{t('Les documents d’origine et tes notes gardent leur langue.')}</p></fieldset>
+      <fieldset><legend><Languages size={17}/> {t('Langue de l’interface')}</legend><div className="language-options">{interfaceLanguages.map(({id, label}) => <label key={id} className={language === id ? 'selected' : ''}><input type="radio" name="language" value={id} checked={language === id} onChange={() => setLanguage(id)}/><span lang={id}>{label}</span>{language === id && <Check size={15} aria-hidden="true"/>}</label>)}</div><p className="muted">{t('Les documents d’origine et tes notes gardent leur langue.')}</p></fieldset>
       <p className="preferences-save-note" role="status">{t(preferenceError ? 'Ces réglages restent actifs pour cette session, mais leur sauvegarde est indisponible.' : 'Ces réglages sont mémorisés sur cet appareil.')}</p>
     </dialog>}
   </>;

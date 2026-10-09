@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict';
+import { mkdir } from 'node:fs/promises';
+import { chromium, expect } from '@playwright/test';
+import { productionTestServer } from './production-server.mjs';
+import { chromiumTestOptions } from './browser-test-options.ts';
+import { raw, trip } from './l5-fixture.mjs';
+const server=await productionTestServer();server.update();
+const browser=await chromium.launch(chromiumTestOptions());
+try{
+ const context=await browser.newContext({viewport:{width:390,height:900},reducedMotion:'reduce'});
+ const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(server.url);await page.evaluate(({raw,id})=>localStorage.setItem(`a-l-est-trip-v2:${id}`,raw),{raw,id:trip.journey.id});await page.reload();
+ await page.getByRole('button',{name:`Ouvrir ${trip.journey.title}`,exact:true}).click();
+ await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Mon carnet pratique',exact:true}).click();
+ await expect(page.locator('.offline-status')).toHaveClass(/offline-ready/);
+ await context.setOffline(true);
+ await page.getByRole('button',{name:'Connexion',exact:true}).click();
+ await page.getByRole('button',{name:'Mon compte et mes sauvegardes',exact:true}).click();
+ await expect(page.getByLabel('Application de cartes préférée',{exact:true})).toHaveValue('google');
+ await page.getByLabel('Application de cartes préférée',{exact:true}).selectOption('amap');
+ await page.getByRole('dialog').getByRole('button',{name:'Fermer',exact:true}).click();
+ await expect(page.getByRole('dialog')).toHaveCount(0);
+ await page.locator('.now-shortcut').click();
+ await expect(page.locator('.now-view .map-place-actions a')).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
+ await expect(page.locator('.now-view')).toContainText('Le Bund — exemple de lieu public');
+ await expect(page.locator('.now-view')).toContainText('Référence fictive L5-123');
+ await page.getByRole('button',{name:'À montrer',exact:true}).click();
+ await expect(page.getByRole('dialog')).toContainText('测试路 10 号（虚构）');
+ await mkdir('docs/development/screenshots',{recursive:true});await page.screenshot({path:'docs/development/screenshots/l5-show-offline-390.png'});
+ await page.getByRole('button',{name:'Revenir au carnet',exact:true}).click();await page.reload();
+ await expect(page.locator('.now-view')).toContainText('Prendre le billet factice avant de partir.');
+ await expect(page.locator('.now-view .map-place-actions a')).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
+ await page.screenshot({path:'docs/development/screenshots/l5-now-offline-390.png',fullPage:true});
+ assert.deepEqual(errors,[]);console.log('L5 compiled offline passed: hotel/show card, next step, booking, day note, personal map choice changed offline and preserved after reload, reduced motion, zero runtime errors.');
+}finally{await browser.close();await server.close();}

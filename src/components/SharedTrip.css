@@ -1,0 +1,62 @@
+/* Specific selectors keep these layouts stable regardless of global CSS import order. */
+.notice.invitation-banner{width:calc(100% - 40px);max-width:1180px;margin:24px auto;padding:24px;display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:start;gap:24px;line-height:1.7;border-radius:16px}
+.invitation-icon{display:grid;place-items:center;width:48px;height:48px;border:1px solid var(--line);border-radius:14px}
+.invitation-copy{min-width:0;display:grid;gap:10px}
+.invitation-copy h2{font-size:22px;line-height:1.35;overflow-wrap:anywhere}
+.invitation-copy p{max-width:650px;font-size:14px;line-height:1.7}
+.invitation-copy [role=alert]{font-weight:600}
+.invitation-actions{display:grid;gap:8px;justify-items:stretch;min-width:210px}
+.invitation-banner .invitation-actions button{margin:0;min-height:44px;white-space:normal;line-height:1.5}
+.read-only-trip{width:100%;max-width:1244px;margin:0 auto;padding:28px 32px 56px}
+.read-only-trip .read-only-topbar{margin-bottom:28px;gap:16px}
+.read-only-trip .panel{margin:0;border-radius:20px}
+.read-only-trip .shared-trip-header{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:40px;padding:32px}
+.shared-trip-intro{min-width:0}
+.shared-trip-intro .eyebrow{display:flex;align-items:center;gap:8px;line-height:1.6;font-size:10px;letter-spacing:.14em}
+.shared-trip-intro h1{font-size:clamp(28px,3vw,40px);line-height:1.2;letter-spacing:-.035em;margin:16px 0 20px;overflow-wrap:anywhere}
+.shared-trip-destination{display:flex;align-items:flex-start;gap:8px;font-size:14px;margin-bottom:12px;overflow-wrap:anywhere}
+.shared-trip-destination svg{margin-top:4px;color:var(--green)}
+.shared-trip-description{font-size:14px;line-height:1.8;max-width:650px;white-space:pre-wrap;overflow-wrap:anywhere}
+.shared-trip-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:28px 0 0}
+.shared-trip-stats>div{display:flex;flex-direction:column-reverse;gap:7px;padding:16px;background:var(--surface-alt);border:1px solid var(--line);border-radius:12px;min-width:0}
+.shared-trip-stats dt{font-size:11px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
+.shared-trip-stats dd{font-family:'Manrope Variable',sans-serif;font-size:24px;font-weight:750;margin:0}
+.shared-trip-actions{padding-left:28px;border-left:1px solid var(--line);display:flex;flex-direction:column;align-items:stretch;gap:12px;min-width:0}
+.shared-trip-actions h2{font-size:18px;line-height:1.4}
+.shared-trip-actions>p{font-size:13px;line-height:1.75;color:var(--muted);margin-bottom:4px}
+.shared-trip-actions .btn{white-space:normal;min-height:46px;font-size:12px;padding:12px 16px;line-height:1.5}
+.shared-trip-privacy{font-size:12px;line-height:1.7;margin-top:4px;color:var(--muted)}
+.shared-trip-privacy summary{cursor:pointer;min-height:36px;padding:8px 0;color:var(--green)}
+.shared-trip-privacy p{margin-top:8px;overflow-wrap:anywhere}
+.shared-trip-planning{margin-top:32px}
+.shared-planning-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.shared-planning-heading h2{font-size:23px;line-height:1.4}
+.shared-planning-heading p{font-size:13px;color:var(--muted)}
+.read-only-trip .shared-trip-empty{padding:40px;display:flex;align-items:flex-start;gap:24px;background:var(--surface-alt)}
+.shared-trip-empty>span{width:64px;height:64px;border-radius:18px;background:var(--selected-surface);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+.shared-trip-empty h3{font-size:21px;line-height:1.4;margin:2px 0 12px}
+.shared-trip-empty p{max-width:700px;font-size:14px;line-height:1.8;margin-top:10px}
+.shared-cities{display:grid;gap:24px}
+.read-only-trip .shared-city{padding:28px}
+.shared-city-heading{display:flex;align-items:flex-start;gap:16px;padding-bottom:24px}
+.shared-city-heading>div{min-width:0}
+.shared-city-heading h3{font-size:24px;line-height:1.4;overflow-wrap:anywhere}
+.shared-city-heading p{margin-top:8px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.shared-city-number{display:grid;place-items:center;min-width:42px;height:42px;background:var(--selected-surface);color:var(--green);border-radius:12px;font-weight:700}
+.shared-day{border-top:1px solid var(--line);padding:24px 0 4px}
+.shared-day>header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.shared-day h4{font-size:17px;line-height:1.5;overflow-wrap:anywhere}
+.shared-day>header>span{font-size:12px;color:var(--muted)}
+.shared-steps{display:grid;gap:16px;margin:0;padding:0;list-style:none;counter-reset:shared-step}
+.read-only-trip .shared-steps>li{counter-increment:shared-step;position:relative;margin:0;padding:20px 20px 20px 62px;border:1px solid var(--line);border-radius:14px;background:var(--surface-alt);line-height:1.75;min-width:0}
+.shared-steps>li:before{content:counter(shared-step,decimal-leading-zero);position:absolute;left:20px;top:22px;font-size:12px;font-weight:650;color:var(--green)}
+.shared-step-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.shared-step-title h5{font:700 16px/1.5 'Manrope Variable',sans-serif;margin:0;overflow-wrap:anywhere}
+.shared-step-title>span{font-size:12px;color:var(--muted)}
+.shared-steps p{margin-top:10px;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+.shared-step-address{display:flex;align-items:flex-start;gap:8px;color:var(--muted)}
+.shared-step-address svg{margin-top:4px}
+.shared-steps .map-actions{margin-top:16px;gap:12px}
+.shared-day-empty{padding:8px 0 16px;color:var(--muted);font-size:13px}
+@media(max-width:800px){.notice.invitation-banner{grid-template-columns:40px minmax(0,1fr);gap:16px;padding:20px}.invitation-icon{width:40px;height:40px}.invitation-actions{grid-column:2;min-width:0;justify-self:start}.read-only-trip .shared-trip-header{grid-template-columns:minmax(0,1fr);gap:24px;padding:24px}.shared-trip-actions{padding:24px 0 0;border-left:0;border-top:1px solid var(--line)}.shared-trip-actions .btn{align-self:flex-start}.read-only-trip{padding:24px}.shared-trip-intro h1{font-size:32px}}
+@media(max-width:480px){.notice.invitation-banner{width:calc(100% - 32px);margin:16px auto}.invitation-copy h2{font-size:19px}.invitation-copy p{font-size:13px}.invitation-actions{grid-column:1/-1;width:100%}.read-only-trip{padding:20px 16px 36px}.read-only-trip .shared-trip-header{padding:22px 18px}.shared-trip-intro h1{font-size:28px}.shared-trip-stats{gap:8px;margin-top:22px}.shared-trip-stats>div{padding:12px 10px}.shared-trip-stats dt{font-size:10px}.shared-trip-stats dd{font-size:22px}.shared-trip-actions .btn{width:100%;align-self:stretch}.read-only-trip .shared-trip-empty{padding:24px 20px;flex-direction:column;gap:16px}.shared-trip-empty>span{width:48px;height:48px;border-radius:14px}.shared-trip-empty h3{font-size:20px}.shared-trip-empty p{font-size:13px}.read-only-trip .shared-city{padding:22px 16px}.shared-city-heading{gap:12px;padding-bottom:20px}.shared-city-heading h3{font-size:21px}.read-only-trip .shared-steps>li{padding:18px 16px 18px 44px}.shared-steps>li:before{left:14px;top:21px;font-size:10px}.shared-planning-heading h2{font-size:21px}.shared-planning-heading{gap:8px}}

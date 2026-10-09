@@ -1,0 +1,143 @@
+{
+  "date": "2026-10-08",
+  "deploymentId": "dpl_EuTSrkCaQt2Y5aCRUxMHx1pkYBVR",
+  "url": "https://app-vacances-27-hb4aou8oa-eliottle.vercel.app",
+  "alias": "https://app-vacances-27-beta-eliottle.vercel.app/",
+  "target": "preview",
+  "readyState": "READY",
+  "previousDeploymentId": "dpl_7yaT9kXbjpH8z1bRWazqAmK64Xap",
+  "changes": [
+    "44px account icon below 1100px; accessible label and menu behavior preserved",
+    "Remaining header width reserved for search",
+    "Shared interruptible spring selection in mobile navigation, sidebar and home tabs",
+    "Reduced motion uses immediate selection; contrast and transparency settings preserved"
+  ],
+  "checks": {
+    "typeScriptAndProductionBuild": "passed",
+    "uniqueTargetedBrowserTestsPassed": 15,
+    "browserTestsIncludedTargetedReruns": true,
+    "rapidReversalConsecutivePasses": 5,
+    "headerWidths": [
+      320,
+      390,
+      740,
+      1000
+    ],
+    "localSearchInputWidthAt390": 217,
+    "remoteFiles": 18,
+    "remoteHashMismatches": 0,
+    "unexpectedRemoteFiles": 0,
+    "liveScripts": [
+      "/assets/index-DF6SATf3.js"
+    ],
+    "liveStyles": [
+      "/assets/index-CdeKr5m-.css"
+    ],
+    "liveAccountWidth": 44,
+    "liveGlassNavigation": "Bonus then Planning verified",
+    "liveConsoleErrors": []
+  },
+  "preserved": {
+    "stableOrigin": true,
+    "existingAliasProtectionOverride": true,
+    "dataStorageFormat": true,
+    "gitNotPushed": true
+  },
+  "rollback": {
+    "deploymentId": "dpl_7yaT9kXbjpH8z1bRWazqAmK64Xap",
+    "alias": "app-vacances-27-beta-eliottle.vercel.app",
+    "sourceBackup": "C:/Users/eliot/Documents/app-vacances-27-backups/2026-10-08-fluid-navigation"
+  },
+  "screenshot": "docs/design/screenshots/fluid-navigation-live-20261008.jpg",
+  "files": [
+    {
+      "file": "asia-geography.json",
+      "sha": "de6ae7e302ac2eef3e10bc82b37e94f24845b394",
+      "size": 1002221
+    },
+    {
+      "file": "china-landscape.svg",
+      "sha": "fc77537b6f85a58472d56271d58ccad08a479ba5",
+      "size": 2559
+    },
+    {
+      "file": "favicon.svg",
+      "sha": "4ce9ea5a6ab5cd1e8ebf2fd0d545b5c4684bd883",
+      "size": 277
+    },
+    {
+      "file": "index.html",
+      "sha": "96a3684a8b99d8d0c8080cfffa40bcad7b38281f",
+      "size": 1412
+    },
+    {
+      "file": "manifest.webmanifest",
+      "sha": "be41173e1c4d2564c5f2deb708afb36b272f4b77",
+      "size": 250
+    },
+    {
+      "file": "sw.js",
+      "sha": "5e8d7947ecdfcdb5b46c9cb8f343f6a9e4932379",
+      "size": 1322
+    },
+    {
+      "file": "travel-landscape.svg",
+      "sha": "d73ccfffe06c5609d9483060d161a0b6daf30258",
+      "size": 620
+    },
+    {
+      "file": "world-geography.json",
+      "sha": "e69a333e72f16695b76aceb6c0e9b39d43f78457",
+      "size": 3938398
+    },
+    {
+      "file": "assets/cloud-NXRyLVor.js",
+      "sha": "ae99cbe906f775bbfc892fb2893ddd051b33b9f9",
+      "size": 223381
+    },
+    {
+      "file": "assets/index-CdeKr5m-.css",
+      "sha": "d1376fbb36cb1ec2eec08dd2026d73730f2d013e",
+      "size": 159886
+    },
+    {
+      "file": "assets/index-DF6SATf3.js",
+      "sha": "7f2cad10de032e0163886d0ca5c1418a6af6d883",
+      "size": 598814
+    },
+    {
+      "file": "assets/map-B7rZ0Bz1.js",
+      "sha": "27b2f52b8d1bd4d5f4a4f1f1133ac93f109e9a0b",
+      "size": 149432
+    },
+    {
+      "file": "assets/markdown-4snFLCN-.js",
+      "sha": "813a1bbd56df7f313984f10bd7b0ea27e45f1a87",
+      "size": 166077
+    },
+    {
+      "file": "assets/translations-BYI_KNq7.js",
+      "sha": "df5b57c8383bfffc239b2dbcc051406de4326c1e",
+      "size": 199172
+    },
+    {
+      "file": "assets/WorldView-DkQQh0Dv.js",
+      "sha": "af070845b894cb2fdae5e5feeec62f86f0118d52",
+      "size": 10257
+    },
+    {
+      "file": "documents/bonus-original.md",
+      "sha": "2f8b3f052dbb07410deac0e0ae7e9de9e434408d",
+      "size": 59650
+    },
+    {
+      "file": "documents/planning-original.md",
+      "sha": "d21e668d2918933997e711d9efb0a35aa1a723b2",
+      "size": 3907
+    },
+    {
+      "file": "vercel.json",
+      "sha": "52894ea0973e807ddf7e76aa38e27964ae925204"
+    }
+  ]
+}

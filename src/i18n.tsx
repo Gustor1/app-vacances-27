@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
-import { defaults, parsePreferences, PREFERENCES_KEY, translate } from './locale-utils';
+import { defaults, localeFor, parsePreferences, PREFERENCES_KEY, translate } from './locale-utils';
 import type { Language, Preferences, Theme, TranslationValues } from './locale-utils';
 export { parsePreferences, PREFERENCES_KEY, translate } from './locale-utils';
 export type { Language, Theme, TranslationValues } from './locale-utils';
@@ -39,8 +39,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = language;
     document.documentElement.dataset.theme = resolvedTheme;
     document.documentElement.style.colorScheme = resolvedTheme;
-    document.title = t('À l’Est — Mon carnet de Chine');
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', resolvedTheme === 'dark' ? '#14231e' : '#244c40');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', resolvedTheme === 'dark' ? '#161618' : '#f5f5f7');
   }, [language, resolvedTheme, t]);
   const update = (next: Partial<Preferences>) => {
     let value = { ...preferences, ...next };
@@ -52,7 +51,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     } catch { setPreferenceError(true); }
     setPreferences(value);
   };
-  return <Locale.Provider value={{ language, theme, resolvedTheme, dateLocale: language === 'en' ? 'en-GB' : 'fr-FR', preferenceError,
+  return <Locale.Provider value={{ language, theme, resolvedTheme, dateLocale: localeFor(language), preferenceError,
     setLanguage: language => update({ language }), setTheme: theme => update({ theme }), t }}>{children}</Locale.Provider>;
 }
 export function useLocale() {

@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './components/JourneysApp';
 import { LocaleProvider } from './i18n';
-import '@fontsource-variable/dm-sans/wght.css';
-import '@fontsource-variable/manrope/wght.css';
+import { CloudProvider, useCloud } from './cloud/CloudProvider';
+import { useScrollMaterial } from './hooks/useScrollMaterial';
+import AppUpdate from './components/AppUpdate';
+import { MapPreferencesProvider } from './MapPreferences';
 import './styles.css';
 import './theme.css';
-ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><LocaleProvider><App /></LocaleProvider></React.StrictMode>);
-if ('serviceWorker' in navigator && import.meta.env.PROD) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
+import './apple-design.css';
+function Root() { useScrollMaterial(); const { scope, ready } = useCloud(); return <>{ready ? <MapPreferencesProvider key={scope}><App/></MapPreferencesProvider> : <p role="status">Détours…</p>}<AppUpdate/></>; }
+ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><LocaleProvider><CloudProvider><Root /></CloudProvider></LocaleProvider></React.StrictMode>);

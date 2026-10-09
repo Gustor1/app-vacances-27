@@ -1,10 +1,16 @@
+import { activeSteps } from '../day-preparation';
+import { EditInput, EditButton } from './EditControls';
 import { useLocale, translate } from '../i18n';
+import { localeFor } from '../locale-utils';
+import type { Language } from '../i18n';
 import { CalendarDays, Download, MapPin, Printer } from 'lucide-react';
 import { createTripCalendar, datedDayCount, validCalendarDate } from '../calendar';
-import { bonusItems } from '../data/bonus';
 import { amapLink, safeExternalUrl } from '../lib';
 import type { StoredState } from '../types';
 import './TripOverview.css';
+import { useMapPreferences } from '../MapPreferences';
+import { preferredMapCity, type MapProvider } from '../map-preferences';
+
 
 type Props = {
   state: StoredState;
@@ -14,7 +20,7 @@ type Props = {
 };
 
 /** A separate document prints every city without changing the active app view. */
-export function printWholeTrip(state: StoredState, language: 'fr' | 'en' = 'fr'): void {
+export function printWholeTrip(state: StoredState, language: Language = 'fr', provider?: MapProvider): void {
   const t = (text: string, values?: Record<string, string | number>) => translate(text, language, values);
   const frame = document.createElement('iframe');
   frame.title = t("Version imprimable du voyage");
@@ -23,9 +29,9 @@ export function printWholeTrip(state: StoredState, language: 'fr' | 'en' = 'fr')
   const doc = frame.contentDocument;
   const target = frame.contentWindow;
   if (!doc || !target) { frame.remove(); throw new Error(t("Impression indisponible dans ce navigateur.")); }
-  doc.title = t("À l’Est — voyage complet");
+  doc.title = state.journey?.title || t("Détours — voyage complet");
   doc.documentElement.lang = language;
-  const dateLocale = language === 'en' ? 'en-GB' : 'fr-FR';
+  const dateLocale = localeFor(language);
   const displayDate = (value: string) => validCalendarDate(value) ? new Intl.DateTimeFormat(dateLocale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(`${value}T12:00:00Z`)) : value;
   const style = doc.createElement('style');
   style.textContent = `@page { margin: 16mm; } body { font: 12pt system-ui,sans-serif; color:#172a27; line-height:1.5; } h1 {font-size:25pt} h2 {font-size:20pt;break-after:avoid} h3 {break-after:avoid} article {border-top:1px solid #aaa;padding-top:8px} p {white-space:pre-wrap;overflow-wrap:anywhere} a {color:#172a27;overflow-wrap:anywhere} .city {break-before:page} .city:first-of-type {break-before:auto} .step {break-inside:avoid} @media print {body {margin:0}}`;
@@ -38,10 +44,11 @@ export function printWholeTrip(state: StoredState, language: 'fr' | 'en' = 'fr')
     if (!safe) return;
     const anchor = doc.createElement('a'); anchor.href = safe; anchor.textContent = `${label} : ${safe}`; parent.append(anchor);
   };
-  add(doc.body, 'h1', t("À l’Est — mon voyage complet"));
+  add(doc.body, 'h1', state.journey?.title || t("Détours — mon voyage complet"));
   add(doc.body, 'p', t("{cities} villes · {days} journées", { cities: state.cities.length, days: state.cities.reduce((sum, city) => sum + city.days.length, 0) }) + (state.departureDate ? t(" · Départ : {date}", { date: displayDate(state.departureDate) }) : ''));
   if (state.notes.general) { add(doc.body, 'h2', t("Mes notes personnelles")); add(doc.body, 'p', state.notes.general); }
-  for (const city of state.cities) {
+  for (const sourceCity of state.cities) {
+    const city = provider ? preferredMapCity(sourceCity,provider) : sourceCity;
     const section = add(doc.body, 'section', '', 'city');
     add(section, 'h2', `${city.name} · ${city.chineseName}`);
     add(section, 'p', city.subtitle);
@@ -53,17 +60,17 @@ export function printWholeTrip(state: StoredState, language: 'fr' | 'en' = 'fr')
       const article = add(section, 'article', '');
       add(article, 'h3', `${day.title} · ${day.date && validCalendarDate(day.date) ? displayDate(day.date) : t("Date à renseigner")}`);
       if (state.notes[day.id]) add(article, 'p', t("Mes notes : {notes}", { notes: state.notes[day.id] }));
-      for (const step of day.steps) {
+      for (const step of activeSteps(day)) {
         const block = add(article, 'div', '', 'step');
         add(block, 'h4', `${state.done.includes(step.id) ? '✓ ' : ''}${step.period ? step.period + ' · ' : ''}${step.title}${step.chineseName ? ' · ' + step.chineseName : ''}`);
         add(block, 'p', [step.description,step.address].filter(Boolean).join('\n'));
         if (state.favorites.includes(step.id)) add(block, 'p', t("Favori"));
         if (step.booking || state.bookings.includes(step.id)) add(block, 'p', state.bookings.includes(step.id) ? t("Réservation confirmée") : t("Réservation à prévoir"));
         if (state.notes[step.id]) add(block, 'p', t("Mes notes : {notes}", { notes: state.notes[step.id] }));
-        link(block, 'Amap', amapLink(city, step));
+        link(block, city.mapProvider === 'google' ? 'Google Maps' : 'Amap', amapLink(city, step));
       }
     }
-    const favoriteBonus = [...bonusItems, ...(state.customBonus || [])].filter(item => item.cityId === city.id && (state.favorites.includes(item.id) || state.bookings.includes(item.id) || Boolean(state.notes[item.id])));
+    const favoriteBonus = [...(state.bonusCatalog || []), ...(state.customBonus || [])].filter(item => item.cityId === city.id && (state.favorites.includes(item.id) || state.bookings.includes(item.id) || Boolean(state.notes[item.id])));
     if (favoriteBonus.length) {
       add(section, 'h3', t("Mes bonus — favoris, réservations et notes"));
       for (const bonus of favoriteBonus) {
@@ -72,9 +79,9 @@ export function printWholeTrip(state: StoredState, language: 'fr' | 'en' = 'fr')
         if (state.favorites.includes(bonus.id)) add(block, 'p', t("Favori"));
         add(block, 'p', [bonus.description, bonus.address, bonus.budget, bonus.tip, state.notes[bonus.id]].filter(Boolean).join('\n'));
         if (state.bookings.includes(bonus.id)) add(block, 'p', t("Réservation confirmée"));
-        link(block, 'Amap', amapLink(city, bonus));
+        link(block, city.mapProvider === 'google' ? 'Google Maps' : 'Amap', amapLink(city, bonus));
         add(block, 'br', '');
-        link(block, 'Source', bonus.sourceUrl);
+        link(block, t('Source'), bonus.sourceUrl);
       }
     }
   }
@@ -95,8 +102,9 @@ export function printWholeTrip(state: StoredState, language: 'fr' | 'en' = 'fr')
 
 export default function TripOverview({ state, onChange, onNavigate, notify }: Props) {
   const { t, language } = useLocale();
+  const { provider } = useMapPreferences();
   const days = state.cities.flatMap(city => city.days);
-  const steps = days.flatMap(day => day.steps);
+  const steps = days.flatMap(day => activeSteps(day));
   const completed = steps.filter(step => state.done.includes(step.id)).length;
   const dated = datedDayCount(state);
   const exportCalendar = () => {
@@ -110,22 +118,22 @@ export default function TripOverview({ state, onChange, onNavigate, notify }: Pr
   return <section className="trip-overview" aria-labelledby="overview-title">
     <header className="section-header">
       <div><p className="eyebrow">{t("Tout le voyage en un regard")}</p><h2 id="overview-title">{t("Vue d’ensemble")}</h2><p className="muted">{t("Retrouve chaque journée, sa date et ton avancement.")}</p></div>
-      <div className="overview-actions"><button type="button" disabled={!dated} onClick={exportCalendar}><Download size={18} aria-hidden="true" /> {t("Exporter le calendrier ({count})", { count: dated })}</button><button type="button" onClick={() => { try { printWholeTrip(state, language); } catch (error) { notify(error instanceof Error ? error.message : t("Impression indisponible.")); } }}><Printer size={18} aria-hidden="true" />{t("Imprimer tout le voyage")}</button></div>
+      <div className="overview-actions"><button type="button" disabled={!dated} onClick={exportCalendar}><Download size={18} aria-hidden="true" /> {t("Exporter le calendrier ({count})", { count: dated })}</button><button type="button" onClick={() => { try { printWholeTrip(state, language, provider); } catch (error) { notify(error instanceof Error ? error.message : t("Impression indisponible.")); } }}><Printer size={18} aria-hidden="true" />{t("Imprimer tout le voyage")}</button></div>
     </header>
     <div className="overview-summary"><span><MapPin size={18} aria-hidden="true" /> {t("{count} villes", { count: state.cities.length })}</span><span><CalendarDays size={18} aria-hidden="true" /> {t("{count} journées · {dated} datées", { count: days.length, dated })}</span><span>{t("{done} / {total} activités faites", { done: completed, total: steps.length })}</span><progress max={steps.length || 1} value={completed} aria-label={t("Avancement des activités du voyage")} /></div>
     <p className="overview-date-hint">{t("Attribue une date à chaque journée. Les journées de départ et d’arrivée peuvent se chevaucher entre deux villes : les dates ne sont donc pas calculées automatiquement depuis le départ. Seules les journées datées sont exportées, en événements sur la journée entière.")}</p>
     {state.cities.map(city => <section className="overview-city" key={city.id} aria-labelledby={`overview-city-${city.id}`}>
       <h2 id={`overview-city-${city.id}`}>{city.name} <small>{city.chineseName}</small></h2>
       {city.days.length ? city.days.map(day => {
-        const done = day.steps.filter(step => state.done.includes(step.id)).length;
+        const done = activeSteps(day).filter(step => state.done.includes(step.id)).length;
         return <article className="overview-day" key={day.id}>
-          <div><button type="button" className="overview-day-link" onClick={() => onNavigate(city.id, day.id)} aria-label={t("Ouvrir {day} à {city}", { day: day.title, city: city.name })}>{day.title}</button><p>{day.steps.length ? t("{done} / {total} activités faites", { done, total: day.steps.length }) : t("Journée à compléter")}{day.steps.some(step => step.booking && !state.bookings.includes(step.id)) ? t(" · Réservations à prévoir") : ''}</p></div>
-          <label className="overview-date">{t("Date de {day}", { day: day.title })}<input type="date" min="0001-01-01" max="9999-12-30" value={day.date || ''} onChange={event => {
+          <div><button type="button" className="overview-day-link" onClick={() => onNavigate(city.id, day.id)} aria-label={t("Ouvrir {day} à {city}", { day: day.title, city: city.name })}>{day.title}</button><p>{activeSteps(day).length ? t("{done} / {total} activités faites", { done, total: activeSteps(day).length }) : t("Journée à compléter")}{day.steps.some(step => step.booking && !state.bookings.includes(step.id)) ? t(" · Réservations à prévoir") : ''}</p></div>
+          <label className="overview-date">{t("Date de {day}", { day: day.title })}<EditInput type="date" min="0001-01-01" max="9999-12-30" value={day.date || ''} onChange={event => {
             const date = event.target.value;
             if (date && (!validCalendarDate(date) || date > '9999-12-30')) { notify(t("Choisis une date valide.")); return; }
             onChange(prev => ({ ...prev, cities: prev.cities.map(item => item.id === city.id ? { ...item, days: item.days.map(row => row.id === day.id ? { ...row, date: date || undefined } : row) } : item) }));
           }} /></label>
-          {day.date && <button className="overview-clear" type="button" aria-label={t("Effacer la date de {day} à {city}", { day: day.title, city: city.name })} onClick={() => onChange(prev => ({ ...prev, cities: prev.cities.map(item => item.id === city.id ? { ...item, days: item.days.map(row => row.id === day.id ? { ...row, date: undefined } : row) } : item) }))}>{t("Effacer")}</button>}
+          {day.date && <EditButton className="overview-clear" type="button" aria-label={t("Effacer la date de {day} à {city}", { day: day.title, city: city.name })} onClick={() => onChange(prev => ({ ...prev, cities: prev.cities.map(item => item.id === city.id ? { ...item, days: item.days.map(row => row.id === day.id ? { ...row, date: undefined } : row) } : item) }))}>{t("Effacer")}</EditButton>}
         </article>;
       }) : <p className="muted">{t("Ajoute une journée depuis le planning de cette ville.")}</p>}
     </section>)}

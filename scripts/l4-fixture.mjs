@@ -1,0 +1,7 @@
+import { archive, blankTrip } from '../src/journeys.ts';
+export const trip = blankTrip({id:'l4-terrain-20261008',title:'Terrain L4 — test uniquement',timezone:'Asia/Shanghai'});
+trip.notes.general='PC-0 / IPHONE-0';
+trip.documents=[{id:'l4-document',title:'Document factice L4',content:'Document disponible hors ligne — aucune réservation réelle.'}];
+trip.cities=[{id:'l4-ville',name:'Ville fictive',chineseName:'',subtitle:'Test uniquement',color:'#638160',image:'',notes:[],days:[{id:'l4-jour',title:'Journée fictive',steps:[{id:'l4-marche',title:'Promenade de test',description:'Aucune activité réelle.',address:'Adresse fictive L4',category:'walk',period:'Matin'}]}]}];
+export const raw=JSON.stringify(archive(trip));
+export const setupHtml=`<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Essai L4</title><body style="font:18px system-ui;max-width:36em;margin:2em;padding:1em"><h1>Essai privé L4</h1><p>Ce carnet est factice. Cette adresse utilise un espace distinct de vos voyages habituels.</p><button id="prepare" style="font:inherit;padding:1em">Préparer le carnet de test</button><p id="error"></p><script>document.querySelector('#prepare').onclick=()=>{try{const key='a-l-est-trip-v2:l4-terrain-20261008';if(!localStorage.getItem(key))localStorage.setItem(key,${JSON.stringify(raw)});sessionStorage.setItem('a-l-est-open-trip-v2','l4-terrain-20261008');location.href='/';}catch(e){document.querySelector('#error').textContent=e.message;}};</script></body></html>`;

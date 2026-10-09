@@ -5,5 +5,10 @@ dist/
 !.env.example
 playwright-report/
 test-results/
+test-results-*/
 
 *.tsbuildinfo
+
+# Préférences personnelles Claude Code, sans exclure les instructions partagées.
+CLAUDE.local.md
+.claude/settings.local.json

@@ -51,7 +51,7 @@ export function mergeCatalog(state: StoredState, catalog: City[]): StoredState {
   let cities = state.catalogBase
     ? mergeChanges(state.catalogBase, state.cities, catalog)
     : state.cities;
-  const used = new Set([...(state.stays||[]).map(x=>x.cityId),...(state.expenses||[]).map(x=>x.cityId),...(state.customBonus||[]).map(x=>x.cityId),...(state.transfers||[]).flatMap(x=>[x.fromCityId,x.toCityId])]);
+  const used = new Set([...(state.stays||[]).map(x=>x.cityId),...(state.expenses||[]).map(x=>x.cityId),...(state.customBonus||[]).map(x=>x.cityId),...(state.transfers||[]).flatMap(x=>[x.fromCityId,x.toCityId]), ...(state.bonusCatalog||[]).filter(b=>state.favorites.includes(b.id)||state.bookings.includes(b.id)||state.notes[b.id]).map(b=>b.cityId)]);
   for (const city of state.cities) if ((used.has(city.id) || state.notes[city.id]) && !cities.some(c=>c.id===city.id)) cities=[...cities,city];
-  return cleanReferences({ ...state, cities, catalogBase: catalog });
+  return cleanReferences({ ...state, cities, ...(state.bonusCatalog ? {bonusCatalog:state.bonusCatalog.filter(b=>cities.some(c=>c.id===b.cityId))} : {}), catalogBase: catalog });
 }
