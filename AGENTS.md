@@ -35,4 +35,6 @@ Node.js >= 22.18, npm ; installation par `npm ci`.
 
 ## Publication
 
-Un push GitHub n'est pas une autorisation de déployer, de fusionner dans `main`, de modifier la base distante ou de réassigner une adresse Vercel. Effectuer ces opérations uniquement dans le périmètre explicitement demandé par l'utilisateur. Suivre `docs/development/L8.md` pour une livraison, avec sauvegarde et retour arrière. Le mode local fonctionne sans accès administrateur aux services distants.
+L'utilisateur accorde une autorisation permanente pour publier les changements demandés et validés sur la beta habituelle `https://app-vacances-27-beta-eliottle.vercel.app/`, y compris créer un aperçu Vercel et réassigner cet alias. Ne pas redemander de confirmation pour ces publications. Cette autorisation a été donnée le 11 octobre 2026 et reste valable jusqu'à révocation par l'utilisateur.
+
+Cette autorisation ne couvre pas une fusion dans `main`, une publication en production, une migration ou une modification de la base distante : ces opérations nécessitent une autorisation spécifique. Suivre `docs/development/L8.md` pour chaque livraison, avec validation, sauvegarde, retour arrière et vérification de la version réellement servie. Le mode local fonctionne sans accès administrateur aux services distants.

@@ -28,7 +28,10 @@ const steps = [
   local('service worker et manifeste', 'scripts/build-sw.mjs'),
   local('intégrité du build', 'scripts/check-build.mjs'),
   local('compatibilité SQL L6', 'scripts/test-l6-sql-local.mjs', [process.env.DETOURS_PGLITE_PATH || '']),
-  local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts']),
+  local('notifications SQL : isolation et reprise', 'scripts/test-notifications-sql-local.mjs', [process.env.DETOURS_PGLITE_PATH || '']),
+  local('notifications serveur : types Deno', 'scripts/check-notifications-server.mjs'),
+  local('récaps et calendrier dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/notifications.spec.ts', 'tests/e2e/notification-preferences.spec.ts', 'tests/e2e/notifications-calendar.spec.ts']),
+  local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/mobile-corrections.spec.ts', 'tests/e2e/iphone-glass.spec.ts', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts']),
   local('états L4/L5/L6 et préférences dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l4-status.spec.ts', 'tests/e2e/l5-now.spec.ts', 'tests/e2e/l5-maps.spec.ts', 'tests/e2e/map-preferences.spec.ts', 'tests/e2e/l6-preparation.spec.ts']),
   ...['smoke-production', 'smoke-backup', 'smoke-ui', 'smoke-common-sharing', 'smoke-l4-offline', 'smoke-l4-persistence', 'smoke-l5-now', 'smoke-l6-preparation', 'smoke-l8-release'].map(name => local(name, `scripts/${name}.mjs`, [], output)),
 ];

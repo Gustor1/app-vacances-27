@@ -5,6 +5,12 @@ import { BACKUP_KEY, STORAGE_KEY, isObj, validateState } from './lib.ts';
 import { emptyWorld, validWorld, WORLD_KEY } from './world.ts';
 import { PREFERENCES_KEY, parsePreferences } from './locale-utils.ts';
 import { MONEY_PREFERENCES_KEY, parseMoneyPreferences } from './money-preferences.ts';
+import { notificationKey, parseNotificationPreferences } from './notifications.ts';
+
+function safeNotificationBackup(raw: string): string {
+  const p = parseNotificationPreferences(raw);
+  return JSON.stringify({ ...p, activityPush: false, recapPush: false, email: false });
+}
 
 export const MAX_BACKUP_BYTES = 64_000_000;
 export const SEGMENT_CHARACTERS = 250_000;
@@ -16,11 +22,11 @@ export const byteSize = (raw: string) => encoder.encode(raw).byteLength;
 async function digest(raw: string) {
   return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', encoder.encode(raw))), b => b.toString(16).padStart(2, '0')).join('');
 }
-type Kind = 'trip' | 'world' | 'preferences' | 'money' | 'source';
+type Kind = 'trip' | 'world' | 'preferences' | 'money' | 'notifications' | 'source';
 type ReadStorage = Pick<Storage, 'getItem' | 'key' | 'length'>;
 type Entry = { kind: Kind; key: string; bytes: number; sha256: string; segments: { text: string; sha256: string }[] };
 export type Backup = { version: 3; scope: 'backup'; createdAt: string; exclusions: string[]; entries: Entry[]; sha256: string };
-type Contents = { trips: StoredState[]; world?: PersonalWorld; preferences?: string; money?: string; sources: { key: string; raw: string }[]; exclusions: string[] };
+type Contents = { trips: StoredState[]; world?: PersonalWorld; preferences?: string; money?: string; notifications?: { tripId: string; raw: string }[]; sources: { key: string; raw: string }[]; exclusions: string[] };
 export type RestoreWrite = { key: string; before: string | null; after: string; sha256: string };
 export type RestorePlan = { id: string; writes: RestoreWrite[]; trips: number; visits: number; sources: number; collisions: number; keptPreferences: number; bytes: number; exclusions: string[] };
 export type PendingRestore = Omit<RestorePlan, 'writes'> & { writes: Omit<RestoreWrite, 'after'>[] };
@@ -28,7 +34,7 @@ type Journal = { version: 1; status: 'pending'; plan: PendingRestore } | { versi
 function compact(plan: RestorePlan): PendingRestore {
   return { ...plan, writes: plan.writes.map(({ key, before, sha256 }) => ({ key, before, sha256 })) };
 }
-const kinds = new Set(['trip', 'world', 'preferences', 'money', 'source']);
+const kinds = new Set(['trip', 'world', 'preferences', 'money', 'notifications', 'source']);
 const rawKey = (key: string) => key === STORAGE_KEY || key === BACKUP_KEY || key === LEGACY_COPY_KEY || key === LEGACY_RECOVERY_COPY_KEY || key.startsWith(RECOVERY_PREFIX) || key.startsWith(SOURCE_PREFIX);
 function parsed(raw: string): unknown { try { return JSON.parse(raw); } catch { throw new Error('backup-invalid'); } }
 function validPreference(raw: string, money = false) {
@@ -66,7 +72,7 @@ export async function exportBackup(storage: Storage, preferences: Storage, unrea
   }
   const keys = Array.from({ length: storage.length }, (_, i) => storage.key(i)).filter((key): key is string => key !== null).sort();
   for (const key of keys) {
-    if (!key.startsWith(TRIP_PREFIX) && key !== WORLD_KEY && key !== MONEY_PREFERENCES_KEY && !rawKey(key)) continue;
+    if (!key.startsWith(TRIP_PREFIX) && !key.startsWith('detours-notifications-v1:') && key !== WORLD_KEY && key !== MONEY_PREFERENCES_KEY && !rawKey(key)) continue;
     let raw: string | null;
     try { raw = storage.getItem(key); } catch { raw = unreadable(key); if (raw === null) throw new Error('backup-unreadable-cache'); }
     if (raw === null) continue;
@@ -78,6 +84,7 @@ export async function exportBackup(storage: Storage, preferences: Storage, unrea
         raw = JSON.stringify(archive(contentState(trip.state))); kind = 'trip';
       } else if (key === WORLD_KEY) { if (!validWorld(parsed(raw))) throw new Error('backup-invalid'); kind = 'world'; }
       else if (key === MONEY_PREFERENCES_KEY) { validPreference(raw, true); kind = 'money'; }
+      else if (key.startsWith('detours-notifications-v1:')) { raw = safeNotificationBackup(raw); kind = 'notifications'; }
     } catch { kind = 'source'; }
     if (kind === 'trip' && ++trips > 100 || kind === 'source' && ++sources > 1000) throw new Error('backup-size');
     await add(kind, key, raw);
@@ -123,7 +130,8 @@ export async function parseFullBackup(raw: string): Promise<Contents> {
     else if (row.kind === 'world') { const world = parsed(content); if (row.key !== WORLD_KEY || !validWorld(world) || result.world) throw new Error('backup-invalid'); result.world = world; }
     else if (row.kind === 'preferences') { if (row.key !== PREFERENCES_KEY || result.preferences) throw new Error('backup-invalid'); validPreference(content); result.preferences = content; }
     else if (row.kind === 'money') { if (row.key !== MONEY_PREFERENCES_KEY || result.money) throw new Error('backup-invalid'); validPreference(content, true); result.money = content; }
-    else { if (!rawKey(row.key) && row.key !== WORLD_KEY && row.key !== MONEY_PREFERENCES_KEY && row.key !== PREFERENCES_KEY && !row.key.startsWith(TRIP_PREFIX) || result.sources.length >= 1000) throw new Error('backup-invalid'); result.sources.push({ key: row.key, raw: content }); }
+    else if (row.kind === 'notifications') { if (!row.key.startsWith('detours-notifications-v1:') || !row.key.slice('detours-notifications-v1:'.length)) throw new Error('backup-invalid'); (result.notifications ??= []).push({ tripId: row.key.slice('detours-notifications-v1:'.length), raw: safeNotificationBackup(content) }); }
+    else { if (!rawKey(row.key) && row.key !== WORLD_KEY && row.key !== MONEY_PREFERENCES_KEY && row.key !== PREFERENCES_KEY && !row.key.startsWith(TRIP_PREFIX) && !row.key.startsWith('detours-notifications-v1:') || result.sources.length >= 1000) throw new Error('backup-invalid'); result.sources.push({ key: row.key, raw: content }); }
   }
   result.exclusions = value.exclusions as string[];
   return result;
@@ -131,7 +139,7 @@ export async function parseFullBackup(raw: string): Promise<Contents> {
 function validSummary(value: unknown): value is PendingRestore {
   if (!isObj(value) || typeof value.id !== 'string' || !/^[a-f0-9]{64}$/.test(value.id) || !Array.isArray(value.writes) || value.writes.length > MAX_ENTRIES || ![value.trips,value.visits,value.sources,value.collisions,value.keptPreferences,value.bytes].every(x => typeof x === 'number' && Number.isInteger(x) && x >= 0) || !Array.isArray(value.exclusions) || !value.exclusions.every(x => typeof x === 'string')) return false;
   if (new Set(value.writes.map(w => isObj(w) ? w.key : null)).size !== value.writes.length) return false;
-  return value.writes.every(w => isObj(w) && typeof w.key === 'string' && (w.before === null || typeof w.before === 'string') && typeof w.sha256 === 'string' && /^[a-f0-9]{64}$/.test(w.sha256) && (w.key.startsWith(`${TRIP_PREFIX}restored-${value.id}-`) || w.key.startsWith(`${SOURCE_PREFIX}${value.id}:`) || w.key === WORLD_KEY || w.key === PREFERENCES_KEY || w.key === MONEY_PREFERENCES_KEY));
+  return value.writes.every(w => isObj(w) && typeof w.key === 'string' && (w.before === null || typeof w.before === 'string') && typeof w.sha256 === 'string' && /^[a-f0-9]{64}$/.test(w.sha256) && (w.key.startsWith(`${TRIP_PREFIX}restored-${value.id}-`) || w.key.startsWith(`detours-notifications-v1:restored-${value.id}-`) || w.key.startsWith(`${SOURCE_PREFIX}${value.id}:`) || w.key === WORLD_KEY || w.key === PREFERENCES_KEY || w.key === MONEY_PREFERENCES_KEY));
 }
 function validPlan(value: unknown): value is RestorePlan {
   if (!validSummary(value)) return false;
@@ -141,6 +149,7 @@ function validPlan(value: unknown): value is RestorePlan {
       if (w.key.startsWith(`${TRIP_PREFIX}restored-${value.id}-`)) return w.before === null && parseTrip(w.after).id === w.key.slice(TRIP_PREFIX.length);
       if (w.key.startsWith(`${SOURCE_PREFIX}${value.id}:`)) { const source = parsed(w.after); return w.before === null && isObj(source) && typeof source.key === 'string' && typeof source.raw === 'string'; }
       if (w.key === WORLD_KEY) return validWorld(parsed(w.after));
+      if (w.key.startsWith(`detours-notifications-v1:restored-${value.id}-`)) return w.before === null && safeNotificationBackup(w.after) === w.after;
       if (w.key === PREFERENCES_KEY || w.key === MONEY_PREFERENCES_KEY) { validPreference(w.after, w.key === MONEY_PREFERENCES_KEY); return w.before === null; }
     } catch { return false; }
     return false;
@@ -198,6 +207,13 @@ export async function prepareRestore(raw: string, storage: ReadStorage): Promise
     const merged = { ...imported, ...(before !== null ? { palette: current.palette } : {}), visits, wishes: [...new Set([...current.wishes, ...imported.wishes])], participation: [...new Set([...(current.participation || []), ...(imported.participation || []).map(key => mapping.get(key) || key)])] };
     if (!validWorld(merged)) throw new Error('backup-invalid');
     writes.push({ key: WORLD_KEY, before, after: JSON.stringify(merged) });
+  }
+  for (const preference of content.notifications || []) {
+    const tripId = mapping.get(preference.tripId);
+    if (!tripId) continue; // Never attach an orphan setting to an unrelated trip.
+    const key = notificationKey(tripId);
+    if (storage.getItem(key) !== null) throw new Error('backup-conflict');
+    writes.push({ key, before: null, after: safeNotificationBackup(preference.raw) });
   }
   const preferences: [string, string | undefined][] = [[PREFERENCES_KEY, content.preferences], [MONEY_PREFERENCES_KEY, content.money]];
   for (const [key, rawPreference] of preferences) {

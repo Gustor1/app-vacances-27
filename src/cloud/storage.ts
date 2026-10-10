@@ -7,7 +7,7 @@ export type Role = 'owner' | 'editor' | 'reader';
 export type SyncRecord = { version: 1; raw: string; base: unknown; revision: number; privateRevision: number; pending: boolean; operation: string; role: Role; fullSharing?: boolean; accessChanged?: boolean; allowedFields?: string[]; action?: 'restore'; deleted?: boolean; revoked?: boolean; lastSynced?: string; conflict?: { remote: unknown; revision: number; privateRevision: number; fields: FieldConflict[]; remoteDeleted?: boolean } };
 export type TripStorage = Storage & { removeItem: (key: string) => void; physicalKey: (key: string) => string; accountId: string | null };
 export function localTripStorage(storage: globalThis.Storage): TripStorage {
-  return { accountId: null, physicalKey: key => key, get length() { return storage.length; }, key: i => storage.key(i), getItem: key => storage.getItem(key), setItem: (key, raw) => storage.setItem(key, raw), removeItem: key => storage.removeItem(key) };
+  return { accountId: null, physicalKey: key => key, get length() { return storage.length; }, key: i => storage.key(i), getItem: key => storage.getItem(key), setItem: (key, raw) => storage.setItem(key, raw), removeItem: key => { storage.removeItem(key); if(key.startsWith(TRIP_PREFIX)) for(const prefix of ['detours-notification-form-v1:','detours-notifications-v1:','detours-recaps-v1:','detours-weather-v1:'])storage.removeItem(prefix+key.slice(TRIP_PREFIX.length)); } };
 }
 /** A single localStorage write commits both the state and its pending operation.
  * There is no second queue to drift from the content. Legacy local keys stay intact.
@@ -35,7 +35,15 @@ export class AccountStorage implements TripStorage {
   getItem(key: string) { return this.isRecord(key) ? (() => { const r = this.record(key); return r?.deleted || r?.revoked ? null : r?.raw ?? null; })() : this.backing.getItem(this.physicalKey(key)); }
   put(key: string, record: SyncRecord) {
     const raw = JSON.stringify(record);
-    if (this.backing.getItem(this.physicalKey(key)) === raw) return;
+    const previousRaw = this.backing.getItem(this.physicalKey(key));
+    const previous = previousRaw ? JSON.parse(previousRaw) as SyncRecord : null;
+    const accessChanged = previous && (previous.fullSharing !== record.fullSharing || JSON.stringify([...(previous.allowedFields || [])].sort()) !== JSON.stringify([...(record.allowedFields || [])].sort()));
+    if(key.startsWith(TRIP_PREFIX) && (record.revoked || record.deleted || accessChanged)) {
+      // Only derived personal data is purged; original carnet/recovery copies stay intact.
+      const id=key.slice(TRIP_PREFIX.length);
+      for(const prefix of ['detours-recaps-v1:','detours-weather-v1:',...((record.revoked || record.deleted)?['detours-notification-form-v1:','detours-notifications-v1:']:[])])this.backing.removeItem(this.physicalKey(prefix+id));
+    }
+    if (previousRaw === raw) return;
     this.backing.setItem(this.physicalKey(key), raw);
     if (this.backing.getItem(this.physicalKey(key)) !== raw) throw new Error('Sauvegarde du compte impossible.');
     this.changed();

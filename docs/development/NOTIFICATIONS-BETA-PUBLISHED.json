@@ -1,0 +1,24 @@
+{
+  "deployment": "dpl_2MxhqUoFup48esi4RvKosdVWL5fC",
+  "commit": "1a696c85719648ebbc7e47b58109c5ce8400f69e",
+  "buildId": "0ce7a6eb96ca7f814e131bba9463a4018c2438ae704cafc937f097ced6e86438",
+  "verifiedAssets": 23,
+  "candidateAssetDifferences": [],
+  "lineEndingDifferences": [
+    "/china-landscape.svg",
+    "/documents/bonus-original.md",
+    "/documents/planning-original.md",
+    "/index.html"
+  ],
+  "runtimeErrors": [],
+  "mobileWidths": [
+    320,
+    390,
+    1440
+  ],
+  "settingsVisible": true,
+  "offlineRecap": true,
+  "shareExpires": "2026-10-18",
+  "remoteNotificationsEnabled": true,
+  "emailEnabled": false
+}

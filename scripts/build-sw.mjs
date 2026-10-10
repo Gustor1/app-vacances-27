@@ -28,5 +28,22 @@ self.addEventListener('fetch', event => {
     return;
   }
   event.respondWith(caches.match(event.request, { ignoreVary: true }).then(cached => cached || fetch(event.request)));
+});
+self.addEventListener('push', event => {
+  let payload; try { payload = event.data.json(); } catch { return; }
+  if (!payload || typeof payload.tag !== 'string' || typeof payload.url !== 'string') return;
+  let url; try { url = new URL(payload.url, self.location.origin); } catch { return; }
+  if (url.origin !== self.location.origin) return;
+  event.waitUntil(self.registration.showNotification('Détours', { body: typeof payload.body === 'string' ? payload.body.slice(0, 150) : 'Détours', tag: payload.tag.slice(0, 200), renotify: false, data: { url: url.href }, icon: '/icon.svg' }));
+});
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  let url; try { url = new URL(event.notification.data.url, self.location.origin); } catch { return; }
+  if (url.origin !== self.location.origin) return;
+  event.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(async clients => {
+    const client = clients.find(c => new URL(c.url).origin === self.location.origin);
+    if (client) { await client.navigate(url.href); return client.focus(); }
+    return self.clients.openWindow(url.href);
+  }));
 });\n`);
 console.log(`Offline cache prepared: ${files.length} files (${cacheName}).`);
