@@ -4,6 +4,7 @@ import type { FeatureCollection, Feature } from 'geojson';
 import { Download, Globe2, Plus, Star, Trash2, Pencil } from 'lucide-react';
 import { countries, countryName, geographyCountry, statuses } from '../countries';
 import { countrySummary, validWorld } from '../world';
+import { countryMarkerPosition } from '../world-marker';
 import { downloadText, normalizeSearch, uid } from '../lib';
 import type { PersonalVisit, PersonalWorld, StoredState } from '../types';
 import { Modal } from '../App';
@@ -45,7 +46,8 @@ function WorldMap({ world, trips, onSelect }: { world: PersonalWorld; trips: Sto
           label.textContent = `${countryName(code, language)} · ${t('{count} visites', { count: info.count })}${info.upcoming.length ? ' · ' + t('Voyage prévu') : ''}${info.wished ? ' ★' : ''}`;
           layer.bindTooltip(label, { sticky: true });
           layer.on('click', () => select.current(code));
-          if (info.wished && 'getBounds' in layer) L.marker((layer as L.Polygon).getBounds().getCenter(), { interactive: false, icon: L.divIcon({ className: 'world-wish-marker', html: '<span>★</span>', iconSize: [20, 20], iconAnchor: [10, 10] }) }).addTo(map);
+          const markerPosition = info.wished ? countryMarkerPosition(f.geometry) : null;
+          if (markerPosition) L.marker(markerPosition, { interactive: false, icon: L.divIcon({ className: 'world-wish-marker', html: '<span>★</span>', iconSize: [20, 20], iconAnchor: [10, 10] }) }).addTo(map);
         },
       }).addTo(map);
     }).catch(() => { if (!controller.signal.aborted) setError(true); });
