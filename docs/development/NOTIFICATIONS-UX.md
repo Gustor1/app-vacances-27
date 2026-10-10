@@ -52,3 +52,12 @@ Controle supplementaire execute hors gate : isolation du cache de formulaire ent
 
 Le gate final HgZ9y6 a termine avec succes : 22 etapes, 140 tests unitaires, 4 tests Deno, 88 tests navigateur et 9 controles du build compile. Rapport : NOTIFICATIONS-UX-LOCAL-VALIDATION.json. Aucun controle du gate omis ; sources inchangees durant la validation. Rendu controle a 320, 390 et 1440 px, en clair et sombre. La nouvelle interface n'a pas ete testee sur un iPhone physique. Aucun deploiement ni changement de l'adresse beta n'a ete effectue pour cette refonte.
 
+
+## Publication beta autorisee le 11 octobre 2026
+
+Alias https://app-vacances-27-beta-eliottle.vercel.app/ reassigne a dpl_BfYGXC2w46N7gHo25tDT6Xhkqq4k, revision 48eaf037a245b68680040367d30fc82ff5d238f6, build servi 4502df0b4611f3b20648e7f318a9542c1cb6091c08ed272e6828ae2d423ced27. Retour arriere : reassigne cet alias a dpl_2MxhqUoFup48esi4RvKosdVWL5fC. Les deux deploiements sont conserves.
+
+Verification publique sans lien de contournement : 23 fichiers verifies par SHA-256, aucune difference de contenu avec le candidat (seules quatre normalisations CRLF/LF de fichiers statiques), reglages visibles, absence de debordement a 320/390/1440 px et reprise hors ligne reussie, aucune erreur JavaScript. Rapport externe : C:/Users/eliot/Documents/detours-release-20261011-notifications-ux/public-verification.json. Ces controles utilisent un carnet fictif local ; ils ne valident ni une nouvelle connexion Google ni le rendu physique iPhone. Aucun changement du backend, des cles push ou des e-mails effectue.
+
+AGENTS.md consigne l'autorisation permanente de publication beta donnee explicitement par l'utilisateur ; production, fusion main et modifications de la base distante demandent toujours leur autorisation specifique.
+
