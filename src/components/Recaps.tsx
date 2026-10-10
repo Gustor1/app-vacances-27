@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Bell, X } from 'lucide-react';
 import { useCloud } from '../cloud/CloudProvider';
+import { AccountStorage } from '../cloud/storage';
+import { tripKey } from '../journeys';
 import { useLocale } from '../i18n';
 import { buildRecap, checklistFor, defaultNotificationPreferences, normalizeOffsets, notificationKey, parseNotificationPreferences, projectProgram, recapDates, reminderItem } from '../notifications';
 import type { NotificationPreferences, ProgramItem, ReminderOverride, Weather } from '../notifications';
@@ -9,15 +11,17 @@ import type { RecapRecord } from '../notification-storage';
 import { cachedWeather, loadRecapWeather, WEATHER_TTL } from '../notification-weather';
 import { checklistCopy, notificationCopy } from '../notification-copy';
 import { validTimezone } from '../time';
-import { categoryLabels } from '../lib';
-import type { Category, StoredState } from '../types';
+import type { StoredState } from '../types';
 import { pushSupport, registerPush, disablePush } from '../notification-push';
+import { deliveryPreferences, notificationIntent, writeNotificationIntent } from '../notification-form';
+import type { NotificationIntent } from '../notification-form';
+import NotificationPreferencesForm from './NotificationPreferencesForm';
 import './Recaps.css';
 
 type Props = { state: StoredState; onDay: (item: ProgramItem) => void; requestedDate?: string; requestedObject?: {kind:ProgramItem['kind'];id:string} };
 type Capabilities = { enabled: boolean; push: boolean; email: boolean; vapidPublicKey: string | null };
 const noCapabilities: Capabilities = { enabled: false, push: false, email: false, vapidPublicKey: null };
-const categories: Category[] = ['visit', 'transport', 'food', 'hotel', 'walk', 'shopping'];
+const permissionState = () => pushSupport() ? Notification.permission : 'unsupported' as const;
 
 export default function RecapsButton(props: Props) {
   const { scope, storage } = useCloud(), { language } = useLocale();
@@ -43,17 +47,23 @@ export default function RecapsButton(props: Props) {
 
 export function ReminderDialog(props: Props & { onClose: () => void }) { return <RecapsPanel {...props}/>; }
 function RecapsPanel({ state, onDay, requestedDate, requestedObject, onClose }: Props & { onClose: () => void }) {
-  const cloud = useCloud(), { language, dateLocale, t } = useLocale();
+  const cloud = useCloud(), { language, dateLocale } = useLocale();
   const c = (key: Parameters<typeof notificationCopy>[1]) => notificationCopy(language, key);
   const tripId = state.journey!.id;
+  const serverTrip = !!cloud.session && (cloud.summaries.some(summary => summary.id === tripId && !summary.deleted) || (cloud.storage instanceof AccountStorage && (cloud.storage.record(tripKey(tripId))?.revision || 0) > 0));
   const dialog = useRef<HTMLDialogElement>(null), alive = useRef(true), weatherAbort = useRef<AbortController | null>(null);
   const [initial] = useState(() => {
-    try { return { preferences: parseNotificationPreferences(cloud.storage.getItem(notificationKey(tripId)), state.journey?.timezone), records: readRecapCache(cloud.storage, tripId), error: false }; }
-    catch { return { preferences: defaultNotificationPreferences(state.journey?.timezone), records: [] as RecapRecord[], error: true }; }
+    try { const raw = cloud.storage.getItem(notificationKey(tripId)); return { preferences: parseNotificationPreferences(raw, state.journey?.timezone || state.cities.find(city => validTimezone(city.timezone || ''))?.timezone), records: readRecapCache(cloud.storage, tripId), error: false, fresh: !raw }; }
+    catch { return { preferences: defaultNotificationPreferences(state.journey?.timezone), records: [] as RecapRecord[], error: true, fresh: false }; }
   });
   const [preferences, setPreferences] = useState(initial.preferences);
   const [offsetText, setOffsetText] = useState(initial.preferences.offsets.join(', '));
-  const [customAmount,setCustomAmount]=useState('30'),[customUnit,setCustomUnit]=useState(1);
+  const [intent, setIntent] = useState(() => notificationIntent(cloud.storage, tripId, initial.preferences));
+  const savedIntent = useRef(intent);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [permission, setPermission] = useState(permissionState);
+  const [loadAttempt, setLoadAttempt] = useState(0), [preferencesLoadError, setPreferencesLoadError] = useState(false);
+  const [preferencesLoading, setPreferencesLoading] = useState(!!cloud.session);
   const [records, setRecords] = useState(initial.records);
   const [message, setMessage] = useState(initial.error ? 'storageError' as const : '' as '' | 'storageError' | 'saved' | 'error');
   const [capabilities, setCapabilities] = useState(noCapabilities), [busy, setBusy] = useState(false);
@@ -81,23 +91,30 @@ function RecapsPanel({ state, onDay, requestedDate, requestedObject, onClose }: 
   }, []);
   useEffect(() => {
     let active = true;
-    if (cloud.session) {
-      void cloud.rpc<Capabilities>('detours_notification_capabilities').then(value => { if (active) setCapabilities(value); }).catch(() => {});
+    if (serverTrip) {
+      setPreferencesLoading(true); setPreferencesLoadError(false);
+      const capabilitiesRequest = cloud.rpc<Capabilities>('detours_notification_capabilities').then(value => { if (active) setCapabilities(value); return value; }).catch(() => noCapabilities);
       void cloud.rpc<RecapRecord[]>('detours_notification_recap_snapshots', { p_trip: tripId }).then(snapshots => {
         const validated=mergeRemoteRecaps([],snapshots,tripId);
         if (active) setRecords(previous => mergeRemoteRecaps(previous, validated, tripId));
       }).catch(() => {});
-      void cloud.rpc<NotificationPreferences | null>('detours_notification_preferences', { p_trip: tripId }).then(value => {
-        if (active && value && !edited.current) {
+      void Promise.all([cloud.rpc<NotificationPreferences | null>('detours_notification_preferences', { p_trip: tripId }), capabilitiesRequest]).then(([value, caps]) => {
+        if (!active || edited.current) return;
+        if (value) {
           remotePreferences.current = true;
           const parsed = parseNotificationPreferences(JSON.stringify(value));
           writeNotificationPreferences(cloud.storage, tripId, parsed);
           setPreferences(parsed); setOffsetText(parsed.offsets.join(', '));
+          const incomingIntent = notificationIntent(cloud.storage, tripId, parsed);
+          savedIntent.current = incomingIntent; setIntent(incomingIntent);
+        } else if (initial.fresh && caps.enabled && caps.push && permissionState() === 'granted') {
+          setIntent(previous => ({ ...previous, phone: true }));
         }
-      }).catch(() => {});
+      }).catch(() => { if (active) setPreferencesLoadError(true); }).finally(() => { if (active) setPreferencesLoading(false); });
     }
+    else { setPreferencesLoading(false); setPreferencesLoadError(false); setCapabilities(noCapabilities); }
     return () => { active = false; };
-  }, [cloud.rpc, cloud.storage, cloud.session, tripId]);
+  }, [cloud.rpc, cloud.storage, cloud.session, tripId, serverTrip, loadAttempt]);
   // Persist snapshots only while this personal panel is open. No network or shared journal mutation.
   const serialized = JSON.stringify(displayed);
   useEffect(() => {
@@ -112,7 +129,15 @@ function RecapsPanel({ state, onDay, requestedDate, requestedObject, onClose }: 
     try { writeRecapCache(cloud.storage, tripId, next); } catch { setMessage('storageError'); }
   }, [requestedDate,serialized]);
 
-  function edit(value: Partial<NotificationPreferences>) { edited.current = true; setPreferences(p => ({ ...p, ...value })); }
+  useEffect(() => {
+    const refreshPermission = () => setPermission(permissionState());
+    window.addEventListener('focus', refreshPermission);
+    document.addEventListener('visibilitychange', refreshPermission);
+    return () => { window.removeEventListener('focus', refreshPermission); document.removeEventListener('visibilitychange', refreshPermission); };
+  }, []);
+  function editIntent(value: NotificationIntent) { edited.current = true; setMessage(''); setIntent(value); }
+  function editOffsets(value: string) { edited.current = true; setMessage(''); setOffsetText(value); }
+  function edit(value: Partial<NotificationPreferences>) { edited.current = true; setMessage(''); setPreferences(p => ({ ...p, ...value })); }
   function openRecap(date: string) {
     const next = markRecapRead(displayed, date);
     setSelected(date); setRecords(next);
@@ -126,9 +151,9 @@ function RecapsPanel({ state, onDay, requestedDate, requestedObject, onClose }: 
     setBusy(true); setMessage('');
     try {
       if (initial.error) throw new Error('Preserve unreadable source');
-      const parsed = parseNotificationPreferences(JSON.stringify({ ...preferences, offsets: normalizeOffsets(offsetText.split(',').map(v => Number(v.trim()))) }));
-      const wantsPush = parsed.activityPush || parsed.recapPush;
-      if ((wantsPush && !(capabilities.enabled && capabilities.push && capabilities.vapidPublicKey && pushSupport())) || (parsed.email && !(capabilities.enabled && capabilities.email && cloud.session?.user.email_confirmed_at))) throw new Error('Remote channels unavailable');
+      const parsed = parseNotificationPreferences(JSON.stringify(deliveryPreferences({ ...preferences, offsets: normalizeOffsets(offsetText.split(',').map(v => Number(v.trim()))) }, intent, savedIntent.current)));
+      const wantsPush = parsed.followed && intent.phone && (parsed.activityPush || parsed.recapPush);
+      if ((wantsPush && !(capabilities.enabled && capabilities.push && capabilities.vapidPublicKey && pushSupport())) || (parsed.followed && parsed.email && !(capabilities.enabled && capabilities.email && cloud.session?.user.email_confirmed_at))) throw new Error('Remote channels unavailable');
       if (wantsPush) {
         let device = cloud.storage.getItem('detours-push-device-v1');
         if (!device) { device = crypto.randomUUID(); cloud.storage.setItem('detours-push-device-v1', device); }
@@ -139,18 +164,22 @@ function RecapsPanel({ state, onDay, requestedDate, requestedObject, onClose }: 
       }
       if (!alive.current) return;
       writeNotificationPreferences(cloud.storage, tripId, parsed);
+      writeNotificationIntent(cloud.storage, tripId, parsed, intent);
+      savedIntent.current = intent;
       setPreferences(parsed); setOffsetText(parsed.offsets.join(', ')); setMessage('saved');
     } catch { if (alive.current) setMessage('error'); }
-    finally { if (alive.current) setBusy(false); }
+    finally { if (alive.current) { setBusy(false); setPermission(permissionState()); } }
   }
   async function disableDevices(all: boolean) {
     setBusy(true);setMessage('');
     try {
       const device=cloud.storage.getItem('detours-push-device-v1');
-      if(!all && !device) { setMessage('saved');return; }
-      await disablePush({rpc:async(name,args)=>{try{await cloud.rpc(name,args);return {error:null};}catch(error){return {error};}}},all?undefined:device!,()=>alive.current);
+      if(all || device) await disablePush({rpc:async(name,args)=>{try{await cloud.rpc(name,args);return {error:null};}catch(error){return {error};}}},all?undefined:device!,()=>alive.current);
       if(!alive.current)return;
-      cloud.storage.removeItem('detours-push-device-v1');setMessage('saved');
+      cloud.storage.removeItem('detours-push-device-v1');
+      const nextIntent = {...intent,phone:false};
+      writeNotificationIntent(cloud.storage, tripId, preferences, nextIntent);
+      savedIntent.current=nextIntent;setIntent(nextIntent);edited.current=true;setMessage('saved');
     }catch{if(alive.current)setMessage('error');}
     finally{if(alive.current)setBusy(false);}
   }
@@ -185,28 +214,18 @@ function RecapsPanel({ state, onDay, requestedDate, requestedObject, onClose }: 
     </section>;
   }
   return <dialog ref={dialog} className="recaps-dialog" aria-labelledby="recaps-title" onCancel={event => { event.preventDefault(); onClose(); }}>
-    <header><div><h2 id="recaps-title">{c(requestedObject?'reminder':'title')}</h2><p>{state.journey!.title} · {preferences.timezone || '—'}</p></div><button type="button" className="icon-btn" aria-label={c('close')} onClick={onClose}><X size={20}/></button></header>
+    <header><div><h2 id="recaps-title">{c(settingsOpen ? 'notificationsTitle' : requestedObject ? 'reminder' : 'title')}</h2><p>{state.journey!.title}</p></div><button type="button" className="icon-btn" aria-label={c('close')} onClick={onClose}><X size={20}/></button></header>
+    <button type="button" className="notification-view-link" onClick={() => { setSettingsOpen(value => !value); dialog.current?.scrollTo({top:0}); }}>{c(settingsOpen ? 'backRecaps' : 'settings')}</button>
+    {!settingsOpen && <>
     {requestedObject && (requestedItem?<section className="recap-card"><h3>{requestedItem.title}</h3><p>{requestedItem.date || c('dateMissing')} · {requestedItem.time || '—'} · {requestedItem.timezone || '—'}</p>{requestedItem.instant===undefined && <p className="muted">{c('noTime')}</p>}<ReminderControl item={requestedItem} value={preferences.overrides[`${requestedItem.kind}:${requestedItem.id}`] || {mode:'default'}} onChange={value=>override(requestedItem,value)}/><button type="button" className="btn secondary" onClick={()=>{onDay(requestedItem);onClose();}}>{c('day')}</button></section>:<p role="status">{c('missingTarget')}</p>)}
     {!dates && <p role="status">{c('timezoneMissing')}</p>}
     {requestedDate && !displayed.some(r => r.recap.date === requestedDate) && <p role="status">{c('missingTarget')}</p>}
     {dates && <>{card(displayed.find(r => r.recap.date === dates.today), dates.today, c('today'))}{card(displayed.find(r => r.recap.date === dates.tomorrow), dates.tomorrow, c('tomorrow'))}<details><summary>{c('history')}</summary>{displayed.filter(r => r.recap.date < dates.today).map(record => card(record, record.recap.date, ''))}</details></>}
     <p className="muted">{c('weatherInfo')}</p><button type="button" className="btn secondary" disabled={weatherState.busy || !dates} onClick={() => { void weather(); }}>{weatherState.busy ? c('loading') : c('weatherLoad')}</button>
     {weatherState.unavailable && <p role="status">{c('weatherMissing')}</p>}{weatherState.stale && <p role="status">{c('stale')}</p>}
-    <details className="recap-preferences" open={!dates}><summary>{c('settings')}</summary><p className="muted">{c('local')}</p>
-      <label>{c('timezone')}<input value={preferences.timezone} placeholder="Asia/Shanghai" onChange={e => edit({ timezone: e.target.value })}/></label>
-      <label>{c('time')}<input type="time" value={preferences.recapTime} onChange={e => edit({ recapTime: e.target.value })}/></label>
-      <label>{c('offsets')}<input value={offsetText} onChange={e => { edited.current = true; setOffsetText(e.target.value); }} inputMode="numeric"/></label>
-      <div className="recap-delay-presets">{[1440,60,30,15].map(offset=><button type="button" key={offset} onClick={()=>{try{const current=normalizeOffsets(offsetText.split(',').map(Number));setOffsetText(normalizeOffsets([...current.filter(n=>n!==offset),offset]).join(', '));edited.current=true;}catch{setMessage('error');}}}>{offset===1440?'24 h':offset===60?'1 h':`${offset} min`}</button>)}</div>
-      <div className="recap-custom-delay"><label>{c('quantity')}<input type="number" min="1" max={Math.floor(10080/customUnit)} step="1" value={customAmount} onChange={e=>setCustomAmount(e.target.value)}/></label><label>{c('unit')}<select aria-label={c('unit')} value={customUnit} onChange={e=>setCustomUnit(Number(e.target.value))}>{([1,60,1440] as const).map((unit,index)=><option key={unit} value={unit}>{c((['minutes','hours','days'] as const)[index])}</option>)}</select></label><button type="button" disabled={!Number.isInteger(Number(customAmount)) || Number(customAmount)<1 || Number(customAmount)*customUnit>10080} onClick={()=>{try{setOffsetText(normalizeOffsets([...offsetText.split(',').map(Number),Number(customAmount)*customUnit]).join(', '));edited.current=true;}catch{setMessage('error');}}}>{c('addDelay')}</button></div>
-      <fieldset><legend>{c('categories')}</legend>{categories.map(category => <label key={category}><input type="checkbox" checked={preferences.categories.includes(category)} onChange={e => edit({ categories: e.target.checked ? [...preferences.categories, category] : preferences.categories.filter(v => v !== category) })}/>{t(categoryLabels[category])}</label>)}</fieldset>
-      <label><input type="checkbox" checked={preferences.followed} onChange={e => edit({ followed: e.target.checked })}/>{c('follow')}</label>
-      <label><input type="checkbox" disabled={!preferences.activityPush && !(capabilities.enabled && capabilities.push && pushSupport())} checked={preferences.activityPush} onChange={e => edit({ activityPush: e.target.checked })}/>{c('push')}</label>
-      <label><input type="checkbox" disabled={!preferences.recapPush && !(capabilities.enabled && capabilities.push && pushSupport())} checked={preferences.recapPush} onChange={e => edit({ recapPush: e.target.checked })}/>{c('recapPush')}</label>
-      <label><input type="checkbox" disabled={!preferences.email && !(capabilities.enabled && capabilities.email && cloud.session?.user.email_confirmed_at)} checked={preferences.email} onChange={e => edit({ email: e.target.checked })}/>{c('email')}</label>
-      {!capabilities.enabled && <p className="muted">{c('unavailable')}</p>}<p className="muted">{c('deferred')}</p>
-      {cloud.session && <div className="inline-actions"><button type="button" disabled={busy} onClick={()=>{void disableDevices(false);}}>{c('disableDevice')}</button><button type="button" disabled={busy} onClick={()=>{void disableDevices(true);}}>{c('disableAll')}</button></div>}
-    </details>
-    <footer><button type="button" className="btn primary" disabled={busy || initial.error} onClick={() => { void save(); }}>{busy ? c('loading') : c('save')}</button>{message && <p role="status">{c(message)}</p>}</footer>
+    </>}
+    {settingsOpen && <NotificationPreferencesForm preferences={preferences} intent={intent} offsets={offsetText} edit={edit} setIntent={editIntent} setOffsets={editOffsets} phoneAvailable={serverTrip && capabilities.enabled && capabilities.push && !!capabilities.vapidPublicKey && pushSupport()} emailAvailable={!!(serverTrip && capabilities.enabled && capabilities.email && cloud.session?.user.email_confirmed_at)} emailRequiresVerification={capabilities.email && !cloud.session?.user.email_confirmed_at} permission={permission} online={cloud.online} busy={busy} loading={preferencesLoading} readOnly={initial.error || preferencesLoadError} disableDevice={cloud.session ? all => { void disableDevices(all); } : undefined}/>}
+    <footer hidden={!settingsOpen && !requestedObject && !edited.current && !message}><button type="button" className="btn btn-primary" disabled={busy || preferencesLoading || preferencesLoadError || initial.error} onClick={() => { void save(); }}>{busy || preferencesLoading ? c('loading') : c('save')}</button>{message && <p role="status">{c(message)}</p>}{preferencesLoadError && <><p role="status">{c('loadError')}</p><button type="button" className="notification-view-link" onClick={() => setLoadAttempt(value => value + 1)}>{c('retry')}</button></>}</footer>
   </dialog>;
 }
 

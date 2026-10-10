@@ -24,3 +24,55 @@
 .recap-custom-delay input,.recap-custom-delay select { width:100%;min-width:0;color:inherit;background:var(--surface,#fff);border:1px solid var(--border,#999);padding:8px;border-radius:8px; }
 .recap-delay-presets button,.recap-custom-delay button { padding:8px;border:1px solid var(--border,#999);border-radius:8px;color:inherit;background:var(--surface,#fff); }
 @media (max-width: 390px) { .recaps-dialog { padding: 14px; } .recap-card { padding: 10px; } }
+
+/* Notification settings: independent screen within the existing personal sheet. */
+.notification-view-link { min-height:44px; padding:8px 0; border:0; background:transparent; color:var(--green-dark,var(--text)); font:inherit; font-weight:600; text-align:left; cursor:pointer; }
+.notification-preferences { padding-top:4px; }
+.notification-subtitle { margin:0 0 16px; color:var(--muted); font-size:14px; line-height:1.5; }
+.notification-switch-row { display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:48px; font-size:14px; line-height:1.5; }
+.notification-switch-row > span { flex:1; min-width:0; }
+.notification-switch { flex:0 0 52px; width:52px; min-height:44px; border:0; position:relative; background:transparent; cursor:pointer; padding:0; }
+.notification-switch::before { content:''; position:absolute; top:8px; left:0; width:52px; height:28px; border-radius:20px; background:var(--muted,#7c897f); opacity:.5; transition:background .15s; }
+.notification-switch > span { position:absolute; top:11px; left:3px; width:22px; height:22px; background:var(--surface); border-radius:50%; box-shadow:0 1px 4px #0003; transition:transform .15s; }
+.notification-switch[aria-checked=true]::before { background:var(--green-dark,#397454); opacity:1; }
+.notification-switch[aria-checked=true] > span { transform:translateX(24px); }
+.notification-switch:disabled { opacity:.4; cursor:default; }
+.notification-sections { border:0; padding:0; margin:8px 0 0; min-width:0; }
+.notification-sections:disabled .notification-section { opacity:.5; }
+.notification-section { padding:18px 0; border-bottom:1px solid var(--line,#d9e0d9); }
+.notification-section h3 { display:flex; align-items:center; gap:10px; margin:0 0 10px; font-size:16px; line-height:1.4; }
+.notification-section h3 svg { flex-shrink:0; color:var(--green-dark,var(--text)); }
+.notification-hint { color:var(--muted,#67776d); font-size:12px; line-height:1.6; margin:8px 0 0; }
+.notification-time { display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:13px; margin-top:10px; }
+.notification-time select { min-height:44px; max-width:50%; padding:8px 12px; border:0; border-radius:10px; background:var(--surface-alt); color:var(--text); font:inherit; }
+.notification-delay > p:first-child { font-size:13px; margin:10px 0 8px; }
+.notification-quick-delays { display:flex; gap:8px; }
+.notification-quick-delays button { flex:1; min-width:0; min-height:44px; padding:8px 4px; border:1px solid transparent; border-radius:12px; background:var(--surface-alt); color:var(--text); font:inherit; font-size:14px; cursor:pointer; }
+.notification-quick-delays button[aria-pressed=true] { border-color:var(--green-dark,#397454); background:var(--selected-surface); font-weight:650; }
+.notification-advanced { margin-top:8px; }
+.notification-advanced > summary { display:flex; align-items:center; justify-content:space-between; min-height:44px; font-size:14px; list-style:none; }
+.notification-advanced > summary::-webkit-details-marker { display:none; }
+.notification-advanced > summary svg { transition:transform .15s; }
+.notification-advanced[open] > summary svg { transform:rotate(180deg); }
+.notification-advanced-content { padding:8px 0; animation:notification-reveal .15s ease-out; }
+.notification-categories { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 12px; border:0; padding:4px 0 16px; margin:0; min-width:0; }
+.notification-categories legend,.notification-additional h4 { font-weight:600; font-size:14px; margin:0 0 8px; }
+.notification-categories label { display:flex; align-items:center; gap:8px; min-height:44px; font-size:14px; }
+.notification-categories input { width:18px; height:18px; accent-color:var(--green-dark,#397454); }
+.notification-delay-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.notification-delay-chips button { display:inline-flex; align-items:center; gap:6px; min-height:44px; padding:8px 10px; border:0; border-radius:12px; background:var(--surface-alt); color:var(--text); font:inherit; font-size:13px; }
+.notification-offset-input,.notification-zone,.notification-custom-time { display:grid; gap:8px; margin:16px 0; font-size:13px; }
+.notification-offset-input input,.notification-zone input,.notification-custom-time input { width:100%; max-width:100%; min-width:0; min-height:44px; padding:10px; border:1px solid var(--line,#d9e0d9); border-radius:10px; background:var(--surface-alt); color:var(--text); box-sizing:border-box; font:inherit; font-size:16px; }
+.notification-preferences .recap-custom-delay { align-items:end; }
+.notification-preferences .recap-custom-delay label { display:grid; gap:8px; font-size:13px; }
+.notification-preferences .recap-custom-delay input,.notification-preferences .recap-custom-delay select,.notification-preferences .recap-custom-delay button { min-height:44px; font-size:16px; }
+.notification-preferences .recap-custom-delay button { width:100%; cursor:pointer; }
+.notification-device-actions { display:grid; gap:8px; }
+.notification-device-actions button { min-height:44px; text-align:left; padding:8px 0; border:0; background:transparent; color:var(--text); font:inherit; }
+.recaps-dialog footer { position:sticky; bottom:-22px; padding:16px 0; background:var(--surface); border-top:1px solid var(--line,#d9e0d9); z-index:1; }
+.recaps-dialog footer button { min-height:44px; width:100%; border-radius:12px; }
+.recaps-dialog footer p { font-size:13px; line-height:1.5; }
+.recaps-dialog header > .icon-btn { min-height:44px; min-width:44px; }
+@keyframes notification-reveal { from { opacity:0; } to { opacity:1; } }
+@media(prefers-reduced-motion:reduce) { .notification-preferences * { animation:none; transition:none; } }
+@media(max-width:390px) { .recaps-dialog footer { bottom:-14px; } }

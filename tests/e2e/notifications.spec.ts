@@ -24,7 +24,7 @@ for (const language of ['fr','en','es','zh-CN'] as Language[]) test(`Récaps ${l
   const trigger=page.getByRole('button',{name:c('title'),exact:true});
   await expect(trigger).toBeVisible();await expect(trigger.locator('.recap-unread')).toBeVisible();
   await trigger.click();
-  const dialog=page.getByRole('dialog',{name:c('title'),exact:true});
+  const dialog=page.getByRole('dialog');
   await expect(dialog).toContainText('Carnet récaps');
   await dialog.getByRole('button',{name:new RegExp(c('today'))}).click();
   await expect(dialog).toContainText('Balade 中文');
@@ -32,15 +32,17 @@ for (const language of ['fr','en','es','zh-CN'] as Language[]) test(`Récaps ${l
   await dialog.getByRole('button',{name:new RegExp(c('tomorrow'))}).click();
   await expect(dialog).toContainText('10:00 Musée demain');
   await expect(dialog).toContainText('Asia/Shanghai');
-  await dialog.locator('.recap-preferences summary').click();
-  await expect(dialog.getByLabel(c('push'),{exact:true})).toBeDisabled();
-  await expect(dialog.getByLabel(c('email'),{exact:true})).toBeDisabled();
+  await dialog.getByRole('button',{name:c('settings'),exact:true}).click();
+  await dialog.getByText(c('advanced'),{exact:true}).click();
+  await expect(dialog.getByRole('switch',{name:c('phoneChannel'),exact:true})).toBeDisabled();
+  await expect(dialog.getByRole('switch',{name:c('emailChannel'),exact:true})).toBeDisabled();
   await dialog.getByLabel(c('offsets'),{exact:true}).fill('1440, 30, 15, 30');
   await dialog.getByLabel(c('quantity'),{exact:true}).fill('1');await dialog.getByLabel(c('unit'),{exact:true}).selectOption('60');await dialog.getByRole('button',{name:c('addDelay'),exact:true}).click();
   await dialog.getByRole('button',{name:c('save'),exact:true}).click();
   await expect(dialog.getByRole('status')).toContainText(c('saved'));
   const preference=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)!),notificationKey(state.journey!.id));
   expect(preference.offsets).toEqual([15,30,60,1440]);expect(preference.email).toBe(false);
+  await dialog.getByRole('button',{name:c('backRecaps'),exact:true}).click();
   await dialog.getByRole('button',{name:c('weatherLoad'),exact:true}).click();
   await expect(dialog).toContainText('18–25');expect(weatherCalls).toBe(2);
   for (const width of [320,390,1440]) {
