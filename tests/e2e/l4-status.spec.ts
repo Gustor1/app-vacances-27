@@ -19,8 +19,10 @@ test('compte sans session : file conservée, changement de compte isolé et éch
   await page.getByRole('button',{name:'Ouvrir Carnet privé A',exact:true}).click();
   await page.getByRole('button',{name:'Mon carnet pratique',exact:true}).click();
   await expect(page.getByRole('textbox',{name:'Notes personnelles',exact:true})).toHaveValue('Note privée A');
-  await expect(page.locator('.trip-sync-row [role=status]')).toHaveText(/En attente d’envoi/);
-  await expect(page.locator('.trip-sync-row [role=status]')).not.toHaveText(/cours/);
+  await page.locator('.trip-menu-actions').getByRole('button',{name:'Synchronisation',exact:true}).click();
+  await expect(page.locator('.trip-sync-panel .sync-state')).toHaveText(/En attente d’envoi/);
+  await expect(page.locator('.trip-sync-panel .sync-state')).not.toHaveText(/cours/);
+  await page.keyboard.press('Escape');
   await page.evaluate(({id,hintKey}) => {
     const raw=JSON.stringify({version:1,id,email:'b@example.invalid'});localStorage.setItem(hintKey,raw);
     window.dispatchEvent(new StorageEvent('storage',{key:hintKey,newValue:raw}));

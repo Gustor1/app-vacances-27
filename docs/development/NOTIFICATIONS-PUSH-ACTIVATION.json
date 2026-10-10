@@ -1,0 +1,49 @@
+{
+  "project": "ehvgecfakbxeatrcnfhm",
+  "projectName": "Detours-beta",
+  "timeZone": "Asia/Shanghai",
+  "activatedOn": "2026-10-11",
+  "edgeFunction": {
+    "name": "notifications",
+    "version": 3,
+    "bundleSha256": "f780aeb47469ab12a087064afded940dace65bb6e83cc87cf1d26c1ea1967384",
+    "authentication": "x-notification-secret; Vault; no browser access"
+  },
+  "database": {
+    "push": true,
+    "email": false,
+    "existingTripsPreserved": 5,
+    "existingAccountsPreserved": 2
+  },
+  "scheduler": {
+    "name": "detours-notifications-push",
+    "schedule": "every minute",
+    "status": "succeeded",
+    "skipsWithoutSubscribedDevices": true
+  },
+  "checks": {
+    "authenticatedWorker": {
+      "httpStatus": 200,
+      "planned": 0,
+      "claimed": 0,
+      "accepted": 0
+    },
+    "unauthorizedPost": 401,
+    "unsupportedGet": 405,
+    "publicCapabilities": {
+      "status": 200,
+      "push": true,
+      "email": false
+    },
+    "privateConfigurationAnonymous": 401,
+    "privateConfigurationUserGrant": false
+  },
+  "limits": [
+    "No physical iPhone/iPad reception verified",
+    "No subscriber registered yet",
+    "No actual email sent",
+    "OAuth on preview not tested"
+  ],
+  "preview": "https://app-vacances-27-955zz246i-eliottle.vercel.app",
+  "rollback": "Disable notification_config.enabled and push, then unschedule detours-notifications-push; retain schema and trips"
+}
