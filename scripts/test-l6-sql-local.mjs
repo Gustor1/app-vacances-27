@@ -8,7 +8,7 @@ if(!process.argv[2])throw Error('Supply the isolated PGlite/dist directory.');
 const base=resolve(process.argv[2]),{PGlite}=await import(pathToFileURL(resolve(base,'index.js'))),{pgcrypto}=await import(pathToFileURL(resolve(base,'contrib/pgcrypto.js')));
 const db=new PGlite({extensions:{pgcrypto}}),A='10000000-0000-4000-8000-000000000001',B='10000000-0000-4000-8000-000000000002';
 try {
-  await db.exec("create role anon;create role authenticated;create schema auth;create schema extensions;create table auth.users(id uuid primary key,email text,raw_user_meta_data jsonb not null default '{}');create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;grant usage on schema auth to anon,authenticated;");
+  await db.exec("create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create schema extensions;create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz,raw_user_meta_data jsonb not null default '{}');create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;grant usage on schema auth to anon,authenticated;");
   await db.query('insert into auth.users(id,email) values($1,$2),($3,$4)',[A,'a@example.invalid',B,'b@example.invalid']);
   for(const name of (await readdir('supabase/migrations')).filter(n=>n.endsWith('.sql')).sort())await db.exec(await readFile('supabase/migrations/'+name,'utf8'));
   await db.exec(await readFile('supabase/migrations/202610090001_day_preparation.sql','utf8'));

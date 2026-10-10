@@ -82,6 +82,8 @@ export default function JourneysApp() {
   const [deleting, setDeleting] = useState<StoredState | null>(null);
   const [sharing, setSharing] = useState<StoredState | null>(null);
   const [activeId, setActiveId] = useState(() => {
+    const linked = new URLSearchParams(location.search).get('trip');
+    if (linked) return collection.trips.some(trip => trip.journey?.id === linked) ? linked : null;
     try { return sessionStorage.getItem(openKey) ?? collection.migrated; } catch { return collection.migrated; }
   });
   const [chosenCurrency, setChosenCurrency] = useState('');
@@ -99,12 +101,28 @@ export default function JourneysApp() {
   function edit(value: StoredState | 'new', country?: string) { setChosenCurrency(value === 'new' ? suggestedCurrency(country ? [country] : []) || '' : value.journey!.currency); setCurrencyTouched(value !== 'new'); setSelectedCountries(value === 'new' ? country ? [country] : [] : value.journey!.countries || []); setEditor(value); setError(''); }
   async function changeWorld(next: PersonalWorld) { try { const commit = () => writeWorld(localStorage, mergeChanges(world, next, readWorld(localStorage))); if (navigator.locks) await navigator.locks.request(localStorage.physicalKey(WORLD_KEY), commit); else commit(); setWorld(readWorld(localStorage)); setWorldError(''); } catch { setWorldError(t('Sauvegarde des souvenirs impossible. La source est conservée.')); throw new Error('Save failed'); } }
   function open(id: string | null) {
+    if (!id) { const url = new URL(location.href); for (const key of ['trip','kind','object']) url.searchParams.delete(key); history.replaceState(null,'',url); }
     // Read storage now: a freshly created or accepted trip may not yet be in the rendered collection.
     if (id && !localStorage.getItem(tripKey(id))) { void cloud.download(id).then(() => { refresh(); setActiveId(id); setError(''); try { sessionStorage.setItem(openKey, id); } catch { /* A session hint failure must not discard the downloaded trip. */ } }).catch(() => setError(t('Carnet non téléchargé. Connecte-toi pour l’ouvrir sur cet appareil.'))); return; }
     setActiveId(id); setMessage('');
     try { sessionStorage.setItem(openKey, id || ''); } catch { /* Navigation remains usable. */ }
     window.scrollTo({ top: 0 });
   }
+  useEffect(() => {
+    const id = new URLSearchParams(location.search).get('trip');
+    if (!id || !cloud.ready) return;
+    let cancelled = false;
+    // Resolve exact identities only inside the active personal storage scope.
+    if (localStorage.getItem(tripKey(id))) { setActiveId(id); return; }
+    setActiveId(null);
+    if (!cloud.session) { setError(t('Carnet non téléchargé. Connecte-toi pour l’ouvrir sur cet appareil.')); return; }
+    void cloud.download(id).then(() => {
+      if (cancelled) return;
+      if (!localStorage.getItem(tripKey(id))) throw new Error('Unavailable');
+      refresh(); setActiveId(id); setError('');
+    }).catch(() => { if (!cancelled) setError(t('Carnet non téléchargé. Connecte-toi pour l’ouvrir sur cet appareil.')); });
+    return () => { cancelled = true; };
+  }, [cloud.ready, cloud.scope, cloud.session?.user.id, localStorage]);
   useEffect(()=>{
     if(!cloud.ready||!cloud.session||!(localStorage instanceof AccountStorage))return;
     const originalId=sessionStorage.getItem('detours-share-after-signin');
