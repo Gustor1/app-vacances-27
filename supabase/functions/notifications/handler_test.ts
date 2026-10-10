@@ -1,11 +1,32 @@
 import assert from 'node:assert/strict';
 import { notificationWorker } from './handler.ts';
+import { loadWorkerConfiguration } from './bootstrap.ts';
 import { defaultNotificationPreferences, planOccurrences, shiftDate } from '../../../src/notifications.ts';
 import { dateInTimezone } from '../../../src/time.ts';
 import { splitContent } from '../../../src/cloud/projection.ts';
 import type { StoredState } from '../../../src/types.ts';
 
 const environment={NOTIFICATION_WORKER_SECRET:'fixture-secret',NOTIFICATIONS_ENABLED:'true',SUPABASE_URL:'https://fixture.supabase.invalid',SUPABASE_SERVICE_ROLE_KEY:'fixture-server-key',RESEND_API_KEY:'fixture-email-key',NOTIFICATION_EMAIL_FROM:'Détours <fixture@example.invalid>',NOTIFICATION_APP_ORIGIN:'https://detours.example'};
+Deno.test('Vault loader uses privileged RPC and ignores unrelated environment keys',async()=>{
+  await withEnvironment(async()=>{
+    Deno.env.delete('NOTIFICATION_WORKER_SECRET');
+    const originalFetch=globalThis.fetch;
+    globalThis.fetch=async(input,init)=>{
+      assert.equal(String(input),'https://fixture.supabase.invalid/rest/v1/rpc/detours_notification_worker_configuration');
+      assert.equal(new Headers(init?.headers).get('apikey'),'fixture-server-key');
+      return Response.json({NOTIFICATION_WORKER_SECRET:'fixture-vault-secret',NOTIFICATIONS_ENABLED:'true',SUPABASE_SERVICE_ROLE_KEY:'must-not-replace',RESEND_API_KEY:'must-not-enable'});
+    };
+    try {
+      const loaded=await loadWorkerConfiguration();
+      assert.equal(loaded.NOTIFICATION_WORKER_SECRET,'fixture-vault-secret');
+      assert.equal(Deno.env.get('NOTIFICATION_WORKER_SECRET'),undefined);
+      assert.equal(loaded.SUPABASE_SERVICE_ROLE_KEY,undefined);
+      assert.equal(loaded.RESEND_API_KEY,undefined);
+      assert.equal(Deno.env.get('SUPABASE_SERVICE_ROLE_KEY'),'fixture-server-key');
+      assert.equal(Deno.env.get('RESEND_API_KEY'),'fixture-email-key');
+    }finally{globalThis.fetch=originalFetch;}
+  });
+});
 async function withEnvironment(work:()=>Promise<void>){
   const old=new Map(Object.keys(environment).map(key=>[key,Deno.env.get(key)]));
   for(const [key,value] of Object.entries(environment))Deno.env.set(key,value);
@@ -17,6 +38,9 @@ Deno.test('worker refuses unauthorized requests and stays inert with switch off'
     Deno.env.set('NOTIFICATIONS_ENABLED','false');
     const response=await notificationWorker(new Request('https://detours.example',{method:'POST',headers:{'x-notification-secret':'fixture-secret'}}));
     assert.deepEqual(await response.json(),{enabled:false});
+    Deno.env.set('NOTIFICATIONS_ENABLED','true');
+    const configured=await notificationWorker(new Request('https://detours.example',{method:'POST',headers:{'x-notification-secret':'vault-secret'}}),{NOTIFICATION_WORKER_SECRET:'vault-secret',NOTIFICATIONS_ENABLED:'false'});
+    assert.deepEqual(await configured.json(),{enabled:false});
   });
 });
 

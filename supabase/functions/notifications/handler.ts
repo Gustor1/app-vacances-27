@@ -11,9 +11,11 @@ const weatherMemory=new Map<string,string>();
 const weatherStorage={get length(){return weatherMemory.size;},key:(index:number)=>[...weatherMemory.keys()][index]||null,getItem:(key:string)=>weatherMemory.get(key)||null,setItem:(key:string,value:string)=>{weatherMemory.delete(key);weatherMemory.set(key,value);while(weatherMemory.size>64)weatherMemory.delete(weatherMemory.keys().next().value!);},removeItem:(key:string)=>{weatherMemory.delete(key);}};
 
 type Source={record:{content:TripContent};preferences:unknown;language:NotificationLanguage;email:string|null;activatedAt:string;sourceRevision:string;devices:{deviceId:string;endpoint:string;p256dh:string;auth:string}[]};
-const env=(name:string)=>Deno.env.get(name)||'';
+export async function notificationWorker(request: Request, configuration: Record<string,string> = {}): Promise<Response> {
+const env=(name:string)=>configuration[name] ?? Deno.env.get(name) ?? '';
 async function rpc<T>(name:string,args:Record<string,unknown>={}):Promise<T>{
- const response=await fetch(`${env('SUPABASE_URL')}/rest/v1/rpc/${name}`,{method:'POST',headers:{apikey:env('SUPABASE_SERVICE_ROLE_KEY'),Authorization:`Bearer ${env('SUPABASE_SERVICE_ROLE_KEY')}`,'Content-Type':'application/json'},body:JSON.stringify(args),signal:AbortSignal.timeout(10000),redirect:'error'});
+ const key=env('SUPABASE_SERVICE_ROLE_KEY') || JSON.parse(env('SUPABASE_SECRET_KEYS')||'{}').default || '';
+ const response=await fetch(`${env('SUPABASE_URL')}/rest/v1/rpc/${name}`,{method:'POST',headers:{apikey:key,...(key.startsWith('sb_secret_')?{}:{Authorization:`Bearer ${key}`}), 'Content-Type':'application/json'},body:JSON.stringify(args),signal:AbortSignal.timeout(10000),redirect:'error'});
  if(!response.ok)throw Error(`RPC ${name}: ${response.status}`);const body=await response.text();return (body?JSON.parse(body):null) as T;
 }
 function planned(source:Source,user:string){const p=parseNotificationPreferences(JSON.stringify(source.preferences));return planOccurrences(joinContent(source.record.content),p,user,source.devices.map(d=>d.deviceId),Date.parse(source.activatedAt));}
@@ -45,7 +47,6 @@ async function provider(row:DeliveryRow,weatherFetcher:typeof fetch,snapshots:Ma
  try{await webpush.sendNotification({endpoint:device.endpoint,keys:{p256dh:device.p256dh,auth:device.auth}},JSON.stringify({tag:await occurrenceTag(row.key),body,url}),{vapidDetails:{subject:env('VAPID_SUBJECT'),publicKey:env('VAPID_PUBLIC_KEY'),privateKey:env('VAPID_PRIVATE_KEY')},TTL:Math.max(0,Math.floor((row.expires-Date.now())/1000)),timeout:10000});return 'accepted';}
  catch(error){const status=(error as {statusCode?:number}).statusCode;if(status===404 || status===410){await rpc('detours_notification_expire_device',{p_user:row.recipient,p_device:row.deviceId});return 'expired';}return status===429?'retry':status && status<500?'failed':'uncertain';}
 }
-export async function notificationWorker(request: Request): Promise<Response> {
  if(request.method!=='POST')return new Response('Method not allowed',{status:405});
  const secret=env('NOTIFICATION_WORKER_SECRET');
  if(!secret || request.headers.get('x-notification-secret')!==secret)return new Response('Unauthorized',{status:401});

@@ -1,2 +1,2 @@
-import { notificationWorker } from './handler.ts';
-Deno.serve(notificationWorker);
+import { configuredNotificationWorker } from './bootstrap.ts';
+Deno.serve(configuredNotificationWorker);

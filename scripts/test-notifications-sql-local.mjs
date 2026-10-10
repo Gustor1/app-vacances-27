@@ -11,6 +11,12 @@ try{
  await db.exec("create role anon;create role authenticated;create role service_role bypassrls;create schema auth;create schema extensions;create table auth.users(id uuid primary key,email text,email_confirmed_at timestamptz,raw_user_meta_data jsonb not null default '{}');create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema auth to anon,authenticated;");
  await db.query('insert into auth.users(id,email,email_confirmed_at) values($1,$2,now()),($3,$4,null),($5,$6,now())',[A,'a@example.invalid',B,'b@example.invalid',C,'c@example.invalid']);
  for(const file of (await readdir('supabase/migrations')).filter(n=>n.endsWith('.sql')).sort())await db.exec(await readFile('supabase/migrations/'+file,'utf8'));
+ assert.equal((await db.query("select has_function_privilege('anon','public.detours_notification_worker_configuration()','execute') allowed")).rows[0].allowed,false);
+ assert.equal((await db.query("select has_function_privilege('authenticated','public.detours_notification_worker_configuration()','execute') allowed")).rows[0].allowed,false);
+ await db.exec("create schema vault;create table vault.decrypted_secrets(name text,decrypted_secret text);insert into vault.decrypted_secrets values('detours_notification_worker','{\"NOTIFICATION_WORKER_SECRET\":\"fixture-private\"}'),('unrelated-secret','{\"secret\":\"unrelated\"}')");
+ await db.exec('set role service_role');
+ assert.deepEqual((await db.query('select public.detours_notification_worker_configuration() configuration')).rows[0].configuration,{NOTIFICATION_WORKER_SECRET:'fixture-private'});
+ await db.exec('reset role');
  await db.exec('set role authenticated');await db.query("select set_config('request.jwt.claim.sub',$1,false)",[A]);
  await db.query('select public.detours_save_trip($1,0,0,$2::jsonb,$3)',[trip.journey.id,splitContent(trip),crypto.randomUUID()]);
  const prefs={...defaultNotificationPreferences('Asia/Shanghai'),email:true};

@@ -1,5 +1,7 @@
 # Rappels et récaps — implémentation locale
 
+Mise à jour : [activation push de la beta le 11 octobre 2026](NOTIFICATIONS-PUSH-ACTIVATION.md). Les emails restent en attente. Les sections ci-dessous conservent les preuves et limites de l'implémentation initiale.
+
 Travail du 10 octobre 2026 sur `codex/rappels-recaps`, depuis `9fa03b1` de `codex/carnets-universels`. Le plan original est conservé. Aucune publication, migration distante, configuration payante, tâche distante ou notification réelle n'est comprise dans ce travail.
 
 ## Parcours et contrats retenus

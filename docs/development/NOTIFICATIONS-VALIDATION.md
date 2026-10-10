@@ -1,5 +1,7 @@
 # Rappels/récaps — preuves et état des lots
 
+Mise à jour du 11 octobre : le [serveur push est activé sur la beta](NOTIFICATIONS-PUSH-ACTIVATION.md), emails en attente. Les résultats initiaux ci-dessous restent datés ; la réception sur appareil physique reste à vérifier.
+
 Date : 10 octobre 2026, repère Asia/Shanghai. Branche : `codex/rappels-recaps`, base `9fa03b1`. Document original préservé. Cette fiche décrit une implémentation locale ; elle ne prouve pas l'état de la bêta.
 
 | Lot | État | Fichiers principaux | Preuves / limite |
