@@ -26,14 +26,14 @@ Points observés par lecture le 9 octobre :
 
 ## Ordre de travail
 
-- [ ] M0 — Reproduire les défauts et identifier la version testée.
-- [ ] M1 — Stabiliser largeur, zoom et saisie des notes.
-- [ ] M2 — Uniformiser tous les champs de dates.
-- [ ] M3 — Permettre de désélectionner une catégorie Bonus.
-- [ ] M4 — Rétablir l’espacement des phrases utiles.
-- [ ] M5 — Corriger l’intégration de l’en-tête autour de la Dynamic Island.
-- [ ] M6 — Déplacer partage et synchronisation dans le menu, avec résumé compact.
-- [ ] M7 — Exécuter la recette et préparer une livraison identifiable.
+- [x] M0 — Reproduire les défauts et identifier la version testée.
+- [x] M1 — Stabiliser largeur, zoom et saisie des notes.
+- [x] M2 — Uniformiser tous les champs de dates.
+- [x] M3 — Permettre de désélectionner une catégorie Bonus.
+- [x] M4 — Rétablir l’espacement des phrases utiles.
+- [x] M5 — Corriger l’intégration de l’en-tête autour de la Dynamic Island.
+- [x] M6 — Déplacer partage et synchronisation dans le menu, avec résumé compact.
+- [x] M7 — Exécuter la recette et préparer une livraison identifiable.
 
 M0 précède toute correction. M1 précède la validation des dates et de la zone supérieure. M6 doit être revalidé avec M1 et M5, car il change la hauteur et la structure des premières zones de page. Livrer des corrections cohérentes et petites ; ne pas modifier le moteur de synchronisation pour une demande de présentation.
 
@@ -217,18 +217,22 @@ Ne publier que si la demande d’exécution ou une autorisation existante couvre
 
 ## Suivi obligatoire
 
-| Lot | Statut initial | Cause / correction | Preuves | Reste à faire |
+| Lot | Statut au 10 octobre 2026 | Cause / correction | Preuves | Reste à faire |
 | --- | --- | --- | --- | --- |
-| M0 | À faire | — | — | Reproduction et version |
-| M1 | À faire | — | — | Largeur, zoom, notes |
-| M2 | À faire | — | — | Tous les champs de dates |
-| M3 | À faire | — | — | Catégories réversibles |
-| M4 | À faire | — | — | Espacement phrases |
-| M5 | À faire | — | — | Safe area et thème clair |
-| M6 | À faire | — | — | Menu et résumé compact |
-| M7 | À faire | — | — | Recette et livraison |
+| M0 | Validé | Diagnostic local ; base propre 9fa03b1, manifeste bêta relevé | Rapport MOBILE-CORRECTIONS.md ; profils factices | Cache/version réellement ouverte sur iPhone à confirmer |
+| M1 | Corrigé à vérifier | Saisie mobile à 16 px ; largeurs bornées ; retour de focus sans scroll | WebKit : saisie prolongée hors ligne, focus et position stables, note relue | Clavier, pincement et tremblement sur iPhone |
+| M2 | Corrigé à vérifier | Dates et champs voisins à 48 px ; colonnes réductibles | WebKit : journée/hébergement, valeurs exactes, largeur des colonnes | Calendrier natif et toutes les dates sur iPhone |
+| M3 | Validé | Catégorie active désélectionnable, aria-pressed, favoris indépendant | Test comportemental WebKit, clavier, A → B et favoris | Recette physique complémentaire |
+| M4 | Validé | Espacement de 18 px avant le formulaire | WebKit : grille, ajout réel et thème sombre | Zéro/une phrase sur appareil |
+| M5 | Corrigé à vérifier | Safe area du menu ; fond opaque derrière découpe | WebKit : inset simulé, en-tête, menu et accueil | Dynamic Island Safari et mode installé, clair/sombre/automatique |
+| M6 | Validé | Entrées dans menu ; résumé Planning ; alertes sur toutes les vues | WebKit : 4 langues, 320/390/430/1440 px, fermeture/focus | Gate comptes/rôles simulés réussi ; recette iPhone restante |
+| M7 | Validé | Suite mobile incluse dans le gate ; configuration WebKit dédiée | Gate 19/19 ; 104 unitaires, 70 Chromium ; WebKit 10 + 3 ciblés | Recette Safari et mode installé ; publication séparément autorisée |
 
 Statuts : à faire, en cours, corrigé à vérifier, validé, bloqué avec motif. Un défaut non reproduit ne devient pas « réparé ». À chaque interruption, noter la prochaine action précise. Ne pas étendre le travail aux autres lots produit d’`ORCHESTRATION-DEVELOPPEMENT.md`.
+
+## Exécution du 10 octobre 2026
+
+Rapport détaillé, causes établies, captures et recette physique : [docs/development/MOBILE-CORRECTIONS.md](docs/development/MOBILE-CORRECTIONS.md). Appareil indiqué : iPhone 17 Pro, iOS 27, Safari et icône sur l’écran d’accueil. Aucune publication dans cette tâche.
 
 ## Prompt à donner à l’IA
 

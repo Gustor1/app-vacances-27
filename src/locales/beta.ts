@@ -64,6 +64,11 @@ Tes modifications sont sauvegardées sur cet appareil et envoyées automatiqueme
 Notes du carnet|Journal notes|手帐笔记|Notas del cuaderno
 Note du carnet · sauvegarde automatique|Journal note · automatically saved|手帐笔记 · 自动保存|Nota del cuaderno · guardado automático
 Ce carnet est commun : planning, notes, réservations, dépenses et documents. Les options avancées limitent les catégories visibles par chaque membre.|This is a shared journal: itinerary, notes, bookings, expenses and documents. Advanced options limit the categories each member can see.|此手帐为共同手帐：行程、笔记、预订、支出和文档。高级选项可限制每位成员可见的类别。|Este cuaderno es común: programa, notas, reservas, gastos y documentos. Las opciones avanzadas limitan lo que ve cada miembro.
+Partage|Sharing|共享|Compartir
+Synchronisation|Synchronization|同步|Sincronización
+Enregistré ici|Saved here|已保存在此设备|Guardado aquí
+Synchronisation indisponible|Sync unavailable|同步不可用|Sincronización no disponible
+Les droits ont changé|Access has changed|权限已更改|Los permisos han cambiado
 Partage et synchronisation|Sharing and sync|共享与同步|Compartir y sincronizar
 Voyage partagé|Shared trip|共享旅行|Viaje compartido
 Mon voyage|My trip|我的旅行|Mi viaje
