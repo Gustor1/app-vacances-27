@@ -8,6 +8,7 @@ import { PREFERENCES_KEY } from '../src/locale-utils.ts';
 import { AccountStorage } from '../src/cloud/storage.ts';
 import { backupDictionary } from '../src/locales/backup.ts';
 import { translate } from '../src/locale-utils.ts';
+import { defaultNotificationPreferences, notificationKey, parseNotificationPreferences } from '../src/notifications.ts';
 
 class Memory {
   values = new Map();
@@ -18,6 +19,28 @@ class Memory {
   setItem(key, value) { if (this.fail(key)) throw new Error('QuotaExceededError'); this.values.set(key, String(value)); }
   removeItem(key) { this.values.delete(key); }
 }
+test('notification settings restore with remapped trip, channels off and restartable writes; caches and subscriptions excluded', async () => {
+  const source = new Memory(), trip = blankTrip({id:'notify-original',title:'Rappels'});
+  writeTrip(source,trip);
+  const prefs={...defaultNotificationPreferences('Asia/Shanghai'),email:true,activityPush:true,recapPush:true,overrides:{'step:original-step':{mode:'custom',offsets:[15,60]}}};
+  source.setItem(notificationKey(trip.journey.id),JSON.stringify(prefs));
+  source.setItem('detours-recaps-v1:notify-original','WEATHER_CACHE');
+  source.setItem('detours-push-device-v1','SECRET_ENDPOINT');
+  const raw=await exportBackup(source,source);
+  assert.ok(!raw.includes('SECRET_ENDPOINT'));assert.ok(!raw.includes('WEATHER_CACHE'));
+  const target=new Memory(),plan=await prepareRestore(raw,target);
+  const key=notificationKey(`restored-${plan.id}-0`);
+  target.fail=k=>k===key;
+  assert.throws(()=>applyRestore(target,plan),/Quota/);
+  assert.equal(pendingRestores(target).length,1);
+  target.fail=()=>false;
+  const resumed=await prepareRestore(raw,target);applyRestore(target,resumed);
+  const restored=parseNotificationPreferences(target.getItem(key));
+  assert.equal(restored.email,false);assert.equal(restored.activityPush,false);assert.equal(restored.recapPush,false);
+  assert.deepEqual(restored.overrides,prefs.overrides);
+  assert.equal(source.getItem(notificationKey(trip.journey.id)),JSON.stringify(prefs));
+  assert.deepEqual(pendingRestores(target),[]);
+});
 function fixture() {
   const storage = new Memory();
   const trip = chinaTrip(undefined, 'original');

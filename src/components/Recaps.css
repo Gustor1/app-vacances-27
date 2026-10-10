@@ -1,0 +1,26 @@
+.recap-trigger { position: relative; flex-shrink: 0; }
+.recap-unread { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent, #397454); margin-left: 6px; flex-shrink: 0; }
+.recap-trigger .recap-unread { position: absolute; top: 4px; right: 4px; }
+.recaps-dialog { width: min(640px, calc(100vw - 24px)); max-height: calc(100dvh - 32px); margin: auto; padding: 22px; border: 1px solid var(--border, #999); border-radius: 22px; color: var(--text, #202123); background: var(--surface, #fff); overflow-y: auto; box-sizing: border-box; }
+.recaps-dialog::backdrop { background: #0008; backdrop-filter: blur(5px); }
+.recaps-dialog header { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.recaps-dialog h2 { margin-top: 0; }
+.recaps-dialog h3, .recaps-dialog h4 { margin: 12px 0; }
+.recaps-dialog p, .recaps-dialog li, .recaps-dialog label { overflow-wrap: anywhere; }
+.recaps-dialog button:focus-visible, .recaps-dialog input:focus-visible, .recaps-dialog select:focus-visible, .recaps-dialog summary:focus-visible { outline: 3px solid var(--accent, #397454); outline-offset: 3px; }
+.recap-card { border: 1px solid var(--border, #999); padding: 14px; border-radius: 14px; margin: 14px 0; }
+.recap-card h3 button { background: none; border: 0; color: inherit; text-align: left; padding: 4px 0; font: inherit; cursor: pointer; width: 100%; }
+.recap-program { padding-left: 20px; }
+.recap-program > li { padding: 8px 0; }
+.recaps-dialog summary { cursor: pointer; padding: 12px 0; font-weight: 650; }
+.recap-preferences { margin-top: 18px; }
+.recap-preferences > label, .recap-reminder label { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 12px 0; }
+.recap-preferences input:not([type=checkbox]), .recap-reminder input, .recap-reminder select { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; padding: 9px; border: 1px solid var(--border, #999); border-radius: 8px; color: inherit; background: var(--surface, #fff); font: inherit; }
+.recap-preferences fieldset { margin: 12px 0; padding: 12px; border: 1px solid var(--border, #999); min-width: 0; }
+.recap-preferences fieldset label { display: inline-flex; align-items: center; gap: 5px; margin: 6px 12px 6px 0; }
+.recaps-dialog footer { margin-top: 20px; }
+.recap-delay-presets,.recap-custom-delay { display:flex;flex-wrap:wrap;gap:8px;margin:12px 0; }
+.recap-custom-delay label { flex:1 1 140px;min-width:0; }
+.recap-custom-delay input,.recap-custom-delay select { width:100%;min-width:0;color:inherit;background:var(--surface,#fff);border:1px solid var(--border,#999);padding:8px;border-radius:8px; }
+.recap-delay-presets button,.recap-custom-delay button { padding:8px;border:1px solid var(--border,#999);border-radius:8px;color:inherit;background:var(--surface,#fff); }
+@media (max-width: 390px) { .recaps-dialog { padding: 14px; } .recap-card { padding: 10px; } }

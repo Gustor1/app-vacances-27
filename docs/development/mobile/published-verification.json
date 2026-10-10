@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-10-10T09:32:33.695Z",
+  "url": "https://app-vacances-27-beta-eliottle.vercel.app",
+  "previousBuildId": "55e95def53288cf0954659f44b2bab3a677130d3ad5c6515471b4be8d15b5f82",
+  "buildId": "908bf170f9f12428394a88021e5b92ec843618df887576e4a61fc925ef7e6956",
+  "entry": "/assets/index-HXHic6zl.js",
+  "verifiedAssets": 21,
+  "currentWorkerCacheVerified": true,
+  "liveUpgradeAttempt": "Initial old-profile attempt stopped before refresh during alias propagation; upgrade covered by successful local gate",
+  "localNotePreserved": true,
+  "offlineEditReload": true,
+  "bookingsExpensesPreserved": true,
+  "viewport": "390x844",
+  "overflow": false,
+  "runtimeErrors": [],
+  "limits": [
+    "Isolated local fixture, no Google OAuth or real cloud synchronization",
+    "No physical iPhone validation"
+  ]
+}

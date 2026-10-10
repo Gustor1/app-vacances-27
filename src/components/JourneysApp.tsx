@@ -82,6 +82,8 @@ export default function JourneysApp() {
   const [deleting, setDeleting] = useState<StoredState | null>(null);
   const [sharing, setSharing] = useState<StoredState | null>(null);
   const [activeId, setActiveId] = useState(() => {
+    const linked = new URLSearchParams(location.search).get('trip');
+    if (linked) return collection.trips.some(trip => trip.journey?.id === linked) ? linked : null;
     try { return sessionStorage.getItem(openKey) ?? collection.migrated; } catch { return collection.migrated; }
   });
   const [chosenCurrency, setChosenCurrency] = useState('');
@@ -99,12 +101,28 @@ export default function JourneysApp() {
   function edit(value: StoredState | 'new', country?: string) { setChosenCurrency(value === 'new' ? suggestedCurrency(country ? [country] : []) || '' : value.journey!.currency); setCurrencyTouched(value !== 'new'); setSelectedCountries(value === 'new' ? country ? [country] : [] : value.journey!.countries || []); setEditor(value); setError(''); }
   async function changeWorld(next: PersonalWorld) { try { const commit = () => writeWorld(localStorage, mergeChanges(world, next, readWorld(localStorage))); if (navigator.locks) await navigator.locks.request(localStorage.physicalKey(WORLD_KEY), commit); else commit(); setWorld(readWorld(localStorage)); setWorldError(''); } catch { setWorldError(t('Sauvegarde des souvenirs impossible. La source est conservée.')); throw new Error('Save failed'); } }
   function open(id: string | null) {
+    if (!id) { const url = new URL(location.href); for (const key of ['trip','kind','object']) url.searchParams.delete(key); history.replaceState(null,'',url); }
     // Read storage now: a freshly created or accepted trip may not yet be in the rendered collection.
     if (id && !localStorage.getItem(tripKey(id))) { void cloud.download(id).then(() => { refresh(); setActiveId(id); setError(''); try { sessionStorage.setItem(openKey, id); } catch { /* A session hint failure must not discard the downloaded trip. */ } }).catch(() => setError(t('Carnet non téléchargé. Connecte-toi pour l’ouvrir sur cet appareil.'))); return; }
     setActiveId(id); setMessage('');
     try { sessionStorage.setItem(openKey, id || ''); } catch { /* Navigation remains usable. */ }
     window.scrollTo({ top: 0 });
   }
+  useEffect(() => {
+    const id = new URLSearchParams(location.search).get('trip');
+    if (!id || !cloud.ready) return;
+    let cancelled = false;
+    // Resolve exact identities only inside the active personal storage scope.
+    if (localStorage.getItem(tripKey(id))) { setActiveId(id); return; }
+    setActiveId(null);
+    if (!cloud.session) { setError(t('Carnet non téléchargé. Connecte-toi pour l’ouvrir sur cet appareil.')); return; }
+    void cloud.download(id).then(() => {
+      if (cancelled) return;
+      if (!localStorage.getItem(tripKey(id))) throw new Error('Unavailable');
+      refresh(); setActiveId(id); setError('');
+    }).catch(() => { if (!cancelled) setError(t('Carnet non téléchargé. Connecte-toi pour l’ouvrir sur cet appareil.')); });
+    return () => { cancelled = true; };
+  }, [cloud.ready, cloud.scope, cloud.session?.user.id, localStorage]);
   useEffect(()=>{
     if(!cloud.ready||!cloud.session||!(localStorage instanceof AccountStorage))return;
     const originalId=sessionStorage.getItem('detours-share-after-signin');
@@ -167,7 +185,7 @@ export default function JourneysApp() {
   const importInput = <input ref={fileInput} type="file" accept="application/json,.json" hidden aria-label={t('Choisir une sauvegarde JSON')} onChange={event => { const file = event.target.files?.[0]; if (file) void importFile(file); event.target.value = ''; }} />;
   const synchronization=syncTripId?<TripSyncPanel id={syncTripId} onClose={()=>setSyncTripId(null)}/>:null;
   const invitation = <InvitationBanner onAccepted={id => { refresh(); open(id); }}/>;
-  if (active) { const id=active.journey!.id; const record=localStorage instanceof AccountStorage?localStorage.record(tripKey(id)):null; return <>{invitation}{synchronization}<App key={id} seed={active} readOnly={!writable(id)} allowedFields={record?.fullSharing?record.allowedFields:undefined} collaborationControl={({saving,storageError})=><TripCollaboration saving={saving} storageError={storageError} id={id} onShare={()=>setSharing(readTrip(localStorage,id))} onCopy={()=>persist(duplicateTrip(readTrip(localStorage,id),active.journey!.title+' — '+t('Ma copie')),true)}/>} accountControl={<AccountPanel/>} externalError={error} onHome={() => { refresh(); open(null); }} onImport={importFile}/>{sharing&&<SharePanel state={sharing} onClose={()=>setSharing(null)}/>} {collection.divergence && <div className="legacy-warning" role="alert">{t('Une ancienne version a modifié le carnet Chine. Reviens dans Mes voyages pour récupérer ces changements.')}</div>}</>; }
+  if (active) { const id=active.journey!.id; const record=localStorage instanceof AccountStorage?localStorage.record(tripKey(id)):null; return <>{invitation}{synchronization}<App key={id} seed={active} readOnly={!writable(id)} allowedFields={record?.fullSharing?record.allowedFields:undefined} collaborationControl={({saving,storageError,...presentation})=><TripCollaboration {...presentation} saving={saving} storageError={storageError} id={id} onShare={()=>setSharing(readTrip(localStorage,id))} onCopy={()=>persist(duplicateTrip(readTrip(localStorage,id),active.journey!.title+' — '+t('Ma copie')),true)}/>} accountControl={<AccountPanel/>} externalError={error} onHome={() => { refresh(); open(null); }} onImport={importFile}/>{sharing&&<SharePanel state={sharing} onClose={()=>setSharing(null)}/>} {collection.divergence && <div className="legacy-warning" role="alert">{t('Une ancienne version a modifié le carnet Chine. Reviens dans Mes voyages pour récupérer ces changements.')}</div>}</>; }
   return <>{invitation}{synchronization}<div className="journeys-shell">
     <a className="skip-link" href="#journeys-main">{t('Aller au contenu')}</a>
     <header className="journeys-topbar"><a className="brand" href="#journeys-main"><span className="brand-mark"><Mountain size={26} strokeWidth={1.6}/></span><span>détours<span className="brand-dot">.</span><small>{t('LES BEAUX DÉTOURS')}</small></span></a><div className="journeys-topbar-actions"><PreferencesButton/><AccountPanel/></div></header>
