@@ -226,13 +226,13 @@ Ne publier que si la demande d’exécution ou une autorisation existante couvre
 | M4 | Validé | Espacement de 18 px avant le formulaire | WebKit : grille, ajout réel et thème sombre | Zéro/une phrase sur appareil |
 | M5 | Corrigé à vérifier | Safe area du menu ; fond opaque derrière découpe | WebKit : inset simulé, en-tête, menu et accueil | Dynamic Island Safari et mode installé, clair/sombre/automatique |
 | M6 | Validé | Entrées dans menu ; résumé Planning ; alertes sur toutes les vues | WebKit : 4 langues, 320/390/430/1440 px, fermeture/focus | Gate comptes/rôles simulés réussi ; recette iPhone restante |
-| M7 | Validé | Suite mobile incluse dans le gate ; configuration WebKit dédiée | Gate 19/19 ; 104 unitaires, 70 Chromium ; WebKit 10 + 3 ciblés | Recette Safari et mode installé ; publication séparément autorisée |
+| M7 | Validé | Suite mobile incluse dans le gate ; configuration WebKit dédiée | Gate 19/19 ; 104 unitaires, 70 Chromium ; WebKit 10 + 3 ciblés | Bêta publiée et 21 fichiers vérifiés ; recette Safari et mode installé restante |
 
 Statuts : à faire, en cours, corrigé à vérifier, validé, bloqué avec motif. Un défaut non reproduit ne devient pas « réparé ». À chaque interruption, noter la prochaine action précise. Ne pas étendre le travail aux autres lots produit d’`ORCHESTRATION-DEVELOPPEMENT.md`.
 
 ## Exécution du 10 octobre 2026
 
-Rapport détaillé, causes établies, captures et recette physique : [docs/development/MOBILE-CORRECTIONS.md](docs/development/MOBILE-CORRECTIONS.md). Appareil indiqué : iPhone 17 Pro, iOS 27, Safari et icône sur l’écran d’accueil. Aucune publication dans cette tâche.
+Rapport détaillé, causes établies, captures et recette physique : [docs/development/MOBILE-CORRECTIONS.md](docs/development/MOBILE-CORRECTIONS.md). Appareil indiqué : iPhone 17 Pro, iOS 27, Safari et icône sur l’écran d’accueil. Publication ultérieure autorisée le 10 octobre : bêta stable mise à jour, preuve dans le rapport.
 
 ## Prompt à donner à l’IA
 

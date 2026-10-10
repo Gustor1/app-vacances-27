@@ -4,7 +4,7 @@ Branche : `codex/corrections-mobile`, issue de `codex/carnets-universels` après
 
 Appareil indiqué par le propriétaire : iPhone 17 Pro, iOS 27, Safari **et** application ajoutée à l’écran d’accueil. Cet appareil n’est pas accessible depuis cette session.
 
-Le manifeste de la bêta stable consulté au début du diagnostic porte l’identité `55e95def53288cf0954659f44b2bab3a677130d3ad5c6515471b4be8d15b5f82`. Cela identifie le serveur à cet instant, pas le cache du téléphone. Aucune publication, fusion ou migration distante n’est effectuée par cette tâche.
+Le manifeste de la bêta stable consulté au début du diagnostic porte l’identité `55e95def53288cf0954659f44b2bab3a677130d3ad5c6515471b4be8d15b5f82`. Cela identifie le serveur à cet instant, pas le cache du téléphone. Publication de la bêta autorisée ensuite par le propriétaire et exécutée le 10 octobre 2026 (section ci-dessous). Aucune fusion ni migration distante.
 
 ## Diagnostic et changements
 
@@ -50,7 +50,7 @@ Les premières passes ont révélé des erreurs de sélecteurs dans les nouveaux
 
 ## Recette sur l’iPhone
 
-Après une publication séparément autorisée, identifier `build-info.json` et vérifier l’activation du nouveau service worker. Effectuer le même parcours dans Safari puis depuis l’icône installée, sur carnet factice :
+Sur la bêta publiée, actualiser Safari ou utiliser « Mettre à jour » si proposé ; fermer puis rouvrir l’application installée. Vérifier `build-info.json` (identité `908bf170f9f12428394a88021e5b92ec843618df887576e4a61fc925ef7e6956`) et l’activation du nouveau service worker. Effectuer le même parcours dans Safari puis depuis l’icône installée, sur carnet factice :
 
 1. Clair, sombre puis automatique : accueil, planning, menu, défilement sous la Dynamic Island ; portrait et paysage, barre Safari déployée/rétractée.
 2. Nouvelle journée : date vide puis remplie, thème/date de même hauteur, calendrier natif utilisable. Hébergement : arrivée/départ, refus d’un départ antérieur à l’arrivée. Vérifier aussi les autres dates.
@@ -61,3 +61,18 @@ Après une publication séparément autorisée, identifier `build-info.json` et 
 7. Focus, double toucher, pincement volontaire et texte agrandi : conserver l’accessibilité ; après retour à l’échelle normale, vérifier les marges, la position du curseur et l’absence d’oscillation ou de déplacement latéral.
 
 Un succès en Chromium/WebKit sur PC ne valide ni clavier iOS, ni pincement réel, ni Dynamic Island, ni le mode installé sur cet iPhone. OAuth et comptes distants réels restent hors couverture.
+
+
+## Publication autorisée — 10 octobre 2026
+
+La [bêta stable](https://app-vacances-27-beta-eliottle.vercel.app/) sert les corrections. Preview Git **READY** `dpl_3WEvq5G839wEHsDf9FGEUWThZkbK`, commit `0aec6c8afbe89f617b723c35b052549e445b62a4`. Réassignation de l’alias existant ; protection du projet conservée, aucun nouveau déploiement créé, aucune migration, fusion ou modification de données personnelles.
+
+Version publique vérifiée : `908bf170f9f12428394a88021e5b92ec843618df887576e4a61fc925ef7e6956`, entrée `/assets/index-HXHic6zl.js`. Reconstruction locale avec configuration de cible puis comparaison à la preview protégée. Les quatre différences initiales entre Windows et Vercel sont exclusivement CRLF → LF dans china-landscape.svg, deux documents Markdown et index.html ; normalisation confirmée par SHA-256. Le candidat canonique est identique au manifeste distant et son scénario L8 compilé/offline/droits a réussi.
+
+Après bascule : **21 fichiers publics** vérifiés par taille et SHA-256, HTML/entrée, worker/cache courant, note fictive conservée, édition puis rechargement hors ligne, réservations/dépenses intactes, 390 px sans débordement, zéro erreur d’exécution. [Preuve publiée](mobile/published-verification.json) et [capture relue](mobile/published-390.png). Profil Chrome jetable ; aucun compte Google réel ni écriture cloud réelle.
+
+Le premier profil préparé avant bascule s’est arrêté avant de cliquer sur la mise à jour : une lecture immédiate du manifeste renvoyait encore l’ancienne version pendant la propagation de l’alias. Après confirmation de la nouvelle identité, la vérification publique a réussi dans un profil neuf. **L’upgrade d’un cache antérieur a réussi dans le gate local ; aucune réussite de cet upgrade sur la bêta publique ou sur l’iPhone n’est revendiquée.** Le cache courant de la bêta et sa reprise hors ligne sont vérifiés.
+
+Candidat/preuves externes : `C:/Users/eliot/Documents/detours-release-20261010-mobile`. Sauvegarde technique : `C:/Users/eliot/Documents/detours-recovery-20261010-mobile` (historique Git, archive source, ancienne version publique vérifiée et rollback.json). Les carnets personnels du téléphone n’ont pas été consultés ni exportés.
+
+Retour arrière du frontend : réassigner l’alias à `dpl_pyEo6Go4eBMwHEN1qRR38FDdQdMx`, build `55e95def53288cf0954659f44b2bab3a677130d3ad5c6515471b4be8d15b5f82`, puis revalider le cache. Cela ne restaure ni ne convertit les données. La recette physique iPhone 17 Pro/iOS 27, Safari et icône installée, reste à effectuer.
