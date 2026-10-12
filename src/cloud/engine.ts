@@ -54,7 +54,7 @@ export function acceptRemote(storage: AccountStorage, key: string, remote: Remot
  */
 export async function syncRecord(storage: AccountStorage, key: string, transport: SyncTransport) {
   const sent = storage.record(key);
-  if (!sent?.pending || sent.conflict || sent.revoked) return;
+  if (!sent?.pending || sent.localOnly || sent.conflict || sent.revoked) return;
   const content = recordContent(key, sent.raw);
   const result = await transport.save(key, sent, content);
   const current = storage.record(key);

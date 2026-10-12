@@ -81,6 +81,7 @@ export default function SharePanel({ state, onClose }: { state: StoredState; onC
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [includeAll,setIncludeAll]=useState(true);
+  const [attachConsent, setAttachConsent] = useState(false);
   const [fieldOverrides,setFieldOverrides]=useState<Record<string,string[]>>({});
   const [restore, setRestore] = useState<number | null>(null);
   const [restoringContent, setRestoringContent] = useState<StoredState | null>(null);
@@ -109,6 +110,10 @@ export default function SharePanel({ state, onClose }: { state: StoredState; onC
   async function run(action: () => Promise<void>) { setBusy(true); setError(''); try { await action(); await refresh(); } catch { setError(t('Partage non terminé. Compare les différences de ce carnet ou réessaie avec Internet. Tes changements sont conservés.')); } finally { setBusy(false); } }
   async function prepareSharing() {
     if(!navigator.onLine)throw new Error('offline');
+    if(record?.localOnly) {
+      if(!attachConsent)throw new Error('consent-required');
+      (cloud.storage as AccountStorage).attachLocalTrip(id);
+    }
     await cloud.sync();
     const pending=(cloud.storage as AccountStorage).record(tripKey(id));
     if(pending?.pending&&!pending.conflict)await cloud.sync();
@@ -128,6 +133,7 @@ export default function SharePanel({ state, onClose }: { state: StoredState; onC
     <details className="share-help"><summary>{t('Comment partager avec mes amis ?')}</summary><ol className="share-guide"><li>{t('Envoie un lien différent à chaque ami. Il expire après 72 h et ne sert qu’une fois.')}</li><li>{t('Ton ami se connecte avec Google et accepte l’invitation.')}</li><li>{t(collaborationEnabled ? 'Après son acceptation, autorise les modifications dans Membres pour préparer le planning ensemble.' : 'Les invitations donnent un accès en lecture. L’édition entre amis sera disponible après activation de la collaboration.')}</li></ol></details>
     {!cloud.session ? <div className="notice share-sync-needed"><p>{t('Connecte-toi pour partager ce carnet. La synchronisation se lancera automatiquement.')}</p><p>{t('Ce carnet sera copié vers ton compte après la connexion. L’original reste sur cet appareil.')}</p>{cloud.configured && <button className="btn btn-secondary" onClick={() => {if(!cloud.storage.accountId)sessionStorage.setItem('detours-share-after-signin',id);void cloud.signIn();}}>{t('Se connecter avec Google')}</button>}</div> : <>
       {owner && <>
+        {record?.localOnly && <div className="notice"><p>{t('Ce carnet reste sur cet appareil jusqu’au rattachement explicite.')}</p><label className="field"><span><input type="checkbox" checked={attachConsent} onChange={event=>setAttachConsent(event.target.checked)}/>{t('Je confirme l’envoi de ce carnet vers mon compte.')}</span></label><button className="btn btn-secondary" disabled={!attachConsent||busy||!navigator.onLine} onClick={()=>void run(async()=>{(cloud.storage as AccountStorage).attachLocalTrip(id);await cloud.sync();})}>{t('Rattacher ce carnet au compte')}</button></div>}
         <section className="share-card share-create"><div><h3>{t('Inviter un ami')}</h3><p>{t('Envoie un lien différent à chaque ami. Il expire après 72 h et ne sert qu’une fois.')}</p></div><button className="btn btn-primary" disabled={busy} onClick={() => void run(async () => { await prepareSharing(); const invite = await cloud.rpc<{ token: string }>('detours_invite', { p_trip: id }); setLink(location.origin + import.meta.env.BASE_URL + '#invite=' + invite.token); setCopied(false); })}>{t(busy?'Synchronisation et préparation du partage…':'Créer un lien privé valable 72 h')}</button>
           <div className="share-scope"><label><input type="checkbox" checked={record?.fullSharing||includeAll} disabled={!!record?.fullSharing||busy} onChange={event=>setIncludeAll(event.target.checked)}/><span>{t('Partager le carnet complet : notes, réservations, dépenses et documents inclus.')}</span></label><p>{t('Les adresses mail du créateur et des collaborateurs sont visibles aux membres de ce carnet privé.')}</p>{!record?.fullSharing&&<button className="btn btn-secondary" disabled={busy||!includeAll} onClick={()=>void run(prepareSharing)}>{t('Activer le carnet commun pour les membres actuels')}</button>}{!synced&&<p role="status">{t(record?.conflict?'Ce carnet a des différences à comparer avant de créer le lien.':'Le partage enverra automatiquement les changements en attente.')}</p>}</div>
           {link && <div className="share-link"><label className="field">{t('Lien à transmettre toi-même')}<input readOnly value={link} onFocus={e => e.target.select()}/></label><div className="share-row-actions"><button className="btn btn-secondary" onClick={() => void navigator.clipboard.writeText(link).then(() => setCopied(true)).catch(() => setError(t('Sélectionne le lien pour le copier.')))}><Copy size={14}/>{t('Copier le lien')}</button>{copied && <span role="status">{t('Lien copié')}</span>}</div></div>}

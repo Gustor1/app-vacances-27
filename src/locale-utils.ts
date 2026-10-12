@@ -9,6 +9,7 @@ import { backupDictionary } from './locales/backup.ts';
 import { offlineDictionary } from './locales/offline.ts';
 import { nowDictionary } from './locales/now.ts';
 import { preparationDictionary } from './locales/preparation.ts';
+import { planningImportDictionary } from './locales/planning-import.ts';
 import { isValidDate } from './lib.ts';
 
 export const interfaceLanguages = [
@@ -43,8 +44,8 @@ export function parsePreferences(raw: string | null): Preferences {
     };
   } catch { return defaults; }
 }
-const dictionary: Record<string, string> = { ...commonEnglish, ...appEnglish, ...toolsEnglish, ...journeysEnglish, ...betaDictionary(0), ...backupDictionary(0), ...offlineDictionary(0), ...nowDictionary(0), ...preparationDictionary(0) };
-const dictionaries: Record<Exclude<Language, 'fr'>, Record<string, string>> = { en: dictionary, 'zh-CN': { ...chinese, ...betaDictionary(1), ...backupDictionary(1), ...offlineDictionary(1), ...nowDictionary(1), ...preparationDictionary(1) }, es: { ...spanish, ...betaDictionary(2), ...backupDictionary(2), ...offlineDictionary(2), ...nowDictionary(2), ...preparationDictionary(2) } };
+const dictionary: Record<string, string> = { ...commonEnglish, ...appEnglish, ...toolsEnglish, ...journeysEnglish, ...betaDictionary(0), ...backupDictionary(0), ...offlineDictionary(0), ...nowDictionary(0), ...preparationDictionary(0), ...planningImportDictionary(0) };
+const dictionaries: Record<Exclude<Language, 'fr'>, Record<string, string>> = { en: dictionary, 'zh-CN': { ...chinese, ...betaDictionary(1), ...backupDictionary(1), ...offlineDictionary(1), ...nowDictionary(1), ...preparationDictionary(1), ...planningImportDictionary(1) }, es: { ...spanish, ...betaDictionary(2), ...backupDictionary(2), ...offlineDictionary(2), ...nowDictionary(2), ...preparationDictionary(2), ...planningImportDictionary(2) } };
 export function translate(text: string, language: Language, values: TranslationValues = {}): string {
   const selected = language === 'fr' ? undefined : dictionaries[language];
   const translated = selected && Object.hasOwn(selected, text) ? selected[text] : text;

@@ -1,0 +1,23 @@
+.planning-import { min-width: 0; display: grid; gap: 16px; }
+.planning-import form { display: grid; gap: 16px; min-width: 0; }
+.planning-review-fields { display: grid; gap: 16px; min-width: 0; padding: 0; margin: 0; border: 0; }
+.planning-import .field, .planning-import input, .planning-import textarea, .planning-import select { min-width: 0; max-width: 100%; }
+.planning-import .form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.planning-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.planning-actions > .field { flex: 1 1 160px; }
+.planning-actions button, .planning-examples button { white-space: normal; overflow-wrap: anywhere; }
+.planning-examples { display: flex; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--line); padding-top: 16px; }
+.planning-examples > span { flex-basis: 100%; }
+.planning-city { min-width: 0; padding-top: 20px; border-top: 1px solid var(--line); }
+.planning-day { min-width: 0; padding: 12px 0; }
+.planning-item { min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin: 12px 0; }
+.planning-item fieldset { min-width: 0; border: 0; margin: 0; padding: 0; display: grid; gap: 12px; }
+.planning-item-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.planning-item-toolbar strong { margin-right: auto; font-size: 14px; }
+.planning-excluded { opacity: .7; }
+.planning-evidence { font-size: 12px; overflow-wrap: anywhere; }
+.planning-evidence dt { font-weight: 600; }
+.planning-evidence dd { margin: 4px 0 12px; white-space: pre-wrap; }
+.planning-source { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; font-size: 13px; max-height: 360px; overflow-y: auto; }
+.planning-summary { border-top: 1px solid var(--line); padding-top: 16px; font-weight: 600; overflow-wrap: anywhere; }
+@media (max-width: 500px) { .planning-import .form-row { grid-template-columns: minmax(0, 1fr); } .planning-item { padding: 12px; } }
