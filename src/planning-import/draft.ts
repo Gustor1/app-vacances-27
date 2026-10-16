@@ -3,6 +3,8 @@ import { blankTrip } from '../journeys.ts';
 import { validTimezone } from '../time.ts';
 import type { StoredState } from '../types';
 import { MAX_SOURCE_LENGTH, type DraftItem, type PlanningDraft, type Provenance } from './types.ts';
+import { isSourceNormalization } from './normalizations.ts';
+import { hasConfirmedBooking } from './booking.ts';
 
 const categories = ['visit', 'food', 'transport', 'hotel', 'walk', 'shopping'];
 const itemKeys = ['title','category','description','address','period','time','optional','booked','kind','coordinates','checkIn','checkOut','departure','arrival','toCity','mode','reference','excluded','evidence'];
@@ -26,7 +28,7 @@ function evidence(record: Record<string, unknown>, source: string, allowUser: bo
     if (e.origin !== 'user' && e.origin !== 'missing' && (!e.quote || !source.includes(e.quote))) error();
     const value = record[field];
     if (e.origin === 'missing' && value !== '' && value !== null && value !== false) error();
-    if (e.origin !== 'user' && e.origin !== 'missing' && literalFields.has(field) && typeof value === 'string' && value && !e.quote.includes(value)) error();
+    if (e.origin !== 'user' && e.origin !== 'missing' && literalFields.has(field) && typeof value === 'string' && value && !e.quote.includes(value) && !isSourceNormalization(field,value,e.quote)) error();
     if (e.origin !== 'user' && e.origin !== 'missing' && field === 'coordinates' && Array.isArray(value)) {
       const numbers = (e.quote.match(/[+-]?\d+(?:\.\d+)?/g) || []).map(Number);
       if (!value.every(n => numbers.includes(n))) error();
@@ -38,7 +40,7 @@ function evidence(record: Record<string, unknown>, source: string, allowUser: bo
   }
   if (record.booked === true && result.booked?.origin !== 'user') {
     const quote = result.booked?.quote || '';
-    if (result.booked?.origin !== 'source' || !/(réservé|réservée|confirmé|confirmée|booked|confirmed|已确认|已預訂|已预订|reservado|confirmado)/iu.test(quote) || /(non[\s-]|pas[\s-]|sans[\s-]|not[\s-]|unconfirmed|unbooked|未|没有|sin[\s-]|no[\s-])/iu.test(quote)) error();
+    if (result.booked?.origin !== 'source' || !hasConfirmedBooking(quote)) error();
   }
 }
 export function blankItem(title = ''): DraftItem {

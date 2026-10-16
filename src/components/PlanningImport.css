@@ -8,6 +8,8 @@
 .planning-actions button, .planning-examples button { white-space: normal; overflow-wrap: anywhere; }
 .planning-examples { display: flex; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--line); padding-top: 16px; }
 .planning-examples > span { flex-basis: 100%; }
+.planning-remote { border-top: 1px solid var(--line); padding-top: 16px; }
+.planning-remote > strong { font-size: 14px; }
 .planning-city { min-width: 0; padding-top: 20px; border-top: 1px solid var(--line); }
 .planning-day { min-width: 0; padding: 12px 0; }
 .planning-item { min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin: 12px 0; }

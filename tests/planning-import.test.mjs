@@ -104,6 +104,29 @@ test('durable session and repeated confirmation create a single independent trip
   assert.deepEqual(restored.documents.map(d=>d.content),trip.documents.map(d=>d.content));
   clearSession(storage,'local');assert.equal(loadSession(storage,'local'),null);assert.ok(readTrip(storage,trip.journey.id));
 });
+
+test('a stale confirmation cannot overwrite newer review corrections from another tab',()=>{
+  const storage=new MemoryStorage(),original=prepared();saveSession(storage,original);
+  const revised=structuredClone(original);
+  revised.draft=correctField(revised.draft,'title','Dernière correction');
+  saveSession(storage,revised);
+  assert.throws(()=>commitImport(storage,original),/autre onglet/);
+  assert.equal(listTrips(storage).length,0);
+  assert.deepEqual(loadSession(storage,'local'),revised);
+  assert.equal(commitImport(storage,revised).journey.title,'Dernière correction');
+});
+
+test('a resumed prepared candidate keeps its saved review and source in the receipt',()=>{
+  const storage=new MemoryStorage(),original=prepared();saveSession(storage,original);
+  storage.failOn=tripKey(original.id);
+  assert.throws(()=>commitImport(storage,original));
+  storage.failOn=null;
+  const stale=structuredClone(original);
+  stale.draft=correctField(stale.draft,'title','Stale unsaved review');
+  const saved=loadSession(storage,'local');
+  assert.equal(commitImport(storage,stale).journey.title,saved.preparedTrip.journey.title);
+  assert.deepEqual(loadSession(storage,'local').draft,saved.draft);
+});
 test('quota or interruption preserves source and stable identity, including after trip write',()=>{
   const storage=new MemoryStorage(),s=prepared();saveSession(storage,s);storage.failOn=tripKey(s.id);
   assert.throws(()=>commitImport(storage,s));assert.equal(loadSession(storage,'local').source,s.source);

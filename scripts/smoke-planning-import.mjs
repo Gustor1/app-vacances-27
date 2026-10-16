@@ -73,13 +73,14 @@ try {
   await page.getByRole('button', { name: 'Créer depuis un planning', exact: true }).click();
   const dialog = page.getByRole('dialog');
   assert.ok(await dialog.evaluate(element => element === document.activeElement || element.contains(document.activeElement)), 'Focus enters the modal');
+  await dialog.getByLabel('Ton programme', { exact: true }).focus();
   await page.keyboard.press('Tab');
-  await page.keyboard.press('Tab');
-  await expect(dialog.getByLabel('Ton programme', { exact: true })).toBeFocused();
+  assert.ok(await dialog.evaluate(element => element.contains(document.activeElement)), 'Keyboard focus remains in the import dialog');
   await dialog.getByLabel('Ton programme', { exact: true }).fill('Programme fictif local : Paris, Louvre et hôtel.');
   await expect(dialog.getByRole('button', { name: 'Analyser mon programme', exact: true })).toBeDisabled();
-  await expect(dialog).toContainText('Analyse IA indisponible');
+  await expect(dialog).toContainText('Analyse IA distante indisponible');
   await dialog.getByRole('button', { name: 'Charger l’exemple 1', exact: true }).click();
+  await dialog.getByRole('button', { name: 'Remplacer le texte', exact: true }).click();
   const source = await dialog.locator('details').filter({ has: page.getByText('Texte source', { exact: true }) }).locator('pre').textContent();
   const preserved = await dialog.locator('details').filter({ has: page.getByText('Extraits conservés en notes', { exact: true }) }).locator('pre').textContent();
   assert.ok(preserved.includes('Budget estimé : 80 EUR'), 'Unstructured notes are reviewable before creation');
@@ -145,6 +146,43 @@ try {
   await mapWithLouvre(target.page);
   await target.page.screenshot({ path: join(screenshots, 'restored-offline-map.png'), fullPage: false });
 
+  // Exercise real local recognition from a file, with the network already off.
+  // No annotated fixture or intercepted extraction response supplies the draft.
+  const recognized = await profile();
+  await readyOffline(recognized.context, recognized.page);
+  await recognized.page.getByRole('button', { name: 'Créer depuis un planning', exact: true }).click();
+  const localDialog = recognized.page.getByRole('dialog');
+  const localSource = '# Lyon\n## Jour 1 — 2 mai 2027\n- 9h30 : Musée des Confluences\n- Après-midi : Parc de la Tête d’or\n## Jour 2 — 3 mai 2027\n- 10:00 : Vieux Lyon\n- Suggestion : Musée Gadagne\nBudget estimé : 100 EUR';
+  await localDialog.getByLabel('Ouvrir un fichier texte ou Markdown', { exact: true }).setInputFiles({ name: 'weekend-lyon.md', mimeType: 'text/markdown', buffer: Buffer.from(localSource) });
+  await expect(localDialog.getByRole('textbox', { name: 'Ton programme', exact: true })).toHaveValue(localSource);
+  await localDialog.getByRole('button', { name: 'Reconnaître mon programme', exact: true }).click();
+  await expect(localDialog.getByLabel('Titre de la journée', { exact: true })).toHaveCount(2);
+  await expect(localDialog.getByLabel('Lieu ou activité', { exact: true })).toHaveCount(4);
+  await expect(localDialog.getByLabel('Date (facultative)', { exact: true }).first()).toHaveValue('2027-05-02');
+  await expect(localDialog.getByLabel('Heure explicite (facultative)', { exact: true }).first()).toHaveValue('09:30');
+  await localDialog.getByLabel('Devise de référence', { exact: true }).fill('EUR');
+  await localDialog.getByLabel('Fuseau du voyage', { exact: true }).fill('Europe/Paris');
+  await localDialog.getByLabel('Conserver le texte original dans le carnet après création', { exact: true }).check();
+  await recognized.page.setViewportSize({ width: 390, height: 844 });
+  await noOverflow(recognized.page);
+  await recognized.page.screenshot({ path: join(screenshots, 'local-recognition-offline-390.png'), fullPage: false });
+  await localDialog.getByRole('button', { name: 'Créer et ouvrir le carnet', exact: true }).click();
+  await expect(localDialog).toHaveCount(0);
+  await recognized.page.reload();
+  await expect(recognized.page.getByRole('heading', { name: 'Musée des Confluences', exact: true })).toBeVisible();
+  const [localTrip] = await states(recognized.page);
+  assert.equal(localTrip.cities.length, 1);
+  assert.deepEqual(localTrip.cities[0].days.map(day => day.date), ['2027-05-02', '2027-05-03']);
+  assert.deepEqual(localTrip.cities[0].days.map(day => day.steps.length), [2, 1]);
+  assert.equal(localTrip.cities[0].days[0].preparation.timings[localTrip.cities[0].days[0].steps[0].id].startTime, '09:30');
+  assert.equal(localTrip.customBonus.length, 1);
+  assert.equal(localTrip.customBonus[0].title, 'Musée Gadagne');
+  assert.deepEqual(localTrip.bookings, []);
+  assert.deepEqual(localTrip.expenses || [], []);
+  assert.ok(localTrip.cities[0].days.every(day => day.steps.every(step => !step.coordinates)));
+  assert.ok(localTrip.documents.some(document => document.content.includes('Budget estimé : 100 EUR')));
+  assert.equal(localTrip.documents.find(document => document.title === 'Planning — texte original').content, localSource);
+
   const unknown = await profile();
   await unknown.page.getByRole('button', { name: 'Créer depuis un planning', exact: true }).click();
   const unknownDialog = unknown.page.getByRole('dialog');
@@ -167,7 +205,7 @@ try {
   assert.equal(unknownTrip.cities[0].days[0].steps[0].coordinates, undefined);
   assert.equal(unknownTrip.cities[0].days[0].date, undefined);
   assert.deepEqual(errors, []);
-  console.log('Planning import production smoke passed: explicit demonstration (not real AI), paste, disabled remote extraction, keyboard/source choice, corrected preview, durable creation, one explicit Louvre marker, unknown places without invented coordinates/dates, reload, worker/offline planning and map, real downloaded archive restored equivalently in another profile, 320/390/1440px, zero runtime errors.');
+  console.log('Planning import production smoke passed: real local file recognition while offline (days, dates, times, activities, suggestion), explicit demonstration for one Louvre map marker, disabled remote extraction, keyboard/source choice, corrected preview, durable creation, unknown places without invented coordinates/dates, reload, worker/offline planning and map, real downloaded archive restored equivalently in another profile, 320/390/1440px, zero runtime errors.');
   console.log(`Temporary screenshots: ${screenshots}`);
 } finally {
   await browser.close();

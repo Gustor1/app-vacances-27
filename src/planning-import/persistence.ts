@@ -33,6 +33,12 @@ export function clearSession(storage: ScopedStorage & {removeItem(key:string):vo
 export function commitImport(storage: ScopedStorage, session: ImportSession): import('../types').StoredState {
   checkScope(storage,session.scope); validateSession(session,session.scope);
   const saved=loadSession(storage,session.scope);
+  if (saved?.id === session.id) {
+    // Once prepared, replay the exact durable review. Before preparation, refuse
+    // an old tab's confirmation instead of discarding more recent corrections.
+    if (saved.preparedTrip || saved.committedId) session = saved;
+    else if (JSON.stringify(saved) !== JSON.stringify(session)) throw new Error('Le brouillon a changé dans un autre onglet. Rouvre l’import pour relire les dernières corrections.');
+  }
   const candidate=saved?.id === session.id && saved.preparedTrip ? saved.preparedTrip : session.preparedTrip;
   if (storage.getItem(tripKey(session.id))) {
     const result=readTrip(storage,session.id);

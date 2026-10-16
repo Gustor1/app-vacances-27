@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { ArrowDown, ArrowUp, Check, Download, Plus, Sparkles, Square, Trash2 } from 'lucide-react';
+import { ArrowDown, ArrowUp, Check, Download, ListChecks, Plus, Sparkles, Square, Trash2 } from 'lucide-react';
 import { Modal } from '../App';
 import { useLocale } from '../i18n';
 import { categoryLabels, downloadText } from '../lib';
@@ -8,6 +8,8 @@ import type { StoredState } from '../types';
 import { applyDepartureDate, correctField, draftSummary, unstructuredNotes, validateDraft } from '../planning-import/draft';
 import { clearSession, commitImport, createSession, DRAFT_KEY, loadSession, saveSession } from '../planning-import/persistence';
 import { extractPlanning, getExtractionAvailability } from '../planning-import/extraction';
+import { parsePlanning } from '../planning-import/parser';
+import { PlanningFileError, PLANNING_FILE_ACCEPT, readPlanningFile } from '../planning-import/files';
 import { SYNTHETIC_EXAMPLES } from '../planning-import/fixtures';
 import { MAX_SOURCE_LENGTH, type DraftDay, type DraftItem, type ImportSession, type PlanningDraft, type Provenance } from '../planning-import/types';
 import './PlanningImport.css';
@@ -29,6 +31,8 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
   const [blocked, setBlocked] = useState(initial.failed);
   const current = useRef(session);
   const [busy, setBusy] = useState(false);
+  const [reading, setReading] = useState(false);
+  const [pendingSource, setPendingSource] = useState<{ source: string; draft: PlanningDraft | null } | null>(null);
   const [saving, setSaving] = useState(false);
   const [resetRequested, setResetRequested] = useState(false);
   const request = useRef<{ controller: AbortController; sequence: number } | null>(null);
@@ -43,7 +47,27 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
   function changeDraft(change: (draft: PlanningDraft) => PlanningDraft) {
     if (current.current.draft) update({ ...current.current, draft: change(structuredClone(current.current.draft)) });
   }
-  function stop() { sequence.current++; request.current?.controller.abort(); request.current = null; setBusy(false); }
+  function stop() { sequence.current++; request.current?.controller.abort(); request.current = null; setBusy(false); setReading(false); setPendingSource(null); }
+  function proposeSource(source: string, draft: PlanningDraft | null = null) {
+    if (current.current.source.trim() && current.current.source !== source) setPendingSource({ source, draft });
+    else update({ ...current.current, source, draft });
+  }
+  async function openFile(file: File) {
+    if (blocked || current.current.draft) return;
+    stop(); const id = ++sequence.current; setReading(true); setError('');
+    try {
+      const source = await readPlanningFile(file);
+      if (sequence.current === id) proposeSource(source);
+    } catch (failure) {
+      if (sequence.current === id) setError(t(failure instanceof PlanningFileError ? failure.message : 'Lecture du fichier impossible. Ton texte actuel est conservé.'));
+    } finally { if (sequence.current === id) setReading(false); }
+  }
+  function recognize() {
+    if (blocked || current.current.draft || !current.current.source.trim() || current.current.source.length > MAX_SOURCE_LENGTH) return;
+    stop(); setError('');
+    try { update({ ...current.current, draft: parsePlanning(current.current.source) }); }
+    catch { setError(t('Reconnaissance impossible. Ton texte est conservé ; tu peux préparer l’aperçu manuellement.')); }
+  }
   async function analyze() {
     if (!available || current.current.draft || !current.current.source.trim() || current.current.source.length > MAX_SOURCE_LENGTH || blocked) return;
     stop(); const controller = new AbortController(); const id = ++sequence.current;
@@ -98,18 +122,27 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
     {!draft ? <>
       <label className="field">{t('Ton programme')}<textarea rows={10} autoFocus value={session.source} disabled={blocked} onChange={event => { stop(); update({ ...current.current, source: event.target.value }); }} aria-describedby="planning-source-limit"/></label>
       <p id="planning-source-limit" className="muted small">{session.source.length.toLocaleString()} / {MAX_SOURCE_LENGTH.toLocaleString()} {t('caractères')}</p>
+      <label className="field">{t('Ouvrir un fichier texte ou Markdown')}<input type="file" accept={PLANNING_FILE_ACCEPT} disabled={blocked || busy || reading} aria-describedby="planning-file-help" onChange={event => { const file = event.currentTarget.files?.[0]; event.currentTarget.value = ''; if (file) void openFile(file); }}/></label>
+      <p id="planning-file-help" className="muted small">{t('Fichiers .txt, .md et .markdown en UTF-8, 200 Ko et 50 000 caractères maximum. Pour un PDF ou Word, copie le texte ici.')}</p>
+      {reading && <p role="status">{t('Lecture du fichier…')}</p>}
+      {pendingSource && <div className="notice warning-notice"><p>{t('Un texte est déjà présent. Vérifie le nouveau texte avant de choisir de le remplacer.')}</p><pre className="planning-source">{pendingSource.source}</pre><div className="planning-actions"><button type="button" className="btn btn-secondary" onClick={() => setPendingSource(null)}>{t('Annuler')}</button><button type="button" className="btn btn-primary" onClick={() => { update({ ...current.current, ...pendingSource }); setPendingSource(null); }}>{t('Remplacer le texte')}</button></div></div>}
       {session.source.length > MAX_SOURCE_LENGTH && <p role="alert">{t('Le texte dépasse 50 000 caractères. Réduis-le avant analyse ; rien n’a été tronqué.')}</p>}
-      <p className="muted small">{t(available ? 'En lançant l’analyse, tu envoies ce texte au fournisseur OpenAI. Aucun envoi pendant la saisie.' : 'Analyse IA indisponible : service non activé ou compte non connecté. La saisie manuelle reste disponible.')}</p>
+      <p className="muted small">{t('La reconnaissance des journées et activités fonctionne sur cet appareil, sans compte ni envoi du texte. Vérifie ensuite l’aperçu avant de créer le carnet.')}</p>
       <div className="planning-actions">
-        <button className="btn btn-primary" disabled={!available || busy || blocked || !session.source.trim() || session.source.length > MAX_SOURCE_LENGTH} onClick={() => void analyze()}><Sparkles size={16}/>{t('Analyser mon programme')}</button>
-        {busy && <button className="btn btn-secondary" onClick={stop}><Square size={16}/>{t('Annuler l’analyse')}</button>}
-        <button className="btn btn-secondary" disabled={busy || blocked || session.source.length > MAX_SOURCE_LENGTH} onClick={manual}><Plus size={16}/>{t('Saisir mon aperçu manuellement')}</button>
+        <button className="btn btn-primary" disabled={busy || reading || blocked || !session.source.trim() || session.source.length > MAX_SOURCE_LENGTH} onClick={recognize}><ListChecks size={16}/>{t('Reconnaître mon programme')}</button>
+        <button className="btn btn-secondary" disabled={busy || reading || blocked || session.source.length > MAX_SOURCE_LENGTH} onClick={manual}><Plus size={16}/>{t('Saisir mon aperçu manuellement')}</button>
       </div>
-      {busy && <p role="status">{t('Analyse en cours… Ton texte reste disponible sur cet appareil.')}</p>}
-      <div className="planning-examples"><span className="muted small">{t('Exemples fictifs de démonstration, sans analyse IA')}</span>{SYNTHETIC_EXAMPLES.map((example, index) => <button className="text-btn" key={index} disabled={busy || blocked} onClick={() => update({ ...current.current, source: example.source, draft: structuredClone(example.draft) })}>{t('Charger l’exemple {count}', { count: index + 1 })}</button>)}</div>
+      <section className="planning-remote" aria-label={t('Analyse IA distante (facultative)')}><strong>{t('Analyse IA distante (facultative)')}</strong>
+        <p className="muted small">{t(available ? 'En lançant l’analyse, tu envoies ce texte au fournisseur OpenAI. Aucun envoi pendant la saisie.' : 'Analyse IA distante indisponible : service non activé ou compte non connecté. La reconnaissance locale reste disponible.')}</p>
+        <div className="planning-actions"><button className="btn btn-secondary" disabled={!available || busy || reading || blocked || !session.source.trim() || session.source.length > MAX_SOURCE_LENGTH} onClick={() => void analyze()}><Sparkles size={16}/>{t('Analyser mon programme')}</button>
+        {busy && <button className="btn btn-secondary" onClick={stop}><Square size={16}/>{t('Annuler l’analyse')}</button>}</div>
+        {busy && <p role="status">{t('Analyse en cours… Ton texte reste disponible sur cet appareil.')}</p>}
+      </section>
+      <div className="planning-examples"><span className="muted small">{t('Exemples fictifs de démonstration, sans analyse IA')}</span>{SYNTHETIC_EXAMPLES.map((example, index) => <button className="text-btn" key={index} disabled={busy || reading || blocked} onClick={() => { stop(); proposeSource(example.source, structuredClone(example.draft)); }}>{t('Charger l’exemple {count}', { count: index + 1 })}</button>)}</div>
     </> : <form onSubmit={event => void create(event)}>
       {session.preparedTrip && <p className="notice">{t('Création préparée. Réessayer termine le même carnet sauvegardé ; les corrections sont verrouillées.')}</p>}
       <fieldset className="planning-review-fields" disabled={!!session.preparedTrip}>
+      {(!draft.title.trim() || draft.cities.some(city => !city.name.trim())) && <p className="notice">{t('Le titre du voyage ou une ville n’a pas pu être identifié avec certitude. Complète les champs vides avant de créer le carnet ; aucune destination n’a été inventée.')}</p>}
       <label className="field">{t('Titre du voyage')}<input required maxLength={140} value={draft.title} onChange={e => changeDraft(d => correctField(d, 'title', e.target.value))}/></label>
       {provenance(draft.evidence)}
       <div className="form-row"><label className="field">{t('Devise de référence')}<input required maxLength={3} placeholder="EUR" value={session.currency} onChange={e => update({ ...current.current, currency: e.target.value.toUpperCase() })}/></label><label className="field">{t('Fuseau du voyage')}<input required placeholder="Europe/Paris" value={session.timezone} onChange={e => update({ ...current.current, timezone: e.target.value })}/></label></div>

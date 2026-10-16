@@ -1,5 +1,7 @@
 # Import de planning dans Detours
 
+> Mise à jour du 16 octobre 2026 : une reconnaissance locale de texte et de fichiers Markdown est ajoutée sur `codex/import-recognition`. Voir [le rapport actuel](IMPORT-RECOGNITION.md). Le présent document conserve les preuves historiques du 12 octobre ; sa limitation à la saisie manuelle en l'absence d'IA ne décrit plus cette nouvelle branche. L'activation du service IA distant reste distincte.
+
 12 octobre 2026, heure de Shanghai. Contribution locale `codex/import-planning-ia`, base actualisee `codex/carnets-universels` au commit `9fa03b15c6dfeba7129b11df538edba1ea9d0a94`.
 
 ## Resultat et essai
