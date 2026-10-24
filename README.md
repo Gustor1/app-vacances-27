@@ -4,6 +4,8 @@ Pour travailler à plusieurs avec Codex ou Claude Code : [guide de collaboration
 
 Plusieurs carnets, avec l’expérience de l’application À l’Est d’origine. Un week-end, une ville, un circuit ou plusieurs pays : ouvrir un voyage pour retrouver son planning, sa carte, ses bonus et ses outils. React, TypeScript, Vite et Leaflet. Le mode local fonctionne sans compte ; la bêta Supabase permet Google, synchronisation et carnet commun avec droits par membre.
 
+**Démo de progression publiée le 25 octobre 2026 :** [essayer Détours](https://app-vacances-27-beta-eliottle.vercel.app/) et [l’atelier des mascottes animées](https://app-vacances-27-beta-eliottle.vercel.app/mascotte/). Les lots présents dans cette branche sont partagés pour démonstration ; l’audit global reste à faire. La mascotte flottante est encore une démo séparée des vrais carnets. [Version publiée, contrôles et retour arrière](docs/development/demo-progression-20261025/RAPPORT.md).
+
 L’interface est disponible en français, anglais, chinois simplifié et espagnol dans **Préférences**. La langue est mémorisée sur l’appareil, s’applique aux dates et à l’impression, et reste disponible hors ligne. Les notes, noms de lieux, documents et autres contenus personnels conservent leur langue. Le changement de nom conserve les clés de sauvegarde historiques pour retrouver les carnets existants.
 
 ## Démarrer
