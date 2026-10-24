@@ -1,0 +1,30 @@
+[
+  {
+    "language": "fr",
+    "client": 250,
+    "scroll": 250,
+    "page": 320,
+    "viewport": 320
+  },
+  {
+    "language": "en",
+    "client": 250,
+    "scroll": 250,
+    "page": 320,
+    "viewport": 320
+  },
+  {
+    "language": "zh-CN",
+    "client": 250,
+    "scroll": 250,
+    "page": 320,
+    "viewport": 320
+  },
+  {
+    "language": "es",
+    "client": 250,
+    "scroll": 250,
+    "page": 320,
+    "viewport": 320
+  }
+]

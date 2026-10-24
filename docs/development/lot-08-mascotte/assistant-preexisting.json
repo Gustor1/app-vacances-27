@@ -1,0 +1,43 @@
+{
+  "sameFailureReproducedOnPreMissionSnapshot": true,
+  "initialBaseline": {
+    "passed": 5,
+    "failed": 0
+  },
+  "extendedBaseline": {
+    "passed": 14,
+    "failed": 1
+  },
+  "currentDiagnostic": {
+    "passed": 2,
+    "failed": 1
+  },
+  "files": [
+    {
+      "file": "src/hooks/useTravelState.ts",
+      "current": "1d08a92fcf04fc71f45215539d463edbe75bd8582fd4dbe1a48fd45134c38ac4",
+      "before": "1d08a92fcf04fc71f45215539d463edbe75bd8582fd4dbe1a48fd45134c38ac4"
+    },
+    {
+      "file": "src/travel-write.ts",
+      "current": "c48d3dff1e02e875e1a40520aec37a4c46f35a9e1975ffb11ce499074d4b9407",
+      "before": "c48d3dff1e02e875e1a40520aec37a4c46f35a9e1975ffb11ce499074d4b9407"
+    },
+    {
+      "file": "src/assistant.ts",
+      "current": "c2dd55cbdc6322fdcbefe1ef32108c597fcc0daa8cea1c2d9110da3af3d4ec7f",
+      "before": "c2dd55cbdc6322fdcbefe1ef32108c597fcc0daa8cea1c2d9110da3af3d4ec7f"
+    },
+    {
+      "file": "src/components/GuidedAssistant.tsx",
+      "current": "a84af916ab9c196fdd7eb61c71eb0e32f71e4d0d4e6e9caa37f909c80105ff1c",
+      "before": "a84af916ab9c196fdd7eb61c71eb0e32f71e4d0d4e6e9caa37f909c80105ff1c"
+    },
+    {
+      "file": "tests/e2e/assistant.spec.ts",
+      "current": "d19f10b0a91638bc3a3270989c1cc17f4cfc6b71815648cfcb9096b038edf2bb",
+      "before": "d19f10b0a91638bc3a3270989c1cc17f4cfc6b71815648cfcb9096b038edf2bb"
+    }
+  ],
+  "allRelevantFilesUnchanged": true
+}

@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "name": "carnet-chine-2027",
+  "dependencies": {
+    "fflate": {
+      "version": "0.8.3",
+      "resolved": "https://registry.npmjs.org/fflate/-/fflate-0.8.3.tgz",
+      "overridden": false
+    },
+    "pdfjs-dist": {
+      "version": "6.4.299",
+      "resolved": "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-6.4.299.tgz",
+      "overridden": false
+    },
+    "saxes": {
+      "version": "6.0.0",
+      "resolved": "https://registry.npmjs.org/saxes/-/saxes-6.0.0.tgz",
+      "overridden": false
+    }
+  }
+}

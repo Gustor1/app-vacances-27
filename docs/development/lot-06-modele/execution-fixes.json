@@ -1,0 +1,4 @@
+{
+  "reason": "Unwrap runtime chat response; make signal termination idempotent. No generation or prompt change; initial runner preserved.",
+  "runnerSha256": "327a3f5c98ba78421b106ae01b1008297d225a4410b3d494a50441e45497156c"
+}

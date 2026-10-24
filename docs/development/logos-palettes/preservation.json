@@ -1,0 +1,14 @@
+{
+  "initialFiles": 809,
+  "unchangedInitialFiles": 804,
+  "modifiedInitialFiles": [
+    "public/palettes.css",
+    "scripts/smoke-pwa-mobile.mjs",
+    "src/components/BrandMark.tsx",
+    "src/palettes.ts",
+    "scripts/verify-local.mjs"
+  ],
+  "missingInitialFiles": [],
+  "sourceFingerprint": "5a4ded414fe9d67df25df2f742bf0f313955963638173b22c355ed807f867e69",
+  "sourceUnchangedDuringGate": true
+}

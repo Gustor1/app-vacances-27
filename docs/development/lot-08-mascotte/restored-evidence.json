@@ -1,0 +1,37 @@
+[
+  {
+    "file": "docs/development/import-fiable-lot-01/screenshots/review-320.png",
+    "generatedHash": "b0f5c34c6850c479418081cc97516140e536a5a3a1374ba5a6ae184b4310f4aa",
+    "restoredHash": "5be60638a5cebc4e574200c9a532db998c5159a5e31adb06ce1e766a3b954267"
+  },
+  {
+    "file": "docs/development/import-fiable-lot-01/screenshots/review-390.png",
+    "generatedHash": "0987e461ec59bf51e6089b267a3668221012608c7311bfecae3e961af19808ec",
+    "restoredHash": "fa837398ebbb507a6043d61ea4c94b3843156fc7ab2840286d2ac825af735120"
+  },
+  {
+    "file": "docs/development/lot-04-lieux/screenshots/zh-CN-390.png",
+    "generatedHash": "aa29f6dc03a8b6e62e9969db438680c3fba0ed5694a956a02446b3eab0c39e02",
+    "restoredHash": "f7afdeff499f2262065dd2d9361351879c70732dcc55f1973716d6c24f9431bc"
+  },
+  {
+    "file": "docs/development/lot-05-compagnon/screenshots/en.png",
+    "generatedHash": "7bb142b90055cdbe61d4bfd1e11fda1737b0e5b31c4e22e664501a19b3bac117",
+    "restoredHash": "5f1bf96adb3433a7e63346a7f8e6ff86dc91cd5b6c0f38df4727c82ddffaec55"
+  },
+  {
+    "file": "docs/development/lot-05-compagnon/screenshots/es.png",
+    "generatedHash": "ec74834281a59e01df91a3ba97842d74fdd39aa13e334e83f1f5bebe62d5e474",
+    "restoredHash": "3cd0343506282ec4094b8b9847dc5c599ef962a2819196c7c7c5ab39ac05a5c0"
+  },
+  {
+    "file": "docs/development/lot-05-compagnon/screenshots/fr.png",
+    "generatedHash": "41a2c019c6d7e0b67c372778bca4e2651096ef20c50aa16f21b6c1b6c362ac01",
+    "restoredHash": "ad04bf083fcc24d7b5f72b6daeb8f183c39d3ce9a43a62021c7b06e20474b87b"
+  },
+  {
+    "file": "docs/development/lot-05-compagnon/screenshots/zh-CN.png",
+    "generatedHash": "2167ad9a3fae23c296e322170a244bf2178993018177b746cb7aaae3f8344dad",
+    "restoredHash": "e0b42022164537e38e33bce35e2e0cd2d19238f72488e8c3da13312c84932871"
+  }
+]

@@ -1,0 +1,30 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'https://c.tile.openstreetmap.org/2/1/1.png',
++   'https://a.tile.openstreetmap.org/2/2/1.png',
++   'https://a.tile.openstreetmap.org/2/1/2.png',
++   'https://b.tile.openstreetmap.org/2/2/2.png'
++ ]
+- []
+
+    at file:///C:/Users/eliot/Documents/app-vacances-27/scripts/smoke-companion.mjs:20:399 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    'https://c.tile.openstreetmap.org/2/1/1.png',
+    'https://a.tile.openstreetmap.org/2/2/1.png',
+    'https://a.tile.openstreetmap.org/2/1/2.png',
+    'https://b.tile.openstreetmap.org/2/2/2.png'
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

@@ -1,0 +1,7 @@
+# Programme
+Ville: Grenoble
+| Jour | Date | Heure | Activité |
+| --- | --- | --- | --- |
+| Jour 1 | 2027-07-10 | 09:00 | Musée de Grenoble |
+| Jour 1 | | 14:00 | Parc Paul Mistral |
+| Jour 2 | 2027-07-11 | 10:00 | Bastille |

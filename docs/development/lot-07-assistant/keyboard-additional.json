@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "generatedAt": "2026-10-23T11:45:12.231Z",
+  "previewEnterThenTab": {
+    "insideDialog": true,
+    "text": "Annuler"
+  },
+  "clearEnterThenTab": {
+    "insideDialog": true,
+    "label": null
+  },
+  "previewAt390pxZoom200NoOverflow": true,
+  "scope": "Additional isolated Chrome profile, synthetic fixture, no accepted mutation or external network"
+}

@@ -1,0 +1,12 @@
+.guided-assistant { display:grid; gap:16px; min-width:0; }
+.guided-assistant p { white-space:pre-wrap; overflow-wrap:anywhere; }
+.guided-assistant fieldset { min-width:0; border:0; padding:0; display:grid; gap:14px; }
+.guided-assistant input:not([type=checkbox]), .guided-assistant select, .guided-assistant textarea { width:100%; min-width:0; max-width:100%; }
+.assistant-results { display:grid; gap:12px; padding-left:20px; max-height:300px; overflow:auto; }
+.assistant-preview { border:1px solid var(--border); border-radius:16px; padding:16px; min-width:0; }
+.assistant-diff { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.assistant-diff > div { min-width:0; }
+.assistant-check { display:flex; align-items:center; gap:10px; overflow-wrap:anywhere; }
+.guided-assistant button { min-height:44px; white-space:normal; }
+@media(max-width:600px) { .assistant-diff {grid-template-columns:1fr;} }
+.assistant-entry { display:flex; justify-content:flex-end; margin-bottom:16px; }

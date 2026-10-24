@@ -1,0 +1,5 @@
+{
+  "sha256": "acf85794887851172dc98ae53d3c297f9d42958b8e9bae469cc2e2ebdab69a1b",
+  "documents": 24,
+  "policy": "Expectations authored before parser execution. Do not inspect results until final evaluation."
+}

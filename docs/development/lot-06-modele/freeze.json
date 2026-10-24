@@ -1,0 +1,24 @@
+{
+  "frozenAt": "2026-10-23T04:52:18.278Z",
+  "hashes": {
+    "tests/fixtures/planning/lot06-corpus.json": "fbeaebe6424c3fe505a967135ee6ceec524367be05efee99aeed83265a81180f",
+    "scripts/lot06-core.mjs": "fd5c79d4307f09ebe520878b88261d22005a91c0f89ee941bcbc01628d42ca7c",
+    "scripts/lot06-worker.mjs": "58cb32d25b5a195d26a1841bf4ef491960a7d169e0e547fc7881272f65381167",
+    "scripts/benchmark-lot06.mjs": "8ba1b55c77c72b30e4b437f935400a43baf705896f3ce8a62a110f2b0976a3da",
+    "docs/development/lot-06-modele/RAPPORT.md": "7a8b23af0b275447a0a715823fac55e8836c9e6269e0df4d4aebdd5cf429f81b"
+  },
+  "promptSha256": "23065ef4107fe135c393f0832a242bb0cd1cb5f8dcda243a28d80853b1389f5e",
+  "parameters": {
+    "max_new_tokens": 768,
+    "do_sample": false,
+    "enable_thinking": false,
+    "timeoutMs": 90000,
+    "threads": 4
+  },
+  "budgets": {
+    "downloadBytes": 150000000,
+    "warmMs": 10000,
+    "coldLoadMs": 30000,
+    "cancelMs": 2000
+  }
+}

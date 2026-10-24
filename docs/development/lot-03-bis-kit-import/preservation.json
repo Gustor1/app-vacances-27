@@ -1,0 +1,33 @@
+{
+  "snapshot": "C:\\Users\\eliot\\Documents\\detours-lot03bis-recovery-20261021",
+  "initialFingerprint": "ac826e3149bf73659e5c962649d7696cdd5ea2b53afe0d67ebaca257c28d7033",
+  "initialFiles": 959,
+  "unchangedInitialFiles": 946,
+  "intentionalModifiedInitialFiles": [
+    "README.md",
+    "docs/development/IMPORT-RECOGNITION.md",
+    "docs/development/lots-suivants/00-LIRE-AVANT-LES-LOTS.md",
+    "scripts/verify-local.mjs",
+    "src/components/PlanningImport.css",
+    "src/components/PlanningImport.tsx",
+    "src/components/SourceDocument.tsx",
+    "src/locales/planning-import.ts",
+    "src/planning-import/draft.ts",
+    "src/planning-import/external-prompt.ts",
+    "src/planning-import/persistence.ts",
+    "src/planning-import/types.ts",
+    "tests/e2e/planning-documents.spec.ts"
+  ],
+  "newFunctionalFiles": 16,
+  "missing": [],
+  "unexpectedModifications": [],
+  "historicalCapturesArchivedAndRestored": [
+    "docs/development/import-fiable-lot-01/screenshots/review-320.png",
+    "docs/development/import-fiable-lot-01/screenshots/review-390.png"
+  ],
+  "branch": "codex/lot-03-bis-kit-import",
+  "head": "c1dd8a686e5962a156bad1489e4e4d3f2c731d64",
+  "commitPushDeployment": "not performed",
+  "validatedSourceFingerprint": "84698f182f577c770ca10e52f3fc528cb9f0b058c1f0b3fcc41387d41b05eda9",
+  "buildId": "9e25a584962272f9d726c4185ad7826f03f21bf579b4ac4f5963c633b03a79c5"
+}

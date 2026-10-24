@@ -1,10 +1,12 @@
-import { parseTrip, TRIP_PREFIX, type Storage } from '../journeys.ts';
+import { archive, parseTrip, tripKey, TRIP_PREFIX, type Storage } from '../journeys.ts';
+import type { StoredState } from '../types';
 import { WORLD_KEY } from '../world.ts';
 import { uid } from '../lib.ts';
 import type { FieldConflict } from './merge.ts';
 
 export type Role = 'owner' | 'editor' | 'reader';
-export type SyncRecord = { version: 1; raw: string; base: unknown; revision: number; privateRevision: number; pending: boolean; operation: string; role: Role; fullSharing?: boolean; accessChanged?: boolean; allowedFields?: string[]; action?: 'restore'; deleted?: boolean; revoked?: boolean; lastSynced?: string; conflict?: { remote: unknown; revision: number; privateRevision: number; fields: FieldConflict[]; remoteDeleted?: boolean } };
+type LocalImportRecord = { localOnly?: boolean };
+export type SyncRecord = LocalImportRecord & { version: 1; raw: string; base: unknown; revision: number; privateRevision: number; pending: boolean; operation: string; role: Role; fullSharing?: boolean; accessChanged?: boolean; allowedFields?: string[]; action?: 'restore'; deleted?: boolean; revoked?: boolean; lastSynced?: string; conflict?: { remote: unknown; revision: number; privateRevision: number; fields: FieldConflict[]; remoteDeleted?: boolean } };
 export type TripStorage = Storage & { removeItem: (key: string) => void; physicalKey: (key: string) => string; accountId: string | null };
 export function localTripStorage(storage: globalThis.Storage): TripStorage {
   return { accountId: null, physicalKey: key => key, get length() { return storage.length; }, key: i => storage.key(i), getItem: key => storage.getItem(key), setItem: (key, raw) => storage.setItem(key, raw), removeItem: key => storage.removeItem(key) };
@@ -47,14 +49,24 @@ export class AccountStorage implements TripStorage {
     if (key.startsWith(TRIP_PREFIX)) parseTrip(raw);
     if (previous?.raw === raw) return;
     if (previous?.role === 'reader') throw new Error('Lecture seule. Crée ta copie pour modifier ce carnet.');
-    this.put(key, { version: 1, base: null, revision: 0, privateRevision: 0, role: 'owner', ...previous, raw, pending: true, operation: uid('operation') });
+    this.put(key, { version: 1, base: null, revision: 0, privateRevision: 0, role: 'owner', ...previous, raw, pending: !previous?.localOnly, operation: uid('operation') });
+  }
+  createLocalTrip(state: StoredState) {
+    const key = tripKey(state.journey!.id);
+    if (this.record(key)) throw new Error('Cette identité de carnet existe déjà.');
+    this.put(key, { version:1, raw:JSON.stringify(archive(state)), base:null, revision:0, privateRevision:0, pending:false, localOnly:true, role:'owner', operation:uid('operation') });
+  }
+  attachLocalTrip(id: string) {
+    const key = tripKey(id), record = this.record(key);
+    if (!record?.localOnly || record.deleted || record.revoked || record.role !== 'owner') throw new Error('Carnet local indisponible.');
+    this.put(key, { ...record, localOnly:false, pending:true, operation:uid('operation') });
   }
   removeItem(key: string) {
     if (!this.isRecord(key)) { this.backing.removeItem(this.physicalKey(key)); return; }
     const record = this.record(key);
     if (!record) return;
     if (record.role !== 'owner') throw new Error('Seul le propriétaire peut supprimer ce carnet.');
-    this.put(key, { ...record, pending: true, deleted: true, operation: uid('operation') });
+    this.put(key, { ...record, pending: !record.localOnly, deleted: true, operation: uid('operation') });
   }
   records(): [string, SyncRecord][] {
     return this.keys().filter(key => this.isRecord(key)).map(key => [key, this.record(key)!]);
