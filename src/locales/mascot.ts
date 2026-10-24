@@ -1,4 +1,9 @@
 const rows: [string, string, string, string][] = [
+  ['Choisir la mascotte', 'Choose the mascot', '选择吉祥物', 'Elegir la mascota'],
+  ['Animer la mascotte', 'Animate the mascot', '播放吉祥物动画', 'Animar la mascota'],
+  ['Ouvrir les raccourcis de la mascotte', 'Open mascot shortcuts', '打开吉祥物快捷操作', 'Abrir accesos de la mascota'],
+  ['Raccourcis', 'Shortcuts', '快捷操作', 'Accesos rápidos'],
+  ['Déplace la mascotte avec le doigt ou la souris. Au clavier : Maj + flèches.', 'Drag the mascot with your finger or mouse. Keyboard: Shift + arrows.', '用手指或鼠标拖动吉祥物。键盘：Shift + 方向键。', 'Arrastra la mascota con el dedo o el ratón. Teclado: Mayús + flechas.'],
   ['Afficher la mascotte', 'Show the mascot', '显示吉祥物', 'Mostrar la mascota'],
   ['Une hirondelle discrète pour les premiers pas, la relecture et le hors-ligne. Ce choix reste personnel sur cet appareil.', 'A quiet swallow for first steps, review and offline preparation. This choice stays personal on this device.', '小燕子在初次使用、检查导入和离线准备时提供提示。此设置仅保存在本设备，属于个人偏好。', 'Una golondrina discreta para los primeros pasos, la revisión y la preparación sin conexión. Esta elección es personal en este dispositivo.'],
   ['Un premier détour ? Crée ton carnet ou pars d’un planning à vérifier.', 'Your first detour? Create a notebook or start with a plan to review.', '第一次启程？创建手册，或从待检查的行程开始。', '¿Tu primer desvío? Crea un cuaderno o empieza con un plan para revisar.'],

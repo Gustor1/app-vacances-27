@@ -2,12 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocale } from '../i18n';
 import { useMascotPreferences } from '../MascotPreferences';
 import './Mascot.css';
-import welcomeImage from '../assets/mascot/welcome.svg?inline';
-import attentionImage from '../assets/mascot/attention.svg?inline';
-import readyImage from '../assets/mascot/ready.svg?inline';
-
 export type MascotState = 'welcome' | 'attention' | 'ready';
-const images: Record<MascotState, string> = { welcome: welcomeImage, attention: attentionImage, ready: readyImage };
 const messages: Record<MascotState, string> = {
   welcome: 'Un premier détour ? Crée ton carnet ou pars d’un planning à vérifier.',
   attention: 'Un passage demande ta relecture. Compare avec la source avant de créer le carnet.',
@@ -17,10 +12,8 @@ const messages: Record<MascotState, string> = {
 export default function Mascot({ state }: { state: MascotState }) {
   const { enabled } = useMascotPreferences();
   const { t } = useLocale();
-  const [failed, setFailed] = useState(false);
   if (!enabled) return null;
   return <div className="mascot-hint" data-mascot={state}>
-    {!failed && <img src={images[state]} width="64" height="64" alt="" aria-hidden="true" decoding="async" onError={() => setFailed(true)}/>}
     <p>{t(messages[state])}</p>
   </div>;
 }

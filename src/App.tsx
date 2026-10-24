@@ -1,3 +1,4 @@
+import FloatingMascot from './components/FloatingMascot';
 import Souvenirs from './components/Souvenirs';
 import { placeStep } from './places/model';
 import PlaceEnrichment from './components/PlaceEnrichment';
@@ -200,7 +201,7 @@ export default function App({ seed, onHome, onImport, externalError, accountCont
   function bonusForm(event:FormEvent<HTMLFormElement>) {event.preventDefault();if(modal?.type!=='bonus-editor')return;const form=new FormData(event.currentTarget);const existing=modal.bonus;const bonus:Bonus={id:existing?.id||uid('bonus'),cityId:String(form.get('cityId')),title:String(form.get('title')).trim(),chineseName:String(form.get('chineseName')).trim(),address:String(form.get('address')).trim(),description:String(form.get('description')).trim(),category:String(form.get('category')) as Bonus['category'],budget:String(form.get('budget')).trim(),tip:String(form.get('tip')).trim()};if(!bonus.title)return;setState(s=>({...s,customBonus:existing?(s.customBonus||[]).map(b=>b.id===existing.id?mergeChanges(existing,bonus,b):b):[...(s.customBonus||[]),bonus]}));setModal(null);setToast(t('Adresse personnelle enregistrée.'));}
 
 
-  return <SharedFieldsContext.Provider value={allowedFields}><ReadOnlyContext.Provider value={readOnly}><div className="app-shell" data-readonly={readOnly}>
+  return <SharedFieldsContext.Provider value={allowedFields}><ReadOnlyContext.Provider value={readOnly}><div className="app-shell" data-readonly={readOnly}><FloatingMascot actions={[{ label: 'Voir Maintenant', run: () => navigate('now') }, { label: 'Explorer les bonus', run: () => navigate('bonus') }]}/>
     <a className="skip-link" href="#main">{t("Aller au contenu")}</a>
     {mobileMenu && <div className="sidebar-scrim" onClick={() => setMobileMenu(false)}/>}
     <aside inert={!!modal} id="sidebar" className={`sidebar ${mobileMenu ? 'open' : ''}`}>

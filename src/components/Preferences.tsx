@@ -12,6 +12,7 @@ export default function PreferencesButton() {
   const mascot = useMascotPreferences();
   const { t, theme, resolvedTheme, palettes, setPalette, resetPalettes, language, setTheme, setLanguage, preferenceError } = useLocale();
   const [open, setOpen] = useState(false);
+  useEffect(() => { const show = () => setOpen(true); window.addEventListener('detours-open-preferences', show); return () => window.removeEventListener('detours-open-preferences', show); }, []);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function PreferencesButton() {
         </details>
       </fieldset>
       <fieldset><legend><Languages size={17}/> {t('Langue de l’interface')}</legend><div className="language-options">{interfaceLanguages.map(({id, label}) => <label key={id} className={language === id ? 'selected' : ''}><input type="radio" name="language" value={id} checked={language === id} onChange={() => setLanguage(id)}/><span lang={id}>{label}</span>{language === id && <Check size={15} aria-hidden="true"/>}</label>)}</div><p className="muted">{t('Les documents d’origine et tes notes gardent leur langue.')}</p></fieldset>
-      <fieldset><legend>{t('Afficher la mascotte')}</legend><label className="mascot-preference"><input type="checkbox" name="mascot" checked={mascot.enabled} onChange={event => mascot.setEnabled(event.target.checked)}/><span>{t('Afficher la mascotte')}</span></label><p className="muted">{t('Une hirondelle discrète pour les premiers pas, la relecture et le hors-ligne. Ce choix reste personnel sur cet appareil.')}</p>{mascot.error && <p role="status">{t('La mascotte suit ton choix pour cette session, mais son réglage n’a pas pu être sauvegardé. Réessaie dans Préférences.')}</p>}</fieldset>
+      <fieldset><legend>{t('Afficher la mascotte')}</legend><label className="mascot-preference"><input type="checkbox" name="mascot" checked={mascot.enabled} onChange={event => mascot.setEnabled(event.target.checked)}/><span>{t('Afficher la mascotte')}</span></label><label>{t('Choisir la mascotte')}<select aria-label={t('Choisir la mascotte')} value={mascot.character} onChange={e => mascot.setCharacter(e.target.value as 'pico' | 'mochi' | 'bivouac')}><option value="pico">Pico</option><option value="mochi">Mochi</option><option value="bivouac">Bivouac</option></select></label><label className="mascot-preference"><input type="checkbox" checked={mascot.animated} onChange={e => mascot.setAnimated(e.target.checked)}/><span>{t('Animer la mascotte')}</span></label><p className="muted">{t('Déplace la mascotte avec le doigt ou la souris. Au clavier : Maj + flèches.')}</p><p className="muted">{t('Une hirondelle discrète pour les premiers pas, la relecture et le hors-ligne. Ce choix reste personnel sur cet appareil.')}</p>{mascot.error && <p role="status">{t('La mascotte suit ton choix pour cette session, mais son réglage n’a pas pu être sauvegardé. Réessaie dans Préférences.')}</p>}</fieldset>
       <fieldset><legend>{t('Installer Détours')}</legend><InstallHelp/></fieldset>
       <p className="preferences-save-note" role="status">{t(preferenceError ? 'Ces réglages restent actifs pour cette session, mais leur sauvegarde est indisponible.' : 'Ces réglages sont mémorisés sur cet appareil.')}</p>
     </dialog>}

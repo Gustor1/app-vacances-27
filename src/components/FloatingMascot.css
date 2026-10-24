@@ -1,0 +1,11 @@
+.floating-mascot { position: fixed; z-index: 90; width: 96px; height: 96px; pointer-events: none; left: calc(100% - 108px); top: calc(82% - 96px); }
+.floating-mascot .pet-button, .floating-mascot .pet-button:hover, .floating-mascot .pet-button:active { display: block; width: 96px; height: 96px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; pointer-events: auto; cursor: grab; touch-action: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+.floating-mascot .pet-button:active { cursor: grabbing; }
+.floating-mascot .pet-button:focus-visible { outline: none; }
+.floating-mascot .pet-button:focus-visible canvas { filter: drop-shadow(0 0 2px var(--action)); }
+.mascot-sprite { display: block; width: 100%; height: 100%; }
+.mascot-shortcuts { position: fixed; pointer-events: auto; display: grid; gap: 6px; width: 260px; padding: 12px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); color: var(--text); box-shadow: 0 8px 28px #0003; overflow-y: auto; }
+.mascot-shortcuts button { min-height: 44px; padding: 8px 12px; border: 0; border-radius: 10px; color: var(--text); background: var(--surface-alt); text-align: start; }
+.mascot-shortcuts button:hover { background: var(--selected-surface); }
+.mascot-fallback { position: absolute; inset: 20px; font-size: 40px; color: var(--action); }
+@media print { .floating-mascot { display: none; } }

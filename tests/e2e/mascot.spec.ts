@@ -67,7 +67,7 @@ test('toggle is immediate, durable, keyboard accessible and leaves the import un
 
 test('failed image and failed preference write leave all ordinary actions available', async ({page}) => {
   await page.goto('/'); await review(page);
-  await page.locator('[data-mascot="attention"] img').evaluate((img: HTMLImageElement) => { img.src='data:image/svg+xml,broken'; });
+  // Contextual messages no longer depend on decorative image loading.
   await expect(page.locator('[data-mascot="attention"] img')).toHaveCount(0);
   await expect(page.locator('[data-mascot="attention"] p')).toContainText('Compare avec la source');
   await page.keyboard.press('Escape');

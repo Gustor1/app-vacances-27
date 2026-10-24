@@ -1,3 +1,4 @@
+import FloatingMascot from './FloatingMascot';
 import BrandMark from './BrandMark';
 import { FirstNotebookMascot } from './Mascot';
 import { lazy, Suspense, useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
@@ -172,7 +173,7 @@ export default function JourneysApp() {
   const synchronization=syncTripId?<TripSyncPanel id={syncTripId} onClose={()=>setSyncTripId(null)}/>:null;
   const invitation = <InvitationBanner onAccepted={id => { refresh(); open(id); }}/>;
   if (active) { const id=active.journey!.id; const record=localStorage instanceof AccountStorage?localStorage.record(tripKey(id)):null; return <>{invitation}{synchronization}<App key={id} seed={active} readOnly={!writable(id)} allowedFields={record?.fullSharing?record.allowedFields:undefined} collaborationControl={({saving,storageError})=><TripCollaboration saving={saving} storageError={storageError} id={id} onShare={()=>setSharing(readTrip(localStorage,id))} onCopy={()=>persist(duplicateTrip(readTrip(localStorage,id),active.journey!.title+' — '+t('Ma copie')),true)}/>} accountControl={<AccountPanel/>} externalError={error} onHome={() => { refresh(); open(null); }} onImport={importFile}/>{sharing&&<SharePanel state={sharing} onClose={()=>setSharing(null)}/>} {collection.divergence && <div className="legacy-warning" role="alert">{t('Une ancienne version a modifié le carnet Chine. Reviens dans Mes voyages pour récupérer ces changements.')}</div>}</>; }
-  return <>{invitation}{synchronization}<div className="journeys-shell">
+  return <><FloatingMascot actions={[{ label: 'Créer un voyage', run: () => edit('new') }, { label: 'Créer depuis un planning', run: () => setPlanningImport(true) }]}/>{invitation}{synchronization}<div className="journeys-shell">
     <a className="skip-link" href="#journeys-main">{t('Aller au contenu')}</a>
     <header className="journeys-topbar"><a className="brand" href="#journeys-main"><span className="brand-mark"><BrandMark/></span><span>détours<span className="brand-dot">.</span><small>{t('LES BEAUX DÉTOURS')}</small></span></a><div className="journeys-topbar-actions"><PreferencesButton/><AccountPanel/></div></header>
     <main id="journeys-main" className="journeys-main">

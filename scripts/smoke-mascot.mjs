@@ -57,8 +57,8 @@ try {
     if(!before) {
       external.length=0;await context.setOffline(true);await page.reload();
       await expect(page.locator('[data-mascot="ready"]')).toBeVisible();
-      await expect.poll(()=>page.locator('[data-mascot="ready"] img').evaluate(img=>img.naturalWidth)).toBeGreaterThan(0);
-      assert.match(await page.locator('[data-mascot="ready"] img').getAttribute('src'),/^data:image\/svg\+xml/);
+      await expect(page.locator('.mascot-sprite')).toHaveAttribute('data-ready','true');
+      await expect(page.locator('.mascot-sprite canvas')).toBeVisible();
       assert.deepEqual(external,[]);
       const raw=await page.evaluate(key=>localStorage.getItem(key),key);
       await page.getByRole('button',{name:'Préférences',exact:true}).click();await page.getByRole('checkbox',{name:'Afficher la mascotte',exact:true}).uncheck();
