@@ -1,0 +1,15 @@
+{
+  "versions": {
+    "node": "v24.15.0",
+    "react": "19.3.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.6",
+    "@playwright/test": "1.63.0",
+    "fflate": "0.8.3"
+  },
+  "platform": "win32",
+  "timezone": "Asia/Shanghai",
+  "newDependencies": [],
+  "backend": "unchanged; simulated for gate",
+  "physicalDevice": false
+}

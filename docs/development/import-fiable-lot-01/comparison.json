@@ -1,0 +1,5721 @@
+{
+  "generatedAt": "2026-10-17T21:43:00.610Z",
+  "environment": {
+    "node": "v24.15.0",
+    "platform": "win32",
+    "cpu": "12th Gen Intel(R) Core(TM) i7-1260P",
+    "memoryBytes": 16855584768,
+    "timing": "5 runs without CPU throttling; Node process on development PC; before parser only, after parser plus review"
+  },
+  "hashes": {
+    "src/planning-import/parser.ts": "b373a6416f4a9fa247574783fe55637350d0a3c5598f46130c5d6336ebce2136",
+    "src/planning-import/normalizations.ts": "49488f5a027c973fbefacca8fd521a6ff7362904490a54549493d4ae689a5467",
+    "src/planning-import/review.ts": "d9f1eaea89da565a11c0f05be9f14a9b7e8ed9a58251820ed8187f03f7545b8f",
+    "tests/fixtures/planning/stress-corpus.mjs": "167b4dbaebef8cd31be3a29cdc80d3a73aa9bc4d47666a90c0d406603fd4fea5",
+    "docs/development/import-fiable-lot-01/holdout.json": "acf85794887851172dc98ae53d3c297f9d42958b8e9bae469cc2e2ebdab69a1b"
+  },
+  "stress": {
+    "before": {
+      "cases": 36,
+      "passed": 18,
+      "expectedItems": 114,
+      "separateItems": 75,
+      "assignedItems": 66,
+      "omissions": 39,
+      "extraItems": 9,
+      "fieldErrors": 0
+    },
+    "after": {
+      "cases": 36,
+      "passed": 27,
+      "expectedItems": 114,
+      "separateItems": 85,
+      "assignedItems": 83,
+      "omissions": 29,
+      "extraItems": 2,
+      "fieldErrors": 0
+    },
+    "regressions": []
+  },
+  "holdout": {
+    "before": {
+      "cases": 24,
+      "passed": 11,
+      "expectedItems": 64,
+      "separateItems": 36,
+      "assignedItems": 33,
+      "omissions": 28,
+      "extraItems": 4,
+      "fieldErrors": 0
+    },
+    "after": {
+      "cases": 24,
+      "passed": 24,
+      "expectedItems": 64,
+      "separateItems": 64,
+      "assignedItems": 64,
+      "omissions": 0,
+      "extraItems": 0,
+      "fieldErrors": 0
+    },
+    "reviewExpected": 8,
+    "reviewSignaled": 4,
+    "results": [
+      {
+        "id": "fr-1",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "abbaye",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "abbaye",
+              "city": "saumur",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "jardin clos",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "jardin clos",
+              "city": "saumur",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "musée municipal",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "musée municipal",
+              "city": "saumur",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "saumur",
+          "cities": [
+            {
+              "name": "saumur",
+              "days": [
+                {
+                  "title": "Jour 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "abbaye",
+                      "category": "visit",
+                      "description": "- abbaye",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- abbaye"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- abbaye"
+                        }
+                      }
+                    },
+                    {
+                      "title": "jardin clos",
+                      "category": "visit",
+                      "description": "- jardin clos",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- jardin clos"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- jardin clos"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Jour 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Jour 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "musée municipal",
+                      "category": "visit",
+                      "description": "- musée municipal",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- musée municipal"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- musée municipal"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Jour 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "saumur"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "saumur"
+            }
+          }
+        }
+      },
+      {
+        "id": "fr-2",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "abbaye",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "abbaye",
+              "city": "saumur",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "jardin clos",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "jardin clos",
+              "city": "saumur",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "musée municipal",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "musée municipal",
+              "city": "saumur",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "saumur",
+              "days": [
+                {
+                  "title": "Jour 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "abbaye",
+                      "category": "visit",
+                      "description": "*abbaye",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "*abbaye"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "*abbaye"
+                        }
+                      }
+                    },
+                    {
+                      "title": "jardin clos",
+                      "category": "visit",
+                      "description": "*jardin clos",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "*jardin clos"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "*jardin clos"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "### 📅 Jour 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Jour 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "musée municipal",
+                      "category": "visit",
+                      "description": "- musée municipal",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- musée municipal"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- musée municipal"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "### 📅 Jour 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "## 📍 saumur"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "fr-3",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 2,
+        "actualItems": 2,
+        "mentions": 2,
+        "separateItems": 2,
+        "assignedItems": 2,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "abbaye",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "abbaye",
+              "city": "saumur",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "musée municipal",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "musée municipal",
+              "city": "saumur",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": true,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Objet: visite",
+          "cities": [
+            {
+              "name": "saumur",
+              "days": [
+                {
+                  "title": "Jour 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "abbaye",
+                      "category": "visit",
+                      "description": "> - abbaye",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "> - abbaye"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "> - abbaye"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "> Jour 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Jour 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "musée municipal",
+                      "category": "visit",
+                      "description": "> - musée municipal",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "> - musée municipal"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "> - musée municipal"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "> Jour 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "> Ville: saumur"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "Objet: visite"
+            }
+          }
+        }
+      },
+      {
+        "id": "fr-4",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "abbaye",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "abbaye",
+              "city": "saumur",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "jardin clos",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "jardin clos",
+              "city": "saumur",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "musée municipal",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "musée municipal",
+              "city": "saumur",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "saumur",
+              "days": [
+                {
+                  "title": "Jour 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "abbaye",
+                      "category": "visit",
+                      "description": "abbaye -> jardin clos",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "abbaye -> jardin clos"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "abbaye -> jardin clos"
+                        }
+                      }
+                    },
+                    {
+                      "title": "jardin clos",
+                      "category": "visit",
+                      "description": "abbaye -> jardin clos",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "abbaye -> jardin clos"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "abbaye -> jardin clos"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Jour 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Jour 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "musée municipal",
+                      "category": "visit",
+                      "description": "- musée municipal",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- musée municipal"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- musée municipal"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Jour 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "Ville: saumur"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "Note : équipement à vérifier."
+          ],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "fr-5",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "abbaye",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "abbaye",
+              "city": "saumur",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "jardin clos",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "jardin clos",
+              "city": "saumur",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "musée municipal",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "musée municipal",
+              "city": "saumur",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "saumur",
+              "days": [
+                {
+                  "title": "Jour 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "abbaye",
+                      "category": "visit",
+                      "description": "abbaye",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "abbaye"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "abbaye"
+                        }
+                      }
+                    },
+                    {
+                      "title": "jardin clos",
+                      "category": "visit",
+                      "description": "jardin clos",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "jardin clos"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "jardin clos"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Jour 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Jour 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "musée municipal",
+                      "category": "visit",
+                      "description": "musée municipal",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "musée municipal"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "musée municipal"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Jour 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "Ville: saumur"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "fr-6",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 2,
+        "actualItems": 2,
+        "mentions": 2,
+        "separateItems": 2,
+        "assignedItems": 2,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "saumur",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "abbaye",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "abbaye",
+              "city": "saumur",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "musée municipal",
+            "expectedCity": "saumur",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "musée municipal",
+              "city": "saumur",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": true,
+        "review": [
+          {
+            "kind": "ambiguous",
+            "quote": "Correction finale : vérifier le jour de abbaye, peut-être annulé."
+          }
+        ],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "saumur",
+              "days": [
+                {
+                  "title": "Jour 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "abbaye",
+                      "category": "visit",
+                      "description": "- abbaye",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- abbaye"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- abbaye"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Jour 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Jour 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "musée municipal",
+                      "category": "visit",
+                      "description": "- musée municipal",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- musée municipal"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- musée municipal"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Jour 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "Ville: saumur"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "Correction finale : vérifier le jour de abbaye, peut-être annulé."
+          ],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "en-1",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "old observatory",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "old observatory",
+              "city": "Durham",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "river garden",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "river garden",
+              "city": "Durham",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "local museum",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "local museum",
+              "city": "Durham",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Durham",
+          "cities": [
+            {
+              "name": "Durham",
+              "days": [
+                {
+                  "title": "Day 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "old observatory",
+                      "category": "visit",
+                      "description": "- old observatory",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- old observatory"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- old observatory"
+                        }
+                      }
+                    },
+                    {
+                      "title": "river garden",
+                      "category": "visit",
+                      "description": "- river garden",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- river garden"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- river garden"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Day 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Day 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "local museum",
+                      "category": "visit",
+                      "description": "- local museum",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- local museum"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- local museum"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Day 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "Durham"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "Durham"
+            }
+          }
+        }
+      },
+      {
+        "id": "en-2",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "old observatory",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "old observatory",
+              "city": "Durham",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "river garden",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "river garden",
+              "city": "Durham",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "local museum",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "local museum",
+              "city": "Durham",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "Durham",
+              "days": [
+                {
+                  "title": "Day 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "old observatory",
+                      "category": "visit",
+                      "description": "*old observatory",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "*old observatory"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "*old observatory"
+                        }
+                      }
+                    },
+                    {
+                      "title": "river garden",
+                      "category": "visit",
+                      "description": "*river garden",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "*river garden"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "*river garden"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "### 📅 Day 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Day 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "local museum",
+                      "category": "visit",
+                      "description": "- local museum",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- local museum"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- local museum"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "### 📅 Day 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "## 📍 Durham"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "en-3",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 2,
+        "actualItems": 2,
+        "mentions": 2,
+        "separateItems": 2,
+        "assignedItems": 2,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "old observatory",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "old observatory",
+              "city": "Durham",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "local museum",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "local museum",
+              "city": "Durham",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": true,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Objet: visite",
+          "cities": [
+            {
+              "name": "Durham",
+              "days": [
+                {
+                  "title": "Day 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "old observatory",
+                      "category": "visit",
+                      "description": "> - old observatory",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "> - old observatory"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "> - old observatory"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "> Day 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Day 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "local museum",
+                      "category": "visit",
+                      "description": "> - local museum",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "> - local museum"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "> - local museum"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "> Day 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "> City: Durham"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "Objet: visite"
+            }
+          }
+        }
+      },
+      {
+        "id": "en-4",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "old observatory",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "old observatory",
+              "city": "Durham",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "river garden",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "river garden",
+              "city": "Durham",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "local museum",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "local museum",
+              "city": "Durham",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "Durham",
+              "days": [
+                {
+                  "title": "Day 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "old observatory",
+                      "category": "visit",
+                      "description": "old observatory -> river garden",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "old observatory -> river garden"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "old observatory -> river garden"
+                        }
+                      }
+                    },
+                    {
+                      "title": "river garden",
+                      "category": "visit",
+                      "description": "old observatory -> river garden",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "old observatory -> river garden"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "old observatory -> river garden"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Day 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Day 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "local museum",
+                      "category": "visit",
+                      "description": "- local museum",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- local museum"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- local museum"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Day 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "City: Durham"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "Note: bring water."
+          ],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "en-5",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "old observatory",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "old observatory",
+              "city": "Durham",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "river garden",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "river garden",
+              "city": "Durham",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "local museum",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "local museum",
+              "city": "Durham",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "Durham",
+              "days": [
+                {
+                  "title": "Day 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "old observatory",
+                      "category": "visit",
+                      "description": "old observatory",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "old observatory"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "old observatory"
+                        }
+                      }
+                    },
+                    {
+                      "title": "river garden",
+                      "category": "visit",
+                      "description": "river garden",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "river garden"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "river garden"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Day 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Day 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "local museum",
+                      "category": "visit",
+                      "description": "local museum",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "local museum"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "local museum"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Day 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "City: Durham"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "en-6",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 2,
+        "actualItems": 2,
+        "mentions": 2,
+        "separateItems": 2,
+        "assignedItems": 2,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "durham",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "old observatory",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "old observatory",
+              "city": "Durham",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "local museum",
+            "expectedCity": "Durham",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "local museum",
+              "city": "Durham",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": true,
+        "review": [
+          {
+            "kind": "ambiguous",
+            "quote": "Correction finale : vérifier le jour de old observatory, peut-être annulé."
+          }
+        ],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "Durham",
+              "days": [
+                {
+                  "title": "Day 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "old observatory",
+                      "category": "visit",
+                      "description": "- old observatory",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- old observatory"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- old observatory"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Day 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Day 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "local museum",
+                      "category": "visit",
+                      "description": "- local museum",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- local museum"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- local museum"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Day 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "City: Durham"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "Correction finale : vérifier le jour de old observatory, peut-être annulé."
+          ],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "es-1",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "torre antigua",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "torre antigua",
+              "city": "Córdoba",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "jardín botánico",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "jardín botánico",
+              "city": "Córdoba",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "museo local",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "museo local",
+              "city": "Córdoba",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Córdoba",
+          "cities": [
+            {
+              "name": "Córdoba",
+              "days": [
+                {
+                  "title": "Día 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "torre antigua",
+                      "category": "visit",
+                      "description": "- torre antigua",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- torre antigua"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- torre antigua"
+                        }
+                      }
+                    },
+                    {
+                      "title": "jardín botánico",
+                      "category": "visit",
+                      "description": "- jardín botánico",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- jardín botánico"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- jardín botánico"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Día 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Día 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "museo local",
+                      "category": "visit",
+                      "description": "- museo local",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- museo local"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- museo local"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Día 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "Córdoba"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "Córdoba"
+            }
+          }
+        }
+      },
+      {
+        "id": "es-2",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "torre antigua",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "torre antigua",
+              "city": "Córdoba",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "jardín botánico",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "jardín botánico",
+              "city": "Córdoba",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "museo local",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "museo local",
+              "city": "Córdoba",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "Córdoba",
+              "days": [
+                {
+                  "title": "Día 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "torre antigua",
+                      "category": "visit",
+                      "description": "*torre antigua",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "*torre antigua"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "*torre antigua"
+                        }
+                      }
+                    },
+                    {
+                      "title": "jardín botánico",
+                      "category": "visit",
+                      "description": "*jardín botánico",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "*jardín botánico"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "*jardín botánico"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "### 📅 Día 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Día 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "museo local",
+                      "category": "visit",
+                      "description": "- museo local",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- museo local"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- museo local"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "### 📅 Día 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "## 📍 Córdoba"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "es-3",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 2,
+        "actualItems": 2,
+        "mentions": 2,
+        "separateItems": 2,
+        "assignedItems": 2,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "torre antigua",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "torre antigua",
+              "city": "Córdoba",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "museo local",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "museo local",
+              "city": "Córdoba",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": true,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Objet: visite",
+          "cities": [
+            {
+              "name": "Córdoba",
+              "days": [
+                {
+                  "title": "Día 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "torre antigua",
+                      "category": "visit",
+                      "description": "> - torre antigua",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "> - torre antigua"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "> - torre antigua"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "> Día 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Día 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "museo local",
+                      "category": "visit",
+                      "description": "> - museo local",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "> - museo local"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "> - museo local"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "> Día 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "> Ciudad: Córdoba"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "Objet: visite"
+            }
+          }
+        }
+      },
+      {
+        "id": "es-4",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "torre antigua",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "torre antigua",
+              "city": "Córdoba",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "jardín botánico",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "jardín botánico",
+              "city": "Córdoba",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "museo local",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "museo local",
+              "city": "Córdoba",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "Córdoba",
+              "days": [
+                {
+                  "title": "Día 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "torre antigua",
+                      "category": "visit",
+                      "description": "torre antigua -> jardín botánico",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "torre antigua -> jardín botánico"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "torre antigua -> jardín botánico"
+                        }
+                      }
+                    },
+                    {
+                      "title": "jardín botánico",
+                      "category": "visit",
+                      "description": "torre antigua -> jardín botánico",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "torre antigua -> jardín botánico"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "torre antigua -> jardín botánico"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Día 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Día 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "museo local",
+                      "category": "visit",
+                      "description": "- museo local",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- museo local"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- museo local"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Día 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "Ciudad: Córdoba"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "Nota: llevar agua."
+          ],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "es-5",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "torre antigua",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "torre antigua",
+              "city": "Córdoba",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "jardín botánico",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "jardín botánico",
+              "city": "Córdoba",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "museo local",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "museo local",
+              "city": "Córdoba",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "Córdoba",
+              "days": [
+                {
+                  "title": "Día 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "torre antigua",
+                      "category": "visit",
+                      "description": "torre antigua",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "torre antigua"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "torre antigua"
+                        }
+                      }
+                    },
+                    {
+                      "title": "jardín botánico",
+                      "category": "visit",
+                      "description": "jardín botánico",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "jardín botánico"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "jardín botánico"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Día 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Día 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "museo local",
+                      "category": "visit",
+                      "description": "museo local",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "museo local"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "museo local"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Día 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "Ciudad: Córdoba"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "es-6",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 2,
+        "actualItems": 2,
+        "mentions": 2,
+        "separateItems": 2,
+        "assignedItems": 2,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "torre antigua",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "torre antigua",
+              "city": "Córdoba",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "museo local",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "museo local",
+              "city": "Córdoba",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": true,
+        "review": [
+          {
+            "kind": "ambiguous",
+            "quote": "Correction finale : vérifier le jour de torre antigua, peut-être annulé."
+          }
+        ],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "Córdoba",
+              "days": [
+                {
+                  "title": "Día 1",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "torre antigua",
+                      "category": "visit",
+                      "description": "- torre antigua",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- torre antigua"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- torre antigua"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Día 1"
+                    }
+                  }
+                },
+                {
+                  "title": "Día 2",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "museo local",
+                      "category": "visit",
+                      "description": "- museo local",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- museo local"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- museo local"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "Día 2"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "Ciudad: Córdoba"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "Correction finale : vérifier le jour de torre antigua, peut-être annulé."
+          ],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "zh-1",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "古城门",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "古城门",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "植物园",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "植物园",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "地方博物馆",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "地方博物馆",
+              "city": "苏州",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "苏州",
+          "cities": [
+            {
+              "name": "苏州",
+              "days": [
+                {
+                  "title": "第1天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "古城门",
+                      "category": "visit",
+                      "description": "- 古城门",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- 古城门"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- 古城门"
+                        }
+                      }
+                    },
+                    {
+                      "title": "植物园",
+                      "category": "visit",
+                      "description": "- 植物园",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- 植物园"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- 植物园"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "第1天"
+                    }
+                  }
+                },
+                {
+                  "title": "第2天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "地方博物馆",
+                      "category": "visit",
+                      "description": "- 地方博物馆",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- 地方博物馆"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- 地方博物馆"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "第2天"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "苏州"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "苏州"
+            }
+          }
+        }
+      },
+      {
+        "id": "zh-2",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "古城门",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "古城门",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "植物园",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "植物园",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "地方博物馆",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "地方博物馆",
+              "city": "苏州",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "苏州",
+              "days": [
+                {
+                  "title": "第1天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "古城门",
+                      "category": "visit",
+                      "description": "*古城门",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "*古城门"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "*古城门"
+                        }
+                      }
+                    },
+                    {
+                      "title": "植物园",
+                      "category": "visit",
+                      "description": "*植物园",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "*植物园"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "*植物园"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "### 📅 第1天"
+                    }
+                  }
+                },
+                {
+                  "title": "第2天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "地方博物馆",
+                      "category": "visit",
+                      "description": "- 地方博物馆",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- 地方博物馆"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- 地方博物馆"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "### 📅 第2天"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "## 📍 苏州"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "zh-3",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 2,
+        "actualItems": 2,
+        "mentions": 2,
+        "separateItems": 2,
+        "assignedItems": 2,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "古城门",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "古城门",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "地方博物馆",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "地方博物馆",
+              "city": "苏州",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": true,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Objet: visite",
+          "cities": [
+            {
+              "name": "苏州",
+              "days": [
+                {
+                  "title": "第1天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "古城门",
+                      "category": "visit",
+                      "description": "> - 古城门",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "> - 古城门"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "> - 古城门"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "> 第1天"
+                    }
+                  }
+                },
+                {
+                  "title": "第2天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "地方博物馆",
+                      "category": "visit",
+                      "description": "> - 地方博物馆",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "> - 地方博物馆"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "> - 地方博物馆"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "> 第2天"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "> 城市: 苏州"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "Objet: visite"
+            }
+          }
+        }
+      },
+      {
+        "id": "zh-4",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "古城门",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "古城门",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "植物园",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "植物园",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "地方博物馆",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "地方博物馆",
+              "city": "苏州",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "苏州",
+              "days": [
+                {
+                  "title": "第1天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "古城门",
+                      "category": "visit",
+                      "description": "古城门 -> 植物园",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "古城门 -> 植物园"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "古城门 -> 植物园"
+                        }
+                      }
+                    },
+                    {
+                      "title": "植物园",
+                      "category": "visit",
+                      "description": "古城门 -> 植物园",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "古城门 -> 植物园"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "古城门 -> 植物园"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "第1天"
+                    }
+                  }
+                },
+                {
+                  "title": "第2天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "地方博物馆",
+                      "category": "visit",
+                      "description": "- 地方博物馆",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- 地方博物馆"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- 地方博物馆"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "第2天"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "城市: 苏州"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "备注：带水。"
+          ],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "zh-5",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "古城门",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "古城门",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "植物园",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "植物园",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "地方博物馆",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "地方博物馆",
+              "city": "苏州",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": false,
+        "review": [],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "苏州",
+              "days": [
+                {
+                  "title": "第1天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "古城门",
+                      "category": "visit",
+                      "description": "古城门",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "古城门"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "古城门"
+                        }
+                      }
+                    },
+                    {
+                      "title": "植物园",
+                      "category": "visit",
+                      "description": "植物园",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "植物园"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "植物园"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "第1天"
+                    }
+                  }
+                },
+                {
+                  "title": "第2天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "地方博物馆",
+                      "category": "visit",
+                      "description": "地方博物馆",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "地方博物馆"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "地方博物馆"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "第2天"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "城市: 苏州"
+                }
+              }
+            }
+          ],
+          "notes": [],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      },
+      {
+        "id": "zh-6",
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 2,
+        "actualItems": 2,
+        "mentions": 2,
+        "separateItems": 2,
+        "assignedItems": 2,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "古城门",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "古城门",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "地方博物馆",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "地方博物馆",
+              "city": "苏州",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "reviewExpected": true,
+        "review": [
+          {
+            "kind": "ambiguous",
+            "quote": "Correction finale : vérifier le jour de 古城门, peut-être annulé."
+          }
+        ],
+        "draft": {
+          "version": 1,
+          "title": "Trip",
+          "cities": [
+            {
+              "name": "苏州",
+              "days": [
+                {
+                  "title": "第1天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "古城门",
+                      "category": "visit",
+                      "description": "- 古城门",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- 古城门"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- 古城门"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "第1天"
+                    }
+                  }
+                },
+                {
+                  "title": "第2天",
+                  "date": "",
+                  "items": [
+                    {
+                      "title": "地方博物馆",
+                      "category": "visit",
+                      "description": "- 地方博物馆",
+                      "address": "",
+                      "period": "",
+                      "time": "",
+                      "optional": false,
+                      "booked": false,
+                      "kind": "activity",
+                      "coordinates": null,
+                      "checkIn": "",
+                      "checkOut": "",
+                      "departure": "",
+                      "arrival": "",
+                      "toCity": "",
+                      "mode": "other",
+                      "reference": "",
+                      "excluded": false,
+                      "evidence": {
+                        "title": {
+                          "origin": "source",
+                          "quote": "- 地方博物馆"
+                        },
+                        "description": {
+                          "origin": "source",
+                          "quote": "- 地方博物馆"
+                        }
+                      }
+                    }
+                  ],
+                  "evidence": {
+                    "title": {
+                      "origin": "source",
+                      "quote": "第2天"
+                    }
+                  }
+                }
+              ],
+              "evidence": {
+                "name": {
+                  "origin": "source",
+                  "quote": "城市: 苏州"
+                }
+              }
+            }
+          ],
+          "notes": [
+            "Correction finale : vérifier le jour de 古城门, peut-être annulé."
+          ],
+          "evidence": {
+            "title": {
+              "origin": "source",
+              "quote": "# Trip"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "longInputs": {
+    "before": [
+      {
+        "characters": 50000,
+        "bytes": 99993,
+        "runsMs": [
+          13.238699999999994,
+          1.6491999999999507,
+          1.727200000000039,
+          1.5164000000000897,
+          1.4740000000000464
+        ],
+        "medianMs": 1.6491999999999507
+      },
+      {
+        "characters": 50000,
+        "bytes": 50000,
+        "runsMs": [
+          4.594100000000026,
+          2.5932999999999993,
+          2.8437000000000126,
+          3.2719999999999345,
+          3.0370000000000346
+        ],
+        "medianMs": 3.0370000000000346
+      },
+      {
+        "characters": 20868,
+        "bytes": 20868,
+        "runsMs": [
+          54.811000000000035,
+          52.80690000000004,
+          47.922199999999975,
+          39.60530000000006,
+          28.2804000000001
+        ],
+        "medianMs": 47.922199999999975
+      }
+    ],
+    "after": [
+      {
+        "characters": 50000,
+        "bytes": 99993,
+        "runsMs": [
+          1.6492000000000644,
+          1.1871999999999616,
+          1.0295000000000982,
+          1.1073000000000093,
+          1.1875
+        ],
+        "medianMs": 1.1871999999999616
+      },
+      {
+        "characters": 50000,
+        "bytes": 50000,
+        "runsMs": [
+          3.449999999999932,
+          1.8845000000000027,
+          1.8208000000000766,
+          1.947999999999979,
+          1.977200000000039
+        ],
+        "medianMs": 1.947999999999979
+      },
+      {
+        "characters": 20868,
+        "bytes": 20868,
+        "runsMs": [
+          52.26249999999993,
+          54.53670000000011,
+          39.9369999999999,
+          52.21180000000004,
+          29.219900000000052
+        ],
+        "medianMs": 52.21180000000004
+      }
+    ]
+  },
+  "limits": [
+    "Anchor comparison is not general semantic fidelity. Field errors only cover specified expected fields.",
+    "Held-out set uses six repeated structural patterns across four languages.",
+    "4 email subjects were annotated as reviewExpected despite being explicit metadata. These frozen disagreements remain visible, not silently rescored."
+  ]
+}

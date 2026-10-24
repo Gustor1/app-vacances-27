@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "downloads": [
+    {
+      "language": "fr",
+      "filename": "PREPARER-MON-VOYAGE-DETOURS.md",
+      "characters": 13514
+    },
+    {
+      "language": "en",
+      "filename": "PREPARER-MON-VOYAGE-DETOURS.md",
+      "characters": 13227
+    },
+    {
+      "language": "zh-CN",
+      "filename": "PREPARER-MON-VOYAGE-DETOURS.md",
+      "characters": 11950
+    },
+    {
+      "language": "es",
+      "filename": "PREPARER-MON-VOYAGE-DETOURS.md",
+      "characters": 13292
+    }
+  ],
+  "offlineFirstUse": true,
+  "structuredCreationAndReload": true,
+  "errors": [],
+  "uploads": [],
+  "conversionExternal": [],
+  "offlineMapAttempts": [
+    "https://c.tile.openstreetmap.org/2/1/1.png",
+    "https://a.tile.openstreetmap.org/2/2/1.png",
+    "https://a.tile.openstreetmap.org/2/1/2.png",
+    "https://b.tile.openstreetmap.org/2/2/2.png"
+  ],
+  "physicalDevice": false
+}

@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "experiment": "complete with documented recovery of finalization",
+  "targetedTests": {
+    "passed": 91,
+    "failed": 0,
+    "log": "tests.log"
+  },
+  "typecheck": {
+    "exitCode": 0,
+    "log": "typecheck.log"
+  },
+  "lint": {
+    "exitCode": 0,
+    "log": "lint.log"
+  },
+  "benchmarkLint": {
+    "exitCode": 0,
+    "log": "benchmark-lint.log"
+  },
+  "generationCount": 18,
+  "casesPerArm": 12,
+  "rulesOnlySmoke": "passed, complete results restored byte for byte",
+  "cancellation": "real local worker terminated; second stop idempotent; no late message",
+  "gate": {
+    "executed": false,
+    "reason": "Product unchanged; explicit lot06 benchmark exception"
+  },
+  "networkInference": false,
+  "physicalDevice": false,
+  "published": false,
+  "analysisSha256": "8ae3af6e65a93ecfe07270e30e95cb29f38dd0f7beb6bff755e29e33ec164f49",
+  "freezeSha256": "afe09da76e70d79ddd2dad4759465dab90d3a17fdcf16f5a62d795a174dab370",
+  "preservation": {
+    "globalUnchanged": false,
+    "initialIdentical": 1190,
+    "initialFiles": 1191,
+    "missing": 0,
+    "observedDocumentationChanges": [
+      "docs/development/lots-suivants/00-LIRE-AVANT-LES-LOTS.md",
+      "docs/development/lots-suivants/LOT-06-BIS-API-NVIDIA.md"
+    ],
+    "productUnchanged": true,
+    "action": "preserved; excluded from lot06 patch"
+  },
+  "patchReverseCheck": {
+    "exitCode": 0,
+    "applied": false
+  },
+  "benchmarkFinalReplay": {
+    "passed": 7,
+    "failed": 0,
+    "log": "benchmark-final-tests.log"
+  },
+  "benchmarkProcessesRemaining": 0
+}

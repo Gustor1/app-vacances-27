@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "generatedAt": "2026-10-22T19:28:00.814Z",
+  "offlineReload": true,
+  "dismissalPersisted": true,
+  "safeShowCard": true,
+  "ideasPreviewAdditionUndo": true,
+  "exportParsed": true,
+  "reloadAfterUndo": true,
+  "bootstrapExternal": [
+    "https://c.tile.openstreetmap.org/2/1/1.png",
+    "https://a.tile.openstreetmap.org/2/2/1.png",
+    "https://a.tile.openstreetmap.org/2/1/2.png",
+    "https://b.tile.openstreetmap.org/2/2/2.png"
+  ],
+  "companionExternal": [],
+  "errors": []
+}

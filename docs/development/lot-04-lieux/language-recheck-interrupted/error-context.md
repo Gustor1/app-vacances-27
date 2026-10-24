@@ -1,0 +1,302 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: world-languages.spec.ts >> Español: library, all views, dates, forms and saved notes
+- Location: tests\e2e\world-languages.spec.ts:8:3
+
+# Error details
+
+```
+Test timeout of 60000ms exceeded.
+```
+
+```
+Tearing down "context" exceeded the test timeout of 60000ms.
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=f3e3]:
+  - link "Ir al contenido" [ref=f3e4] [cursor=pointer]:
+    - /url: "#main"
+  - complementary [ref=f3e5]:
+    - link "détours. LOS BUENOS DESVÍOS" [ref=f3e6] [cursor=pointer]:
+      - /url: "#"
+      - generic [ref=f3e9]:
+        - text: détours.
+        - generic [ref=f3e10]: LOS BUENOS DESVÍOS
+    - button "Mis viajes" [ref=f3e11] [cursor=pointer]:
+      - generic [ref=f3e12]: 中
+      - generic [ref=f3e13]:
+        - strong [ref=f3e14]: Chine 2027
+        - generic [ref=f3e15]: Mis viajes
+    - paragraph [ref=f3e18]: MI VIAJE
+    - navigation "Navegación principal" [ref=f3e19]:
+      - button "Ahora" [ref=f3e20] [cursor=pointer]
+      - button "Mi itinerario" [active] [ref=f3e25] [cursor=pointer]
+      - button "Vista general" [ref=f3e30] [cursor=pointer]
+      - button "Mapa del viaje" [ref=f3e35] [cursor=pointer]
+      - button "Ideas y extras ♡" [ref=f3e39] [cursor=pointer]:
+        - generic [ref=f3e42]: Ideas y extras
+        - generic [ref=f3e43]: ♡
+      - button "Mis transportes" [ref=f3e44] [cursor=pointer]
+      - button "Cuaderno práctico" [ref=f3e53] [cursor=pointer]
+      - button "Herramientas del viaje" [ref=f3e57] [cursor=pointer]
+    - generic [ref=f3e62]:
+      - generic [ref=f3e63]:
+        - generic [ref=f3e64]: EL HILO DEL VIAJE
+        - generic [ref=f3e65]: 7 etapas
+      - button "Shenzhen 3 d" [ref=f3e66] [cursor=pointer]:
+        - generic [ref=f3e68]: Shenzhen
+        - generic [ref=f3e69]: 3 d
+      - button "Guangzhou 3 d" [ref=f3e70] [cursor=pointer]:
+        - generic [ref=f3e72]: Guangzhou
+        - generic [ref=f3e73]: 3 d
+      - button "Yangshuo 3 d" [ref=f3e74] [cursor=pointer]:
+        - generic [ref=f3e76]: Yangshuo
+        - generic [ref=f3e77]: 3 d
+      - button "Chongqing & Wulong 4 d" [ref=f3e78] [cursor=pointer]:
+        - generic [ref=f3e80]: Chongqing & Wulong
+        - generic [ref=f3e81]: 4 d
+      - button "Chengdu 3 d" [ref=f3e82] [cursor=pointer]:
+        - generic [ref=f3e84]: Chengdu
+        - generic [ref=f3e85]: 3 d
+      - button "Shanghai por venir" [ref=f3e86] [cursor=pointer]:
+        - generic [ref=f3e88]: Shanghai
+        - generic [ref=f3e89]: por venir
+      - button "Suzhou 1 d Última etapa" [ref=f3e90] [cursor=pointer]:
+        - generic [ref=f3e92]: Suzhou
+        - generic [ref=f3e93]: 1 d
+        - generic [ref=f3e94]: Última etapa
+      - button "Añadir una ciudad" [ref=f3e95] [cursor=pointer]
+    - generic [ref=f3e97]:
+      - generic [ref=f3e98]:
+        - text: 慢慢来
+        - paragraph [ref=f3e99]: Tómate tu tiempo.Sigue descubriendo.
+      - generic [ref=f3e102]: Cuaderno guardado en este dispositivo
+  - generic [ref=f3e104]:
+    - banner [ref=f3e105]:
+      - generic [ref=f3e106]:
+        - generic [ref=f3e107]: Mi cuaderno de viaje
+        - strong [ref=f3e110]: Chine 2027
+      - generic [ref=f3e111]:
+        - generic [ref=f3e112]:
+          - textbox "Buscar en el cuaderno" [ref=f3e116]:
+            - /placeholder: Buscar un lugar, una idea…
+          - generic [ref=f3e117]: ⌕
+        - button "Información práctica" [ref=f3e118] [cursor=pointer]
+        - button "Preferencias" [ref=f3e122] [cursor=pointer]
+        - button "Entrar" [ref=f3e125] [cursor=pointer]
+    - main [ref=f3e132]:
+      - region "Compartir y sincronizar" [ref=f3e133]:
+        - generic [ref=f3e134]:
+          - generic [ref=f3e135]: Mi viaje · Propietario
+          - button "Compartir" [ref=f3e143] [cursor=pointer]
+        - generic [ref=f3e149]:
+          - status [ref=f3e150]: Guardado en este dispositivo
+          - button "Ver la sincronización" [ref=f3e154] [cursor=pointer]
+        - paragraph [ref=f3e155]: Hay conexión. Esto no confirma un envío ni una copia externa.
+      - button "Ver Ahora" [ref=f3e156] [cursor=pointer]
+      - generic [ref=f3e157]:
+        - generic [ref=f3e158]:
+          - generic [ref=f3e159]: EL VIAJE EMPIEZA AQUÍ
+          - heading "Un gran viaje, buenos desvíos." [level=1] [ref=f3e161]
+          - paragraph [ref=f3e162]: Todo tu itinerario en un solo lugar. Solo queda disfrutar.
+        - generic [ref=f3e163]:
+          - button "Continuar" [ref=f3e164] [cursor=pointer]
+          - button "Exportar el cuaderno" [ref=f3e167] [cursor=pointer]
+      - generic [ref=f3e171]:
+        - generic [ref=f3e173]:
+          - generic [ref=f3e174]: MI ESCAPADA POR ASIA
+          - heading "Rumbo a China中国之旅" [level=2] [ref=f3e176]
+          - paragraph [ref=f3e177]: Des villes qui ne dorment jamais aux paysages qui invitent à ralentir.
+          - generic [ref=f3e178]:
+            - generic [ref=f3e179]: 7 ciudades y etapas
+            - generic [ref=f3e184]: 17 días preparados
+            - generic [ref=f3e188]: "2027"
+        - generic [ref=f3e189]: UN VIAJEA MI RITMO
+        - generic [ref=f3e195]: Inspirado en los paisajes de Guilin · ilustración
+      - generic [ref=f3e196]:
+        - generic [ref=f3e197]:
+          - heading "Las etapas del viaje" [level=2] [ref=f3e198]
+          - generic [ref=f3e199]: Un itinerario que crece con tus ideas
+        - generic "Elegir una ciudad" [ref=f3e200]:
+          - button "01 Shenzhen 3 días · 2 noches" [pressed] [ref=f3e201] [cursor=pointer]:
+            - generic [ref=f3e202]: "01"
+            - generic [ref=f3e203]:
+              - strong [ref=f3e204]: Shenzhen
+              - generic [ref=f3e205]: 3 días · 2 noches
+          - button "02 Guangzhou 3 días · 2 noches" [ref=f3e207] [cursor=pointer]:
+            - generic [ref=f3e208]: "02"
+            - generic [ref=f3e209]:
+              - strong [ref=f3e210]: Guangzhou
+              - generic [ref=f3e211]: 3 días · 2 noches
+          - button "03 Yangshuo 3 días · 2 noches" [ref=f3e212] [cursor=pointer]:
+            - generic [ref=f3e213]: "03"
+            - generic [ref=f3e214]:
+              - strong [ref=f3e215]: Yangshuo
+              - generic [ref=f3e216]: 3 días · 2 noches
+          - button "04 Chongqing & Wulong 4 días · 3 noches" [ref=f3e217] [cursor=pointer]:
+            - generic [ref=f3e218]: "04"
+            - generic [ref=f3e219]:
+              - strong [ref=f3e220]: Chongqing & Wulong
+              - generic [ref=f3e221]: 4 días · 3 noches
+          - button "05 Chengdu 3 días · 2 noches" [ref=f3e222] [cursor=pointer]:
+            - generic [ref=f3e223]: "05"
+            - generic [ref=f3e224]:
+              - strong [ref=f3e225]: Chengdu
+              - generic [ref=f3e226]: 3 días · 2 noches
+          - button "06 Shanghai Por completar" [ref=f3e227] [cursor=pointer]:
+            - generic [ref=f3e228]: "06"
+            - generic [ref=f3e229]:
+              - strong [ref=f3e230]: Shanghai
+              - generic [ref=f3e231]: Por completar
+          - button "07 Suzhou 1 día · excursión" [ref=f3e232] [cursor=pointer]:
+            - generic [ref=f3e233]: "07"
+            - generic [ref=f3e234]:
+              - strong [ref=f3e235]: Suzhou
+              - generic [ref=f3e236]: 1 día · excursión
+          - button "Añadir una ciudad" [ref=f3e237] [cursor=pointer]
+      - generic [ref=f3e239]:
+        - generic [ref=f3e240]:
+          - generic [ref=f3e241]:
+            - generic [ref=f3e242]: ETAPA 01
+            - heading "Shenzhen 深圳 Editar Shenzhen" [level=2] [ref=f3e244]:
+              - text: Shenzhen
+              - generic [ref=f3e245]: 深圳
+              - button "Editar Shenzhen" [ref=f3e246] [cursor=pointer]
+            - paragraph [ref=f3e250]: Premiers pas entre gratte-ciel et bord de mer
+          - generic [ref=f3e251]: 0 / 15 actividades realizadas
+        - generic [ref=f3e255]:
+          - generic [ref=f3e256]:
+            - generic "Elegir un día" [ref=f3e257]:
+              - button "Día 1" [pressed] [ref=f3e258] [cursor=pointer]
+              - button "Día 2" [ref=f3e261] [cursor=pointer]
+              - button "Día 3" [ref=f3e264] [cursor=pointer]
+              - button "Añadir un día" [ref=f3e267] [cursor=pointer]
+            - generic [ref=f3e270]:
+              - generic [ref=f3e271]:
+                - generic [ref=f3e272]:
+                  - paragraph [ref=f3e273]:
+                    - text: DÍA 01
+                    - generic [ref=f3e274]: · 3 etapas
+                  - heading "Arrivée" [level=3] [ref=f3e275]
+                  - paragraph [ref=f3e276]: viernes, 12 de marzo de 2027
+                - generic [ref=f3e277]:
+                  - button "Editar el título del día" [ref=f3e278] [cursor=pointer]
+                  - button "Eliminar este día" [ref=f3e282] [cursor=pointer]
+              - group [ref=f3e286]:
+                - generic "Preparar este día Plan inicial" [ref=f3e287] [cursor=pointer]:
+                  - text: Preparar este día
+                  - generic [ref=f3e288]: Plan inicial
+              - generic [ref=f3e289]:
+                - article [ref=f3e290]:
+                  - 'button "Marcar como visitado: Arrivée à Shenzhen" [ref=f3e292] [cursor=pointer]': "1"
+                  - generic [ref=f3e294]:
+                    - generic [ref=f3e295]: Transporte
+                    - heading "Arrivée à Shenzhen" [level=4] [ref=f3e304]
+                    - paragraph [ref=f3e305]: Rejoindre Shenzhen ; horaire et point d’arrivée à compléter.
+                    - button "Completar este lugar" [ref=f3e307] [cursor=pointer]
+                    - button "Completar la dirección" [ref=f3e308] [cursor=pointer]
+                    - generic [ref=f3e310]:
+                      - button "Subir Arrivée à Shenzhen" [disabled] [ref=f3e311]
+                      - button "Bajar Arrivée à Shenzhen" [ref=f3e314] [cursor=pointer]
+                      - button "Editar Arrivée à Shenzhen" [ref=f3e317] [cursor=pointer]
+                      - button "Eliminar Arrivée à Shenzhen" [ref=f3e321] [cursor=pointer]
+                - article [ref=f3e325]:
+                  - 'button "Marcar como visitado: Installation à Futian" [ref=f3e327] [cursor=pointer]': "2"
+                  - generic [ref=f3e329]:
+                    - generic [ref=f3e330]: Alojamiento
+                    - heading "Installation à Futian" [level=4] [ref=f3e335]
+                    - paragraph [ref=f3e336]:
+                      - text: 福田区
+                      - button "Copiar 福田区" [ref=f3e337] [cursor=pointer]
+                    - paragraph [ref=f3e341]: Rejoindre l’hôtel dans le quartier de Futian. Établissement à préciser.
+                    - button "Completar este lugar" [ref=f3e343] [cursor=pointer]
+                    - generic [ref=f3e344]:
+                      - group [ref=f3e345]:
+                        - generic "Acciones para 福田区" [ref=f3e346] [cursor=pointer]: 福田区
+                      - button "Copiar la dirección" [ref=f3e353] [cursor=pointer]
+                      - status [ref=f3e357]
+                    - generic [ref=f3e359]:
+                      - button "Subir Installation à Futian" [ref=f3e360] [cursor=pointer]
+                      - button "Bajar Installation à Futian" [ref=f3e363] [cursor=pointer]
+                      - button "Editar Installation à Futian" [ref=f3e366] [cursor=pointer]
+                      - button "Eliminar Installation à Futian" [ref=f3e370] [cursor=pointer]
+                - article [ref=f3e374]:
+                  - 'button "Marcar como visitado: Dîner dans le quartier" [ref=f3e376] [cursor=pointer]': "3"
+                  - generic [ref=f3e378]:
+                    - generic [ref=f3e379]:
+                      - generic [ref=f3e380]: A la mesa
+                      - generic [ref=f3e384]: Soir
+                    - heading "Dîner dans le quartier" [level=4] [ref=f3e385]
+                    - paragraph [ref=f3e386]: Première soirée et dîner près de l’hôtel, à Futian.
+                    - button "Completar este lugar" [ref=f3e388] [cursor=pointer]
+                    - button "Completar la dirección" [ref=f3e389] [cursor=pointer]
+                    - generic [ref=f3e391]:
+                      - button "Subir Dîner dans le quartier" [ref=f3e392] [cursor=pointer]
+                      - button "Bajar Dîner dans le quartier" [disabled] [ref=f3e395]
+                      - button "Editar Dîner dans le quartier" [ref=f3e398] [cursor=pointer]
+                      - button "Eliminar Dîner dans le quartier" [ref=f3e402] [cursor=pointer]
+              - button "Añadir una actividad a este día" [ref=f3e406] [cursor=pointer]
+              - generic [ref=f3e408]:
+                - generic [ref=f3e409]: Sin horarios impuestos. Disfruta a tu ritmo.
+                - generic [ref=f3e410]:
+                  - button "Día anterior" [disabled] [ref=f3e411]
+                  - button "Día siguiente" [ref=f3e414] [cursor=pointer]
+          - complementary [ref=f3e417]:
+            - generic [ref=f3e418]:
+              - generic [ref=f3e419]:
+                - heading "Los lugares del día" [level=3] [ref=f3e420]
+                - button "Ampliar" [ref=f3e424] [cursor=pointer]
+              - region "Mapa de las actividades en Shenzhen" [ref=f3e429]:
+                - generic [ref=f3e430]:
+                  - generic [ref=f3e431]:
+                    - generic:
+                      - button "·" [ref=f3e432] [cursor=pointer]
+                      - generic:
+                        - tooltip "Shenzhen · centro aproximado"
+                    - generic:
+                      - generic:
+                        - generic [ref=f3e434]:
+                          - button "Acercar el mapa" [ref=f3e435] [cursor=pointer]: +
+                          - button "Alejar el mapa" [ref=f3e436] [cursor=pointer]: −
+                        - generic [ref=f3e437]:
+                          - link "Leaflet" [ref=f3e438] [cursor=pointer]:
+                            - /url: https://leafletjs.com
+                          - text: "| ©"
+                          - link "OpenStreetMap" [ref=f3e443] [cursor=pointer]:
+                            - /url: https://www.openstreetmap.org/copyright
+                          - text: ","
+                          - link "Natural Earth" [ref=f3e444] [cursor=pointer]:
+                            - /url: https://www.naturalearthdata.com/
+                          - text: · domaine public
+                  - status: Vista de Shenzhen · Estas actividades aún no tienen una ubicación precisa.
+                - generic [ref=f3e445]:
+                  - generic [ref=f3e447]: Marcadores orientativos · rutas mediante enlaces externos
+                  - generic [ref=f3e448]: 0 / 3 actividades ubicadas · otras direcciones en el itinerario
+            - generic [ref=f3e449]:
+              - heading "El pequeño recordatorio" [level=3] [ref=f3e454]
+              - paragraph [ref=f3e455]: "Séjour prévu : 3 jours et 2 nuits. Dates et hôtel à compléter."
+              - paragraph [ref=f3e456]: "À réserver : entrée du musée et train pour Guangzhou. Aucune réservation confirmée dans le document."
+              - paragraph [ref=f3e457]: "Le musée d’histoire naturelle est indiqué à Pingshan dans le planning : vérifier le nom exact, l’adresse, l’ouverture et la billetterie avant de fixer le trajet."
+              - paragraph [ref=f3e458]: Si Huaqiangbei prend plus de temps que prévu, supprimer Qianhai Stone Park.
+              - generic [ref=f3e459]: Mi nota para Shenzhen
+              - textbox "Mi nota para Shenzhen" [ref=f3e460]:
+                - /placeholder: Una idea, una dirección, un recordatorio…
+                - text: Mi nota personnelle 中文 · 14 h
+              - generic [ref=f3e461]: Nota personal · guardada localmente
+            - generic [ref=f3e464]:
+              - heading "¿Y si queda algo de tiempo?" [level=3] [ref=f3e468]
+              - paragraph [ref=f3e469]: Te esperan 25 ideas de restaurantes, paseos y desvíos en Shenzhen.
+              - button "Explorar los extras" [ref=f3e470] [cursor=pointer]
+      - generic [ref=f3e473]:
+        - generic [ref=f3e474]: El mundo, al ritmo de tus ganas.
+        - generic [ref=f3e476]: Tu viaje evoluciona. Tu cuaderno también.
+```

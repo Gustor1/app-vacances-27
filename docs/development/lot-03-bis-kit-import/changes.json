@@ -1,0 +1,181 @@
+{
+  "scope": "Only lot 03 bis relative to initial dirty snapshot, excluding report/evidence",
+  "snapshot": "C:\\Users\\eliot\\Documents\\detours-lot03bis-recovery-20261021",
+  "patchSha256": "eeda8e7ef01c88b8f6d677b8cf58ad76cc80428ccfef06172d70e8ee3781abbd",
+  "files": [
+    {
+      "file": "README.md",
+      "kind": "modified",
+      "beforeSha256": "c7e39dda2fd1d6361446dcc1aa5ad5dcc6f6e11cffc3c5ecf96276e2eeff2a3b",
+      "afterSha256": "d65d492cf089da32fa59fb7f9f015df42305566e697466c29b2127d6be931bab"
+    },
+    {
+      "file": "docs/development/IMPORT-IA-STRUCTURE.md",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "81fb94ce09fe17e1eced9017f90c025f810979ddbbd9f96c28c35bb3bd6eaed9"
+    },
+    {
+      "file": "docs/development/IMPORT-RECOGNITION.md",
+      "kind": "modified",
+      "beforeSha256": "856a13a09f6c11fab9f9d508d883526b5494e5479db03f305a71405c7889c7f8",
+      "afterSha256": "47fc291411a8e6ef352efb8f81512396efc662fcfb0c64dc21b50a00b2d93c59"
+    },
+    {
+      "file": "docs/development/lots-suivants/00-LIRE-AVANT-LES-LOTS.md",
+      "kind": "modified",
+      "beforeSha256": "f82ba76a487cbadcb655dab57f8690b7f8f88e866422413d765b8b11ed56f7ec",
+      "afterSha256": "71d87bbf6104065c116860b7dbfe872e6945b711ae4a15d6ebb430d8b7b9bcf5"
+    },
+    {
+      "file": "public/import-kit/PREPARER-MON-VOYAGE-DETOURS.md",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "98288139ad3ac0ab360cbe6ad6eb66f5c4e7a846e8777d0dd8232a78857f6e78"
+    },
+    {
+      "file": "public/import-kit/detours-planning-v1.schema.json",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "68ab89b749f0a33492f23f9f77944d3708780488c0178af0da11d75d738959aa"
+    },
+    {
+      "file": "public/import-kit/en/PREPARER-MON-VOYAGE-DETOURS.md",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "f9d0a90cb8d47c56bf7615997278a632ec72c18b317c5e51a8979a99e7995311"
+    },
+    {
+      "file": "public/import-kit/es/PREPARER-MON-VOYAGE-DETOURS.md",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "91f4cfdeca683f74ed2dbab5af83660628c865dbba3455ecbd8afbdd0112dfd7"
+    },
+    {
+      "file": "public/import-kit/exemple-complet.detours.json",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "b5419b8bfd0350a69cb35fb6544cc2eb0fc5e69990482646c29b093cb257557e"
+    },
+    {
+      "file": "public/import-kit/exemple-minimal.detours.json",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "4739d85b6b32151fb67bd55c7dbf99038fe0bf80c9b92c2ea0f1910d89b11491"
+    },
+    {
+      "file": "public/import-kit/zh-CN/PREPARER-MON-VOYAGE-DETOURS.md",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "5dea09c5deea4bd17bd7e60a8d2906c57ced6b392787763bea21a18035a4cb3b"
+    },
+    {
+      "file": "scripts/generate-import-kit.mjs",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "32e8ed95b3e7d56b5ae7815592223c2a26f745f4128d116b0ebefb30b2c9a32a"
+    },
+    {
+      "file": "scripts/smoke-planning-structured.mjs",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "9f776605f36c3664d949b5213794eea16d7769eae0f612ba2dff33f3f755ba2a"
+    },
+    {
+      "file": "scripts/verify-local.mjs",
+      "kind": "modified",
+      "beforeSha256": "cb4a0b07f652944ad2cd5092c87679a6a51340c6018037cd1825a097a0c61514",
+      "afterSha256": "0f4ac7a6ae53218151f5590b82967193efa1aa698b0f1346751b86611a18b530"
+    },
+    {
+      "file": "src/components/PlanningImport.css",
+      "kind": "modified",
+      "beforeSha256": "401f4dded230066040bbf9294a0ad4882064c43ece32122b568c927c20404457",
+      "afterSha256": "82d5784962480dd220188a4cde9b87521fcd9e79f6773499e5acfcaca9d3c0a8"
+    },
+    {
+      "file": "src/components/PlanningImport.tsx",
+      "kind": "modified",
+      "beforeSha256": "c3b2d3f9a15ac09dd433f71b19199874d22ece902147ff422e6a0a8a16c65bca",
+      "afterSha256": "e790989a2a0ba3a248a59ebb708c44123b4da730207d0ab956345069f1875e01"
+    },
+    {
+      "file": "src/components/SourceDocument.tsx",
+      "kind": "modified",
+      "beforeSha256": "d0260876ba24dbf988f4d6fff41f4ff200ce44d41d3a00e5ed8f0f23d9a7907f",
+      "afterSha256": "651b98c171d353e18db7eb0905b52dea2436e7255e77618edb5fc45f31140fbe"
+    },
+    {
+      "file": "src/locales/planning-import.ts",
+      "kind": "modified",
+      "beforeSha256": "42ca32b42581ac28960be5b6d0daec97b954471dba9b1172901b174008193348",
+      "afterSha256": "8b10b3b31ee29b27c143632ffff64af2c0c50e4994f582e00ad0fad3722e1f9f"
+    },
+    {
+      "file": "src/planning-import/draft.ts",
+      "kind": "modified",
+      "beforeSha256": "1ecf7654e549defa26a3a9aaf2e84ca039bd7c500cecfd31b3632b07ecac88ce",
+      "afterSha256": "d5071ef362704c2b3b7e12f48aedf4b38967e9322e8abd25e5de64bd2422d54d"
+    },
+    {
+      "file": "src/planning-import/external-prompt.ts",
+      "kind": "modified",
+      "beforeSha256": "eec9c39237dc38fb089c16f23edabe39f1cf88f1db6262b9f970abf09e94bc4b",
+      "afterSha256": "6496bfb18777392ea078ea3cd211dee0244debd8424238c7fd62f1c03f01b234"
+    },
+    {
+      "file": "src/planning-import/import-kit.ts",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "73e4109bd2e959644d664781bc94fbaed8f64cae1d83d23e7eef8815fc04541b"
+    },
+    {
+      "file": "src/planning-import/persistence.ts",
+      "kind": "modified",
+      "beforeSha256": "eb19fab67d3c3693da3d66afbfad7360025f33633e61d62aa2aa2ab524257c25",
+      "afterSha256": "82b1e17617135f638c3403f915e1596358ca11f4d7c0f7a7ad3f692d22927220"
+    },
+    {
+      "file": "src/planning-import/public-contract.ts",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "14ea9ec407db868c66c075f7cde44cd0746fe03bbf5ed6558490d2e30da0016f"
+    },
+    {
+      "file": "src/planning-import/public-examples.ts",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "58eec0921c7220daf3aa10bbd96b0f546b5ceae4ded6403ba8a0bac2cabd2c40"
+    },
+    {
+      "file": "src/planning-import/structured.ts",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "8869baf2da896b0ad28e35cd41e128ec2cdaf93e38094fbc0edfc613621a6e46"
+    },
+    {
+      "file": "src/planning-import/types.ts",
+      "kind": "modified",
+      "beforeSha256": "fefd7dd8922269f5745d19eac57caf1c3b8e429de34b8ec7fb53d56da7205956",
+      "afterSha256": "7232d4025d193a813a8363d049b59a808798736c0f6985e01e07b5c3d89492f2"
+    },
+    {
+      "file": "tests/e2e/planning-documents.spec.ts",
+      "kind": "modified",
+      "beforeSha256": "a6c96967ecff009b2526f15c85aba1ee50ec1e6cdecfc04db9d24524a98a2319",
+      "afterSha256": "3d58b46cddbfb9269f12e2e4629e73f415a9ec48b960e214487f3963be00372f"
+    },
+    {
+      "file": "tests/e2e/planning-structured.spec.ts",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "2572ac8baed8aee998344b18e644fe1deb8b9dff82f9017c7fdcfa52110dd399"
+    },
+    {
+      "file": "tests/planning-structured.test.mjs",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "909869f4166f5b4315ff46fa2c969b63c8e3ff37c33ba98cc33ba74b4d1a57bc"
+    }
+  ]
+}

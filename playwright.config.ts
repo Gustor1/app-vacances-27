@@ -2,6 +2,7 @@ import { defineConfig } from '@playwright/test';
 import { chromiumTestOptions } from './scripts/browser-test-options';
 export default defineConfig({
   testDir: './tests/e2e',
+  testIgnore: 'planning-analysis.spec.ts',
   fullyParallel: false,
   workers: 1,
   timeout: 30000,

@@ -1,0 +1,442 @@
+
+> carnet-chine-2027@1.0.0 verify:local
+> node scripts/verify-local.mjs
+
+Vérification locale : profils jetables, URL Supabase factice, sorties C:\Users\eliot\AppData\Local\Temp\detours-verify-X6ff8m
+
+Contrôle : types produit
+
+Contrôle : types tests/configurations
+
+Contrôle : lint
+
+Contrôle : tests unitaires
+✔ sauvegarde complète : tous les champs et relations dans un espace vierge, sans jetons (167.7304ms)
+✔ un carnet et une collection dépassant 5 Mo restent segmentés et restaurables, limites anciennes inchangées (886.5077ms)
+✔ segment coupé à une paire Unicode, octets exacts et corruption rejetée avant toute écriture (142.0376ms)
+✔ quota avant journal ne modifie rien ; interruption après carnet reprend sans duplication (40.9186ms)
+✔ collision, souvenirs et préférences existants conservés ; changement concurrent bloque (49.155ms)
+✔ modification après interruption ne se fait pas écraser ; autre opération bloquée (28.7434ms)
+✔ v1/v2 compatibles ; compte exporté seul, aucun droit ou file restauré (32.8055ms)
+✔ octets autour des limites historiques et v3, journal compact sous quota (359.543ms)
+✔ quatre langues couvrent les messages de sauvegarde et leurs variables (1.8029ms)
+✔ un accusé de réception arrivé après un départ ne réactive jamais la capsule (81.865ms)
+✔ une capsule distante inchangée ne redéclenche pas la synchronisation (2.1134ms)
+✔ résolution commune : choix complets requis et les deux sources restent récupérables (12.9111ms)
+✔ un changement de périmètre conserve le travail en attente sans réexposer une catégorie masquée (2.8432ms)
+✔ session expirée : identité de cache conservée sans jeton ; déconnexion enlève seulement l’indice, jamais les carnets (1.5766ms)
+✔ toutes les traductions bêta gardent les variables et les quatre langues (7.2862ms)
+✔ pays stables, statuts validés, anciens exports restent lisibles sans pays inventés (11.9635ms)
+✔ visites multi-pays idempotentes, annulation, import et duplication ne comptent pas des carnets (2.4812ms)
+✔ ancien séjour, suppression de carnet et restauration préservent les identités (1.5133ms)
+✔ repartir garde les adresses, enlève dates, réservations, références et dépenses (6.3165ms)
+✔ Google Maps encode accents, chinois, coordonnées validées, départ actuel et étape suivante ; Amap garde ses requêtes (1.632ms)
+✔ projection partagée retire notes, références, documents, argent et champs futurs ; copie lecteur sans privés (7.8655ms)
+✔ fusion distante : champs indépendants, champ identique, suppression/modification et ordre concurrent (0.933ms)
+✔ cache par compte et file atomique survivent au rechargement ; quota ne dissocie pas données et file (2.9078ms)
+✔ coupure pendant l’envoi et nouvelle édition : requête idempotente, nouvelle édition reste en attente (3.9382ms)
+✔ conflit conserve les versions, aucune réécriture silencieuse ; tombstone ne ressuscite jamais (5.8452ms)
+✔ droits retirés conservent un export isolé mais ne permettent aucun renvoi (1.5161ms)
+✔ réinvitation réouvre le planning serveur, sauvegarde le travail refusé et un lecteur reste protégé localement (2.7548ms)
+✔ confirmations sur deux appareils ont les mêmes identités ; participer ne crée aucune visite (0.3929ms)
+✔ dates calendaires réelles, années bissextiles et limites (3.3886ms)
+✔ lendemain UTC : changements de mois, année et DST sans décalage (3.2248ms)
+✔ échappement des champs et identifiants stables sans injection (0.924ms)
+✔ pliage RFC 5545 à 75 octets UTF-8 sans casser les caractères chinois ou emoji (1.4338ms)
+✔ ICS exporte uniquement les jours explicitement datés et inclut les notes chinoises et Amap (2.0673ms)
+✔ un champ importé ne crée jamais un événement et une date invalide est ignorée (1.3613ms)
+✔ le carnet importe les 17 jours, les 6 villes documentées et Shanghai à compléter (18.2305ms)
+✔ les adresses ouvrent Amap avec la bonne requête chinoise encodée (6.7593ms)
+✔ les liens externes malveillants et les faux domaines Amap sont écartés (0.6799ms)
+✔ un import altéré est rejeté avant de remplacer le carnet (45.6309ms)
+✔ les listes personnelles se sauvegardent sans perdre les notes (6.3646ms)
+✔ les précisions du document bonus sont reliées aux activités réservables (0.3974ms)
+✔ migration complète, source brute et récupération conservées ; reprise idempotente (174.8224ms)
+✔ absence de source : aucune création implicite ; source invalide ou quota : récupération intacte (28.6874ms)
+✔ la migration ne réussit pas sans relecture de la sauvegarde (23.6903ms)
+✔ Chine, Japon et France sont indépendants ; un carnet vide ne reçoit aucun contenu Chine (19.6885ms)
+✔ duplication remappe toutes les relations sans perdre dates, coches ou montants (9.8228ms)
+✔ imports anciens, nouveaux et collection : copies supplémentaires ; format inconnu rejeté (98.1123ms)
+✔ heures locales : deux fuseaux, passage saisonnier, heure inexistante et répétée (11.2461ms)
+✔ devises : aucune conversion implicite, conversion explicite et overflow signalé (7.1684ms)
+✔ requête groupée : codes demandés, date réelle et conversions incomplètes (72.5466ms)
+✔ total personnel est recalculé depuis les originaux sans modifier les conversions enregistrées (48.0862ms)
+✔ cache public corrompu, date impossible ou horodatage futur ne donne jamais un faux taux (1.0871ms)
+✔ préférence personnelle valide et isolée par compte, aucun changement du carnet partagé (1.0778ms)
+✔ les préférences tolèrent un stockage absent, corrompu ou des options inconnues (2.8459ms)
+✔ les traductions préservent chaque variable dynamique (7.4687ms)
+✔ dates civiles localisées sans déplacement de jour, dates invalides gardées telles quelles (62.6418ms)
+✔ les quatre langues sont mémorisées et choisissent le bon format de date (0.9ms)
+✔ chinois et espagnol couvrent le catalogue anglais sans modifier les valeurs personnelles (5.0438ms)
+✔ la langue conserve les textes personnels et interpole les valeurs sans les retraduire (0.5012ms)
+✔ préférence cartes : Google par défaut même avec une ancienne ville Amap, sans mutation (5.368ms)
+✔ Google listing searches use name, address and city even with coordinates; all entry points agree (3.6169ms)
+✔ directions preserve valid coordinates, modes and previous stop, omitting an unspecified origin (0.9234ms)
+✔ explicit Google listing ignores Amap preference and URL; generic links and directions preserve Amap (0.7741ms)
+✔ devise proposée pour un pays connu, choix explicite pour plusieurs pays ou pays ambigu (1.4561ms)
+✔ chaque dépense garde son taux, les changements de taux ne modifient que les montants non convertis (50.8891ms)
+✔ les anciens taux sont figés sans inventer de date, y compris le budget original (1.0249ms)
+✔ changement de référence aller-retour garde les originaux et toutes les conversions (16.5685ms)
+✔ arrondis par devise et par dépense, totals incomplets et débordements restent signalés (2.1789ms)
+✔ source des taux vérifiée, erreurs et réponses invalides ne deviennent jamais des conversions (51.0151ms)
+✔ les sauvegardes et projections conservent et valident les taux datés (2.5439ms)
+✔ Now uses each city’s civil day and allows overlapping days without device zone (11.2474ms)
+✔ Now selects first unfinished ordered step, confirmed reservations and day-local notes (0.6871ms)
+✔ Now keeps entered hotel address, flags dates, and chooses only booked departures for this city/day (7.295ms)
+✔ Now dictionaries cover all messages without missing translations (0.94ms)
+✔ demo preserves old journal identity separately and routes China to Amap, France to Google (2.5564ms)
+✔ hors ligne : manifeste de la version ouverte et ressources relues sans réseau (111.1353ms)
+✔ hors ligne : un chunk différé absent ou un fichier corrompu ne passe pas pour disponible (8.6826ms)
+✔ hors ligne : manifeste altéré ou cache absent ne confirme aucune préparation (7.209ms)
+✔ contrôle daté : métadonnées bornées et isolées par compte/carnet, aucune source copiée (2.6899ms)
+✔ synchronisation : copie, file, requête active, conflit, compte absent et échec local distincts (0.4341ms)
+✔ offline checklist and recovery translations are complete (0.7117ms)
+✔ deux onglets conservent notes distinctes, visites et changements imbriqués (16.7289ms)
+✔ collections créées simultanément et hébergements de villes différentes sont fusionnés (12.5554ms)
+✔ une suppression ou un nouvel ordre local ne supprime pas les nouveaux éléments distants (0.5125ms)
+✔ le nouveau catalogue complète les journées et corrige les champs non personnalisés (18.319ms)
+✔ les suppressions personnelles restent supprimées après mise à jour du catalogue (3.1451ms)
+✔ une ville retirée du catalogue reste conservée si elle contient des dépenses personnelles (2.895ms)
+✔ les sauvegardes rejettent dates impossibles, ids vides et nouvelles collections malformées (8.257ms)
+✔ Amap conserve une adresse de succursale précise et la recherche tolère les accents (0.8464ms)
+✔ extraction client is unavailable without an explicit build flag; no simulated result (4.3106ms)
+✔ endpoint fails closed when enablement, auth or quota adapter is absent (46.347ms)
+✔ authentication, source bounds and atomic quota precede a provider call (11.0955ms)
+✔ provider receives only source plus extraction instructions, bounded strict output and no tools (6.3407ms)
+✔ invalid, hallucinated, incomplete, oversized outputs and provider errors are rejected without retries (9.442ms)
+✔ cancellation and bounded provider timeout abort fetch and create no draft response (26.798ms)
+✔ timeout bounds authentication and quota adapters even when they ignore cancellation (34.5062ms)
+✔ planning file reads UTF-8 text and Markdown without altering source, accents, newlines or BOM (5.0457ms)
+✔ planning file rejects unsupported and renamed binary documents (22.3113ms)
+✔ planning file rejects invalid UTF-8 and UTF-16 instead of replacing undecodable bytes (1.1632ms)
+✔ planning file enforces byte and character limits without truncation or premature reads (7.2896ms)
+✔ planning file reports empty content and read failures explicitly (0.6358ms)
+✔ three annotated programmes preserve dates, nights, suggestions and conflicts (68.8808ms)
+✔ untrusted JSON, invented source values, HTML and impossible values do not gain authority (1.1931ms)
+✔ explicit date choice and correction do not infer dates or hourly periods (0.3966ms)
+✔ incomplete manual corrections persist but cannot commit; invented descriptions reject (1.2595ms)
+✔ fully user-authored preview works without source; provider still requires source (1.1207ms)
+✔ explicitly excluded invalid hotel dates do not block the remaining itinerary (0.8814ms)
+✔ broad citations cannot silently discard unstructured source or invent approximate coordinates (0.9468ms)
+✔ confirmation summary includes all four preserved Paris notes before creation (0.2635ms)
+✔ recovery refuses a trip with mismatched journal content but reopens subsequent legitimate edits (6.9728ms)
+✔ durable session and repeated confirmation create a single independent trip (7.2628ms)
+✔ a stale confirmation cannot overwrite newer review corrections from another tab (4.5314ms)
+✔ a resumed prepared candidate keeps its saved review and source in the receipt (3.7653ms)
+✔ quota or interruption preserves source and stable identity, including after trip write (3.6928ms)
+✔ two accounts and local space are isolated, imported account trips do not enqueue sync (4.9212ms)
+✔ old draft sessions and additive review decisions round-trip without changing source (1.0109ms)
+✔ lot01 defect 07 (22.5468ms)
+✔ lot01 defect 08 (9.8985ms)
+✔ lot01 defect 12 (1.6633ms)
+✔ lot01 defect 15 (1.2573ms)
+✔ lot01 defect 17 (1.2731ms)
+✔ lot01 defect 19 (0.6034ms)
+✔ lot01 defect 20 (2.5492ms)
+✔ lot01 defect 23 (3.6354ms)
+✔ lot01 defect 33 (0.9463ms)
+✔ review separates explicit notes from unprocessed material and links incomplete assignments (2.3341ms)
+✔ lowercase words without a following structural day do not become cities (0.2926ms)
+✔ emoji and quoted text retain exact source provenance (0.3148ms)
+✔ ASCII arrows do not split hyphenated names or ordinary minus signs (1.1691ms)
+✔ quote removal is restricted to line starts (0.331ms)
+✔ weekday inside an activity does not define a new day (0.2574ms)
+✔ abbreviated dates need an explicit year and a literal dot (0.2919ms)
+✔ table inheritance stops at a new day or conflicting explicit date (0.4429ms)
+✔ PDF footer filtering preserves numbered activities and cautious continuation (0.6122ms)
+✔ a named confirmed hotel stays a stay while a budget estimate stays in notes (1.3939ms)
+✔ compacted long notes never disappear from the review behind a heading (6.4655ms)
+✔ a conditional alternative is never proposed as a confirmed ordinary activity (0.6917ms)
+✔ ambiguous numeric date after a day label leads to a review passage until user correction (0.6075ms)
+✔ new personal notes are not mistaken for unprocessed source quotes (0.7563ms)
+✔ a long promoted passage stays durable without truncating source or inventing a title (0.7405ms)
+✔ a named hotel with only an estimated price remains a proposed stay (0.3234ms)
+✔ unselected hotel estimates stay notes inside bullets and table cells too (0.3709ms)
+✔ local recognition: French Markdown (27.4359ms)
+✔ local recognition: English numbered list (2.6117ms)
+✔ local recognition: Spanish accents (1.6449ms)
+✔ local recognition: Chinese date and period (5.4732ms)
+✔ local recognition: French natural date (0.6318ms)
+✔ local recognition: English month first (0.5735ms)
+✔ local recognition: midnight and noon (0.595ms)
+✔ local recognition: undated relative days (0.4713ms)
+✔ local recognition: no inferred year (0.6015ms)
+✔ local recognition: ambiguous numeric date (0.4726ms)
+✔ local recognition: invalid calendar date (0.4351ms)
+✔ local recognition: period is not a clock time (0.6731ms)
+✔ local recognition: suggestions remain optional (1.0115ms)
+✔ local recognition: positive reservation statement (1.2469ms)
+✔ local recognition: English negative reservation (0.5454ms)
+✔ local recognition: Chinese negative reservation (1.1816ms)
+✔ local recognition: multiple city blocks (0.4608ms)
+✔ local recognition: plain city before day (1.065ms)
+✔ local recognition: missing city stays empty (0.3066ms)
+✔ local recognition: Markdown table (1.1362ms)
+✔ local recognition: table day and city columns (0.6118ms)
+✔ local recognition: indented multiline descriptions (0.8382ms)
+✔ local recognition: unknown prose retained (0.3964ms)
+✔ local recognition: CRLF and Unicode bullets (0.4334ms)
+✔ local recognition: bold day and bullet title (0.4174ms)
+✔ local recognition: clock range retains end in description (0.3138ms)
+✔ local recognition: instructions are ordinary source text (0.2532ms)
+✔ local recognition: unknown headings retained (0.342ms)
+✔ local recognition: no structure produces reviewable empty draft (0.5255ms)
+✔ local recognition: Chinese table (0.7823ms)
+✔ local recognition: partial date headings retain missing year (0.4709ms)
+✔ local recognition: ambiguous numeric date headings keep their structure (0.3943ms)
+✔ local recognition: numbered day headings (0.8446ms)
+✔ local recognition: period subheadings apply to activities (0.5366ms)
+✔ local recognition: plain period subtitles and explicit item override (0.4961ms)
+✔ local recognition: plain city blocks repeat (0.3828ms)
+✔ local recognition: clock-led activity containing a date is not a day (0.7815ms)
+✔ local recognition: numbered activity containing a date is not a day (0.3265ms)
+✔ local recognition: future reservation is not confirmed (1.0006ms)
+✔ local recognition: past reservation cancelled is not confirmed (0.6546ms)
+✔ local recognition: reservation uncertainty and restricted access are not bookings (0.6936ms)
+✔ local recognition: uppercase twelve hour clocks (0.5458ms)
+✔ recognized clock and date survive conversion; unknown source survives without full-source document (28.2454ms)
+✔ normalization never authorizes unrelated dates or times from a broad citation (0.9767ms)
+✔ missing city cannot become a trip before user correction (1.3841ms)
+✔ invalid and oversized source fails before parsing (0.3255ms)
+✔ bundled original planning preserves its six destinations, seventeen days and ninety-two activities (8.9342ms)
+✔ provider booking claims reject the same uncertain evidence as local recognition (2.3153ms)
+✔ stress evaluator never counts two names merged in one title as two activities (23.529ms)
+✔ stress evaluator detects swapped days despite correct activity counts (10.1881ms)
+✔ stress evaluator preserves intentional repeated visits on different days (2.1073ms)
+✔ stress evaluator catches false times, extra activities and wrong cities (4.9758ms)
+✔ stress corpus has 36 unique readable sources and source-grounded expectations (2.5125ms)
+✔ le budget ne fusionne jamais euros et yuans sans taux renseigné (3.938ms)
+✔ les dates impossibles et les montants invalides sont rejetés (2.5576ms)
+✔ les conversions dépassant les nombres finis ne produisent pas de faux total (0.3644ms)
+✔ le parsing des montants reste strict et accepte la virgule française (0.3931ms)
+✔ L6 : données absentes restent incomplètes ; conflit uniquement avec heures et durées suffisantes (5.7065ms)
+✔ L6 urban : adoption, réservations, dépenses, Maintenant et retour au plan initial (5.1128ms)
+✔ L6 excursion : adoption, réservations, dépenses, Maintenant et retour au plan initial (0.848ms)
+✔ L6 transfer : adoption, réservations, dépenses, Maintenant et retour au plan initial (0.7862ms)
+✔ L6 : archives, projection explicite, duplication et retour préservent les relations (25.5577ms)
+✔ L6 : références supprimées nettoyées, ancien carnet accepté, valeurs invalides refusées (1.4974ms)
+✔ L6 : concurrence indépendante conservée et sélection divergente signalée (1.773ms)
+✔ L6 : traductions complètes et variables préservées (0.7214ms)
+Fixture rls-check-2854ed97-320b-4f12-98a4-4e96c4a4b732: tombstone verified, members removed, invitations cancelled; retained server history.
+Fixture rls-check-0f512580-aedf-45e3-9aa9-cf7fe9409049: tombstone verified, members removed, invitations cancelled; retained server history.
+✔ gate : un échec conserve son code et empêche les contrôles suivants (10.2331ms)
+✔ build : identité nouvelle acceptée, bundle ancien, manifeste altéré et chemin dangereux refusés (8.0255ms)
+✔ build servi : URL absolue sans baseURL, entrée et octets vérifiés (2.981ms)
+✔ distant simulé : échec après création/invitation nettoie seulement la fixture (2.6398ms)
+✔ distant simulé : nettoyage impossible conserve les deux erreurs et refuse conflit ou identité étrangère (4.0296ms)
+✔ distant simulé : réponse perdue nettoyée si la création est prouvée ; collision jamais supprimée (1.3785ms)
+✔ distant simulé : sans création, pas de nettoyage ; identifiant arbitraire refusé (0.6282ms)
+ℹ tests 213
+ℹ suites 0
+ℹ pass 213
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2491.53
+
+Contrôle : build Vite
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 1989 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                            1.76 kB │ gzip:   0.84 kB
+dist/assets/PlanningImport-DdFSLqpC.css    2.10 kB │ gzip:   0.67 kB
+dist/assets/map-CIGW-MKW.css              15.61 kB │ gzip:   6.46 kB
+dist/assets/index-wXmlhICl.css           154.10 kB │ gzip:  29.43 kB
+dist/assets/SourceDocument-B5PTUJlh.js     1.16 kB │ gzip:   0.72 kB
+dist/assets/markdown-81WzlVMr.js           3.21 kB │ gzip:   1.32 kB
+dist/assets/index-B4CftUe7.js              6.03 kB │ gzip:   1.84 kB
+dist/assets/WorldView-C_81clTi.js         10.29 kB │ gzip:   4.11 kB
+dist/assets/PlanningImport-BrjiMgnI.js    52.43 kB │ gzip:  17.65 kB
+dist/assets/map-BBfE2e2Q.js              149.50 kB │ gzip:  43.29 kB
+dist/assets/index-D_f-vvEH.js            154.46 kB │ gzip:  46.93 kB
+dist/assets/translations-BSKsgNsi.js     199.33 kB │ gzip:  69.40 kB
+dist/assets/cloud-2-wFLFeG.js            217.40 kB │ gzip:  56.99 kB
+dist/assets/react-7_dknjxo.js            221.87 kB │ gzip:  69.04 kB
+dist/assets/index-DZk7Ldp4.js            492.22 kB │ gzip: 145.26 kB
+✓ built in 5.39s
+
+Contrôle : service worker et manifeste
+Offline cache prepared: 28 files (a-l-est-998126f1a4eb).
+
+Contrôle : intégrité du build
+Build verified: 998126f1a4eb3d3773ce4714b5c128df5e9ce6c4baab69113bf093c3fd9118b1, 27 assets, entry /assets/index-DZk7Ldp4.js
+
+Contrôle : compatibilité SQL L6
+L6 PostgreSQL passed: additive migration repeatable, old/new archives, legacy edits preserve preparation and clean deleted references, invalid timings/references/private fields rejected, owner adoption/return, bookings/expenses intact, unrelated account refused. In-memory database only.
+
+Contrôle : tests navigateur retenus
+[WebServer] (node:17528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 62 tests using 1 worker
+
+(node:21964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\fluid-navigation.spec.ts:4:3 › compact connection leaves space for search at 320px (2.3s)
+  ok  2 tests\e2e\fluid-navigation.spec.ts:4:3 › compact connection leaves space for search at 390px (2.0s)
+  ok  3 tests\e2e\fluid-navigation.spec.ts:4:3 › compact connection leaves space for search at 740px (1.9s)
+  ok  4 tests\e2e\fluid-navigation.spec.ts:4:3 › compact connection leaves space for search at 1000px (1.7s)
+  ok  5 tests\e2e\fluid-navigation.spec.ts:27:1 › glass selection travels between mobile buttons and can reverse before settling (2.8s)
+  ok  6 tests\e2e\fluid-navigation.spec.ts:64:1 › reduced motion places selection immediately and desktop navigation stays usable (2.1s)
+  ok  7 tests\e2e\fluid-navigation.spec.ts:81:1 › glass stays inside its dock when an animation starts after the frame timestamp (1.8s)
+  ok  8 tests\e2e\fluid-navigation.spec.ts:102:3 › glass bubble opens a bridge to Carte then closes on the selected button (2.1s)
+  ok  9 tests\e2e\fluid-navigation.spec.ts:102:3 › glass bubble opens a bridge to Bonus then closes on the selected button (2.3s)
+  ok 10 tests\e2e\fluid-navigation.spec.ts:134:1 › the sidebar bubble opens vertically and closes without displacing the buttons (2.1s)
+  ok 11 tests\e2e\full-backup.spec.ts:9:1 › export réel puis restauration vierge retrouve contenus, relations et documents ; réessai sans doublon (5.0s)
+  ok 12 tests\e2e\full-backup.spec.ts:65:1 › corruption et manque de quota préservent les données ; reprise explicite après interruption (2.3s)
+  ok 13 tests\e2e\full-backup.spec.ts:89:1 › collection réelle de plus de 5 Mo restaurée dans Chrome sans doubler le quota (5.7s)
+  ok 14 tests\e2e\full-backup.spec.ts:116:3 › bilan de sauvegarde fr : mobile, clavier et annulation sans écriture (2.7s)
+  ok 15 tests\e2e\full-backup.spec.ts:116:3 › bilan de sauvegarde en : mobile, clavier et annulation sans écriture (2.9s)
+  ok 16 tests\e2e\full-backup.spec.ts:116:3 › bilan de sauvegarde zh-CN : mobile, clavier et annulation sans écriture (3.0s)
+  ok 17 tests\e2e\full-backup.spec.ts:116:3 › bilan de sauvegarde es : mobile, clavier et annulation sans écriture (2.8s)
+  ok 18 tests\e2e\l2-accessibility.spec.ts:6:3 › accueil fr : onglets, clavier, focus et date civile dans un fuseau occidental (3.2s)
+  ok 19 tests\e2e\l2-accessibility.spec.ts:6:3 › accueil en : onglets, clavier, focus et date civile dans un fuseau occidental (3.1s)
+  ok 20 tests\e2e\l2-accessibility.spec.ts:6:3 › accueil zh-CN : onglets, clavier, focus et date civile dans un fuseau occidental (3.2s)
+  ok 21 tests\e2e\l2-accessibility.spec.ts:6:3 › accueil es : onglets, clavier, focus et date civile dans un fuseau occidental (3.2s)
+  ok 22 tests\e2e\live-converter.spec.ts:10:1 › convertisseur connecté et dépenses synchronisées en devise locale et personnelle, taux enregistrés conservés (4.1s)
+  ok 23 tests\e2e\live-converter.spec.ts:25:1 › inversion, arrondis, montants invalides et changement de paire pendant une requête (2.7s)
+  ok 24 tests\e2e\live-converter.spec.ts:34:1 › hors ligne : cache daté disponible et paire manquante signalée, reprise automatique (2.0s)
+  ok 25 tests\e2e\multi-trip.spec.ts:27:1 › installation vierge, voyages vides et première étape sans journée sur mobile (4.0s)
+  ok 26 tests\e2e\multi-trip.spec.ts:42:1 › Chine, Japon et France restent isolés après notes, recherche, export et rechargement (5.6s)
+  ok 27 tests\e2e\multi-trip.spec.ts:56:1 › duplication puis notes, activité, favoris et valise de la copie préservent l’original (4.3s)
+  ok 28 tests\e2e\multi-trip.spec.ts:69:1 › deux onglets ouverts sur des carnets différents ne partagent aucune écriture (5.7s)
+  ok 29 tests\e2e\multi-trip.spec.ts:78:1 › écriture en attente du carnet A après ouverture par import du carnet B (2.2s)
+  ok 30 tests\e2e\multi-trip.spec.ts:90:1 › échec de sauvegarde exportable puis reprise sans perdre la modification précédente (3.1s)
+  ok 31 tests\e2e\multi-trip.spec.ts:100:1 › deux onglets sur le même carnet, brouillon ouvert et changement distant conservé (6.9s)
+  ok 32 tests\e2e\multi-trip.spec.ts:110:1 › nouvelle devise de référence préserve le budget et les montants originaux (2.6s)
+  ok 33 tests\e2e\multi-trip.spec.ts:118:1 › document personnel répertorié, conservé et exporté uniquement dans son carnet (4.3s)
+  ok 34 tests\e2e\planning-import.spec.ts:5:1 › manual source, corrections and new notebook survive reload without replacing an existing notebook (5.1s)
+  ok 35 tests\e2e\planning-import.spec.ts:50:1 › ambiguous fixture keeps conflicts visible and exclusion permits creating a notebook (3.0s)
+  ok 36 tests\e2e\planning-import.spec.ts:73:5 › review fits 320px and keyboard focus stays in dialog (fr) (2.5s)
+  ok 37 tests\e2e\planning-import.spec.ts:73:5 › review fits 390px and keyboard focus stays in dialog (fr) (2.4s)
+  ok 38 tests\e2e\planning-import.spec.ts:73:5 › review fits 320px and keyboard focus stays in dialog (en) (2.4s)
+  ok 39 tests\e2e\planning-import.spec.ts:73:5 › review fits 390px and keyboard focus stays in dialog (en) (2.4s)
+  ok 40 tests\e2e\planning-import.spec.ts:73:5 › review fits 320px and keyboard focus stays in dialog (zh-CN) (2.6s)
+  ok 41 tests\e2e\planning-import.spec.ts:73:5 › review fits 390px and keyboard focus stays in dialog (zh-CN) (2.9s)
+  ok 42 tests\e2e\planning-import.spec.ts:73:5 › review fits 320px and keyboard focus stays in dialog (es) (2.5s)
+  ok 43 tests\e2e\planning-import.spec.ts:73:5 › review fits 390px and keyboard focus stays in dialog (es) (2.6s)
+  ok 44 tests\e2e\planning-local.spec.ts:14:1 › a real Markdown file becomes corrected days and activities, survives reload and preserves the existing notebook (5.0s)
+  ok 45 tests\e2e\planning-local.spec.ts:59:1 › pasted source without a city keeps the missing city visible and requires correction before creation (2.9s)
+  ok 46 tests\e2e\planning-local.spec.ts:86:1 › invalid real files preserve the current source and valid replacement needs an explicit choice (3.1s)
+  ok 47 tests\e2e\planning-local.spec.ts:129:3 › local file recognition works in en at 320px without overflow (2.2s)
+  ok 48 tests\e2e\planning-local.spec.ts:129:3 › local file recognition works in zh-CN at 320px without overflow (2.4s)
+  ok 49 tests\e2e\planning-local.spec.ts:129:3 › local file recognition works in es at 320px without overflow (2.2s)
+  ok 50 tests\e2e\planning-lot01.spec.ts:4:1 › unprocessed source can become an activity or a durable note; assignment survives reload (4.0s)
+  ok 51 tests\e2e\planning-lot01.spec.ts:34:1 › nearly empty recognition gives an explicit factual summary and source links (1.9s)
+  ok 52 tests\e2e\planning-lot01.spec.ts:44:1 › a long passage can become a durable activity without truncating its provenance (3.0s)
+  ok 53 tests\e2e\pwa-lot02.spec.ts:4:1 › installation offer received before Preferences, dismissal and installed state (1.3s)
+  ok 54 tests\e2e\pwa-lot02.spec.ts:22:3 › storage persistence denied: no startup request, no notebook mutation (2.2s)
+  ok 55 tests\e2e\pwa-lot02.spec.ts:22:3 › storage persistence granted: no startup request, no notebook mutation (2.1s)
+  ok 56 tests\e2e\pwa-lot02.spec.ts:22:3 › storage persistence error: no startup request, no notebook mutation (2.2s)
+  ok 57 tests\e2e\pwa-lot02.spec.ts:22:3 › storage persistence unsupported: no startup request, no notebook mutation (2.1s)
+  ok 58 tests\e2e\pwa-lot02.spec.ts:54:1 › maps external window and return preserve the notebook for Google and Amap (4.8s)
+  ok 59 tests\e2e\world-languages.spec.ts:8:3 › 中文（简体）: library, all views, dates, forms and saved notes (8.4s)
+  ok 60 tests\e2e\world-languages.spec.ts:80:3 › 中文（简体）: 320px navigation, preferences and both themes fit (6.3s)
+  ok 61 tests\e2e\world-languages.spec.ts:8:3 › Español: library, all views, dates, forms and saved notes (7.8s)
+  ok 62 tests\e2e\world-languages.spec.ts:80:3 › Español: 320px navigation, preferences and both themes fit (5.6s)
+
+  62 passed (3.5m)
+
+Contrôle : analyse planning simulée dans le navigateur
+[WebServer] (node:30244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:5840) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\planning-analysis.spec.ts:26:1 › SIMULATED provider: paste, analyze, correct, create and open an account-local notebook (4.4s)
+  ok 2 tests\e2e\planning-analysis.spec.ts:61:1 › SIMULATED slow provider: cancellation and new source suppress late results even if transport ignores abort (2.2s)
+  ok 3 tests\e2e\planning-analysis.spec.ts:93:1 › SIMULATED provider failures retain source through reload and never create a partial notebook (3.7s)
+
+  3 passed (14.6s)
+
+Contrôle : états L4/L5/L6 et préférences dans le navigateur
+[WebServer] (node:11916) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 28 tests using 1 worker
+
+(node:30308) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\l4-status.spec.ts:5:1 › compte sans session : file conservée, changement de compte isolé et échec local explicite (3.0s)
+  ok  2 tests\e2e\l5-maps.spec.ts:7:51 › cartes google : recherche distincte du trajet, modes et prochaine étape (2.6s)
+  ok  3 tests\e2e\l5-maps.spec.ts:7:51 › cartes amap : recherche distincte du trajet, modes et prochaine étape (2.4s)
+  ok  4 tests\e2e\l5-maps.spec.ts:36:35 › voyage CN : préférence personnelle Google par défaut (2.3s)
+  ok  5 tests\e2e\l5-maps.spec.ts:36:35 › voyage FR : préférence personnelle Google par défaut (2.4s)
+  ok  6 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : fr, google, clavier, hors ligne et reflow (3.6s)
+  ok  7 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : fr, amap, clavier, hors ligne et reflow (3.4s)
+  ok  8 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : en, google, clavier, hors ligne et reflow (3.4s)
+  ok  9 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : en, amap, clavier, hors ligne et reflow (3.3s)
+  ok 10 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : zh-CN, google, clavier, hors ligne et reflow (3.5s)
+  ok 11 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : zh-CN, amap, clavier, hors ligne et reflow (3.5s)
+  ok 12 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : es, google, clavier, hors ligne et reflow (3.4s)
+  ok 13 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : es, amap, clavier, hors ligne et reflow (3.5s)
+  ok 14 tests\e2e\l5-now.spec.ts:7:63 › Maintenant fr : deux actions, adresse locale, données du jour, clavier et dates (3.9s)
+  ok 15 tests\e2e\l5-now.spec.ts:7:63 › Maintenant en : deux actions, adresse locale, données du jour, clavier et dates (4.0s)
+  ok 16 tests\e2e\l5-now.spec.ts:7:63 › Maintenant zh-CN : deux actions, adresse locale, données du jour, clavier et dates (4.1s)
+  ok 17 tests\e2e\l5-now.spec.ts:7:63 › Maintenant es : deux actions, adresse locale, données du jour, clavier et dates (4.0s)
+  ok 18 tests\e2e\l6-preparation.spec.ts:7:52 › L6 urban : comparer, annuler, adopter et revenir sans perdre billets/dépenses (3.8s)
+  ok 19 tests\e2e\l6-preparation.spec.ts:7:52 › L6 excursion : comparer, annuler, adopter et revenir sans perdre billets/dépenses (3.6s)
+  ok 20 tests\e2e\l6-preparation.spec.ts:7:52 › L6 transfer : comparer, annuler, adopter et revenir sans perdre billets/dépenses (3.7s)
+  ok 21 tests\e2e\l6-preparation.spec.ts:21:62 › L6 fr : saisie, inconnues, comparaison, clavier et 320px (3.7s)
+  ok 22 tests\e2e\l6-preparation.spec.ts:21:62 › L6 en : saisie, inconnues, comparaison, clavier et 320px (3.4s)
+  ok 23 tests\e2e\l6-preparation.spec.ts:21:62 › L6 zh-CN : saisie, inconnues, comparaison, clavier et 320px (3.6s)
+  ok 24 tests\e2e\l6-preparation.spec.ts:21:62 › L6 es : saisie, inconnues, comparaison, clavier et 320px (3.2s)
+  ok 25 tests\e2e\l6-preparation.spec.ts:35:1 › L6 lecteur : comparaison disponible, adoption et formulaires bloqués (2.4s)
+  ok 26 tests\e2e\map-preferences.spec.ts:25:1 › choix personnel : Google par défaut, Amap dans toutes les vues, conservation après rechargement sans modifier le carnet (4.7s)
+  ok 27 tests\e2e\map-preferences.spec.ts:46:1 › préférence entre onglets et sauvegarde refusée : choix actif mais échec annoncé (3.3s)
+  ok 28 tests\e2e\map-preferences.spec.ts:55:1 › préférences des comptes A et B et du mode local isolées, sans envoi de carnet (4.5s)
+
+  28 passed (1.7m)
+
+Contrôle : smoke-production
+Served build verified: 998126f1a4eb3d3773ce4714b5c128df5e9ce6c4baab69113bf093c3fd9118b1
+Service worker upgrade verified: previous cache replaced by current compiled assets.
+Production smoke passed: map selection, local geography, service worker, offline reload, offline notes, both source documents, mobile overflow, four interface languages offline, Chinese phrases, zero runtime errors, several journals offline, no China content in Japan, world first opened offline and personal visits persisted.
+Offline cache verified: 29 requests.
+
+Contrôle : smoke-backup
+Backup production smoke passed: export and restore offline in separate Chrome profiles, document and note content, reload, 390px, reduced motion, no runtime errors.
+
+Contrôle : smoke-ui
+Account errors, long text, layouts, 200% reflow and keyboard verified: fr.
+Account errors, long text, layouts, 200% reflow and keyboard verified: en.
+Account errors, long text, layouts, 200% reflow and keyboard verified: zh-CN.
+Account errors, long text, layouts, 200% reflow and keyboard verified: es.
+UI smoke passed: conflict export spacing and both download contents, radio choices, cold/reload tabs, lazy world, account menu keyboard, compiled Google config, 320/390/1440 layouts, recovery labels, modal spacing and pending sign-out cache preservation.
+
+Contrôle : smoke-common-sharing
+UI commune validée : trois profils créateur/éditeur/lecteur, rôles individuels, annulation et confirmation du départ, réinvitation, refus des anciens liens, contributions intactes, partage direct, conflit hors ligne, révocation et 320/390/1440px. API et sessions simulées.
+
+Contrôle : smoke-l4-offline
+L4 offline smoke passed: missing/corrected lazy cache, offline edit and reload, dated checks, bounded receipts, recovery keyboard, four languages, 320/390/1440.
+
+Contrôle : smoke-l4-persistence
+L4 disk-profile persistence passed: installed Chrome fully closed, reopened offline, note/document/cache preserved, reconnected. Isolated profile: C:\Users\eliot\AppData\Local\Temp\detours-l4-disk-fCOs8G. Network emulation; no real-account or iPhone proof.
+
+Contrôle : smoke-l5-now
+L5 compiled offline passed: hotel/show card, next step, booking, day note, personal map choice changed offline and preserved after reload, reduced motion, zero runtime errors.
+
+Contrôle : smoke-l6-preparation
+L6 compiled offline passed: compare/adopt, reload, booked activity warning, original restored, reservations/expenses preserved, reduced motion, no runtime errors.
+
+Contrôle : smoke-l8-release
+L8 compiled passed: served identity 998126f1a4eb3d3773ce4714b5c128df5e9ce6c4baab69113bf093c3fd9118b1; unopened world/Markdown modules offline; all views, note/reload; native cross-tab alternative/title/reader/revocation invalidation; no runtime errors. Account permissions simulated locally, not remote proof.
+
+Contrôle : PWA mobile compilée
+PWA mobile compiled passed: 40 layouts, icons served/cached, manifest/installability, four languages, offline edit/close/reopen/reconnect; build 998126f1a4eb3d3773ce4714b5c128df5e9ce6c4baab69113bf093c3fd9118b1.
+
+Contrôle : mise à jour Chrome et WebKit
+chromium: update detected and applied; cache upgraded and new worker controls the page.
+chromium: resume detects release through the old HTML cache; manual update preserves journals; new release works offline.
+webkit: update detected and applied; cache upgraded and new worker controls the page.
+webkit: resume, manual update, journals and cache verified. Offline emulation excluded (Playwright #42775).
+
+Contrôle : planning compilé, carte, hors ligne et restauration
+Planning import production smoke passed: real local file recognition while offline (days, dates, times, activities, suggestion), explicit demonstration for one Louvre map marker, disabled remote extraction, keyboard/source choice, corrected preview, durable creation, unknown places without invented coordinates/dates, reload, worker/offline planning and map, real downloaded archive restored equivalently in another profile, 320/390/1440px, zero runtime errors.
+Temporary screenshots: C:\Users\eliot\AppData\Local\Temp\detours-planning-import-A67Xdl
+Rapport : C:\Users\eliot\AppData\Local\Temp\detours-verify-X6ff8m\validation.json — RÉUSSI

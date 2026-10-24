@@ -1,0 +1,20 @@
+.souvenirs { margin: 1rem 0; padding: 1rem; border: 1px solid var(--border, #8886); border-radius: 12px; overflow-wrap: anywhere; }
+.souvenirs summary { cursor: pointer; font-weight: 650; }
+.souvenirs p { line-height: 1.6; }
+.souvenir-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin: 1rem 0; }
+.souvenirs input[type=file] { max-width: 100%; width: 100%; }
+.souvenir-photo { display: block; max-width: 100%; max-height: 28rem; object-fit: contain; margin: .75rem 0; border-radius: 8px; }
+.souvenir-caption { white-space: pre-wrap; overflow-wrap: anywhere; }
+.souvenir-choice { display: flex; gap: .65rem; align-items: baseline; padding: .65rem 0; overflow-wrap: anywhere; }
+.souvenir-preview { border: 1px solid #8886; padding: 1rem; margin: 1rem 0; }
+.souvenir-pages article { break-inside: avoid; margin: 1.5rem 0; overflow-wrap: anywhere; }
+#souvenir-print-root { display: none; }
+@media print {
+  body:has(#souvenir-print-root) { overflow: visible !important; background: white !important; }
+  body:has(#souvenir-print-root) > :not(#souvenir-print-root) { display: none !important; }
+  #souvenir-print-root { display: block !important; color: #111; background: white; font: 12pt sans-serif; }
+  #souvenir-print-root .souvenir-photo { max-height: 150mm; max-width: 170mm; }
+  #souvenir-print-root h1 { font-size: 22pt; color: #111; }
+  #souvenir-print-root h2 { font-size: 17pt; color: #111; }
+  @page { size: A4; margin: 18mm; }
+}

@@ -1,0 +1,166 @@
+{
+  "baseline": "C:\\Users\\eliot\\Documents\\detours-lot04-recovery-20261021",
+  "scope": "code tests scripts and README; report/evidence separately",
+  "files": [
+    {
+      "path": "README.md",
+      "kind": "modified",
+      "beforeSha256": "d65d492cf089da32fa59fb7f9f015df42305566e697466c29b2127d6be931bab",
+      "afterSha256": "2a20a9d44094ab6d26f5d8a0c8416734fd533ccecd314ed0ccbf2a5cae6b3df8",
+      "beforeBytes": 29868,
+      "afterBytes": 30573
+    },
+    {
+      "path": "scripts/verify-local.mjs",
+      "kind": "modified",
+      "beforeSha256": "0f4ac7a6ae53218151f5590b82967193efa1aa698b0f1346751b86611a18b530",
+      "afterSha256": "6772160372c91dc6e8156da4ac8a4030f02787b263a41e3edbabe6fca60c7645",
+      "beforeBytes": 6233,
+      "afterBytes": 6341
+    },
+    {
+      "path": "src/App.tsx",
+      "kind": "modified",
+      "beforeSha256": "d3dffd1d2a5496cb01a9eb474b0f708478a634b228d18c531495d7d55c817acd",
+      "afterSha256": "8416f3101869ba2b0e05ff9d2729ff921922deaee2f2e339412796cbc74aa6c6",
+      "beforeBytes": 59989,
+      "afterBytes": 60715
+    },
+    {
+      "path": "src/cloud/engine.ts",
+      "kind": "modified",
+      "beforeSha256": "5f1ae0896b8dcad184fa0025a37843af235fe71a1eed1a9e53ada9897b0179db",
+      "afterSha256": "58131b9760ee48ee2a0f23353a19898b298afefb689a54ea8f392cc00f6d2499",
+      "beforeBytes": 8353,
+      "afterBytes": 9085
+    },
+    {
+      "path": "src/components/TripMap.tsx",
+      "kind": "modified",
+      "beforeSha256": "b86ba5221253a0f79ff5347532649a03b2e2601a4aa5f54d68d764483a76da60",
+      "afterSha256": "c9db4b445bbbf6a133c7c76d55599057d8bfef5b2b11032895715e2d77e237ac",
+      "beforeBytes": 11831,
+      "afterBytes": 12131
+    },
+    {
+      "path": "src/lib.ts",
+      "kind": "modified",
+      "beforeSha256": "67d1a2a51601d2d03955160cc0d9bc46a66e25fa2d8142d40c350fd16eeb74ac",
+      "afterSha256": "351e07a9b59ca811aecbd555f02b880b9d632659987d51a56a9462aca4bed2d7",
+      "beforeBytes": 13095,
+      "afterBytes": 13207
+    },
+    {
+      "path": "src/locale-utils.ts",
+      "kind": "modified",
+      "beforeSha256": "0362ac9d2b98de76c1e87e6f74f9966aa67e0a5794ad098ac92a7d19c36fe497",
+      "afterSha256": "78a429590257c2aa54a88b47893fe7f7b8a6bf53a09347bc60fcbd04c437d19d",
+      "beforeBytes": 3647,
+      "afterBytes": 3776
+    },
+    {
+      "path": "src/persistence.ts",
+      "kind": "modified",
+      "beforeSha256": "87677be82dcf9caa684a32f794247385f1460de0483c1d82ab42eea631edc56f",
+      "afterSha256": "58ba4674c0d406b594288c8fd1b5bcf25cccddd8303e86a898938b6e3acc51a2",
+      "beforeBytes": 3960,
+      "afterBytes": 4246
+    },
+    {
+      "path": "src/types.ts",
+      "kind": "modified",
+      "beforeSha256": "db5a0e98d37eff9996750bb285d557442ff658b0e8242f8329383c560bde0c8d",
+      "afterSha256": "6e1f40132d663d8eaf75111052765cc45dfebf7e0db0e3fe8dcc86d3e7b0bc77",
+      "beforeBytes": 4127,
+      "afterBytes": 4214
+    },
+    {
+      "path": "src/places/model.ts",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "445e7eaed9add6e354a51f707a65a914c6114fbcfe3a67e48dd01076a1e02ae3",
+      "beforeBytes": 0,
+      "afterBytes": 3365
+    },
+    {
+      "path": "src/places/wikimedia.ts",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "acac88388b07b96f7d6a28cb376067c60dae63a451e510cb0e53d03d729addc7",
+      "beforeBytes": 0,
+      "afterBytes": 8064
+    },
+    {
+      "path": "src/components/PlaceEnrichment.tsx",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "3b2702b75482537ca9928fd1c1461655f118f819353ad823416a3afd0f2277da",
+      "beforeBytes": 0,
+      "afterBytes": 9011
+    },
+    {
+      "path": "src/components/PlaceEnrichment.css",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "b99809ce2b1f98cd4c318825a8ed7022a015079acc3314784f84253f89e95de2",
+      "beforeBytes": 0,
+      "afterBytes": 1187
+    },
+    {
+      "path": "src/locales/places.ts",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "0a870b92a733b22cdbe25e625ee708d4e13109275d369513d912df947ed8350f",
+      "beforeBytes": 0,
+      "afterBytes": 4732
+    },
+    {
+      "path": "tests/places.test.mjs",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "2ec0e902886f61f4920d533e2f52510b98d79d19bab62d88b92e8e2e2b737e2e",
+      "beforeBytes": 0,
+      "afterBytes": 11884
+    },
+    {
+      "path": "tests/e2e/places.spec.ts",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "5899682118d61dd3fb46ec4dc4acde8f793ee8392ea1b3d34667d818bcbc5173",
+      "beforeBytes": 0,
+      "afterBytes": 13493
+    },
+    {
+      "path": "scripts/test-wikimedia-live.mjs",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "a07d9af4e33fdedd2a8838cccc846f04c5f3b26c5c1f89baa5a9296132b3cb33",
+      "beforeBytes": 0,
+      "afterBytes": 1823
+    },
+    {
+      "path": "scripts/test-wikimedia-browser.mjs",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "b5cabc9730f03180d26a3961871569be0f2f0715da42db0ded072cc72dcf38dc",
+      "beforeBytes": 0,
+      "afterBytes": 2499
+    },
+    {
+      "path": "scripts/smoke-places.mjs",
+      "kind": "added",
+      "beforeSha256": null,
+      "afterSha256": "3793b471f467f3032f124a3d126395573274c16beb324e91c630bfb6dfe85f75",
+      "beforeBytes": 0,
+      "afterBytes": 4347
+    },
+    {
+      "path": "tests/e2e/world-languages.spec.ts",
+      "kind": "modified",
+      "beforeSha256": "d74b18c5a7bcbaadf29479bd32075cd5514092d3f810c6b72c0832ee7a2124a9",
+      "afterSha256": "719095a6740e15e5854da9aaa40e86e46248e369b4f59b99da79e50a6d80b23e",
+      "beforeBytes": 7358,
+      "afterBytes": 7550
+    }
+  ]
+}

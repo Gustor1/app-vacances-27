@@ -1,0 +1,172 @@
+{
+  "date": "2026-10-18",
+  "generatedAt": "2026-10-17T16:48:35.126Z",
+  "timezone": "Asia/Shanghai",
+  "baseRevision": "c1dd8a686e5962a156bad1489e4e4d3f2c731d64",
+  "sourceFingerprint": "804814a5010f0e5e939368fcef6e3c4614d90dfef14497838d9ed906edd6ed8f",
+  "fingerprintScope": "Git-visible code, configs, tests and assets; docs/ and Markdown excluded; ignored files excluded",
+  "sourceUnchanged": true,
+  "buildId": "ef50a16fd88d8fe3a5b0de46fd8edccc1c59203d06dd1ac58e7ba88f3ba9f85c",
+  "environment": {
+    "platform": "win32",
+    "node": "v24.15.0",
+    "browser": "Playwright Chromium / installed Chrome",
+    "backend": "simulated, isolated profiles"
+  },
+  "exitCode": 0,
+  "checks": [
+    {
+      "name": "types produit",
+      "startedAt": "2026-10-17T16:40:56.438Z",
+      "finishedAt": "2026-10-17T16:41:02.394Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "types tests/configurations",
+      "startedAt": "2026-10-17T16:41:02.394Z",
+      "finishedAt": "2026-10-17T16:41:04.665Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "lint",
+      "startedAt": "2026-10-17T16:41:04.665Z",
+      "finishedAt": "2026-10-17T16:41:10.109Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "tests unitaires",
+      "startedAt": "2026-10-17T16:41:10.109Z",
+      "finishedAt": "2026-10-17T16:41:12.617Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "build Vite",
+      "startedAt": "2026-10-17T16:41:12.617Z",
+      "finishedAt": "2026-10-17T16:41:19.390Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "service worker et manifeste",
+      "startedAt": "2026-10-17T16:41:19.390Z",
+      "finishedAt": "2026-10-17T16:41:19.665Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "intégrité du build",
+      "startedAt": "2026-10-17T16:41:19.665Z",
+      "finishedAt": "2026-10-17T16:41:19.775Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "compatibilité SQL L6",
+      "startedAt": "2026-10-17T16:41:19.775Z",
+      "finishedAt": "2026-10-17T16:41:22.597Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "tests navigateur retenus",
+      "startedAt": "2026-10-17T16:41:22.597Z",
+      "finishedAt": "2026-10-17T16:44:23.499Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "analyse planning simulée dans le navigateur",
+      "startedAt": "2026-10-17T16:44:23.500Z",
+      "finishedAt": "2026-10-17T16:44:39.060Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "états L4/L5/L6 et préférences dans le navigateur",
+      "startedAt": "2026-10-17T16:44:39.060Z",
+      "finishedAt": "2026-10-17T16:46:39.343Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-production",
+      "startedAt": "2026-10-17T16:46:39.343Z",
+      "finishedAt": "2026-10-17T16:47:02.809Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-backup",
+      "startedAt": "2026-10-17T16:47:02.809Z",
+      "finishedAt": "2026-10-17T16:47:09.141Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-ui",
+      "startedAt": "2026-10-17T16:47:09.141Z",
+      "finishedAt": "2026-10-17T16:47:25.715Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-common-sharing",
+      "startedAt": "2026-10-17T16:47:25.715Z",
+      "finishedAt": "2026-10-17T16:47:43.185Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-l4-offline",
+      "startedAt": "2026-10-17T16:47:43.185Z",
+      "finishedAt": "2026-10-17T16:47:51.168Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-l4-persistence",
+      "startedAt": "2026-10-17T16:47:51.168Z",
+      "finishedAt": "2026-10-17T16:47:58.769Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-l5-now",
+      "startedAt": "2026-10-17T16:47:58.769Z",
+      "finishedAt": "2026-10-17T16:48:04.490Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-l6-preparation",
+      "startedAt": "2026-10-17T16:48:04.490Z",
+      "finishedAt": "2026-10-17T16:48:10.464Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-l8-release",
+      "startedAt": "2026-10-17T16:48:10.464Z",
+      "finishedAt": "2026-10-17T16:48:18.299Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "planning compilé, carte, hors ligne et restauration",
+      "startedAt": "2026-10-17T16:48:18.299Z",
+      "finishedAt": "2026-10-17T16:48:34.735Z",
+      "exitCode": 0,
+      "status": "passed"
+    }
+  ],
+  "notRun": [],
+  "limits": [
+    "No remote service, Google OAuth, physical device or full browser suite verification",
+    "Browser external DNS blocked; loopback and intercepted mocks available; network test commands not invoked"
+  ],
+  "output": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-verify-OrttH4"
+}

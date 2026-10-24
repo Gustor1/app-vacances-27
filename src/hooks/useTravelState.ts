@@ -8,6 +8,8 @@ import { archive, chinaTrip, parseTrip, readTrip, recoveryKey, tripKey, writeTri
 import { initialCities } from '../data/trip';
 import { useCloud } from '../cloud/CloudProvider';
 import type { TripStorage } from '../cloud/storage';
+import { commitAssistant, writeWithRecovery } from '../travel-write';
+import { assistantRevision, type AssistantProposal } from '../assistant';
 
 export function recoveryState(raw: string): StoredState { try { return parseTrip(raw).state; } catch { const old = parseBackup(raw); return old.journey ? old : chinaTrip(old); } }
 
@@ -29,7 +31,7 @@ function initialize(seed: StoredState, localStorage: TripStorage) {
   }
 }
 export function useTravelState(seed: StoredState, readOnly = false) {
-  const { storage: localStorage } = useCloud();
+  const { storage: localStorage, scope } = useCloud();
   // The parent remounts this hook when switching trips. Pending writes retain this key.
   const id = seed.journey!.id;
   const key = tripKey(id);
@@ -50,6 +52,10 @@ export function useTravelState(seed: StoredState, readOnly = false) {
   const committed = useRef(initial.state);
   const unsavedBase = useRef<StoredState | null>(null);
   const readOnlyRef = useRef(readOnly); readOnlyRef.current = readOnly;
+  const live = useRef({active:true,scope,storage:localStorage});
+  live.current.scope=scope; live.current.storage=localStorage;
+  const strictBusy = useRef(false);
+  useEffect(()=>{live.current.active=true;return()=>{live.current.active=false;};},[]);
 
   const update = useCallback((action: SetStateAction<StoredState>, replace = false) => {
     if (readOnlyRef.current) return;
@@ -74,14 +80,8 @@ export function useTravelState(seed: StoredState, readOnly = false) {
           if (JSON.stringify(archive(merged))!==JSON.stringify(archive(desired))) setSyncMessage('Les changements de l’autre onglet ont été conservés.');
         }
         const nextRaw=JSON.stringify(archive(merged));
-        if (raw && raw!==nextRaw) {
-          let readable=true;try {parseTrip(raw);}catch {readable=false;}
-          const previous={savedAt:new Date().toISOString(),raw,readable};
-          const backupRaw=JSON.stringify(previous);localStorage.setItem(backupKey,backupRaw);
-          if(localStorage.getItem(backupKey)!==backupRaw) throw new Error('La sauvegarde de récupération n’a pas pu être relue. Exporte ton carnet.');
-          setRecovery(previous);
-        }
-        writeTrip(localStorage,merged);
+        const previous=writeWithRecovery(localStorage,merged);
+        if(previous) setRecovery(previous);
         unsavedBase.current=null;
         lastWritten.current=nextRaw; committed.current=merged;
         blocked.current=false; setStorageError(''); setCorruptRaw(null);
@@ -92,6 +92,35 @@ export function useTravelState(seed: StoredState, readOnly = false) {
     const locked = async ():Promise<void> => { if(navigator.locks) {try {await navigator.locks.request(key,async()=>{await write();});} catch {await write();}} else await write(); };
     queue.current=queue.current.then(locked,locked).then(()=>undefined);
   }, [id,key,backupKey,localStorage]);
+
+  // Controlled actions do not optimistically alter the visible/exportable state.
+  // They fail closed on any revision change instead of merging a stale proposal.
+  const applyAssistant = async (proposal: AssistantProposal, undo = false, signal?: AbortSignal, allowedFields?: string[]) => {
+    if (!navigator.locks) throw new Error('La protection contre les écritures concurrentes est indisponible. Utilise les formulaires du carnet.');
+    if (strictBusy.current || pending.current || blocked.current || unsavedBase.current) throw new Error('Attends la sauvegarde. Si elle reste impossible, exporte le carnet.');
+    const expected=undo?proposal.after:proposal.before, next=undo?proposal.before:proposal.after;
+    if (assistantRevision(current.current)!==assistantRevision(expected) && assistantRevision(current.current)!==assistantRevision(next)) throw new Error('Le carnet ou les droits ont changé. Ferme cet aperçu et recommence.');
+    strictBusy.current=true; ++pending.current; setSaving(true);
+    const actionNumber=++sequence.current;
+    try {
+      // No fallback without a lock: rerunning a checked write could overwrite another tab.
+      await navigator.locks.request(key,()=>{
+        const active=live.current.active && live.current.scope===scope && live.current.storage===localStorage && !signal?.aborted && actionNumber===sequence.current;
+        const result=commitAssistant(localStorage,{scope,tripId:id,readOnly:readOnlyRef.current,allowedFields,active},proposal,undo);
+        current.current=result.state; committed.current=result.state; lastWritten.current=JSON.stringify(archive(result.state));
+        setReactState(result.state); if(result.recovery)setRecovery(result.recovery);
+        setStorageError(''); setCorruptRaw(null);
+      });
+    } catch(error) {
+      // Storage events are ignored while a write is pending. On a conflict,
+      // refresh the missed revision so closing/rebuilding the preview can recover.
+      // An unacknowledged write stays on the explicit idempotent retry path.
+      if (error instanceof Error && error.message === 'Le carnet ou les droits ont changé. Ferme cet aperçu et recommence.' && live.current.active && live.current.storage===localStorage && actionNumber===sequence.current) {
+        try {const latest=readTrip(localStorage,id);current.current=latest;committed.current=latest;setReactState(latest);} catch { /* Keep the current copy exportable if it was removed or corrupted. */ }
+      }
+      throw error;
+    } finally {strictBusy.current=false;--pending.current;if(live.current.active&&!pending.current)setSaving(false);}
+  };
 
   useEffect(()=> {
     if (!initial.blocked) update(current.current);
@@ -127,5 +156,5 @@ export function useTravelState(seed: StoredState, readOnly = false) {
   },[id,key,localStorage]);
   const setState = update as Dispatch<SetStateAction<StoredState>>;
   const replaceState=(next:StoredState)=> {update({...next,journey:state.journey},true);};
-  return {state,setState,replaceState,storageError,corruptRaw,recovery,syncMessage,setSyncMessage,saving};
+  return {state,setState,replaceState,storageError,corruptRaw,recovery,syncMessage,setSyncMessage,saving,applyAssistant};
 }

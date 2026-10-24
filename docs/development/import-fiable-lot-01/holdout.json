@@ -1,0 +1,786 @@
+[
+  {
+    "id": "fr-1",
+    "source": "saumur\nJour 1\n- abbaye\n- jardin clos\nJour 2\n- musée municipal",
+    "expected": [
+      {
+        "name": "saumur",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "abbaye",
+                "booked": false
+              },
+              {
+                "anchor": "jardin clos",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "musée municipal",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "fr-2",
+    "source": "# Trip\n## 📍 saumur\n### 📅 Jour 1\n*abbaye\n*jardin clos\n### 📅 Jour 2\n- musée municipal",
+    "expected": [
+      {
+        "name": "saumur",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "abbaye",
+                "booked": false
+              },
+              {
+                "anchor": "jardin clos",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "musée municipal",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "fr-3",
+    "source": "Objet: visite\n> Ville: saumur\n> Jour 1\n> - abbaye\n> Jour 2\n> - musée municipal",
+    "expected": [
+      {
+        "name": "saumur",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "abbaye",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "musée municipal",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": true
+  },
+  {
+    "id": "fr-4",
+    "source": "# Trip\nVille: saumur\nJour 1\nabbaye -> jardin clos\nJour 2\n- musée municipal\nNote : équipement à vérifier.",
+    "expected": [
+      {
+        "name": "saumur",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "abbaye",
+                "booked": false
+              },
+              {
+                "anchor": "jardin clos",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "musée municipal",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "fr-5",
+    "source": "# Trip\nVille: saumur\n| Day | Activity |\n| --- | --- |\n| Jour 1 | abbaye |\n| | jardin clos |\n| Jour 2 | musée municipal |",
+    "expected": [
+      {
+        "name": "saumur",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "abbaye",
+                "booked": false
+              },
+              {
+                "anchor": "jardin clos",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "musée municipal",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "fr-6",
+    "source": "# Trip\nVille: saumur\nJour 1\n- abbaye\nJour 2\n- musée municipal\nCorrection finale : vérifier le jour de abbaye, peut-être annulé.",
+    "expected": [
+      {
+        "name": "saumur",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "abbaye",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "musée municipal",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": true
+  },
+  {
+    "id": "en-1",
+    "source": "Durham\nDay 1\n- old observatory\n- river garden\nDay 2\n- local museum",
+    "expected": [
+      {
+        "name": "Durham",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "old observatory",
+                "booked": false
+              },
+              {
+                "anchor": "river garden",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "local museum",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "en-2",
+    "source": "# Trip\n## 📍 Durham\n### 📅 Day 1\n*old observatory\n*river garden\n### 📅 Day 2\n- local museum",
+    "expected": [
+      {
+        "name": "Durham",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "old observatory",
+                "booked": false
+              },
+              {
+                "anchor": "river garden",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "local museum",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "en-3",
+    "source": "Objet: visite\n> City: Durham\n> Day 1\n> - old observatory\n> Day 2\n> - local museum",
+    "expected": [
+      {
+        "name": "Durham",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "old observatory",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "local museum",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": true
+  },
+  {
+    "id": "en-4",
+    "source": "# Trip\nCity: Durham\nDay 1\nold observatory -> river garden\nDay 2\n- local museum\nNote: bring water.",
+    "expected": [
+      {
+        "name": "Durham",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "old observatory",
+                "booked": false
+              },
+              {
+                "anchor": "river garden",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "local museum",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "en-5",
+    "source": "# Trip\nCity: Durham\n| Day | Activity |\n| --- | --- |\n| Day 1 | old observatory |\n| | river garden |\n| Day 2 | local museum |",
+    "expected": [
+      {
+        "name": "Durham",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "old observatory",
+                "booked": false
+              },
+              {
+                "anchor": "river garden",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "local museum",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "en-6",
+    "source": "# Trip\nCity: Durham\nDay 1\n- old observatory\nDay 2\n- local museum\nCorrection finale : vérifier le jour de old observatory, peut-être annulé.",
+    "expected": [
+      {
+        "name": "Durham",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "old observatory",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "local museum",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": true
+  },
+  {
+    "id": "es-1",
+    "source": "Córdoba\nDía 1\n- torre antigua\n- jardín botánico\nDía 2\n- museo local",
+    "expected": [
+      {
+        "name": "Córdoba",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "torre antigua",
+                "booked": false
+              },
+              {
+                "anchor": "jardín botánico",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "museo local",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "es-2",
+    "source": "# Trip\n## 📍 Córdoba\n### 📅 Día 1\n*torre antigua\n*jardín botánico\n### 📅 Día 2\n- museo local",
+    "expected": [
+      {
+        "name": "Córdoba",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "torre antigua",
+                "booked": false
+              },
+              {
+                "anchor": "jardín botánico",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "museo local",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "es-3",
+    "source": "Objet: visite\n> Ciudad: Córdoba\n> Día 1\n> - torre antigua\n> Día 2\n> - museo local",
+    "expected": [
+      {
+        "name": "Córdoba",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "torre antigua",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "museo local",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": true
+  },
+  {
+    "id": "es-4",
+    "source": "# Trip\nCiudad: Córdoba\nDía 1\ntorre antigua -> jardín botánico\nDía 2\n- museo local\nNota: llevar agua.",
+    "expected": [
+      {
+        "name": "Córdoba",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "torre antigua",
+                "booked": false
+              },
+              {
+                "anchor": "jardín botánico",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "museo local",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "es-5",
+    "source": "# Trip\nCiudad: Córdoba\n| Day | Activity |\n| --- | --- |\n| Día 1 | torre antigua |\n| | jardín botánico |\n| Día 2 | museo local |",
+    "expected": [
+      {
+        "name": "Córdoba",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "torre antigua",
+                "booked": false
+              },
+              {
+                "anchor": "jardín botánico",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "museo local",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "es-6",
+    "source": "# Trip\nCiudad: Córdoba\nDía 1\n- torre antigua\nDía 2\n- museo local\nCorrection finale : vérifier le jour de torre antigua, peut-être annulé.",
+    "expected": [
+      {
+        "name": "Córdoba",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "torre antigua",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "museo local",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": true
+  },
+  {
+    "id": "zh-1",
+    "source": "苏州\n第1天\n- 古城门\n- 植物园\n第2天\n- 地方博物馆",
+    "expected": [
+      {
+        "name": "苏州",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "古城门",
+                "booked": false
+              },
+              {
+                "anchor": "植物园",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "地方博物馆",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "zh-2",
+    "source": "# Trip\n## 📍 苏州\n### 📅 第1天\n*古城门\n*植物园\n### 📅 第2天\n- 地方博物馆",
+    "expected": [
+      {
+        "name": "苏州",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "古城门",
+                "booked": false
+              },
+              {
+                "anchor": "植物园",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "地方博物馆",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "zh-3",
+    "source": "Objet: visite\n> 城市: 苏州\n> 第1天\n> - 古城门\n> 第2天\n> - 地方博物馆",
+    "expected": [
+      {
+        "name": "苏州",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "古城门",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "地方博物馆",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": true
+  },
+  {
+    "id": "zh-4",
+    "source": "# Trip\n城市: 苏州\n第1天\n古城门 -> 植物园\n第2天\n- 地方博物馆\n备注：带水。",
+    "expected": [
+      {
+        "name": "苏州",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "古城门",
+                "booked": false
+              },
+              {
+                "anchor": "植物园",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "地方博物馆",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "zh-5",
+    "source": "# Trip\n城市: 苏州\n| Day | Activity |\n| --- | --- |\n| 第1天 | 古城门 |\n| | 植物园 |\n| 第2天 | 地方博物馆 |",
+    "expected": [
+      {
+        "name": "苏州",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "古城门",
+                "booked": false
+              },
+              {
+                "anchor": "植物园",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "地方博物馆",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": false
+  },
+  {
+    "id": "zh-6",
+    "source": "# Trip\n城市: 苏州\n第1天\n- 古城门\n第2天\n- 地方博物馆\nCorrection finale : vérifier le jour de 古城门, peut-être annulé.",
+    "expected": [
+      {
+        "name": "苏州",
+        "days": [
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "古城门",
+                "booked": false
+              }
+            ]
+          },
+          {
+            "date": "",
+            "items": [
+              {
+                "anchor": "地方博物馆",
+                "booked": false
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "reviewExpected": true
+  }
+]

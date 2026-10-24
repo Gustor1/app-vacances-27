@@ -1,0 +1,11 @@
+[WebServer] (node:9668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:19652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\floating-mascot.spec.ts:5:1 › animated companions: three characters, narrow hitbox, drag, preferences and real trip shortcuts (6.2s)
+  ok 2 tests\e2e\floating-mascot.spec.ts:51:1 › touch drag, cancellation, reduced motion and viewport resizing (1.8s)
+
+  2 passed (11.0s)

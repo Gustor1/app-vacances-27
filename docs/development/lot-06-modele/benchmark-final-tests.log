@@ -1,0 +1,15 @@
+✔ model proposal validates against source with generated fields never marked user (2.3047ms)
+✔ invented title, booking, coordinates and unknown fields are rejected visibly (2.2791ms)
+✔ malformed, fenced, ungrounded and overlong responses are refused (0.2518ms)
+✔ chat transport unwraps assistant content without treating prompt as output (1.7646ms)
+✔ scoring detects merged activities, wrong assignment, false booking and lost alternative (0.5838ms)
+✔ corpus and prompt remain frozen, all anchors have source and four languages covered (11.4255ms)
+✔ worker termination is idempotent for a real child terminated by signal (16.0183ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 249.4984

@@ -1,0 +1,600 @@
+--- a/README.md
++++ b/README.md
+@@ -33,6 +33,14 @@
+ - **Reprise** : les sélections sont rattachées au carnet. Un onglet garde aussi sa position de lecture, sans déplacer celle d’un autre onglet. Aujourd’hui respecte les fuseaux du voyage et de ses étapes.
+ - **Documents** : joindre un fichier texte ou Markdown de moins de 500 Ko, le lire et le télécharger depuis le carnet pratique. Il est conservé dans la sauvegarde et reste disponible hors ligne. Pour transformer un PDF texte ou un DOCX en activités, utiliser **Créer depuis un planning**, avec vérification du texte puis de l’aperçu. Aucun OCR pour les scans.
+ - **Interface** : français, anglais, chinois simplifié et espagnol, apparences claire, sombre et automatique, navigation mobile, clavier et mouvement réduit. Les textes personnels restent dans leur langue.
++
++## Compagnon sur place
++
++Dans **Maintenant**, le contrôle avant départ signale les réservations explicitement à faire, les informations que tu as exigées et les chevauchements démontrés par des débuts et durées saisis. Chaque point ouvre sa correction ; l’écarter vaut pour les données affichées. Ce contrôle ne certifie pas la préparation du voyage.
++
++**À montrer** affiche seulement nom et adresse du lieu choisi, avec copie et liens de navigation. Sélectionner explicitement l’hébergement de retour. Les notes privées et références ne figurent pas sur cette carte. **J’ai un peu de temps** propose les bonus et activités facultatives enregistrés dans la ville, avec filtres, exclusions, aperçu et annulation de l’ajout. Le temps total reste à vérifier lorsque durée ou déplacement manquent. Dans **Préparer cette journée**, les alternatives manuelles peuvent porter un nom comme « couverte » ou « moins fatigante » ; comparaison, avertissement sur les billets, échange et retour sont conservés. Aucune météo ni recherche externe automatique.
++
++Les exigences, exclusions et alertes écartées restent propres au compte sur cet appareil et se transportent par sauvegarde. Les activités ajoutées rejoignent le programme commun du carnet partagé. Les lecteurs peuvent consulter, comparer et montrer une adresse, sans modifier les données. [Rapport et limites du lot 05](docs/development/lot-05-compagnon/RAPPORT.md).
+ 
+ ## Préparer mon planning avec mon IA
+ 
+--- a/scripts/verify-local.mjs
++++ b/scripts/verify-local.mjs
+@@ -28,13 +28,14 @@
+   local('service worker et manifeste', 'scripts/build-sw.mjs'),
+   local('intégrité du build', 'scripts/check-build.mjs'),
+   local('compatibilité SQL L6', 'scripts/test-l6-sql-local.mjs', [process.env.DETOURS_PGLITE_PATH || '']),
+-  local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts', 'tests/e2e/planning-import.spec.ts', 'tests/e2e/planning-local.spec.ts', 'tests/e2e/planning-lot01.spec.ts', 'tests/e2e/pwa-lot02.spec.ts', 'tests/e2e/planning-documents.spec.ts', 'tests/e2e/planning-structured.spec.ts', 'tests/e2e/places.spec.ts']),
++  local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts', 'tests/e2e/planning-import.spec.ts', 'tests/e2e/planning-local.spec.ts', 'tests/e2e/planning-lot01.spec.ts', 'tests/e2e/pwa-lot02.spec.ts', 'tests/e2e/planning-documents.spec.ts', 'tests/e2e/planning-structured.spec.ts', 'tests/e2e/places.spec.ts', 'tests/e2e/companion.spec.ts']),
+   local('palettes, logo et préférences', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/palette-claire.spec.ts', 'tests/e2e/palettes-personnalisees.spec.ts', 'tests/e2e/brand-palettes.spec.ts', 'tests/e2e/preferences.spec.ts', 'tests/e2e/iphone-glass.spec.ts', 'tests/e2e/apple-design.spec.ts']),
+   local('analyse planning simulée dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', '--config', 'playwright.planning.config.ts']),
+   local('états L4/L5/L6 et préférences dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l4-status.spec.ts', 'tests/e2e/l5-now.spec.ts', 'tests/e2e/l5-maps.spec.ts', 'tests/e2e/map-preferences.spec.ts', 'tests/e2e/l6-preparation.spec.ts']),
+   ...['smoke-production', 'smoke-backup', 'smoke-ui', 'smoke-common-sharing', 'smoke-l4-offline', 'smoke-l4-persistence', 'smoke-l5-now', 'smoke-l6-preparation', 'smoke-l8-release'].map(name => local(name, `scripts/${name}.mjs`, [], output)),
+   local('kit et JSON structurés compilés hors ligne', 'scripts/smoke-planning-structured.mjs', [], output),
+   local('PDF et DOCX compilés hors ligne', 'scripts/smoke-planning-documents.mjs', [], output),
++  local('compagnon compilé hors ligne', 'scripts/smoke-companion.mjs', [], output),
+   local('lieux compilés hors ligne', 'scripts/smoke-places.mjs', [], output),
+   local('PWA mobile compilée', 'scripts/smoke-pwa-mobile.mjs', [], output),
+   local('mise à jour Chrome et WebKit', 'scripts/smoke-app-update.mjs', [], output),
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -218,12 +218,12 @@
+         <button type="button" className="btn btn-secondary now-shortcut" hidden={view === 'now'} onClick={() => navigate('now')}>{t('Voir Maintenant')}</button><section className="page-intro"><div><div className="eyebrow"><span className="tiny-line"/> {t("LE VOYAGE COMMENCE ICI")}</div><h1>{view === 'planning' ? t('Un grand voyage, de beaux détours.') : view === 'overview' ? t('Le voyage en un coup d’œil.') : view === 'practical' ? t('Les petits outils des grands voyages.') : view === 'map' ? t('Le voyage, étape par étape.') : view === 'bonus' ? t('Un peu de place pour l’imprévu.') : view === 'transport' ? t('D’une découverte à l’autre.') : t('L’essentiel, à portée de main.')}</h1><p>{view === 'planning' ? t('Tout ton itinéraire au même endroit. Il ne reste qu’à en profiter.') : view === 'overview' ? t('Choisis tes dates et garde une vue de tout ton parcours.') : view === 'practical' ? t('Hébergements, budget, valise et quelques mots pour se comprendre.') : view === 'map' ? t('Prends un peu de hauteur et retrouve les lieux de ton voyage.') : view === 'bonus' ? t('Tes bonnes adresses de réserve, à piocher selon l’envie et le temps.') : view === 'transport' ? t('Les liaisons de ton parcours et les détails à confirmer avant le départ.') : t('Tes réservations, tes notes et les petits détails qui changent tout.')}</p></div><div className="intro-actions">{shortcut && <button className="btn btn-secondary daily-shortcut" onClick={jumpToNext}><Navigation size={16}/>{t(todayStop ? 'Aujourd’hui' : 'Reprendre')}</button>}<button className="btn btn-secondary export-button" onClick={exportData}><Download size={16}/> {t("Exporter le carnet")}</button></div></section>
+         {view === 'planning' && <section className={`hero ${isChina ? "" : "custom-hero"}`}><div className="hero-art" style={isChina ? undefined : { backgroundImage: `url(${JSON.stringify(journey.cover)})` }}/><div className="hero-copy"><span className="hero-pill"><span/> {isChina ? t("MON ÉCHAPPÉE EN ASIE") : journey.destinations || t("MON PROCHAIN DÉTOUR")}</span><h2>{isChina && journey.title === "Chine 2027" ? t("Cap sur la Chine") : journey.title}{isChina && <span>中国之旅</span>}</h2><p>{journey.description || t("Un voyage à imaginer, à ton rythme.")}</p><div className="hero-stats"><span><MapPin size={16}/>{state.cities.length} {t("villes & étapes")}</span><i/><span><CalendarDays size={16}/>{totalDays} {t("journées préparées")}</span>{(state.departureDate || isChina) && <><i/><span>{state.departureDate ? state.departureDate.slice(0,4) : "2027"}</span></>}</div></div><div className="hero-stamp"><Compass size={24} strokeWidth={1}/><span>{t("UN VOYAGE")}<br/>{t("À MON RYTHME")}</span></div><span className="hero-caption">{isChina ? t("L’esprit des paysages de Guilin · illustration") : t("Les beaux détours commencent ici.")}</span></section>}
+         {(view === 'planning' || view === 'bonus' || view === 'map') && <section className="cities-section"><div className="section-label"><h2>{t("Les étapes du voyage")}</h2><span>{t("Un itinéraire qui grandit avec tes envies")}</span></div><div className="city-tabs" aria-label={t("Choisir une ville")}>{state.cities.map((c, index) => <button key={c.id} onClick={() => chooseCity(c)} className={`city-tab ${c.id === city.id ? 'active' : ''}`} aria-pressed={c.id === city.id}><span className="city-tab-number">{String(index + 1).padStart(2, '0')}</span><div><strong>{c.name}</strong><small>{c.days.length ? `${t(c.days.length === 1 ? '{count} jour' : '{count} jours', { count: c.days.length })}${c.nights !== undefined ? ` · ${t(c.nights === 1 ? '{count} nuit' : '{count} nuits', { count: c.nights })}` : t(' · excursion')}` : t('À compléter')}</small></div>{c.id === city.id && <span className="city-active-dot"/>}</button>)}<EditButton className="city-add" onClick={() => setModal({ type: 'city' })} aria-label={t("Ajouter une ville")}><Plus size={20}/></EditButton></div></section>}
+-        {view === 'planning' && state.cities.length > 0 && <section className="planning-section"><div className="city-heading"><div><div className="eyebrow">{t("ÉTAPE")} {String(state.cities.findIndex(c => c.id === city.id) + 1).padStart(2, '0')} <span className="heading-rule"/></div><h2>{city.name}<span>{city.chineseName}</span><EditButton className="icon-btn" aria-label={t('Modifier {name}', { name: city.name })} onClick={() => setModal({ type: 'city', city })}><Pencil size={15}/></EditButton></h2><p>{city.subtitle}</p></div><span className="progress-chip"><CheckCheck size={15}/>{doneCount} / {citySteps.length} {t("étapes vécues")}</span></div><div className="planning-grid"><div className="planning-main"><div className="day-tabs" aria-label={t("Choisir une journée")}>{city.days.map((d, index) => <button key={d.id} className={d.id === day?.id ? 'active' : ''} aria-pressed={d.id === day?.id} onClick={() => { setDayId(d.id); setSelectedStepId(''); }}><CalendarDays size={15}/> {t("Jour {count}", { count: index + 1 })}</button>)}<EditButton className="add-day" aria-label={t("Ajouter un jour")} onClick={() => setModal({ type: 'day' })}><Plus size={15}/><span>{t("Ajouter un jour")}</span></EditButton></div>{day ? <div className="day-panel panel"><div className="day-heading"><div><p className="eyebrow">{t("JOUR")} {String(dayIndex + 1).padStart(2, '0')} <span>· {plannedSteps.length} {t("étapes")}</span></p><h3>{day.title}</h3>{day.date && <p className="day-date">{new Date(day.date+'T12:00:00Z').toLocaleDateString(dateLocale,{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'})}</p>}</div><div className="inline-actions"><EditButton className="icon-btn" aria-label={t("Modifier le titre de la journée")} onClick={() => setModal({ type: 'day', day })}><Pencil size={15}/></EditButton><EditButton className="icon-btn" aria-label={t("Supprimer cette journée")} onClick={() => setModal({ type: 'confirm', title: t('Supprimer cette journée ?'), description: t('« {name} » et ses {count} étapes seront retirées du planning.', { name: day.title, count: day.steps.length }), action: () => { changeCity({ ...city, days: city.days.filter(d => d.id !== day.id) }); setModal(null); } })}><Trash2 size={15}/></EditButton></div></div><DayPreparationPanel key={day.id} day={day} bookings={state.bookings} onSave={(base,preparation)=>setState(s=>({...s,cities:s.cities.map(c=>({...c,days:c.days.map(d=>d.id===base.id?{...d,preparation:mergeChanges(base.preparation||{},preparation,d.preparation||{})}:d)}))}))}/><div className="timeline">{plannedSteps.map((step, index) => { const Icon = categoryIcons[step.category]; const done = state.done.includes(step.id); const placeKnown=!!(step.chineseName||step.address||step.amapUrl||step.coordinates||(!['hotel','transport'].includes(step.category)&&!/^déjeuner$|^dîner|^pause$/i.test(step.title))); return <article id={`step-${step.id}`} key={step.id} className={`step-card ${selectedStepId === step.id ? 'highlighted' : ''} ${done ? 'is-done' : ''}`}><div className="timeline-rail"><EditButton category="preparation" aria-label={t(done ? 'Marquer à faire : {name}' : 'Marquer comme visité : {name}', { name: step.title })} aria-pressed={done} className={`step-check ${done ? 'checked' : ''}`} onClick={() => toggleDone(step.id)}>{done ? <Check size={15}/> : index + 1}</EditButton><span/></div><div className="step-content"><div className="step-meta"><span className={`category category-${step.category}`}><Icon size={12}/>{t(categoryLabels[step.category])}</span>{step.period && <span>{step.period}</span>}{step.optional && <span className="optional-tag">{t("Facultatif")}</span>}{step.booking && <span className="booking-tag">{state.bookings.includes(step.id) ? <Check size={11}/> : <Bookmark size={11}/>} {state.bookings.includes(step.id) ? t('Réservé') : t('À réserver')}</span>}</div><h4>{step.title}</h4>{step.chineseName && <p className="chinese-name">{step.chineseName}<button className="copy-btn" aria-label={t('Copier {name}', { name: step.chineseName })} onClick={() => copy(step.chineseName!)}><Copy size={11}/></button></p>}<p className="step-description">{step.description}</p><PlaceEnrichment step={step} city={city} onSave={(base,place)=>setState(s=>({...s,cities:s.cities.map(c=>({...c,days:c.days.map(d=>({...d,steps:d.steps.map(item=>item.id===base.id?{...item,place:mergeChanges(base.place,place,item.place)}:item)}))}))}))}/>{placeKnown ? <MapActions city={city} place={placeStep(step)} next={plannedSteps[index + 1] ? placeStep(plannedSteps[index + 1]) : undefined}/> : <EditButton className="text-btn address-missing" onClick={()=>setModal({type:'step',step,day})}>{t("Adresse à compléter")}</EditButton>}<div className="step-bottom"><div className="step-actions"><EditButton className="icon-btn" aria-label={t('Monter {name}', { name: step.title })} disabled={!!day.preparation?.activeAlternativeId || index === 0} onClick={() => moveStep(step, -1)}><ArrowUp size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Descendre {name}', { name: step.title })} disabled={!!day.preparation?.activeAlternativeId || index === plannedSteps.length - 1} onClick={() => moveStep(step, 1)}><ArrowDown size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Modifier {name}', { name: step.title })} onClick={() => setModal({ type: 'step', step, day })}><Pencil size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Supprimer {name}', { name: step.title })} onClick={() => setModal({ type: 'confirm', title: t('Retirer cette étape ?'), description: t('« {name} » sera retiré de cette journée.', { name: step.title }), action: () => { changeDay({ ...day, steps: day.steps.filter(s => s.id !== step.id) }); setModal(null); } })}><Trash2 size={13}/></EditButton></div></div></div></article>; })}</div>{!day.steps.length && <div className="empty-state"><MapPin/><h3>{t("Une journée à imaginer")}</h3><p>{t("Ajoute ta première visite ou pioche dans tes bonus.")}</p></div>}<EditButton className="add-step" onClick={() => setModal({ type: 'step', day })}><Plus size={16}/> {t("Ajouter une étape à cette journée")}</EditButton><div className="day-footer"><span>{t("Pas d’horaires imposés. Profite à ton rythme.")}</span><div className="inline-actions"><button className="icon-btn" disabled={dayIndex === 0} aria-label={t("Jour précédent")} onClick={() => setDayId(city.days[dayIndex - 1].id)}><ChevronLeft size={17}/></button><button className="icon-btn" disabled={dayIndex === city.days.length - 1} aria-label={t("Jour suivant")} onClick={() => setDayId(city.days[dayIndex + 1].id)}><ChevronRight size={17}/></button></div></div></div> : <div className="panel empty-state city-empty"><Compass size={40}/><h3>{t('{city}, la suite de l’aventure', { city: city.name })}</h3><p>{t("Cette ville est prévue dans le voyage.")}<br/>{t("Son programme attend encore tes prochaines idées.")}</p><EditButton className="btn btn-primary" onClick={() => setModal({ type: 'day' })}><Plus size={16}/> {t("Créer ma première journée")}</EditButton></div>}</div><aside className="planning-aside"><div className="panel map-panel"><div className="panel-heading"><h3><MapPin size={16}/> {t("Les repères du jour")}</h3><button className="text-btn" onClick={() => { setView('map'); setMapOverview(false); }}>{t("Agrandir")} <ArrowUp size={12} className="rotate-arrow"/></button></div><div className="mini-map"><TripMap cities={state.cities} city={city} steps={plannedSteps} selectedStepId={selectedStepId} onSelectStep={id => { setSelectedStepId(id); document.getElementById(`step-${id}`)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' }); }}/></div></div><div className="remember-card"><div className="remember-heading"><span><Bookmark size={16}/></span><h3>{t("Le petit pense-bête")}</h3></div>{city.notes.length ? city.notes.map((note, index) => <p key={index}>{note}</p>) : <p>{t("Les détails de cette étape restent à préciser. Garde tes idées dans la note ci-dessous.")}</p>}<label className="sr-only" htmlFor="city-note">{t('Ma note pour {city}', { city: city.name })}</label><EditTextarea category="notes" id="city-note" value={state.notes[city.id] || ''} onChange={e => setState(s => ({ ...s, notes: { ...s.notes, [city.id]: e.target.value } }))} placeholder={t("Une idée, une adresse, un rappel…")} rows={2}/><span className="note-saved"><Check size={11}/> {t(allowedFields ? "Note du carnet · sauvegarde automatique" : "Note personnelle · sauvegarde locale")}</span></div><div className="bonus-teaser"><div className="teaser-icon"><Sparkles size={20}/></div><h3>{t("Et s’il reste un peu de temps ?")}</h3><p>{cityBonus.length ? t('{count} idées de restaurants, balades et jolis détours t’attendent à {city}.', { count: cityBonus.length, city: city.name }) : t('De nouvelles envies viendront bientôt compléter cette étape.')}</p><button onClick={() => navigate('bonus')} className="text-btn">{t("Explorer les bonus")} <ArrowRight size={14}/></button></div></aside></div></section>}
++        {view === 'planning' && state.cities.length > 0 && <section className="planning-section"><div className="city-heading"><div><div className="eyebrow">{t("ÉTAPE")} {String(state.cities.findIndex(c => c.id === city.id) + 1).padStart(2, '0')} <span className="heading-rule"/></div><h2>{city.name}<span>{city.chineseName}</span><EditButton className="icon-btn" aria-label={t('Modifier {name}', { name: city.name })} onClick={() => setModal({ type: 'city', city })}><Pencil size={15}/></EditButton></h2><p>{city.subtitle}</p></div><span className="progress-chip"><CheckCheck size={15}/>{doneCount} / {citySteps.length} {t("étapes vécues")}</span></div><div className="planning-grid"><div className="planning-main"><div className="day-tabs" aria-label={t("Choisir une journée")}>{city.days.map((d, index) => <button key={d.id} className={d.id === day?.id ? 'active' : ''} aria-pressed={d.id === day?.id} onClick={() => { setDayId(d.id); setSelectedStepId(''); }}><CalendarDays size={15}/> {t("Jour {count}", { count: index + 1 })}</button>)}<EditButton className="add-day" aria-label={t("Ajouter un jour")} onClick={() => setModal({ type: 'day' })}><Plus size={15}/><span>{t("Ajouter un jour")}</span></EditButton></div>{day ? <div className="day-panel panel"><div className="day-heading"><div><p className="eyebrow">{t("JOUR")} {String(dayIndex + 1).padStart(2, '0')} <span>· {plannedSteps.length} {t("étapes")}</span></p><h3>{day.title}</h3>{day.date && <p className="day-date">{new Date(day.date+'T12:00:00Z').toLocaleDateString(dateLocale,{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'})}</p>}</div><div className="inline-actions"><EditButton className="icon-btn" aria-label={t("Modifier le titre de la journée")} onClick={() => setModal({ type: 'day', day })}><Pencil size={15}/></EditButton><EditButton className="icon-btn" aria-label={t("Supprimer cette journée")} onClick={() => setModal({ type: 'confirm', title: t('Supprimer cette journée ?'), description: t('« {name} » et ses {count} étapes seront retirées du planning.', { name: day.title, count: day.steps.length }), action: () => { changeCity({ ...city, days: city.days.filter(d => d.id !== day.id) }); setModal(null); } })}><Trash2 size={15}/></EditButton></div></div><DayPreparationPanel key={day.id} day={day} bookings={state.bookings} onSave={(base,preparation,guard)=>setState(s=>({...s,cities:s.cities.map(c=>({...c,days:c.days.map(d=>d.id===base.id?guard&&JSON.stringify(d)!==JSON.stringify(base)?d:{...d,preparation:mergeChanges(base.preparation||{},preparation,d.preparation||{})}:d)}))}))}/><div className="timeline">{plannedSteps.map((step, index) => { const Icon = categoryIcons[step.category]; const done = state.done.includes(step.id); const placeKnown=!!(step.chineseName||step.address||step.amapUrl||step.coordinates||(!['hotel','transport'].includes(step.category)&&!/^déjeuner$|^dîner|^pause$/i.test(step.title))); return <article id={`step-${step.id}`} key={step.id} className={`step-card ${selectedStepId === step.id ? 'highlighted' : ''} ${done ? 'is-done' : ''}`}><div className="timeline-rail"><EditButton category="preparation" aria-label={t(done ? 'Marquer à faire : {name}' : 'Marquer comme visité : {name}', { name: step.title })} aria-pressed={done} className={`step-check ${done ? 'checked' : ''}`} onClick={() => toggleDone(step.id)}>{done ? <Check size={15}/> : index + 1}</EditButton><span/></div><div className="step-content"><div className="step-meta"><span className={`category category-${step.category}`}><Icon size={12}/>{t(categoryLabels[step.category])}</span>{step.period && <span>{step.period}</span>}{step.optional && <span className="optional-tag">{t("Facultatif")}</span>}{step.booking && <span className="booking-tag">{state.bookings.includes(step.id) ? <Check size={11}/> : <Bookmark size={11}/>} {state.bookings.includes(step.id) ? t('Réservé') : t('À réserver')}</span>}</div><h4>{step.title}</h4>{step.chineseName && <p className="chinese-name">{step.chineseName}<button className="copy-btn" aria-label={t('Copier {name}', { name: step.chineseName })} onClick={() => copy(step.chineseName!)}><Copy size={11}/></button></p>}<p className="step-description">{step.description}</p><PlaceEnrichment step={step} city={city} onSave={(base,place)=>setState(s=>({...s,cities:s.cities.map(c=>({...c,days:c.days.map(d=>({...d,steps:d.steps.map(item=>item.id===base.id?{...item,place:mergeChanges(base.place,place,item.place)}:item)}))}))}))}/>{placeKnown ? <MapActions city={city} place={placeStep(step)} next={plannedSteps[index + 1] ? placeStep(plannedSteps[index + 1]) : undefined}/> : <EditButton className="text-btn address-missing" onClick={()=>setModal({type:'step',step,day})}>{t("Adresse à compléter")}</EditButton>}<div className="step-bottom"><div className="step-actions"><EditButton className="icon-btn" aria-label={t('Monter {name}', { name: step.title })} disabled={!!day.preparation?.activeAlternativeId || index === 0} onClick={() => moveStep(step, -1)}><ArrowUp size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Descendre {name}', { name: step.title })} disabled={!!day.preparation?.activeAlternativeId || index === plannedSteps.length - 1} onClick={() => moveStep(step, 1)}><ArrowDown size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Modifier {name}', { name: step.title })} onClick={() => setModal({ type: 'step', step, day })}><Pencil size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Supprimer {name}', { name: step.title })} onClick={() => setModal({ type: 'confirm', title: t('Retirer cette étape ?'), description: t('« {name} » sera retiré de cette journée.', { name: step.title }), action: () => { changeDay({ ...day, steps: day.steps.filter(s => s.id !== step.id) }); setModal(null); } })}><Trash2 size={13}/></EditButton></div></div></div></article>; })}</div>{!day.steps.length && <div className="empty-state"><MapPin/><h3>{t("Une journée à imaginer")}</h3><p>{t("Ajoute ta première visite ou pioche dans tes bonus.")}</p></div>}<EditButton className="add-step" onClick={() => setModal({ type: 'step', day })}><Plus size={16}/> {t("Ajouter une étape à cette journée")}</EditButton><div className="day-footer"><span>{t("Pas d’horaires imposés. Profite à ton rythme.")}</span><div className="inline-actions"><button className="icon-btn" disabled={dayIndex === 0} aria-label={t("Jour précédent")} onClick={() => setDayId(city.days[dayIndex - 1].id)}><ChevronLeft size={17}/></button><button className="icon-btn" disabled={dayIndex === city.days.length - 1} aria-label={t("Jour suivant")} onClick={() => setDayId(city.days[dayIndex + 1].id)}><ChevronRight size={17}/></button></div></div></div> : <div className="panel empty-state city-empty"><Compass size={40}/><h3>{t('{city}, la suite de l’aventure', { city: city.name })}</h3><p>{t("Cette ville est prévue dans le voyage.")}<br/>{t("Son programme attend encore tes prochaines idées.")}</p><EditButton className="btn btn-primary" onClick={() => setModal({ type: 'day' })}><Plus size={16}/> {t("Créer ma première journée")}</EditButton></div>}</div><aside className="planning-aside"><div className="panel map-panel"><div className="panel-heading"><h3><MapPin size={16}/> {t("Les repères du jour")}</h3><button className="text-btn" onClick={() => { setView('map'); setMapOverview(false); }}>{t("Agrandir")} <ArrowUp size={12} className="rotate-arrow"/></button></div><div className="mini-map"><TripMap cities={state.cities} city={city} steps={plannedSteps} selectedStepId={selectedStepId} onSelectStep={id => { setSelectedStepId(id); document.getElementById(`step-${id}`)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' }); }}/></div></div><div className="remember-card"><div className="remember-heading"><span><Bookmark size={16}/></span><h3>{t("Le petit pense-bête")}</h3></div>{city.notes.length ? city.notes.map((note, index) => <p key={index}>{note}</p>) : <p>{t("Les détails de cette étape restent à préciser. Garde tes idées dans la note ci-dessous.")}</p>}<label className="sr-only" htmlFor="city-note">{t('Ma note pour {city}', { city: city.name })}</label><EditTextarea category="notes" id="city-note" value={state.notes[city.id] || ''} onChange={e => setState(s => ({ ...s, notes: { ...s.notes, [city.id]: e.target.value } }))} placeholder={t("Une idée, une adresse, un rappel…")} rows={2}/><span className="note-saved"><Check size={11}/> {t(allowedFields ? "Note du carnet · sauvegarde automatique" : "Note personnelle · sauvegarde locale")}</span></div><div className="bonus-teaser"><div className="teaser-icon"><Sparkles size={20}/></div><h3>{t("Et s’il reste un peu de temps ?")}</h3><p>{cityBonus.length ? t('{count} idées de restaurants, balades et jolis détours t’attendent à {city}.', { count: cityBonus.length, city: city.name }) : t('De nouvelles envies viendront bientôt compléter cette étape.')}</p><button onClick={() => navigate('bonus')} className="text-btn">{t("Explorer les bonus")} <ArrowRight size={14}/></button></div></aside></div></section>}
+         {view === 'map' && <section className="full-map-section"><div className="section-header"><div><h2>{t("Les petits points d’un grand voyage")}</h2><p className="muted">{mapOverview ? t('Le fil de tes villes, dans l’ordre prévu.') : t('Les lieux préparés à {city}.', { city: city.name })}</p></div><div className="segmented"><button className={mapOverview ? 'active' : ''} onClick={() => setMapOverview(true)}>{t("Tout le voyage")}</button>{state.cities.length > 0 && <button className={!mapOverview ? 'active' : ''} onClick={() => setMapOverview(false)}>{city.name}</button>}</div></div><div className="full-map panel"><TripMap cities={state.cities} city={city} steps={citySteps} overview={mapOverview}/></div><div className="notice"><Navigation size={17}/><span>{t("Les repères donnent une vue d’ensemble. Ouvre les liens cartographiques pour les adresses exactes et les itinéraires. Les lieux sans coordonnées restent accessibles depuis le planning.")}</span></div></section>}
+         {view === 'bonus' && state.cities.length > 0 && <section className="bonus-section"><div className="section-header"><div><p className="eyebrow">{t("LA LISTE DES « ET POURQUOI PAS ? »")}</p><h2>{favoritesOnly ? t('Mes favoris, toutes villes') : t('Les envies de {city}', { city: city.name })}<span className="count-badge">{favoritesOnly ? filteredBonus.length : cityBonus.length}</span></h2></div><div className="bonus-toolbar"><EditButton className="btn btn-secondary" onClick={()=>setModal({type:'bonus-editor'})}><Plus size={16}/> {t("Ajouter une adresse")}</EditButton><button className={`btn ${favoritesOnly ? 'btn-primary' : 'btn-secondary'}`} aria-pressed={favoritesOnly} onClick={() => setFavoritesOnly(!favoritesOnly)}><Heart size={16} fill={favoritesOnly ? 'currentColor' : 'none'}/> {t("Mes favoris")}</button></div></div><div className="bonus-filters">{[{ id: 'all', label: t('Toutes les envies'), Icon: Sparkles }, { id: 'food', label: t('À table'), Icon: Utensils }, { id: 'photo', label: t('Spots photo'), Icon: Camera }, { id: 'visit', label: t('À découvrir'), Icon: Compass }, { id: 'shopping', label: t('Shopping'), Icon: ShoppingBag }].map(({ id, label, Icon }) => <button key={id} className={bonusCategory === id ? 'active' : ''} onClick={() => setBonusCategory(id)}><Icon size={15}/>{t(label)}</button>)}</div><div className="bonus-grid">{filteredBonus.map(b => { const bonusCity=state.cities.find(c=>c.id===b.cityId)!; const Icon = categoryIcons[b.category]; return <article className="bonus-card panel" key={b.id}><div className="bonus-card-top"><span className={`bonus-category-icon category-${b.category}`}><Icon size={21}/></span><span className="eyebrow">{t(categoryLabels[b.category])}{favoritesOnly ? ` · ${bonusCity.name}` : ''}</span><EditButton category="preparation" aria-label={t(state.favorites.includes(b.id) ? 'Retirer des favoris : {name}' : 'Ajouter aux favoris : {name}', { name: b.title })} aria-pressed={state.favorites.includes(b.id)} className={`favorite-btn ${state.favorites.includes(b.id) ? 'is-favorite' : ''}`} onClick={() => toggleFavorite(b.id)}><Heart size={18} fill={state.favorites.includes(b.id) ? 'currentColor' : 'none'}/></EditButton></div><button className="bonus-card-title" onClick={() => {chooseCity(bonusCity);setModal({ type: 'bonus', bonus: b });}}><h3>{b.title}</h3></button>{b.chineseName && <p className="chinese-name">{b.chineseName}</p>}<p className="bonus-description">{b.description}</p>{b.budget && <span className="budget-tag">{b.budget}</span>}<div className="bonus-card-footer"><button className="text-btn" onClick={() => {chooseCity(bonusCity);setModal({ type: 'bonus', bonus: b });}}>{t("Tous les détails")} <ArrowRight size={13}/></button><a href={amapLink(preferredMapCity(bonusCity,provider), b)} target="_blank" rel="noreferrer" aria-label={t('Ouvrir {name} dans {map}', { name: b.title, map: provider === "google" ? "Google Maps" : "Amap" })} className="icon-btn"><Navigation size={16}/></a></div></article>; })}</div>{!filteredBonus.length && <div className="panel empty-state"><Heart size={32}/><h3>{favoritesOnly ? t('Une collection à commencer') : t('De nouveaux détours à imaginer')}</h3><p>{favoritesOnly ? t('Touche le cœur d’une adresse pour la retrouver ici.') : t('Pas encore de bonus dans cette catégorie pour cette ville.')}</p>{favoritesOnly && <button className="btn btn-secondary" onClick={() => setFavoritesOnly(false)}>{t("Voir toutes les envies")}</button>}</div>}{isChina && <p className="bonus-source-note">{t("Adresses issues de ton document. Les horaires, distinctions et succursales sont à revérifier avant le voyage.")} <button className="text-btn" onClick={() => setModal({ type: 'source', kind: 'bonus' })}>{t("Consulter les notes originales")} <ExternalLink size={12}/></button></p>}</section>}
+         {!state.cities.length && ['planning','bonus'].includes(view) && <section className="panel empty-state empty-trip"><Compass size={40}/><h2>{t('Ton premier détour')}</h2><p>{t('Ajoute une ville, une région ou un lieu de séjour, puis prépare tes journées.')}</p><EditButton className="btn btn-primary" onClick={() => setModal({type:'city'})}><Plus size={16}/>{t('Ajouter une étape au voyage')}</EditButton></section>}
+         {view === 'transport' && <TransportView state={state} onChange={setState} notify={setToast}/>}
+-        {view === 'now' && <NowView state={state} onNavigate={(cid,did,next)=>{setCityId(cid);setDayId(did);navigate(next);}} notify={setToast}/>}
++        {view === 'now' && <NowView state={state} onChange={setState} onCorrect={issue=>{setCityId(issue.city.id);setDayId(issue.day.id);navigate('planning');if(issue.kind==='overlap'||issue.field==='duration'){requestAnimationFrame(()=>requestAnimationFrame(()=>{const panel=document.querySelector<HTMLDetailsElement>('.day-preparation');if(panel){panel.open=true;panel.querySelector<HTMLButtonElement>('.day-preparation-body > button')?.click();panel.scrollIntoView({block:'start'});}}));}else setModal({type:'step',day:issue.day,step:issue.step});}} onNavigate={(cid,did,next)=>{setCityId(cid);setDayId(did);navigate(next);}} notify={setToast}/>}
+         {view === 'overview' && <TripOverview state={state} onChange={setState} onNavigate={(cid,did)=>{setCityId(cid);setDayId(did);navigate('planning');}} notify={setToast}/>}
+         {view === 'practical' && <PracticalView state={state} onChange={setState} notify={setToast}/>}
+         {view === 'notebook' && <><OfflineStatus state={state} saving={saving} storageError={storageError}/>{recovery && <section className="panel recovery-panel"><h2>{t("Une copie de secours")}</h2><p className="muted">{t("Une copie du carnet avant une modification est conservée sur cet appareil. Dernière copie :")} {new Date(recovery.savedAt).toLocaleString(dateLocale)}.</p><div className="recovery-actions"><button className="btn btn-secondary" onClick={()=>downloadText(recovery.raw,'a-l-est-copie-precedente.json')}>{t("Télécharger la copie précédente")}</button>{recovery.readable && <EditButton className="btn btn-secondary" onClick={()=>setModal({type:'confirm',title:t('Restaurer la copie précédente ?'),description:t('Elle remplacera le carnet actuel. Exporte ton carnet actuel si tu souhaites garder les deux versions.'),action:()=>{replaceState(recoveryState(recovery.raw));setModal(null);setToast(t('Copie précédente restaurée.'));}})}>{t("Restaurer la copie précédente")}</EditButton>}</div></section>}<NotebookView state={state} onChange={setState} onExport={exportData} onImport={importData} onOpenSource={kind => setModal({ type: 'source', kind })} onOpenDocument={document => setModal({type:'document',document})}/></>}
+--- a/src/cloud/engine.ts
++++ b/src/cloud/engine.ts
+@@ -17,6 +17,8 @@
+   if (localRaw && key.startsWith(TRIP_PREFIX)) {
+     const local = parseTrip(localRaw).state;
+     if (local.journey?.id === state.journey?.id) {
++      // Personal departure checks/exclusions follow the same device-only contract.
++      if (local.companion) state.companion = local.companion;
+       const places = new Map(local.cities.flatMap(c => c.days.flatMap(d => d.steps.map(s => [s.id, s.place] as const))));
+       state.cities = state.cities.map(c => ({...c,days:c.days.map(d => ({...d,steps:d.steps.map(s => ({...s,...(places.get(s.id) ? {place:places.get(s.id)} : {})}))}))}));
+     }
+--- a/src/components/DayPreparation.tsx
++++ b/src/components/DayPreparation.tsx
+@@ -6,11 +6,14 @@
+ import { EditButton, EditInput, EditSelect } from './EditControls';
+ import './DayPreparation.css';
+ 
+-type Props = { day: Day; bookings: string[]; onSave: (base: Day, preparation: DayPreparation) => void };
++type Props = { day: Day; bookings: string[]; onSave: (base: Day, preparation: DayPreparation, guard?: boolean) => void };
+ export default function DayPreparationPanel({ day, bookings, onSave }: Props) {
+   const { t }=useLocale();
+   const [editing,setEditing]=useState(false),[adding,setAdding]=useState(false),[compare,setCompare]=useState(''),[error,setError]=useState('');
+   const [editBase,setEditBase]=useState(day);
++  const [comparisonBase,setComparisonBase]=useState(day);
++  const [adoption,setAdoption]=useState<{id:string;previous?:string}|null>(null);
++  const stale=JSON.stringify(comparisonBase)!==JSON.stringify(day);
+   const formP=editBase.preparation||{},formSteps=activeSteps(editBase);
+   const p=day.preparation||{},analysis=analyzeDay(day),selected=p.alternatives?.find(a=>a.id===compare);
+   const label=p.alternatives?.find(a=>a.id===p.activeAlternativeId)?.label;
+@@ -27,7 +30,7 @@
+     const alternative={id:uid('alternative'),label:String(data.get('label')||'').trim(),reason:data.get('reason')==='rain'?'rain' as const:'fatigue' as const,stepIds:editBase.steps.filter((_,index)=>data.get('step-'+index)==='on').map(step=>step.id)};
+     const next={...formP,alternatives:[...(formP.alternatives||[]),alternative]};
+     if(!validPreparation(next,editBase.steps)){setError(t('Choisis au moins une activité et un nom ; huit alternatives maximum.'));return;}
+-    onSave(editBase,next);setAdding(false);setCompare(alternative.id);setError('');
++    onSave(editBase,next);setAdding(false);setCompare(alternative.id);setComparisonBase({...editBase,preparation:next});setError('');
+   }
+   const summary=(id?:string)=>{
+     const a=analyzeDay(day,id||'original');
+@@ -57,8 +60,8 @@
+         <div className="form-actions"><button type="button" className="btn btn-secondary" onClick={()=>{setEditing(false);setError('');}}>{t('Annuler')}</button><EditButton className="btn btn-primary" type="submit">{t('Enregistrer la préparation')}</EditButton></div>
+       </form>}
+       <div className="day-timing-sources">{day.steps.filter(step=>p.timings?.[step.id]?.source||p.timings?.[step.id]?.checkedAt).map(step=>{const timing=p.timings![step.id];return <p key={step.id}><strong>{step.title}</strong> : {safeExternalUrl(timing.source)?<a href={safeExternalUrl(timing.source)} target="_blank" rel="noopener noreferrer">{timing.source}</a>:timing.source||t('Source non renseignée')} · {timing.checkedAt||t('Date de vérification non renseignée')}</p>;})}</div>
+-      <h3>{t('Plan pluie ou fatigue')}</h3><p className="muted small">{t('Une alternative utilise les activités déjà saisies. Ajoute une option au planning si nécessaire. Le plan initial, les billets et les dépenses sont conservés.')}</p>
+-      {(p.alternatives||[]).map(a=><div className="day-alternative-row" key={a.id}><span>{a.label} · {t(a.reason==='rain'?'Pluie':'Fatigue')}{p.activeAlternativeId===a.id?' · '+t('Plan actif'):''}</span><button className="btn btn-secondary" onClick={()=>setCompare(a.id)}>{t('Comparer {name}',{name:a.label})}</button></div>)}
++      <h3>{t('Plan pluie ou fatigue')}</h3><p className="muted small">{t('Étiquette toi-même une alternative couverte ou moins fatigante dans son nom. Aucune météo ni fatigue ne sont déduites.')}</p><p className="muted small">{t('Une alternative utilise les activités déjà saisies. Ajoute une option au planning si nécessaire. Le plan initial, les billets et les dépenses sont conservés.')}</p>
++      {(p.alternatives||[]).map(a=><div className="day-alternative-row" key={a.id}><span>{a.label} · {t(a.reason==='rain'?'Pluie':'Fatigue')}{p.activeAlternativeId===a.id?' · '+t('Plan actif'):''}</span><button className="btn btn-secondary" onClick={()=>{setCompare(a.id);setComparisonBase(day);}}>{t('Comparer {name}',{name:a.label})}</button></div>)}
+       {!adding&&<EditButton className="btn btn-secondary" disabled={!day.steps.length||(p.alternatives?.length||0)>=8} onClick={()=>{setEditBase(day);setAdding(true);}}>{t('Créer une alternative')}</EditButton>}
+       {adding&&<form className="day-alternative-form" onSubmit={saveAlternative}>
+         <label className="field">{t('Nom de l’alternative')}<EditInput name="label" required maxLength={100}/></label><label className="field">{t('Pour quelle situation ?')}<EditSelect aria-label={t('Pour quelle situation ?')} name="reason"><option value="rain">{t('Pluie')}</option><option value="fatigue">{t('Fatigue')}</option></EditSelect></label>
+@@ -68,8 +71,9 @@
+       {selected&&<div className="day-alternative-comparison"><div><h4>{t('Plan initial')}</h4><ol>{day.steps.map(step=><li key={step.id}>{step.title}</li>)}</ol>{summary()}</div>
+         <div><h4>{selected.label}</h4><ol>{selected.stepIds.map(id=><li key={id}>{day.steps.find(s=>s.id===id)?.title}</li>)}</ol>{summary(selected.id)}
+           {day.steps.some(step=>bookings.includes(step.id)&&!selected.stepIds.includes(step.id))&&<p role="status">{t('Cette alternative laisse de côté une activité réservée. Le billet reste confirmé : vérifie toi-même son changement ou son annulation.')}</p>}
+-          <EditButton className="btn btn-primary" onClick={()=>{onSave(day,{...p,activeAlternativeId:selected.id});setCompare('');}}>{t('Adopter cette alternative')}</EditButton><button className="btn btn-secondary" onClick={()=>setCompare('')}>{t('Fermer la comparaison')}</button>
++          {stale&&<p role="status">{t('La journée a changé. Actualise la comparaison avant de confirmer.')}</p>}{stale&&<button className="btn btn-secondary" onClick={()=>setComparisonBase(day)}>{t('Actualiser la comparaison')}</button>}<EditButton className="btn btn-primary" disabled={stale} onClick={()=>{onSave(comparisonBase,{...p,activeAlternativeId:selected.id},true);setAdoption({id:selected.id,previous:p.activeAlternativeId});setCompare('');}}>{t('Adopter cette alternative')}</EditButton><button className="btn btn-secondary" onClick={()=>setCompare('')}>{t('Fermer la comparaison')}</button>
+         </div></div>}
++      {adoption&&p.activeAlternativeId===adoption.id&&<EditButton className="btn btn-secondary" onClick={()=>{onSave(day,{...p,activeAlternativeId:adoption.previous},true);setAdoption(null);}}>{t('Annuler cet échange')}</EditButton>}
+       {p.activeAlternativeId&&<EditButton className="btn btn-secondary" onClick={()=>onSave(day,{...p,activeAlternativeId:undefined})}>{t('Revenir au plan initial')}</EditButton>}
+       {error&&<p role="alert">{error}</p>}
+     </div></details>;
+--- a/src/components/NowView.css
++++ b/src/components/NowView.css
+@@ -1,2 +1,4 @@
+ .now-view{max-width:1100px;margin:auto}.now-controls{padding:20px;display:flex;flex-wrap:wrap;gap:16px;align-items:end;margin-bottom:20px}.now-controls .field{flex:1;min-width:min(240px,100%)}.now-controls select,.now-controls input{width:100%;min-height:44px;max-width:100%}.now-controls p{width:100%;margin:0}.now-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.now-card{padding:22px;min-width:0;display:flex;flex-direction:column;align-items:start;gap:12px}.now-card h3,.now-card h4,.now-card p{margin:0}.now-card h4{font-size:20px}.now-local,.now-address,.now-note{white-space:pre-wrap;overflow-wrap:anywhere}.now-local{font-size:24px;line-height:1.6}.now-card .map-actions{max-width:100%}.now-show{display:grid;gap:20px;user-select:text}.now-show .now-local{font-size:clamp(28px,6vw,56px);line-height:1.5;margin:0}.now-show .now-address{font-size:clamp(22px,4vw,38px);line-height:1.6;margin:0}.now-show button,.now-card button{min-height:44px}.now-shortcut{white-space:nowrap}@media(max-width:700px){.now-grid{grid-template-columns:1fr}.now-controls{padding:16px}.now-card{padding:18px}}
+ .now-controls button{max-width:100%;white-space:normal;overflow-wrap:anywhere}.now-controls .field{min-width:0;flex-basis:240px}.now-card p{max-width:100%}.now-shortcut[hidden]{display:none}
++
++html:root:root .modal-backdrop:has(.now-show)::before{background:var(--surface-alt);opacity:1;backdrop-filter:none;-webkit-backdrop-filter:none}.now-show select{width:100%;max-width:100%;min-height:44px;font:inherit}.now-show .now-return{border-top:1px solid var(--line);padding-top:18px}.now-show h3{overflow-wrap:anywhere}
+--- a/src/components/NowView.tsx
++++ b/src/components/NowView.tsx
+@@ -1,4 +1,7 @@
+-import { useEffect, useState } from 'react';
++import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
++import Companion from './Companion';
++import { showCard, type DepartureIssue } from '../companion';
++import { placeStep } from '../places/model';
+ import { useLocale } from '../i18n';
+ import { formatCivilDate } from '../locale-utils';
+ import { dateInTimezone } from '../time';
+@@ -8,11 +11,13 @@
+ import type { StoredState, View } from '../types';
+ import './NowView.css';
+ 
+-export default function NowView({state,onNavigate,notify}:{state:StoredState;onNavigate:(city:string,day:string,view:View)=>void;notify:(text:string)=>void}) {
++export default function NowView({state,onNavigate,notify,onChange,onCorrect}:{state:StoredState;onChange:Dispatch<SetStateAction<StoredState>>;onCorrect:(issue:DepartureIssue)=>void;onNavigate:(city:string,day:string,view:View)=>void;notify:(text:string)=>void}) {
+   const {t,language}=useLocale();
+   const [date,setDate]=useState<string|null>(null);
+   const [selected,setSelected]=useState('');
+   const [show,setShow]=useState(false);
++  const [destination,setDestination]=useState('stay');
++  const [returnCity,setReturnCity]=useState('');
+   const [instant,setInstant]=useState(()=>new Date());
+   useEffect(()=>{const update=()=>setInstant(new Date());const timer=setInterval(update,60000);window.addEventListener('focus',update);return()=>{clearInterval(timer);window.removeEventListener('focus',update);};},[]);
+   const all=state.cities.flatMap(city=>city.days.map(day=>({city,day})));
+@@ -23,7 +28,11 @@
+   const displayDate=current?.day.date||date||dateInTimezone(timezone,instant);
+   const localName=details?.stay?.chineseName.trim();
+   const address=details?.stay?.address.trim();
+-  const text=[localName||details?.stay?.name,address].filter(Boolean).join('\n');
++  const target=destination==='stay'?details?.stay:current?.day.steps.find(s=>s.id===destination);
++  const card=target?showCard('category' in target?placeStep(target):target):null;
++  const returnStay=state.stays?.find(s=>s.cityId===returnCity);
++  const back=returnStay?showCard(returnStay):null;
++  const text=card?[card.chineseName||card.title,card.address].filter(Boolean).join('\n'):'';
+   const copy=async()=>{try{await navigator.clipboard.writeText(text);notify(t('Texte copié.'));}catch{notify(t('Copie indisponible : sélectionne le nom affiché pour le copier.'));}};
+   const jump=(view:View)=>{if(current)onNavigate(current.city.id,current.day.id,view);};
+   return <section className="now-view" aria-labelledby="now-title">
+@@ -35,11 +44,21 @@
+       {current&&<p className="muted">{formatCivilDate(displayDate,language)} · {timezone}{!current.day.date&&` · ${t('Journée sans date : sélection manuelle')}`}</p>}
+     </div>
+     {!current?<p className="panel">{t('Aucune journée datée ne correspond. Choisis une journée ou attribue ses dates dans la vue d’ensemble.')}</p>:details&&<div className="now-grid">
+-      <article className="panel now-card"><h3>{t('Mon hébergement')}</h3>{details.stay?<><h4>{details.stay.name}</h4><p className="now-local">{localName||t('Nom local non renseigné')}</p><p className="now-address">{address||t('Adresse non renseignée')}</p><p className="muted small">{t('Adresse recopiée du carnet : langue à vérifier, aucune traduction automatique.')}</p>{!details.stayDateMatches&&<p role="status">{t('Les dates de cet hébergement ne couvrent pas cette journée.')}</p>}<button className="btn btn-primary" onClick={()=>{setSelected(current.day.id);setShow(true);}}>{t('À montrer')}</button></>:<p>{t('Aucun hébergement renseigné pour cette ville.')}</p>}<button className="text-btn" onClick={()=>jump('practical')}>{t('Ouvrir les hébergements')}</button></article>
+-      <article className="panel now-card"><h3>{t('Prochaine étape du planning')}</h3><p className="muted small">{t('Première activité encore à faire dans l’ordre saisi, sans estimation horaire.')}</p>{details.next?<><h4>{details.next.title}</h4>{details.next.chineseName&&<p className="now-local">{details.next.chineseName}</p>}<p>{details.next.period}</p><MapActions city={current.city} place={details.next} next={details.following}/></>:<p>{t('Aucune activité restante pour cette journée.')}</p>}<button className="text-btn" onClick={()=>jump('planning')}>{t('Ouvrir cette journée')}</button></article>
++      <article className="panel now-card"><h3>{t('Mon hébergement')}</h3>{details.stay?<><h4>{details.stay.name}</h4><p className="now-local">{localName||t('Nom local non renseigné')}</p><p className="now-address">{address||t('Adresse non renseignée')}</p><p className="muted small">{t('Adresse recopiée du carnet : langue à vérifier, aucune traduction automatique.')}</p>{!details.stayDateMatches&&<p role="status">{t('Les dates de cet hébergement ne couvrent pas cette journée.')}</p>}<button className="btn btn-primary" onClick={()=>{setSelected(current.day.id);setDestination('stay');setReturnCity('');setShow(true);}}>{t('À montrer')}</button></>:<p>{t('Aucun hébergement renseigné pour cette ville.')}</p>}<button className="text-btn" onClick={()=>jump('practical')}>{t('Ouvrir les hébergements')}</button></article>
++      <article className="panel now-card"><h3>{t('Prochaine étape du planning')}</h3><p className="muted small">{t('Première activité encore à faire dans l’ordre saisi, sans estimation horaire.')}</p>{details.next?<><h4>{details.next.title}</h4>{details.next.chineseName&&<p className="now-local">{details.next.chineseName}</p>}<p>{details.next.period}</p><MapActions city={current.city} place={placeStep(details.next)} next={details.following?placeStep(details.following):undefined}/><button className="btn btn-secondary" onClick={()=>{setDestination(details.next!.id);setReturnCity('');setShow(true);}}>{t('Montrer ce lieu')}</button></>:<p>{t('Aucune activité restante pour cette journée.')}</p>}<button className="text-btn" onClick={()=>jump('planning')}>{t('Ouvrir cette journée')}</button></article>
+       <article className="panel now-card"><h3>{t('Réservation du jour')}</h3>{details.reservation?<><h4>{details.reservation.title}</h4><p>{t('Réservation confirmée')}</p>{state.notes[details.reservation.id]&&<p className="now-note">{state.notes[details.reservation.id]}</p>}</>:!details.transfer&&<p>{t('Aucune réservation confirmée renseignée pour cette journée.')}</p>}{details.transfer&&<><h4>{details.transfer.label}</h4><p>{details.transfer.departure.replace('T',' ')} · {details.transfer.departureTimezone||stageTimezone(state,current.city)}</p><p>{details.transfer.fromStation} → {details.transfer.toStation}</p><p className="now-note">{details.transfer.reference}</p><button className="text-btn" onClick={()=>jump('transport')}>{t('Ouvrir mes transports')}</button></>}</article>
+       <article className="panel now-card"><h3>{t('Note du jour')}</h3><p className="now-note">{details.note||t('Aucune note saisie pour cette journée.')}</p><button className="text-btn" onClick={()=>jump('planning')}>{t('Ouvrir cette journée')}</button></article>
+     </div>}
+-    {show&&details?.stay&&current&&<Modal title={t('À montrer')} onClose={()=>setShow(false)} wide><div className="now-show"><p className="now-local">{localName||t('Nom local non renseigné')}</p>{!localName&&<p>{details.stay.name}</p>}<p className="now-address">{address||t('Adresse non renseignée')}</p><p className="muted">{t('Adresse recopiée du carnet : langue à vérifier, aucune traduction automatique.')}</p><button className="btn btn-primary" disabled={!text} onClick={()=>void copy()}>{t('Copier le texte')}</button><button className="btn btn-secondary" onClick={()=>setShow(false)}>{t('Revenir au carnet')}</button></div></Modal>}
++    <Companion key={`${state.journey?.id}:${current?.day.id||''}`} state={state} city={current?.city} day={current?.day} onChange={onChange} onCorrect={onCorrect}/>
++    {show&&card&&current&&<Modal title={t('À montrer')} onClose={()=>setShow(false)} wide><div className="now-show">
++      <label className="field">{t('Lieu à montrer')}<select aria-label={t('Lieu à montrer')} value={destination} onChange={e=>setDestination(e.target.value)}>{details?.stay&&<option value="stay">{details.stay.name}</option>}{current.day.steps.map(s=><option key={s.id} value={s.id}>{s.title}</option>)}</select></label>
++      <h3>{card.title}</h3><p className="now-local">{card.chineseName||t('Nom local non renseigné')}</p><p className="now-address">{card.address||t('Adresse non renseignée')}</p>
++      <p className="muted">{t('Adresse recopiée du carnet : langue à vérifier, aucune traduction automatique.')}</p>
++      {target&&'category' in target&&target.place&&(target.place.values.localName||target.place.values.chineseName)&&<p className="small">{t('Source du nom local : Wikidata')} · {target.place.source} · {target.place.checkedAt}</p>}
++      <button className="btn btn-primary" disabled={!text} onClick={()=>void copy()}>{t('Copier le texte')}</button><MapActions city={current.city} place={card}/>
++      <label className="field">{t('Hébergement de retour')}<select aria-label={t('Hébergement de retour')} value={returnCity} onChange={e=>setReturnCity(e.target.value)}><option value="">{t('À choisir')}</option>{state.stays?.map(s=><option key={s.cityId} value={s.cityId}>{state.cities.find(c=>c.id===s.cityId)?.name} · {s.name}</option>)}</select></label>
++      {back&&<div className="now-return"><h3>{t('Hébergement de retour')} · {back.title}</h3><p className="now-local">{back.chineseName||t('Nom local non renseigné')}</p><p className="now-address">{back.address||t('Adresse non renseignée')}</p><p className="small">{t('Adresse recopiée du carnet : langue à vérifier, aucune traduction automatique.')}</p><MapActions city={state.cities.find(c=>c.id===returnCity)!} place={back}/></div>}
++      <button className="btn btn-secondary" onClick={()=>setShow(false)}>{t('Revenir au carnet')}</button>
++    </div></Modal>}
+   </section>;
+ }
+--- a/src/lib.ts
++++ b/src/lib.ts
+@@ -1,4 +1,5 @@
+ import { validAssociation } from './places/model.ts';
++import { validCompanion } from './companion.ts';
+ import type { City, Step, StoredState } from './types';
+ import { validTimezone, transferTimeError } from './time.ts';
+ import { countryCodes, statuses } from './countries.ts';
+@@ -63,6 +64,7 @@
+   return uniqueIds(cities) && uniqueIds(days) && uniqueIds(steps) && days.every(day=>validPreparation(day.preparation,day.steps));
+ }
+ export function validateState(value: unknown): value is StoredState {
++  if (isObj(value) && !validCompanion(value.companion)) return false;
+   if (!isObj(value) || value.version !== 1 || !validCities(value.cities, true) || !texts(value.favorites) || !texts(value.done) || !texts(value.bookings) || !isObj(value.notes) || !Object.values(value.notes).every(text) || !date(value.departureDate)) return false;
+   if (value.journey !== undefined && (!isObj(value.journey) || !id(value.journey.id) || !id(value.journey.title) || ![value.journey.destinations,value.journey.description,value.journey.cover].every(text) || !validCurrency(value.journey.currency) || !validTimezone(value.journey.timezone) || !['china','custom'].includes(value.journey.source as string) || typeof value.journey.followsCatalog !== 'boolean')) return false;
+   if (isObj(value.journey) && ((value.journey.status !== undefined && !Object.hasOwn(statuses, String(value.journey.status))) || (value.journey.countries !== undefined && (!texts(value.journey.countries) || !value.journey.countries.every(c => countryCodes.has(c)) || new Set(value.journey.countries).size !== value.journey.countries.length)) || !optionalDate(value.journey.endDate) || !optionalText(value.journey.highlights) || (value.departureDate && value.journey.endDate && String(value.journey.endDate) < value.departureDate))) return false;
+--- a/src/locale-utils.ts
++++ b/src/locale-utils.ts
+@@ -1,3 +1,4 @@
++import { companionDictionary } from './locales/companion.ts';
+ import { placesDictionary } from './locales/places.ts';
+ import { appEnglish } from './locales/app-en.ts';
+ import { toolsEnglish } from './locales/tools-en.ts';
+@@ -46,8 +47,8 @@
+     };
+   } catch { return defaults; }
+ }
+-const dictionary: Record<string, string> = { ...commonEnglish, ...appEnglish, ...toolsEnglish, ...journeysEnglish, ...betaDictionary(0), ...backupDictionary(0), ...offlineDictionary(0), ...nowDictionary(0), ...preparationDictionary(0), ...planningImportDictionary(0), ...paletteDictionary(0), ...placesDictionary(0) };
+-const dictionaries: Record<Exclude<Language, 'fr'>, Record<string, string>> = { en: dictionary, 'zh-CN': { ...chinese, ...betaDictionary(1), ...backupDictionary(1), ...offlineDictionary(1), ...nowDictionary(1), ...preparationDictionary(1), ...planningImportDictionary(1), ...paletteDictionary(1), ...placesDictionary(1) }, es: { ...spanish, ...betaDictionary(2), ...backupDictionary(2), ...offlineDictionary(2), ...nowDictionary(2), ...preparationDictionary(2), ...planningImportDictionary(2), ...paletteDictionary(2), ...placesDictionary(2) } };
++const dictionary: Record<string, string> = { ...commonEnglish, ...appEnglish, ...toolsEnglish, ...journeysEnglish, ...betaDictionary(0), ...backupDictionary(0), ...offlineDictionary(0), ...nowDictionary(0), ...preparationDictionary(0), ...planningImportDictionary(0), ...paletteDictionary(0), ...placesDictionary(0), ...companionDictionary(0) };
++const dictionaries: Record<Exclude<Language, 'fr'>, Record<string, string>> = { en: dictionary, 'zh-CN': { ...chinese, ...betaDictionary(1), ...backupDictionary(1), ...offlineDictionary(1), ...nowDictionary(1), ...preparationDictionary(1), ...planningImportDictionary(1), ...paletteDictionary(1), ...placesDictionary(1), ...companionDictionary(1) }, es: { ...spanish, ...betaDictionary(2), ...backupDictionary(2), ...offlineDictionary(2), ...nowDictionary(2), ...preparationDictionary(2), ...planningImportDictionary(2), ...paletteDictionary(2), ...placesDictionary(2), ...companionDictionary(2) } };
+ export function translate(text: string, language: Language, values: TranslationValues = {}): string {
+   const selected = language === 'fr' ? undefined : dictionaries[language];
+   const translated = selected && Object.hasOwn(selected, text) ? selected[text] : text;
+--- a/src/types.ts
++++ b/src/types.ts
+@@ -1,4 +1,5 @@
+ import type { PlaceAssociation } from './places/model';
++import type { CompanionState } from './companion';
+ export type Category = 'visit' | 'food' | 'transport' | 'hotel' | 'walk' | 'shopping';
+ export type Step = { place?: PlaceAssociation; id: string; title: string; chineseName?: string; description: string; address?: string; category: Category; period?: string; optional?: boolean; booking?: boolean; coordinates?: [number, number]; amapUrl?: string };
+ export type StepTiming = { durationMinutes?: number; transferMinutes?: number; fromStepId?: string; startTime?: string; source?: string; checkedAt?: string };
+@@ -19,6 +20,6 @@
+ export type PersonalWorld = { version: 1; visits: PersonalVisit[]; wishes: string[]; palette: 'forest' | 'ocean' | 'sunset'; participation?: string[] };
+ export type Phrase = { id: string; category: string; meaning: string; local: string; pronunciation: string };
+ export type TravelDocument = { id: string; title: string; content: string };
+-export type StoredState = { version: 1; cities: City[]; favorites: string[]; done: string[]; bookings: string[]; notes: Record<string, string>; departureDate: string; customBonus?: Bonus[]; expenses?: Expense[]; budgetCny?: number; cnyPerEuro?: number; stays?: Stay[]; transfers?: Transfer[]; packing?: PackingItem[]; catalogBase?: City[]; journey?: Journey; bonusCatalog?: Bonus[]; phrases?: Phrase[]; documents?: TravelDocument[]; budget?: number; budgetCurrency?: string; exchangeRates?: Record<string, number>; rateQuotes?: Record<string, ExchangeRate>; budgetConversions?: Record<string, ExchangeRate>; resume?: { cityId: string; dayId: string; view: View } };
++export type StoredState = { companion?: CompanionState; version: 1; cities: City[]; favorites: string[]; done: string[]; bookings: string[]; notes: Record<string, string>; departureDate: string; customBonus?: Bonus[]; expenses?: Expense[]; budgetCny?: number; cnyPerEuro?: number; stays?: Stay[]; transfers?: Transfer[]; packing?: PackingItem[]; catalogBase?: City[]; journey?: Journey; bonusCatalog?: Bonus[]; phrases?: Phrase[]; documents?: TravelDocument[]; budget?: number; budgetCurrency?: string; exchangeRates?: Record<string, number>; rateQuotes?: Record<string, ExchangeRate>; budgetConversions?: Record<string, ExchangeRate>; resume?: { cityId: string; dayId: string; view: View } };
+ export type TripArchive = { version: 2; scope: 'trip'; id: string; state: StoredState };
+ export type CollectionArchive = { version: 2; scope: 'collection'; trips: TripArchive[] };
+--- /dev/null
++++ b/src/companion.ts
+@@ -0,0 +1,89 @@
++import type { Bonus, City, Day, Step, StoredState } from './types.ts';
++import { activeSteps, clockMinutes } from './day-preparation.ts';
++import { placeStep } from './places/model.ts';
++
++export type RequiredField = 'address' | 'chineseName' | 'duration';
++export type CompanionState = {
++  requirements: { id: string; stepId: string; field: RequiredField }[];
++  dismissed: { id: string; fingerprint: string }[];
++  excluded: string[];
++};
++export const emptyCompanion = (): CompanionState => ({ requirements: [], dismissed: [], excluded: [] });
++const obj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
++const text = (v: unknown, max = 200) => typeof v === 'string' && v.trim().length > 0 && v.length <= max;
++export function validCompanion(v: unknown): v is CompanionState {
++  if (v === undefined) return true;
++  if (!obj(v) || Object.keys(v).some(k => !['requirements', 'dismissed', 'excluded'].includes(k))) return false;
++  return Array.isArray(v.requirements) && v.requirements.length <= 500 && v.requirements.every(r => obj(r) && Object.keys(r).every(k => ['id','stepId','field'].includes(k)) && text(r.id) && text(r.stepId) && typeof r.field === 'string' && ['address','chineseName','duration'].includes(r.field)) && new Set(v.requirements.map(r => r.id)).size === v.requirements.length
++    && Array.isArray(v.dismissed) && v.dismissed.length <= 2000 && v.dismissed.every(r => obj(r) && Object.keys(r).every(k => ['id','fingerprint'].includes(k)) && text(r.id, 1000) && text(r.fingerprint, 16000)) && new Set(v.dismissed.map(r => r.id)).size === v.dismissed.length
++    && Array.isArray(v.excluded) && v.excluded.length <= 2000 && v.excluded.every(id => text(id));
++}
++export type DepartureIssue = { id: string; fingerprint: string; kind: 'booking' | 'required' | 'overlap'; city: City; day: Day; step: Step; other?: Step; field?: RequiredField };
++/** Only explicit evidence is a warning. Free text periods and missing optional fields prove nothing. */
++export function departureIssues(state: StoredState, includeDismissed = false): DepartureIssue[] {
++  const issues: DepartureIssue[] = [];
++  for (const city of state.cities) for (const day of city.days) {
++    const steps = activeSteps(day).filter(s => !state.done.includes(s.id));
++    const context = [city.id, day.id, day.date, city.timezone || state.journey?.timezone];
++    const add = (kind: DepartureIssue['kind'], step: Step, evidence: unknown, extra: Partial<DepartureIssue> = {}) => {
++      const id = JSON.stringify([kind, step.id, extra.other?.id, extra.field]);
++      issues.push({ id, fingerprint: JSON.stringify([context, step.title, evidence]), kind, city, day, step, ...extra });
++    };
++    for (const step of steps) {
++      if (step.booking && !state.bookings.includes(step.id)) add('booking', step, [step.booking, false]);
++      for (const r of state.companion?.requirements || []) if (r.stepId === step.id) {
++        const value = r.field === 'duration' ? day.preparation?.timings?.[step.id]?.durationMinutes : placeStep(step)[r.field];
++        if (value === undefined || (typeof value === 'string' && !value.trim())) add('required', step, [r.id, r.field, value], {field:r.field});
++      }
++    }
++    // Pairwise intervals catch non-adjacent overlaps, even if a middle activity has unknown timing.
++    steps.forEach((step, index) => {
++      const a = day.preparation?.timings?.[step.id], start = clockMinutes(a?.startTime);
++      if (start === undefined || a?.durationMinutes === undefined || a.durationMinutes === 0) return;
++      for (const other of steps.slice(index + 1)) {
++        const b = day.preparation?.timings?.[other.id], next = clockMinutes(b?.startTime);
++        if (next !== undefined && b?.durationMinutes !== undefined && b.durationMinutes > 0 && start < next + b.durationMinutes && next < start + a.durationMinutes) add('overlap', step, [a.startTime, a.durationMinutes, other.title, b.startTime, b.durationMinutes], {other});
++      }
++    });
++  }
++  const unique = [...new Map(issues.map(i => [i.id, i])).values()];
++  return includeDismissed ? unique : unique.filter(i => !state.companion?.dismissed.some(d => d.id === i.id && d.fingerprint === i.fingerprint));
++}
++export function dismissIssue(state: StoredState, issue: DepartureIssue): StoredState {
++  if (!departureIssues(state, true).some(i => i.id === issue.id && i.fingerprint === issue.fingerprint)) return state;
++  const p = state.companion || emptyCompanion();
++  return {...state, companion:{...p, dismissed:[...p.dismissed.filter(d => d.id !== issue.id), {id:issue.id,fingerprint:issue.fingerprint}].slice(-2000)}};
++}
++const normalized = (value: string) => value.normalize('NFKC').trim().toLocaleLowerCase().replace(/\s+/g, ' ');
++/** Conservative duplicate guard: identical names in a city need manual review, not a second automatic visit. */
++const samePlace = (a: Pick<Step,'title'|'chineseName'|'address'>, b: Pick<Step,'title'|'chineseName'|'address'>) => normalized(a.title) === normalized(b.title) || !!(a.chineseName?.trim() && b.chineseName?.trim() && normalized(a.chineseName) === normalized(b.chineseName)) || !!(a.address?.trim() && b.address?.trim() && normalized(a.address) === normalized(b.address));
++export type LocalIdea = { id: string; step: Step; favorite: boolean; duration?: number; sourceDayId?: string };
++export function localIdeas(state: StoredState, city: City, day: Day): LocalIdea[] {
++  const planned = city.days.flatMap(d => d.steps.map(s => ({day:d,step:s})));
++  const bonuses: LocalIdea[] = [...(state.bonusCatalog || []), ...(state.customBonus || [])].filter(b => b.cityId === city.id).map((b: Bonus) => ({id:b.id, favorite:state.favorites.includes(b.id),step:{id:b.id,title:b.title,chineseName:b.chineseName,address:b.address,description:b.description,category:b.category === 'photo' ? 'visit' : b.category,amapUrl:b.amapUrl}}));
++  const optional: LocalIdea[] = city.days.filter(d => d.id !== day.id).flatMap(d => d.steps.filter(s => s.optional).map(s => ({id:s.id,step:s,favorite:state.favorites.includes(s.id),duration:d.preparation?.timings?.[s.id]?.durationMinutes,sourceDayId:d.id})));
++  const candidates = [...bonuses, ...optional].filter(i => !state.done.includes(i.id) && !state.companion?.excluded.includes(i.id) && !planned.some(p => (p.day.id === day.id || state.done.includes(p.step.id) || !i.sourceDayId) && samePlace(i.step,p.step)));
++  return candidates.filter((idea,index) => candidates.findIndex(i => samePlace(i.step,idea.step)) === index);
++}
++export function addIdea(state: StoredState, cityId: string, dayId: string, idea: LocalIdea, stepId: string): StoredState {
++  const city = state.cities.find(c => c.id === cityId), day = city?.days.find(d => d.id === dayId);
++  if (!city || !day || day.preparation?.activeAlternativeId || day.steps.length >= 1000 || state.cities.some(c => c.days.some(d => d.steps.some(s => s.id === stepId)))) return state;
++  const latest = localIdeas(state,city,day).find(i => i.id === idea.id);
++  if (!latest || JSON.stringify(latest) !== JSON.stringify(idea)) return state;
++  // Do not copy private notes, tips, reservation flags, or completed state into a shared programme.
++  const s = latest.step;
++  const step: Step = {id:stepId,title:s.title,chineseName:s.chineseName,address:s.address,description:s.description,category:s.category,amapUrl:s.amapUrl,coordinates:s.coordinates};
++  return {...state,cities:state.cities.map(c => c.id !== cityId ? c : {...c,days:c.days.map(d => d.id !== dayId ? d : {...d,steps:[...d.steps,step]})})};
++}
++/** Undo just this addition. Never erase a later note, booking, completion, edit or preparation. */
++export function undoIdea(state: StoredState, inserted: Step): StoredState {
++  if (state.notes[inserted.id] || state.bookings.includes(inserted.id) || state.done.includes(inserted.id)) return state;
++  const day = state.cities.flatMap(c => c.days).find(d => d.steps.some(s => s.id === inserted.id));
++  const p = day?.preparation;
++  if (!day || JSON.stringify(day.steps.find(s => s.id === inserted.id)) !== JSON.stringify(inserted) || p?.timings?.[inserted.id] || p?.anchorStepId === inserted.id || p?.alternatives?.some(a => a.stepIds.includes(inserted.id))) return state;
++  return {...state,cities:state.cities.map(c => ({...c,days:c.days.map(d => d.id !== day.id ? d : {...d,steps:d.steps.filter(s => s.id !== inserted.id)})}))};
++}
++/** Explicit whitelist for the screen handed to somebody else. Never spread a Stay/Step. */
++export function showCard(place: {name?: string;title?: string;chineseName?: string;address?: string}) {
++  return {title:place.title || place.name || '',chineseName:place.chineseName || '',address:place.address || ''};
++}
+--- /dev/null
++++ b/src/components/Companion.tsx
+@@ -0,0 +1,60 @@
++import { useState, type Dispatch, type SetStateAction, type FormEvent } from 'react';
++import type { City, Day, Step, StoredState } from '../types';
++import { addIdea, departureIssues, dismissIssue, emptyCompanion, localIdeas, undoIdea, type DepartureIssue, type LocalIdea, type RequiredField } from '../companion';
++import { uid } from '../lib';
++import { useLocale } from '../i18n';
++import { Modal } from '../App';
++import { EditButton, EditSelect } from './EditControls';
++import './Companion.css';
++
++const fieldLabels = {address:'Adresse précise',chineseName:'Nom local (facultatif)',duration:'Durée (min)'};
++type Props = { state:StoredState; city?:City; day?:Day; onChange:Dispatch<SetStateAction<StoredState>>; onCorrect:(issue:DepartureIssue)=>void };
++export default function Companion({state,city,day,onChange,onCorrect}:Props) {
++  const {t}=useLocale();
++  const [all,setAll]=useState(false),[budget,setBudget]=useState(45),[favorites,setFavorites]=useState(false),[category,setCategory]=useState('all');
++  const [preview,setPreview]=useState<LocalIdea|null>(null),[inserted,setInserted]=useState<Step|null>(null),[message,setMessage]=useState('');
++  const issues=departureIssues(state),p=state.companion||emptyCompanion();
++  const ideas=city&&day?localIdeas(state,city,day).filter(i=>(!favorites||i.favorite)&&(category==='all'||i.step.category===category)&&(i.duration===undefined||i.duration<=budget)):[];
++  function requireField(event:FormEvent<HTMLFormElement>) {
++    event.preventDefault();const data=new FormData(event.currentTarget),stepId=String(data.get('step')),field=String(data.get('field')) as RequiredField;
++    if (!day?.steps.some(s=>s.id===stepId)) return;
++    const id=uid('requirement');
++    onChange(s=>{const current=s.companion||emptyCompanion();return current.requirements.some(r=>r.stepId===stepId&&r.field===field)||current.requirements.length>=500?s:{...s,companion:{...current,requirements:[...current.requirements,{id,stepId,field}]}};});
++  }
++  function adopt() {
++    if(!preview||!city||!day)return;
++    const stepId=`companion-step:${city.id}:${preview.id}`;let added:Step|undefined;
++    onChange(s=>{const next=addIdea(s,city.id,day.id,preview,stepId);added=next.cities.flatMap(c=>c.days).flatMap(d=>d.steps).find(x=>x.id===stepId);return next;});
++    if(added){setInserted(added);setMessage(t('Idée ajoutée. Tu peux annuler cet ajout.'));setPreview(null);}else setMessage(t('Les données ont changé. Ferme cet aperçu et choisis à nouveau.'));
++  }
++  return <div className="companion">
++    <section className="panel companion-check" aria-labelledby="companion-check-title"><h3 id="companion-check-title">{t('Contrôle avant départ')}</h3>
++      <p className="muted small">{t('Uniquement les réservations à faire, tes informations exigées et les chevauchements prouvés par les horaires saisis.')}</p>
++      <p className="muted small">{t('Ces exigences, exclusions et remarques écartées restent sur cet appareil. Elles voyagent avec tes sauvegardes, sans synchronisation.')}</p>
++      {!issues.length&&<p>{t('Aucun point signalé dans les données actuelles. Ce contrôle ne certifie pas que le voyage est prêt.')}</p>}
++      <ul className="companion-issues">{(all?issues:issues.slice(0,6)).map(issue=><li key={issue.id}>
++        <strong>{issue.step.title}{issue.other&&` / ${issue.other.title}`}</strong><p className="small">{issue.city.name} · {issue.day.title}{issue.day.date&&` · ${issue.day.date}`} · {issue.city.timezone||state.journey?.timezone}</p>
++        <p>{t(issue.kind==='booking'?'Origine : activité marquée « À réserver », sans confirmation.':issue.kind==='overlap'?'Origine : deux débuts et deux durées saisis se chevauchent.':'Origine : information que tu as explicitement exigée, encore absente.')}{issue.field&&` ${t(fieldLabels[issue.field])}`}</p>
++        <div className="companion-actions"><EditButton className="btn btn-secondary" onClick={()=>onCorrect(issue)}>{t('Ouvrir la correction')}</EditButton><EditButton className="text-btn" onClick={()=>onChange(s=>dismissIssue(s,issue))}>{t('Écarter pour ces données')}</EditButton></div>
++      </li>)}</ul>
++      {issues.length>6&&<button className="text-btn" onClick={()=>setAll(!all)}>{t(all?'Réduire la liste':'Voir tous les points')}</button>}
++      {p.dismissed.length>0&&<EditButton className="text-btn" onClick={()=>onChange(s=>({...s,companion:{...(s.companion||emptyCompanion()),dismissed:[]}}))}>{t('Réexaminer les remarques écartées')}</EditButton>}
++      {day&&<details className="companion-require"><summary>{t('Exiger une information pour cette journée')}</summary><form onSubmit={requireField}>
++        <label className="field">{t('Activité principale')}<EditSelect name="step" required>{day.steps.map(s=><option key={s.id} value={s.id}>{s.title}</option>)}</EditSelect></label>
++        <label className="field">{t('Information importante')}<EditSelect name="field"><option value="address">{t('Adresse précise')}</option><option value="chineseName">{t('Nom local (facultatif)')}</option><option value="duration">{t('Durée (min)')}</option></EditSelect></label>
++        <EditButton className="btn btn-secondary" disabled={!day.steps.length||p.requirements.length>=500}>{t('Exiger cette information')}</EditButton>
++      </form>{p.requirements.filter(r=>day.steps.some(s=>s.id===r.stepId)).map(r=><p key={r.id}>{day.steps.find(s=>s.id===r.stepId)?.title} · {t(fieldLabels[r.field])} <EditButton className="text-btn" onClick={()=>onChange(s=>({...s,companion:{...(s.companion||emptyCompanion()),requirements:(s.companion?.requirements||[]).filter(x=>x.id!==r.id)}}))}>{t('Ne plus exiger')}</EditButton></p>)}</details>}
++    </section>
++    {city&&day&&<section className="panel companion-ideas" aria-labelledby="companion-ideas-title"><h3 id="companion-ideas-title">{t('J’ai un peu de temps')}</h3><p>{city.name} · {day.title}</p><p className="muted small">{t('Idées enregistrées dans cette ville. Les visites faites ou déjà au programme sont écartées ; aucune recherche externe.')}</p>
++      <div className="companion-filters"><label className="field">{t('Temps disponible (min)')}<input type="number" min="5" max="1440" step="5" value={budget} onChange={e=>setBudget(Math.max(5,Math.min(1440,Number(e.target.value)||45)))}/></label><label className="field">{t('Catégorie')}<select value={category} onChange={e=>setCategory(e.target.value)}>{[['all','Toutes'],['visit','Visite'],['food','À table'],['walk','Balade'],['shopping','Shopping']].map(([v,l])=><option key={v} value={v}>{t(l)}</option>)}</select></label><label><input type="checkbox" checked={favorites} onChange={e=>setFavorites(e.target.checked)}/> {t('Favoris uniquement')}</label></div>
++      <p className="muted small">{t('Le budget filtre les durées connues. Durée inconnue ou déplacement non renseigné : le temps total reste à vérifier.')}</p>
++      {!ideas.length&&<p>{t('Aucune idée ne correspond. Modifie les filtres ou ajoute un bonus au carnet.')}</p>}
++      <ul className="companion-issues">{ideas.slice(0,12).map(idea=><li key={idea.id}><strong>{idea.step.title}</strong><p>{idea.duration!==undefined?t('Durée saisie : {minutes} min ; déplacement à vérifier.',{minutes:idea.duration}):t('Durée et déplacement à vérifier.')}</p><div className="companion-actions"><EditButton className="btn btn-secondary" onClick={()=>{setPreview(idea);setMessage('');}} disabled={!!day.preparation?.activeAlternativeId}>{t('Prévisualiser l’ajout')}</EditButton><EditButton className="text-btn" onClick={()=>onChange(s=>{const c=s.companion||emptyCompanion();return {...s,companion:{...c,excluded:[...new Set([...c.excluded,idea.id])].slice(-2000)}};})}>{t('Exclure cette idée')}</EditButton></div></li>)}</ul>
++      {day.preparation?.activeAlternativeId&&<p>{t('Reviens au plan initial avant d’ajouter une idée. Les alternatives restent conservées.')}</p>}
++      {!!p.excluded.length&&<EditButton className="text-btn" onClick={()=>onChange(s=>({...s,companion:{...(s.companion||emptyCompanion()),excluded:[]}}))}>{t('Réintégrer les idées exclues')}</EditButton>}
++      {inserted&&<EditButton className="btn btn-secondary" onClick={()=>{let undone=false;onChange(s=>{const next=undoIdea(s,inserted);undone=next!==s;return next;});setMessage(t(undone?'Ajout annulé.':'Cette activité a changé. Ouvre le planning pour la modifier.'));if(undone)setInserted(null);}}>{t('Annuler cet ajout')}</EditButton>}
++      <p role="status">{message}</p>
++    </section>}
++    {preview&&city&&day&&<Modal title={t('Prévisualiser l’ajout')} onClose={()=>setPreview(null)}><div className="companion-preview"><h3>{preview.step.title}</h3><p>{preview.step.address}</p><p>{city.name} · {day.title}{day.date&&` · ${day.date}`}</p><p>{t('L’activité sera ajoutée en fin de journée au programme commun. Les notes privées, billets et favoris ne sont pas copiés.')}</p><p>{t('Durée et déplacement à vérifier.')}</p><EditButton className="btn btn-primary" onClick={adopt}>{t('Confirmer l’ajout au programme')}</EditButton><button className="btn btn-secondary" onClick={()=>setPreview(null)}>{t('Annuler')}</button><p role="status">{message}</p></div></Modal>}
++  </div>;
++}
+--- /dev/null
++++ b/src/components/Companion.css
+@@ -0,0 +1 @@
++.companion{display:grid;gap:18px;margin-top:20px}.companion section{padding:22px;min-width:0}.companion h3{margin-top:0}.companion p,.companion strong{overflow-wrap:anywhere}.companion-issues{list-style:none;padding:0;margin:0;display:grid;gap:14px}.companion-issues li{padding:14px 0;border-top:1px solid var(--line);min-width:0}.companion-issues p{margin:8px 0}.companion-actions,.companion-filters{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.companion button{min-height:44px;max-width:100%;white-space:normal}.companion-filters .field{flex:1;min-width:min(180px,100%)}.companion input:not([type=checkbox]),.companion select{width:100%;max-width:100%;min-height:44px;font:inherit}.companion-require{margin-top:18px}.companion-require summary{cursor:pointer;min-height:44px}.companion-require form,.companion-preview{display:grid;gap:16px}.companion-preview p{overflow-wrap:anywhere}.companion-filters label:has([type=checkbox]){display:flex;align-items:center;gap:8px;min-height:44px}@media(max-width:700px){.companion section{padding:18px}.companion-actions{align-items:stretch;flex-direction:column}}
+--- /dev/null
++++ b/src/locales/companion.ts
+@@ -0,0 +1,46 @@
++const rows: [string,string,string,string][] = [
++['Contrôle avant départ','Before departure','出发前检查','Antes de salir'],
++['Uniquement les réservations à faire, tes informations exigées et les chevauchements prouvés par les horaires saisis.','Only pending bookings, information you require and overlaps proven by entered times.','仅检查待预订事项、你要求的资料和已填写时间证实的冲突。','Solo reservas pendientes, información que exiges y solapamientos demostrados por horarios introducidos.'],
++['Ces exigences, exclusions et remarques écartées restent sur cet appareil. Elles voyagent avec tes sauvegardes, sans synchronisation.','These requirements, exclusions and dismissed issues stay on this device. Backups carry them; synchronization does not.','这些要求、排除项和已忽略提醒保留在本机，可通过备份转移，不参与同步。','Estas exigencias, exclusiones y avisos descartados quedan en este dispositivo. Se incluyen en copias, sin sincronización.'],
++['Aucun point signalé dans les données actuelles. Ce contrôle ne certifie pas que le voyage est prêt.','No issues found in current data. This check does not certify travel readiness.','当前资料中没有提醒。这并不保证旅行准备已完成。','Sin avisos en los datos actuales. Esto no certifica que el viaje esté preparado.'],
++['Origine : activité marquée « À réserver », sans confirmation.','Source: activity marked for booking, without confirmation.','依据：活动标为待预订，尚未确认。','Origen: actividad marcada para reservar, sin confirmación.'],
++['Origine : deux débuts et deux durées saisis se chevauchent.','Source: two entered start times and durations overlap.','依据：两项已填写的开始时间和时长存在冲突。','Origen: dos inicios y duraciones introducidos se solapan.'],
++['Origine : information que tu as explicitement exigée, encore absente.','Source: information you explicitly required is still missing.','依据：你明确要求填写的资料仍然缺失。','Origen: falta información que has exigido expresamente.'],
++['Ouvrir la correction','Open correction','打开修改','Abrir corrección'],
++['Écarter pour ces données','Dismiss for this data version','忽略此版本的提醒','Descartar para estos datos'],
++['Réduire la liste','Collapse list','收起列表','Reducir lista'],
++['Voir tous les points','See all issues','查看全部提醒','Ver todos los avisos'],
++['Réexaminer les remarques écartées','Review dismissed issues','重新检查已忽略提醒','Revisar avisos descartados'],
++['Exiger une information pour cette journée','Require information for this day','要求填写当天资料','Exigir información para este día'],
++['Information importante','Required information','重要资料','Información importante'],
++['Exiger cette information','Require this information','要求填写此资料','Exigir esta información'],
++['Ne plus exiger','Stop requiring','取消要求','Dejar de exigir'],
++['J’ai un peu de temps','I have some spare time','我有一点空闲时间','Tengo un poco de tiempo'],
++['Idées enregistrées dans cette ville. Les visites faites ou déjà au programme sont écartées ; aucune recherche externe.','Saved ideas in this city. Completed or already scheduled visits are excluded; no external search.','本城市已保存的想法。排除已完成或已安排的活动；不进行外部搜索。','Ideas guardadas en esta ciudad. Se excluyen visitas realizadas o programadas; sin búsqueda externa.'],
++['Temps disponible (min)','Available time (min)','可用时间（分钟）','Tiempo disponible (min)'],
++['Favoris uniquement','Favorites only','仅收藏','Solo favoritos'],
++['Le budget filtre les durées connues. Durée inconnue ou déplacement non renseigné : le temps total reste à vérifier.','The budget filters known durations. Unknown duration or missing travel time: total time needs checking.','时间预算仅筛选已知时长。时长未知或未填写交通时间时，仍需核实总耗时。','El presupuesto filtra duraciones conocidas. Con duración o traslado desconocidos, hay que comprobar el tiempo total.'],
++['Aucune idée ne correspond. Modifie les filtres ou ajoute un bonus au carnet.','No matching ideas. Change the filters or save a bonus in the notebook.','没有符合条件的想法。请修改筛选或添加备选活动。','Ninguna idea coincide. Cambia los filtros o añade un extra al cuaderno.'],
++['Durée saisie : {minutes} min ; déplacement à vérifier.','Entered duration: {minutes} min; travel time needs checking.','已填写时长：{minutes} 分钟；需核实交通时间。','Duración introducida: {minutes} min; traslado por comprobar.'],
++['Durée et déplacement à vérifier.','Duration and travel time need checking.','需核实时长和交通时间。','Duración y traslado por comprobar.'],
++['Prévisualiser l’ajout','Preview addition','预览添加','Vista previa de la incorporación'],
++['Exclure cette idée','Exclude this idea','排除此想法','Excluir esta idea'],
++['Reviens au plan initial avant d’ajouter une idée. Les alternatives restent conservées.','Return to the original plan before adding an idea. Alternatives are preserved.','添加想法前请返回原计划。备用计划将保留。','Vuelve al plan inicial antes de añadir una idea. Se conservan las alternativas.'],
++['Réintégrer les idées exclues','Restore excluded ideas','恢复已排除想法','Recuperar ideas excluidas'],
++['Annuler cet ajout','Undo this addition','撤销此次添加','Deshacer esta incorporación'],
++['Idée ajoutée. Tu peux annuler cet ajout.','Idea added. You can undo this addition.','已添加想法，可以撤销。','Idea añadida. Puedes deshacerla.'],
++['Les données ont changé. Ferme cet aperçu et choisis à nouveau.','Data changed. Close this preview and choose again.','资料已改变。请关闭预览后重新选择。','Los datos han cambiado. Cierra esta vista previa y elige otra vez.'],
++['Ajout annulé.','Addition undone.','已撤销添加。','Incorporación deshecha.'],
++['Cette activité a changé. Ouvre le planning pour la modifier.','This activity changed. Open the schedule to edit it.','此活动已改变。请打开行程进行修改。','Esta actividad ha cambiado. Abre el programa para modificarla.'],
++['L’activité sera ajoutée en fin de journée au programme commun. Les notes privées, billets et favoris ne sont pas copiés.','The activity will be appended to the shared day plan. Private notes, tickets and favorites are not copied.','活动将添加至当天共享行程末尾。不会复制私人笔记、票券或收藏。','La actividad se añadirá al final del programa común del día. No se copian notas privadas, billetes ni favoritos.'],
++['Confirmer l’ajout au programme','Confirm adding to schedule','确认添加到行程','Confirmar incorporación al programa'],
++['Montrer ce lieu','Show this place','出示此地点','Mostrar este lugar'],
++['Lieu à montrer','Place to show','要出示的地点','Lugar para mostrar'],
++['Hébergement de retour','Return accommodation','返回的住宿','Alojamiento de regreso'],
++['Source du nom local : Wikidata','Local name source: Wikidata','当地名称来源：维基数据','Fuente del nombre local: Wikidata'],
++['Étiquette toi-même une alternative couverte ou moins fatigante dans son nom. Aucune météo ni fatigue ne sont déduites.','Label an indoor or less tiring alternative yourself in its name. Weather and fatigue are not inferred.','请自行在备用计划名称中标注室内或较轻松。不推断天气或疲劳。','Etiqueta en el nombre una alternativa cubierta o menos cansada. No se deducen el tiempo ni la fatiga.'],
++['La journée a changé. Actualise la comparaison avant de confirmer.','The day changed. Refresh the comparison before confirming.','当天行程已改变。确认前请刷新比较。','El día ha cambiado. Actualiza la comparación antes de confirmar.'],
++['Actualiser la comparaison','Refresh comparison','刷新比较','Actualizar comparación'],
++['Annuler cet échange','Undo this switch','撤销此次切换','Deshacer este cambio'],
++];
++export function companionDictionary(index:number):Record<string,string> { return Object.fromEntries(rows.map(r=>[r[0],r[index+1]])); }
+--- /dev/null
++++ b/tests/companion.test.mjs
+@@ -0,0 +1,64 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { addIdea, departureIssues, dismissIssue, emptyCompanion, localIdeas, showCard, undoIdea, validCompanion } from '../src/companion.ts';
++import { archive, parseTrip, duplicateTrip } from '../src/journeys.ts';
++import { validateState } from '../src/lib.ts';
++import { mergeChanges } from '../src/persistence.ts';
++import { splitContent } from '../src/cloud/projection.ts';
++import { contentRaw, acceptRemote, syncRecord, recordContent } from '../src/cloud/engine.ts';
++import { AccountStorage } from '../src/cloud/storage.ts';
++import { nowDays } from '../src/now.ts';
++import { companionDictionary } from '../src/locales/companion.ts';
++import { fixture } from '../scripts/companion-fixture.mjs';
++test('departure checks only prove explicit bookings, requirements and pairwise complete intervals; no optional-empty or start-only false positives',()=>{
++ const s=fixture();assert.deepEqual(departureIssues(s).map(i=>i.kind),['booking','overlap']);
++ let dismissed=dismissIssue(s,departureIssues(s)[1]);assert.equal(departureIssues(dismissed).length,1);
++ dismissed.notes.other='unrelated';assert.equal(departureIssues(dismissed).length,1);
++ dismissed.cities[0].days[0].preparation.timings.b.durationMinutes=50;assert.equal(departureIssues(dismissed).length,2);
++ s.bookings=['a'];s.cities[0].days[0].preparation.timings.b={startTime:'10:30'};assert.deepEqual(departureIssues(s),[]);
++ s.companion.requirements=[{id:'r',stepId:'b',field:'address'}];assert.equal(departureIssues(s)[0].kind,'required');s.cities[0].days[0].steps[2].address='Confirmed address';assert.deepEqual(departureIssues(s),[]);
++ s.cities[0].days[0].steps[2].address='';s.done=['b'];assert.deepEqual(departureIssues(s),[]);
++ s.done=[];s.cities[0].days[0].preparation.activeAlternativeId='rain';assert.deepEqual(departureIssues(s).map(i=>i.kind),['required']);
++});
++test('dismissals reevaluate date/timezone or relevant data, not notes; stale issue cannot suppress new evidence',()=>{
++ const s=fixture(),issue=departureIssues(s)[0];let next=dismissIssue(s,issue);assert.equal(departureIssues(next).length,1);
++ next.cities[0].days[0].date='2027-05-11';assert.equal(departureIssues(next).length,2);assert.equal(dismissIssue(next,issue),next);
++ next.cities[0].timezone='Pacific/Honolulu';assert.equal(departureIssues(next).length,2);
++ const b=fixture();b.cities[0].days[0].date='2026-10-08';b.cities[0].timezone='Pacific/Honolulu';assert.equal(nowDays(b,null,new Date('2026-10-09T01:00Z'))[0].day.id,'d');
++});
++test('city-only saved ideas honor favorites, exclusions, completion, unknown durations and duplicates without coordinates',()=>{
++ const s=fixture(),c=s.cities[0],d=c.days[0];let ideas=localIdeas(s,c,d);assert.deepEqual(ideas.map(i=>i.id),['bonus','short','long']);assert.equal(ideas[0].duration,undefined);assert.equal(ideas[1].duration,20);assert.equal(ideas[0].favorite,true);
++ s.companion.excluded=['short'];s.done=['long'];assert.deepEqual(localIdeas(s,c,d).map(i=>i.id),['bonus']);
++ s.customBonus.push({...s.customBonus[0],id:'duplicate'});assert.equal(localIdeas(s,c,d).length,1);
++ const added=addIdea(s,c.id,d.id,localIdeas(s,c,d)[0],'added');assert.equal(localIdeas(added,added.cities[0],added.cities[0].days[0]).length,0);assert.equal(added.notes.a,'PRIVATE_REF');assert.equal(added.cities[0].days[0].steps.at(-1).description,'Lieu enregistré');assert.ok(!JSON.stringify(added.cities[0].days[0].steps.at(-1)).includes('PRIVATE_TIP'));
++ assert.equal(addIdea(added,c.id,d.id,ideas[0],'again'),added);
++ const stale=fixture(),idea=localIdeas(stale,c,d)[0];stale.customBonus[0].title='Changed';assert.equal(addIdea(stale,'c','d',idea,'late'),stale);
++ const active=fixture();active.cities[0].days[0].preparation.activeAlternativeId='rain';assert.equal(addIdea(active,'c','d',ideas[0],'blocked'),active);
++});
++test('undo preserves concurrent notes/bookings/completion/timing and unrelated changes; concurrent same idea shares deterministic identity',()=>{
++ const s=fixture(),c=s.cities[0],d=c.days[0],idea=localIdeas(s,c,d)[0],next=addIdea(s,'c','d',idea,'stable');const inserted=next.cities[0].days[0].steps.at(-1);
++ next.notes.other='other tab';const undo=undoIdea(next,inserted);assert.equal(undo.notes.other,'other tab');assert.equal(undo.cities[0].days[0].steps.length,3);
++ for(const change of [s=>s.notes.stable='private note',s=>s.bookings.push('stable'),s=>s.done.push('stable'),s=>s.cities[0].days[0].preparation.timings.stable={durationMinutes:10},s=>s.cities[0].days[0].steps.at(-1).title='Edited']){const edited=structuredClone(next);change(edited);assert.equal(undoIdea(edited,inserted),edited);}
++ const simultaneous=addIdea(s,'c','d',idea,'stable');assert.equal(mergeChanges(s,next,simultaneous).cities[0].days[0].steps.filter(x=>x.id==='stable').length,1);
++});
++test('validated optional device data roundtrips backups/duplicates, stays outside all projections, safe card is a whitelist',()=>{
++ const s=dismissIssue(fixture(),departureIssues(fixture())[0]);s.companion.requirements=[{id:'r',stepId:'a',field:'address'}];s.companion.excluded=['bonus'];assert.ok(validateState(s));assert.deepEqual(parseTrip(JSON.stringify(archive(s))).state,s);assert.deepEqual(duplicateTrip(s,'Copy').companion,s.companion);
++ assert.equal(splitContent(s).shared.companion,undefined);assert.equal(splitContent(s).private.companion,undefined);assert.deepEqual(parseTrip(contentRaw('a-l-est-trip-v2:'+s.journey.id,splitContent(s),JSON.stringify(archive(s)))).state.companion,s.companion);
++ assert.deepEqual(showCard({...s.stays[0],reference:'SECRET'}),{title:'Hôtel choisi',chineseName:'测试旅馆',address:'测试路 10 号'});
++ for(const bad of [{},{...emptyCompanion(),requirements:[{id:'r',stepId:'a',field:['address']}]},{...emptyCompanion(),requirements:[{id:'r',stepId:'a',field:{toString:'address'}}]},{...emptyCompanion(),requirements:[{id:'r',stepId:'a',field:'visa'}]},{...emptyCompanion(),dismissed:[{id:'x',fingerprint:'x'.repeat(16001)}]},{...emptyCompanion(),extra:'unknown'},{...emptyCompanion(),excluded:[{}]}])assert.equal(validCompanion(bad),false);
++ const old=fixture();delete old.companion;assert.ok(validateState(old));
++ for(let i=0;i<3;i++){const dict=companionDictionary(i);assert.ok(Object.values(dict).every(v=>v?.trim()));assert.equal(dict['Durée et déplacement à vérifier.'].includes('undefined'),false);}
++});
++test('account/device checks survive acknowledgement, remote refresh and interrupted upload; reader and other accounts isolated',async()=>{
++ const values=new Map(),backing={getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v),removeItem:k=>values.delete(k),key:i=>[...values.keys()][i]??null,get length(){return values.size;}};
++ const s=fixture(),key='a-l-est-trip-v2:'+s.journey.id;s.companion.requirements=[{id:'r',stepId:'a',field:'address'}];
++ const storage=new AccountStorage(backing,'a'),other=new AccountStorage(backing,'b');storage.setItem(key,JSON.stringify(archive(s)));
++ const content=recordContent(key,storage.getItem(key));assert.equal(content.shared.companion,undefined);assert.equal(content.private.companion,undefined);
++ const remote={content,revision:1,private_revision:1,role:'editor',deleted:false,fullSharing:true,allowedFields:['notes','preparation']};
++ const transport={save:async(_key,_record,payload)=>{assert.equal(payload.shared.companion,undefined);assert.equal(payload.private.companion,undefined);return{status:'saved',record:remote};}};
++ await syncRecord(storage,key,transport);assert.deepEqual(parseTrip(storage.getItem(key)).state.companion,s.companion);
++ acceptRemote(storage,key,{...remote,revision:2});acceptRemote(other,key,remote);assert.equal(parseTrip(other.getItem(key)).state.companion,undefined);
++ storage.setItem(key,JSON.stringify(archive({...s,notes:{...s.notes,d:'Changed'}})));await assert.rejects(syncRecord(storage,key,{save:async()=>{throw Error('offline');}}));assert.equal(storage.record(key).pending,true);
++ await syncRecord(storage,key,{save:async()=>{const current=parseTrip(storage.getItem(key)).state;current.companion.excluded=['bonus'];storage.setItem(key,JSON.stringify(archive(current)));return{status:'saved',record:remote};}});assert.deepEqual(parseTrip(storage.getItem(key)).state.companion.excluded,['bonus']);assert.equal(storage.record(key).pending,true);
++ const reader=new AccountStorage(backing,'reader');acceptRemote(reader,key,{...remote,role:'reader'});assert.throws(()=>reader.setItem(key,JSON.stringify(archive(s))),/Lecture seule/);
++});
+--- /dev/null
++++ b/tests/e2e/companion.spec.ts
+@@ -0,0 +1,46 @@
++import { test, expect, type Page } from '@playwright/test';
++import { mkdir, readFile } from 'node:fs/promises';
++import { fixture } from '../../scripts/companion-fixture.mjs';
++import { archive, parseTrip, tripKey } from '../../src/journeys';
++import { translate, type Language } from '../../src/locale-utils';
++import { ACCOUNT_HINT_KEY } from '../../src/cloud/session-cache';
++const trip=fixture(), key=tripKey(trip.journey!.id);
++async function seed(page:Page, language:Language='fr') {
++ await page.goto('/');await page.evaluate(({key,raw,language})=>{localStorage.setItem(key,raw);localStorage.setItem('a-l-est-preferences-v1',JSON.stringify({language,theme:language==='en'?'dark':'light'}));},{key,raw:JSON.stringify(archive(trip)),language});await page.reload();await page.getByRole('button',{name:translate('Ouvrir {title}',language,{title:trip.journey!.title}),exact:true}).click();
++ await page.locator('.now-shortcut').click();await page.getByLabel(translate('Journée à consulter',language),{exact:true}).selectOption('d');
++}
++test('departure corrections, explicit requirements, versioned dismissal, restore and no optional-empty warnings',async({page})=>{
++ await seed(page);const check=page.locator('.companion-check');await expect(check.locator('li')).toHaveCount(2);
++ await check.locator('li').first().getByRole('button',{name:'Écarter pour ces données',exact:true}).click();await expect(check.locator('li')).toHaveCount(1);
++ await page.reload();await expect(check.locator('li')).toHaveCount(1);await check.getByRole('button',{name:'Réexaminer les remarques écartées',exact:true}).click();await expect(check.locator('li')).toHaveCount(2);
++ await check.locator('li').first().getByRole('button',{name:'Ouvrir la correction',exact:true}).click();await expect(page.getByRole('dialog')).toBeVisible();await expect(page.getByLabel('Lieu ou activité',{exact:true})).toHaveValue('Musée');await page.getByRole('dialog').getByRole('button',{name:'Fermer',exact:true}).click();
++ await page.locator('.now-shortcut').click();await page.getByLabel('Journée à consulter',{exact:true}).selectOption('d');await check.locator('li').last().getByRole('button',{name:'Ouvrir la correction',exact:true}).click();await expect(page.locator('.day-timing-form')).toBeVisible();await page.locator('.day-timing-form').getByRole('button',{name:'Annuler',exact:true}).click();
++ await page.locator('.now-shortcut').click();await page.getByLabel('Journée à consulter',{exact:true}).selectOption('d');await check.locator('summary').click();await check.locator('select[name=step]').selectOption('unknown');await check.getByRole('button',{name:'Exiger cette information',exact:true}).click();await expect(check.locator('li')).toHaveCount(3);await check.getByRole('button',{name:'Ne plus exiger',exact:true}).click();await expect(check.locator('li')).toHaveCount(2);
++ const download=page.waitForEvent('download');await page.getByRole('button',{name:'Exporter le carnet',exact:true}).click();const restored=parseTrip(await readFile((await (await download).path())!,'utf8'));expect(restored.state.companion?.requirements).toEqual([]);
++});
++for(const language of ['fr','en','zh-CN','es'] as Language[]) test('companion '+language+' safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile',async({page,context})=>{
++ const t=(v:string)=>translate(v,language);await page.emulateMedia({reducedMotion:'reduce'});await seed(page,language);
++ const show=page.getByRole('button',{name:t('À montrer'),exact:true});await show.focus();await page.keyboard.press('Enter');const dialog=page.getByRole('dialog');await expect(dialog).toContainText('测试旅馆');await expect(dialog).not.toContainText('PRIVATE');expect(await dialog.evaluate(e=>{const style=getComputedStyle(e.parentElement!,'::before');return style.backdropFilter==='none'&&style.opacity==='1'&&style.backgroundColor!=='rgba(0, 0, 0, 0)';})).toBe(true);await expect(dialog.getByLabel(t('Hébergement de retour'),{exact:true})).toHaveValue('');
++ await dialog.getByLabel(t('Lieu à montrer'),{exact:true}).selectOption('b');await expect(dialog).toContainText('Jardin');await dialog.getByLabel(t('Hébergement de retour'),{exact:true}).selectOption('c');await expect(dialog.locator('.now-return')).toContainText('测试路 10 号');await expect(dialog).not.toContainText('PRIVATE');await expect(dialog.locator('a').first()).toHaveAttribute('href',/google\.com/);
++ await page.keyboard.press('Escape');await expect(show).toBeFocused();
++ const ideas=page.locator('.companion-ideas');await expect(ideas.locator('li')).toHaveCount(2);await ideas.getByLabel(t('Favoris uniquement'),{exact:true}).check();await expect(ideas.locator('li')).toHaveCount(1);await ideas.getByRole('button',{name:t('Exclure cette idée'),exact:true}).click();await expect(ideas.locator('li')).toHaveCount(0);await ideas.getByRole('button',{name:t('Réintégrer les idées exclues'),exact:true}).click();
++ await ideas.getByRole('button',{name:t('Prévisualiser l’ajout'),exact:true}).click();await expect(dialog).toContainText('Salon de thé');await dialog.getByRole('button',{name:t('Annuler'),exact:true}).click();await expect(ideas.locator('li')).toHaveCount(1);await ideas.getByRole('button',{name:t('Prévisualiser l’ajout'),exact:true}).click();await dialog.getByRole('button',{name:t('Confirmer l’ajout au programme'),exact:true}).click();await expect(ideas.locator('li')).toHaveCount(0);await ideas.getByRole('button',{name:t('Annuler cet ajout'),exact:true}).click();await expect(ideas.locator('li')).toHaveCount(1);
++ await context.setOffline(true);await expect(ideas).toContainText(t('Durée et déplacement à vérifier.'));
++ for(const width of [320,390,1440]){await page.setViewportSize({width,height:1000});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}
++ await page.setViewportSize({width:390,height:900});await mkdir('docs/development/lot-05-compagnon/screenshots',{recursive:true});await page.screenshot({path:`docs/development/lot-05-compagnon/screenshots/${language}.png`,fullPage:true});
++ await show.click();await page.evaluate(()=>document.documentElement.style.zoom='2');expect(await dialog.evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);await page.evaluate(()=>document.documentElement.style.zoom='1');await page.screenshot({path:`docs/development/lot-05-compagnon/screenshots/card-${language}.png`});
++});
++test('concurrent edits invalidate idea and plan B previews and preserve notes, bookings and original history',async({page,context})=>{
++ await seed(page);const ideas=page.locator('.companion-ideas');await ideas.locator('li').first().getByRole('button',{name:'Prévisualiser l’ajout',exact:true}).click();
++ const other=await context.newPage();await other.goto('/');await other.evaluate(key=>{const a=JSON.parse(localStorage.getItem(key)!);a.state.customBonus[0].title='Changed in other tab';localStorage.setItem(key,JSON.stringify(a));},key);await expect(ideas).toContainText('Changed in other tab');
++ await page.getByRole('dialog').getByRole('button',{name:'Confirmer l’ajout au programme',exact:true}).click();await expect(page.getByRole('dialog')).toContainText('Les données ont changé.');await page.getByRole('dialog').getByRole('button',{name:'Annuler',exact:true}).click();
++ await page.getByRole('button',{name:'Ouvrir cette journée',exact:true}).first().click();const prep=page.locator('.day-preparation');await prep.locator('summary').click();await prep.getByRole('button',{name:'Comparer Option couverte',exact:true}).click();
++ await other.evaluate(key=>{const a=JSON.parse(localStorage.getItem(key)!);a.state.cities[0].days[0].title='Changed day';a.state.notes.a='Note from other tab';a.state.bookings=['a'];localStorage.setItem(key,JSON.stringify(a));},key);
++ await expect(prep.getByRole('button',{name:'Adopter cette alternative',exact:true})).toBeDisabled();await prep.getByRole('button',{name:'Actualiser la comparaison',exact:true}).click();await prep.getByRole('button',{name:'Adopter cette alternative',exact:true}).click();await expect(page.locator('.timeline .step-card')).toHaveCount(1);await prep.getByRole('button',{name:'Annuler cet échange',exact:true}).click();await expect(page.locator('.timeline .step-card')).toHaveCount(3);
++ const saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state,key);expect(saved.notes.a).toBe('Note from other tab');expect(saved.bookings).toEqual(['a']);expect(saved.cities[0].days[0].steps).toEqual(trip.cities[0].days[0].steps);await other.close();
++});
++for(const role of ['reader','editor'] as const)test('companion shared '+role+' permissions and private exclusions',async({page,context})=>{
++ await context.route('https://*.supabase.co/**',r=>r.fulfill({status:401,json:{message:'fixture'}}));await page.goto('/');const id='00000000-0000-4000-8000-000000000065';
++ await page.evaluate(({id,key,raw,hint,role})=>{localStorage.setItem(hint,JSON.stringify({version:1,id}));localStorage.setItem(`detours-account-v1:${id}:${key}`,JSON.stringify({version:1,raw,base:null,revision:1,privateRevision:0,pending:false,operation:'fixture',role,fullSharing:true,allowedFields:['preparation']}));},{id,key,raw:JSON.stringify(archive(trip)),hint:ACCOUNT_HINT_KEY,role});await page.reload();await page.getByRole('button',{name:'Ouvrir '+trip.journey!.title,exact:true}).click();await page.locator('.now-shortcut').click();await page.getByLabel('Journée à consulter',{exact:true}).selectOption('d');
++ const exclude=page.locator('.companion-ideas li').first().getByRole('button',{name:'Exclure cette idée',exact:true});if(role==='reader'){await expect(exclude).toBeDisabled();await expect(page.getByRole('button',{name:'À montrer',exact:true})).toBeEnabled();}else{await exclude.click();await expect(page.locator('.companion-ideas')).not.toContainText('Salon de thé');}
++});
+--- /dev/null
++++ b/scripts/companion-fixture.mjs
+@@ -0,0 +1,10 @@
++import { blankTrip } from '../src/journeys.ts';
++import { emptyCompanion } from '../src/companion.ts';
++export function fixture() {
++ const s=blankTrip({id:'companion-fixture',title:'Compagnon fictif',timezone:'Asia/Shanghai'});
++ const step=(id,title,extra={})=>({id,title,category:'visit',description:'',...extra});
++ s.cities=[{id:'c',name:'Ville test',chineseName:'测试城',image:'',subtitle:'',color:'#547764',notes:[],timezone:'Asia/Shanghai',mapProvider:'amap',days:[{id:'d',title:'Jour test',date:'2027-05-10',steps:[step('a','Musée',{booking:true}),step('unknown','Pause libre',{period:'10:00'}),step('b','Jardin')],preparation:{timings:{a:{startTime:'10:00',durationMinutes:60},b:{startTime:'10:30',durationMinutes:45}},alternatives:[{id:'rain',label:'Option couverte',reason:'rain',stepIds:['b']}]}},{id:'spare',title:'Réserve',steps:[step('short','Petite exposition',{optional:true}),step('long','Longue visite',{optional:true})],preparation:{timings:{short:{durationMinutes:20},long:{durationMinutes:120}}}}]}];
++ s.customBonus=[{id:'bonus',cityId:'c',title:'Salon de thé',category:'food',description:'Lieu enregistré',address:'测试路 8 号',tip:'PRIVATE_TIP'}];s.favorites=['bonus'];s.companion=emptyCompanion();
++ s.stays=[{cityId:'c',name:'Hôtel choisi',chineseName:'测试旅馆',address:'测试路 10 号',checkIn:'',checkOut:'',notes:'PRIVATE_STAY'}];s.notes={d:'PRIVATE_DAY',a:'PRIVATE_REF'};
++ return s;
++}
+--- /dev/null
++++ b/scripts/companion-fixture.d.mts
+@@ -0,0 +1,2 @@
++import type { StoredState } from '../src/types';
++export function fixture(): StoredState;
+--- /dev/null
++++ b/scripts/smoke-companion.mjs
+@@ -0,0 +1,22 @@
++import assert from 'node:assert/strict';
++import { mkdir, writeFile, readFile } from 'node:fs/promises';
++import { chromium, expect } from '@playwright/test';
++import { productionTestServer } from './production-server.mjs';
++import { chromiumTestOptions } from './browser-test-options.ts';
++import { fixture } from './companion-fixture.mjs';
++import { archive, parseTrip, tripKey } from '../src/journeys.ts';
++const trip=fixture(),key=tripKey(trip.journey.id),out='docs/development/lot-05-compagnon/compiled';
++const server=await productionTestServer();server.update();const browser=await chromium.launch(chromiumTestOptions());
++try {
++ const context=await browser.newContext({viewport:{width:390,height:900},reducedMotion:'reduce'}),page=await context.newPage(),errors=[],external=[];let bootstrapExternal=[];
++ page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(!r.url().startsWith(server.url)&&!r.url().startsWith('data:'))external.push(r.url());});
++ await context.route('https://**/*',route=>route.abort());await page.goto(server.url);await page.evaluate(({key,raw})=>localStorage.setItem(key,raw),{key,raw:JSON.stringify(archive(trip))});await page.reload();await page.getByRole('button',{name:'Ouvrir '+trip.journey.title,exact:true}).click();
++ await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Mon carnet pratique',exact:true}).click();await expect(page.locator('.offline-status')).toHaveClass(/offline-ready/);
++ await page.locator('.now-shortcut').click();await page.getByLabel('Journée à consulter',{exact:true}).selectOption('d');await expect(page.locator('.companion')).toBeVisible();bootstrapExternal=[...external];external.length=0;await page.locator('.companion-check li').first().getByRole('button',{name:'Écarter pour ces données',exact:true}).click();
++ await context.setOffline(true);await page.reload();await page.getByLabel('Journée à consulter',{exact:true}).selectOption('d');await expect(page.locator('.companion-check li')).toHaveCount(1);
++ await page.getByRole('button',{name:'À montrer',exact:true}).click();const dialog=page.getByRole('dialog');await expect(dialog).toContainText('测试路 10 号');await expect(dialog).not.toContainText('PRIVATE');await dialog.getByLabel('Hébergement de retour',{exact:true}).selectOption('c');await expect(dialog.locator('.now-return')).toContainText('测试旅馆');await page.keyboard.press('Escape');
++ const ideas=page.locator('.companion-ideas');await ideas.getByLabel('Favoris uniquement',{exact:true}).check();await ideas.getByRole('button',{name:'Prévisualiser l’ajout',exact:true}).click();await dialog.getByRole('button',{name:'Confirmer l’ajout au programme',exact:true}).click();await expect(ideas.locator('li')).toHaveCount(0);
++ const download=page.waitForEvent('download');await page.getByRole('button',{name:'Exporter le carnet',exact:true}).click();const restored=parseTrip(await readFile((await (await download).path()),'utf8'));assert.equal(restored.state.companion.dismissed.length,1);assert.equal(restored.state.cities[0].days[0].steps.length,4);assert.equal(restored.state.notes.a,'PRIVATE_REF');
++ await ideas.getByRole('button',{name:'Annuler cet ajout',exact:true}).click();await expect(ideas.locator('li')).toHaveCount(1);await page.reload();await page.getByLabel('Journée à consulter',{exact:true}).selectOption('d');const saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)).state,key);assert.equal(saved.cities[0].days[0].steps.length,3);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
++ await mkdir(out,{recursive:true});await page.screenshot({path:out+'/offline.png',fullPage:true});await writeFile(out+'/validation.json',JSON.stringify({passed:true,generatedAt:new Date().toISOString(),offlineReload:true,dismissalPersisted:true,safeShowCard:true,ideasPreviewAdditionUndo:true,exportParsed:true,reloadAfterUndo:true,bootstrapExternal,companionExternal:external,errors},null,2));console.log('Companion compiled offline passed: checks, safe card, ideas, preview, undo, export and reload; no external requests during companion use (initial map requests recorded separately).');
++} finally {await browser.close();await server.close();}

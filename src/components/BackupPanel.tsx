@@ -1,3 +1,4 @@
+import { SOUVENIR_EXCLUSION } from '../souvenirs';
 import { useEffect, useRef, useState } from 'react';
 import { Download, Upload } from 'lucide-react';
 import { Modal } from '../App';
@@ -81,7 +82,7 @@ export default function BackupPanel({ onChanged, remoteMissing = 0 }: { onChange
     } catch (failure) { fail(failure); } finally { refresh(); onChanged(); setBusy(false); }
   }
   return <section className="journeys-import panel backup-panel" aria-labelledby="full-backup-title">
-    <div><h2 id="full-backup-title">{t('Sauvegarder et restaurer mes données')}</h2><p className="muted">{t('Carnets, documents embarqués, souvenirs et préférences utiles dans un seul fichier vérifié (64 Mo maximum).')}</p><p className="muted small">{t(baseExclusions)}</p>{remoteMissing > 0 && <p role="status">{t('{count} carnet(s) distant(s) non téléchargé(s).', { count: remoteMissing })}</p>}</div>
+    <div><h2 id="full-backup-title">{t('Sauvegarder et restaurer mes données')}</h2><p className="muted">{t('Carnets, documents embarqués, souvenirs et préférences utiles dans un seul fichier vérifié (64 Mo maximum).')}</p><p className="muted small">{t(baseExclusions)}</p><p className="muted small">{t(SOUVENIR_EXCLUSION)}</p>{remoteMissing > 0 && <p role="status">{t('{count} carnet(s) distant(s) non téléchargé(s).', { count: remoteMissing })}</p>}</div>
     <div className="journeys-import-actions"><button className="btn btn-secondary" disabled={busy} onClick={() => void download()}><Download size={16}/>{t('Télécharger ma sauvegarde complète')}</button><button className="btn btn-secondary" disabled={busy} onClick={() => input.current?.click()}><Upload size={16}/>{t('Restaurer mes données')}</button></div>
     <input ref={input} type="file" accept=".json,application/json" hidden aria-label={t('Choisir une sauvegarde complète')} onChange={event => { const file = event.target.files?.[0]; if (file) void preview(file); event.target.value = ''; }}/>
     {busy && <p role="status">{t('Vérification de la sauvegarde…')}</p>}
@@ -93,7 +94,7 @@ export default function BackupPanel({ onChanged, remoteMissing = 0 }: { onChange
       <p>{t('La restauration crée des carnets privés sur cet appareil. Les carnets existants et les droits serveur restent conservés.')}</p>
       <ul><li>{t('{count} carnet(s) à retrouver.', { count: plan.trips })}</li><li>{t('{count} souvenir(s) à retrouver.', { count: plan.visits })}</li><li>{t('{count} collision(s) traitée(s) sans remplacer les carnets.', { count: plan.collisions })}</li><li>{t('{count} préférence(s) existante(s) conservée(s).', { count: plan.keptPreferences })}</li><li>{t('{count} source(s) brute(s) conservée(s) séparément.', { count: plan.sources })}</li></ul>
       <p>{t('Espace supplémentaire estimé : {count} Mo, journal compris. Le quota réel du navigateur sera vérifié lors des écritures.', { count: (plan.bytes / 1_000_000).toFixed(2) })}</p>
-      {plan.exclusions.map((text, index) => <p className="muted small" key={index}>{text === 'backup-legacy-exclusions' ? t('Ce fichier historique contient uniquement des carnets. Souvenirs et préférences ne sont pas inclus.') : text}</p>)}
+      {plan.exclusions.map((text, index) => <p className="muted small" key={index}>{text === 'backup-legacy-exclusions' ? t('Ce fichier historique contient uniquement des carnets. Souvenirs et préférences ne sont pas inclus.') : t(text)}</p>)}
       <p className="muted small">{t('Une interruption peut laisser une restauration partielle. Reprendre le même fichier conserve les identités et évite les doublons.')}</p>
       {error && <p role="alert" className="practical-error">{error}</p>}
       <div className="form-actions"><button className="btn btn-secondary" disabled={busy} onClick={() => setPlan(null)}>{t('Annuler')}</button><button className="btn btn-primary" disabled={busy} onClick={() => void restore()}>{t('Confirmer la restauration')}</button></div>

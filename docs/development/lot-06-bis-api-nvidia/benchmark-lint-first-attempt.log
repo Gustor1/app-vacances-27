@@ -1,0 +1,7 @@
+
+C:\Users\eliot\Documents\app-vacances-27\tests\nvidia-import.test.mjs
+  113:115  error  'AbortController' is not defined  no-undef
+  120:35   error  'AbortController' is not defined  no-undef
+
+✖ 2 problems (2 errors, 0 warnings)
+

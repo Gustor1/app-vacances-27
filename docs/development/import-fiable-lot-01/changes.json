@@ -1,0 +1,98 @@
+[
+  {
+    "file": "src/components/PlanningImport.tsx",
+    "baseline": "HEAD c1dd8a6",
+    "beforeSha256": "2eaec052bac2a2d162f00f92fd14550fcbd62ea251d1ddb6180272b424efb2b7",
+    "afterSha256": "97aa8c8bb7589455cdc6ab2f8b6d081f6664db81e617ddceb6b55ae0d6ee6a99"
+  },
+  {
+    "file": "src/components/PlanningImport.css",
+    "baseline": "HEAD c1dd8a6",
+    "beforeSha256": "8a360749f7935be3db8775ba19d91b2a70536420a1699451bddb240950150c05",
+    "afterSha256": "401f4dded230066040bbf9294a0ad4882064c43ece32122b568c927c20404457"
+  },
+  {
+    "file": "src/locales/planning-import.ts",
+    "baseline": "HEAD c1dd8a6",
+    "beforeSha256": "8f1a01c86f6a75419ff11af5f8f791b9284ee11f315572a916e39a93db523651",
+    "afterSha256": "25ceae61de83b05697e77ebbcff16bf8d23815c8eee256b8e54cbf7b75b36ef6"
+  },
+  {
+    "file": "src/planning-import/parser.ts",
+    "baseline": "HEAD c1dd8a6",
+    "beforeSha256": "7b04ce1edc6ec83a898590dfc4fea6f178dd46c1040b583e3721501a3a30c6da",
+    "afterSha256": "b373a6416f4a9fa247574783fe55637350d0a3c5598f46130c5d6336ebce2136"
+  },
+  {
+    "file": "src/planning-import/normalizations.ts",
+    "baseline": "HEAD c1dd8a6",
+    "beforeSha256": "add6b512659cbea3c2ef5b637ecc8b5c9d9c8639da2a3fc1584b69526a74c1e6",
+    "afterSha256": "49488f5a027c973fbefacca8fd521a6ff7362904490a54549493d4ae689a5467"
+  },
+  {
+    "file": "src/planning-import/review.ts",
+    "baseline": "new in lot01",
+    "beforeSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "afterSha256": "d9f1eaea89da565a11c0f05be9f14a9b7e8ed9a58251820ed8187f03f7545b8f"
+  },
+  {
+    "file": "src/planning-import/persistence.ts",
+    "baseline": "HEAD c1dd8a6",
+    "beforeSha256": "2c33504fdf00ca5631383af2025e51c8b2bd4f1687320806dc71d22e3a8c5f5c",
+    "afterSha256": "0f4e33be74a9478cf311a32d6124b8c0d878b2a2ecac0759a0eda2e74a273b49"
+  },
+  {
+    "file": "src/planning-import/types.ts",
+    "baseline": "HEAD c1dd8a6",
+    "beforeSha256": "034ef610dda0c873b868a172b3dd905798826ea23938367f049f7266f2764d61",
+    "afterSha256": "5a743a32edd916586031947c5d53915b0b9e5a01568db701b1dc1367a352c03b"
+  },
+  {
+    "file": "tests/planning-import.test.mjs",
+    "baseline": "HEAD c1dd8a6",
+    "beforeSha256": "bc55daf69463ca732508b2ee845996104e5b924872ee628044655dd5e64d4acf",
+    "afterSha256": "b5c927013698ce83a5648452e4c219f91b07b9091304d8bb5c0fa01f64e830ed"
+  },
+  {
+    "file": "tests/planning-lot01.test.mjs",
+    "baseline": "new in lot01",
+    "beforeSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "afterSha256": "db4b41efc67a4efea698ccb12377e2d444660570f2001dbef09368b1bbac33f6"
+  },
+  {
+    "file": "tests/e2e/planning-lot01.spec.ts",
+    "baseline": "new in lot01",
+    "beforeSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "afterSha256": "d33e85453e30f0c4c49258a0f74fb8e332374b389f4e2103741488fabc0af5ff"
+  },
+  {
+    "file": "scripts/evaluate-planning-stress.mjs",
+    "baseline": "initial-work.zip",
+    "beforeSha256": "200f8f55799b2bad540b24b9eb5d25c4ec63928d5bf607a005118550ff548870",
+    "afterSha256": "7b8c70b091a4c64969d2fb5d081c77fa3ed70f58db302eab01935c0fbfbfcd51"
+  },
+  {
+    "file": "scripts/evaluate-import-lot01.mjs",
+    "baseline": "new in lot01",
+    "beforeSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "afterSha256": "e46f575a492fdaa9f32a85b8bee7406d567295ad0d7b3ce450584505feb44c6f"
+  },
+  {
+    "file": "scripts/smoke-planning-import.mjs",
+    "baseline": "HEAD c1dd8a6",
+    "beforeSha256": "ede5cc2bcaedf71d2c0554e78fda18ddbb89699bc08a99b30f5681261938a699",
+    "afterSha256": "516a13473026740cfd95ea4e1aa8c4aa893e92b601302cb39bb7a12aae1a7758"
+  },
+  {
+    "file": "scripts/verify-local.mjs",
+    "baseline": "HEAD c1dd8a6",
+    "beforeSha256": "c6499f70b5df497ec3cf40148bfa8e871025b50a6f378e5f36ea5523b8f50857",
+    "afterSha256": "a5c9316cb1bd4d76a05be93706415306b0a06d2edd1ea9e819da477b34764228"
+  },
+  {
+    "file": "docs/development/IMPORT-RECOGNITION.md",
+    "baseline": "initial-work.zip",
+    "beforeSha256": "dfec9b640019f5838e7c8b34f98109bff8ea48f2fec0d7bd9edd709afb14b1c6",
+    "afterSha256": "e0d7caa8e8afe29d1c97eadac99af62fad14309aaf70789b848e3e4b79dcd1bb"
+  }
+]

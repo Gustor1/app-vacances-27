@@ -124,7 +124,7 @@ test('Google Maps encode accents, chinois, coordonnées validées, départ actue
   const city = { name: 'Paris', chineseName: '', mapProvider: 'google' };
   const place = { title: 'Musée d’Orsay', address: '1 rue de la Légion d’honneur' };
   const url = new URL(directionsLink(city, place));
-  assert.equal(url.searchParams.get('api'), '1'); assert.equal(url.searchParams.get('origin'), null); assert.equal(url.searchParams.get('travelmode'), 'walking'); assert.match(url.searchParams.get('destination'), /Musée d’Orsay.*Paris.*honneur/);
+  assert.equal(url.searchParams.get('api'), '1'); assert.equal(url.searchParams.get('origin'), null); assert.equal(url.searchParams.get('travelmode'), 'walking'); assert.match(url.searchParams.get('destination'), /Musée d’Orsay.*honneur.*Paris/);
   const next = new URL(directionsLink(city, { title: '故宫', coordinates: [39.9, 116.4] }, 'transit', place)); assert.equal(next.searchParams.get('destination'), '39.9,116.4'); assert.match(next.searchParams.get('origin'), /Musée/);
   assert.match(new URL(placeLink(city, { title: '京都', coordinates: [999, 10] })).searchParams.get('query'), /京都/);
   const amap = new URL(directionsLink({ ...city, name: '北京', mapProvider: 'amap' }, { title: '故宫', coordinates: [39.9, 116.4] })); assert.equal(amap.hostname, 'uri.amap.com'); assert.match(amap.searchParams.get('keyword'), /北京.*故宫/); assert.equal(amap.toString().includes('39.9'), false);

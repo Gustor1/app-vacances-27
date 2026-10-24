@@ -1,0 +1,7 @@
+# Visites
+Ville: Lille
+Jour 1
+- [ ] Palais des Beaux-Arts
+- [x] Parc de la Citadelle
+Jour 2
+Vieille Bourse → Grand-Place → Musée de l’Hospice Comtesse

@@ -1,5 +1,7 @@
+import type { PlaceAssociation } from './places/model';
+import type { CompanionState } from './companion';
 export type Category = 'visit' | 'food' | 'transport' | 'hotel' | 'walk' | 'shopping';
-export type Step = { id: string; title: string; chineseName?: string; description: string; address?: string; category: Category; period?: string; optional?: boolean; booking?: boolean; coordinates?: [number, number]; amapUrl?: string };
+export type Step = { place?: PlaceAssociation; id: string; title: string; chineseName?: string; description: string; address?: string; category: Category; period?: string; optional?: boolean; booking?: boolean; coordinates?: [number, number]; amapUrl?: string };
 export type StepTiming = { durationMinutes?: number; transferMinutes?: number; fromStepId?: string; startTime?: string; source?: string; checkedAt?: string };
 export type DayAlternative = { id: string; label: string; reason: 'rain' | 'fatigue'; stepIds: string[] };
 export type DayPreparation = { anchorStepId?: string; startTime?: string; endTime?: string; marginMinutes?: number; timings?: Record<string, StepTiming>; alternatives?: DayAlternative[]; activeAlternativeId?: string };
@@ -18,6 +20,6 @@ export type PersonalVisit = { id: string; country: string; stayId: string; journ
 export type PersonalWorld = { version: 1; visits: PersonalVisit[]; wishes: string[]; palette: 'forest' | 'ocean' | 'sunset'; participation?: string[] };
 export type Phrase = { id: string; category: string; meaning: string; local: string; pronunciation: string };
 export type TravelDocument = { id: string; title: string; content: string };
-export type StoredState = { version: 1; cities: City[]; favorites: string[]; done: string[]; bookings: string[]; notes: Record<string, string>; departureDate: string; customBonus?: Bonus[]; expenses?: Expense[]; budgetCny?: number; cnyPerEuro?: number; stays?: Stay[]; transfers?: Transfer[]; packing?: PackingItem[]; catalogBase?: City[]; journey?: Journey; bonusCatalog?: Bonus[]; phrases?: Phrase[]; documents?: TravelDocument[]; budget?: number; budgetCurrency?: string; exchangeRates?: Record<string, number>; rateQuotes?: Record<string, ExchangeRate>; budgetConversions?: Record<string, ExchangeRate>; resume?: { cityId: string; dayId: string; view: View } };
+export type StoredState = { companion?: CompanionState; version: 1; cities: City[]; favorites: string[]; done: string[]; bookings: string[]; notes: Record<string, string>; departureDate: string; customBonus?: Bonus[]; expenses?: Expense[]; budgetCny?: number; cnyPerEuro?: number; stays?: Stay[]; transfers?: Transfer[]; packing?: PackingItem[]; catalogBase?: City[]; journey?: Journey; bonusCatalog?: Bonus[]; phrases?: Phrase[]; documents?: TravelDocument[]; budget?: number; budgetCurrency?: string; exchangeRates?: Record<string, number>; rateQuotes?: Record<string, ExchangeRate>; budgetConversions?: Record<string, ExchangeRate>; resume?: { cityId: string; dayId: string; view: View } };
 export type TripArchive = { version: 2; scope: 'trip'; id: string; state: StoredState };
 export type CollectionArchive = { version: 2; scope: 'collection'; trips: TripArchive[] };
