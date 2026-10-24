@@ -1,0 +1,22 @@
+{
+  "format": "detours-planning",
+  "version": 1,
+  "title": "Escale fictive sans date",
+  "currency": null,
+  "timezone": null,
+  "cities": [
+    {
+      "name": "Albi",
+      "days": [
+        {
+          "title": "Jour 1",
+          "date": null,
+          "items": []
+        }
+      ]
+    }
+  ],
+  "notes": [],
+  "ambiguities": [],
+  "unmapped": []
+}

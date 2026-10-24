@@ -147,3 +147,12 @@ test('two accounts and local space are isolated, imported account trips do not e
   assert.throws(()=>commitImport(b,s),/espace/);
   const intentional=commitImport(a,prepared('A'));assert.notEqual(intentional.journey.id,trip.journey.id);
 });
+
+test('old draft sessions and additive review decisions round-trip without changing source',()=> {
+ const storage=new MemoryStorage(), old=prepared(); saveSession(storage,old);
+ assert.deepEqual(loadSession(storage,'local'),old);
+ const updated={...old,reviewedQuotes:[old.source.slice(0,10)]}; saveSession(storage,updated);
+ assert.deepEqual(loadSession(storage,'local'),updated);
+ assert.throws(()=>saveSession(storage,{...old,reviewedQuotes:['invented quote']}));
+ assert.deepEqual(loadSession(storage,'local'),updated);
+});

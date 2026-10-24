@@ -1,0 +1,8 @@
+{
+  "alias": "app-vacances-27-beta-eliottle.vercel.app",
+  "previousDeploymentId": "dpl_Pa7FKYDyjEwsAtMaYxKRvnZe76NS",
+  "previousDeploymentUrl": "app-vacances-27-k866hgari-eliottle.vercel.app",
+  "projectId": "prj_GdllwjlfvjDogyKdH2ABRJay350a",
+  "teamId": "team_lVeovobBaIvDqajTP8FZ3UvH",
+  "method": "Reassign only this beta alias to the previous immutable deployment; no data or database rollback."
+}

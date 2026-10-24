@@ -1,14 +1,17 @@
 /** Deterministic, source-checkable formatting only; no inferred year or locale. */
 export type SourceMatch = { value: string; quote: string; index: number };
 const months: Record<string, number> = Object.fromEntries([
-  ['january','janvier','enero'], ['february','février','fevrier','febrero'], ['march','mars','marzo'],
+  ['january','janvier','enero','jan.','janv.'], ['february','février','fevrier','febrero','feb.','févr.'], ['march','mars','marzo'],
   ['april','avril','abril'], ['may','mai','mayo'], ['june','juin','junio'],
-  ['july','juillet','julio'], ['august','août','aout','agosto'], ['september','septembre','septiembre'],
+  ['july','juillet','julio','jul.','juil.'], ['august','août','aout','agosto'], ['september','septembre','septiembre','sept.'],
   ['october','octobre','octubre'], ['november','novembre','noviembre'], ['december','décembre','decembre','diciembre'],
 ].flatMap((names,index) => names.map(name => [name,index+1])));
-const monthPattern = Object.keys(months).join('|');
+const monthPattern = Object.keys(months).map(name => name.replaceAll('.', '\\.')).join('|');
 const weekdayPattern = 'monday|tuesday|wednesday|thursday|friday|saturday|sunday|lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche|lunes|martes|miércoles|jueves|viernes|sábado|domingo';
 /** A date label can define a day while its missing year or ambiguous locale stays unresolved. */
+export function isWeekdayHeading(text: string): boolean {
+  return new RegExp(`^(?:${weekdayPattern}|星期[一二三四五六日天]|周[一二三四五六日天])[:：]?$`, 'iu').test(text);
+}
 export function beginsWithPlanningDate(text: string): boolean {
   const label = text.replace(new RegExp(`^(?:${weekdayPattern})\\s*,?\\s+`,'iu'),'');
   if (findExplicitDates(label).some(date => date.index === 0)) return true;
@@ -45,9 +48,9 @@ export function findExplicitTimes(text: string): SourceMatch[] {
   }
   return result;
 }
-/** Only presentation delimiters, never links, HTML, content, or whitespace rewriting. */
+/** Presentation delimiters and whitespace joins only; source quotations stay unchanged. */
 export function plainPlanningText(text: string): string {
-  return text.replace(/\*\*([^\n]+?)\*\*/g,'$1').replace(/__([^\n]+?)__/g,'$1').replace(/\*([^*\n]+?)\*/g,'$1').replace(/`([^`\n]+?)`/g,'$1').replace(/\\([-*#])/g,'$1');
+  return text.replace(/\s+/g, ' ').replace(/\*\*([^\n]+?)\*\*/g,'$1').replace(/__([^\n]+?)__/g,'$1').replace(/\*([^*\n]+?)\*/g,'$1').replace(/`([^`\n]+?)`/g,'$1').replace(/\\([-*#])/g,'$1');
 }
 export function isSourceNormalization(field: string, value: string, quote: string): boolean {
   if (['date','checkIn','checkOut'].includes(field)) return findExplicitDates(quote).some(m => m.index === 0 && m.quote.length === quote.length && m.value === value);

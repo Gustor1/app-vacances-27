@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "exitCode": 0,
+  "files": [
+    "README.md",
+    "src/App.tsx",
+    "src/hooks/useTravelState.ts",
+    "src/locale-utils.ts",
+    "scripts/verify-local.mjs",
+    "src/assistant.ts",
+    "src/travel-write.ts",
+    "src/components/GuidedAssistant.tsx",
+    "src/components/GuidedAssistant.css",
+    "src/locales/assistant.ts",
+    "tests/assistant.test.mjs",
+    "tests/e2e/assistant.spec.ts",
+    "scripts/assistant-fixture.mjs",
+    "scripts/assistant-fixture.d.mts",
+    "scripts/assistant-preservation.mjs",
+    "scripts/smoke-assistant.mjs"
+  ],
+  "sha256": "eb6f382c03ffcf8696b09b927acd84aae5551f1a14bc027e6c7213fb6388af2d",
+  "output": "",
+  "scope": "Only lot07 code and README differences against pre-mission snapshot. Evidence retained on rollback."
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "file": "docs/development/import-fiable-lot-01/screenshots/review-320.png",
+    "generatedHash": "b0f5c34c6850c479418081cc97516140e536a5a3a1374ba5a6ae184b4310f4aa",
+    "restoredHash": "5be60638a5cebc4e574200c9a532db998c5159a5e31adb06ce1e766a3b954267"
+  },
+  {
+    "file": "docs/development/import-fiable-lot-01/screenshots/review-390.png",
+    "generatedHash": "0987e461ec59bf51e6089b267a3668221012608c7311bfecae3e961af19808ec",
+    "restoredHash": "fa837398ebbb507a6043d61ea4c94b3843156fc7ab2840286d2ac825af735120"
+  },
+  {
+    "file": "docs/development/lot-04-lieux/screenshots/en-390.png",
+    "generatedHash": "4c746e8741a5c7965047b1ff72a864579294a19b32f9791bc1bbfd8f725d6063",
+    "restoredHash": "293a29b3a2f8faa9e4afcb5874e635a29bc675116c992b74c1b1bbee3d320e91"
+  },
+  {
+    "file": "docs/development/lot-04-lieux/screenshots/es-390.png",
+    "generatedHash": "c59c1ce5e47c7303ba6c5029b923da49dfbdfda61dee4a713ba7185ee075adea",
+    "restoredHash": "bed1832daa8935da11032e64500759990f9565a3c3b33559a8a36fef942c2797"
+  },
+  {
+    "file": "docs/development/lot-04-lieux/screenshots/fr-390.png",
+    "generatedHash": "834fd578a71ce2aa429ca90c9d98d5eff945192e634a6ed884c93e96aa20baa7",
+    "restoredHash": "0b0b1743cc8bf4e79cce27531f85be0c7e56fbcc2703e6f1e8cdad5c9bc5accc"
+  },
+  {
+    "file": "docs/development/lot-04-lieux/screenshots/zh-CN-390.png",
+    "generatedHash": "b09d19b6e55157d77da0ab75c72b34e23b88c4255f338b1ba291b18a9024c8b9",
+    "restoredHash": "f7afdeff499f2262065dd2d9361351879c70732dcc55f1973716d6c24f9431bc"
+  },
+  {
+    "file": "docs/development/lot-05-compagnon/screenshots/en.png",
+    "generatedHash": "7bb142b90055cdbe61d4bfd1e11fda1737b0e5b31c4e22e664501a19b3bac117",
+    "restoredHash": "5f1bf96adb3433a7e63346a7f8e6ff86dc91cd5b6c0f38df4727c82ddffaec55"
+  },
+  {
+    "file": "docs/development/lot-05-compagnon/screenshots/es.png",
+    "generatedHash": "9330f8b66f0771c082289b7103a5005872920d94c971cffc9939d50ab98484ef",
+    "restoredHash": "3cd0343506282ec4094b8b9847dc5c599ef962a2819196c7c7c5ab39ac05a5c0"
+  },
+  {
+    "file": "docs/development/lot-05-compagnon/screenshots/fr.png",
+    "generatedHash": "9cf8db933dd373d481d6189bfbc4ba4ff5e671a0ec06d0c3030eed283cac2409",
+    "restoredHash": "ad04bf083fcc24d7b5f72b6daeb8f183c39d3ce9a43a62021c7b06e20474b87b"
+  },
+  {
+    "file": "docs/development/lot-05-compagnon/screenshots/zh-CN.png",
+    "generatedHash": "2167ad9a3fae23c296e322170a244bf2178993018177b746cb7aaae3f8344dad",
+    "restoredHash": "e0b42022164537e38e33bce35e2e0cd2d19238f72488e8c3da13312c84932871"
+  }
+]

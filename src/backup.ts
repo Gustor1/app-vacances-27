@@ -1,3 +1,4 @@
+import { SOUVENIR_EXCLUSION } from './souvenirs.ts';
 import type { PersonalWorld, StoredState } from './types.ts';
 import type { Storage } from './journeys.ts';
 import { archive, chinaTrip, parseTrip, TRIP_PREFIX, RECOVERY_PREFIX, LEGACY_COPY_KEY, LEGACY_RECOVERY_COPY_KEY, tripKey } from './journeys.ts';
@@ -57,6 +58,7 @@ async function entry(kind: Kind, key: string, raw: string): Promise<Entry> {
   return { kind, key, bytes: byteSize(raw), sha256: await digest(raw), segments };
 }
 export async function exportBackup(storage: Storage, preferences: Storage, unreadable: (key: string) => string | null = () => null, exclusions: string[] = []) {
+  exclusions = [...new Set([...exclusions, SOUVENIR_EXCLUSION])];
   const entries: Entry[] = [];
   let trips = 0, sources = 0, payloadBytes = 0;
   async function add(kind: Kind, key: string, raw: string) {

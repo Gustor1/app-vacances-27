@@ -8,6 +8,8 @@ L’interface est disponible en français, anglais, chinois simplifié et espagn
 
 ## Démarrer
 
+La mascotte locale « Détour » accompagne le premier carnet, les passages d’import à relire et le contrôle hors ligne réussi. **Préférences → Afficher la mascotte** la masque immédiatement. Ce choix et l’accueil déjà vu restent personnels au compte et au navigateur sur cet appareil, hors carnets partagés et exports ; ils ne sont pas synchronisés. Les textes et actions ordinaires restent disponibles sans les images. [Rapport, provenance et limites du lot 08](docs/development/lot-08-mascotte/RAPPORT.md).
+
 Node.js 22.18+ et npm. Vérifié avec Node 24 sous Windows.
 
 ```sh
@@ -23,16 +25,45 @@ npm run preview -- --port 4173
 
 Les tests navigateur utilisent Chrome installé sous Windows, ou `/usr/bin/chromium` sous Linux. `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` permet de préciser un autre exécutable. Le serveur de développement des tests tourne sur le port 5173. Le contrôle de production démarre automatiquement un serveur temporaire à partir de `dist` ; `PRODUCTION_TEST_URL` permet de tester une autre URL avec `DETOURS_ALLOW_NETWORK=1`, sans la simulation locale de mise à jour du worker ; la version ciblée doit exposer le manifeste L3.
 
+## Souvenirs personnels (lot 09)
+
+Dans **Mon planning → Souvenir personnel**, ajoute une photo et une légende courte à la journée, puis **Enregistrer le souvenir**. Les copies restent privées dans cet espace local/compte et sur ce navigateur : aucune synchronisation ni publication. Le carnet fonctionne sans photo. JPEG, PNG et WebP sont acceptés (12 Mio, 32 Mpx) ; HEIC demande une conversion JPEG. La copie est réencodée sans les métadonnées originales, orientation appliquée, limitée à 1600 px et 512 Kio. Le fichier original reste intact. Le budget de tous les espaces de ce navigateur est de 32 Mio ; le quota effectif peut être inférieur.
+
+**Préparer un souvenir imprimable** ouvre le choix des journées et un aperçu. Photos et légendes demandent chacune ton accord. Titres et dates sont inclus ; vérifie qu'ils ne contiennent pas de données sensibles. Réservations, dépenses, documents, notes et adresses des activités sont exclus. **Imprimer les journées choisies** lance l'impression navigateur ; choisis « Enregistrer en PDF » si proposé. Aucun générateur PDF automatique ni lien public.
+
+Les sauvegardes de carnets et la sauvegarde complète historique **excluent les photos et légendes quotidiennes du lot 09** et l'indiquent explicitement. Dans chaque carnet, télécharge aussi le **paquet souvenirs** personnel, après vérification de son aperçu. Il contient toutes ses photos/légendes, y compris celles des journées supprimées, sans le carnet ni le compte (format distinct v1, maximum 48 Mio). Pour récupérer sur un autre navigateur : restaure d'abord la sauvegarde du carnet, ouvre le carnet récupéré, puis **Importer un paquet souvenirs**, vérifie la destination et confirme. Seules les journées dont l'identifiant est reconnu et sans souvenir existant sont ajoutées ; le bilan compte les entrées ignorées. Les souvenirs déjà présents ne sont pas écrasés. Garde le paquet original pour les journées absentes. Si toutes les journées ont été supprimées, l'accès aux paquets et au nettoyage reste disponible dans le carnet.
+
+Une erreur ou un manque de quota conserve les souvenirs précédents. Annule les modifications pour relire un changement d'un autre onglet. Une photo illisible peut être retirée puis remplacée ; les légendes restent récupérables. Les copies détachées ne sont effacées qu'après confirmation explicite. Conserve les deux fichiers de sauvegarde hors du navigateur : supprimer les données du site supprime aussi IndexedDB. [Rapport et preuves du lot 09](docs/development/lot-09-souvenirs/RAPPORT.md).
+
 ## Utiliser les carnets
 
 - **Mes voyages** : créer, ouvrir, modifier le titre, les destinations, la couverture, la devise et le fuseau ; dupliquer ou importer. Le bouton portant le nom du voyage dans la barre latérale ramène à la collection. Sur téléphone, ouvrir le menu.
 - **Carnet vierge** : aucun contenu Chine n’est ajouté. Créer une première ville, région ou base de séjour, puis ses journées et activités. Dates et coordonnées sont facultatives.
-- **Créer depuis un planning** : coller du texte ou ouvrir un fichier `.txt`, `.md` ou `.markdown` UTF-8 (200 Ko et 50 000 caractères maximum), puis choisir **Reconnaître mon programme**. La reconnaissance locale prépare les journées et activités dans un aperçu à corriger, sans compte ni envoi du texte. Les éléments ambigus restent à vérifier et les notes sont conservées ; la création ajoute un nouveau carnet. PDF, Word et scans ne sont pas lus directement : copier leur texte dans ce parcours. [Formats testés, preuves et limites](docs/development/IMPORT-RECOGNITION.md).
+- **Créer depuis un planning** : coller du texte ou ouvrir un fichier `.txt`, `.md` ou `.markdown` UTF-8 (200 Ko et 50 000 caractères maximum), puis choisir **Reconnaître mon programme**. La reconnaissance locale prépare les journées et activités dans un aperçu à corriger, sans compte ni envoi du texte. Les éléments ambigus restent à vérifier et les notes sont conservées ; la création ajoute un nouveau carnet. Les PDF contenant du texte et les fichiers Word `.docx` sont extraits localement (10 Mio, 50 pages PDF, 50 000 caractères maximum) : relire le texte extrait avant reconnaissance. L’original extrait reste récupérable dans le brouillon après correction ; aucun binaire n’est sauvegardé. Pas de `.doc`, `.docm` ni OCR pour les scans. Un prompt/modèle vide FR/EN/ZH/ES peut être copié dans son propre outil IA, sans copie automatique du carnet. [Formats testés, preuves et limites](docs/development/IMPORT-RECOGNITION.md).
 - **Exemple Chine** : proposé explicitement ; 7 étapes, 17 journées et 130 bonus, les noms chinois, phrases et documents d’origine. Le carnet déjà présent dans le navigateur est migré automatiquement.
 - **Expérience préservée** : planning, vue d’ensemble, carte, envies et bonus, transports, carnet pratique, outils sur place ; favoris, visites effectuées, réservations, notes, adresses personnelles, hébergements, budget, valise et copie de texte.
 - **Reprise** : les sélections sont rattachées au carnet. Un onglet garde aussi sa position de lecture, sans déplacer celle d’un autre onglet. Aujourd’hui respecte les fuseaux du voyage et de ses étapes.
-- **Documents** : joindre un fichier texte ou Markdown de moins de 500 Ko, le lire et le télécharger depuis le carnet pratique. Il est conservé dans la sauvegarde et reste disponible hors ligne. La lecture automatique de PDF, Word ou scans et leur conversion en activités ne sont pas incluses.
+- **Documents** : joindre un fichier texte ou Markdown de moins de 500 Ko, le lire et le télécharger depuis le carnet pratique. Il est conservé dans la sauvegarde et reste disponible hors ligne. Pour transformer un PDF texte ou un DOCX en activités, utiliser **Créer depuis un planning**, avec vérification du texte puis de l’aperçu. Aucun OCR pour les scans.
 - **Interface** : français, anglais, chinois simplifié et espagnol, apparences claire, sombre et automatique, navigation mobile, clavier et mouvement réduit. Les textes personnels restent dans leur langue.
+
+## Compagnon sur place
+
+Dans **Maintenant**, le contrôle avant départ signale les réservations explicitement à faire, les informations que tu as exigées et les chevauchements démontrés par des débuts et durées saisis. Chaque point ouvre sa correction ; l’écarter vaut pour les données affichées. Ce contrôle ne certifie pas la préparation du voyage.
+
+**À montrer** affiche seulement nom et adresse du lieu choisi, avec copie et liens de navigation. Sélectionner explicitement l’hébergement de retour. Les notes privées et références ne figurent pas sur cette carte. **J’ai un peu de temps** propose les bonus et activités facultatives enregistrés dans la ville, avec filtres, exclusions, aperçu et annulation de l’ajout. Le temps total reste à vérifier lorsque durée ou déplacement manquent. Dans **Préparer cette journée**, les alternatives manuelles peuvent porter un nom comme « couverte » ou « moins fatigante » ; comparaison, avertissement sur les billets, échange et retour sont conservés. Aucune météo ni recherche externe automatique.
+
+Les exigences, exclusions et alertes écartées restent propres au compte sur cet appareil et se transportent par sauvegarde. Les activités ajoutées rejoignent le programme commun du carnet partagé. Les lecteurs peuvent consulter, comparer et montrer une adresse, sans modifier les données. [Rapport et limites du lot 05](docs/development/lot-05-compagnon/RAPPORT.md).
+
+## Préparer mon planning avec mon IA
+
+1. Dans **Créer depuis un planning → Préparer mon planning avec mon IA**, télécharger les consignes. Elles sont statiques et ne contiennent aucun carnet personnel.
+2. Donner ce seul fichier et son planning à son propre outil IA. Ne pas lui demander de compléter les inconnues ; retirer au besoin les références sensibles. L’outil choisi applique ses propres conditions et tarifs.
+3. Importer son résultat `.detours.json` (ou choisir **Coller un résultat JSON**). Aucun appel IA n’est effectué par Détours pour cet import.
+4. Lire la source reformattée et l’aperçu, corriger dates/villes/réservations et confirmer la création d’un nouveau carnet. La structure est vérifiée, pas la fidélité au planning original. Le fichier reste récupérable dans le brouillon ; son ajout au carnet est facultatif.
+
+Consignes autonomes : [FR](public/import-kit/PREPARER-MON-VOYAGE-DETOURS.md), [EN](public/import-kit/en/PREPARER-MON-VOYAGE-DETOURS.md), [中文](public/import-kit/zh-CN/PREPARER-MON-VOYAGE-DETOURS.md), [ES](public/import-kit/es/PREPARER-MON-VOYAGE-DETOURS.md). [Exemple minimal](public/import-kit/exemple-minimal.detours.json), [exemple complet fictif](public/import-kit/exemple-complet.detours.json), [schéma](public/import-kit/detours-planning-v1.schema.json), [guide et limites](docs/development/IMPORT-IA-STRUCTURE.md).
+
+Ce format public `detours-planning` version 1 prépare un planning ; **il ne restaure pas une sauvegarde**. Les exports v1/v2 et la sauvegarde complète gardent leurs parcours existants depuis Mes voyages. Les imports directs TXT/Markdown/PDF texte/DOCX restent accessibles. Kit et exemples sont disponibles hors ligne après préparation de la PWA ; l’outil IA externe peut nécessiter sa propre connexion. Le lot 06 de modèle local reste une expérimentation ultérieure.
 
 ## Bêta du plan d’action
 
@@ -110,6 +141,10 @@ Les contrôles réseau sont séparés : `npm run test:network:supabase` et `npm 
 Résultats actuels locaux et limites : [L0–L1](docs/development/L0-L1.md), [L2](docs/development/L2.md), [L3](docs/development/L3.md). Les nombres des publications plus anciennes ci-dessous sont historiques.
 
 ## Développement et livraison
+
+**Assistant du carnet (lot 07)** : dans un voyage ouvert, le bouton **Assistant du carnet** propose une recherche locale et quatre actions guidées : ajouter une note à une activité, modifier son titre/description/adresse/nom local/moment, déplacer une activité vers une journée explicitement choisie et adopter une alternative allégée. Aucun modèle ou envoi à une IA n’est activé. L’aperçu montre le carnet, la journée et les valeurs avant/après ; seule la confirmation écrit. Les activités réservées et les préparations restent protégées. Une modification concurrente bloque l’application ou l’annulation. Le dernier changement peut être annulé après aperçu tant que le carnet n’a pas changé ; après fermeture/rechargement, la copie précédente du carnet reste disponible dans **Mon carnet pratique**. En cas d’échec d’écriture, réessayer le même aperçu ; après interruption, vérifier le carnet et sa copie précédente avant de préparer une nouvelle action. Recherche et aperçus sont effacés à la fermeture ; les changements acceptés suivent les règles de partage existantes. Les lecteurs consultent et prévisualisent sans écrire. [Capacités, preuves et limites du lot 07](docs/development/lot-07-assistant/RAPPORT.md).
+
+**Compléter un lieu** : depuis une activité du planning, rechercher sur Wikidata (nom, ville, pays facultatif, ou identifiant Q), choisir un candidat puis cocher les seules valeurs à accepter. L'association personnelle reste sur cet appareil, séparée par compte et carnet ; elle ne part pas en synchronisation. Les champs d'origine restent modifiables et le retrait de l'association les rétablit pour la carte. Les sauvegardes exportent aussi la provenance et les crédits. Les photos Commons autorisées se chargent à la demande et restent distantes, sans garantie hors ligne. Aucun horaire ni avis actualisé. [Contrat, preuves et limites du lot 04](docs/development/lot-04-lieux/RAPPORT.md).
 
 `src/journeys.ts` gère les enveloppes, migration, import et duplication ; `src/hooks/useTravelState.ts` gère les écritures du carnet actif ; `src/time.ts` gère les heures locales ; `src/practical-utils.ts` les montants ; `src/components/JourneysApp.tsx` l’accueil. `src/cloud/` contient l’intégration Supabase, les capsules de compte, la projection partagée et le moteur de conflits ; `src/world.ts` les souvenirs personnels ; les migrations sont dans `supabase/migrations/`. Le modèle Chine reste dans `src/data/`, sans injection dans les carnets vierges. Les copies et imports ne suivent pas les mises à jour du catalogue Chine.
 

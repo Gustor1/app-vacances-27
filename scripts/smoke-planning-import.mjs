@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { chromium, expect } from '@playwright/test';
 import { chromiumTestOptions } from './browser-test-options.ts';
 import { productionTestServer } from './production-server.mjs';
+import { archive, blankTrip } from '../src/journeys.ts';
 import { checkServedBuild } from './build-identity.mjs';
 
 const server = await productionTestServer();
@@ -152,7 +153,10 @@ try {
   await readyOffline(recognized.context, recognized.page);
   await recognized.page.getByRole('button', { name: 'Créer depuis un planning', exact: true }).click();
   const localDialog = recognized.page.getByRole('dialog');
-  const localSource = '# Lyon\n## Jour 1 — 2 mai 2027\n- 9h30 : Musée des Confluences\n- Après-midi : Parc de la Tête d’or\n## Jour 2 — 3 mai 2027\n- 10:00 : Vieux Lyon\n- Suggestion : Musée Gadagne\nBudget estimé : 100 EUR';
+  const existing=blankTrip({title:'Carnet antérieur protégé',currency:'EUR',timezone:'UTC'});
+  const existingKey='a-l-est-trip-v2:'+existing.journey.id, existingRaw=JSON.stringify(archive(existing));
+  await recognized.page.evaluate(({key,raw})=>localStorage.setItem(key,raw),{key:existingKey,raw:existingRaw});
+  const localSource = '# Lyon\n## Jour 1 — 2 mai 2027\n- 9h30 : Musée des Confluences\n- Après-midi : Parc de la Tête d’or\n## Jour 2 — 3 mai 2027\n- 10:00 : Vieux Lyon\n- Suggestion : Musée Gadagne\nBudget estimé : 100 EUR\nCorrection finale : vérifier le rattachement du parc.';
   await localDialog.getByLabel('Ouvrir un fichier texte ou Markdown', { exact: true }).setInputFiles({ name: 'weekend-lyon.md', mimeType: 'text/markdown', buffer: Buffer.from(localSource) });
   await expect(localDialog.getByRole('textbox', { name: 'Ton programme', exact: true })).toHaveValue(localSource);
   await localDialog.getByRole('button', { name: 'Reconnaître mon programme', exact: true }).click();
@@ -160,6 +164,13 @@ try {
   await expect(localDialog.getByLabel('Lieu ou activité', { exact: true })).toHaveCount(4);
   await expect(localDialog.getByLabel('Date (facultative)', { exact: true }).first()).toHaveValue('2027-05-02');
   await expect(localDialog.getByLabel('Heure explicite (facultative)', { exact: true }).first()).toHaveValue('09:30');
+  await localDialog.locator('.planning-passages summary').filter({hasText:'Passage à vérifier'}).first().click();
+  await expect(localDialog.locator('.planning-passages pre').first()).toContainText('Correction finale');
+  await localDialog.getByRole('button',{name:'Conserver comme note',exact:true}).click();
+  await localDialog.getByLabel('Affectation ville / journée',{exact:true}).nth(1).selectOption('0:1');
+  await recognized.page.reload();
+  await recognized.page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();
+  await expect(localDialog.locator('.planning-day').last().getByLabel('Lieu ou activité',{exact:true}).last()).toHaveValue('Parc de la Tête d’or');
   await localDialog.getByLabel('Devise de référence', { exact: true }).fill('EUR');
   await localDialog.getByLabel('Fuseau du voyage', { exact: true }).fill('Europe/Paris');
   await localDialog.getByLabel('Conserver le texte original dans le carnet après création', { exact: true }).check();
@@ -170,10 +181,10 @@ try {
   await expect(localDialog).toHaveCount(0);
   await recognized.page.reload();
   await expect(recognized.page.getByRole('heading', { name: 'Musée des Confluences', exact: true })).toBeVisible();
-  const [localTrip] = await states(recognized.page);
+  const localTrip = (await states(recognized.page)).find(s=>s.journey.id!==existing.journey.id);
   assert.equal(localTrip.cities.length, 1);
   assert.deepEqual(localTrip.cities[0].days.map(day => day.date), ['2027-05-02', '2027-05-03']);
-  assert.deepEqual(localTrip.cities[0].days.map(day => day.steps.length), [2, 1]);
+  assert.deepEqual(localTrip.cities[0].days.map(day => day.steps.length), [1, 2]);
   assert.equal(localTrip.cities[0].days[0].preparation.timings[localTrip.cities[0].days[0].steps[0].id].startTime, '09:30');
   assert.equal(localTrip.customBonus.length, 1);
   assert.equal(localTrip.customBonus[0].title, 'Musée Gadagne');
@@ -182,6 +193,15 @@ try {
   assert.ok(localTrip.cities[0].days.every(day => day.steps.every(step => !step.coordinates)));
   assert.ok(localTrip.documents.some(document => document.content.includes('Budget estimé : 100 EUR')));
   assert.equal(localTrip.documents.find(document => document.title === 'Planning — texte original').content, localSource);
+
+  assert.equal(await recognized.page.evaluate(key=>localStorage.getItem(key),existingKey),existingRaw);
+  const localDownloading=recognized.page.waitForEvent('download');
+  await recognized.page.getByRole('button',{name:'Exporter le carnet',exact:true}).click();
+  const localDownload=await localDownloading, localExport=await readFile(await localDownload.path(),'utf8');
+  const localTarget=await profile(); await readyOffline(localTarget.context,localTarget.page);
+  await localTarget.page.getByLabel('Choisir une sauvegarde JSON',{exact:true}).setInputFiles({name:'lot01.json',mimeType:'application/json',buffer:Buffer.from(localExport)});
+  await localTarget.page.reload();
+  assert.deepEqual(equivalentContent((await states(localTarget.page))[0]),equivalentContent(localTrip));
 
   const unknown = await profile();
   await unknown.page.getByRole('button', { name: 'Créer depuis un planning', exact: true }).click();

@@ -1,7 +1,7 @@
 import type { Category } from '../types';
 
 export const MAX_SOURCE_LENGTH = 50_000;
-export type Evidence = { origin: 'source' | 'missing' | 'conflict' | 'suggestion' | 'user'; quote: string };
+export type Evidence = { origin: 'source' | 'missing' | 'conflict' | 'suggestion' | 'user' | 'external'; quote: string; path?: string };
 export type Provenance = Record<string, Evidence>;
 export type DraftItem = {
   title: string; category: Category; description: string; address: string;
@@ -22,5 +22,8 @@ export type ImportSession = {
   version: 1; id: string; scope: string; source: string; draft: PlanningDraft | null;
   keepSource: boolean; departureDate: string; currency: string; timezone: string;
   committedId: string | null;
+  reviewedQuotes?: string[];
+  sourceOrigin?: import('./document-contract.ts').DocumentOrigin;
+  structuredSource?: import('./structured.ts').StructuredSource;
   preparedTrip?: import('../types').StoredState;
 };

@@ -1,0 +1,11 @@
+[WebServer] (node:21388) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:3032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\world-languages.spec.ts:8:3 › 中文（简体）: library, all views, dates, forms and saved notes (26.5s)
+  ok 2 tests\e2e\world-languages.spec.ts:8:3 › Español: library, all views, dates, forms and saved notes (10.7s)
+
+  2 passed (44.4s)

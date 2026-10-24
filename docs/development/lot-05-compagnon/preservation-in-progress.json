@@ -1,0 +1,18 @@
+{
+  "initialFiles": 1142,
+  "snapshotCopyErrors": [],
+  "missing": [],
+  "expectedChanged": [
+    "README.md",
+    "scripts/verify-local.mjs",
+    "src/App.tsx",
+    "src/cloud/engine.ts",
+    "src/components/DayPreparation.tsx",
+    "src/components/NowView.css",
+    "src/components/NowView.tsx",
+    "src/lib.ts",
+    "src/locale-utils.ts",
+    "src/types.ts"
+  ],
+  "otherChanged": []
+}

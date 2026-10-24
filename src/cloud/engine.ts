@@ -9,9 +9,20 @@ export type RemoteRecord = { content: unknown; revision: number; private_revisio
 export type SaveResult = { status: 'saved' | 'conflict' | 'revoked'; record?: RemoteRecord };
 export type SyncTransport = { save: (key: string, record: SyncRecord, content: unknown) => Promise<SaveResult> };
 export function recordContent(key: string, raw: string) { return key === WORLD_KEY ? JSON.parse(raw) as unknown : splitContent(parseTrip(raw).state); }
-export function contentRaw(key: string, content: unknown) {
+export function contentRaw(key: string, content: unknown, localRaw?: string) {
   if (key === WORLD_KEY) { if (!validWorld(content)) throw new Error('Souvenirs distants invalides.'); return JSON.stringify(content); }
   const state = joinContent(content as TripContent);
+  // Enrichment stays on this account/device; never send it to the common notebook.
+  // Match both trip and step IDs, so a late remote response cannot move an association.
+  if (localRaw && key.startsWith(TRIP_PREFIX)) {
+    const local = parseTrip(localRaw).state;
+    if (local.journey?.id === state.journey?.id) {
+      // Personal departure checks/exclusions follow the same device-only contract.
+      if (local.companion) state.companion = local.companion;
+      const places = new Map(local.cities.flatMap(c => c.days.flatMap(d => d.steps.map(s => [s.id, s.place] as const))));
+      state.cities = state.cities.map(c => ({...c,days:c.days.map(d => ({...d,steps:d.steps.map(s => ({...s,...(places.get(s.id) ? {place:places.get(s.id)} : {})}))}))}));
+    }
+  }
   if (!validateState(state)) throw new Error('Carnet distant invalide. La copie locale est conservée.');
   return JSON.stringify(archive(state));
 }
@@ -19,7 +30,7 @@ export function acceptRemote(storage: AccountStorage, key: string, remote: Remot
   const current = storage.record(key);
   if (current?.revoked && !remote.deleted) {
     if (key.startsWith(TRIP_PREFIX)) storage.setItem(recoveryKey(key.slice(TRIP_PREFIX.length)), JSON.stringify({ savedAt: new Date().toISOString(), raw: current.raw }));
-    storage.put(key, { ...current, raw: contentRaw(key, remote.content), base: remote.content, revision: remote.revision, privateRevision: remote.private_revision, pending: false, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, revoked: false, conflict: undefined }); return;
+    storage.put(key, { ...current, raw: contentRaw(key, remote.content, current?.raw), base: remote.content, revision: remote.revision, privateRevision: remote.private_revision, pending: false, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, revoked: false, conflict: undefined }); return;
   }
   if (remote.deleted && !current?.pending) { if (current) storage.put(key, { ...current, deleted: true, pending: false, revision: remote.revision }); return; }
   if (!current) {
@@ -34,11 +45,11 @@ export function acceptRemote(storage: AccountStorage, key: string, remote: Remot
     const backup = JSON.stringify({ savedAt: new Date().toISOString(), raw: current.raw });
     storage.setItem(backupKey, backup);
     if (storage.getItem(backupKey) !== backup) throw new Error('Sauvegarde de récupération impossible.');
-    storage.put(key, { ...current, raw: contentRaw(key, remote.content), base: remote.content, revision: remote.revision, privateRevision: remote.private_revision, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, pending: false, conflict: undefined, accessChanged: true }); return;
+    storage.put(key, { ...current, raw: contentRaw(key, remote.content, current?.raw), base: remote.content, revision: remote.revision, privateRevision: remote.private_revision, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, pending: false, conflict: undefined, accessChanged: true }); return;
   }
   if (current.revision === remote.revision && current.privateRevision === remote.private_revision && !remote.deleted) return;
   if (!current.pending) {
-    storage.put(key, { ...current, raw: contentRaw(key, remote.content), base: remote.content, revision: remote.revision, privateRevision: remote.private_revision, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, lastSynced: new Date().toISOString(), conflict: undefined }); return;
+    storage.put(key, { ...current, raw: contentRaw(key, remote.content, current?.raw), base: remote.content, revision: remote.revision, privateRevision: remote.private_revision, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, lastSynced: new Date().toISOString(), conflict: undefined }); return;
   }
   const local = recordContent(key, current.raw);
   const merged = current.base ? mergeWithConflicts(current.base, local, remote.content) : { value: local, conflicts: [{ path: '$attachment', base: null, local, remote: remote.content, kind: 'field' as const }] };
@@ -46,7 +57,7 @@ export function acceptRemote(storage: AccountStorage, key: string, remote: Remot
   if (merged.conflicts.length) {
     storage.put(key, { ...current, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, conflict: { remote: remote.content, revision: remote.revision, privateRevision: remote.private_revision, fields: merged.conflicts, remoteDeleted: remote.deleted } });
   } else {
-    storage.put(key, { ...current, raw: contentRaw(key, merged.value), base: remote.content, revision: remote.revision, privateRevision: remote.private_revision, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, operation: uid('operation'), conflict: undefined });
+    storage.put(key, { ...current, raw: contentRaw(key, merged.value, current.raw), base: remote.content, revision: remote.revision, privateRevision: remote.private_revision, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, operation: uid('operation'), conflict: undefined });
   }
 }
 /** The pending capsule survives reloads and failed/repeated requests. New edits
@@ -64,7 +75,7 @@ export async function syncRecord(storage: AccountStorage, key: string, transport
   if (result.status === 'conflict') { acceptRemote(storage, key, result.record); return; }
   const remote = result.record;
   const unchanged = current.operation === sent.operation;
-  storage.put(key, { ...current, ...(unchanged ? { raw: contentRaw(key, remote.content), action: undefined } : {}), base: remote.content, revision: remote.revision, privateRevision: remote.private_revision, pending: !unchanged, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, lastSynced: new Date().toISOString(), conflict: undefined });
+  storage.put(key, { ...current, ...(unchanged ? { raw: contentRaw(key, remote.content, current?.raw), action: undefined } : {}), base: remote.content, revision: remote.revision, privateRevision: remote.private_revision, pending: !unchanged, role: remote.role, fullSharing: remote.fullSharing, allowedFields: remote.allowedFields, lastSynced: new Date().toISOString(), conflict: undefined });
 }
 export function resolveRecord(storage: AccountStorage, key: string, choices: Record<string, 'local' | 'remote'>) {
   const current = storage.record(key);
@@ -86,5 +97,5 @@ export function resolveRecord(storage: AccountStorage, key: string, choices: Rec
   const local = recordContent(key, current.raw);
   const value = !current.base ? (choices.$attachment === 'remote' ? c.remote : local) : mergeWithConflicts(current.base, local, c.remote, choices).value;
   const deleted = current.deleted ? choices.$deleted !== 'remote' : false;
-  storage.put(key, { ...current, raw: contentRaw(key, value), base: c.remote, revision: c.revision, privateRevision: c.privateRevision, pending: true, deleted, operation: uid('operation'), conflict: undefined });
+  storage.put(key, { ...current, raw: contentRaw(key, value, current.raw), base: c.remote, revision: c.revision, privateRevision: c.privateRevision, pending: true, deleted, operation: uid('operation'), conflict: undefined });
 }

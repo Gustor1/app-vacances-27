@@ -1,19 +1,22 @@
 import { blankItem, validateDraft, validateSource } from './draft.ts';
 import { hasConfirmedBooking } from './booking.ts';
-import { beginsWithPlanningDate, findExplicitDates, findExplicitTimes, plainPlanningText } from './normalizations.ts';
+import { beginsWithPlanningDate, isWeekdayHeading, findExplicitDates, findExplicitTimes, plainPlanningText } from './normalizations.ts';
 import type { DraftCity, DraftDay, DraftItem, Evidence, PlanningDraft } from './types.ts';
 
 const dayPrefix = /^(?:(?:jour(?:née)?|day|d[ií]a)\s*\d{1,3}\b|J\s*\d{1,3}\b|第[\d一二三四五六七八九十百]+天)/iu;
 const periodPrefix = /^(matin(?:ée)?|après[- ]midi|soir(?:ée)?|midi|morning|afternoon|evening|night|mañana|tarde|noche|上午|早上|中午|下午|晚上|傍晚)(?=\s|[:：]|$)/iu;
-const notesPrefix = /^(?:notes?|budget|conseils?|à réserver|a reserver|à vérifier|attention|important|penser|prévoir|si\b|pour la promenade|ignore\b|remarque|consejo|nota|备注|注意|提示|如果|建议预订|to book)\b|^(?:备注|注意|提示|如果)/iu;
+const notesPrefix = /^(?:notes?|correction|budget|conseils?|à réserver|a reserver|à vérifier|attention|important|penser|prévoir|si\b|pour la promenade|ignore\b|remarque|consejo|nota|备注|注意|提示|如果|建议预订|to book)\b|^(?:备注|注意|提示|如果)/iu;
 const genericHeading = /\b(voyage|voyages|trip|travel|holiday|itinerary|planning|programme|program|circuit|escapade|journey|week[- ]end|trajet|conseils|budget|notes|réservation)\b|行程|旅行|攻略/iu;
 const suggestionPrefix = /^(suggestions?|idée|envie|optional|optionnel|facultatif|sugerencia|opcional|建议|推荐)\s*[:：-]?\s*/iu;
 const alternativePrefix = /^(alternatives?|option b|plan b|alternativa|备选|替代)\s*[:：-]?\s*/iu;
+const unchosenStay = /^(?:h[oô]tel|hotel|alojamiento|酒店)\s*[:：]\s*(?:(?:environ|estimated?|aproximadamente|约)\s*\d|.*(?:pas encore choisi|not chosen|sin elegir|未定))/iu;
 const proof = (quote: string, origin: Evidence['origin'] = 'source'): Evidence => ({ origin,quote });
 const clean = (value: string) => plainPlanningText(value).trim();
-const content = (line: string) => clean(line.replace(/^\s{0,3}#{1,6}\s+/,'').replace(/\s+#+\s*$/,''));
+const unquote = (line: string) => line.replace(/^\s*(?:>\s*)+/u, '');
+const undecorate = (line: string) => line.replace(/^[\p{Extended_Pictographic}\p{Emoji_Presentation}\uFE0F\u200D\s]+/u, '');
+const content = (line: string) => undecorate(clean(unquote(line).replace(/^\s{0,3}#{1,6}\s+/,'').replace(/\s+#+\s*$/,'')));
 const dayLabel = (text: string) => text.replace(/^(?:[-+*•●▪]\s+|\d+[.)]\s+)/u,'');
-const isDay = (text: string) => dayPrefix.test(dayLabel(text)) || beginsWithPlanningDate(dayLabel(text));
+const isDay = (text: string) => dayPrefix.test(dayLabel(text)) || beginsWithPlanningDate(dayLabel(text)) || isWeekdayHeading(dayLabel(text));
 
 function category(title: string): DraftItem['category'] {
   if (/h[oô]tel|hostel|hébergement|alojamiento|酒店|旅馆|住宿/iu.test(title)) return 'hotel';
@@ -24,8 +27,9 @@ function category(title: string): DraftItem['category'] {
   return 'visit';
 }
 function parseItem(text: string, quote: string, context: DraftItem['kind'] = 'activity'): DraftItem | null {
-  let title = clean(text).replace(/^(?:[-+*•●▪]\s+|\d+[.)]\s+)(?:\[[ xX]\]\s*)?/u,'').trim();
-  let kind = context;
+  let title = undecorate(clean(unquote(text)).replace(/^(?:[-+•●▪]\s+|\*\s*|\d+[.)]\s+)(?:\[[ xX]\]\s*)?/u,'').trim());
+  if (unchosenStay.test(title)) return null;
+  let kind = /^(?:(?:si|if|sinon|otherwise)\b|如果|否则)/iu.test(title) ? 'alternative' as const : context;
   if (alternativePrefix.test(title)) { kind = 'alternative'; title = title.replace(alternativePrefix,''); }
   else if (suggestionPrefix.test(title)) { kind = 'suggestion'; title = title.replace(suggestionPrefix,''); }
   const time = findExplicitTimes(title).find(t => t.index === 0);
@@ -68,6 +72,9 @@ export function parsePlanning(source: string): PlanningDraft {
   validateSource(source);
   const draft: PlanningDraft = { version:1,title:'',cities:[],notes:[],evidence:{} };
   const lines = source.split(/\r?\n/);
+  const nextLines = new Array<string>(lines.length);
+  let nextLine = '';
+  for (let i=lines.length-1; i>=0; i--) { nextLines[i]=nextLine; if (lines[i].trim()) nextLine=lines[i]; }
   let city: DraftCity | undefined, day: DraftDay | undefined, lastItem: DraftItem | null = null;
   let section: DraftItem['kind'] = 'activity', notesSection = false, fence = false, table: Column[] | null = null;
   let inheritedPeriod = '', plainCityBlocks = false;
@@ -80,16 +87,16 @@ export function parsePlanning(source: string): PlanningDraft {
   const selectDay = (title: string, quote: string, dateText = title, reuse = false) => {
     if (!city) selectCity('','');
     const dates = findExplicitDates(dateText), date = dates.length === 1 ? dates[0] : null;
-    if (reuse && day?.title === title && day.date === (date?.value || '')) return day;
+    if (reuse && day?.title === title && (!date || day.date === date.value)) return day;
     day = { title:title.slice(0,200),date:date?.value || '',items:[],evidence:title ? { title:proof(quote) } : {} };
     if (date) day.evidence.date = proof(date.quote);
     city!.days.push(day); lastItem = null; inheritedPeriod = ''; section = 'activity'; notesSection = false; return day;
   };
   const addItems = (line: string, quote = line) => {
     if (!day) selectDay('','');
-    const parts = line.split(/\s*→\s*/u);
+    const parts = line.split(/\s*(?:→|->)\s*/u);
     for (const part of parts) {
-      const item = parseItem(part,parts.length > 1 ? part : quote,section);
+      const item = parseItem(part,quote,section);
       if (item && day!.items.length < 1000) {
         if (!item.period && inheritedPeriod) { item.period = inheritedPeriod; item.evidence.period = proof(inheritedPeriod); }
         day!.items.push(item); lastItem = item;
@@ -98,13 +105,14 @@ export function parsePlanning(source: string): PlanningDraft {
     }
   };
   for (let index = 0; index < lines.length; index++) {
-    const raw = lines[index], text = content(raw);
+    const raw = lines[index], structural = unquote(raw), text = content(raw);
     if (!text) { table = null; continue; }
     if (/^\s*(```|~~~)/.test(raw)) { fence = !fence; note(raw); continue; }
     if (fence) { note(raw); continue; }
+    if (/^(?:Page\s+\d+\s*(?:\/|of|sur)\s*\d+|第\s*\d+\s*页)$/iu.test(text)) { note(raw); lastItem = null; continue; }
     if (/^\s*(?:[-*_]\s*){3,}$/.test(raw)) continue;
-    if (raw.includes('|')) {
-      const cells = tableCells(raw);
+    if (structural.includes('|')) {
+      const cells = tableCells(structural);
       if (cells.every(cell => /^:?-{3,}:?$/.test(cell))) continue;
       const columns = cells.map(tableColumn);
       if (columns.includes('title')) { table = columns; continue; }
@@ -140,15 +148,15 @@ export function parsePlanning(source: string): PlanningDraft {
       }
       continue;
     }
-    const next = lines.slice(index+1).find(line => line.trim()) || '';
-    const heading = /^\s{0,3}#{1,6}\s+/.test(raw);
+    const next = nextLines[index];
+    const heading = /^\s{0,3}#{1,6}\s+/.test(structural);
     const period = text.match(periodPrefix)?.[0] || '';
     if (day && period && /^[\s:：–—-]*$/u.test(text.slice(period.length))) {
       inheritedPeriod = period; notesSection = false; lastItem = null; continue;
     }
     const cityTitle = text.replace(/\s*(?:[-–—]\s*)?\d+\s*[jJdD]\s*\/\s*\d+\s*[nN]\s*$/u,'').replace(/\s+daytrip$/iu,'').trim();
     const plainCity = !heading && (!draft.cities.length || (plainCityBlocks && index > 0 && !lines[index-1].trim()))
-      && /^[\p{Lu}\p{Script=Han}][\p{L}\p{M} '-]{0,59}$/u.test(cityTitle) && !period && !notesPrefix.test(cityTitle);
+      && /^[\p{L}][\p{L}\p{M} '-]{0,59}$/u.test(cityTitle) && !period && !notesPrefix.test(cityTitle);
     if ((heading || plainCity) && cityTitle.length <= 100 && !genericHeading.test(cityTitle)
       && (isDay(content(next)) || (heading && /\s+daytrip$/iu.test(text)))) {
       if (plainCity) plainCityBlocks = true;
@@ -162,19 +170,26 @@ export function parsePlanning(source: string): PlanningDraft {
       section = /alternativ|备选/iu.test(text) ? 'alternative' : 'suggestion'; notesSection=false; note(raw); continue;
     }
     if (heading) { notesSection=true; lastItem=null; note(raw); continue; }
+    if (unchosenStay.test(text)) { note(raw); lastItem=null; continue; }
+    if (/^(?:-\s*)?(?:(?:ne pas|pas de|do not|don't|no visitar)\b|不要|不去)/iu.test(text)) { note(raw); lastItem=null; continue; }
     if (notesSection || notesPrefix.test(text)) { note(raw); lastItem=null; continue; }
-    if (lastItem && /^\s{2,}\S/.test(raw) && !/^\s*[-+*•●▪]\s|^\s*\d+[.)]\s/u.test(raw) && !raw.includes('→')) {
+    if (lastItem && /^\s{2,}\S/.test(structural) && !/^\s*[-+*•●▪]\s|^\s*\d+[.)]\s/u.test(raw) && !raw.includes('→')) {
       const previous = lastItem.evidence.description?.quote || '';
       const start = source.indexOf(previous), end = source.indexOf(raw,start + previous.length);
       if (start >= 0 && end >= 0 && end-start+raw.length <= 10000) {
         const quote=source.slice(start,end+raw.length);
-        lastItem.description=quote; lastItem.evidence.description=proof(quote); continue;
+        lastItem.description=quote; lastItem.evidence.description=proof(quote);
+        const combined = `${lastItem.title} ${text}`;
+        if (combined.length <= 300 && /(?:\b(?:des|de|du|the|of|del|la|las|los)|[-‐])$/iu.test(lastItem.title)) {
+          lastItem.title=combined; lastItem.evidence.title=proof(quote);
+        }
+        continue;
       }
     }
-    const bullet = /^\s*(?:[-+*•●▪]\s+|\d+[.)]\s+)/u.test(raw);
+    const bullet = /^\s*(?:[-+•●▪]\s+|\*\s*|\d+[.)]\s+)/u.test(structural);
     const timed = findExplicitTimes(text).some(t => t.index === 0) || periodPrefix.test(text);
     if ((bullet && (day || city)) || (day && (timed || raw.includes('→') || (text.length <= 160 && !/[.!?。！？]$/.test(text))))) {
-      addItems(raw); continue;
+      addItems(structural, raw); continue;
     }
     if (!draft.title && !draft.cities.length && text.length <= 140 && !/[.!?。！？]$/.test(text)) { draft.title=text; draft.evidence.title=proof(raw); }
     else note(raw);

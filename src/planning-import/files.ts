@@ -2,7 +2,7 @@ import { MAX_SOURCE_LENGTH } from './types.ts';
 
 // Bound bytes before allocating a buffer; the text limit is checked after UTF-8 decoding.
 export const MAX_PLANNING_FILE_BYTES = MAX_SOURCE_LENGTH * 4;
-export const PLANNING_FILE_ACCEPT = '.txt,.md,.markdown,text/plain,text/markdown';
+export const PLANNING_FILE_ACCEPT = '.txt,.md,.markdown,.pdf,.docx,text/plain,text/markdown,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 export const planningFileErrors = {
   format: 'Choisis un fichier texte ou Markdown (.txt, .md, .markdown). Pour un PDF ou Word, copie le texte du planning ici.',
   size: 'Ce fichier dépasse 200 Ko. Choisis un fichier plus petit ; ton texte actuel est conservé.',
@@ -38,4 +38,12 @@ export async function readPlanningFile(file: Pick<File, 'name' | 'size' | 'array
   if (!source.trim()) throw new PlanningFileError('empty');
   if (source.length > MAX_SOURCE_LENGTH) throw new PlanningFileError('length');
   return source;
+}
+
+export async function readPlanningSource(file: Pick<File, 'name' | 'size' | 'arrayBuffer'>, signal?: AbortSignal): Promise<import('./document-contract.ts').DocumentResult> {
+  if (/\.(?:pdf|docx|doc|docm)$/i.test(file.name)) {
+    const { readPlanningDocument } = await import('./documents.ts');
+    return readPlanningDocument(file, signal);
+  }
+  return { source: await readPlanningFile(file) };
 }

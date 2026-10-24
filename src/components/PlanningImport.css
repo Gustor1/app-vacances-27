@@ -23,3 +23,11 @@
 .planning-source { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; font-size: 13px; max-height: 360px; overflow-y: auto; }
 .planning-summary { border-top: 1px solid var(--line); padding-top: 16px; font-weight: 600; overflow-wrap: anywhere; }
 @media (max-width: 500px) { .planning-import .form-row { grid-template-columns: minmax(0, 1fr); } .planning-item { padding: 12px; } }
+
+.planning-passages { min-width: 0; overflow-wrap: anywhere; }
+.planning-passages details { border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 8px 0; }
+.planning-passages summary { cursor: pointer; }
+.planning-import [id] { scroll-margin-block: 24px; }
+
+.planning-kit .planning-actions a { white-space: normal; overflow-wrap: anywhere; max-width: 100%; }
+.planning-kit { min-width: 0; overflow-wrap: anywhere; }

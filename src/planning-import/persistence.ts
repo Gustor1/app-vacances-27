@@ -4,6 +4,7 @@ import { AccountStorage } from '../cloud/storage.ts';
 import { draftToTrip, validateDraft } from './draft.ts';
 import { MAX_SOURCE_LENGTH } from './types.ts';
 import type { ImportSession } from './types.ts';
+import { readStructuredPlanning } from './public-contract.ts';
 export const DRAFT_KEY = 'detours-planning-draft-v1';
 type ScopedStorage = Storage & { accountId?: string | null };
 function checkScope(storage: Pick<ScopedStorage,'accountId'>, scope: string) {
@@ -12,7 +13,17 @@ function checkScope(storage: Pick<ScopedStorage,'accountId'>, scope: string) {
 export function createSession(scope: string, source = ''): ImportSession { return { version:1, id:uid('trip'),scope,source,draft:null,keepSource:false,departureDate:'',currency:'',timezone:'',committedId:null }; }
 function validateSession(value: unknown, scope: string): ImportSession {
   if (!isObj(value) || value.version !== 1 || value.scope !== scope || typeof value.id !== 'string' || !/^trip-[0-9a-f-]{36}$/.test(value.id) || typeof value.source !== 'string' || value.source.length > MAX_SOURCE_LENGTH || typeof value.keepSource !== 'boolean' || typeof value.currency !== 'string' || typeof value.timezone !== 'string' || typeof value.departureDate !== 'string' || (value.departureDate && !isValidDate(value.departureDate)) || (value.committedId !== null && value.committedId !== value.id)) throw new Error('Brouillon illisible. La source est conservée.');
-  if (value.draft !== null) validateDraft(value.draft, value.source, true, true);
+  if (value.reviewedQuotes !== undefined && (!Array.isArray(value.reviewedQuotes) || value.reviewedQuotes.length > 1000 || value.reviewedQuotes.some(q => typeof q !== 'string' || !q || !(value.source as string).includes(q)))) throw new Error('Brouillon illisible. La source est conservée.');
+  if (value.sourceOrigin !== undefined) {
+    const origin = value.sourceOrigin;
+    if (!isObj(origin) || !['pdf', 'docx'].includes(String(origin.kind)) || typeof origin.name !== 'string' || origin.name.length > 255 || typeof origin.originalText !== 'string' || !origin.originalText.trim() || origin.originalText.length > MAX_SOURCE_LENGTH || Object.keys(origin).some(key => !['kind', 'name', 'originalText', 'pages'].includes(key)) || (origin.pages !== undefined && (origin.kind !== 'pdf' || !Number.isInteger(origin.pages) || Number(origin.pages) < 1 || Number(origin.pages) > 50))) throw new Error('Brouillon illisible. La source est conservée.');
+  }
+  if (value.structuredSource !== undefined) {
+    const meta = value.structuredSource;
+    if (!isObj(meta) || Object.keys(meta).sort().join(',') !== 'format,name,version' || meta.format !== 'detours-planning' || meta.version !== 1 || typeof meta.name !== 'string' || meta.name.length > 255 || value.sourceOrigin !== undefined) throw new Error('Brouillon illisible. La source est conservée.');
+    readStructuredPlanning(value.source);
+  }
+  if (value.draft !== null) validateDraft(value.draft, value.source, true, true, !!value.structuredSource);
   if (value.preparedTrip !== undefined && (!validateState(value.preparedTrip) || value.preparedTrip.journey?.id !== value.id)) throw new Error('Brouillon illisible. La source est conservée.');
   return value as ImportSession;
 }

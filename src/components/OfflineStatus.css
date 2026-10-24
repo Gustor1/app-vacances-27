@@ -7,3 +7,5 @@
 .offline-recovery ol{padding-left:20px;display:grid;gap:8px}
 .offline-status .muted{overflow-wrap:anywhere}
 @media(max-width:480px){.offline-checklist li{flex-direction:column;gap:2px}.offline-status-body{flex-basis:calc(100% - 42px)}.offline-status-actions{width:100%}}
+
+.offline-persistence{margin-top:16px}.offline-persistence .btn{white-space:normal;text-align:start;max-width:100%}

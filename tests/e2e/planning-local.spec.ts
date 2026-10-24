@@ -88,7 +88,7 @@ test('invalid real files preserve the current source and valid replacement needs
   const source = 'Mon texte à conserver\nJour 1 : promenade';
   await dialog.getByRole('textbox', { name: 'Ton programme', exact: true }).fill(source);
   const invalid = [
-    { name: 'voyage.pdf', content: Buffer.from('%PDF-1.7'), message: 'Choisis un fichier texte ou Markdown' },
+    { name: 'voyage.pdf', content: Buffer.from('%PDF-1.7'), message: 'Document corrompu' },
     { name: 'binaire.txt', content: Buffer.from('Jour 1\u0000corrompu'), message: 'données binaires' },
     { name: 'encodage.txt', content: Buffer.from([0xc3, 0x28]), message: 'UTF-8 lisible' },
     { name: 'vide.md', content: Buffer.from('\n  '), message: 'ne contient pas de texte' },

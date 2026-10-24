@@ -1,0 +1,6 @@
+.mascot-hint { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-block: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-alt); color: var(--text); text-align: start; }
+.mascot-hint img { flex: 0 0 64px; width: 64px; height: 64px; object-fit: contain; }
+.mascot-hint p, .journeys-empty .mascot-hint p { flex: 1 1 150px; min-width: 0; margin: 0; color: var(--text); font-size: .875rem; line-height: 1.5; overflow-wrap: anywhere; }
+.journeys-empty .mascot-hint { max-width: 520px; margin-inline: auto; }
+.mascot-preference { display: flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer; }
+.mascot-preference input { width: 20px; height: 20px; flex: 0 0 auto; accent-color: var(--action); }

@@ -5,6 +5,7 @@ import type { StoredState } from '../types';
 import { MAX_SOURCE_LENGTH, type DraftItem, type PlanningDraft, type Provenance } from './types.ts';
 import { isSourceNormalization } from './normalizations.ts';
 import { hasConfirmedBooking } from './booking.ts';
+import { readStructuredPlanning, publicValueAt, type PublicPlanning } from './public-contract.ts';
 
 const categories = ['visit', 'food', 'transport', 'hotel', 'walk', 'shopping'];
 const itemKeys = ['title','category','description','address','period','time','optional','booked','kind','coordinates','checkIn','checkOut','departure','arrival','toCity','mode','reference','excluded','evidence'];
@@ -17,13 +18,22 @@ function object(value: unknown, keys: string[]) {
 function text(value: unknown, max = 2000, required = false): asserts value is string {
   if (typeof value !== 'string' || value.length > max || (required && !value.trim())) error();
 }
-function evidence(record: Record<string, unknown>, source: string, allowUser: boolean, allowed: string[]) {
+function evidence(record: Record<string, unknown>, source: string, allowUser: boolean, allowed: string[], external?: PublicPlanning) {
   if (!isObj(record.evidence)) error();
   const result = record.evidence as Provenance;
   for (const [field, raw] of Object.entries(result)) {
     if (!allowed.includes(field) || field === 'evidence') error();
-    const e = object(raw, ['origin', 'quote']);
+    const isExternal = external && (raw as { origin?: string })?.origin === 'external';
+    const e = object(raw, isExternal ? ['origin', 'quote', 'path'] : ['origin', 'quote']);
     text(e.quote, MAX_SOURCE_LENGTH);
+    if (isExternal) {
+      text(e.path, 300, true);
+      const rawValue = publicValueAt(external, e.path);
+      if (field === 'booked' && !/^\$\.cities\[\d+\]\.days\[\d+\]\.items\[\d+\]\.reservation\.status$/.test(e.path)) error();
+      const expected = field === 'booked' ? rawValue === 'confirmed' : rawValue;
+      if (e.quote !== JSON.stringify(rawValue) || record[field] !== expected) error();
+      continue;
+    }
     if (!['source','missing','conflict','suggestion', ...(allowUser ? ['user'] : [])].includes(String(e.origin))) error();
     if (e.origin !== 'user' && e.origin !== 'missing' && (!e.quote || !source.includes(e.quote))) error();
     const value = record[field];
@@ -38,7 +48,7 @@ function evidence(record: Record<string, unknown>, source: string, allowUser: bo
     const value = record[field];
     if (Object.hasOwn(record, field) && value !== '' && value !== null && value !== false && !result[field]) error();
   }
-  if (record.booked === true && result.booked?.origin !== 'user') {
+  if (record.booked === true && result.booked?.origin !== 'user' && !(external && result.booked?.origin === 'external')) {
     const quote = result.booked?.quote || '';
     if (result.booked?.origin !== 'source' || !hasConfirmedBooking(quote)) error();
   }
@@ -52,22 +62,23 @@ export function validateSource(source: string) {
   if (typeof source !== 'string' || !source.trim() || source.length > MAX_SOURCE_LENGTH) throw new Error('Le programme doit contenir entre 1 et 50 000 caractères.');
 }
 /** Validate the untrusted response before it can enter a review or a trip. */
-export function validateDraft(value: unknown, source: string, allowUser = false, allowIncomplete = false): PlanningDraft {
+export function validateDraft(value: unknown, source: string, allowUser = false, allowIncomplete = false, allowExternal = false): PlanningDraft {
   if (allowUser && (allowIncomplete || source === '')) { if (typeof source !== 'string' || source.length > MAX_SOURCE_LENGTH) error(); }
   else validateSource(source);
+  const external = allowExternal ? readStructuredPlanning(source) : undefined;
   const root = object(value, ['version','title','cities','notes','evidence']);
   if (root.version !== 1) error();
-  text(root.title, 140, !allowIncomplete); evidence(root, source, allowUser, ['title']);
+  text(root.title, 140, !allowIncomplete); evidence(root, source, allowUser, ['title'], external);
   if (!Array.isArray(root.notes) || root.notes.length > 300) error();
-  for (const note of root.notes as unknown[]) { text(note, MAX_SOURCE_LENGTH); if (!allowUser && !source.includes(note as string)) error(); }
+  for (const note of root.notes as unknown[]) { text(note, MAX_SOURCE_LENGTH); if (!allowUser && !external && !source.includes(note as string)) error(); }
   if (!Array.isArray(root.cities) || !root.cities.length || root.cities.length > 100) error();
   let total = 0;
   for (const city of root.cities as unknown[]) {
-    const c = object(city, ['name','days','evidence']); text(c.name, 200, !allowIncomplete); evidence(c, source, allowUser, ['name']);
+    const c = object(city, ['name','days','evidence']); text(c.name, 200, !allowIncomplete); evidence(c, source, allowUser, ['name'], external);
     if (!Array.isArray(c.days) || c.days.length > 365) error();
     for (const day of c.days as unknown[]) {
       const d = object(day, ['title','date','items','evidence']); text(d.title, 200, !allowIncomplete); text(d.date, 10);
-      if (d.date && !isValidDate(d.date)) error(); evidence(d, source, allowUser, ['title','date']);
+      if (d.date && !isValidDate(d.date)) error(); evidence(d, source, allowUser, ['title','date'], external);
       if (!Array.isArray(d.items) || d.items.length > 1000) error();
       for (const item of d.items as unknown[]) {
         if (++total > 2000) error();
@@ -82,7 +93,7 @@ export function validateDraft(value: unknown, source: string, allowUser = false,
         if (i.time && !/^([01]\d|2[0-3]):[0-5]\d$/.test(String(i.time))) error();
         if (i.coordinates !== null && (!Array.isArray(i.coordinates) || i.coordinates.length !== 2 || !i.coordinates.every(n => typeof n === 'number' && Number.isFinite(n)) || Math.abs(i.coordinates[0]) > 90 || Math.abs(i.coordinates[1]) > 180)) error();
         if (i.checkIn && i.checkOut && String(i.checkOut) < String(i.checkIn)) error();
-        evidence(i, source, allowUser, itemKeys);
+        evidence(i, source, allowUser, itemKeys, external);
       }
     }
   }
@@ -128,8 +139,8 @@ export function draftSummary(draft: PlanningDraft, source?: string) {
 }
 
 /** Keep unmappable material in readable documents, never in money or booking fields. */
-export function draftToTrip(draft: PlanningDraft, options: { id?: string; source: string; keepSource: boolean; departureDate: string; currency: string; timezone: string }): StoredState {
-  draft = validateDraft(draft, options.source, true);
+export function draftToTrip(draft: PlanningDraft, options: { id?: string; source: string; keepSource: boolean; departureDate: string; currency: string; timezone: string; structuredSource?: import('./structured.ts').StructuredSource }): StoredState {
+  draft = validateDraft(draft, options.source, true, false, !!options.structuredSource);
   if (draftSummary(draft).conflicts) throw new Error('Corrige ou écarte les conflits avant de créer le carnet.');
   if (!validCurrency(options.currency) || !validTimezone(options.timezone) || (options.departureDate && !isValidDate(options.departureDate))) error();
   const state = blankTrip({ title:draft.title, ...(options.id ? { id:options.id } : {}), currency:options.currency, timezone:options.timezone, status:'planning', destinations:draft.cities.map(c => c.name).join(', ') });
@@ -158,10 +169,10 @@ export function draftToTrip(draft: PlanningDraft, options: { id?: string; source
       }
     }
   }));
-  const unmapped = unstructuredNotes(draft,options.source);
+  const unmapped = unstructuredNotes(draft,options.structuredSource ? '' : options.source);
   state.documents = [];
   if (unmapped.length) state.documents.push({ id:uid('document'), title:'Planning — notes non structurées', content:[...new Set(unmapped)].join('\n\n') });
-  if (options.keepSource) state.documents.push({ id:uid('document'), title:'Planning — texte original', content:options.source });
+  if (options.keepSource) state.documents.push({ id:uid('document'), title:options.structuredSource ? 'Planning — fichier IA externe (original personnel non vérifié)' : 'Planning — texte original', content:options.source });
   if (!validateState(state)) error();
   return state;
 }

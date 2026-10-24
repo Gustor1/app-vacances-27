@@ -1,0 +1,121 @@
+{
+  "scope": "lot 05 relative to initial dirty snapshot, not HEAD",
+  "modified": 10,
+  "added": 9,
+  "files": [
+    {
+      "file": "README.md",
+      "kind": "modified",
+      "initialSha256": "2a20a9d44094ab6d26f5d8a0c8416734fd533ccecd314ed0ccbf2a5cae6b3df8",
+      "finalSha256": "0eddbc977849ba1b7ecfcf3fa02de67453dbbb53ac531e7e3bf373bdfc9a939e"
+    },
+    {
+      "file": "scripts/verify-local.mjs",
+      "kind": "modified",
+      "initialSha256": "6772160372c91dc6e8156da4ac8a4030f02787b263a41e3edbabe6fca60c7645",
+      "finalSha256": "24afc21015e58b8693c2666c203a84137b44724258a8b6e2268a56a6991852d4"
+    },
+    {
+      "file": "src/App.tsx",
+      "kind": "modified",
+      "initialSha256": "8416f3101869ba2b0e05ff9d2729ff921922deaee2f2e339412796cbc74aa6c6",
+      "finalSha256": "425d16690c83c4004b40b2a621a2de5bcd9ba71d80e1ca3dda91cd0d04dd8b60"
+    },
+    {
+      "file": "src/cloud/engine.ts",
+      "kind": "modified",
+      "initialSha256": "58131b9760ee48ee2a0f23353a19898b298afefb689a54ea8f392cc00f6d2499",
+      "finalSha256": "61545c4b2391c1fc925b72905f672a003370d2ce83f37288e3f4b2f76c562621"
+    },
+    {
+      "file": "src/components/DayPreparation.tsx",
+      "kind": "modified",
+      "initialSha256": "6f73518e0afc451c9860fd2396e6264cf7390b22c43ade3eaaa36d425e1ada6e",
+      "finalSha256": "763cd25304d94153d8704783512f30c45709a840bf53482242774d06428c968c"
+    },
+    {
+      "file": "src/components/NowView.css",
+      "kind": "modified",
+      "initialSha256": "6ef30dcd633c77864800d32b7828eb5417ee7240722e48cfe98b803956dda950",
+      "finalSha256": "3ceb300a6d9b40658291aa22ac36a4f72e703099ea429c6d74631829c7e1bf9c"
+    },
+    {
+      "file": "src/components/NowView.tsx",
+      "kind": "modified",
+      "initialSha256": "4e9893fe512dacbef6cbf8123d30affab2963306811c317f27473cf84c4e31d5",
+      "finalSha256": "3c78098a3a7bf986bbbfd243593916a42454c6fe69a5104cbff47465bb5e3e0e"
+    },
+    {
+      "file": "src/lib.ts",
+      "kind": "modified",
+      "initialSha256": "351e07a9b59ca811aecbd555f02b880b9d632659987d51a56a9462aca4bed2d7",
+      "finalSha256": "3098a78f18679bb72c107f5caa3ccc7358f3bf0edb1ceb1906ad42d001b384f3"
+    },
+    {
+      "file": "src/locale-utils.ts",
+      "kind": "modified",
+      "initialSha256": "78a429590257c2aa54a88b47893fe7f7b8a6bf53a09347bc60fcbd04c437d19d",
+      "finalSha256": "61957f7b686e2c79a6917e5e8d40ce5213268c0bb59463c6d0d4ef5bed34cb98"
+    },
+    {
+      "file": "src/types.ts",
+      "kind": "modified",
+      "initialSha256": "6e1f40132d663d8eaf75111052765cc45dfebf7e0db0e3fe8dcc86d3e7b0bc77",
+      "finalSha256": "6367d64c374befebd80f9bf05fdbc9b93f93e7d1b850f842054d81e67a90fe77"
+    },
+    {
+      "file": "src/companion.ts",
+      "kind": "added",
+      "initialSha256": null,
+      "finalSha256": "a8fc94aa1eaea6cc8f6abf2bc73f41c21350662ab2d73553f4457a7914ce5f18"
+    },
+    {
+      "file": "src/components/Companion.tsx",
+      "kind": "added",
+      "initialSha256": null,
+      "finalSha256": "1e69d5dc63d070d8b5071b3d1c4dab89b526790a049fb2cd8f2a3cc7997bb7a9"
+    },
+    {
+      "file": "src/components/Companion.css",
+      "kind": "added",
+      "initialSha256": null,
+      "finalSha256": "5e9f2f78674208f70dd62f7da89cf04228c795469c64065be94cb7ecb451b02c"
+    },
+    {
+      "file": "src/locales/companion.ts",
+      "kind": "added",
+      "initialSha256": null,
+      "finalSha256": "c07dbe689b6ca91ad527acb97bba0be87c33160576fe713ecec3a0632db084b2"
+    },
+    {
+      "file": "tests/companion.test.mjs",
+      "kind": "added",
+      "initialSha256": null,
+      "finalSha256": "1e3a302ff2cc2f5c0cb4cdb5b4a50a0aa9f78f5689ea3da30a98652789d626db"
+    },
+    {
+      "file": "tests/e2e/companion.spec.ts",
+      "kind": "added",
+      "initialSha256": null,
+      "finalSha256": "3aead38075927d4d1f4157daa05377bf8b27132cb4f564ac0735d05e7a214a34"
+    },
+    {
+      "file": "scripts/companion-fixture.mjs",
+      "kind": "added",
+      "initialSha256": null,
+      "finalSha256": "d32d085ae1f77aaeac857deb1bd60e17c2d1935f470c9a6698cb6b6416e5e393"
+    },
+    {
+      "file": "scripts/companion-fixture.d.mts",
+      "kind": "added",
+      "initialSha256": null,
+      "finalSha256": "51d7c80296cf2f4f6d921fdaaabe58f41802f18a8e646c269fd2d69e931c7b0b"
+    },
+    {
+      "file": "scripts/smoke-companion.mjs",
+      "kind": "added",
+      "initialSha256": null,
+      "finalSha256": "067ed686976b93ef6f2d2e341123b5903002ade95ca861db92ad5e554edca1e6"
+    }
+  ]
+}
