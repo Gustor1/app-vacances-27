@@ -76,3 +76,57 @@ test('touch drag, cancellation, reduced motion and viewport resizing', async ({ 
   expect(end.y + end.height).toBeLessThanOrEqual(568);
   await context.close();
 });
+
+for (const notebook of [false, true]) test(`companion and menu stay reachable at every edge (${notebook ? 'notebook' : 'home'})`, async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  if (notebook) {
+    const trip = blankTrip({ title: 'Limites écran' });
+    await page.evaluate(({ key, raw }) => localStorage.setItem(key, raw), { key: tripKey(trip.journey!.id), raw: JSON.stringify(archive(trip)) });
+    await page.reload();
+    await page.getByRole('button', { name: 'Ouvrir Limites écran', exact: true }).click();
+  }
+  const pet = page.locator('.floating-mascot'), button = pet.locator('.pet-button'), menu = page.locator('#mascot-shortcuts');
+  for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
+    await page.setViewportSize(viewport);
+    await expect(page.locator('.mascot-sprite')).toHaveAttribute('data-ready', 'true');
+    for (const [x, y] of [[0, 0], [viewport.width, 0], [viewport.width, viewport.height], [0, viewport.height]]) {
+      const start = (await pet.boundingBox())!;
+      await page.mouse.move(start.x + start.width / 2, start.y + start.height * .7);
+      await page.mouse.down(); await page.mouse.move(x, y, { steps: 5 }); await page.mouse.up();
+      await expect(menu).toHaveCount(0);
+      const rect = (await pet.boundingBox())!;
+      const header = (await page.locator(notebook ? '.topbar' : '.journeys-topbar').boundingBox())!;
+      expect(rect.y).toBeGreaterThanOrEqual(header.y + header.height);
+      expect(rect.x).toBeGreaterThanOrEqual(0);
+      expect(rect.x + rect.width).toBeLessThanOrEqual(viewport.width);
+      expect(rect.y + rect.height).toBeLessThanOrEqual(viewport.height);
+      if (notebook && viewport.width > 760) {
+        const sidebar = (await page.locator('.sidebar').boundingBox())!;
+        expect(rect.x).toBeGreaterThanOrEqual(sidebar.x + sidebar.width);
+      }
+      if (notebook && viewport.width === 390) {
+        const bottom = (await page.locator('.mobile-bottom-nav').boundingBox())!;
+        expect(rect.y + rect.height).toBeLessThanOrEqual(bottom.y);
+      }
+      // A visible bounding box alone is insufficient: navigation must not cover it.
+      expect(await button.evaluate(el => { const r = el.getBoundingClientRect(); return el.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height * .7)); })).toBe(true);
+      await button.press('Enter');
+      const box = (await menu.boundingBox())!;
+      expect(box.x).toBeGreaterThanOrEqual(0); expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
+      expect(box.y).toBeGreaterThanOrEqual(header.y + header.height); expect(box.y + box.height).toBeLessThanOrEqual(viewport.height);
+      if (y === 0) { await expect(menu).toHaveAttribute('data-placement', 'below'); expect(box.y).toBeGreaterThanOrEqual(rect.y + rect.height); }
+      await page.keyboard.press('Escape');
+    }
+  }
+  // A short landscape viewport must keep the entire panel inside the screen and
+  // allow reaching the last action through internal scrolling.
+  await page.setViewportSize({ width: 568, height: 250 });
+  await button.press('Enter');
+  await expect.poll(async () => { const b = (await menu.boundingBox())!; return b.y >= 0 && b.y + b.height <= 250 && b.x >= 0 && b.x + b.width <= 568; }).toBe(true);
+  await menu.getByRole('button', { name: 'Fermer', exact: true }).click();
+  await expect(menu).toHaveCount(0);
+  await page.reload();
+  await expect(page.locator('.mascot-sprite')).toHaveAttribute('data-ready', 'true');
+  expect(await button.evaluate(el => { const r = el.getBoundingClientRect(); return el.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height * .7)); })).toBe(true);
+});

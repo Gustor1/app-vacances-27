@@ -1,5 +1,6 @@
-.floating-mascot { position: fixed; z-index: 90; width: 96px; height: 96px; pointer-events: none; left: calc(100% - 108px); top: calc(82% - 96px); }
-.floating-mascot .pet-button, .floating-mascot .pet-button:hover, .floating-mascot .pet-button:active { display: block; width: 96px; height: 96px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; pointer-events: auto; cursor: grab; touch-action: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+.floating-mascot { position: fixed; z-index: 110; width: 96px; height: 96px; pointer-events: none; left: calc(100% - 108px); top: calc(82% - 96px); }
+.mascot-safe-area { position: fixed; width: 0; height: 0; visibility: hidden; pointer-events: none; padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); }
+.floating-mascot .pet-button, .floating-mascot .pet-button:hover, .floating-mascot .pet-button:active { display: block; width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; pointer-events: auto; cursor: grab; touch-action: none; user-select: none; -webkit-tap-highlight-color: transparent; }
 .floating-mascot .pet-button:active { cursor: grabbing; }
 .floating-mascot .pet-button:focus-visible { outline: none; }
 .floating-mascot .pet-button:focus-visible canvas { filter: drop-shadow(0 0 2px var(--action)); }

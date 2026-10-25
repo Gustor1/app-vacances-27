@@ -40,7 +40,7 @@ const steps = [
   local('souvenirs compilés hors ligne', 'scripts/smoke-souvenirs.mjs', [], output),
   local('assistant navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/assistant.spec.ts']),
   local('assistant compilé hors ligne', 'scripts/smoke-assistant.mjs', [], output),
-  local('mascotte navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/mascot.spec.ts']),
+  local('mascotte navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/mascot.spec.ts', 'tests/e2e/floating-mascot.spec.ts']),
   local('mascotte compilée hors ligne', 'scripts/smoke-mascot.mjs', [], output),
   local('lieux compilés hors ligne', 'scripts/smoke-places.mjs', [], output),
   local('PWA mobile compilée', 'scripts/smoke-pwa-mobile.mjs', [], output),
