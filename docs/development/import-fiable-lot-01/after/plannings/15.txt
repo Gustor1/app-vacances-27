@@ -1,0 +1,7 @@
+Objet : Programme fictif
+> Ville: Angers
+> Jour 1
+> - Château d’Angers
+> - Jardin du Mail
+> Jour 2
+> - Galerie David d’Angers

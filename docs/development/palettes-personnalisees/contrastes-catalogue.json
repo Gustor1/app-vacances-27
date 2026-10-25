@@ -1,0 +1,242 @@
+[
+  {
+    "id": "signature",
+    "theme": "light",
+    "background": "#e8dfd0",
+    "surface": "#f7f2e9",
+    "accent": "#3b6d58",
+    "textMinimum": 4.523488270688507,
+    "filledAction": 5.543502580628404,
+    "controlMinimum": 3.1671519974367777
+  },
+  {
+    "id": "signature",
+    "theme": "dark",
+    "background": "#19151b",
+    "surface": "#27222b",
+    "accent": "#e5c39d",
+    "textMinimum": 5.861123263893634,
+    "filledAction": 10.08649471999236,
+    "controlMinimum": 3.6291541735273314
+  },
+  {
+    "id": "porcelaine",
+    "theme": "light",
+    "background": "#e9eeeb",
+    "surface": "#f8faf8",
+    "accent": "#31634f",
+    "textMinimum": 5.026058341438671,
+    "filledAction": 6.433362142126372,
+    "controlMinimum": 3.3529310503242438
+  },
+  {
+    "id": "porcelaine",
+    "theme": "dark",
+    "background": "#161b19",
+    "surface": "#222c27",
+    "accent": "#cadbcc",
+    "textMinimum": 5.116706639237063,
+    "filledAction": 11.597598601564313,
+    "controlMinimum": 3.6894176234078584
+  },
+  {
+    "id": "eucalyptus",
+    "theme": "light",
+    "background": "#e8dfd0",
+    "surface": "#f7f2e9",
+    "accent": "#396d57",
+    "textMinimum": 4.543244565674388,
+    "filledAction": 5.567713779085037,
+    "controlMinimum": 3.1671519974367777
+  },
+  {
+    "id": "eucalyptus",
+    "theme": "dark",
+    "background": "#17221e",
+    "surface": "#24352d",
+    "accent": "#b2cfbb",
+    "textMinimum": 4.731781054448072,
+    "filledAction": 10.015536187041727,
+    "controlMinimum": 3.6327475631710686
+  },
+  {
+    "id": "sauge",
+    "theme": "light",
+    "background": "#e3e8dc",
+    "surface": "#f3f6ee",
+    "accent": "#456640",
+    "textMinimum": 4.585175084142576,
+    "filledAction": 6.035931941002375,
+    "controlMinimum": 3.169325630458996
+  },
+  {
+    "id": "sauge",
+    "theme": "dark",
+    "background": "#111614",
+    "surface": "#1e2722",
+    "accent": "#b6cdb0",
+    "textMinimum": 4.86850134533995,
+    "filledAction": 9.865944288766514,
+    "controlMinimum": 3.9043991016784547
+  },
+  {
+    "id": "ocean",
+    "theme": "light",
+    "background": "#e1e9ef",
+    "surface": "#f3f7f9",
+    "accent": "#315d78",
+    "textMinimum": 4.507008348503795,
+    "filledAction": 6.564921951980226,
+    "controlMinimum": 3.083837374158932
+  },
+  {
+    "id": "ocean",
+    "theme": "dark",
+    "background": "#182b3a",
+    "surface": "#263e50",
+    "accent": "#a2cdeb",
+    "textMinimum": 4.725893472672909,
+    "filledAction": 9.961798535388267,
+    "controlMinimum": 3.0824696790887045
+  },
+  {
+    "id": "glacier",
+    "theme": "light",
+    "background": "#e4eaf0",
+    "surface": "#f5f8fb",
+    "accent": "#365e7c",
+    "textMinimum": 4.649245419069088,
+    "filledAction": 6.3895788581518405,
+    "controlMinimum": 3.0531738508728026
+  },
+  {
+    "id": "glacier",
+    "theme": "dark",
+    "background": "#11151b",
+    "surface": "#202832",
+    "accent": "#abcbe7",
+    "textMinimum": 4.916789000638763,
+    "filledAction": 9.92938255067875,
+    "controlMinimum": 3.853455333582744
+  },
+  {
+    "id": "foret",
+    "theme": "light",
+    "background": "#e2e9df",
+    "surface": "#f3f7f0",
+    "accent": "#2d6554",
+    "textMinimum": 4.774946614693021,
+    "filledAction": 6.282258797889743,
+    "controlMinimum": 3.222055753552533
+  },
+  {
+    "id": "foret",
+    "theme": "dark",
+    "background": "#132b25",
+    "surface": "#203c32",
+    "accent": "#b1cfc0",
+    "textMinimum": 4.512537638358528,
+    "filledAction": 10.03152325956288,
+    "controlMinimum": 3.418115457608692
+  },
+  {
+    "id": "bordeaux",
+    "theme": "light",
+    "background": "#efdfdf",
+    "surface": "#faf2ef",
+    "accent": "#7b334c",
+    "textMinimum": 4.59946006729152,
+    "filledAction": 8.050023040896328,
+    "controlMinimum": 3.133844354530062
+  },
+  {
+    "id": "bordeaux",
+    "theme": "dark",
+    "background": "#2b1420",
+    "surface": "#3a2330",
+    "accent": "#e1b8b3",
+    "textMinimum": 5.470212192166386,
+    "filledAction": 9.354751011000143,
+    "controlMinimum": 3.6821265183851946
+  },
+  {
+    "id": "corail",
+    "theme": "light",
+    "background": "#f0dfd3",
+    "surface": "#fcf3ec",
+    "accent": "#9e3e27",
+    "textMinimum": 4.525748485288463,
+    "filledAction": 6.141453899746346,
+    "controlMinimum": 3.0222858906373737
+  },
+  {
+    "id": "corail",
+    "theme": "dark",
+    "background": "#251a17",
+    "surface": "#362622",
+    "accent": "#e7ac96",
+    "textMinimum": 5.328064020577163,
+    "filledAction": 8.58020212030469,
+    "controlMinimum": 3.766939760835014
+  },
+  {
+    "id": "abricot",
+    "theme": "light",
+    "background": "#f1d8c1",
+    "surface": "#fcf1e6",
+    "accent": "#70472f",
+    "textMinimum": 4.5124856649002,
+    "filledAction": 7.403860669108653,
+    "controlMinimum": 3.038409950379789
+  },
+  {
+    "id": "abricot",
+    "theme": "dark",
+    "background": "#221c18",
+    "surface": "#322a22",
+    "accent": "#e3bd96",
+    "textMinimum": 5.429997754625439,
+    "filledAction": 9.576045634175978,
+    "controlMinimum": 3.7067203794802714
+  },
+  {
+    "id": "soleil",
+    "theme": "light",
+    "background": "#eae4cf",
+    "surface": "#faf6e9",
+    "accent": "#376963",
+    "textMinimum": 4.59078037047115,
+    "filledAction": 5.792534105717556,
+    "controlMinimum": 3.019900312562825
+  },
+  {
+    "id": "soleil",
+    "theme": "dark",
+    "background": "#102a30",
+    "surface": "#193c41",
+    "accent": "#e7c767",
+    "textMinimum": 4.510966749239169,
+    "filledAction": 10.197150290153857,
+    "controlMinimum": 3.305466284368247
+  },
+  {
+    "id": "violet",
+    "theme": "light",
+    "background": "#eae0ef",
+    "surface": "#f8f2fa",
+    "accent": "#71447d",
+    "textMinimum": 4.549968708636331,
+    "filledAction": 6.895877967228208,
+    "controlMinimum": 3.215551829315419
+  },
+  {
+    "id": "violet",
+    "theme": "dark",
+    "background": "#21182c",
+    "surface": "#30223f",
+    "accent": "#dac0e7",
+    "textMinimum": 5.4087716731560675,
+    "filledAction": 10.126710206574584,
+    "controlMinimum": 3.648231411069999
+  }
+]

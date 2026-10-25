@@ -1,0 +1,45 @@
+{
+  "validatedRealDrafts": 60,
+  "sourceEvidenceValidationPassed": true,
+  "itemsWithCoordinates": 0,
+  "ambiguityCases": [
+    {
+      "id": "16",
+      "passedExtraction": false,
+      "passages": [
+        {
+          "kind": "ambiguous",
+          "quote": "Correction finale : déplacer le Louvre au Jour 2 et le Musée d’Orsay au Jour 1."
+        }
+      ]
+    },
+    {
+      "id": "22",
+      "passedExtraction": true,
+      "passages": [
+        {
+          "kind": "ambiguous",
+          "quote": "Day 1 — 06/07/2027",
+          "target": "planning-day-0-0-date"
+        },
+        {
+          "kind": "ambiguous",
+          "quote": "Day 2 — 07/07/2027",
+          "target": "planning-day-0-1-date"
+        }
+      ]
+    },
+    {
+      "id": "32",
+      "passedExtraction": false,
+      "passages": [
+        {
+          "kind": "ambiguous",
+          "quote": "- Si pluie : Musée des Beaux-Arts ; sinon : Parc Floral",
+          "target": "planning-item-0-0-1"
+        }
+      ]
+    }
+  ],
+  "limits": "Provenance validation cannot prove complete semantic understanding. Ambiguity flags are not extraction successes."
+}

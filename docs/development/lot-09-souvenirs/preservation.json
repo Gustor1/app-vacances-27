@@ -1,0 +1,19 @@
+{
+  "snapshot": "C:\\Users\\eliot\\Documents\\detours-lot09-recovery-20261024",
+  "initialFingerprint": "df0b48d3e0c5ebe2526cae520e233959f51ccc0a06a2c6337b9749d522a9d79c",
+  "initialFiles": 1487,
+  "identical": 1480,
+  "changed": [
+    "README.md",
+    "scripts/verify-local.mjs",
+    "src/App.tsx",
+    "src/backup.ts",
+    "src/components/BackupPanel.tsx",
+    "src/locale-utils.ts",
+    "tests/backup.test.mjs"
+  ],
+  "missing": [],
+  "unexpectedChanges": [],
+  "unexpectedAdditions": [],
+  "passed": true
+}

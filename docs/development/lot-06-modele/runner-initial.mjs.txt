@@ -1,0 +1,75 @@
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { fork, execFileSync } from 'node:child_process';
+import { resolve } from 'node:path';
+import { cpus, freemem, totalmem } from 'node:os';
+import { fileURLToPath } from 'node:url';
+import { parsePlanning } from '../src/planning-import/parser.ts';
+import { reviewPassages } from '../src/planning-import/review.ts';
+import { decodeProposal, score, summarize, prompt } from './lot06-core.mjs';
+
+const directory=resolve('docs/development/lot-06-modele');
+const corpusPath=resolve('tests/fixtures/planning/lot06-corpus.json');
+const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+const frozenPaths=['tests/fixtures/planning/lot06-corpus.json','scripts/lot06-core.mjs','scripts/lot06-worker.mjs','scripts/benchmark-lot06.mjs','docs/development/lot-06-modele/RAPPORT.md'];
+await mkdir(directory,{recursive:true});
+if(process.argv.includes('--freeze')) {
+  try { await readFile(resolve(directory,'freeze.json')); throw Error('Freeze already exists'); } catch(e) { if(e.code!=='ENOENT') throw e; }
+  const hashes=Object.fromEntries(await Promise.all(frozenPaths.map(async p=>[p,hash(await readFile(p))])));
+  await writeFile(resolve(directory,'freeze.json'),JSON.stringify({ frozenAt:new Date().toISOString(),hashes,promptSha256:hash(prompt),parameters:{max_new_tokens:768,do_sample:false,enable_thinking:false,timeoutMs:90000,threads:4},budgets:{downloadBytes:150000000,warmMs:10000,coldLoadMs:30000,cancelMs:2000}},null,2)+'\n');
+  console.log('Frozen before trials');
+  process.exit(0);
+}
+const frozen=JSON.parse(await readFile(resolve(directory,'freeze.json'),'utf8'));
+// Report is allowed to evolve, frozen protocol remains in protocol-initial.md.
+for(const [path,digest] of Object.entries(frozen.hashes).filter(([p])=>!p.endsWith('RAPPORT.md'))) if(hash(await readFile(path))!==digest) throw Error('Frozen input changed: '+path);
+const entries=JSON.parse(await readFile(corpusPath,'utf8'));
+const rules=entries.map(entry=>{const start=performance.now(),draft=parsePlanning(entry.source);return {id:entry.id,ms:performance.now()-start,...score(entry,draft),draft,passages:reviewPassages(draft,entry.source)};});
+const report={startedAt:new Date().toISOString(),head:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),environment:{node:process.version,platform:process.platform,cpu:cpus()[0].model,totalMemoryBytes:totalmem(),freeMemoryBytes:freemem()},frozen,rules,model:[],hybrid:[],network:'fetch forbidden, local_files_only and allowRemoteModels=false',status:'running'};
+const save=()=>writeFile(resolve(directory,'results.json'),JSON.stringify({...report,summary:{rules:summarize(report.rules),model:summarize(report.model),hybrid:summarize(report.hybrid)}},null,2)+'\n');
+await save();
+if(process.argv.includes('--rules-only')) {report.status='rules-only';await save();console.log(JSON.stringify(summarize(rules)));process.exit(0);}
+let child;
+async function stop() {if(!child || child.exitCode!==null)return;await new Promise(done=>{child.once('exit',done);child.kill();});}
+async function startWorker() {
+  child=fork(fileURLToPath(new URL('./lot06-worker.mjs',import.meta.url)),[],{stdio:['ignore','pipe','pipe','ipc']});
+  child.stderr.on('data',data=>process.stderr.write(data));
+  return wait('ready',120000);
+}
+function wait(type,timeoutMs) {
+  return new Promise((resolvePromise,reject)=>{
+    const cleanup=()=>{clearTimeout(timer);child.off('message',message);child.off('exit',exit);};
+    const message=value=>{if(value.type===type||value.type==='fatal'){cleanup();value.type==='fatal'?reject(Error(value.error)):resolvePromise(value);}};
+    const exit=code=>{cleanup();reject(Error('Worker exited '+code));};
+    const timer=setTimeout(()=>{cleanup();reject(Error('Hard timeout '+timeoutMs));},timeoutMs);
+    child.on('message',message);child.on('exit',exit);
+  });
+}
+try {
+  report.cold=await startWorker();await save();
+  for(const [index,entry] of entries.entries()) {
+    const baseline=rules[index];
+    for(const arm of ['model','hybrid']) {
+      if(arm==='hybrid'&&!baseline.passages.length){report.hybrid.push({...baseline,route:'rules-no-uncertainty'});continue;}
+      if(child.exitCode!==null) report.reload=await startWorker();
+      const pending=wait('result',90000), start=performance.now();
+      child.send({id:entry.id,source:entry.source,passages:arm==='hybrid'?baseline.passages:[]});
+      let response;
+      try {response=await pending;} catch(error){response={error:String(error),ms:performance.now()-start};await stop();}
+      let draft, rejection;
+      try {if(response.error)throw Error(response.error);draft=decodeProposal(response.raw,entry.source);}catch(error){rejection=String(error);}
+      const evaluated=draft || (arm==='hybrid'?baseline.draft:{version:1,title:'',evidence:{},notes:[entry.source],cities:[]});
+      report[arm].push({id:entry.id,...response,rejected:!!rejection,rejection,route:draft?'model-validated':arm==='hybrid'?'rules-fallback':'rejected',...score(entry,evaluated),draft:evaluated});
+      await save();console.log(entry.id,arm,rejection?'rejected':'accepted',Math.round(response.ms)+'ms');
+    }
+  }
+  // Cancel a real generation after dispatch and verify process exit; no late result accepted.
+  if(child.exitCode!==null)await startWorker();
+  child.send({id:'cancel',source:entries[0].source});
+  await new Promise(done=>setTimeout(done,100));
+  const cancelledAt=performance.now();let late=0;child.on('message',()=>late++);
+  await stop();report.cancellation={method:'terminate isolated process during generation',exitMs:performance.now()-cancelledAt,lateMessages:late};
+  report.status='complete';
+}catch(error){report.status='blocked';report.error=String(error);}
+finally{await stop();report.endedAt=new Date().toISOString();await save();}
+console.log(JSON.stringify({status:report.status,error:report.error,summary:{rules:summarize(report.rules),model:summarize(report.model),hybrid:summarize(report.hybrid)}}));

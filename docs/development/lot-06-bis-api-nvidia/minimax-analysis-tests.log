@@ -1,0 +1,10 @@
+✔ live analysis separates raw fidelity, guard rejection, transport failure and unknown consumption (5.0789ms)
+✔ an unreturned safety case cannot be interpreted as a successful zero-hallucination check (0.7224ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 626.663

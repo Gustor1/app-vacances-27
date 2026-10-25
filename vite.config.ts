@@ -2,6 +2,9 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
+  // Dependencies used only inside the DOCX worker must be discovered before
+  // first import, otherwise dev optimization reloads an open review dialog.
+  optimizeDeps: { include: ['fflate', 'saxes', 'pdfjs-dist'] },
   build: { rollupOptions: { output: {
     // Keep shared React/runtime helpers out of deferred feature chunks.
     onlyExplicitManualChunks: true,

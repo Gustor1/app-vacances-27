@@ -26,14 +26,16 @@ test('choix personnel : Google par défaut, Amap dans toutes les vues, conservat
   await page.goto('/'); const raw=JSON.stringify(archive(fixture()));
   await page.evaluate(({raw,key})=>localStorage.setItem(key,raw),{raw,key:tripKey('map-choice')});await page.reload();
   await page.getByRole('button',{name:'Ouvrir Cartes personnelles',exact:true}).click();
-  await expect(page.locator('#step-first .map-place-actions a')).toHaveAttribute('href',/^https:\/\/www.google.com/);
+  await expect(page.locator('#step-first .map-place-link')).toHaveAttribute('href',/^https:\/\/www.google.com/);
   const select = await settings(page); await expect(select).toHaveValue('google');
   await select.selectOption('amap');
   for(const width of [320,390,1440]) {await page.setViewportSize({width,height:1000}); expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}
   await page.setViewportSize({width:390,height:900});await page.screenshot({path:'test-results/map-preference-390.png'});
   await page.setViewportSize({width:1440,height:1000});await closeSettings(page);
-  await expect(page.locator('#step-first .map-place-actions a')).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
-  await page.locator('.now-shortcut').click();await expect(page.locator('.now-view .map-place-actions a')).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
+  await expect(page.locator('#step-first .map-place-link')).toHaveAttribute('href',/^https:\/\/www.google.com/);
+  await page.locator('#step-first .map-route-toggle').click();
+  await expect(page.locator('#step-first .map-actions').getByRole('link',{name:'Y aller · Amap ↗',exact:true})).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
+  await page.locator('.now-shortcut').click();await page.locator('.now-view .map-route-toggle').click();await expect(page.locator('.now-view .map-actions').getByRole('link',{name:'Y aller · Amap ↗',exact:true})).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
   await page.getByRole('button',{name:'Mes outils sur place',exact:true}).click();await expect(page.locator('.practical-actions a')).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
   await page.getByRole('button',{name:/^Mes envies & bonus/}).click();await expect(page.locator('.bonus-card-footer a')).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
   await page.getByRole('button',{name:'Mes transports',exact:true}).click();const stations=page.locator('.transfer-actions a');await expect(stations).toHaveCount(2);for(const link of await stations.all()) await expect(link).toHaveAttribute('href',/^https:\/\/uri.amap.com/);

@@ -1,0 +1,1074 @@
+[
+  {
+    "path": "public\\world-geography.json",
+    "hash": "D3AA99C9F08062486E2418AF5A81F553C0FE1678CC28E149A1C994F750678E4E"
+  },
+  {
+    "path": "public\\travel-landscape.svg",
+    "hash": "3A268CC88C37D243BA7D8A07B0BB0974A011FD25AEBF0BF6FF597C00A11589B1"
+  },
+  {
+    "path": "public\\palettes.css",
+    "hash": "C3C435DECD2A188A80191BBE18CF3A5D646802B7FC3AED839843EC35ADED70FB"
+  },
+  {
+    "path": "public\\palette-bootstrap.js",
+    "hash": "BE89876A95AC79FD39D3D5864261BF21D85E4DA36AD4D66B3C5EA2C0B56A6CE5"
+  },
+  {
+    "path": "supabase\\migrations\\202610090001_day_preparation.sql",
+    "hash": "533EEDB8E9E402EE8164127917895BAEEB0CF9A4DB25994C2B70F5B2789DB9AC"
+  },
+  {
+    "path": "supabase\\migrations\\20261007140143_leave_trip_and_money.sql",
+    "hash": "2F2452C97CE874439E9DA5D3D306E357B7D8E566816DB3B3DD0EC131BF5FF8BA"
+  },
+  {
+    "path": "supabase\\migrations\\20261007082516_common_details_validation.sql",
+    "hash": "A7C0DD8528BFD37208DB989F2957A9CA55E4C434C5A28943676C3F2A592F8AA0"
+  },
+  {
+    "path": "supabase\\migrations\\20261007074919_full_shared_notebook.sql",
+    "hash": "A970CAA5890B84F4B96F776FE05DB83F5ED7D72F030139DA427045F6319AF4AB"
+  },
+  {
+    "path": "supabase\\migrations\\20261007074422_shared_roster.sql",
+    "hash": "506C2E8D14AAC857F7198008BF1EBEDDB97231515DD1FFB215C70FBB945D2974"
+  },
+  {
+    "path": "supabase\\migrations\\202610070001_member_names.sql",
+    "hash": "629DEA0F8D00E5CE0F66F3762A865F84A311B23E40D6E4660FEDF9DBA5F16602"
+  },
+  {
+    "path": "supabase\\migrations\\202610060001_detours.sql",
+    "hash": "FAE1357C62218BDB7D1FA847F369EDF2FEDE75D37DBCB19BE48483136D686810"
+  },
+  {
+    "path": "public\\favicon.svg",
+    "hash": "6F49162254D6C0E66EED3E202A4007ABA90D01418402D51D837C5CF86ECC5087"
+  },
+  {
+    "path": "public\\manifest.webmanifest",
+    "hash": "A5C5232703E3DCB8BD267C65DB28DA9F4F8FA9DF31062001F1440CAEE2F9F483"
+  },
+  {
+    "path": "src\\world.ts",
+    "hash": "30793CC75536443DD2FE1AAECBCA2B971B1CF3B09456BB82410CC52B9D4BE0C5"
+  },
+  {
+    "path": "src\\vite-env.d.ts",
+    "hash": "424FAF9241DD699DDA995B367ED36665732DA1E6EC1F33B2FD40394488ECAC92"
+  },
+  {
+    "path": "src\\types.ts",
+    "hash": "6367D64C374BEFEBD80F9BF05FDBC9B93F93E7D1B850F842054D81E67A90FE77"
+  },
+  {
+    "path": "src\\travel-write.ts",
+    "hash": "C48D3DFF1E02E875E1A40520AEC37A4C46F35A9E1975FFB11CE499074D4B9407"
+  },
+  {
+    "path": "src\\time.ts",
+    "hash": "9F830240C0F8C01CAD99EC798D65313F84141250171440239070027CA8D67BDA"
+  },
+  {
+    "path": "src\\theme.css",
+    "hash": "88FE4D34561408AF2D03C2CA0A1D8316111CDAEC683F177B9DA0713B773974DC"
+  },
+  {
+    "path": "src\\styles.css",
+    "hash": "3434D1F558F57564B1418A07CC64CCD8D9880E794C92FB14664CA8AEDE76FBA0"
+  },
+  {
+    "path": "src\\practical-utils.ts",
+    "hash": "35C506B22382FD8E90783E77C135937AEE781B52C147BFFADCEAE7841185DB96"
+  },
+  {
+    "path": "public\\documents\\planning-original.md",
+    "hash": "C21A89490D14D79C69671A68454168950DD37C923A5BC032E22D8A3E355F0E80"
+  },
+  {
+    "path": "public\\documents\\bonus-original.md",
+    "hash": "2890691AD6EE1B870F311C28C5940533F5FDA1B951A4701B4E84A1C33D9A4A39"
+  },
+  {
+    "path": "public\\china-landscape.svg",
+    "hash": "001F29A9AE45DE802EA9BABCB3C5B33A98F4DC7037EF2FC922326349CCA86B28"
+  },
+  {
+    "path": "public\\asia-geography.json",
+    "hash": "7BE5E727B52A78C26DF9F8BAD20DB20F1FDA9E41CD32234975F3CFFD464EDB4A"
+  },
+  {
+    "path": "public\\licenses\\mascot.md",
+    "hash": "428D65EA8B07E1BFB606A023D4D39223139A070613DCAFEDAE46EFC954B76DEC"
+  },
+  {
+    "path": "src\\maps.ts",
+    "hash": "FCE182004203DCBD1F9BC40FC1E231E0EDBAEB5D4E5373DA7DC38EE064C9B35E"
+  },
+  {
+    "path": "src\\MapPreferences.tsx",
+    "hash": "683E3AEA6AB7F6967C91B33F0C88C94224742568F82BFDE7DD19D613EED593E4"
+  },
+  {
+    "path": "src\\map-preferences.ts",
+    "hash": "C3FB92169307FAD19543560923C846594753DCDF7E43F338BBDB28E5D320DBB2"
+  },
+  {
+    "path": "src\\main.tsx",
+    "hash": "926F20AAA3A90F30EFBF548DC11F97700C8F2991B0753FA43B026A3577139500"
+  },
+  {
+    "path": "src\\journeys.ts",
+    "hash": "1958B0C57F984FE335B8A2DCA7A11D6C87E2A23009CD2AA0425A18B71309F134"
+  },
+  {
+    "path": "src\\planning-import\\types.ts",
+    "hash": "7232D4025D193A813A8363D049B59A808798736C0F6985E01E07B5C3D89492F2"
+  },
+  {
+    "path": "src\\planning-import\\structured.ts",
+    "hash": "8869BAF2DA896B0AD28E35CD41E128EC2CDAF93E38094FBC0EDFC613621A6E46"
+  },
+  {
+    "path": "src\\planning-import\\review.ts",
+    "hash": "D9F1EAEA89DA565A11C0F05BE9F14A9B7E8ED9A58251820ED8187F03F7545B8F"
+  },
+  {
+    "path": "src\\planning-import\\public-examples.ts",
+    "hash": "58EEC0921C7220DAF3AA10BBD96B0F546B5CEAE4DED6403BA8A0BAC2CABD2C40"
+  },
+  {
+    "path": "src\\planning-import\\public-contract.ts",
+    "hash": "14EA9EC407DB868C66C075F7CDE44CD0746FE03BBF5ED6558490D2E30DA0016F"
+  },
+  {
+    "path": "src\\i18n.tsx",
+    "hash": "C4C542BF9EC63C26C4BD8E615ED017E9A41F75A2D69AAEC5883E33D34AA19F82"
+  },
+  {
+    "path": "src\\planning-import\\persistence.ts",
+    "hash": "82B1E17617135F638C3403F915E1596358CA11F4D7C0F7A7AD3F692D22927220"
+  },
+  {
+    "path": "src\\planning-import\\parser.ts",
+    "hash": "B373A6416F4A9FA247574783FE55637350D0A3C5598F46130C5D6336EBCE2136"
+  },
+  {
+    "path": "src\\planning-import\\normalizations.ts",
+    "hash": "49488F5A027C973FBEFACCA8FD521A6FF7362904490A54549493D4AE689A5467"
+  },
+  {
+    "path": "src\\planning-import\\import-kit.ts",
+    "hash": "73E4109BD2E959644D664781BC94FBAED8F64CAE1D83D23E7EEF8815FC04541B"
+  },
+  {
+    "path": "src\\planning-import\\fixtures.ts",
+    "hash": "2A118E494DB01370087BC4AD92F55243224521E3B8BC796ED106FEE8E7449766"
+  },
+  {
+    "path": "src\\planning-import\\files.ts",
+    "hash": "D55EC0EB20B79678B2176A336E30D421B70BFBF576214D1C578A538A9712AD79"
+  },
+  {
+    "path": "src\\planning-import\\extraction.ts",
+    "hash": "A5ADA62FAA25FA4A17A153263A48DCD5C023F941DC755F00E28BCDE5610C4C76"
+  },
+  {
+    "path": "src\\planning-import\\external-prompt.ts",
+    "hash": "6496BFB18777392EA078EA3CD211DEE0244DEBD8424238C7FD62F1C03F01B234"
+  },
+  {
+    "path": "src\\planning-import\\draft.ts",
+    "hash": "D5071EF362704C2B3B7E12F48AEDF4B38967E9322E8ABD25E5DE64BD2422D54D"
+  },
+  {
+    "path": "src\\planning-import\\docx.worker.ts",
+    "hash": "F6C59434E30C8EBA47A0D90C639DE95EF41448D8E1B1972A05F8ED32AFA2475F"
+  },
+  {
+    "path": "src\\planning-import\\documents.ts",
+    "hash": "73D7177072F1968BA829E6E996275C735553E4200BDA73CF50CD4EE2BE77C746"
+  },
+  {
+    "path": "src\\planning-import\\document-pdf.ts",
+    "hash": "5FB90E5D1F3ABF83F70082E4B83EDFDA1990B616BC4664698C461B8948A6FDB2"
+  },
+  {
+    "path": "src\\planning-import\\document-docx.ts",
+    "hash": "6C63F3A4AE8D834D9D89960F3702502C9A47906DF7EBDA3F0E9906211E7AE66A"
+  },
+  {
+    "path": "src\\planning-import\\document-contract.ts",
+    "hash": "A447C1BA66CB5875B7EBAD15D90FC7C4BC48587660C16C253E979FA791B8B77E"
+  },
+  {
+    "path": "src\\planning-import\\booking.ts",
+    "hash": "9A7743C4E0F795E54A3E003016B1BBC6C51DD67761125F467C1EA3FE19E49AA9"
+  },
+  {
+    "path": "scripts\\verify-runner.mjs",
+    "hash": "E594F71E0D7E164DA4F63B879F67945D7260AD894F37D1F0B2ABCE50A367EE63"
+  },
+  {
+    "path": "scripts\\verify-local.mjs",
+    "hash": "19B0D4115A2AC2004CAAE666668CA7DC5EA61EBD6D59C424F3850F89C9ABA3BD"
+  },
+  {
+    "path": "scripts\\test-wikimedia-live.mjs",
+    "hash": "A07D9AF4E33FDEDD2A8838CCCC846F04C5F3B26C5C1F89BAA5A9296132B3CB33"
+  },
+  {
+    "path": "scripts\\test-wikimedia-browser.mjs",
+    "hash": "B5CABC9730F03180D26A3961871569BE0F2F0715DA42DB0DED072CC72DCF38DC"
+  },
+  {
+    "path": "scripts\\test-supabase.mjs",
+    "hash": "167CA4BCA1521D29D1BC8C2FF1AEA0E9635DE24E419BD5C1CFD1F62DA0510979"
+  },
+  {
+    "path": "scripts\\test-sql-local.mjs",
+    "hash": "39679B3D0E4CC882E87E39535E975BAD2E18F68D630F636D5CD4D275BD78A1B4"
+  },
+  {
+    "path": "scripts\\test-participation-money-sql-local.mjs",
+    "hash": "C339D2BAC87B1CE6321BA59BAEDABC39D70E3FB6A6C9313E10A287C54221CD75"
+  },
+  {
+    "path": "scripts\\test-l6-sql-local.mjs",
+    "hash": "FF328A54916404ACDD3B666901FF25B054D4129CF1CA5D035A19F1EBC0B403A9"
+  },
+  {
+    "path": "scripts\\test-collaboration-sql-local.mjs",
+    "hash": "2C096F728E4B58E20B19DAA2C44E41107FB3FBED05904B05D8D90EE7DBA56C2D"
+  },
+  {
+    "path": "scripts\\snapshot-source.mjs",
+    "hash": "D98596CDC819F3A5F4755CC217D5F4AADCC2FE3A70FB7C7F226D18DA38DFA40E"
+  },
+  {
+    "path": "scripts\\smoke-ui.mjs",
+    "hash": "51239128306FF9019E40B476734B3FA70BAECBB11FB730A2392A85753E82CA33"
+  },
+  {
+    "path": "scripts\\smoke-sharing.mjs",
+    "hash": "7052251C327D60332FBE60E9C0D5EB28253AE48EEF2942FC9449037754808B87"
+  },
+  {
+    "path": "scripts\\smoke-pwa-mobile.mjs",
+    "hash": "4C7236E3966484023FD55B36207C07B89266DF638BA6814F750B08356D517B15"
+  },
+  {
+    "path": "scripts\\smoke-production.mjs",
+    "hash": "035DB6FAF5B8B8001371BE8B084F725D779F712C7370E8124C22AA85AE07176C"
+  },
+  {
+    "path": "scripts\\smoke-planning-structured.mjs",
+    "hash": "9F776605F36C3664D949B5213794EEA16D7769EAE0F612BA2DFF33F3F755BA2A"
+  },
+  {
+    "path": "scripts\\smoke-planning-import.mjs",
+    "hash": "516A13473026740CFD95EA4E1AA8C4AA893E92B601302CB39BB7A12AAE1A7758"
+  },
+  {
+    "path": "scripts\\smoke-planning-documents.mjs",
+    "hash": "05F18E73AADAE1FFE776934782B2A900B81A836B2008CBBD29E912A729046B21"
+  },
+  {
+    "path": "scripts\\smoke-places.mjs",
+    "hash": "3793B471F467F3032F124A3D126395573274C16BEB324E91C630BFB6DFE85F75"
+  },
+  {
+    "path": "scripts\\smoke-palette-claire.mjs",
+    "hash": "8E36BB68273EBE640DCE2AE2CFEB5C7CBC020DB139AF5A98E260D1515386430A"
+  },
+  {
+    "path": "scripts\\smoke-notebook.mjs",
+    "hash": "D76F2F67990A06149F208569E59BD7DF6EDC90DD8A2BDA28ED4DAAF436C55F4E"
+  },
+  {
+    "path": "scripts\\smoke-mascot.mjs",
+    "hash": "7EB1BDD14431984D65A199BC70B77753A38384B1B3A41B290255F987ABCD2F58"
+  },
+  {
+    "path": "scripts\\smoke-l8-release.mjs",
+    "hash": "07C56BB365F858FA79E20367AE9C7D3F3FECE7C8B09C17DA179FAC882C10165D"
+  },
+  {
+    "path": "scripts\\smoke-l6-preparation.mjs",
+    "hash": "EF3E75EEFC5D98290CAA89CE9B4DC9B19F57BC8C39FA2AE86F534DAF0B763A7C"
+  },
+  {
+    "path": "scripts\\smoke-l5-now.mjs",
+    "hash": "C745BD88A6BF0602CB3867989CB853A206C048ED7AE9FB20FCAD19C5351064E4"
+  },
+  {
+    "path": "scripts\\smoke-l4-persistence.mjs",
+    "hash": "9AC5CCE61766DB5206330D37E89B8226F779F62615B4CBF3257860BF11DC51C0"
+  },
+  {
+    "path": "scripts\\smoke-l4-offline.mjs",
+    "hash": "34C923E9520BA60B67B0E4AB38077353D145C4D1AFB317FFDFD918C79D6B53F6"
+  },
+  {
+    "path": "scripts\\smoke-converter-live.mjs",
+    "hash": "4B926937F269197ED2DF0E35ACA33273ACD398C4AEC4A7EFBBEC30CAD22B6A57"
+  },
+  {
+    "path": "scripts\\smoke-companion.mjs",
+    "hash": "067ED686976B93EF6F2D2E341123B5903002ADE95CA861DB92AD5E554EDCA1E6"
+  },
+  {
+    "path": "scripts\\smoke-common-sharing.mjs",
+    "hash": "CF7CFF5F87270C67BB988718851AB6BBFC00E507E471679CC902AEFA1AA43990"
+  },
+  {
+    "path": "scripts\\smoke-backup.mjs",
+    "hash": "8374A6C40BD3546680E531C231B71B02B5E4C0C4E4EE55EE898282C1A5C3BBBB"
+  },
+  {
+    "path": "scripts\\smoke-assistant.mjs",
+    "hash": "2D9520CB261CD566011C44BF81350E52F22DFA5EF6916055A93E50E062AD2362"
+  },
+  {
+    "path": "scripts\\smoke-app-update.mjs",
+    "hash": "D1373649EF468897863D06B1542977216F33BF5B1EF6769CDA69F94EAE07D494"
+  },
+  {
+    "path": "scripts\\remote-fixture.mjs",
+    "hash": "60915951953E15875FBC49051629970E3E139A555DE9B78F24D5FF1B31312CF1"
+  },
+  {
+    "path": "scripts\\production-server.mjs",
+    "hash": "282BDB2AEA5874DADC79A8A2C317B8287EE643CDD61C9056F8803E0221236C08"
+  },
+  {
+    "path": "scripts\\prepare-l8-release.mjs",
+    "hash": "FC685E2C7F48856AEC196BAE8E74DAF87BDE6F96D751BF0478332CE9CAF30DCA"
+  },
+  {
+    "path": "scripts\\participation-money-release-check.sql",
+    "hash": "5763325CE8C79DE6899BC2964BDD0EF871AA2A1BE4CB2B9783A8B4FF10CF9F74"
+  },
+  {
+    "path": "scripts\\palette-assets.mjs",
+    "hash": "3BE7C1CB46E097F2F1A93BC762E2BC1849A985E4936824DBA84EF495BA203898"
+  },
+  {
+    "path": "src\\assistant.ts",
+    "hash": "C2DD55CBDC6322FDCBEFE1EF32108C597FCC0DAA8CEA1C2D9110DA3AF3D4EC7F"
+  },
+  {
+    "path": "public\\licenses\\lot03\\xmlchars.txt",
+    "hash": "45D196313C2647D313CC65CA9B093D2D6974B64D35EE7346F2C60C9D518DFF2C"
+  },
+  {
+    "path": "public\\licenses\\lot03\\saxes.txt",
+    "hash": "0FAC2374380621B22E6B50451057721A9C52935B02D16D106A9F04897F061D0E"
+  },
+  {
+    "path": "public\\licenses\\lot03\\pdfjs.txt",
+    "hash": "0D542E0C8804E39AA7F37EB00DA5A762149DC682D7829451287E11B938E94594"
+  },
+  {
+    "path": "public\\licenses\\lot03\\liberation.txt",
+    "hash": "D2C4D5B3E115A519CB58EB691AA64538397E2611F9EBE801392CF9667997E7DC"
+  },
+  {
+    "path": "public\\licenses\\lot03\\foxit.txt",
+    "hash": "B578CDD2345840ADA550BD12519533812320D5F1D21CF4C1C7E1B1B0A31C98B7"
+  },
+  {
+    "path": "public\\licenses\\lot03\\fflate.txt",
+    "hash": "0A1DF3A083D0C010560AA342E87959C8C1070E6FD54545741F083F22D0C8B551"
+  },
+  {
+    "path": "public\\licenses\\lot03\\cmaps.txt",
+    "hash": "AA92AB5A472974865A96FD4A4E9C13BB41BF6FE1B309CB6B8DA48BC9E19839A2"
+  },
+  {
+    "path": "src\\money.ts",
+    "hash": "BE05984D1A388E8DF07ACC36ECD94A6F44E337022CE004E006100736C6101DB1"
+  },
+  {
+    "path": "src\\money-preferences.ts",
+    "hash": "1C94212332BDDF07B9C568C68AB8D239C8AB1A755F95FC163FBBE58C23A9FCC6"
+  },
+  {
+    "path": "src\\MascotPreferences.tsx",
+    "hash": "39224017F95F0D1D1FDBAFDF8F2E04B6120D37F473069FE54E574851E023D637"
+  },
+  {
+    "path": "src\\mascot.ts",
+    "hash": "8E2878469C2B517135FCD81CFAA31669747B08798529088314E6AEF1DDFF2293"
+  },
+  {
+    "path": "src\\offline.ts",
+    "hash": "7D69DE30DDE953D68C48D06B242F624282834F660F7C21CC761B378AD99A248B"
+  },
+  {
+    "path": "src\\now.ts",
+    "hash": "58587EF44ADE2D246E8FDA5F5032E186B8A7B939617F658CF1FDACF9CEA9DDB0"
+  },
+  {
+    "path": "src\\palettes.ts",
+    "hash": "8C30DAD5CE6D8A761842A0643499D0B1510A0794412CEF1CCF9F1BCDF125D885"
+  },
+  {
+    "path": "src\\persistence.ts",
+    "hash": "58BA4674C0D406B594288C8FD1B5BCF25CCCDDD8303E86A898938B6E3ACC51A2"
+  },
+  {
+    "path": "scripts\\generate-import-kit.mjs",
+    "hash": "32E8ED95B3E7D56B5AE7815592223C2A26F745F4128D116B0EBEFB30B2C9A32A"
+  },
+  {
+    "path": "scripts\\generate-geography.mjs",
+    "hash": "8CB2475A55F8A7158E757F75E2C60789D98ABD33D836C5CD098FD1F0021BC85F"
+  },
+  {
+    "path": "scripts\\full-sharing-check.sql",
+    "hash": "5B50F20EFB8AAD3453F4DE5BE6A869D5CD43E2394E3AB06886D09A5902C68CD9"
+  },
+  {
+    "path": "scripts\\evaluate-planning.mjs",
+    "hash": "0EDDF795F19F70948C0C8448AE3852E5D2F2E54B1477F477181329DDE76B5CDD"
+  },
+  {
+    "path": "scripts\\evaluate-planning-stress.mjs",
+    "hash": "7B8C70B091A4C64969D2FB5D081C77FA3ED70F58DB302EAB01935C0FBFBFCD51"
+  },
+  {
+    "path": "scripts\\evaluate-import-lot01.mjs",
+    "hash": "E46F575A492FDAA9F32A85B8BEE7406D567295AD0D7B3CE450584505FEB44C6F"
+  },
+  {
+    "path": "scripts\\companion-fixture.mjs",
+    "hash": "D32D085AE1F77AAEAC857DEB1BD60E17C2D1935F470C9A6698CB6B6416E5E393"
+  },
+  {
+    "path": "scripts\\companion-fixture.d.mts",
+    "hash": "51D7C80296CF2F4F6D921FDAAABE58F41802F18A8E646C269FD2D69E931C7B0B"
+  },
+  {
+    "path": "scripts\\collaboration-check.sql",
+    "hash": "45EADE1DE583B13C3F020123CA5BEEE4A7DB6CE034F70752DFDA4CB45D39CE9F"
+  },
+  {
+    "path": "scripts\\check-build.mjs",
+    "hash": "99AA9C120AECD39BD223FEEA7A861003259348EBF7BE338A14A43E7C0F98940E"
+  },
+  {
+    "path": "scripts\\build-sw.mjs",
+    "hash": "77A0E181DF747889D594A6574C2B0B19CE77688493431C5298A64427F6E71FD3"
+  },
+  {
+    "path": "scripts\\build-identity.mjs",
+    "hash": "9CC8B72E46DEFE21F9A5A68FC893FCC45A3872AD3B7FEDC0CBA49416CDB1A923"
+  },
+  {
+    "path": "scripts\\browser-test-options.ts",
+    "hash": "86BC493C7FC5255F8BA602E2619EA3D1EE07E1C0E74CFCD771514A2B0A920D4D"
+  },
+  {
+    "path": "scripts\\benchmark-nvidia-import.mjs",
+    "hash": "292E353DD98CB5AC77CFE23DB0982A553CE69D3A992113E5CA37B1F3ECACB7B7"
+  },
+  {
+    "path": "scripts\\benchmark-lot06.mjs",
+    "hash": "327A3F5C98BA78421B106AE01B1008297D225A4410B3D494A50441E45497156C"
+  },
+  {
+    "path": "scripts\\assistant-preservation.mjs",
+    "hash": "33B72F0E37AAD43E7DC5EBBBD128711EBB5CDAB61FDFED301B808C5A1060FAD9"
+  },
+  {
+    "path": "scripts\\assistant-fixture.mjs",
+    "hash": "04D884F40ACA435A2B0FD8F7AC53ED75589136D66A19732D18EAB5908920B971"
+  },
+  {
+    "path": "scripts\\assistant-fixture.d.mts",
+    "hash": "99CAD8BC70AD1A1F1620B46DAA891DE467F6E30B329253851F3AA57E300BD5CC"
+  },
+  {
+    "path": "scripts\\lot06-analyze.mjs",
+    "hash": "048AB55758F4515CE29DA5DD3F4515E5FBC237C395137CDED9668953B07E5124"
+  },
+  {
+    "path": "scripts\\l8-fixture.mjs",
+    "hash": "5CBA83AFFAFC8E1C9E20D428D3ABFEEA51B81F7CB34E7D3B1D24D1224224BA26"
+  },
+  {
+    "path": "scripts\\l6-fixture.mjs",
+    "hash": "835010B1BE5B113A826ED9EAF63FE829572F54CE0709E2B57A2F7BA6B0D8724A"
+  },
+  {
+    "path": "scripts\\l6-fixture.d.mts",
+    "hash": "8645AE01D277F7A740392A9BE0A6743CB6D0139FF6C9507E451D1549E43410D0"
+  },
+  {
+    "path": "scripts\\l5-fixture.mjs",
+    "hash": "364EB964597D6A3346A2A7590EAC3570CACA3C768A9D25ABA4DDF8D73198E181"
+  },
+  {
+    "path": "scripts\\l4-serve.mjs",
+    "hash": "00FF01DED69EDB7C14666BCBC01AA4C6DAF8925003B3459BBC624B67281AE2E9"
+  },
+  {
+    "path": "scripts\\l4-fixture.mjs",
+    "hash": "7F932746F7ECFC14D00C38E5A60A4A254496B33A645679111AEC0AFE9A09C9AF"
+  },
+  {
+    "path": "scripts\\generate-pwa-icons.mjs",
+    "hash": "3B7C45E4403680B973DBA8AA6EA6013E4DEFD11A5C04973DB25ACC8329C61A98"
+  },
+  {
+    "path": "scripts\\generate-palettes.mjs",
+    "hash": "4F61FD84E9BF701D99543B054713CECB74DE352E4594DBD873C294C44C5347EF"
+  },
+  {
+    "path": "scripts\\lot06-process.mjs",
+    "hash": "C7909D4FF1CF9DA8F402BC5CB8BE9F390C210B6FE5F2F9E73D3A6E80D3E1CB87"
+  },
+  {
+    "path": "scripts\\lot06-preservation.mjs",
+    "hash": "FB7099C9C5938036EE87CDF38EA060B4C492773743CF420C32CDD73B27CA88EC"
+  },
+  {
+    "path": "scripts\\lot06-download.mjs",
+    "hash": "2843573E3A6A71ED36A9F260105E6AE1F1929676F63723104AC0C4E9AD047BA4"
+  },
+  {
+    "path": "scripts\\lot06-core.mjs",
+    "hash": "FD5C79D4307F09EBE520878B88261D22005A91C0F89EE941BCBC01628D42CA7C"
+  },
+  {
+    "path": "scripts\\lot06-worker.mjs",
+    "hash": "58CB32D25B5A195D26A1841BF4EF491960A7D169E0E547FC7881272F65381167"
+  },
+  {
+    "path": "scripts\\lot06-recover.mjs",
+    "hash": "59D99DA107FBEBDFE4FC3B58039F80E8FB4A19B8EF44A42A8AA0651064024E00"
+  },
+  {
+    "path": "scripts\\mascot-preservation.mjs",
+    "hash": "6D6339303CB0BD33FE062B8B1D6161DB7A14FE79C7E65DFD36145CBA36BC4688"
+  },
+  {
+    "path": "scripts\\measure-l8.mjs",
+    "hash": "7D7F3E8D6F78BE0119BAAA8F5443F3280ADD409A25C703510E2519EAB965333B"
+  },
+  {
+    "path": "src\\country-currencies.ts",
+    "hash": "1481B56B734E26E0B4A85DBA308DF8D32BA22DF7AF81D59096BFCD11E0765BA0"
+  },
+  {
+    "path": "src\\countries.ts",
+    "hash": "713DBEE7C6540B834680301F6E66DD4BAC397C00990C7D5E73B2D555B5A2110D"
+  },
+  {
+    "path": "public\\import-kit\\zh-CN\\PREPARER-MON-VOYAGE-DETOURS.md",
+    "hash": "5DEA09C5DEEA4BD17BD7E60A8D2906C57CED6B392787763BEA21A18035A4CB3B"
+  },
+  {
+    "path": "public\\import-kit\\PREPARER-MON-VOYAGE-DETOURS.md",
+    "hash": "98288139AD3AC0AB360CBE6AD6EB66F5C4E7A846E8777D0DD8232A78857F6E78"
+  },
+  {
+    "path": "public\\import-kit\\exemple-minimal.detours.json",
+    "hash": "4739D85B6B32151FB67BD55C7DBF99038FE0BF80C9B92C2EA0F1910D89B11491"
+  },
+  {
+    "path": "public\\import-kit\\exemple-complet.detours.json",
+    "hash": "B5419B8BFD0350A69CB35FB6544CC2EB0FC5E69990482646C29B093CB257557E"
+  },
+  {
+    "path": "src\\data\\trip.ts",
+    "hash": "8110A19C5B010A310992CD3538309B67B1790AAF456E2F1984B8BE0A2AAA2A65"
+  },
+  {
+    "path": "src\\data\\legacy-catalog.ts",
+    "hash": "52E85A578B9ADE4BABFC72822942BD1B8537BA85DDBD7336C5CC1C560718D5B2"
+  },
+  {
+    "path": "src\\data\\china-phrases.ts",
+    "hash": "7AE86F4E64DC2C4C679DCC980E437961E52F00AF7B4A2A1A59EDC9EBCF1BB115"
+  },
+  {
+    "path": "src\\data\\bonus.ts",
+    "hash": "43E0E8B1096BA5A1C781885D91FDA7045A4215E283C17ED22A3A0229C560C4B3"
+  },
+  {
+    "path": "scripts\\nvidia-import\\evaluate.mjs",
+    "hash": "8EC055755977DF57305430C80010B4AF050B387BA248C64E6053C9334FEA159A"
+  },
+  {
+    "path": "scripts\\nvidia-import\\client.mjs",
+    "hash": "E0136ABF52919E5B10B4846429AAB4470EEA4BCDA51F2203841DCC67E4D1CE8C"
+  },
+  {
+    "path": "scripts\\nvidia-import\\analyze-live.mjs",
+    "hash": "6F94D79064F57A690AF1CA4293C2CE58FA684A9658C4371B43DB8609ED9E07A2"
+  },
+  {
+    "path": "scripts\\nvidia-import\\fixtures.mjs",
+    "hash": "89759C1D30DE1CFE141EFB01C5954654A6AB9F187C8E505BFAD9A2383C0443B6"
+  },
+  {
+    "path": "scripts\\nvidia-import\\journal.mjs",
+    "hash": "B9ACBAA789CDC81EC5862EAD6EFAE055E356E8F9458B807108DF2F74F528E347"
+  },
+  {
+    "path": "src\\day-preparation.ts",
+    "hash": "0300A27E32D708C4726398F67B3FB81F52C5A0A389455E3A24961112268F0802"
+  },
+  {
+    "path": "scripts\\nvidia-import\\preservation.mjs",
+    "hash": "9A6811BF4969BD5F05E06C59DF2DAD26945CCC79097C986F129B0EA99134285D"
+  },
+  {
+    "path": "src\\live-rates.ts",
+    "hash": "F4256F9ABEFEC1D26E846F03F8BDFDF1567AE3F21494A1FA71F2520AB8329C0B"
+  },
+  {
+    "path": "src\\lib.ts",
+    "hash": "3098A78F18679BB72C107F5CAA3CCC7358F3BF0EDB1CEB1906AD42D001B384F3"
+  },
+  {
+    "path": "src\\locale-utils.ts",
+    "hash": "B95FE9443FD3DEC373E8052F903245FAF6968BBDBEDB0A2B5479B4322736763B"
+  },
+  {
+    "path": "src\\App.tsx",
+    "hash": "313C2320433F53803DF55EB2146C65266569C2074D0806ED8484392368AF8B06"
+  },
+  {
+    "path": "src\\apple-design.css",
+    "hash": "82DF807D6228C9FAE67403DE6C1676E02401B7458A642BC8E12ED0E69872FE0C"
+  },
+  {
+    "path": "src\\calendar.ts",
+    "hash": "4A551C51402F21A7136715DB7C3F2DD252065010C1CF98DE45EDF502511F64C3"
+  },
+  {
+    "path": "src\\backup.ts",
+    "hash": "D7F218EDFA8B91E589EF2798031D11E2AF62E55D7D1E6A9EC089E8AA15127096"
+  },
+  {
+    "path": "public\\import-kit\\detours-planning-v1.schema.json",
+    "hash": "68AB89B749F0A33492F23F9F77944D3708780488C0178AF0DA11D75D738959AA"
+  },
+  {
+    "path": "src\\companion.ts",
+    "hash": "A8FC94AA1EAEA6CC8F6ABF2BC73F41C21350662AB2D73553F4457A7914CE5F18"
+  },
+  {
+    "path": "src\\assets\\mascot\\welcome.svg",
+    "hash": "3EB5861E77E87F7AC3701C2C7CA243DF7F03AC7450B5688B152E12D0FDC53F67"
+  },
+  {
+    "path": "src\\assets\\mascot\\ready.svg",
+    "hash": "93AFC413DAB454D462361747B295D2C65891170D536A7982D169DC170816F0C9"
+  },
+  {
+    "path": "src\\assets\\mascot\\attention.svg",
+    "hash": "1AB102770E8C2CB636E4B4D93A19C968CA17795E92F5BA184C056EE5E9CE5A9E"
+  },
+  {
+    "path": "public\\import-kit\\es\\PREPARER-MON-VOYAGE-DETOURS.md",
+    "hash": "91F4CFDECA683F74ED2DBAB5AF83660628C865DBBA3455ECBD8AFBDD0112DFD7"
+  },
+  {
+    "path": "public\\import-kit\\en\\PREPARER-MON-VOYAGE-DETOURS.md",
+    "hash": "F9D0A90CB8D47C56BF7615997278A632EC72C18B317C5E51A8979A99E7995311"
+  },
+  {
+    "path": "src\\hooks\\useExchangeRates.ts",
+    "hash": "B4FECD770FCB6C4C1B4129AFBD86D47919C0C2DCFAC30E2FB8DD2F26538FC5C9"
+  },
+  {
+    "path": "public\\icons\\brand-dark-128.png",
+    "hash": "D462D5A073D82A76B1DF15690615D245ECEB6B0AAB27A36BBC4E4319520C05BE"
+  },
+  {
+    "path": "public\\icons\\brand-128.png",
+    "hash": "1FD99F2611022F520D80B606D10D87618B644E000031AFDC403E366FEE0414E3"
+  },
+  {
+    "path": "public\\icons\\apple-touch-icon.png",
+    "hash": "2F113B533684A9A767FCF534488CCB1D8C4A993074DCFB341B29EC7616197C27"
+  },
+  {
+    "path": "public\\icons\\favicon-32.png",
+    "hash": "2BF18945F67A3206705017204782E76A597ADA73EC153A0FF8C143E9FB8D3D27"
+  },
+  {
+    "path": "public\\icons\\favicon-48.png",
+    "hash": "184E3CFA32724CB72F29F3C865FB2ED5D431B922455401C7E1E84D46BF1E9767"
+  },
+  {
+    "path": "public\\icons\\icon-192.png",
+    "hash": "09B1BB34644152635044A94C5E062D56802A993C9242366484146CCE95BBC204"
+  },
+  {
+    "path": "src\\cloud\\engine.ts",
+    "hash": "61545C4B2391C1FC925B72905F672A003370D2CE83F37288E3F4B2F76C562621"
+  },
+  {
+    "path": "src\\cloud\\CloudProvider.tsx",
+    "hash": "AF791A1CAC67675010E069807A3A699F8F1EB466E6185F9A92C6712FA5046455"
+  },
+  {
+    "path": "src\\cloud\\client.ts",
+    "hash": "5954B29DCD0FCD56CE105F4283E36BE2FD95BFAFB095C3E4E24B29B10CC7269A"
+  },
+  {
+    "path": "src\\cloud\\projection.ts",
+    "hash": "BC34C972913447C0E8AE1215642654E22B95627AB491950B1E5EA9B6CE8F0175"
+  },
+  {
+    "path": "src\\cloud\\merge.ts",
+    "hash": "6E47BF629211038AF6AAF2741EB90E38669006666CB8953797A5B520FFF77EFD"
+  },
+  {
+    "path": "src\\hooks\\useMoneyPreferences.ts",
+    "hash": "BCA21C30ABC996C57190C864656F93C0DA9F685F5CB47D3C9C0FF3E93E6E0104"
+  },
+  {
+    "path": "src\\cloud\\session-cache.ts",
+    "hash": "7556994D444399BAE9484B224A06F449DA7A16CC552BA7520E1FE6CE434D55A1"
+  },
+  {
+    "path": "src\\cloud\\status.ts",
+    "hash": "0F9A01E5F87066FEBC753F4633EEB3AA11BE8188440533C4D9A92E6061DD3D92"
+  },
+  {
+    "path": "public\\icons\\icon-512.png",
+    "hash": "DE850901A2425AD459C54656A44991134612AECEFD7FE7C6CFF423152AB2FC8A"
+  },
+  {
+    "path": "src\\cloud\\storage.ts",
+    "hash": "E9508EB0432C2FD4285C2B291FFC0075FFF97D81036FD6DF5A6F11A79AE40B74"
+  },
+  {
+    "path": "public\\icons\\maskable-512.png",
+    "hash": "ECC092600DFE071160D14D7D60631FA2B6E0D5D9065AEDC85A9545BD8699E962"
+  },
+  {
+    "path": "src\\hooks\\useScrollMaterial.ts",
+    "hash": "48F6A41B161B6494878436064E2252D7066F13883F665ABE600FFBB6ACB24703"
+  },
+  {
+    "path": "src\\hooks\\useTravelState.ts",
+    "hash": "1D08A92FCF04FC71F45215539D463EDBE75BD8582FD4DBE1A48FD45134C38AC4"
+  },
+  {
+    "path": "src\\hooks\\useSheetMotion.ts",
+    "hash": "32565634CA5CC2746C1A9EA77C627F884C7FEEC4AAAE72EF621F2177ADC7C8F5"
+  },
+  {
+    "path": "src\\locales\\app-en.ts",
+    "hash": "63A758FC33FEB252A032BE6842C5F20958513FCFC0B604A23C4697053692EB7B"
+  },
+  {
+    "path": "src\\locales\\assistant.ts",
+    "hash": "8901ACAE26A0AA0A27B7CF5A52ECD2E6C88BA692D348ECD0C8C23312D8D91F62"
+  },
+  {
+    "path": "src\\places\\wikimedia.ts",
+    "hash": "ACAC88388B07B96F7D6A28CB376067C60DAE63A451E510CB0E53D03D729ADDC7"
+  },
+  {
+    "path": "src\\places\\model.ts",
+    "hash": "445E7EAED9ADD6E354A51F707A65A914C6114FBCFE3A67E48DD01076A1E02AE3"
+  },
+  {
+    "path": "src\\locales\\beta.ts",
+    "hash": "7E74E14839F7E53A44A61E38222166DFE80D3F2B55E7CB21FDEA4F18C3A34C0A"
+  },
+  {
+    "path": "src\\locales\\backup.ts",
+    "hash": "29DD25234302A468386691A66469C5BD6B1C51B4CC2784F8EEA66909C6455758"
+  },
+  {
+    "path": "src\\locales\\common-en.ts",
+    "hash": "878259361A985E4F0B35E0F52440F6A498B4BC41E858007E184BA1CD70A7DF39"
+  },
+  {
+    "path": "src\\locales\\companion.ts",
+    "hash": "C07DBE689B6CA91AD527ACB97BBA0BE87C33160576FE713ECEC3A0632DB084B2"
+  },
+  {
+    "path": "src\\locales\\zh.ts",
+    "hash": "42B505B5CBB173E83BC954B836878F40669BA05720EDEBC56FE9B779CC97111B"
+  },
+  {
+    "path": "src\\locales\\tools-en.ts",
+    "hash": "37A6FA426913F442F8FE39B68554C4B171FE087D1CCF94469515E20A07862698"
+  },
+  {
+    "path": "src\\locales\\preparation.ts",
+    "hash": "81BD3590712B1789D69746D80F7EE74C88E96A9DC780C3A9632B84CC69507626"
+  },
+  {
+    "path": "src\\locales\\planning-import.ts",
+    "hash": "8B10B3B31EE29B27C143632FFFF64AF2C0C50E4994F582E00AD0FAD3722E1F9F"
+  },
+  {
+    "path": "src\\locales\\places.ts",
+    "hash": "0A870B92A733B22CDBE25E625EE708D4E13109275D369513D912DF947ED8350F"
+  },
+  {
+    "path": "src\\locales\\palettes.ts",
+    "hash": "C0794142C2EC885BBE9FC13BCFB1E8FD58B8D6780BC5890671F159A1CEB9C7BF"
+  },
+  {
+    "path": "src\\locales\\offline.ts",
+    "hash": "993C75A06FAC2F18A1CDF71A6A7F29B92306B0EFEBE17DCDE00A6FA69583A5B5"
+  },
+  {
+    "path": "src\\locales\\now.ts",
+    "hash": "535C7BBA6C6944C205FF948B7C66D2B2F8AD933ED9DDD669C1237A80B843D25C"
+  },
+  {
+    "path": "src\\locales\\mascot.ts",
+    "hash": "24B8E12A08B7974E1631895A39B8C19A70C11982B297BD44C7E5BE4FDC6E7173"
+  },
+  {
+    "path": "src\\locales\\journeys-en.ts",
+    "hash": "4DA42C86DE8A91A788A2F785A6E8669B7D07A99A21CC9A924C76319354AAC8EF"
+  },
+  {
+    "path": "src\\locales\\es.ts",
+    "hash": "2E83495227C5126E6927B07165CF2EA17DC1AAB0D74F2739BF4232191005A16A"
+  },
+  {
+    "path": "src\\components\\AppUpdate.tsx",
+    "hash": "BD2D382F5C75C2F599008C3A8E4274F5339D5C2622BEEC3BF7FAC069518FFA79"
+  },
+  {
+    "path": "src\\components\\AppUpdate.css",
+    "hash": "F252D16DBF4558AA473E1167BDE6F3F3662D05FCDB02B3DAFC4E803B1A30E521"
+  },
+  {
+    "path": "src\\components\\AccountPanel.tsx",
+    "hash": "C307BAA32B31F487782DD1F49198C02BB05750A5A16BF19C2061ADB8CF5A0A0E"
+  },
+  {
+    "path": "src\\components\\AccountPanel.css",
+    "hash": "5BEFB8574FC3639019110C4C837244F0AD654FDD5C4522E640C06B7F913F0719"
+  },
+  {
+    "path": "src\\components\\BrandMark.tsx",
+    "hash": "404D81BE81437F562BACB99C958FBC8A9C50F40156B0A3381C4C006B8AF66546"
+  },
+  {
+    "path": "src\\components\\BackupPanel.tsx",
+    "hash": "66C9C92EA0151AE7545E4FB1287C31AC90922AA5D36437A7DC2486C757DD71DC"
+  },
+  {
+    "path": "src\\components\\Companion.tsx",
+    "hash": "1E69D5DC63D070D8B5071B3D1C4DAB89B526790A049FB2CD8F2A3CC7997BB7A9"
+  },
+  {
+    "path": "src\\components\\Companion.css",
+    "hash": "5E9F2F78674208F70DD62F7DA89CF04228C795469C64065BE94CB7ECB451B02C"
+  },
+  {
+    "path": "src\\components\\ConflictCard.tsx",
+    "hash": "87E9E681EB6748402FA189F36EDA72679B2A58560FA75DD20C9BE7F4B5D723CB"
+  },
+  {
+    "path": "src\\components\\WorldView.tsx",
+    "hash": "8BEF8FE29EF755B48590E276BA8834F8C09D622029C96EAE56B02B4501508334"
+  },
+  {
+    "path": "src\\components\\WorldView.css",
+    "hash": "E607BFF88536CC222E5699F260CE51BF751262A7869DEE4BD7CA1CF1B83EF67E"
+  },
+  {
+    "path": "src\\components\\TripOverview.tsx",
+    "hash": "AFDD0558DBB8D06002FE878E1DBE72AD519CB0530A43EA493E822FAD0E6FDF7D"
+  },
+  {
+    "path": "src\\components\\TripOverview.css",
+    "hash": "4AB9EE784862AA40FBC72AFA26919E3AE6CAA5A559732030042FDD20FC1A2590"
+  },
+  {
+    "path": "src\\components\\TripMap.tsx",
+    "hash": "C9DB4B445BBBF6A133C7C76D55599057D8BFEF5B2B11032895715E2D77E237AC"
+  },
+  {
+    "path": "src\\components\\TripMap.css",
+    "hash": "BB1E494E2EE1100E0845C152C769BB2677188CF099773F985D849F2FE2410408"
+  },
+  {
+    "path": "src\\components\\TripCollaboration.tsx",
+    "hash": "7F748A94F0E873838DB26E25D431AD028263E7CDA7D066ACEEDF3601C894B206"
+  },
+  {
+    "path": "src\\components\\TripCollaboration.css",
+    "hash": "1464AD7E97098C4847139387FACD88AF181E39EF625E525434D718A59332369F"
+  },
+  {
+    "path": "src\\components\\TripBudget.tsx",
+    "hash": "81384F88C4E543234DBDC8A7128BEE092B5CBF7DB62E2DF6E1468EEF545E96AD"
+  },
+  {
+    "path": "src\\components\\TravelTools.tsx",
+    "hash": "1307F181B6D24013D65F4DCABFA9FE1205CD5F65640873ED9B030EE11E4B21C9"
+  },
+  {
+    "path": "src\\components\\TravelTools.css",
+    "hash": "29EA740689F1D958F22A8687BD2DDFE1236D79CABE5A472731690AB9077E93BD"
+  },
+  {
+    "path": "src\\components\\StoragePersistence.tsx",
+    "hash": "8E2BDB42C5D9D22789B51A99378C3663FEDC126213E72B9C17FAB8B40E2BB611"
+  },
+  {
+    "path": "src\\components\\SourceDocument.tsx",
+    "hash": "651B98C171D353E18DB7EB0905B52DEA2436E7255E77618EDB5FC45F31140FBE"
+  },
+  {
+    "path": "src\\components\\SharePanel.tsx",
+    "hash": "3C731BE24123F4177CE2E54E9F5853A28DC42039F06426A636658619B87A73C5"
+  },
+  {
+    "path": "src\\components\\SharePanel.css",
+    "hash": "1DEFCA7565E1F5E2DDC38875BF640205A128729EA3013F177F06BC7AAD6F8FA2"
+  },
+  {
+    "path": "src\\components\\SharedTrip.css",
+    "hash": "A1AA2F03D382F2E1FA44C7E2339160C9F36D63DDC7B3B98CAD078CD4B5F11F0C"
+  },
+  {
+    "path": "src\\components\\Preferences.tsx",
+    "hash": "E62AA0AC3E1A7C890DB87772F1670D06DB8ED237740DAEBFEA28B0B8F3CF8792"
+  },
+  {
+    "path": "src\\components\\Preferences.css",
+    "hash": "69D45A134BBEB666425D29D58609C18868EA0CF8405ED83B4748249145EE9360"
+  },
+  {
+    "path": "src\\components\\PracticalView.tsx",
+    "hash": "32B897FF735FC31CD04F83F0965109807A2E5110FB272CE04DE39729C1A10F30"
+  },
+  {
+    "path": "src\\components\\PracticalView.css",
+    "hash": "093F8D04069A41DF9364192B59586206C4E2B43CF22054ED51A9DA82FB0CC8CF"
+  },
+  {
+    "path": "src\\components\\PlanningImport.tsx",
+    "hash": "C4808C78F2F8B43945208032B201C1269985AF722666D821E088462F41C12180"
+  },
+  {
+    "path": "src\\components\\PlanningImport.css",
+    "hash": "82D5784962480DD220188A4CDE9B87521FCD9E79F6773499E5ACFCACA9D3C0A8"
+  },
+  {
+    "path": "src\\components\\PlaceEnrichment.tsx",
+    "hash": "3B2702B75482537CA9928FD1C1461655F118F819353AD823416A3AFD0F2277DA"
+  },
+  {
+    "path": "src\\components\\PlaceEnrichment.css",
+    "hash": "B99809CE2B1F98CD4C318825A8ED7022A015079ACC3314784F84253F89E95DE2"
+  },
+  {
+    "path": "src\\components\\OfflineStatus.tsx",
+    "hash": "2DD2E008A6A28679E50E15FBDA8AB67F4FCB2F9153F42E8E5E2EA0F8BE6AAC3F"
+  },
+  {
+    "path": "src\\components\\OfflineStatus.css",
+    "hash": "CAE746525E3E49849B1E39B5E4D049B802360DEB63B5045BB0F26A8F8F88D432"
+  },
+  {
+    "path": "src\\components\\NowView.tsx",
+    "hash": "3C78098A3A7BF986BBBFD243593916A42454C6FE69A5104CBFF47465BB5E3E0E"
+  },
+  {
+    "path": "src\\components\\NowView.css",
+    "hash": "3CEB300A6D9B40658291AA22AC36A4F72E703099EA429C6D74631829C7E1BF9C"
+  },
+  {
+    "path": "src\\components\\Mascot.tsx",
+    "hash": "0FF0C861FB2CA913EB5620686BE5F5C6664D6CEA209E539C704F6E5F8C5F8DD2"
+  },
+  {
+    "path": "src\\components\\Mascot.css",
+    "hash": "B501AFF656B4314AC9EF54FEEF2D730AD794ADFB463C6B29C41E2B95407504C9"
+  },
+  {
+    "path": "src\\components\\MapActions.tsx",
+    "hash": "933BDD9D0752D525D7B674D11735E09056F2EA7E247C3316618C46DC9D206C35"
+  },
+  {
+    "path": "src\\components\\MapActions.css",
+    "hash": "CD9EC69A4BD5F9FABD27988B6D554880CC617A076FD4CD3D3E7F8EFB76AA904A"
+  },
+  {
+    "path": "src\\components\\JourneysApp.tsx",
+    "hash": "4EB39AEE70F10C30DB6C56FC03404B69FBF4D2CF222398149DAC7A8C6B1E693E"
+  },
+  {
+    "path": "src\\components\\JourneysApp.css",
+    "hash": "8DAE9AA044FD0C25CE171B6E31688FB02E94465BE79F3ED6C4898811D90C1B31"
+  },
+  {
+    "path": "src\\components\\InstallHelp.tsx",
+    "hash": "0235B427A0D675587B7FCD3BE397B249A93F0CB70FBF5B634B7065C47FC03604"
+  },
+  {
+    "path": "src\\components\\GuidedAssistant.tsx",
+    "hash": "A84AF916AB9C196FDD7EB61C71EB0E32F71E4D0D4E6E9CAA37F909C80105FF1C"
+  },
+  {
+    "path": "src\\components\\GuidedAssistant.css",
+    "hash": "E6A00AB077987394996B4A7DDD73EDBAEC2A77F668C7BCEC424A480C1B8D7618"
+  },
+  {
+    "path": "src\\components\\GlassSelection.tsx",
+    "hash": "FF56BCAF50102294E560094B6DB4A43AA7C58B07CFE92A13444531F7E942D743"
+  },
+  {
+    "path": "src\\components\\EditControls.tsx",
+    "hash": "049F4072950C9257B81FF1F1639ED0F5CD9A305EF475B704B85B7AC37201F081"
+  },
+  {
+    "path": "src\\components\\DayPreparation.tsx",
+    "hash": "763CD25304D94153D8704783512F30C45709A840BF53482242774D06428C968C"
+  },
+  {
+    "path": "src\\components\\DayPreparation.css",
+    "hash": "0A52E69E01241D20132A2EA6ED25BD3E8E4917659ABB6C3944B0E8C83D565E94"
+  },
+  {
+    "path": "src\\components\\CurrencyConverter.tsx",
+    "hash": "A59B9EC31F8D18C30539159837FB1CC12C4EB5074B6947E6293EAD2776C7656E"
+  },
+  {
+    "path": "src\\components\\CountryPicker.tsx",
+    "hash": "2AE9AB74A4893B7F36CA03C1DA6A945F92B309F0410FCBC19810EA73CCB736A4"
+  },
+  {
+    "path": "README.md",
+    "hash": "C9AB6E10F4FB0A4684CE94F0A042DCE56E5A8E552F71F8A66083300B5B93DD51"
+  },
+  {
+    "path": "package.json",
+    "hash": "FB52CEF917EDF5CB8A904B7EBC42F985A39E957C34BFCA3AE57E19D7386C21C8"
+  },
+  {
+    "path": "package-lock.json",
+    "hash": "A666D02279F497DBE70769821C38F06B8DA7CBEACE9929C8112460FEC7F51D32"
+  },
+  {
+    "path": "index.html",
+    "hash": "53D727B03B845BFA66C0828CB9B642CB712962434850A53D4B2BC256024538A9"
+  },
+  {
+    "path": "vite.config.ts",
+    "hash": "AED56F37FA030F971F35E55476B11B00B421CD04EE5DE4C5F53334AF819E8759"
+  }
+]

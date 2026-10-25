@@ -1,0 +1,822 @@
+diff --git a/README.md b/README.md
+index f069cf9..3c00d2a 100644
+--- a/README.md
++++ b/README.md
+@@ -25,6 +25,16 @@ npm run preview -- --port 4173
+ 
+ Les tests navigateur utilisent Chrome installé sous Windows, ou `/usr/bin/chromium` sous Linux. `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` permet de préciser un autre exécutable. Le serveur de développement des tests tourne sur le port 5173. Le contrôle de production démarre automatiquement un serveur temporaire à partir de `dist` ; `PRODUCTION_TEST_URL` permet de tester une autre URL avec `DETOURS_ALLOW_NETWORK=1`, sans la simulation locale de mise à jour du worker ; la version ciblée doit exposer le manifeste L3.
+ 
++## Souvenirs personnels (lot 09)
++
++Dans **Mon planning → Souvenir personnel**, ajoute une photo et une légende courte à la journée, puis **Enregistrer le souvenir**. Les copies restent privées dans cet espace local/compte et sur ce navigateur : aucune synchronisation ni publication. Le carnet fonctionne sans photo. JPEG, PNG et WebP sont acceptés (12 Mio, 32 Mpx) ; HEIC demande une conversion JPEG. La copie est réencodée sans les métadonnées originales, orientation appliquée, limitée à 1600 px et 512 Kio. Le fichier original reste intact. Le budget de tous les espaces de ce navigateur est de 32 Mio ; le quota effectif peut être inférieur.
++
++**Préparer un souvenir imprimable** ouvre le choix des journées et un aperçu. Photos et légendes demandent chacune ton accord. Titres et dates sont inclus ; vérifie qu'ils ne contiennent pas de données sensibles. Réservations, dépenses, documents, notes et adresses des activités sont exclus. **Imprimer les journées choisies** lance l'impression navigateur ; choisis « Enregistrer en PDF » si proposé. Aucun générateur PDF automatique ni lien public.
++
++Les sauvegardes de carnets et la sauvegarde complète historique **excluent les photos et légendes quotidiennes du lot 09** et l'indiquent explicitement. Dans chaque carnet, télécharge aussi le **paquet souvenirs** personnel, après vérification de son aperçu. Il contient toutes ses photos/légendes, y compris celles des journées supprimées, sans le carnet ni le compte (format distinct v1, maximum 48 Mio). Pour récupérer sur un autre navigateur : restaure d'abord la sauvegarde du carnet, ouvre le carnet récupéré, puis **Importer un paquet souvenirs**, vérifie la destination et confirme. Seules les journées dont l'identifiant est reconnu et sans souvenir existant sont ajoutées ; le bilan compte les entrées ignorées. Les souvenirs déjà présents ne sont pas écrasés. Garde le paquet original pour les journées absentes. Si toutes les journées ont été supprimées, l'accès aux paquets et au nettoyage reste disponible dans le carnet.
++
++Une erreur ou un manque de quota conserve les souvenirs précédents. Annule les modifications pour relire un changement d'un autre onglet. Une photo illisible peut être retirée puis remplacée ; les légendes restent récupérables. Les copies détachées ne sont effacées qu'après confirmation explicite. Conserve les deux fichiers de sauvegarde hors du navigateur : supprimer les données du site supprime aussi IndexedDB. [Rapport et preuves du lot 09](docs/development/lot-09-souvenirs/RAPPORT.md).
++
+ ## Utiliser les carnets
+ 
+ - **Mes voyages** : créer, ouvrir, modifier le titre, les destinations, la couverture, la devise et le fuseau ; dupliquer ou importer. Le bouton portant le nom du voyage dans la barre latérale ramène à la collection. Sur téléphone, ouvrir le menu.
+diff --git a/scripts/smoke-souvenirs.mjs b/scripts/smoke-souvenirs.mjs
+new file mode 100644
+index 0000000..cba573b
+--- /dev/null
++++ b/scripts/smoke-souvenirs.mjs
+@@ -0,0 +1,38 @@
++import assert from 'node:assert/strict';
++import { mkdir, readFile, writeFile } from 'node:fs/promises';
++import { chromium, expect } from '@playwright/test';
++import { productionTestServer } from './production-server.mjs';
++import { chromiumTestOptions } from './browser-test-options.ts';
++import { fixture } from './companion-fixture.mjs';
++import { archive, tripKey } from '../src/journeys.ts';
++
++const out='docs/development/lot-09-souvenirs/compiled';
++const server=await productionTestServer();server.update();
++const browser=await chromium.launch(chromiumTestOptions());
++const trip=fixture(), errors=[], external=[];
++const contexts=[];
++try {
++  await mkdir(out,{recursive:true});
++  const source=await browser.newContext({viewport:{width:390,height:950},reducedMotion:'reduce'});contexts.push(source);
++  await source.route('https://**/*',r=>r.abort());
++  const page=await source.newPage();page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(!r.url().startsWith(server.url)&&!r.url().startsWith('data:')&&!r.url().startsWith('blob:'))external.push(r.url());});
++  await page.goto(server.url);await page.evaluate(({key,raw})=>localStorage.setItem(key,raw),{key:tripKey(trip.journey.id),raw:JSON.stringify(archive(trip))});await page.reload();await page.getByRole('button',{name:'Ouvrir '+trip.journey.title,exact:true}).click();
++  await page.locator('.souvenirs summary').click();await expect(page.locator('.souvenirs textarea')).toBeEnabled();
++  const png=await page.evaluate(()=>{const c=document.createElement('canvas');c.width=900;c.height=600;const ctx=c.getContext('2d');ctx.fillStyle='#42694c';ctx.fillRect(0,0,900,600);ctx.fillStyle='#f5d992';ctx.fillRect(100,100,350,350);return c.toDataURL('image/png').split(',')[1];});
++  await page.getByLabel('Choisir une photo personnelle',{exact:true}).setInputFiles({name:'souvenir-fictif.png',mimeType:'image/png',buffer:Buffer.from(png,'base64')});await expect(page.locator('.souvenirs img')).toBeVisible();
++  await page.getByLabel('Légende du souvenir',{exact:true}).fill('Souvenir fictif · 中文 · España');await page.getByRole('button',{name:'Enregistrer le souvenir',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'Souvenir enregistré'})).toBeVisible();
++  await page.evaluate(async()=>{await navigator.serviceWorker.ready;});await expect.poll(()=>page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);
++  external.length=0;await source.setOffline(true);await page.reload();await page.locator('.souvenirs summary').click();await expect(page.locator('.souvenirs textarea')).toHaveValue('Souvenir fictif · 中文 · España');await expect.poll(()=>page.locator('.souvenirs img').evaluate(img=>img.naturalWidth)).toBe(900);
++  await page.getByRole('button',{name:'Télécharger le paquet souvenirs',exact:true}).click();let dialog=page.getByRole('dialog');await expect(dialog).toContainText('Souvenir fictif');let event=page.waitForEvent('download');await dialog.getByRole('button',{name:'Confirmer le téléchargement personnel',exact:true}).click();const media=await readFile(await (await event).path(),'utf8');assert.equal(JSON.parse(media).version,1);
++  await page.getByRole('button',{name:'Préparer un souvenir imprimable',exact:true}).click();dialog=page.getByRole('dialog');await dialog.getByRole('checkbox',{name:'Jour test',exact:true}).check();await expect(dialog.locator('.souvenir-preview img')).toHaveCount(0);await expect(dialog.locator('.souvenir-preview')).not.toContainText('Souvenir fictif');await dialog.getByLabel('J’inclus mes photos personnelles dans l’impression.',{exact:true}).check();await dialog.getByLabel('J’inclus mes légendes personnelles dans l’impression.',{exact:true}).check();await expect(dialog.locator('.souvenir-preview')).not.toContainText('PRIVATE');await expect(dialog.locator('.souvenir-preview img')).toBeVisible();await page.screenshot({path:`${out}/mobile-preview.png`});
++  await page.emulateMedia({media:'print'});await page.screenshot({path:`${out}/print.png`});await page.pdf({path:`${out}/impression-automatisee.pdf`,format:'A4',printBackground:true});await page.emulateMedia({media:'screen'});await page.keyboard.press('Escape');
++  await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Mes voyages',exact:true}).click();event=page.waitForEvent('download');await page.getByRole('button',{name:'Télécharger ma sauvegarde complète',exact:true}).click();const backup=await readFile(await (await event).path(),'utf8');assert.ok(JSON.parse(backup).exclusions.some(text=>text.includes('photos et légendes quotidiennes')));assert.ok(!backup.includes('Souvenir fictif'));
++  const target=await browser.newContext({viewport:{width:390,height:950}});contexts.push(target);await target.route('https://**/*',r=>r.abort());const restored=await target.newPage();restored.on('pageerror',e=>errors.push(e.message));await restored.goto(server.url);
++  await restored.getByLabel('Choisir une sauvegarde complète',{exact:true}).setInputFiles({name:'carnet.json',mimeType:'application/json',buffer:Buffer.from(backup)});await restored.getByRole('dialog').getByRole('button',{name:'Confirmer la restauration',exact:true}).click();await expect(restored.getByRole('status').filter({hasText:'Restauration terminée.'})).toBeVisible();await restored.getByRole('button',{name:'Ouvrir '+trip.journey.title,exact:true}).click();await restored.locator('.souvenirs summary').click();await expect(restored.locator('.souvenirs textarea')).toHaveValue('');
++  const upload=()=>restored.getByLabel('Importer un paquet souvenirs',{exact:true}).setInputFiles({name:'medias.json',mimeType:'application/json',buffer:Buffer.from(media)});
++  await upload();await expect(restored.getByRole('dialog')).toContainText('Souvenir fictif');await restored.getByRole('dialog').getByRole('button',{name:'Confirmer la restauration',exact:true}).click();await expect(restored.locator('.souvenirs textarea')).toHaveValue('Souvenir fictif · 中文 · España');await expect.poll(()=>restored.locator('.souvenirs img').evaluate(img=>img.naturalWidth)).toBe(900);await upload();await expect(restored.getByRole('dialog').getByRole('button',{name:'Confirmer la restauration',exact:true})).toBeDisabled();await restored.keyboard.press('Escape');
++  await restored.getByRole('button',{name:'Supprimer ce souvenir',exact:true}).click();await restored.getByRole('button',{name:'Confirmer la suppression',exact:true}).click();await expect(restored.locator('.souvenirs img')).toHaveCount(0);await expect(restored.locator('.souvenirs textarea')).toHaveValue('');
++  assert.deepEqual(errors,[]);const inheritedMapRequests=external.filter(url=>/^https:\/\/[abc]\.tile\.openstreetmap\.org\//.test(url));const otherExternalRequests=external.filter(url=>!inheritedMapRequests.includes(url));assert.deepEqual(otherExternalRequests,[]);
++  await writeFile(`${out}/validation.json`,JSON.stringify({passed:true,offlineReload:true,freshProfileRestore:true,restoreRetryNoOverwrite:true,deletion:true,mediaPackageBytes:Buffer.byteLength(media),backupExcludesMedia:true,automatedPrintPDF:true,physicalDevice:false,manualPrintDialog:false,errors,externalRequests:external,inheritedMapRequests,otherExternalRequests},null,2));
++  console.log('Souvenirs compiled: offline photo, explicit print choices, separate backup, fresh restore, retry and delete passed.');
++} finally {for(const context of contexts)await context.close();await browser.close();await server.close();}
+diff --git a/scripts/souvenirs-preservation.mjs b/scripts/souvenirs-preservation.mjs
+new file mode 100644
+index 0000000..509ef42
+--- /dev/null
++++ b/scripts/souvenirs-preservation.mjs
+@@ -0,0 +1,49 @@
++import { readFile, writeFile, mkdir, copyFile, mkdtemp } from 'node:fs/promises';
++import { createHash } from 'node:crypto';
++import { execFileSync } from 'node:child_process';
++import { tmpdir } from 'node:os';
++import { resolve, join, dirname } from 'node:path';
++
++const directory='docs/development/lot-09-souvenirs/';
++const snapshot=resolve(process.argv[2]||'../detours-lot09-recovery-20261024');
++const manifest=JSON.parse(await readFile(join(snapshot,'manifest.json'),'utf8'));
++const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
++const modifications=new Set(['README.md','src/App.tsx','src/backup.ts','src/components/BackupPanel.tsx','src/locale-utils.ts','scripts/verify-local.mjs','tests/backup.test.mjs']);
++const additions=new Set(['src/souvenirs.ts','src/components/Souvenirs.tsx','src/components/Souvenirs.css','src/locales/souvenirs.ts','tests/souvenirs.test.mjs','tests/e2e/souvenirs.spec.ts','scripts/smoke-souvenirs.mjs','scripts/souvenirs-preservation.mjs']);
++const changed=[],missing=[],restored=[];
++for(const row of manifest.files) {
++  let bytes;
++  try { bytes=await readFile(row.file); } catch(e) { if(e.code==='ENOENT') {missing.push(row.file);continue;}throw e; }
++  if(hash(bytes)===row.sha256)continue;
++  // Only generated historical screenshots are eligible for automatic restoration.
++  if(process.argv.includes('--restore-evidence') && row.file.startsWith('docs/development/') && row.file.endsWith('.png') && !modifications.has(row.file)) {
++    const original=await readFile(join(snapshot,'source',row.file));
++    if(hash(original)!==row.sha256)throw new Error('Snapshot hash differs: '+row.file);
++    const preserved=join(directory,'regenerated',row.file);await mkdir(dirname(preserved),{recursive:true});await writeFile(preserved,bytes);await writeFile(row.file,original);
++    restored.push({file:row.file,generatedHash:hash(bytes),restoredHash:row.sha256});
++  } else changed.push(row.file);
++}
++const initial=new Set(manifest.files.map(r=>r.file));
++const files=execFileSync('git',['ls-files','-z','--cached','--others','--exclude-standard'],{encoding:'utf8',maxBuffer:10000000}).split('\0').filter(Boolean);
++const added=files.filter(f=>!initial.has(f));
++const unexpectedChanges=changed.filter(f=>!modifications.has(f)),unexpectedAdditions=added.filter(f=>!additions.has(f)&&!f.startsWith(directory));
++const result={snapshot,initialFingerprint:manifest.fingerprint,initialFiles:manifest.files.length,identical:manifest.files.length-changed.length-missing.length,changed,missing,unexpectedChanges,unexpectedAdditions,passed:!missing.length&&!unexpectedChanges.length&&!unexpectedAdditions.length};
++await writeFile(directory+'preservation.json',JSON.stringify(result,null,2)+'\n');
++if(restored.length)await writeFile(directory+'restored-evidence.json',JSON.stringify(restored,null,2)+'\n');
++const excluded=new Set(['changes.json','preservation.json','lot09.patch','patch-check.json'].map(f=>directory+f));
++const rows=await Promise.all([...changed,...added].filter(f=>!excluded.has(f)).map(async file=>{const bytes=await readFile(file);return {file,kind:initial.has(file)?'modified':'added',bytes:bytes.length,sha256:hash(bytes)};}));
++await writeFile(directory+'changes.json',JSON.stringify(rows,null,2)+'\n');
++if(!result.passed) {console.log(JSON.stringify(result));process.exitCode=1;} else {
++  const temp=await mkdtemp(join(tmpdir(),'detours-lot09-patch-'));await mkdir(join(temp,'before'));await mkdir(join(temp,'after'));
++  for(const file of [...changed,...added.filter(f=>additions.has(f))]) {
++    for(const name of initial.has(file)?['before','after']:['after']) {const target=join(temp,name,file);await mkdir(dirname(target),{recursive:true});await copyFile(name==='before'?join(snapshot,'source',file):file,target);}
++  }
++  let patch;
++  try {patch=execFileSync('git',['diff','--no-index','--binary','--','before','after'],{cwd:temp,encoding:'utf8',maxBuffer:20000000,stdio:['ignore','pipe','pipe']});}
++  catch(e) {if(e.status!==1)throw e;patch=e.stdout;}
++  patch=patch.split('\n').map(line=> /^(?:diff --git |--- |\+\+\+ )/.test(line) ? line.replaceAll('a/before/','a/').replaceAll('b/after/','b/').replaceAll('a/after/','a/').replaceAll('b/before/','b/') : line).join('\n');
++  await writeFile(directory+'lot09.patch',patch);
++  execFileSync('git',['apply','--reverse','--check','--ignore-space-change',directory+'lot09.patch'],{stdio:['ignore','pipe','pipe']});
++  await writeFile(directory+'patch-check.json',JSON.stringify({passed:true,reverseCheckOnly:true,patch:'lot09.patch',sourceTemp:temp},null,2)+'\n');
++  console.log(JSON.stringify({...result,patchReverseCheck:true,restored:restored.length}));
++}
+diff --git a/scripts/verify-local.mjs b/scripts/verify-local.mjs
+index a6e2372..2c61f2c 100644
+--- a/scripts/verify-local.mjs
++++ b/scripts/verify-local.mjs
+@@ -36,6 +36,8 @@ const steps = [
+   local('kit et JSON structurés compilés hors ligne', 'scripts/smoke-planning-structured.mjs', [], output),
+   local('PDF et DOCX compilés hors ligne', 'scripts/smoke-planning-documents.mjs', [], output),
+   local('compagnon compilé hors ligne', 'scripts/smoke-companion.mjs', [], output),
++  local('souvenirs navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/souvenirs.spec.ts']),
++  local('souvenirs compilés hors ligne', 'scripts/smoke-souvenirs.mjs', [], output),
+   local('assistant navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/assistant.spec.ts']),
+   local('assistant compilé hors ligne', 'scripts/smoke-assistant.mjs', [], output),
+   local('mascotte navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/mascot.spec.ts']),
+diff --git a/src/App.tsx b/src/App.tsx
+index 61f4b17..a29f321 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -1,3 +1,4 @@
++import Souvenirs from './components/Souvenirs';
+ import { placeStep } from './places/model';
+ import PlaceEnrichment from './components/PlaceEnrichment';
+ import GuidedAssistant from './components/GuidedAssistant';
+@@ -212,7 +213,7 @@ export default function App({ seed, onHome, onImport, externalError, accountCont
+     </aside>
+     <div className="workspace" inert={!!modal || mobileMenu}>
+       <header className="topbar"><div className="breadcrumb"><button className="icon-btn mobile-only" aria-label={t("Ouvrir le menu")} aria-expanded={mobileMenu} aria-controls="sidebar" onClick={() => setMobileMenu(true)}><Menu size={21}/></button><span>{t("Mon carnet de voyage")}</span><ChevronRight size={14}/><strong>{journey.title}</strong></div><div className="topbar-actions"><label className="search-box"><Search size={17}/><input value={query} onChange={e => setQuery(e.target.value)} placeholder={t("Retrouver un lieu, une envie…")} aria-label={t("Rechercher dans le carnet")}/>{query && <button onClick={() => setQuery('')} aria-label={t("Effacer la recherche")}><X size={14}/></button>}<span className="search-shortcut">⌕</span></label><button className="icon-btn help-btn" onClick={() => navigate('notebook')} aria-label={t("Informations pratiques")}><CircleHelp size={20}/></button><PreferencesButton/>{accountControl}</div></header>
+-      <main id="main">{typeof collaborationControl === "function" ? collaborationControl({saving,storageError}) : collaborationControl}{externalError && <div className="notice warning-notice" role="alert">{externalError}</div>}
++      <main id="main">{!day && <Souvenirs state={state}/>}{typeof collaborationControl === "function" ? collaborationControl({saving,storageError}) : collaborationControl}{externalError && <div className="notice warning-notice" role="alert">{externalError}</div>}
+         <div className="assistant-entry"><GuidedAssistant state={state} saving={saving} onCommit={applyAssistant} onNavigate={(cid,did)=>{setCityId(cid);setDayId(did);navigate('planning');}}/></div>
+         {storageError && <div className="notice warning-notice" role="alert">{t(storageError)}<div className="recovery-actions"><button className="text-btn" onClick={corruptRaw ? exportOriginal : exportData}>{corruptRaw ? t('Télécharger le fichier original') : t('Exporter le carnet actuel')}</button>{recovery?.readable && <EditButton className="text-btn" onClick={()=>setModal({type:'confirm',title:t('Restaurer la copie précédente ?'),description:t('Cette copie automatique date du {date}. Elle remplacera le carnet actuel.', {date:new Date(recovery.savedAt).toLocaleString(dateLocale)}),action:()=>{replaceState(recoveryState(recovery.raw));setModal(null);setToast(t('Copie précédente restaurée.'));}})}>{t("Restaurer la copie précédente")}</EditButton>}</div></div>}
+         {!isOnline && <div className="notice" role="status">{t("Tu es hors ligne. Ton planning et le fond général de la carte restent accessibles ; les cartes de rues et les liens externes nécessitent Internet.")}</div>}
+@@ -220,7 +221,7 @@ export default function App({ seed, onHome, onImport, externalError, accountCont
+         <button type="button" className="btn btn-secondary now-shortcut" hidden={view === 'now'} onClick={() => navigate('now')}>{t('Voir Maintenant')}</button><section className="page-intro"><div><div className="eyebrow"><span className="tiny-line"/> {t("LE VOYAGE COMMENCE ICI")}</div><h1>{view === 'planning' ? t('Un grand voyage, de beaux détours.') : view === 'overview' ? t('Le voyage en un coup d’œil.') : view === 'practical' ? t('Les petits outils des grands voyages.') : view === 'map' ? t('Le voyage, étape par étape.') : view === 'bonus' ? t('Un peu de place pour l’imprévu.') : view === 'transport' ? t('D’une découverte à l’autre.') : t('L’essentiel, à portée de main.')}</h1><p>{view === 'planning' ? t('Tout ton itinéraire au même endroit. Il ne reste qu’à en profiter.') : view === 'overview' ? t('Choisis tes dates et garde une vue de tout ton parcours.') : view === 'practical' ? t('Hébergements, budget, valise et quelques mots pour se comprendre.') : view === 'map' ? t('Prends un peu de hauteur et retrouve les lieux de ton voyage.') : view === 'bonus' ? t('Tes bonnes adresses de réserve, à piocher selon l’envie et le temps.') : view === 'transport' ? t('Les liaisons de ton parcours et les détails à confirmer avant le départ.') : t('Tes réservations, tes notes et les petits détails qui changent tout.')}</p></div><div className="intro-actions">{shortcut && <button className="btn btn-secondary daily-shortcut" onClick={jumpToNext}><Navigation size={16}/>{t(todayStop ? 'Aujourd’hui' : 'Reprendre')}</button>}<button className="btn btn-secondary export-button" onClick={exportData}><Download size={16}/> {t("Exporter le carnet")}</button></div></section>
+         {view === 'planning' && <section className={`hero ${isChina ? "" : "custom-hero"}`}><div className="hero-art" style={isChina ? undefined : { backgroundImage: `url(${JSON.stringify(journey.cover)})` }}/><div className="hero-copy"><span className="hero-pill"><span/> {isChina ? t("MON ÉCHAPPÉE EN ASIE") : journey.destinations || t("MON PROCHAIN DÉTOUR")}</span><h2>{isChina && journey.title === "Chine 2027" ? t("Cap sur la Chine") : journey.title}{isChina && <span>中国之旅</span>}</h2><p>{journey.description || t("Un voyage à imaginer, à ton rythme.")}</p><div className="hero-stats"><span><MapPin size={16}/>{state.cities.length} {t("villes & étapes")}</span><i/><span><CalendarDays size={16}/>{totalDays} {t("journées préparées")}</span>{(state.departureDate || isChina) && <><i/><span>{state.departureDate ? state.departureDate.slice(0,4) : "2027"}</span></>}</div></div><div className="hero-stamp"><Compass size={24} strokeWidth={1}/><span>{t("UN VOYAGE")}<br/>{t("À MON RYTHME")}</span></div><span className="hero-caption">{isChina ? t("L’esprit des paysages de Guilin · illustration") : t("Les beaux détours commencent ici.")}</span></section>}
+         {(view === 'planning' || view === 'bonus' || view === 'map') && <section className="cities-section"><div className="section-label"><h2>{t("Les étapes du voyage")}</h2><span>{t("Un itinéraire qui grandit avec tes envies")}</span></div><div className="city-tabs" aria-label={t("Choisir une ville")}>{state.cities.map((c, index) => <button key={c.id} onClick={() => chooseCity(c)} className={`city-tab ${c.id === city.id ? 'active' : ''}`} aria-pressed={c.id === city.id}><span className="city-tab-number">{String(index + 1).padStart(2, '0')}</span><div><strong>{c.name}</strong><small>{c.days.length ? `${t(c.days.length === 1 ? '{count} jour' : '{count} jours', { count: c.days.length })}${c.nights !== undefined ? ` · ${t(c.nights === 1 ? '{count} nuit' : '{count} nuits', { count: c.nights })}` : t(' · excursion')}` : t('À compléter')}</small></div>{c.id === city.id && <span className="city-active-dot"/>}</button>)}<EditButton className="city-add" onClick={() => setModal({ type: 'city' })} aria-label={t("Ajouter une ville")}><Plus size={20}/></EditButton></div></section>}
+-        {view === 'planning' && state.cities.length > 0 && <section className="planning-section"><div className="city-heading"><div><div className="eyebrow">{t("ÉTAPE")} {String(state.cities.findIndex(c => c.id === city.id) + 1).padStart(2, '0')} <span className="heading-rule"/></div><h2>{city.name}<span>{city.chineseName}</span><EditButton className="icon-btn" aria-label={t('Modifier {name}', { name: city.name })} onClick={() => setModal({ type: 'city', city })}><Pencil size={15}/></EditButton></h2><p>{city.subtitle}</p></div><span className="progress-chip"><CheckCheck size={15}/>{doneCount} / {citySteps.length} {t("étapes vécues")}</span></div><div className="planning-grid"><div className="planning-main"><div className="day-tabs" aria-label={t("Choisir une journée")}>{city.days.map((d, index) => <button key={d.id} className={d.id === day?.id ? 'active' : ''} aria-pressed={d.id === day?.id} onClick={() => { setDayId(d.id); setSelectedStepId(''); }}><CalendarDays size={15}/> {t("Jour {count}", { count: index + 1 })}</button>)}<EditButton className="add-day" aria-label={t("Ajouter un jour")} onClick={() => setModal({ type: 'day' })}><Plus size={15}/><span>{t("Ajouter un jour")}</span></EditButton></div>{day ? <div className="day-panel panel"><div className="day-heading"><div><p className="eyebrow">{t("JOUR")} {String(dayIndex + 1).padStart(2, '0')} <span>· {plannedSteps.length} {t("étapes")}</span></p><h3>{day.title}</h3>{day.date && <p className="day-date">{new Date(day.date+'T12:00:00Z').toLocaleDateString(dateLocale,{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'})}</p>}</div><div className="inline-actions"><EditButton className="icon-btn" aria-label={t("Modifier le titre de la journée")} onClick={() => setModal({ type: 'day', day })}><Pencil size={15}/></EditButton><EditButton className="icon-btn" aria-label={t("Supprimer cette journée")} onClick={() => setModal({ type: 'confirm', title: t('Supprimer cette journée ?'), description: t('« {name} » et ses {count} étapes seront retirées du planning.', { name: day.title, count: day.steps.length }), action: () => { changeCity({ ...city, days: city.days.filter(d => d.id !== day.id) }); setModal(null); } })}><Trash2 size={15}/></EditButton></div></div><DayPreparationPanel key={day.id} day={day} bookings={state.bookings} onSave={(base,preparation,guard)=>setState(s=>({...s,cities:s.cities.map(c=>({...c,days:c.days.map(d=>d.id===base.id?guard&&JSON.stringify(d)!==JSON.stringify(base)?d:{...d,preparation:mergeChanges(base.preparation||{},preparation,d.preparation||{})}:d)}))}))}/><div className="timeline">{plannedSteps.map((step, index) => { const Icon = categoryIcons[step.category]; const done = state.done.includes(step.id); const placeKnown=!!(step.chineseName||step.address||step.amapUrl||step.coordinates||(!['hotel','transport'].includes(step.category)&&!/^déjeuner$|^dîner|^pause$/i.test(step.title))); return <article id={`step-${step.id}`} key={step.id} className={`step-card ${selectedStepId === step.id ? 'highlighted' : ''} ${done ? 'is-done' : ''}`}><div className="timeline-rail"><EditButton category="preparation" aria-label={t(done ? 'Marquer à faire : {name}' : 'Marquer comme visité : {name}', { name: step.title })} aria-pressed={done} className={`step-check ${done ? 'checked' : ''}`} onClick={() => toggleDone(step.id)}>{done ? <Check size={15}/> : index + 1}</EditButton><span/></div><div className="step-content"><div className="step-meta"><span className={`category category-${step.category}`}><Icon size={12}/>{t(categoryLabels[step.category])}</span>{step.period && <span>{step.period}</span>}{step.optional && <span className="optional-tag">{t("Facultatif")}</span>}{step.booking && <span className="booking-tag">{state.bookings.includes(step.id) ? <Check size={11}/> : <Bookmark size={11}/>} {state.bookings.includes(step.id) ? t('Réservé') : t('À réserver')}</span>}</div><h4>{step.title}</h4>{step.chineseName && <p className="chinese-name">{step.chineseName}<button className="copy-btn" aria-label={t('Copier {name}', { name: step.chineseName })} onClick={() => copy(step.chineseName!)}><Copy size={11}/></button></p>}<p className="step-description">{step.description}</p><PlaceEnrichment step={step} city={city} onSave={(base,place)=>setState(s=>({...s,cities:s.cities.map(c=>({...c,days:c.days.map(d=>({...d,steps:d.steps.map(item=>item.id===base.id?{...item,place:mergeChanges(base.place,place,item.place)}:item)}))}))}))}/>{placeKnown ? <MapActions city={city} place={placeStep(step)} next={plannedSteps[index + 1] ? placeStep(plannedSteps[index + 1]) : undefined}/> : <EditButton className="text-btn address-missing" onClick={()=>setModal({type:'step',step,day})}>{t("Adresse à compléter")}</EditButton>}<div className="step-bottom"><div className="step-actions"><EditButton className="icon-btn" aria-label={t('Monter {name}', { name: step.title })} disabled={!!day.preparation?.activeAlternativeId || index === 0} onClick={() => moveStep(step, -1)}><ArrowUp size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Descendre {name}', { name: step.title })} disabled={!!day.preparation?.activeAlternativeId || index === plannedSteps.length - 1} onClick={() => moveStep(step, 1)}><ArrowDown size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Modifier {name}', { name: step.title })} onClick={() => setModal({ type: 'step', step, day })}><Pencil size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Supprimer {name}', { name: step.title })} onClick={() => setModal({ type: 'confirm', title: t('Retirer cette étape ?'), description: t('« {name} » sera retiré de cette journée.', { name: step.title }), action: () => { changeDay({ ...day, steps: day.steps.filter(s => s.id !== step.id) }); setModal(null); } })}><Trash2 size={13}/></EditButton></div></div></div></article>; })}</div>{!day.steps.length && <div className="empty-state"><MapPin/><h3>{t("Une journée à imaginer")}</h3><p>{t("Ajoute ta première visite ou pioche dans tes bonus.")}</p></div>}<EditButton className="add-step" onClick={() => setModal({ type: 'step', day })}><Plus size={16}/> {t("Ajouter une étape à cette journée")}</EditButton><div className="day-footer"><span>{t("Pas d’horaires imposés. Profite à ton rythme.")}</span><div className="inline-actions"><button className="icon-btn" disabled={dayIndex === 0} aria-label={t("Jour précédent")} onClick={() => setDayId(city.days[dayIndex - 1].id)}><ChevronLeft size={17}/></button><button className="icon-btn" disabled={dayIndex === city.days.length - 1} aria-label={t("Jour suivant")} onClick={() => setDayId(city.days[dayIndex + 1].id)}><ChevronRight size={17}/></button></div></div></div> : <div className="panel empty-state city-empty"><Compass size={40}/><h3>{t('{city}, la suite de l’aventure', { city: city.name })}</h3><p>{t("Cette ville est prévue dans le voyage.")}<br/>{t("Son programme attend encore tes prochaines idées.")}</p><EditButton className="btn btn-primary" onClick={() => setModal({ type: 'day' })}><Plus size={16}/> {t("Créer ma première journée")}</EditButton></div>}</div><aside className="planning-aside"><div className="panel map-panel"><div className="panel-heading"><h3><MapPin size={16}/> {t("Les repères du jour")}</h3><button className="text-btn" onClick={() => { setView('map'); setMapOverview(false); }}>{t("Agrandir")} <ArrowUp size={12} className="rotate-arrow"/></button></div><div className="mini-map"><TripMap cities={state.cities} city={city} steps={plannedSteps} selectedStepId={selectedStepId} onSelectStep={id => { setSelectedStepId(id); document.getElementById(`step-${id}`)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' }); }}/></div></div><div className="remember-card"><div className="remember-heading"><span><Bookmark size={16}/></span><h3>{t("Le petit pense-bête")}</h3></div>{city.notes.length ? city.notes.map((note, index) => <p key={index}>{note}</p>) : <p>{t("Les détails de cette étape restent à préciser. Garde tes idées dans la note ci-dessous.")}</p>}<label className="sr-only" htmlFor="city-note">{t('Ma note pour {city}', { city: city.name })}</label><EditTextarea category="notes" id="city-note" value={state.notes[city.id] || ''} onChange={e => setState(s => ({ ...s, notes: { ...s.notes, [city.id]: e.target.value } }))} placeholder={t("Une idée, une adresse, un rappel…")} rows={2}/><span className="note-saved"><Check size={11}/> {t(allowedFields ? "Note du carnet · sauvegarde automatique" : "Note personnelle · sauvegarde locale")}</span></div><div className="bonus-teaser"><div className="teaser-icon"><Sparkles size={20}/></div><h3>{t("Et s’il reste un peu de temps ?")}</h3><p>{cityBonus.length ? t('{count} idées de restaurants, balades et jolis détours t’attendent à {city}.', { count: cityBonus.length, city: city.name }) : t('De nouvelles envies viendront bientôt compléter cette étape.')}</p><button onClick={() => navigate('bonus')} className="text-btn">{t("Explorer les bonus")} <ArrowRight size={14}/></button></div></aside></div></section>}
++        {view === 'planning' && state.cities.length > 0 && <section className="planning-section"><div className="city-heading"><div><div className="eyebrow">{t("ÉTAPE")} {String(state.cities.findIndex(c => c.id === city.id) + 1).padStart(2, '0')} <span className="heading-rule"/></div><h2>{city.name}<span>{city.chineseName}</span><EditButton className="icon-btn" aria-label={t('Modifier {name}', { name: city.name })} onClick={() => setModal({ type: 'city', city })}><Pencil size={15}/></EditButton></h2><p>{city.subtitle}</p></div><span className="progress-chip"><CheckCheck size={15}/>{doneCount} / {citySteps.length} {t("étapes vécues")}</span></div><div className="planning-grid"><div className="planning-main"><div className="day-tabs" aria-label={t("Choisir une journée")}>{city.days.map((d, index) => <button key={d.id} className={d.id === day?.id ? 'active' : ''} aria-pressed={d.id === day?.id} onClick={() => { setDayId(d.id); setSelectedStepId(''); }}><CalendarDays size={15}/> {t("Jour {count}", { count: index + 1 })}</button>)}<EditButton className="add-day" aria-label={t("Ajouter un jour")} onClick={() => setModal({ type: 'day' })}><Plus size={15}/><span>{t("Ajouter un jour")}</span></EditButton></div>{day ? <div className="day-panel panel"><div className="day-heading"><div><p className="eyebrow">{t("JOUR")} {String(dayIndex + 1).padStart(2, '0')} <span>· {plannedSteps.length} {t("étapes")}</span></p><h3>{day.title}</h3>{day.date && <p className="day-date">{new Date(day.date+'T12:00:00Z').toLocaleDateString(dateLocale,{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'})}</p>}</div><div className="inline-actions"><EditButton className="icon-btn" aria-label={t("Modifier le titre de la journée")} onClick={() => setModal({ type: 'day', day })}><Pencil size={15}/></EditButton><EditButton className="icon-btn" aria-label={t("Supprimer cette journée")} onClick={() => setModal({ type: 'confirm', title: t('Supprimer cette journée ?'), description: t('« {name} » et ses {count} étapes seront retirées du planning.', { name: day.title, count: day.steps.length }), action: () => { changeCity({ ...city, days: city.days.filter(d => d.id !== day.id) }); setModal(null); } })}><Trash2 size={15}/></EditButton></div></div><DayPreparationPanel key={day.id} day={day} bookings={state.bookings} onSave={(base,preparation,guard)=>setState(s=>({...s,cities:s.cities.map(c=>({...c,days:c.days.map(d=>d.id===base.id?guard&&JSON.stringify(d)!==JSON.stringify(base)?d:{...d,preparation:mergeChanges(base.preparation||{},preparation,d.preparation||{})}:d)}))}))}/><Souvenirs state={state} day={day}/><div className="timeline">{plannedSteps.map((step, index) => { const Icon = categoryIcons[step.category]; const done = state.done.includes(step.id); const placeKnown=!!(step.chineseName||step.address||step.amapUrl||step.coordinates||(!['hotel','transport'].includes(step.category)&&!/^déjeuner$|^dîner|^pause$/i.test(step.title))); return <article id={`step-${step.id}`} key={step.id} className={`step-card ${selectedStepId === step.id ? 'highlighted' : ''} ${done ? 'is-done' : ''}`}><div className="timeline-rail"><EditButton category="preparation" aria-label={t(done ? 'Marquer à faire : {name}' : 'Marquer comme visité : {name}', { name: step.title })} aria-pressed={done} className={`step-check ${done ? 'checked' : ''}`} onClick={() => toggleDone(step.id)}>{done ? <Check size={15}/> : index + 1}</EditButton><span/></div><div className="step-content"><div className="step-meta"><span className={`category category-${step.category}`}><Icon size={12}/>{t(categoryLabels[step.category])}</span>{step.period && <span>{step.period}</span>}{step.optional && <span className="optional-tag">{t("Facultatif")}</span>}{step.booking && <span className="booking-tag">{state.bookings.includes(step.id) ? <Check size={11}/> : <Bookmark size={11}/>} {state.bookings.includes(step.id) ? t('Réservé') : t('À réserver')}</span>}</div><h4>{step.title}</h4>{step.chineseName && <p className="chinese-name">{step.chineseName}<button className="copy-btn" aria-label={t('Copier {name}', { name: step.chineseName })} onClick={() => copy(step.chineseName!)}><Copy size={11}/></button></p>}<p className="step-description">{step.description}</p><PlaceEnrichment step={step} city={city} onSave={(base,place)=>setState(s=>({...s,cities:s.cities.map(c=>({...c,days:c.days.map(d=>({...d,steps:d.steps.map(item=>item.id===base.id?{...item,place:mergeChanges(base.place,place,item.place)}:item)}))}))}))}/>{placeKnown ? <MapActions city={city} place={placeStep(step)} next={plannedSteps[index + 1] ? placeStep(plannedSteps[index + 1]) : undefined}/> : <EditButton className="text-btn address-missing" onClick={()=>setModal({type:'step',step,day})}>{t("Adresse à compléter")}</EditButton>}<div className="step-bottom"><div className="step-actions"><EditButton className="icon-btn" aria-label={t('Monter {name}', { name: step.title })} disabled={!!day.preparation?.activeAlternativeId || index === 0} onClick={() => moveStep(step, -1)}><ArrowUp size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Descendre {name}', { name: step.title })} disabled={!!day.preparation?.activeAlternativeId || index === plannedSteps.length - 1} onClick={() => moveStep(step, 1)}><ArrowDown size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Modifier {name}', { name: step.title })} onClick={() => setModal({ type: 'step', step, day })}><Pencil size={13}/></EditButton><EditButton className="icon-btn" aria-label={t('Supprimer {name}', { name: step.title })} onClick={() => setModal({ type: 'confirm', title: t('Retirer cette étape ?'), description: t('« {name} » sera retiré de cette journée.', { name: step.title }), action: () => { changeDay({ ...day, steps: day.steps.filter(s => s.id !== step.id) }); setModal(null); } })}><Trash2 size={13}/></EditButton></div></div></div></article>; })}</div>{!day.steps.length && <div className="empty-state"><MapPin/><h3>{t("Une journée à imaginer")}</h3><p>{t("Ajoute ta première visite ou pioche dans tes bonus.")}</p></div>}<EditButton className="add-step" onClick={() => setModal({ type: 'step', day })}><Plus size={16}/> {t("Ajouter une étape à cette journée")}</EditButton><div className="day-footer"><span>{t("Pas d’horaires imposés. Profite à ton rythme.")}</span><div className="inline-actions"><button className="icon-btn" disabled={dayIndex === 0} aria-label={t("Jour précédent")} onClick={() => setDayId(city.days[dayIndex - 1].id)}><ChevronLeft size={17}/></button><button className="icon-btn" disabled={dayIndex === city.days.length - 1} aria-label={t("Jour suivant")} onClick={() => setDayId(city.days[dayIndex + 1].id)}><ChevronRight size={17}/></button></div></div></div> : <div className="panel empty-state city-empty"><Compass size={40}/><h3>{t('{city}, la suite de l’aventure', { city: city.name })}</h3><p>{t("Cette ville est prévue dans le voyage.")}<br/>{t("Son programme attend encore tes prochaines idées.")}</p><EditButton className="btn btn-primary" onClick={() => setModal({ type: 'day' })}><Plus size={16}/> {t("Créer ma première journée")}</EditButton></div>}</div><aside className="planning-aside"><div className="panel map-panel"><div className="panel-heading"><h3><MapPin size={16}/> {t("Les repères du jour")}</h3><button className="text-btn" onClick={() => { setView('map'); setMapOverview(false); }}>{t("Agrandir")} <ArrowUp size={12} className="rotate-arrow"/></button></div><div className="mini-map"><TripMap cities={state.cities} city={city} steps={plannedSteps} selectedStepId={selectedStepId} onSelectStep={id => { setSelectedStepId(id); document.getElementById(`step-${id}`)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' }); }}/></div></div><div className="remember-card"><div className="remember-heading"><span><Bookmark size={16}/></span><h3>{t("Le petit pense-bête")}</h3></div>{city.notes.length ? city.notes.map((note, index) => <p key={index}>{note}</p>) : <p>{t("Les détails de cette étape restent à préciser. Garde tes idées dans la note ci-dessous.")}</p>}<label className="sr-only" htmlFor="city-note">{t('Ma note pour {city}', { city: city.name })}</label><EditTextarea category="notes" id="city-note" value={state.notes[city.id] || ''} onChange={e => setState(s => ({ ...s, notes: { ...s.notes, [city.id]: e.target.value } }))} placeholder={t("Une idée, une adresse, un rappel…")} rows={2}/><span className="note-saved"><Check size={11}/> {t(allowedFields ? "Note du carnet · sauvegarde automatique" : "Note personnelle · sauvegarde locale")}</span></div><div className="bonus-teaser"><div className="teaser-icon"><Sparkles size={20}/></div><h3>{t("Et s’il reste un peu de temps ?")}</h3><p>{cityBonus.length ? t('{count} idées de restaurants, balades et jolis détours t’attendent à {city}.', { count: cityBonus.length, city: city.name }) : t('De nouvelles envies viendront bientôt compléter cette étape.')}</p><button onClick={() => navigate('bonus')} className="text-btn">{t("Explorer les bonus")} <ArrowRight size={14}/></button></div></aside></div></section>}
+         {view === 'map' && <section className="full-map-section"><div className="section-header"><div><h2>{t("Les petits points d’un grand voyage")}</h2><p className="muted">{mapOverview ? t('Le fil de tes villes, dans l’ordre prévu.') : t('Les lieux préparés à {city}.', { city: city.name })}</p></div><div className="segmented"><button className={mapOverview ? 'active' : ''} onClick={() => setMapOverview(true)}>{t("Tout le voyage")}</button>{state.cities.length > 0 && <button className={!mapOverview ? 'active' : ''} onClick={() => setMapOverview(false)}>{city.name}</button>}</div></div><div className="full-map panel"><TripMap cities={state.cities} city={city} steps={citySteps} overview={mapOverview}/></div><div className="notice"><Navigation size={17}/><span>{t("Les repères donnent une vue d’ensemble. Ouvre les liens cartographiques pour les adresses exactes et les itinéraires. Les lieux sans coordonnées restent accessibles depuis le planning.")}</span></div></section>}
+         {view === 'bonus' && state.cities.length > 0 && <section className="bonus-section"><div className="section-header"><div><p className="eyebrow">{t("LA LISTE DES « ET POURQUOI PAS ? »")}</p><h2>{favoritesOnly ? t('Mes favoris, toutes villes') : t('Les envies de {city}', { city: city.name })}<span className="count-badge">{favoritesOnly ? filteredBonus.length : cityBonus.length}</span></h2></div><div className="bonus-toolbar"><EditButton className="btn btn-secondary" onClick={()=>setModal({type:'bonus-editor'})}><Plus size={16}/> {t("Ajouter une adresse")}</EditButton><button className={`btn ${favoritesOnly ? 'btn-primary' : 'btn-secondary'}`} aria-pressed={favoritesOnly} onClick={() => setFavoritesOnly(!favoritesOnly)}><Heart size={16} fill={favoritesOnly ? 'currentColor' : 'none'}/> {t("Mes favoris")}</button></div></div><div className="bonus-filters">{[{ id: 'all', label: t('Toutes les envies'), Icon: Sparkles }, { id: 'food', label: t('À table'), Icon: Utensils }, { id: 'photo', label: t('Spots photo'), Icon: Camera }, { id: 'visit', label: t('À découvrir'), Icon: Compass }, { id: 'shopping', label: t('Shopping'), Icon: ShoppingBag }].map(({ id, label, Icon }) => <button key={id} className={bonusCategory === id ? 'active' : ''} onClick={() => setBonusCategory(id)}><Icon size={15}/>{t(label)}</button>)}</div><div className="bonus-grid">{filteredBonus.map(b => { const bonusCity=state.cities.find(c=>c.id===b.cityId)!; const Icon = categoryIcons[b.category]; return <article className="bonus-card panel" key={b.id}><div className="bonus-card-top"><span className={`bonus-category-icon category-${b.category}`}><Icon size={21}/></span><span className="eyebrow">{t(categoryLabels[b.category])}{favoritesOnly ? ` · ${bonusCity.name}` : ''}</span><EditButton category="preparation" aria-label={t(state.favorites.includes(b.id) ? 'Retirer des favoris : {name}' : 'Ajouter aux favoris : {name}', { name: b.title })} aria-pressed={state.favorites.includes(b.id)} className={`favorite-btn ${state.favorites.includes(b.id) ? 'is-favorite' : ''}`} onClick={() => toggleFavorite(b.id)}><Heart size={18} fill={state.favorites.includes(b.id) ? 'currentColor' : 'none'}/></EditButton></div><button className="bonus-card-title" onClick={() => {chooseCity(bonusCity);setModal({ type: 'bonus', bonus: b });}}><h3>{b.title}</h3></button>{b.chineseName && <p className="chinese-name">{b.chineseName}</p>}<p className="bonus-description">{b.description}</p>{b.budget && <span className="budget-tag">{b.budget}</span>}<div className="bonus-card-footer"><button className="text-btn" onClick={() => {chooseCity(bonusCity);setModal({ type: 'bonus', bonus: b });}}>{t("Tous les détails")} <ArrowRight size={13}/></button><a href={amapLink(preferredMapCity(bonusCity,provider), b)} target="_blank" rel="noreferrer" aria-label={t('Ouvrir {name} dans {map}', { name: b.title, map: provider === "google" ? "Google Maps" : "Amap" })} className="icon-btn"><Navigation size={16}/></a></div></article>; })}</div>{!filteredBonus.length && <div className="panel empty-state"><Heart size={32}/><h3>{favoritesOnly ? t('Une collection à commencer') : t('De nouveaux détours à imaginer')}</h3><p>{favoritesOnly ? t('Touche le cœur d’une adresse pour la retrouver ici.') : t('Pas encore de bonus dans cette catégorie pour cette ville.')}</p>{favoritesOnly && <button className="btn btn-secondary" onClick={() => setFavoritesOnly(false)}>{t("Voir toutes les envies")}</button>}</div>}{isChina && <p className="bonus-source-note">{t("Adresses issues de ton document. Les horaires, distinctions et succursales sont à revérifier avant le voyage.")} <button className="text-btn" onClick={() => setModal({ type: 'source', kind: 'bonus' })}>{t("Consulter les notes originales")} <ExternalLink size={12}/></button></p>}</section>}
+         {!state.cities.length && ['planning','bonus'].includes(view) && <section className="panel empty-state empty-trip"><Compass size={40}/><h2>{t('Ton premier détour')}</h2><p>{t('Ajoute une ville, une région ou un lieu de séjour, puis prépare tes journées.')}</p><EditButton className="btn btn-primary" onClick={() => setModal({type:'city'})}><Plus size={16}/>{t('Ajouter une étape au voyage')}</EditButton></section>}
+diff --git a/src/backup.ts b/src/backup.ts
+index bb9e5d1..7bfbdac 100644
+--- a/src/backup.ts
++++ b/src/backup.ts
+@@ -1,3 +1,4 @@
++import { SOUVENIR_EXCLUSION } from './souvenirs.ts';
+ import type { PersonalWorld, StoredState } from './types.ts';
+ import type { Storage } from './journeys.ts';
+ import { archive, chinaTrip, parseTrip, TRIP_PREFIX, RECOVERY_PREFIX, LEGACY_COPY_KEY, LEGACY_RECOVERY_COPY_KEY, tripKey } from './journeys.ts';
+@@ -57,6 +58,7 @@ async function entry(kind: Kind, key: string, raw: string): Promise<Entry> {
+   return { kind, key, bytes: byteSize(raw), sha256: await digest(raw), segments };
+ }
+ export async function exportBackup(storage: Storage, preferences: Storage, unreadable: (key: string) => string | null = () => null, exclusions: string[] = []) {
++  exclusions = [...new Set([...exclusions, SOUVENIR_EXCLUSION])];
+   const entries: Entry[] = [];
+   let trips = 0, sources = 0, payloadBytes = 0;
+   async function add(kind: Kind, key: string, raw: string) {
+diff --git a/src/components/BackupPanel.tsx b/src/components/BackupPanel.tsx
+index dd55278..b6b302c 100644
+--- a/src/components/BackupPanel.tsx
++++ b/src/components/BackupPanel.tsx
+@@ -1,3 +1,4 @@
++import { SOUVENIR_EXCLUSION } from '../souvenirs';
+ import { useEffect, useRef, useState } from 'react';
+ import { Download, Upload } from 'lucide-react';
+ import { Modal } from '../App';
+@@ -81,7 +82,7 @@ export default function BackupPanel({ onChanged, remoteMissing = 0 }: { onChange
+     } catch (failure) { fail(failure); } finally { refresh(); onChanged(); setBusy(false); }
+   }
+   return <section className="journeys-import panel backup-panel" aria-labelledby="full-backup-title">
+-    <div><h2 id="full-backup-title">{t('Sauvegarder et restaurer mes données')}</h2><p className="muted">{t('Carnets, documents embarqués, souvenirs et préférences utiles dans un seul fichier vérifié (64 Mo maximum).')}</p><p className="muted small">{t(baseExclusions)}</p>{remoteMissing > 0 && <p role="status">{t('{count} carnet(s) distant(s) non téléchargé(s).', { count: remoteMissing })}</p>}</div>
++    <div><h2 id="full-backup-title">{t('Sauvegarder et restaurer mes données')}</h2><p className="muted">{t('Carnets, documents embarqués, souvenirs et préférences utiles dans un seul fichier vérifié (64 Mo maximum).')}</p><p className="muted small">{t(baseExclusions)}</p><p className="muted small">{t(SOUVENIR_EXCLUSION)}</p>{remoteMissing > 0 && <p role="status">{t('{count} carnet(s) distant(s) non téléchargé(s).', { count: remoteMissing })}</p>}</div>
+     <div className="journeys-import-actions"><button className="btn btn-secondary" disabled={busy} onClick={() => void download()}><Download size={16}/>{t('Télécharger ma sauvegarde complète')}</button><button className="btn btn-secondary" disabled={busy} onClick={() => input.current?.click()}><Upload size={16}/>{t('Restaurer mes données')}</button></div>
+     <input ref={input} type="file" accept=".json,application/json" hidden aria-label={t('Choisir une sauvegarde complète')} onChange={event => { const file = event.target.files?.[0]; if (file) void preview(file); event.target.value = ''; }}/>
+     {busy && <p role="status">{t('Vérification de la sauvegarde…')}</p>}
+@@ -93,7 +94,7 @@ export default function BackupPanel({ onChanged, remoteMissing = 0 }: { onChange
+       <p>{t('La restauration crée des carnets privés sur cet appareil. Les carnets existants et les droits serveur restent conservés.')}</p>
+       <ul><li>{t('{count} carnet(s) à retrouver.', { count: plan.trips })}</li><li>{t('{count} souvenir(s) à retrouver.', { count: plan.visits })}</li><li>{t('{count} collision(s) traitée(s) sans remplacer les carnets.', { count: plan.collisions })}</li><li>{t('{count} préférence(s) existante(s) conservée(s).', { count: plan.keptPreferences })}</li><li>{t('{count} source(s) brute(s) conservée(s) séparément.', { count: plan.sources })}</li></ul>
+       <p>{t('Espace supplémentaire estimé : {count} Mo, journal compris. Le quota réel du navigateur sera vérifié lors des écritures.', { count: (plan.bytes / 1_000_000).toFixed(2) })}</p>
+-      {plan.exclusions.map((text, index) => <p className="muted small" key={index}>{text === 'backup-legacy-exclusions' ? t('Ce fichier historique contient uniquement des carnets. Souvenirs et préférences ne sont pas inclus.') : text}</p>)}
++      {plan.exclusions.map((text, index) => <p className="muted small" key={index}>{text === 'backup-legacy-exclusions' ? t('Ce fichier historique contient uniquement des carnets. Souvenirs et préférences ne sont pas inclus.') : t(text)}</p>)}
+       <p className="muted small">{t('Une interruption peut laisser une restauration partielle. Reprendre le même fichier conserve les identités et évite les doublons.')}</p>
+       {error && <p role="alert" className="practical-error">{error}</p>}
+       <div className="form-actions"><button className="btn btn-secondary" disabled={busy} onClick={() => setPlan(null)}>{t('Annuler')}</button><button className="btn btn-primary" disabled={busy} onClick={() => void restore()}>{t('Confirmer la restauration')}</button></div>
+diff --git a/src/components/Souvenirs.css b/src/components/Souvenirs.css
+new file mode 100644
+index 0000000..4538676
+--- /dev/null
++++ b/src/components/Souvenirs.css
+@@ -0,0 +1,20 @@
++.souvenirs { margin: 1rem 0; padding: 1rem; border: 1px solid var(--border, #8886); border-radius: 12px; overflow-wrap: anywhere; }
++.souvenirs summary { cursor: pointer; font-weight: 650; }
++.souvenirs p { line-height: 1.6; }
++.souvenir-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin: 1rem 0; }
++.souvenirs input[type=file] { max-width: 100%; width: 100%; }
++.souvenir-photo { display: block; max-width: 100%; max-height: 28rem; object-fit: contain; margin: .75rem 0; border-radius: 8px; }
++.souvenir-caption { white-space: pre-wrap; overflow-wrap: anywhere; }
++.souvenir-choice { display: flex; gap: .65rem; align-items: baseline; padding: .65rem 0; overflow-wrap: anywhere; }
++.souvenir-preview { border: 1px solid #8886; padding: 1rem; margin: 1rem 0; }
++.souvenir-pages article { break-inside: avoid; margin: 1.5rem 0; overflow-wrap: anywhere; }
++#souvenir-print-root { display: none; }
++@media print {
++  body:has(#souvenir-print-root) { overflow: visible !important; background: white !important; }
++  body:has(#souvenir-print-root) > :not(#souvenir-print-root) { display: none !important; }
++  #souvenir-print-root { display: block !important; color: #111; background: white; font: 12pt sans-serif; }
++  #souvenir-print-root .souvenir-photo { max-height: 150mm; max-width: 170mm; }
++  #souvenir-print-root h1 { font-size: 22pt; color: #111; }
++  #souvenir-print-root h2 { font-size: 17pt; color: #111; }
++  @page { size: A4; margin: 18mm; }
++}
+diff --git a/src/components/Souvenirs.tsx b/src/components/Souvenirs.tsx
+new file mode 100644
+index 0000000..1f7dcf4
+--- /dev/null
++++ b/src/components/Souvenirs.tsx
+@@ -0,0 +1,129 @@
++import { useEffect, useRef, useState } from 'react';
++import { createPortal } from 'react-dom';
++import { Modal } from '../App';
++import { useCloud } from '../cloud/CloudProvider';
++import { useLocale } from '../i18n';
++import { downloadText } from '../lib';
++import { MEDIA_LIMITS, exportSouvenirs, preparePhoto, prepareSouvenirRestore, readSouvenirs, writeSouvenirs, type Souvenir } from '../souvenirs';
++import type { Day, StoredState } from '../types';
++import './Souvenirs.css';
++
++function Photo({ blob, alt }: { blob?: Blob; alt: string }) {
++  const [url,setUrl] = useState('');
++  const [failed,setFailed] = useState(false);
++  useEffect(()=>{
++    setFailed(false);
++    if (!blob) { setUrl(''); return; }
++    const next = URL.createObjectURL(blob); setUrl(next);
++    return ()=>URL.revokeObjectURL(next);
++  },[blob]);
++  const { t } = useLocale();
++  return failed ? <p role="status">{t('Photo illisible. Retire les photos de l’impression ou remplace la copie locale.')}</p> : url ? <img className="souvenir-photo" src={url} alt={alt} onError={()=>setFailed(true)}/> : null;
++}
++
++export default function Souvenirs({ state, day }: { state: StoredState; day?: Day }) {
++  const { storage } = useCloud();
++  const scope = storage.accountId ? `account:${storage.accountId}` : 'local';
++  return <PersonalSouvenirs key={JSON.stringify([scope,state.journey!.id,day?.id])} scope={scope} state={state} day={day || {id:"",title:"",steps:[]}}/>;
++}
++function PersonalSouvenirs({ scope, state, day }: { scope: string; state: StoredState; day: Day }) {
++  const { t } = useLocale();
++  const trip = state.journey!.id;
++  const [rows,setRows] = useState<Souvenir[]>([]);
++  const [caption,setCaption] = useState('');
++  const [photo,setPhoto] = useState<Blob>();
++  const [busy,setBusy] = useState(true);
++  const [error,setError] = useState('');
++  const [message,setMessage] = useState('');
++  const [confirmDelete,setConfirmDelete] = useState(false);
++  const [plan,setPlan] = useState<Awaited<ReturnType<typeof prepareSouvenirRestore>> | null>(null);
++  const [printing,setPrinting] = useState(false);
++  const [exporting,setExporting] = useState(false);
++  const [selected,setSelected] = useState<string[]>([]);
++  const [photos,setPhotos] = useState(false);
++  const [captions,setCaptions] = useState(false);
++  const alive = useRef(true);
++  const current = rows.find(row=>row.day===day.id);
++  const days = state.cities.flatMap(city=>city.days);
++  const detached = rows.filter(row=>!days.some(d=>d.id===row.day));
++  const [cleanDetached,setCleanDetached] = useState(false);
++  async function refresh() {
++    const next = await readSouvenirs(scope,trip);
++    if (!alive.current) return;
++    setRows(next);
++    const row = next.find(r=>r.day===day.id); setCaption(row?.caption || ''); setPhoto(row?.photo);
++  }
++  useEffect(()=>{
++    alive.current = true;
++    void refresh().catch(()=>{ if(alive.current)setError(t('Stockage des souvenirs indisponible. Le carnet reste utilisable.')); }).finally(()=>{if(alive.current)setBusy(false);});
++    return ()=>{alive.current=false;};
++  },[scope,trip,day.id]);
++  useEffect(()=>{
++    if (!printing) return;
++    // Browser PDF metadata/headers must use the title shown in the preview,
++    // rather than leaking the notebook title from the surrounding application.
++    const previous = document.title;
++    document.title = t('Mes souvenirs de voyage');
++    return ()=>{document.title=previous;};
++  },[printing,t]);
++  async function run(action: ()=>Promise<void>) {
++    setBusy(true); setError(''); setMessage('');
++    try { await action(); }
++    catch (failure) {
++      if (alive.current) setError(t(failure instanceof Error && failure.message==='media-conflict'
++        ? 'Un souvenir a changé ailleurs. Annule les modifications pour le relire avant de réessayer.'
++        : failure instanceof Error && ['media-invalid','media-package'].includes(failure.message)
++          ? 'Paquet souvenirs invalide ou trop grand (48 Mio maximum). Conserve le fichier original ; aucune restauration n’a commencé.'
++        : failure instanceof Error && ['media-format','media-size'].includes(failure.message)
++          ? 'Fichier refusé. JPEG, PNG ou WebP seulement : 12 Mio et 32 millions de pixels maximum. HEIC non pris en charge ; exporte une copie JPEG.'
++          : 'Écriture non terminée : stockage plein ou indisponible. Les souvenirs précédents sont conservés ; garde ton fichier et réessaie.'));
++    } finally { if(alive.current)setBusy(false); }
++  }
++  const printDays = days.filter(d=>selected.includes(d.id));
++  const pages = <div className="souvenir-pages"><h1>{t('Mes souvenirs de voyage')}</h1>{printDays.map(d=>{
++    const row = rows.find(r=>r.day===d.id);
++    return <article key={d.id}><h2>{d.title}</h2>{d.date&&<p>{d.date}</p>}{photos&&<Photo blob={row?.photo} alt={t('Photo personnelle')}/>} {captions&&row?.caption&&<p className="souvenir-caption">{row.caption}</p>}</article>;
++  })}</div>;
++  return <details className="souvenirs"><summary>{t('Souvenir personnel')}</summary>
++    <p>{t('Photo et légende privées sur cet appareil et dans cet espace uniquement. Aucun partage ni synchronisation. Original inchangé.')}</p>
++    <p className="muted small">{t('JPEG, PNG, WebP : 12 Mio / 32 Mpx maximum. Copie JPEG sans métadonnées GPS, 1600 px / 512 Kio maximum. Budget local total : 32 Mio.')}</p>
++    <div hidden={!day.id}><Photo blob={photo} alt={t('Photo personnelle')}/>
++    <label className="field">{t('Choisir une photo personnelle')}<input disabled={busy} type="file" accept="image/jpeg,image/png,image/webp" onChange={event=>{
++      const file=event.target.files?.[0]; event.target.value='';
++      if(file)void run(async()=>{ const next=await preparePhoto(file); if(alive.current)setPhoto(next); });
++    }}/></label>
++    <label className="field">{t('Légende du souvenir')}<textarea disabled={busy} value={caption} maxLength={MEDIA_LIMITS.caption} rows={3} onChange={event=>setCaption(event.target.value)}/></label>
++    <div className="souvenir-actions">
++      <button className="btn btn-primary" disabled={busy} onClick={()=>void run(async()=>{await writeSouvenirs(scope,trip,[{day:day.id,before:current?.revision || null,value:{caption,...(photo?{photo}:{})}}]); await refresh(); if(alive.current)setMessage(t('Souvenir enregistré sur cet appareil.'));})}>{t('Enregistrer le souvenir')}</button>
++      <button className="btn btn-secondary" disabled={busy} onClick={()=>void run(refresh)}>{t('Annuler les modifications')}</button>
++      {photo&&<button className="text-btn" disabled={busy} onClick={()=>setPhoto(undefined)}>{t('Retirer la photo avant enregistrement')}</button>}
++      {current&&<button className="text-btn" disabled={busy} onClick={()=>setConfirmDelete(true)}>{t('Supprimer ce souvenir')}</button>}
++    </div>
++    {confirmDelete&&<div className="notice"><p>{t('Supprimer la copie locale et sa légende ? Le fichier original reste inchangé.')}</p><button disabled={busy} className="btn btn-secondary" onClick={()=>void run(async()=>{await writeSouvenirs(scope,trip,[{day:day.id,before:current?.revision || null,value:null}]);await refresh();setConfirmDelete(false);})}>{t('Confirmer la suppression')}</button><button className="text-btn" disabled={busy} onClick={()=>setConfirmDelete(false)}>{t('Annuler')}</button></div>}
++    </div><hr/>
++    <p>{t('Les sauvegardes habituelles excluent ces photos et légendes. Garde aussi un paquet souvenirs par carnet. Pour restaurer : restaure le carnet, ouvre-le, puis importe son paquet ici.')}</p>
++    <p>{t('{count} souvenir(s), {bytes} Kio de photos dans ce carnet.',{count:rows.length,bytes:Math.ceil(rows.reduce((sum,row)=>sum+(row.photo?.size||0),0)/1024)})}</p>
++    <div className="souvenir-actions"><button className="btn btn-secondary" disabled={busy} onClick={()=>void run(async()=>{await refresh();if(alive.current)setExporting(true);})}>{t('Télécharger le paquet souvenirs')}</button>
++      <label className="field">{t('Importer un paquet souvenirs')}<input disabled={busy} type="file" accept=".json,application/json" onChange={event=>{
++        const file=event.target.files?.[0]; event.target.value='';
++        if(file)void run(async()=>{if(file.size>MEDIA_LIMITS.package)throw new Error('media-package');const latest=await readSouvenirs(scope,trip);const prepared=await prepareSouvenirRestore(await file.text(),days.map(d=>d.id),latest);if(alive.current){setRows(latest);setPlan(prepared);} });
++      }}/></label>
++      <button className="btn btn-secondary" disabled={busy} onClick={()=>void run(async()=>{await refresh();if(alive.current){setSelected([]);setPhotos(false);setCaptions(false);setPrinting(true);} })}>{t('Préparer un souvenir imprimable')}</button></div>
++    {detached.length>0&&<div className="notice"><p>{t('{count} souvenir(s) de journées supprimées restent dans le paquet.',{count:detached.length})}</p><label><input type="checkbox" checked={cleanDetached} onChange={e=>setCleanDetached(e.target.checked)}/>{t('Je confirme la suppression des souvenirs de journées supprimées.')}</label><button className="btn btn-secondary" disabled={busy||!cleanDetached} onClick={()=>void run(async()=>{await writeSouvenirs(scope,trip,detached.map(row=>({day:row.day,before:row.revision,value:null})));await refresh();setCleanDetached(false);})}>{t('Nettoyer les souvenirs détachés')}</button></div>}
++    {busy&&<p role="status">{t('Chargement…')}</p>}{message&&<p role="status">{message}</p>}{error&&<p role="alert">{error}</p>}
++    {plan&&<Modal title={t('Importer un paquet souvenirs')} onClose={()=>{if(!busy)setPlan(null);}}><p>{t('Destination : {name}',{name:state.journey!.title})}</p><p>{t('Seules les journées reconnues sans souvenir existant sont ajoutées. Les autres restent inchangées : {count}.',{count:plan.skipped})}</p><ul>{plan.writes.map(w=><li key={w.day}>{days.find(d=>d.id===w.day)?.title}<Photo blob={w.value?.photo} alt={t('Photo personnelle')}/><p>{w.value?.caption}</p></li>)}</ul><button className="btn btn-primary" disabled={busy||!plan.writes.length} onClick={()=>void run(async()=>{await writeSouvenirs(scope,trip,plan.writes);await refresh();setPlan(null);setMessage(t('Souvenir enregistré sur cet appareil.'));})}>{t('Confirmer la restauration')}</button>{error&&<p role="alert">{error}</p>}</Modal>}
++    {exporting&&<Modal title={t('Télécharger le paquet souvenirs')} onClose={()=>setExporting(false)}><p>{t('Ce paquet contient toutes les photos et légendes de ce carnet, y compris les journées supprimées. Il ne contient pas le carnet : conserve aussi sa sauvegarde habituelle.')}</p><ul>{rows.map(row=><li key={row.day}>{days.find(d=>d.id===row.day)?.title || row.day}<Photo blob={row.photo} alt={t('Photo personnelle')}/><p>{row.caption}</p></li>)}</ul><button className="btn btn-primary" disabled={busy} onClick={()=>void run(async()=>{const raw=await exportSouvenirs(rows);if(alive.current){downloadText(raw,'detours-souvenirs-v1.json');setExporting(false);}})}>{t('Confirmer le téléchargement personnel')}</button>{error&&<p role="alert">{error}</p>}</Modal>}
++    {printing&&<Modal title={t('Préparer un souvenir imprimable')} onClose={()=>setPrinting(false)} wide>
++      <p>{t('Choisis les journées. Seuls leurs titres et dates sont inclus par défaut. Réservations, dépenses, documents, notes privées et adresses sont exclus. Vérifie les titres et l’aperçu avant impression.')}</p>
++      <fieldset><legend>{t('Choisir les journées à imprimer')}</legend>{days.map(d=><label className="souvenir-choice" key={d.id}><input type="checkbox" checked={selected.includes(d.id)} onChange={e=>setSelected(list=>e.target.checked?[...list,d.id]:list.filter(id=>id!==d.id))}/>{d.title}</label>)}</fieldset>
++      <label className="souvenir-choice"><input type="checkbox" checked={photos} onChange={e=>setPhotos(e.target.checked)}/>{t('J’inclus mes photos personnelles dans l’impression.')}</label>
++      <label className="souvenir-choice"><input type="checkbox" checked={captions} onChange={e=>setCaptions(e.target.checked)}/>{t('J’inclus mes légendes personnelles dans l’impression.')}</label>
++      <p>{t('Impression navigateur : choisis Enregistrer en PDF si disponible. Aucun PDF automatique ni envoi externe.')}</p>
++      <div className="souvenir-preview">{pages}</div><button className="btn btn-primary" disabled={!selected.length} onClick={()=>{
++        const pending=Array.from(document.querySelectorAll<HTMLImageElement>('#souvenir-print-root img')).map(img=>img.decode());
++        void Promise.all(pending).then(()=>{if(alive.current)window.print();}).catch(()=>setError(t('Photo illisible. Retire les photos de l’impression ou remplace la copie locale.')));
++      }}>{t('Imprimer les journées choisies')}</button>{error&&<p role="alert">{error}</p>}
++      {createPortal(<div id="souvenir-print-root">{pages}</div>,document.body)}
++    </Modal>}
++  </details>;
++}
+diff --git a/src/locale-utils.ts b/src/locale-utils.ts
+index 5938b7a..a9507aa 100644
+--- a/src/locale-utils.ts
++++ b/src/locale-utils.ts
+@@ -1,3 +1,4 @@
++import { souvenirDictionary } from './locales/souvenirs.ts';
+ import { mascotDictionary } from './locales/mascot.ts';
+ import { companionDictionary } from './locales/companion.ts';
+ import { assistantDictionary } from './locales/assistant.ts';
+@@ -49,8 +50,8 @@ export function parsePreferences(raw: string | null): Preferences {
+     };
+   } catch { return defaults; }
+ }
+-const dictionary: Record<string, string> = { ...commonEnglish, ...appEnglish, ...toolsEnglish, ...journeysEnglish, ...betaDictionary(0), ...backupDictionary(0), ...offlineDictionary(0), ...nowDictionary(0), ...preparationDictionary(0), ...planningImportDictionary(0), ...paletteDictionary(0), ...placesDictionary(0), ...companionDictionary(0), ...assistantDictionary(0), ...mascotDictionary(0) };
+-const dictionaries: Record<Exclude<Language, 'fr'>, Record<string, string>> = { en: dictionary, 'zh-CN': { ...chinese, ...betaDictionary(1), ...backupDictionary(1), ...offlineDictionary(1), ...nowDictionary(1), ...preparationDictionary(1), ...planningImportDictionary(1), ...paletteDictionary(1), ...placesDictionary(1), ...companionDictionary(1), ...assistantDictionary(1), ...mascotDictionary(1) }, es: { ...spanish, ...betaDictionary(2), ...backupDictionary(2), ...offlineDictionary(2), ...nowDictionary(2), ...preparationDictionary(2), ...planningImportDictionary(2), ...paletteDictionary(2), ...placesDictionary(2), ...companionDictionary(2), ...assistantDictionary(2), ...mascotDictionary(2) } };
++const dictionary: Record<string, string> = { ...commonEnglish, ...appEnglish, ...toolsEnglish, ...journeysEnglish, ...betaDictionary(0), ...backupDictionary(0), ...offlineDictionary(0), ...nowDictionary(0), ...preparationDictionary(0), ...planningImportDictionary(0), ...paletteDictionary(0), ...placesDictionary(0), ...companionDictionary(0), ...assistantDictionary(0), ...mascotDictionary(0), ...souvenirDictionary(0) };
++const dictionaries: Record<Exclude<Language, 'fr'>, Record<string, string>> = { en: dictionary, 'zh-CN': { ...chinese, ...betaDictionary(1), ...backupDictionary(1), ...offlineDictionary(1), ...nowDictionary(1), ...preparationDictionary(1), ...planningImportDictionary(1), ...paletteDictionary(1), ...placesDictionary(1), ...companionDictionary(1), ...assistantDictionary(1), ...mascotDictionary(1), ...souvenirDictionary(1) }, es: { ...spanish, ...betaDictionary(2), ...backupDictionary(2), ...offlineDictionary(2), ...nowDictionary(2), ...preparationDictionary(2), ...planningImportDictionary(2), ...paletteDictionary(2), ...placesDictionary(2), ...companionDictionary(2), ...assistantDictionary(2), ...mascotDictionary(2), ...souvenirDictionary(2) } };
+ export function translate(text: string, language: Language, values: TranslationValues = {}): string {
+   const selected = language === 'fr' ? undefined : dictionaries[language];
+   const translated = selected && Object.hasOwn(selected, text) ? selected[text] : text;
+diff --git a/src/locales/souvenirs.ts b/src/locales/souvenirs.ts
+new file mode 100644
+index 0000000..7ba8741
+--- /dev/null
++++ b/src/locales/souvenirs.ts
+@@ -0,0 +1,41 @@
++const rows: [string,string,string,string][] = [
++  ['Souvenir personnel','Personal memory','个人回忆','Recuerdo personal'],
++  ['Photo personnelle','Personal photo','个人照片','Foto personal'],
++  ['Photo et légende privées sur cet appareil et dans cet espace uniquement. Aucun partage ni synchronisation. Original inchangé.','Photo and caption stay private on this device and in this space only. No sharing or sync. Original unchanged.','照片和说明仅私密保存在本设备的此空间。不共享、不同步，原图不变。','La foto y el texto son privados en este dispositivo y espacio. Sin compartir ni sincronizar. Original intacto.'],
++  ['JPEG, PNG, WebP : 12 Mio / 32 Mpx maximum. Copie JPEG sans métadonnées GPS, 1600 px / 512 Kio maximum. Budget local total : 32 Mio.','JPEG, PNG, WebP: up to 12 MiB / 32 MP. JPEG copy without GPS metadata, up to 1600 px / 512 KiB. Total local budget: 32 MiB.','JPEG、PNG、WebP：最多12 MiB / 3200万像素。移除GPS元数据的JPEG副本，最多1600像素 / 512 KiB。本地总预算32 MiB。','JPEG, PNG, WebP: máximo 12 MiB / 32 Mpx. Copia JPEG sin metadatos GPS, máximo 1600 px / 512 KiB. Presupuesto local total: 32 MiB.'],
++  ['Choisir une photo personnelle','Choose a personal photo','选择个人照片','Elegir una foto personal'],
++  ['Légende du souvenir','Memory caption','回忆说明','Texto del recuerdo'],
++  ['Enregistrer le souvenir','Save memory','保存回忆','Guardar recuerdo'],
++  ['Souvenir enregistré sur cet appareil.','Memory saved on this device.','回忆已保存在本设备。','Recuerdo guardado en este dispositivo.'],
++  ['Annuler les modifications','Cancel changes','取消更改','Cancelar cambios'],
++  ['Retirer la photo avant enregistrement','Remove photo before saving','保存前移除照片','Quitar la foto antes de guardar'],
++  ['Supprimer ce souvenir','Delete this memory','删除此回忆','Eliminar este recuerdo'],
++  ['Supprimer la copie locale et sa légende ? Le fichier original reste inchangé.','Delete the local copy and its caption? The original file stays unchanged.','删除本地副本及说明？原文件不会更改。','¿Eliminar la copia local y su texto? El original queda intacto.'],
++  ['Stockage des souvenirs indisponible. Le carnet reste utilisable.','Memory storage unavailable. You can still use the notebook.','回忆存储不可用，仍可使用手册。','Almacenamiento de recuerdos no disponible. El cuaderno sigue funcionando.'],
++  ['Un souvenir a changé ailleurs. Annule les modifications pour le relire avant de réessayer.','A memory changed elsewhere. Cancel changes to reload it before trying again.','回忆已在其他窗口更改。请取消修改并重新加载后重试。','Un recuerdo cambió en otra ventana. Cancela los cambios para recargarlo antes de reintentar.'],
++  ['Fichier refusé. JPEG, PNG ou WebP seulement : 12 Mio et 32 millions de pixels maximum. HEIC non pris en charge ; exporte une copie JPEG.','File rejected. JPEG, PNG or WebP only: up to 12 MiB and 32 million pixels. HEIC unsupported; export a JPEG copy.','文件被拒绝。仅支持JPEG、PNG、WebP：最多12 MiB及3200万像素。不支持HEIC，请导出JPEG副本。','Archivo rechazado. Solo JPEG, PNG o WebP: máximo 12 MiB y 32 millones de píxeles. HEIC no compatible; exporta una copia JPEG.'],
++  ['Écriture non terminée : stockage plein ou indisponible. Les souvenirs précédents sont conservés ; garde ton fichier et réessaie.','Write incomplete: storage full or unavailable. Previous memories are preserved; keep your file and try again.','写入未完成：存储已满或不可用。原有回忆已保留，请保留文件并重试。','Escritura incompleta: almacenamiento lleno o no disponible. Los recuerdos anteriores se conservan; guarda tu archivo y reintenta.'],
++  ['Les sauvegardes habituelles excluent ces photos et légendes. Garde aussi un paquet souvenirs par carnet. Pour restaurer : restaure le carnet, ouvre-le, puis importe son paquet ici.','Regular backups exclude these photos and captions. Keep a media package for each notebook too. To restore: restore the notebook, open it, then import its package here.','常规备份不含这些照片和说明。请为每本手册另存回忆包。恢复时，先恢复并打开手册，再在此导入回忆包。','Las copias habituales excluyen estas fotos y textos. Guarda también un paquete de recuerdos por cuaderno. Para restaurar: restaura y abre el cuaderno, e importa aquí su paquete.'],
++  ['Les photos et légendes quotidiennes sont exclues de cette sauvegarde. Dans chaque carnet, utilise Souvenir personnel → Télécharger le paquet souvenirs, puis restaure ce paquet après le carnet.','Daily photos and captions are excluded from this backup. In each notebook use Personal memory → Download media package, then restore that package after the notebook.','此备份不含每日照片和说明。请在每本手册中使用“个人回忆 → 下载回忆包”，恢复手册后再恢复回忆包。','Esta copia excluye fotos y textos diarios. En cada cuaderno usa Recuerdo personal → Descargar paquete de recuerdos, y restaura el paquete después del cuaderno.'],
++  ['{count} souvenir(s), {bytes} Kio de photos dans ce carnet.','{count} memory/memories, {bytes} KiB of photos in this notebook.','本手册有{count}条回忆，照片共{bytes} KiB。','{count} recuerdo(s), {bytes} KiB de fotos en este cuaderno.'],
++  ['Télécharger le paquet souvenirs','Download media package','下载回忆包','Descargar paquete de recuerdos'],
++  ['Importer un paquet souvenirs','Import media package','导入回忆包','Importar paquete de recuerdos'],
++  ['Paquet souvenirs invalide ou trop grand (48 Mio maximum). Conserve le fichier original ; aucune restauration n’a commencé.','Invalid or oversized media package (48 MiB maximum). Keep the original file; no restore has started.','回忆包无效或过大（最多48 MiB）。请保留原文件；尚未开始恢复。','Paquete de recuerdos inválido o demasiado grande (máximo 48 MiB). Conserva el archivo original; no se ha iniciado la restauración.'],
++  ['Destination : {name}','Destination: {name}','目标手册：{name}','Destino: {name}'],
++  ['Seules les journées reconnues sans souvenir existant sont ajoutées. Les autres restent inchangées : {count}.','Only matching days without an existing memory are added. Other entries stay unchanged: {count}.','仅添加已识别且尚无回忆的日期。其他条目保持不变：{count}。','Solo se añaden días reconocidos sin recuerdo previo. Las otras entradas no cambian: {count}.'],
++  ['Ce paquet contient toutes les photos et légendes de ce carnet, y compris les journées supprimées. Il ne contient pas le carnet : conserve aussi sa sauvegarde habituelle.','This package contains all photos and captions in this notebook, including deleted days. It does not contain the notebook: keep its regular backup too.','此包包含本手册的所有照片和说明，包括已删除日期。它不含手册本身，请另存常规备份。','Este paquete contiene todas las fotos y textos del cuaderno, incluidos los días eliminados. No contiene el cuaderno: conserva también su copia habitual.'],
++  ['Confirmer le téléchargement personnel','Confirm personal download','确认下载个人数据','Confirmar descarga personal'],
++  ['{count} souvenir(s) de journées supprimées restent dans le paquet.','{count} memory/memories from deleted days remain in the package.','回忆包保留了已删除日期的{count}条回忆。','{count} recuerdo(s) de días eliminados siguen en el paquete.'],
++  ['Je confirme la suppression des souvenirs de journées supprimées.','I confirm deletion of memories from deleted days.','我确认删除已移除日期的回忆。','Confirmo eliminar los recuerdos de días eliminados.'],
++  ['Nettoyer les souvenirs détachés','Delete detached memories','清理已脱离日期的回忆','Eliminar recuerdos sin día'],
++  ['Préparer un souvenir imprimable','Prepare printable memories','准备打印回忆','Preparar recuerdos para imprimir'],
++  ['Mes souvenirs de voyage','My travel memories','我的旅行回忆','Mis recuerdos de viaje'],
++  ['Choisis les journées. Seuls leurs titres et dates sont inclus par défaut. Réservations, dépenses, documents, notes privées et adresses sont exclus. Vérifie les titres et l’aperçu avant impression.','Choose days. Only titles and dates are included by default. Bookings, expenses, documents, private notes and addresses are excluded. Check titles and preview before printing.','请选择日期。默认仅包含标题和日期，不含预订、支出、文档、私密笔记和地址。打印前请检查标题和预览。','Elige días. Por defecto solo se incluyen títulos y fechas. Se excluyen reservas, gastos, documentos, notas privadas y direcciones. Revisa títulos y vista previa antes de imprimir.'],
++  ['Choisir les journées à imprimer','Choose days to print','选择要打印的日期','Elegir días para imprimir'],
++  ['J’inclus mes photos personnelles dans l’impression.','I include my personal photos in the printout.','我同意在打印内容中加入个人照片。','Incluyo mis fotos personales en la impresión.'],
++  ['J’inclus mes légendes personnelles dans l’impression.','I include my personal captions in the printout.','我同意在打印内容中加入个人说明。','Incluyo mis textos personales en la impresión.'],
++  ['Impression navigateur : choisis Enregistrer en PDF si disponible. Aucun PDF automatique ni envoi externe.','Browser printing: choose Save as PDF if available. No automatic PDF or external sending.','浏览器打印：如支持，可选择另存为PDF。不自动生成PDF或对外发送。','Impresión del navegador: elige Guardar como PDF si está disponible. Sin PDF automático ni envío externo.'],
++  ['Imprimer les journées choisies','Print selected days','打印所选日期','Imprimir los días elegidos'],
++  ['Photo illisible. Retire les photos de l’impression ou remplace la copie locale.','Unreadable photo. Remove photos from printing or replace the local copy.','照片无法读取。请取消打印照片，或替换本地副本。','Foto ilegible. Excluye las fotos de la impresión o sustituye la copia local.'],
++];
++export function souvenirDictionary(index: number): Record<string,string> { return Object.fromEntries(rows.map(row=>[row[0],row[index+1]])); }
+diff --git a/src/souvenirs.ts b/src/souvenirs.ts
+new file mode 100644
+index 0000000..491989c
+--- /dev/null
++++ b/src/souvenirs.ts
+@@ -0,0 +1,182 @@
++/** Personal media never enters StoredState, localStorage, cloud projections or old backups. */
++export const SOUVENIR_DB = 'detours-personal-souvenirs-v1';
++export const SOUVENIR_EXCLUSION = 'Les photos et légendes quotidiennes sont exclues de cette sauvegarde. Dans chaque carnet, utilise Souvenir personnel → Télécharger le paquet souvenirs, puis restaure ce paquet après le carnet.';
++export const MEDIA_LIMITS = { input: 12 * 1024 ** 2, pixels: 32_000_000, side: 16384, output: 512 * 1024, edge: 1600, total: 32 * 1024 ** 2, count: 1000, caption: 500, package: 48 * 1024 ** 2 } as const;
++export type Souvenir = { key: string; scope: string; trip: string; day: string; revision: string; caption: string; photo?: Blob };
++export type SouvenirWrite = { day: string; before: string | null; value: { caption: string; photo?: Blob } | null };
++const fail = (code: string): never => { throw new Error(code); };
++const validId = (id: unknown): id is string => typeof id === 'string' && id.length > 0 && id.length <= 200;
++export const souvenirKey = (scope: string, trip: string, day: string) => JSON.stringify([scope, trip, day]);
++
++/** Read encoded dimensions before allocating decoded pixels. Unsupported formats stay explicit. */
++export function imageHeader(bytes: Uint8Array): { type: string; width: number; height: number } {
++  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
++  let type = '', width = 0, height = 0;
++  if (bytes.length >= 24 && [137,80,78,71,13,10,26,10].every((v,i) => bytes[i] === v) && view.getUint32(12) === 0x49484452) {
++    type = 'image/png'; width = view.getUint32(16); height = view.getUint32(20);
++  } else if (bytes.length >= 12 && bytes[0] === 255 && bytes[1] === 216) {
++    type = 'image/jpeg';
++    let offset = 2;
++    while (offset + 4 <= bytes.length) {
++      if (bytes[offset++] !== 255) break;
++      while (bytes[offset] === 255) offset++;
++      const marker = bytes[offset++];
++      if (marker === 0xda || marker === 0xd9) break;
++      if (marker === 0x01 || marker >= 0xd0 && marker <= 0xd7) continue;
++      if (offset + 2 > bytes.length) break;
++      const length = view.getUint16(offset);
++      if (length < 2 || offset + length > bytes.length) break;
++      if ([0xc0,0xc1,0xc2].includes(marker) && length >= 8) { height = view.getUint16(offset+3); width = view.getUint16(offset+5); break; }
++      offset += length;
++    }
++  } else if (bytes.length >= 30 && String.fromCharCode(...bytes.slice(0,4)) === 'RIFF' && String.fromCharCode(...bytes.slice(8,12)) === 'WEBP') {
++    type = 'image/webp';
++    const chunk = String.fromCharCode(...bytes.slice(12,16));
++    if (chunk === 'VP8X') { width = 1 + bytes[24] + (bytes[25]<<8) + (bytes[26]<<16); height = 1 + bytes[27] + (bytes[28]<<8) + (bytes[29]<<16); }
++    if (chunk === 'VP8 ' && bytes[23] === 0x9d && bytes[24] === 1 && bytes[25] === 0x2a) { width = view.getUint16(26,true)&0x3fff; height = view.getUint16(28,true)&0x3fff; }
++    if (chunk === 'VP8L' && bytes[20] === 0x2f) { const bits = view.getUint32(21,true); width = (bits&0x3fff)+1; height = ((bits>>>14)&0x3fff)+1; }
++  }
++  if (!type || !width || !height) return fail('media-format');
++  if (width > MEDIA_LIMITS.side || height > MEDIA_LIMITS.side || width * height > MEDIA_LIMITS.pixels) return fail('media-size');
++  return { type, width, height };
++}
++
++export async function preparePhoto(file: Blob): Promise<Blob> {
++  if (!file.size || file.size > MEDIA_LIMITS.input) return fail('media-size');
++  const header = imageHeader(new Uint8Array(await file.arrayBuffer()));
++  if (file.type && file.type !== header.type) return fail('media-format');
++  let bitmap: ImageBitmap;
++  try { bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' }); } catch { return fail('media-format'); }
++  try {
++    if (!bitmap.width || !bitmap.height || bitmap.width * bitmap.height > MEDIA_LIMITS.pixels) return fail('media-size');
++    const ratio = Math.min(1, MEDIA_LIMITS.edge / Math.max(bitmap.width, bitmap.height));
++    const canvas = document.createElement('canvas');
++    canvas.width = Math.max(1, Math.round(bitmap.width * ratio)); canvas.height = Math.max(1, Math.round(bitmap.height * ratio));
++    const context = canvas.getContext('2d');
++    if (!context) return fail('media-format');
++    context.fillStyle = '#fff'; context.fillRect(0,0,canvas.width,canvas.height); context.drawImage(bitmap,0,0,canvas.width,canvas.height);
++    for (const quality of [0.82,0.65,0.45]) {
++      const output = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve,'image/jpeg',quality));
++      if (output?.type === 'image/jpeg' && output.size <= MEDIA_LIMITS.output) return output;
++    }
++    return fail('media-size');
++  } finally { bitmap.close(); }
++}
++
++function openDB(): Promise<IDBDatabase> {
++  return new Promise((resolve,reject) => {
++    const request = indexedDB.open(SOUVENIR_DB,1);
++    request.onupgradeneeded = () => request.result.createObjectStore('memories',{ keyPath:'key' });
++    request.onerror = () => reject(request.error);
++    request.onblocked = () => reject(new Error('media-storage'));
++    request.onsuccess = () => { request.result.onversionchange = () => request.result.close(); resolve(request.result); };
++  });
++}
++export async function readSouvenirs(scope: string, trip: string): Promise<Souvenir[]> {
++  const db = await openDB();
++  try {
++    return await new Promise((resolve,reject) => {
++      const tx = db.transaction('memories','readonly');
++      const request = tx.objectStore('memories').getAll();
++      tx.oncomplete = () => resolve((request.result as Souvenir[]).filter(row => row.scope === scope && row.trip === trip));
++      tx.onerror = tx.onabort = () => reject(tx.error || new Error('media-storage'));
++    });
++  } finally { db.close(); }
++}
++function validValue(value: { caption: string; photo?: Blob }) {
++  return typeof value.caption === 'string' && value.caption.length <= MEDIA_LIMITS.caption && (value.photo === undefined || value.photo instanceof Blob && value.photo.type === 'image/jpeg' && value.photo.size > 0 && value.photo.size <= MEDIA_LIMITS.output);
++}
++async function validateStoredPhoto(photo?: Blob) {
++  if (!photo) return;
++  const header = imageHeader(new Uint8Array(await photo.arrayBuffer()));
++  if (header.type !== 'image/jpeg' || Math.max(header.width,header.height) > MEDIA_LIMITS.edge) return fail('media-invalid');
++}
++/** Blob and metadata commit in the same record/transaction. Aborts leave the old value intact.
++ * All writes use the same store, so quota checks and revisions serialize across tabs. */
++export async function writeSouvenirs(scope: string, trip: string, writes: SouvenirWrite[]): Promise<void> {
++  if (!validId(scope) || !validId(trip) || writes.length > MEDIA_LIMITS.count || new Set(writes.map(w=>w.day)).size !== writes.length || writes.some(w => !validId(w.day) || w.value && !validValue(w.value))) return fail('media-invalid');
++  for (const write of writes) await validateStoredPhoto(write.value?.photo);
++  const db = await openDB();
++  try {
++    await new Promise<void>((resolve,reject) => {
++      const tx = db.transaction('memories','readwrite',{durability:'strict'});
++      const store = tx.objectStore('memories');
++      let error: unknown;
++      const request = store.getAll();
++      request.onsuccess = () => {
++        try {
++          const rows = new Map((request.result as Souvenir[]).map(row=>[row.key,row]));
++          for (const write of writes) {
++            const key = souvenirKey(scope,trip,write.day);
++            if ((rows.get(key)?.revision || null) !== write.before) return fail('media-conflict');
++            if (!write.value) rows.delete(key);
++            else rows.set(key,{ key,scope,trip,day:write.day,revision:crypto.randomUUID(),caption:write.value.caption,...(write.value.photo ? {photo:write.value.photo} : {}) });
++          }
++          const size = [...rows.values()].reduce((sum,row)=>sum+(row.photo?.size || 0)+new TextEncoder().encode(row.caption).length+1024,0);
++          if (size > MEDIA_LIMITS.total || rows.size > MEDIA_LIMITS.count) return fail('media-quota');
++          for (const write of writes) {
++            const key = souvenirKey(scope,trip,write.day), row = rows.get(key);
++            if (row) {
++              store.put(row);
++              const check = store.get(key);
++              check.onsuccess = () => { if (check.result?.revision !== row.revision || check.result?.photo?.size !== row.photo?.size) { error = new Error('media-storage'); tx.abort(); } };
++            } else {
++              store.delete(key);
++              const check = store.get(key);
++              check.onsuccess = () => { if (check.result !== undefined) { error = new Error('media-storage'); tx.abort(); } };
++            }
++          }
++        } catch (failure) { error = failure; try { tx.abort(); } catch { /* Already aborted by the browser or an interruption. */ } }
++      };
++      tx.oncomplete = () => resolve();
++      tx.onerror = tx.onabort = () => reject(error || tx.error || new Error('media-storage'));
++    });
++  } finally { db.close(); }
++}
++
++type PackageRow = { day: string; caption: string; photo?: string; sha256?: string };
++export type MediaPackage = { version: 1; scope: 'detours-personal-media'; entries: PackageRow[] };
++const hash = async (bytes: ArrayBuffer) => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),b=>b.toString(16).padStart(2,'0')).join('');
++export async function exportSouvenirs(rows: Souvenir[]): Promise<string> {
++  if (rows.length > MEDIA_LIMITS.count) return fail('media-size');
++  const entries: PackageRow[] = [];
++  for (const row of rows) {
++    if (!validId(row.day) || !validValue(row)) return fail('media-invalid');
++    await validateStoredPhoto(row.photo);
++    if (row.photo) {
++      const bytes = await row.photo.arrayBuffer();
++      let binary = '';
++      for (const byte of new Uint8Array(bytes)) binary += String.fromCharCode(byte);
++      entries.push({ day:row.day,caption:row.caption,photo:btoa(binary),sha256:await hash(bytes) });
++    } else entries.push({day:row.day,caption:row.caption});
++  }
++  const raw = JSON.stringify({version:1,scope:'detours-personal-media',entries} satisfies MediaPackage);
++  if (new TextEncoder().encode(raw).length > MEDIA_LIMITS.package) return fail('media-size');
++  return raw;
++}
++export async function prepareSouvenirRestore(raw: string, days: string[], current: Souvenir[]): Promise<{ writes: SouvenirWrite[]; skipped: number }> {
++  if (new TextEncoder().encode(raw).length > MEDIA_LIMITS.package) return fail('media-size');
++  let data: MediaPackage;
++  try { data = JSON.parse(raw); } catch { return fail('media-invalid'); }
++  if (!data || data.version !== 1 || data.scope !== 'detours-personal-media' || !Array.isArray(data.entries) || data.entries.length > MEDIA_LIMITS.count) return fail('media-invalid');
++  const seen = new Set<string>(), writes: SouvenirWrite[] = [];
++  let skipped = 0, bytesTotal = 0;
++  for (const row of data.entries) {
++    if (!row || !validId(row.day) || seen.has(row.day) || typeof row.caption !== 'string' || row.caption.length > MEDIA_LIMITS.caption) return fail('media-invalid');
++    seen.add(row.day);
++    let photo: Blob | undefined;
++    if (row.photo !== undefined) {
++      if (typeof row.photo !== 'string' || row.photo.length > Math.ceil(MEDIA_LIMITS.output/3)*4 || !/^[A-Za-z0-9+/]*={0,2}$/.test(row.photo)) return fail('media-invalid');
++      let binary: string;
++      try { binary = atob(row.photo); } catch { return fail('media-invalid'); }
++      const bytes = Uint8Array.from(binary,c=>c.charCodeAt(0));
++      bytesTotal += bytes.length;
++      if (bytesTotal > MEDIA_LIMITS.total || row.sha256 !== await hash(bytes.buffer)) return fail('media-invalid');
++      // Untrusted imported images pass through the same decoder and metadata removal.
++      photo = await preparePhoto(new Blob([bytes],{type:'image/jpeg'}));
++    }
++    if (!days.includes(row.day) || current.some(item=>item.day===row.day)) { skipped++; continue; }
++    writes.push({day:row.day,before:null,value:{caption:row.caption,...(photo?{photo}:{})}});
++  }
++  return {writes,skipped};
++}
+diff --git a/tests/backup.test.mjs b/tests/backup.test.mjs
+index c676c0a..8b44a97 100644
+--- a/tests/backup.test.mjs
++++ b/tests/backup.test.mjs
+@@ -171,8 +171,12 @@ test('octets autour des limites historiques et v3, journal compact sous quota',
+   await parseFullBackup(old.padEnd(5_000_001, ' '));
+   assert.throws(() => parseImport(old.padEnd(5_000_001, ' ')), /5 Mo/);
+   const raw = await exportBackup(new Memory(), new Memory());
+-  await parseFullBackup(raw.padEnd(MAX_BACKUP_BYTES, ' '));
+-  await assert.rejects(parseFullBackup(raw.padEnd(MAX_BACKUP_BYTES + 1, ' ')), /backup-size/);
++  // Exclusion messages can contain non-ASCII text: the contract is UTF-8 bytes.
++  const extraUtf8Bytes = Buffer.byteLength(raw, 'utf8') - raw.length;
++  const atLimit = raw.padEnd(MAX_BACKUP_BYTES - extraUtf8Bytes, ' ');
++  assert.equal(Buffer.byteLength(atLimit, 'utf8'), MAX_BACKUP_BYTES);
++  await parseFullBackup(atLimit);
++  await assert.rejects(parseFullBackup(atLimit + ' '), /backup-size/);
+   const source = new Memory(), trip = blankTrip({ title: 'Sous quota' });
+   trip.documents = [{ id: 'doc', title: 'Large', content: 'a'.repeat(450_000) }];
+   writeTrip(source, trip);
+diff --git a/tests/e2e/souvenirs.spec.ts b/tests/e2e/souvenirs.spec.ts
+new file mode 100644
+index 0000000..5b5088c
+--- /dev/null
++++ b/tests/e2e/souvenirs.spec.ts
+@@ -0,0 +1,124 @@
++import { test, expect, type Page } from '@playwright/test';
++import { mkdir, writeFile } from 'node:fs/promises';
++import { fixture } from '../../scripts/companion-fixture.mjs';
++import { archive, tripKey } from '../../src/journeys';
++import { translate, type Language } from '../../src/locale-utils';
++
++const trip=fixture();
++async function seed(page: Page, language: Language='fr') {
++  await page.goto('/');
++  await page.evaluate(({raw,key,language})=>{localStorage.setItem(key,raw);localStorage.setItem('a-l-est-preferences-v1',JSON.stringify({language,theme:language==='en'?'dark':'light'}));},{key:tripKey(trip.journey!.id),raw:JSON.stringify(archive(trip)),language});
++  await page.reload();await page.getByRole('button',{name:translate('Ouvrir {title}',language,{title:trip.journey!.title}),exact:true}).click();
++  await page.locator('.souvenirs summary').click();
++  await expect(page.locator('.souvenirs textarea')).toBeEnabled();
++}
++for (const language of ['fr','en','zh-CN','es'] as Language[]) test(`personal memory ${language}: durable caption, explicit print consent, keyboard, widths and no private leaks`,async({page})=>{
++  const t=(s:string)=>translate(s,language);await seed(page,language);await page.emulateMedia({reducedMotion:'reduce'});
++  const before=await page.evaluate(key=>localStorage.getItem(key),tripKey(trip.journey!.id));
++  await page.getByLabel(t('Légende du souvenir'),{exact:true}).fill('<script>private MEMORY</script>');
++  await page.getByRole('button',{name:t('Enregistrer le souvenir'),exact:true}).click();await expect(page.getByRole('status').filter({hasText:t('Souvenir enregistré sur cet appareil.')})).toBeVisible();
++  expect(await page.evaluate(key=>localStorage.getItem(key),tripKey(trip.journey!.id))).toBe(before);
++  await page.reload();await page.locator('.souvenirs summary').click();await expect(page.locator('.souvenirs textarea')).toHaveValue('<script>private MEMORY</script>');
++  await page.getByRole('button',{name:t('Préparer un souvenir imprimable'),exact:true}).click();const dialog=page.getByRole('dialog');
++  await expect(page).toHaveTitle(t('Mes souvenirs de voyage'));
++  await expect(dialog.getByRole('button',{name:t('Imprimer les journées choisies'),exact:true})).toBeDisabled();
++  await dialog.getByRole('checkbox',{name:'Jour test',exact:true}).focus();await page.keyboard.press('Space');
++  await expect(dialog.locator('.souvenir-preview')).not.toContainText('MEMORY');await expect(dialog.locator('.souvenir-preview')).not.toContainText('PRIVATE');
++  await dialog.getByLabel(t('J’inclus mes légendes personnelles dans l’impression.'),{exact:true}).check();await expect(dialog.locator('.souvenir-preview')).toContainText('<script>private MEMORY</script>');expect(await page.evaluate(()=>Object.hasOwn(window,'injected'))).toBe(false);
++  await page.evaluate(()=>{window.print=()=>{document.documentElement.dataset.printed='yes';};});await dialog.getByRole('button',{name:t('Imprimer les journées choisies'),exact:true}).click();await expect(page.locator('html')).toHaveAttribute('data-printed','yes');
++  for(const width of [320,390,1440]) {await page.setViewportSize({width,height:950});expect(await dialog.evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);}
++  await page.setViewportSize({width:390,height:950});await page.evaluate(()=>{document.documentElement.style.zoom='2';});expect(await dialog.evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);await page.evaluate(()=>{document.documentElement.style.zoom='1';});
++  await mkdir('docs/development/lot-09-souvenirs/screenshots',{recursive:true});await page.screenshot({path:`docs/development/lot-09-souvenirs/screenshots/preview-${language}.png`});
++  await page.emulateMedia({media:'print'});await expect(page.locator('#souvenir-print-root')).toBeVisible();await expect(page.locator('#root')).toBeHidden();await expect(page.locator('#souvenir-print-root')).not.toContainText('PRIVATE');await page.screenshot({path:`docs/development/lot-09-souvenirs/screenshots/print-${language}.png`});await page.emulateMedia({media:'screen'});
++  await page.keyboard.press('Escape');await page.getByRole('button',{name:t('Supprimer ce souvenir'),exact:true}).click();await page.getByRole('button',{name:t('Confirmer la suppression'),exact:true}).click();await expect(page.locator('.souvenirs textarea')).toHaveValue('');
++});
++
++test('real decoder: EXIF rotation, metadata removal, signatures, unsupported formats and bounded output',async({page})=>{
++  await page.goto('/');
++  const results=await page.evaluate(async()=>{
++    const path='/src/souvenirs.ts';const m=await import(/* @vite-ignore */ path);
++    const c=document.createElement('canvas');c.width=80;c.height=30;c.getContext('2d')!.fillRect(0,0,80,30);
++    const original=await new Promise<Blob>(resolve=>c.toBlob(b=>resolve(b!),'image/jpeg'));
++    const bytes=new Uint8Array(await original.arrayBuffer());
++    // APP1 EXIF: little endian TIFF, one orientation entry, orientation 6 (90° CW).
++    const exif=Uint8Array.from([255,225,0,34,69,120,105,102,0,0,73,73,42,0,8,0,0,0,1,0,18,1,3,0,1,0,0,0,6,0,0,0,0,0,0,0]);
++    const oriented=new Blob([bytes.slice(0,2),exif,bytes.slice(2)],{type:'image/jpeg'});
++    const source=await oriented.arrayBuffer();const photo=await m.preparePhoto(oriented);const output=new Uint8Array(await photo.arrayBuffer());
++    const errors=[];
++    for(const bad of [new Blob([bytes],{type:'image/png'}),new Blob(['HEIC fake'],{type:'image/heic'}),new Blob([new Uint8Array(m.MEDIA_LIMITS.input+1)],{type:'image/jpeg'}),new Blob([bytes.slice(0,12)],{type:'image/jpeg'})]) {
++      try {await m.preparePhoto(bad);errors.push('accepted');}catch(e){errors.push((e as Error).message);}
++    }
++    const large=document.createElement('canvas');large.width=4000;large.height=3000;const big=await new Promise<Blob>(r=>large.toBlob(b=>r(b!),'image/png'));const small=await m.preparePhoto(big);const dimensions=m.imageHeader(new Uint8Array(await small.arrayBuffer()));
++    return {header:m.imageHeader(output),hasExif:new TextDecoder().decode(output).includes('Exif'),unchanged:source.byteLength===oriented.size,errors,dimensions,bytes:photo.size,bigBytes:big.size,smallBytes:small.size};
++  });
++  expect(results.header).toEqual({type:'image/jpeg',width:30,height:80});expect(results.hasExif).toBe(false);expect(results.unchanged).toBe(true);expect(results.errors).toEqual(['media-format','media-format','media-size','media-format']);expect(results.dimensions.width).toBe(1600);expect(results.dimensions.height).toBe(1200);expect(results.smallBytes).toBeLessThanOrEqual(524288);
++  await mkdir('docs/development/lot-09-souvenirs',{recursive:true});await writeFile('docs/development/lot-09-souvenirs/image-budgets.json',JSON.stringify(results,null,2));
++});
++
++test('IndexedDB atomic abort, quota failure, missing media, conflicts and account/trip isolation',async({page})=>{
++  await page.goto('/');
++  const result=await page.evaluate(async()=>{
++    const path='/src/souvenirs.ts';const m=await import(/* @vite-ignore */ path);
++    await m.writeSouvenirs('account:a','t',[{day:'d',before:null,value:{caption:'old'}}]);
++    const old=(await m.readSouvenirs('account:a','t'))[0];const errors=[];
++    const original=IDBObjectStore.prototype.put;
++    for(const interrupt of [false,true]) {
++      IDBObjectStore.prototype.put=function(value,key){if(this.name==='memories'){if(interrupt){const result=original.call(this,value,key);this.transaction.abort();return result;}throw new DOMException('full','QuotaExceededError');}return original.call(this,value,key);};
++      try{await m.writeSouvenirs('account:a','t',[{day:'d',before:old.revision,value:{caption:'lost'}},{day:'x',before:null,value:{caption:'partial'}}]);}catch(e){errors.push((e as Error).name);}
++      IDBObjectStore.prototype.put=original;
++    }
++    const after=await m.readSouvenirs('account:a','t');
++    await m.writeSouvenirs('account:a','t',[{day:'d',before:old.revision,value:{caption:'new'}}]);
++    let conflict='';try{await m.writeSouvenirs('account:a','t',[{day:'d',before:old.revision,value:{caption:'stale'}}]);}catch(e){conflict=(e as Error).message;}
++    const noB=await m.readSouvenirs('account:b','t'),noLocal=await m.readSouvenirs('local','t'),noTrip=await m.readSouvenirs('account:a','another');
++    const current=(await m.readSouvenirs('account:a','t'))[0];await m.writeSouvenirs('account:a','t',[{day:'d',before:current.revision,value:null}]);
++    return {errors,after:after.map((r:{caption:string})=>r.caption),conflict,noB,noLocal,noTrip,deleted:await m.readSouvenirs('account:a','t')};
++  });
++  expect(result.errors).toHaveLength(2);expect(result.after).toEqual(['old']);expect(result.conflict).toBe('media-conflict');expect(result.noB).toEqual([]);expect(result.noLocal).toEqual([]);expect(result.noTrip).toEqual([]);expect(result.deleted).toEqual([]);
++});
++
++test('photo package is bounded, integrity checked, restored without overwrite and idempotent',async({page})=>{
++  await page.goto('/');
++  const result=await page.evaluate(async()=>{
++    const path='/src/souvenirs.ts';const m=await import(/* @vite-ignore */ path);const c=document.createElement('canvas');c.width=100;c.height=50;
++    const photo=await m.preparePhoto(await new Promise<Blob>(r=>c.toBlob(b=>r(b!),'image/png')));
++    await m.writeSouvenirs('local','old',[{day:'d',before:null,value:{caption:'private',photo}},{day:'removed',before:null,value:{caption:'detached',photo}}]);
++    const raw=await m.exportSouvenirs(await m.readSouvenirs('local','old'));const prepared=await m.prepareSouvenirRestore(raw,['d'],[]);
++    await m.writeSouvenirs('local','restored',prepared.writes);const restored=await m.readSouvenirs('local','restored');const retry=await m.prepareSouvenirRestore(raw,['d'],restored);
++    const corrupt=JSON.parse(raw);corrupt.entries[0].sha256='0'.repeat(64);let integrity='';try{await m.prepareSouvenirRestore(JSON.stringify(corrupt),['d'],[]);}catch(e){integrity=(e as Error).message;}
++    const old=restored[0];await m.writeSouvenirs('local','restored',[{day:'d',before:old.revision,value:{caption:old.caption}}]);const missing=await m.readSouvenirs('local','restored');
++    return {skipped:prepared.skipped,retry:retry.writes.length,caption:restored[0].caption,bytes:restored[0].photo.size,missingPhoto:missing[0].photo===undefined,integrity,raw};
++  });
++  expect(result.skipped).toBe(1);expect(result.retry).toBe(0);expect(result.caption).toBe('private');expect(result.bytes).toBeGreaterThan(0);expect(result.missingPhoto).toBe(true);expect(result.integrity).toBe('media-invalid');
++});
++
++test('global media budget refuses a large batch atomically and concurrent tabs preserve revisions',async({page,context})=>{
++  await page.goto('/');
++  const quota=await page.evaluate(async()=>{
++    const path='/src/souvenirs.ts';const m=await import(/* @vite-ignore */ path);const c=document.createElement('canvas');c.width=10;c.height=10;
++    const small=await new Promise<Blob>(r=>c.toBlob(b=>r(b!),'image/jpeg'));const padded=new Blob([small,new Uint8Array(m.MEDIA_LIMITS.output-small.size)],{type:'image/jpeg'});
++    let message='';try{await m.writeSouvenirs('local','full',Array.from({length:65},(_,i)=>({day:`d${i}`,before:null,value:{caption:'quota',photo:padded}})));}catch(e){message=(e as Error).message;}
++    return {message,rows:(await m.readSouvenirs('local','full')).length,attempted:65*padded.size};
++  });
++  expect(quota.message).toBe('media-quota');expect(quota.rows).toBe(0);expect(quota.attempted).toBeGreaterThan(32*1024**2);
++  const other=await context.newPage();await other.goto('/');
++  const write=(tab:Page,caption:string)=>tab.evaluate(async caption=>{
++    const path='/src/souvenirs.ts';const m=await import(/* @vite-ignore */ path);
++    try{await m.writeSouvenirs('local','race',[{day:'d',before:null,value:{caption}}]);return 'saved';}catch(e){return (e as Error).message;}
++  },caption);
++  const result=await Promise.all([write(page,'one'),write(other,'two')]);expect(result.sort()).toEqual(['media-conflict','saved']);await other.close();
++});
++
++test('cancel and unreadable photo recovery; deleting all days leaves the package accessible',async({page})=>{
++  await seed(page);
++  await page.locator('.souvenirs textarea').fill('unsaved');await page.getByRole('button',{name:'Annuler les modifications',exact:true}).click();await expect(page.locator('.souvenirs textarea')).toHaveValue('');
++  await page.evaluate(async trip=>{
++    const path='/src/souvenirs.ts';const m=await import(/* @vite-ignore */ path);
++    const open=indexedDB.open(m.SOUVENIR_DB,1);const db=await new Promise<IDBDatabase>(r=>{open.onsuccess=()=>r(open.result);});
++    await new Promise<void>((resolve,reject)=>{const tx=db.transaction('memories','readwrite');tx.objectStore('memories').put({key:m.souvenirKey('local',trip,'d'),scope:'local',trip,day:'d',revision:'corrupt',caption:'recoverable',photo:new Blob(['missing bytes'],{type:'image/jpeg'})});tx.oncomplete=()=>resolve();tx.onabort=()=>reject(tx.error);});db.close();
++  },trip.journey!.id);
++  await page.reload();await page.locator('.souvenirs summary').click();await expect(page.locator('.souvenirs')).toContainText('Photo illisible.');await expect(page.locator('.souvenirs textarea')).toHaveValue('recoverable');
++  await page.getByRole('button',{name:'Retirer la photo avant enregistrement',exact:true}).click();await page.getByRole('button',{name:'Enregistrer le souvenir',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'Souvenir enregistré'})).toBeVisible();
++  await page.evaluate(key=>{const value=JSON.parse(localStorage.getItem(key)!);value.state.cities[0].days=[];localStorage.setItem(key,JSON.stringify(value));},tripKey(trip.journey!.id));await page.reload();await page.locator('.souvenirs summary').click();await expect(page.locator('.souvenirs')).toContainText('1 souvenir(s) de journées supprimées');await page.getByRole('button',{name:'Télécharger le paquet souvenirs',exact:true}).click();await expect(page.getByRole('dialog')).toContainText('recoverable');await page.keyboard.press('Escape');
++  await page.getByLabel('Je confirme la suppression des souvenirs de journées supprimées.',{exact:true}).check();await page.getByRole('button',{name:'Nettoyer les souvenirs détachés',exact:true}).click();await expect(page.locator('.souvenirs')).toContainText('0 souvenir(s),');
++});
+diff --git a/tests/souvenirs.test.mjs b/tests/souvenirs.test.mjs
+new file mode 100644
+index 0000000..21fedf4
+--- /dev/null
++++ b/tests/souvenirs.test.mjs
+@@ -0,0 +1,47 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { imageHeader, MEDIA_LIMITS, souvenirKey, SOUVENIR_EXCLUSION, exportSouvenirs, prepareSouvenirRestore } from '../src/souvenirs.ts';
++import { souvenirDictionary } from '../src/locales/souvenirs.ts';
++import { exportBackup, prepareRestore, applyRestore } from '../src/backup.ts';
++import { archive, blankTrip, tripKey, parseTrip } from '../src/journeys.ts';
++
++test('encoded image budgets reject unknown formats, truncated data and oversized pixels before decoding',()=>{
++  for(const bytes of [new Uint8Array(),new TextEncoder().encode('<svg/>'),new Uint8Array([255,216,255,225,0,30])]) assert.throws(()=>imageHeader(bytes),/media-format/);
++  const png=new Uint8Array(24);png.set([137,80,78,71,13,10,26,10]);const v=new DataView(png.buffer);v.setUint32(12,0x49484452);v.setUint32(16,4000);v.setUint32(20,3000);
++  assert.deepEqual(imageHeader(png),{type:'image/png',width:4000,height:3000});
++  v.setUint32(16,10000);assert.equal(imageHeader(png).width,10000);v.setUint32(20,10000);assert.throws(()=>imageHeader(png),/media-size/);
++  v.setUint32(16,MEDIA_LIMITS.side+1);v.setUint32(20,1);assert.throws(()=>imageHeader(png),/media-size/);
++  const jpeg=Uint8Array.from([255,216,255,192,0,8,8,0,60,0,80,3]);assert.deepEqual(imageHeader(jpeg),{type:'image/jpeg',width:80,height:60});
++  const webp=new Uint8Array(30);webp.set(new TextEncoder().encode('RIFF'),0);webp.set(new TextEncoder().encode('WEBPVP8X'),8);webp[24]=79;webp[27]=59;assert.deepEqual(imageHeader(webp),{type:'image/webp',width:80,height:60});
++});
++
++test('scope keys cannot collide, including crafted separators and account switches',()=>{
++  assert.notEqual(souvenirKey('local','a:b','c'),souvenirKey('local','a','b:c'));
++  assert.notEqual(souvenirKey('account:a','trip','day'),souvenirKey('account:b','trip','day'));
++  assert.notEqual(souvenirKey('local','trip','day'),souvenirKey('account:a','trip','day'));
++});
++
++test('versioned note package rejects malformed or duplicate entries and preserves existing values',async()=>{
++  const rows=[{day:'d',caption:'souvenir <script>private</script>'}];
++  const raw=await exportSouvenirs(rows);
++  assert.deepEqual(await prepareSouvenirRestore(raw,['d'],[]),{writes:[{day:'d',before:null,value:{caption:rows[0].caption}}],skipped:0});
++  assert.deepEqual(await prepareSouvenirRestore(raw,['d'],[{day:'d'}]),{writes:[],skipped:1});
++  assert.deepEqual(await prepareSouvenirRestore(raw,['other'],[]),{writes:[],skipped:1});
++  for(const value of [null,{version:2,scope:'detours-personal-media',entries:[]},{version:1,scope:'detours-personal-media',entries:[...rows,...rows]},{version:1,scope:'detours-personal-media',entries:[{day:'d',caption:'x'.repeat(501)}]}]) await assert.rejects(prepareSouvenirRestore(JSON.stringify(value),['d'],[]),/media-invalid/);
++  await assert.rejects(exportSouvenirs([{day:'d',caption:'',photo:new Blob(['fake'],{type:'image/png'})}]),/media-invalid/);
++});
++
++test('historical trip/full backup formats still restore and the media exclusion travels inside every new backup',async()=>{
++  class Storage { values=new Map(); get length(){return this.values.size;} key(i){return [...this.values.keys()][i]??null;}getItem(k){return this.values.get(k)??null;}setItem(k,v){this.values.set(k,v);}removeItem(k){this.values.delete(k);} }
++  const source=new Storage(),target=new Storage(),trip=blankTrip({title:'Lot09 fictif'});source.setItem(tripKey(trip.journey.id),JSON.stringify(archive(trip)));
++  assert.deepEqual(parseTrip(source.getItem(tripKey(trip.journey.id))).state,trip);
++  const raw=await exportBackup(source,source);assert.ok(JSON.parse(raw).exclusions.includes(SOUVENIR_EXCLUSION));
++  const plan=await prepareRestore(raw,target);applyRestore(target,plan);assert.equal(plan.trips,1);
++  const historical=await prepareRestore(JSON.stringify(archive(trip)),new Storage());assert.equal(historical.trips,1);
++});
++
++test('all memory messages are translated with matching interpolation',()=>{
++  for(const index of [0,1,2]) for(const [source,target] of Object.entries(souvenirDictionary(index))) {
++    assert.ok(target);assert.notEqual(target,source);assert.deepEqual([...source.matchAll(/\{\w+\}/g)].map(m=>m[0]).sort(),[...target.matchAll(/\{\w+\}/g)].map(m=>m[0]).sort());
++  }
++});

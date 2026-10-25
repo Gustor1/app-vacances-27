@@ -1,0 +1,4291 @@
+{
+  "version": 1,
+  "fingerprint": "5cf27714c48e354c651fe859d0d574361a4fadd27a9f1042b99bf683e66e8e19",
+  "attempts": [
+    {
+      "number": 1,
+      "id": "fr-structure",
+      "status": "complete",
+      "startedAt": "2026-10-23T06:51:57.144Z",
+      "result": {
+        "originalSource": "Ville: Nantes\nJour 1\n- 09:00 Jardin des plantes\n- Passage Pommeraye\nJour 2\n- Machines de l’île",
+        "generatedText": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"Nantes\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"Nantes\",\n      \"days\": [\n        {\n          \"title\": \"Jour 1\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Jardin des plantes\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": \"09:00\",\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"Passage Pommeraye\",\n              \"category\": \"shopping\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"Jour 2\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Machines de l’île\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"Les dates du Jour 1 et du Jour 2 ne sont pas indiquées.\",\n    \"L’horaire du Passage Pommeraye n’est pas indiqué.\",\n    \"L’horaire des Machines de l’île n’est pas indiqué.\"\n  ],\n  \"unmapped\": []\n}",
+        "origin": "external-ai",
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "issues": [],
+        "planning": {
+          "format": "detours-planning",
+          "version": 1,
+          "title": "Nantes",
+          "currency": null,
+          "timezone": null,
+          "cities": [
+            {
+              "name": "Nantes",
+              "days": [
+                {
+                  "title": "Jour 1",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Jardin des plantes",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": "09:00",
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    },
+                    {
+                      "type": "activity",
+                      "title": "Passage Pommeraye",
+                      "category": "shopping",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "Jour 2",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Machines de l’île",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "notes": [],
+          "ambiguities": [
+            "Les dates du Jour 1 et du Jour 2 ne sont pas indiquées.",
+            "L’horaire du Passage Pommeraye n’est pas indiqué.",
+            "L’horaire des Machines de l’île n’est pas indiqué."
+          ],
+          "unmapped": []
+        },
+        "prepared": {
+          "source": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"Nantes\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"Nantes\",\n      \"days\": [\n        {\n          \"title\": \"Jour 1\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Jardin des plantes\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": \"09:00\",\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"Passage Pommeraye\",\n              \"category\": \"shopping\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"Jour 2\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Machines de l’île\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"Les dates du Jour 1 et du Jour 2 ne sont pas indiquées.\",\n    \"L’horaire du Passage Pommeraye n’est pas indiqué.\",\n    \"L’horaire des Machines de l’île n’est pas indiqué.\"\n  ],\n  \"unmapped\": []\n}",
+          "draft": {
+            "version": 1,
+            "title": "Nantes",
+            "notes": [
+              "[ambiguities] Les dates du Jour 1 et du Jour 2 ne sont pas indiquées.",
+              "[ambiguities] L’horaire du Passage Pommeraye n’est pas indiqué.",
+              "[ambiguities] L’horaire des Machines de l’île n’est pas indiqué."
+            ],
+            "evidence": {
+              "title": {
+                "origin": "external",
+                "path": "$.title",
+                "quote": "\"Nantes\""
+              }
+            },
+            "cities": [
+              {
+                "name": "Nantes",
+                "evidence": {
+                  "name": {
+                    "origin": "external",
+                    "path": "$.cities[0].name",
+                    "quote": "\"Nantes\""
+                  }
+                },
+                "days": [
+                  {
+                    "title": "Jour 1",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[0].title",
+                        "quote": "\"Jour 1\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "Jardin des plantes",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "09:00",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[0].title",
+                            "quote": "\"Jardin des plantes\""
+                          },
+                          "time": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[0].time",
+                            "quote": "\"09:00\""
+                          }
+                        }
+                      },
+                      {
+                        "title": "Passage Pommeraye",
+                        "category": "shopping",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[1].title",
+                            "quote": "\"Passage Pommeraye\""
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Jour 2",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[1].title",
+                        "quote": "\"Jour 2\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "Machines de l’île",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[1].items[0].title",
+                            "quote": "\"Machines de l’île\""
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "structuredSource": {
+            "format": "detours-planning",
+            "version": 1,
+            "name": "nvidia-generated.detours.json"
+          },
+          "currency": null,
+          "timezone": null
+        },
+        "requiresHumanReview": true,
+        "provider": {
+          "model": "minimaxai/minimax-m3.1-flash",
+          "finishReason": "stop",
+          "usage": {
+            "prompt_tokens": 3433,
+            "completion_tokens": 1366,
+            "total_tokens": 4799
+          },
+          "requestBytes": 15423,
+          "responseBytes": 7036,
+          "generatedBytes": 2438,
+          "latencyMs": 7824.497600000001
+        }
+      },
+      "evaluation": {
+        "id": "fr-structure",
+        "jsonValid": true,
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "rejected": false,
+        "rawScore": {
+          "expectedDays": 2,
+          "actualDays": 2,
+          "expectedItems": 3,
+          "actualItems": 3,
+          "mentions": 3,
+          "separateItems": 3,
+          "assignedItems": 3,
+          "fieldErrors": 0,
+          "shapeCorrect": true,
+          "passed": true,
+          "expectedShape": [
+            [
+              "nantes",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "actualShape": [
+            [
+              "nantes",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "details": [
+            {
+              "anchor": "Jardin des plantes",
+              "expectedCity": "Nantes",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Jardin des plantes",
+                "city": "Nantes",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "09:00",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Passage Pommeraye",
+              "expectedCity": "Nantes",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Passage Pommeraye",
+                "city": "Nantes",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Machines de l’île",
+              "expectedCity": "Nantes",
+              "expectedGroup": [
+                0,
+                1
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Machines de l’île",
+                "city": "Nantes",
+                "group": [
+                  0,
+                  1
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            }
+          ],
+          "unexpected": [],
+          "omissions": 0,
+          "falseBookings": 0,
+          "inventedCoordinates": 0,
+          "unexpectedDates": 0,
+          "unexpectedTimes": 0,
+          "alternativeErrors": 0
+        },
+        "sourceIssues": [],
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "nantes",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "nantes",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "Jardin des plantes",
+            "expectedCity": "Nantes",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Jardin des plantes",
+              "city": "Nantes",
+              "group": [
+                0,
+                0
+              ],
+              "time": "09:00",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "Passage Pommeraye",
+            "expectedCity": "Nantes",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Passage Pommeraye",
+              "city": "Nantes",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "Machines de l’île",
+            "expectedCity": "Nantes",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Machines de l’île",
+              "city": "Nantes",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 0,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T06:52:04.971Z"
+    },
+    {
+      "number": 2,
+      "id": "en-structure",
+      "status": "complete",
+      "startedAt": "2026-10-23T06:52:04.977Z",
+      "result": {
+        "originalSource": "City: York\nDay 1\n- 10:00 Castle Museum\n- Shambles\nDay 2\n- Museum Gardens",
+        "generatedText": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"York\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"York\",\n      \"days\": [\n        {\n          \"title\": \"Day 1\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Castle Museum\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": \"10:00\",\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"Shambles\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"Day 2\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Museum Gardens\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"No calendar dates were supplied for Day 1 or Day 2.\",\n    \"No time was supplied for Shambles on Day 1.\",\n    \"No time was supplied for Museum Gardens on Day 2.\"\n  ],\n  \"unmapped\": []\n}",
+        "origin": "external-ai",
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "issues": [],
+        "planning": {
+          "format": "detours-planning",
+          "version": 1,
+          "title": "York",
+          "currency": null,
+          "timezone": null,
+          "cities": [
+            {
+              "name": "York",
+              "days": [
+                {
+                  "title": "Day 1",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Castle Museum",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": "10:00",
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    },
+                    {
+                      "type": "activity",
+                      "title": "Shambles",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "Day 2",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Museum Gardens",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "notes": [],
+          "ambiguities": [
+            "No calendar dates were supplied for Day 1 or Day 2.",
+            "No time was supplied for Shambles on Day 1.",
+            "No time was supplied for Museum Gardens on Day 2."
+          ],
+          "unmapped": []
+        },
+        "prepared": {
+          "source": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"York\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"York\",\n      \"days\": [\n        {\n          \"title\": \"Day 1\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Castle Museum\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": \"10:00\",\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"Shambles\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"Day 2\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Museum Gardens\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"No calendar dates were supplied for Day 1 or Day 2.\",\n    \"No time was supplied for Shambles on Day 1.\",\n    \"No time was supplied for Museum Gardens on Day 2.\"\n  ],\n  \"unmapped\": []\n}",
+          "draft": {
+            "version": 1,
+            "title": "York",
+            "notes": [
+              "[ambiguities] No calendar dates were supplied for Day 1 or Day 2.",
+              "[ambiguities] No time was supplied for Shambles on Day 1.",
+              "[ambiguities] No time was supplied for Museum Gardens on Day 2."
+            ],
+            "evidence": {
+              "title": {
+                "origin": "external",
+                "path": "$.title",
+                "quote": "\"York\""
+              }
+            },
+            "cities": [
+              {
+                "name": "York",
+                "evidence": {
+                  "name": {
+                    "origin": "external",
+                    "path": "$.cities[0].name",
+                    "quote": "\"York\""
+                  }
+                },
+                "days": [
+                  {
+                    "title": "Day 1",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[0].title",
+                        "quote": "\"Day 1\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "Castle Museum",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "10:00",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[0].title",
+                            "quote": "\"Castle Museum\""
+                          },
+                          "time": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[0].time",
+                            "quote": "\"10:00\""
+                          }
+                        }
+                      },
+                      {
+                        "title": "Shambles",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[1].title",
+                            "quote": "\"Shambles\""
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Day 2",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[1].title",
+                        "quote": "\"Day 2\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "Museum Gardens",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[1].items[0].title",
+                            "quote": "\"Museum Gardens\""
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "structuredSource": {
+            "format": "detours-planning",
+            "version": 1,
+            "name": "nvidia-generated.detours.json"
+          },
+          "currency": null,
+          "timezone": null
+        },
+        "requiresHumanReview": true,
+        "provider": {
+          "model": "minimaxai/minimax-m3.1-flash",
+          "finishReason": "stop",
+          "usage": {
+            "prompt_tokens": 3428,
+            "completion_tokens": 870,
+            "total_tokens": 4298
+          },
+          "requestBytes": 15398,
+          "responseBytes": 4648,
+          "generatedBytes": 2384,
+          "latencyMs": 5450.8667
+        }
+      },
+      "evaluation": {
+        "id": "en-structure",
+        "jsonValid": true,
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "rejected": false,
+        "rawScore": {
+          "expectedDays": 2,
+          "actualDays": 2,
+          "expectedItems": 3,
+          "actualItems": 3,
+          "mentions": 3,
+          "separateItems": 3,
+          "assignedItems": 3,
+          "fieldErrors": 0,
+          "shapeCorrect": true,
+          "passed": true,
+          "expectedShape": [
+            [
+              "york",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "actualShape": [
+            [
+              "york",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "details": [
+            {
+              "anchor": "Castle Museum",
+              "expectedCity": "York",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Castle Museum",
+                "city": "York",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "10:00",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Shambles",
+              "expectedCity": "York",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Shambles",
+                "city": "York",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Museum Gardens",
+              "expectedCity": "York",
+              "expectedGroup": [
+                0,
+                1
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Museum Gardens",
+                "city": "York",
+                "group": [
+                  0,
+                  1
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            }
+          ],
+          "unexpected": [],
+          "omissions": 0,
+          "falseBookings": 0,
+          "inventedCoordinates": 0,
+          "unexpectedDates": 0,
+          "unexpectedTimes": 0,
+          "alternativeErrors": 0
+        },
+        "sourceIssues": [],
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "york",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "york",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "Castle Museum",
+            "expectedCity": "York",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Castle Museum",
+              "city": "York",
+              "group": [
+                0,
+                0
+              ],
+              "time": "10:00",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "Shambles",
+            "expectedCity": "York",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Shambles",
+              "city": "York",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "Museum Gardens",
+            "expectedCity": "York",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Museum Gardens",
+              "city": "York",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 0,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T06:52:10.429Z"
+    },
+    {
+      "number": 3,
+      "id": "es-structure",
+      "status": "complete",
+      "startedAt": "2026-10-23T06:52:10.434Z",
+      "result": {
+        "originalSource": "Ciudad: Toledo\nDía 1\n- 11:00 Catedral\n- Mirador del Valle\nDía 2\n- Museo del Greco",
+        "generatedText": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"Toledo\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"Toledo\",\n      \"days\": [\n        {\n          \"title\": \"Día 1\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Catedral\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": \"11:00\",\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"Mirador del Valle\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"Día 2\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Museo del Greco\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"No se indican las fechas de los días ni los horarios de Mirador del Valle y Museo del Greco.\"\n  ],\n  \"unmapped\": []\n}",
+        "origin": "external-ai",
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "issues": [],
+        "planning": {
+          "format": "detours-planning",
+          "version": 1,
+          "title": "Toledo",
+          "currency": null,
+          "timezone": null,
+          "cities": [
+            {
+              "name": "Toledo",
+              "days": [
+                {
+                  "title": "Día 1",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Catedral",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": "11:00",
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    },
+                    {
+                      "type": "activity",
+                      "title": "Mirador del Valle",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "Día 2",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Museo del Greco",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "notes": [],
+          "ambiguities": [
+            "No se indican las fechas de los días ni los horarios de Mirador del Valle y Museo del Greco."
+          ],
+          "unmapped": []
+        },
+        "prepared": {
+          "source": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"Toledo\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"Toledo\",\n      \"days\": [\n        {\n          \"title\": \"Día 1\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Catedral\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": \"11:00\",\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"Mirador del Valle\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"Día 2\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Museo del Greco\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"No se indican las fechas de los días ni los horarios de Mirador del Valle y Museo del Greco.\"\n  ],\n  \"unmapped\": []\n}",
+          "draft": {
+            "version": 1,
+            "title": "Toledo",
+            "notes": [
+              "[ambiguities] No se indican las fechas de los días ni los horarios de Mirador del Valle y Museo del Greco."
+            ],
+            "evidence": {
+              "title": {
+                "origin": "external",
+                "path": "$.title",
+                "quote": "\"Toledo\""
+              }
+            },
+            "cities": [
+              {
+                "name": "Toledo",
+                "evidence": {
+                  "name": {
+                    "origin": "external",
+                    "path": "$.cities[0].name",
+                    "quote": "\"Toledo\""
+                  }
+                },
+                "days": [
+                  {
+                    "title": "Día 1",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[0].title",
+                        "quote": "\"Día 1\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "Catedral",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "11:00",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[0].title",
+                            "quote": "\"Catedral\""
+                          },
+                          "time": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[0].time",
+                            "quote": "\"11:00\""
+                          }
+                        }
+                      },
+                      {
+                        "title": "Mirador del Valle",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[1].title",
+                            "quote": "\"Mirador del Valle\""
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "title": "Día 2",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[1].title",
+                        "quote": "\"Día 2\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "Museo del Greco",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[1].items[0].title",
+                            "quote": "\"Museo del Greco\""
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "structuredSource": {
+            "format": "detours-planning",
+            "version": 1,
+            "name": "nvidia-generated.detours.json"
+          },
+          "currency": null,
+          "timezone": null
+        },
+        "requiresHumanReview": true,
+        "provider": {
+          "model": "minimaxai/minimax-m3.1-flash",
+          "finishReason": "stop",
+          "usage": {
+            "prompt_tokens": 3430,
+            "completion_tokens": 807,
+            "total_tokens": 4237
+          },
+          "requestBytes": 15409,
+          "responseBytes": 4431,
+          "generatedBytes": 2329,
+          "latencyMs": 5561.745999999999
+        }
+      },
+      "evaluation": {
+        "id": "es-structure",
+        "jsonValid": true,
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "rejected": false,
+        "rawScore": {
+          "expectedDays": 2,
+          "actualDays": 2,
+          "expectedItems": 3,
+          "actualItems": 3,
+          "mentions": 3,
+          "separateItems": 3,
+          "assignedItems": 3,
+          "fieldErrors": 0,
+          "shapeCorrect": true,
+          "passed": true,
+          "expectedShape": [
+            [
+              "toledo",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "actualShape": [
+            [
+              "toledo",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "details": [
+            {
+              "anchor": "Catedral",
+              "expectedCity": "Toledo",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Catedral",
+                "city": "Toledo",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "11:00",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Mirador del Valle",
+              "expectedCity": "Toledo",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Mirador del Valle",
+                "city": "Toledo",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Museo del Greco",
+              "expectedCity": "Toledo",
+              "expectedGroup": [
+                0,
+                1
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Museo del Greco",
+                "city": "Toledo",
+                "group": [
+                  0,
+                  1
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            }
+          ],
+          "unexpected": [],
+          "omissions": 0,
+          "falseBookings": 0,
+          "inventedCoordinates": 0,
+          "unexpectedDates": 0,
+          "unexpectedTimes": 0,
+          "alternativeErrors": 0
+        },
+        "sourceIssues": [],
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "toledo",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "toledo",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "Catedral",
+            "expectedCity": "Toledo",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Catedral",
+              "city": "Toledo",
+              "group": [
+                0,
+                0
+              ],
+              "time": "11:00",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "Mirador del Valle",
+            "expectedCity": "Toledo",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Mirador del Valle",
+              "city": "Toledo",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "Museo del Greco",
+            "expectedCity": "Toledo",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Museo del Greco",
+              "city": "Toledo",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 0,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T06:52:15.996Z"
+    },
+    {
+      "number": 4,
+      "id": "zh-structure",
+      "status": "complete",
+      "startedAt": "2026-10-23T06:52:16.003Z",
+      "result": {
+        "originalSource": "城市：苏州\n第1天\n- 09:00 拙政园\n- 平江路\n第2天\n- 苏州博物馆",
+        "generatedText": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"苏州\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"苏州\",\n      \"days\": [\n        {\n          \"title\": \"第1天\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"拙政园\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": \"09:00\",\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"平江路\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"第2天\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"苏州博物馆\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"未提供各天的具体日期。\"\n  ],\n  \"unmapped\": []\n}",
+        "origin": "external-ai",
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "issues": [],
+        "planning": {
+          "format": "detours-planning",
+          "version": 1,
+          "title": "苏州",
+          "currency": null,
+          "timezone": null,
+          "cities": [
+            {
+              "name": "苏州",
+              "days": [
+                {
+                  "title": "第1天",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "拙政园",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": "09:00",
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    },
+                    {
+                      "type": "activity",
+                      "title": "平江路",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "第2天",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "苏州博物馆",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "notes": [],
+          "ambiguities": [
+            "未提供各天的具体日期。"
+          ],
+          "unmapped": []
+        },
+        "prepared": {
+          "source": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"苏州\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"苏州\",\n      \"days\": [\n        {\n          \"title\": \"第1天\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"拙政园\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": \"09:00\",\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"平江路\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"第2天\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"苏州博物馆\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"未提供各天的具体日期。\"\n  ],\n  \"unmapped\": []\n}",
+          "draft": {
+            "version": 1,
+            "title": "苏州",
+            "notes": [
+              "[ambiguities] 未提供各天的具体日期。"
+            ],
+            "evidence": {
+              "title": {
+                "origin": "external",
+                "path": "$.title",
+                "quote": "\"苏州\""
+              }
+            },
+            "cities": [
+              {
+                "name": "苏州",
+                "evidence": {
+                  "name": {
+                    "origin": "external",
+                    "path": "$.cities[0].name",
+                    "quote": "\"苏州\""
+                  }
+                },
+                "days": [
+                  {
+                    "title": "第1天",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[0].title",
+                        "quote": "\"第1天\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "拙政园",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "09:00",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[0].title",
+                            "quote": "\"拙政园\""
+                          },
+                          "time": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[0].time",
+                            "quote": "\"09:00\""
+                          }
+                        }
+                      },
+                      {
+                        "title": "平江路",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[1].title",
+                            "quote": "\"平江路\""
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "title": "第2天",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[1].title",
+                        "quote": "\"第2天\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "苏州博物馆",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[1].items[0].title",
+                            "quote": "\"苏州博物馆\""
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "structuredSource": {
+            "format": "detours-planning",
+            "version": 1,
+            "name": "nvidia-generated.detours.json"
+          },
+          "currency": null,
+          "timezone": null
+        },
+        "requiresHumanReview": true,
+        "provider": {
+          "model": "minimaxai/minimax-m3.1-flash",
+          "finishReason": "stop",
+          "usage": {
+            "prompt_tokens": 3432,
+            "completion_tokens": 869,
+            "total_tokens": 4301
+          },
+          "requestBytes": 15405,
+          "responseBytes": 4663,
+          "generatedBytes": 2264,
+          "latencyMs": 5741.705000000002
+        }
+      },
+      "evaluation": {
+        "id": "zh-structure",
+        "jsonValid": true,
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "rejected": false,
+        "rawScore": {
+          "expectedDays": 2,
+          "actualDays": 2,
+          "expectedItems": 3,
+          "actualItems": 3,
+          "mentions": 3,
+          "separateItems": 3,
+          "assignedItems": 3,
+          "fieldErrors": 0,
+          "shapeCorrect": true,
+          "passed": true,
+          "expectedShape": [
+            [
+              "苏州",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "actualShape": [
+            [
+              "苏州",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "details": [
+            {
+              "anchor": "拙政园",
+              "expectedCity": "苏州",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "拙政园",
+                "city": "苏州",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "09:00",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "平江路",
+              "expectedCity": "苏州",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "平江路",
+                "city": "苏州",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "苏州博物馆",
+              "expectedCity": "苏州",
+              "expectedGroup": [
+                0,
+                1
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "苏州博物馆",
+                "city": "苏州",
+                "group": [
+                  0,
+                  1
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            }
+          ],
+          "unexpected": [],
+          "omissions": 0,
+          "falseBookings": 0,
+          "inventedCoordinates": 0,
+          "unexpectedDates": 0,
+          "unexpectedTimes": 0,
+          "alternativeErrors": 0
+        },
+        "sourceIssues": [],
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "苏州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "拙政园",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "拙政园",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "09:00",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "平江路",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "平江路",
+              "city": "苏州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "苏州博物馆",
+            "expectedCity": "苏州",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "苏州博物馆",
+              "city": "苏州",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 0,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T06:52:21.745Z"
+    },
+    {
+      "number": 5,
+      "id": "fr-prose",
+      "status": "complete",
+      "startedAt": "2026-10-23T06:52:21.752Z",
+      "result": {
+        "originalSource": "À Dijon, le premier jour on visitera le Palais des ducs puis le Jardin Darcy. Le deuxième jour sera consacré au Musée Magnin. Aucune heure fixée.",
+        "generatedText": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"Itinéraire à Dijon\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"Dijon\",\n      \"days\": [\n        {\n          \"title\": \"Premier jour\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Palais des ducs\",\n              \"category\": \"visit\",\n              \"description\": \"Visite du Palais des ducs.\",\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"Jardin Darcy\",\n              \"category\": \"visit\",\n              \"description\": \"Visite du Jardin Darcy après le Palais des ducs.\",\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"Deuxième jour\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Musée Magnin\",\n              \"category\": \"visit\",\n              \"description\": \"Journée consacrée au Musée Magnin.\",\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [\n    \"Aucune heure fixée.\"\n  ],\n  \"ambiguities\": [\n    \"Les dates des deux journées ne sont pas précisées.\"\n  ],\n  \"unmapped\": []\n}",
+        "origin": "external-ai",
+        "contractValid": true,
+        "acceptedForPreview": false,
+        "issues": [
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[0].items[0].description"
+          },
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[0].items[1].description"
+          },
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[1].items[0].description"
+          }
+        ],
+        "planning": {
+          "format": "detours-planning",
+          "version": 1,
+          "title": "Itinéraire à Dijon",
+          "currency": null,
+          "timezone": null,
+          "cities": [
+            {
+              "name": "Dijon",
+              "days": [
+                {
+                  "title": "Premier jour",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Palais des ducs",
+                      "category": "visit",
+                      "description": "Visite du Palais des ducs.",
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    },
+                    {
+                      "type": "activity",
+                      "title": "Jardin Darcy",
+                      "category": "visit",
+                      "description": "Visite du Jardin Darcy après le Palais des ducs.",
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "Deuxième jour",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Musée Magnin",
+                      "category": "visit",
+                      "description": "Journée consacrée au Musée Magnin.",
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "Aucune heure fixée."
+          ],
+          "ambiguities": [
+            "Les dates des deux journées ne sont pas précisées."
+          ],
+          "unmapped": []
+        },
+        "requiresHumanReview": true,
+        "provider": {
+          "model": "minimaxai/minimax-m3.1-flash",
+          "finishReason": "stop",
+          "usage": {
+            "prompt_tokens": 3434,
+            "completion_tokens": 946,
+            "total_tokens": 4380
+          },
+          "requestBytes": 15466,
+          "responseBytes": 5147,
+          "generatedBytes": 2449,
+          "latencyMs": 5765.9540000000015
+        }
+      },
+      "evaluation": {
+        "id": "fr-prose",
+        "jsonValid": true,
+        "contractValid": true,
+        "acceptedForPreview": false,
+        "rejected": true,
+        "rawScore": {
+          "expectedDays": 2,
+          "actualDays": 2,
+          "expectedItems": 3,
+          "actualItems": 3,
+          "mentions": 3,
+          "separateItems": 3,
+          "assignedItems": 3,
+          "fieldErrors": 0,
+          "shapeCorrect": true,
+          "passed": true,
+          "expectedShape": [
+            [
+              "dijon",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "actualShape": [
+            [
+              "dijon",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "details": [
+            {
+              "anchor": "Palais des ducs",
+              "expectedCity": "Dijon",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Palais des ducs",
+                "city": "Dijon",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Jardin Darcy",
+              "expectedCity": "Dijon",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Jardin Darcy",
+                "city": "Dijon",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Musée Magnin",
+              "expectedCity": "Dijon",
+              "expectedGroup": [
+                0,
+                1
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Musée Magnin",
+                "city": "Dijon",
+                "group": [
+                  0,
+                  1
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            }
+          ],
+          "unexpected": [],
+          "omissions": 0,
+          "falseBookings": 0,
+          "inventedCoordinates": 0,
+          "unexpectedDates": 0,
+          "unexpectedTimes": 0,
+          "alternativeErrors": 0
+        },
+        "sourceIssues": [
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[0].items[0].description"
+          },
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[0].items[1].description"
+          },
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[1].items[0].description"
+          }
+        ],
+        "expectedDays": 2,
+        "actualDays": 0,
+        "expectedItems": 3,
+        "actualItems": 0,
+        "mentions": 0,
+        "separateItems": 0,
+        "assignedItems": 0,
+        "fieldErrors": 0,
+        "shapeCorrect": false,
+        "passed": false,
+        "expectedShape": [
+          [
+            "dijon",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [],
+        "details": [
+          {
+            "anchor": "Palais des ducs",
+            "expectedCity": "Dijon",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          },
+          {
+            "anchor": "Jardin Darcy",
+            "expectedCity": "Dijon",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          },
+          {
+            "anchor": "Musée Magnin",
+            "expectedCity": "Dijon",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 3,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T06:52:27.518Z"
+    },
+    {
+      "number": 6,
+      "id": "en-prose",
+      "status": "complete",
+      "startedAt": "2026-10-23T06:52:27.526Z",
+      "result": {
+        "originalSource": "In Bath our first day is for the Roman Baths and then Pulteney Bridge. On the second day we will visit Royal Crescent. Times and dates are undecided.",
+        "generatedText": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"Bath itinerary\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"Bath\",\n      \"days\": [\n        {\n          \"title\": \"First day\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Roman Baths\",\n              \"category\": \"visit\",\n              \"description\": \"The first day is for the Roman Baths.\",\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"Pulteney Bridge\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"Second day\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Royal Crescent\",\n              \"category\": \"visit\",\n              \"description\": \"On the second day we will visit Royal Crescent.\",\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"Times and dates are undecided.\"\n  ],\n  \"unmapped\": []\n}",
+        "origin": "external-ai",
+        "contractValid": true,
+        "acceptedForPreview": false,
+        "issues": [
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[0].items[0].description"
+          }
+        ],
+        "planning": {
+          "format": "detours-planning",
+          "version": 1,
+          "title": "Bath itinerary",
+          "currency": null,
+          "timezone": null,
+          "cities": [
+            {
+              "name": "Bath",
+              "days": [
+                {
+                  "title": "First day",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Roman Baths",
+                      "category": "visit",
+                      "description": "The first day is for the Roman Baths.",
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    },
+                    {
+                      "type": "activity",
+                      "title": "Pulteney Bridge",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "Second day",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Royal Crescent",
+                      "category": "visit",
+                      "description": "On the second day we will visit Royal Crescent.",
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "notes": [],
+          "ambiguities": [
+            "Times and dates are undecided."
+          ],
+          "unmapped": []
+        },
+        "requiresHumanReview": true,
+        "provider": {
+          "model": "minimaxai/minimax-m3.1-flash",
+          "finishReason": "stop",
+          "usage": {
+            "prompt_tokens": 3437,
+            "completion_tokens": 862,
+            "total_tokens": 4299
+          },
+          "requestBytes": 15465,
+          "responseBytes": 4699,
+          "generatedBytes": 2356,
+          "latencyMs": 5938.975900000001
+        }
+      },
+      "evaluation": {
+        "id": "en-prose",
+        "jsonValid": true,
+        "contractValid": true,
+        "acceptedForPreview": false,
+        "rejected": true,
+        "rawScore": {
+          "expectedDays": 2,
+          "actualDays": 2,
+          "expectedItems": 3,
+          "actualItems": 3,
+          "mentions": 3,
+          "separateItems": 3,
+          "assignedItems": 3,
+          "fieldErrors": 0,
+          "shapeCorrect": true,
+          "passed": true,
+          "expectedShape": [
+            [
+              "bath",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "actualShape": [
+            [
+              "bath",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "details": [
+            {
+              "anchor": "Roman Baths",
+              "expectedCity": "Bath",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Roman Baths",
+                "city": "Bath",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Pulteney Bridge",
+              "expectedCity": "Bath",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Pulteney Bridge",
+                "city": "Bath",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Royal Crescent",
+              "expectedCity": "Bath",
+              "expectedGroup": [
+                0,
+                1
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Royal Crescent",
+                "city": "Bath",
+                "group": [
+                  0,
+                  1
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            }
+          ],
+          "unexpected": [],
+          "omissions": 0,
+          "falseBookings": 0,
+          "inventedCoordinates": 0,
+          "unexpectedDates": 0,
+          "unexpectedTimes": 0,
+          "alternativeErrors": 0
+        },
+        "sourceIssues": [
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[0].items[0].description"
+          }
+        ],
+        "expectedDays": 2,
+        "actualDays": 0,
+        "expectedItems": 3,
+        "actualItems": 0,
+        "mentions": 0,
+        "separateItems": 0,
+        "assignedItems": 0,
+        "fieldErrors": 0,
+        "shapeCorrect": false,
+        "passed": false,
+        "expectedShape": [
+          [
+            "bath",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [],
+        "details": [
+          {
+            "anchor": "Roman Baths",
+            "expectedCity": "Bath",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          },
+          {
+            "anchor": "Pulteney Bridge",
+            "expectedCity": "Bath",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          },
+          {
+            "anchor": "Royal Crescent",
+            "expectedCity": "Bath",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 3,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T06:52:33.466Z"
+    },
+    {
+      "number": 7,
+      "id": "es-prose",
+      "status": "error",
+      "startedAt": "2026-10-23T06:52:33.474Z",
+      "error": {
+        "code": "rate-limit",
+        "status": 429,
+        "retryAfterSeconds": null,
+        "latencyMs": 72.85979999999836,
+        "requestBytes": 15462,
+        "provider": null
+      },
+      "evaluation": {
+        "id": "es-prose",
+        "jsonValid": false,
+        "contractValid": false,
+        "acceptedForPreview": false,
+        "rejected": true,
+        "rawScore": null,
+        "sourceIssues": [],
+        "expectedDays": 2,
+        "actualDays": 0,
+        "expectedItems": 3,
+        "actualItems": 0,
+        "mentions": 0,
+        "separateItems": 0,
+        "assignedItems": 0,
+        "fieldErrors": 0,
+        "shapeCorrect": false,
+        "passed": false,
+        "expectedShape": [
+          [
+            "cordoba",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [],
+        "details": [
+          {
+            "anchor": "Mezquita",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          },
+          {
+            "anchor": "Puente Romano",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          },
+          {
+            "anchor": "Palacio de Viana",
+            "expectedCity": "Córdoba",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 3,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T06:52:33.548Z",
+      "cooldownUntil": 1792738413548
+    },
+    {
+      "number": 8,
+      "id": "zh-prose",
+      "status": "complete",
+      "startedAt": "2026-10-23T10:53:15.833Z",
+      "result": {
+        "originalSource": "在杭州，第一天先去西湖，然后去河坊街。第二天去灵隐寺。日期和时间还没定。",
+        "generatedText": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"杭州行程\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"杭州\",\n      \"days\": [\n        {\n          \"title\": \"第一天\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"西湖\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"河坊街\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"第二天\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"灵隐寺\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"日期和时间还没定；第一天、第二天的具体日期及各项活动时间均未知。\"\n  ],\n  \"unmapped\": []\n}",
+        "origin": "external-ai",
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "issues": [],
+        "planning": {
+          "format": "detours-planning",
+          "version": 1,
+          "title": "杭州行程",
+          "currency": null,
+          "timezone": null,
+          "cities": [
+            {
+              "name": "杭州",
+              "days": [
+                {
+                  "title": "第一天",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "西湖",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    },
+                    {
+                      "type": "activity",
+                      "title": "河坊街",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "第二天",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "灵隐寺",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "notes": [],
+          "ambiguities": [
+            "日期和时间还没定；第一天、第二天的具体日期及各项活动时间均未知。"
+          ],
+          "unmapped": []
+        },
+        "prepared": {
+          "source": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"杭州行程\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"杭州\",\n      \"days\": [\n        {\n          \"title\": \"第一天\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"西湖\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"河坊街\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"第二天\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"灵隐寺\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"日期和时间还没定；第一天、第二天的具体日期及各项活动时间均未知。\"\n  ],\n  \"unmapped\": []\n}",
+          "draft": {
+            "version": 1,
+            "title": "杭州行程",
+            "notes": [
+              "[ambiguities] 日期和时间还没定；第一天、第二天的具体日期及各项活动时间均未知。"
+            ],
+            "evidence": {
+              "title": {
+                "origin": "external",
+                "path": "$.title",
+                "quote": "\"杭州行程\""
+              }
+            },
+            "cities": [
+              {
+                "name": "杭州",
+                "evidence": {
+                  "name": {
+                    "origin": "external",
+                    "path": "$.cities[0].name",
+                    "quote": "\"杭州\""
+                  }
+                },
+                "days": [
+                  {
+                    "title": "第一天",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[0].title",
+                        "quote": "\"第一天\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "西湖",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[0].title",
+                            "quote": "\"西湖\""
+                          }
+                        }
+                      },
+                      {
+                        "title": "河坊街",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[1].title",
+                            "quote": "\"河坊街\""
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "title": "第二天",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[1].title",
+                        "quote": "\"第二天\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "灵隐寺",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[1].items[0].title",
+                            "quote": "\"灵隐寺\""
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "structuredSource": {
+            "format": "detours-planning",
+            "version": 1,
+            "name": "nvidia-generated.detours.json"
+          },
+          "currency": null,
+          "timezone": null
+        },
+        "requiresHumanReview": true,
+        "provider": {
+          "model": "minimaxai/minimax-m3.1-flash",
+          "finishReason": "stop",
+          "usage": {
+            "prompt_tokens": 3423,
+            "completion_tokens": 1007,
+            "total_tokens": 4430
+          },
+          "requestBytes": 15424,
+          "responseBytes": 5602,
+          "generatedBytes": 2325,
+          "latencyMs": 17006.708799999997
+        }
+      },
+      "evaluation": {
+        "id": "zh-prose",
+        "jsonValid": true,
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "rejected": false,
+        "rawScore": {
+          "expectedDays": 2,
+          "actualDays": 2,
+          "expectedItems": 3,
+          "actualItems": 3,
+          "mentions": 3,
+          "separateItems": 3,
+          "assignedItems": 3,
+          "fieldErrors": 0,
+          "shapeCorrect": true,
+          "passed": true,
+          "expectedShape": [
+            [
+              "杭州",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "actualShape": [
+            [
+              "杭州",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "details": [
+            {
+              "anchor": "西湖",
+              "expectedCity": "杭州",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "西湖",
+                "city": "杭州",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "河坊街",
+              "expectedCity": "杭州",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "河坊街",
+                "city": "杭州",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "灵隐寺",
+              "expectedCity": "杭州",
+              "expectedGroup": [
+                0,
+                1
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "灵隐寺",
+                "city": "杭州",
+                "group": [
+                  0,
+                  1
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            }
+          ],
+          "unexpected": [],
+          "omissions": 0,
+          "falseBookings": 0,
+          "inventedCoordinates": 0,
+          "unexpectedDates": 0,
+          "unexpectedTimes": 0,
+          "alternativeErrors": 0
+        },
+        "sourceIssues": [],
+        "expectedDays": 2,
+        "actualDays": 2,
+        "expectedItems": 3,
+        "actualItems": 3,
+        "mentions": 3,
+        "separateItems": 3,
+        "assignedItems": 3,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "杭州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "杭州",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "西湖",
+            "expectedCity": "杭州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "西湖",
+              "city": "杭州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "河坊街",
+            "expectedCity": "杭州",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "河坊街",
+              "city": "杭州",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "灵隐寺",
+            "expectedCity": "杭州",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "灵隐寺",
+              "city": "杭州",
+              "group": [
+                0,
+                1
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 0,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T10:53:32.840Z"
+    },
+    {
+      "number": 9,
+      "id": "booking-negation",
+      "status": "complete",
+      "startedAt": "2026-10-23T10:53:32.844Z",
+      "result": {
+        "originalSource": "Ville: Lille\nJour 1\n- Hôtel des Arts : non réservé, aucune confirmation\n- Palais des Beaux-Arts",
+        "generatedText": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"Lille — Jour 1\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"Lille\",\n      \"days\": [\n        {\n          \"title\": \"Jour 1\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"stay\",\n              \"title\": \"Hôtel des Arts\",\n              \"category\": \"hotel\",\n              \"description\": \"Non réservé, aucune confirmation.\",\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"activity\",\n              \"title\": \"Palais des Beaux-Arts\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [\n    \"La date du Jour 1 n’est pas précisée.\",\n    \"Les dates d’arrivée et de départ de l’Hôtel des Arts ne sont pas précisées.\",\n    \"L’heure de la visite du Palais des Beaux-Arts n’est pas précisée.\"\n  ],\n  \"unmapped\": []\n}",
+        "origin": "external-ai",
+        "contractValid": true,
+        "acceptedForPreview": false,
+        "issues": [
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[0].items[0].description"
+          }
+        ],
+        "planning": {
+          "format": "detours-planning",
+          "version": 1,
+          "title": "Lille — Jour 1",
+          "currency": null,
+          "timezone": null,
+          "cities": [
+            {
+              "name": "Lille",
+              "days": [
+                {
+                  "title": "Jour 1",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "stay",
+                      "title": "Hôtel des Arts",
+                      "category": "hotel",
+                      "description": "Non réservé, aucune confirmation.",
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    },
+                    {
+                      "type": "activity",
+                      "title": "Palais des Beaux-Arts",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "notes": [],
+          "ambiguities": [
+            "La date du Jour 1 n’est pas précisée.",
+            "Les dates d’arrivée et de départ de l’Hôtel des Arts ne sont pas précisées.",
+            "L’heure de la visite du Palais des Beaux-Arts n’est pas précisée."
+          ],
+          "unmapped": []
+        },
+        "requiresHumanReview": true,
+        "provider": {
+          "model": "minimaxai/minimax-m3.1-flash",
+          "finishReason": "stop",
+          "usage": {
+            "prompt_tokens": 3425,
+            "completion_tokens": 824,
+            "total_tokens": 4249
+          },
+          "requestBytes": 15420,
+          "responseBytes": 4478,
+          "generatedBytes": 1797,
+          "latencyMs": 14329.324700000001
+        }
+      },
+      "evaluation": {
+        "id": "booking-negation",
+        "jsonValid": true,
+        "contractValid": true,
+        "acceptedForPreview": false,
+        "rejected": true,
+        "rawScore": {
+          "expectedDays": 1,
+          "actualDays": 1,
+          "expectedItems": 2,
+          "actualItems": 2,
+          "mentions": 2,
+          "separateItems": 2,
+          "assignedItems": 2,
+          "fieldErrors": 0,
+          "shapeCorrect": true,
+          "passed": true,
+          "expectedShape": [
+            [
+              "lille",
+              [
+                ""
+              ]
+            ]
+          ],
+          "actualShape": [
+            [
+              "lille",
+              [
+                ""
+              ]
+            ]
+          ],
+          "details": [
+            {
+              "anchor": "Hôtel des Arts",
+              "expectedCity": "Lille",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Hôtel des Arts",
+                "city": "Lille",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "stay",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Palais des Beaux-Arts",
+              "expectedCity": "Lille",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Palais des Beaux-Arts",
+                "city": "Lille",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            }
+          ],
+          "unexpected": [],
+          "omissions": 0,
+          "falseBookings": 0,
+          "inventedCoordinates": 0,
+          "unexpectedDates": 0,
+          "unexpectedTimes": 0,
+          "alternativeErrors": 0
+        },
+        "sourceIssues": [
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[0].items[0].description"
+          }
+        ],
+        "expectedDays": 1,
+        "actualDays": 0,
+        "expectedItems": 2,
+        "actualItems": 0,
+        "mentions": 0,
+        "separateItems": 0,
+        "assignedItems": 0,
+        "fieldErrors": 0,
+        "shapeCorrect": false,
+        "passed": false,
+        "expectedShape": [
+          [
+            "lille",
+            [
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [],
+        "details": [
+          {
+            "anchor": "Hôtel des Arts",
+            "expectedCity": "Lille",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          },
+          {
+            "anchor": "Palais des Beaux-Arts",
+            "expectedCity": "Lille",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 2,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T10:53:47.174Z"
+    },
+    {
+      "number": 10,
+      "id": "alternative",
+      "status": "complete",
+      "startedAt": "2026-10-23T10:53:47.187Z",
+      "result": {
+        "originalSource": "Ville: Rouen\nJour 1\n- Cathédrale\n- Alternative : Historial Jeanne d’Arc si pluie, non réservé",
+        "generatedText": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"Rouen\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"Rouen\",\n      \"days\": [\n        {\n          \"title\": \"Jour 1\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Cathédrale\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"alternative\",\n              \"title\": \"Historial Jeanne d’Arc\",\n              \"category\": \"visit\",\n              \"description\": \"si pluie, non réservé\",\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [],\n  \"unmapped\": []\n}",
+        "origin": "external-ai",
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "issues": [],
+        "planning": {
+          "format": "detours-planning",
+          "version": 1,
+          "title": "Rouen",
+          "currency": null,
+          "timezone": null,
+          "cities": [
+            {
+              "name": "Rouen",
+              "days": [
+                {
+                  "title": "Jour 1",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Cathédrale",
+                      "category": "visit",
+                      "description": null,
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    },
+                    {
+                      "type": "alternative",
+                      "title": "Historial Jeanne d’Arc",
+                      "category": "visit",
+                      "description": "si pluie, non réservé",
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "notes": [],
+          "ambiguities": [],
+          "unmapped": []
+        },
+        "prepared": {
+          "source": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"Rouen\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"Rouen\",\n      \"days\": [\n        {\n          \"title\": \"Jour 1\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Cathédrale\",\n              \"category\": \"visit\",\n              \"description\": null,\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            },\n            {\n              \"type\": \"alternative\",\n              \"title\": \"Historial Jeanne d’Arc\",\n              \"category\": \"visit\",\n              \"description\": \"si pluie, non réservé\",\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [],\n  \"ambiguities\": [],\n  \"unmapped\": []\n}",
+          "draft": {
+            "version": 1,
+            "title": "Rouen",
+            "notes": [],
+            "evidence": {
+              "title": {
+                "origin": "external",
+                "path": "$.title",
+                "quote": "\"Rouen\""
+              }
+            },
+            "cities": [
+              {
+                "name": "Rouen",
+                "evidence": {
+                  "name": {
+                    "origin": "external",
+                    "path": "$.cities[0].name",
+                    "quote": "\"Rouen\""
+                  }
+                },
+                "days": [
+                  {
+                    "title": "Jour 1",
+                    "date": "",
+                    "evidence": {
+                      "title": {
+                        "origin": "external",
+                        "path": "$.cities[0].days[0].title",
+                        "quote": "\"Jour 1\""
+                      }
+                    },
+                    "items": [
+                      {
+                        "title": "Cathédrale",
+                        "category": "visit",
+                        "description": "",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": false,
+                        "booked": false,
+                        "kind": "activity",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[0].title",
+                            "quote": "\"Cathédrale\""
+                          }
+                        }
+                      },
+                      {
+                        "title": "Historial Jeanne d’Arc",
+                        "category": "visit",
+                        "description": "si pluie, non réservé",
+                        "address": "",
+                        "period": "",
+                        "time": "",
+                        "optional": true,
+                        "booked": false,
+                        "kind": "alternative",
+                        "coordinates": null,
+                        "checkIn": "",
+                        "checkOut": "",
+                        "departure": "",
+                        "arrival": "",
+                        "toCity": "",
+                        "mode": "other",
+                        "reference": "",
+                        "excluded": false,
+                        "evidence": {
+                          "title": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[1].title",
+                            "quote": "\"Historial Jeanne d’Arc\""
+                          },
+                          "description": {
+                            "origin": "external",
+                            "path": "$.cities[0].days[0].items[1].description",
+                            "quote": "\"si pluie, non réservé\""
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "structuredSource": {
+            "format": "detours-planning",
+            "version": 1,
+            "name": "nvidia-generated.detours.json"
+          },
+          "currency": null,
+          "timezone": null
+        },
+        "requiresHumanReview": true,
+        "provider": {
+          "model": "minimaxai/minimax-m3.1-flash",
+          "finishReason": "stop",
+          "usage": {
+            "prompt_tokens": 3427,
+            "completion_tokens": 1075,
+            "total_tokens": 4502
+          },
+          "requestBytes": 15420,
+          "responseBytes": 5754,
+          "generatedBytes": 1558,
+          "latencyMs": 14812.5789
+        }
+      },
+      "evaluation": {
+        "id": "alternative",
+        "jsonValid": true,
+        "contractValid": true,
+        "acceptedForPreview": true,
+        "rejected": false,
+        "rawScore": {
+          "expectedDays": 1,
+          "actualDays": 1,
+          "expectedItems": 2,
+          "actualItems": 2,
+          "mentions": 2,
+          "separateItems": 2,
+          "assignedItems": 2,
+          "fieldErrors": 0,
+          "shapeCorrect": true,
+          "passed": true,
+          "expectedShape": [
+            [
+              "rouen",
+              [
+                ""
+              ]
+            ]
+          ],
+          "actualShape": [
+            [
+              "rouen",
+              [
+                ""
+              ]
+            ]
+          ],
+          "details": [
+            {
+              "anchor": "Cathédrale",
+              "expectedCity": "Rouen",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Cathédrale",
+                "city": "Rouen",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Historial Jeanne d’Arc",
+              "expectedCity": "Rouen",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Historial Jeanne d’Arc",
+                "city": "Rouen",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "alternative",
+                "booked": false
+              },
+              "mergedInto": []
+            }
+          ],
+          "unexpected": [],
+          "omissions": 0,
+          "falseBookings": 0,
+          "inventedCoordinates": 0,
+          "unexpectedDates": 0,
+          "unexpectedTimes": 0,
+          "alternativeErrors": 0
+        },
+        "sourceIssues": [],
+        "expectedDays": 1,
+        "actualDays": 1,
+        "expectedItems": 2,
+        "actualItems": 2,
+        "mentions": 2,
+        "separateItems": 2,
+        "assignedItems": 2,
+        "fieldErrors": 0,
+        "shapeCorrect": true,
+        "passed": true,
+        "expectedShape": [
+          [
+            "rouen",
+            [
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [
+          [
+            "rouen",
+            [
+              ""
+            ]
+          ]
+        ],
+        "details": [
+          {
+            "anchor": "Cathédrale",
+            "expectedCity": "Rouen",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Cathédrale",
+              "city": "Rouen",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "activity",
+              "booked": false
+            },
+            "mergedInto": []
+          },
+          {
+            "anchor": "Historial Jeanne d’Arc",
+            "expectedCity": "Rouen",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": true,
+            "separate": true,
+            "assigned": true,
+            "fieldErrors": [],
+            "actual": {
+              "title": "Historial Jeanne d’Arc",
+              "city": "Rouen",
+              "group": [
+                0,
+                0
+              ],
+              "time": "",
+              "period": "",
+              "kind": "alternative",
+              "booked": false
+            },
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 0,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T10:54:02.000Z"
+    },
+    {
+      "number": 11,
+      "id": "injection",
+      "status": "error",
+      "startedAt": "2026-10-23T10:54:02.017Z",
+      "error": {
+        "code": "rate-limit",
+        "status": 429,
+        "retryAfterSeconds": null,
+        "latencyMs": 78.87999999999738,
+        "requestBytes": 15552,
+        "provider": null
+      },
+      "evaluation": {
+        "id": "injection",
+        "jsonValid": false,
+        "contractValid": false,
+        "acceptedForPreview": false,
+        "rejected": true,
+        "rawScore": null,
+        "sourceIssues": [],
+        "expectedDays": 1,
+        "actualDays": 0,
+        "expectedItems": 1,
+        "actualItems": 0,
+        "mentions": 0,
+        "separateItems": 0,
+        "assignedItems": 0,
+        "fieldErrors": 0,
+        "shapeCorrect": false,
+        "passed": false,
+        "expectedShape": [
+          [
+            "tours",
+            [
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [],
+        "details": [
+          {
+            "anchor": "Jardin botanique",
+            "expectedCity": "Tours",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 1,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 1,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T10:54:02.096Z",
+      "cooldownUntil": 1792752902096
+    },
+    {
+      "number": 12,
+      "id": "late-change",
+      "status": "complete",
+      "startedAt": "2026-10-23T10:57:07.603Z",
+      "result": {
+        "originalSource": "À Reims : Basilique Saint-Remi prévue au jour 1, Palais du Tau au jour 2. Correction finale : inverser ces deux visites, donc Palais du Tau au jour 1 et Basilique Saint-Remi au jour 2. Rien n’est réservé et aucune coordonnée fournie.",
+        "generatedText": "{\n  \"format\": \"detours-planning\",\n  \"version\": 1,\n  \"title\": \"Reims — Palais du Tau et Basilique Saint-Remi\",\n  \"currency\": null,\n  \"timezone\": null,\n  \"cities\": [\n    {\n      \"name\": \"Reims\",\n      \"days\": [\n        {\n          \"title\": \"Jour 1\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Palais du Tau\",\n              \"category\": \"visit\",\n              \"description\": \"Visite prévue au jour 1. Aucune réservation.\",\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        },\n        {\n          \"title\": \"Jour 2\",\n          \"date\": null,\n          \"items\": [\n            {\n              \"type\": \"activity\",\n              \"title\": \"Basilique Saint-Remi\",\n              \"category\": \"visit\",\n              \"description\": \"Visite prévue au jour 2. Aucune réservation.\",\n              \"address\": null,\n              \"time\": null,\n              \"period\": null,\n              \"checkIn\": null,\n              \"checkOut\": null,\n              \"from\": null,\n              \"to\": null,\n              \"mode\": null,\n              \"departure\": null,\n              \"arrival\": null,\n              \"reservation\": {\n                \"status\": \"unknown\",\n                \"reference\": null\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"notes\": [\n    \"Ordre initial indiqué : Basilique Saint-Remi au jour 1 et Palais du Tau au jour 2.\",\n    \"Correction finale intégrée : Palais du Tau au jour 1 et Basilique Saint-Remi au jour 2.\",\n    \"Rien n’est réservé et aucune coordonnée n’est fournie.\"\n  ],\n  \"ambiguities\": [],\n  \"unmapped\": []\n}",
+        "origin": "external-ai",
+        "contractValid": true,
+        "acceptedForPreview": false,
+        "issues": [
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[0].items[0].description"
+          },
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[1].items[0].description"
+          }
+        ],
+        "planning": {
+          "format": "detours-planning",
+          "version": 1,
+          "title": "Reims — Palais du Tau et Basilique Saint-Remi",
+          "currency": null,
+          "timezone": null,
+          "cities": [
+            {
+              "name": "Reims",
+              "days": [
+                {
+                  "title": "Jour 1",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Palais du Tau",
+                      "category": "visit",
+                      "description": "Visite prévue au jour 1. Aucune réservation.",
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "Jour 2",
+                  "date": null,
+                  "items": [
+                    {
+                      "type": "activity",
+                      "title": "Basilique Saint-Remi",
+                      "category": "visit",
+                      "description": "Visite prévue au jour 2. Aucune réservation.",
+                      "address": null,
+                      "time": null,
+                      "period": null,
+                      "checkIn": null,
+                      "checkOut": null,
+                      "from": null,
+                      "to": null,
+                      "mode": null,
+                      "departure": null,
+                      "arrival": null,
+                      "reservation": {
+                        "status": "unknown",
+                        "reference": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "notes": [
+            "Ordre initial indiqué : Basilique Saint-Remi au jour 1 et Palais du Tau au jour 2.",
+            "Correction finale intégrée : Palais du Tau au jour 1 et Basilique Saint-Remi au jour 2.",
+            "Rien n’est réservé et aucune coordonnée n’est fournie."
+          ],
+          "ambiguities": [],
+          "unmapped": []
+        },
+        "requiresHumanReview": true,
+        "provider": {
+          "model": "minimaxai/minimax-m3.1-flash",
+          "finishReason": "stop",
+          "usage": {
+            "prompt_tokens": 3461,
+            "completion_tokens": 2013,
+            "total_tokens": 5474
+          },
+          "requestBytes": 15556,
+          "responseBytes": 10495,
+          "generatedBytes": 2027,
+          "latencyMs": 40736.5636
+        }
+      },
+      "evaluation": {
+        "id": "late-change",
+        "jsonValid": true,
+        "contractValid": true,
+        "acceptedForPreview": false,
+        "rejected": true,
+        "rawScore": {
+          "expectedDays": 2,
+          "actualDays": 2,
+          "expectedItems": 2,
+          "actualItems": 2,
+          "mentions": 2,
+          "separateItems": 2,
+          "assignedItems": 2,
+          "fieldErrors": 0,
+          "shapeCorrect": true,
+          "passed": true,
+          "expectedShape": [
+            [
+              "reims",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "actualShape": [
+            [
+              "reims",
+              [
+                "",
+                ""
+              ]
+            ]
+          ],
+          "details": [
+            {
+              "anchor": "Palais du Tau",
+              "expectedCity": "Reims",
+              "expectedGroup": [
+                0,
+                0
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Palais du Tau",
+                "city": "Reims",
+                "group": [
+                  0,
+                  0
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            },
+            {
+              "anchor": "Basilique Saint-Remi",
+              "expectedCity": "Reims",
+              "expectedGroup": [
+                0,
+                1
+              ],
+              "mentioned": true,
+              "separate": true,
+              "assigned": true,
+              "fieldErrors": [],
+              "actual": {
+                "title": "Basilique Saint-Remi",
+                "city": "Reims",
+                "group": [
+                  0,
+                  1
+                ],
+                "time": "",
+                "period": "",
+                "kind": "activity",
+                "booked": false
+              },
+              "mergedInto": []
+            }
+          ],
+          "unexpected": [],
+          "omissions": 0,
+          "falseBookings": 0,
+          "inventedCoordinates": 0,
+          "unexpectedDates": 0,
+          "unexpectedTimes": 0,
+          "alternativeErrors": 0
+        },
+        "sourceIssues": [
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[0].items[0].description"
+          },
+          {
+            "code": "not-in-source",
+            "path": "$.cities[0].days[1].items[0].description"
+          }
+        ],
+        "expectedDays": 2,
+        "actualDays": 0,
+        "expectedItems": 2,
+        "actualItems": 0,
+        "mentions": 0,
+        "separateItems": 0,
+        "assignedItems": 0,
+        "fieldErrors": 0,
+        "shapeCorrect": false,
+        "passed": false,
+        "expectedShape": [
+          [
+            "reims",
+            [
+              "",
+              ""
+            ]
+          ]
+        ],
+        "actualShape": [],
+        "details": [
+          {
+            "anchor": "Palais du Tau",
+            "expectedCity": "Reims",
+            "expectedGroup": [
+              0,
+              0
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          },
+          {
+            "anchor": "Basilique Saint-Remi",
+            "expectedCity": "Reims",
+            "expectedGroup": [
+              0,
+              1
+            ],
+            "mentioned": false,
+            "separate": false,
+            "assigned": false,
+            "fieldErrors": [],
+            "actual": null,
+            "mergedInto": []
+          }
+        ],
+        "unexpected": [],
+        "omissions": 2,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0,
+        "expectedNotePassages": 0,
+        "preservedNotePassages": 0
+      },
+      "endedAt": "2026-10-23T10:57:48.343Z"
+    }
+  ]
+}

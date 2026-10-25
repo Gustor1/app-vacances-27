@@ -1,3 +1,8 @@
+import { souvenirDictionary } from './locales/souvenirs.ts';
+import { mascotDictionary } from './locales/mascot.ts';
+import { companionDictionary } from './locales/companion.ts';
+import { assistantDictionary } from './locales/assistant.ts';
+import { placesDictionary } from './locales/places.ts';
 import { appEnglish } from './locales/app-en.ts';
 import { toolsEnglish } from './locales/tools-en.ts';
 import { commonEnglish } from './locales/common-en.ts';
@@ -9,7 +14,9 @@ import { backupDictionary } from './locales/backup.ts';
 import { offlineDictionary } from './locales/offline.ts';
 import { nowDictionary } from './locales/now.ts';
 import { preparationDictionary } from './locales/preparation.ts';
+import { planningImportDictionary } from './locales/planning-import.ts';
 import { isValidDate } from './lib.ts';
+import { paletteDictionary } from './locales/palettes.ts';
 
 export const interfaceLanguages = [
   { id: 'fr', label: 'Français', dateLocale: 'fr-FR' },
@@ -43,8 +50,8 @@ export function parsePreferences(raw: string | null): Preferences {
     };
   } catch { return defaults; }
 }
-const dictionary: Record<string, string> = { ...commonEnglish, ...appEnglish, ...toolsEnglish, ...journeysEnglish, ...betaDictionary(0), ...backupDictionary(0), ...offlineDictionary(0), ...nowDictionary(0), ...preparationDictionary(0) };
-const dictionaries: Record<Exclude<Language, 'fr'>, Record<string, string>> = { en: dictionary, 'zh-CN': { ...chinese, ...betaDictionary(1), ...backupDictionary(1), ...offlineDictionary(1), ...nowDictionary(1), ...preparationDictionary(1) }, es: { ...spanish, ...betaDictionary(2), ...backupDictionary(2), ...offlineDictionary(2), ...nowDictionary(2), ...preparationDictionary(2) } };
+const dictionary: Record<string, string> = { ...commonEnglish, ...appEnglish, ...toolsEnglish, ...journeysEnglish, ...betaDictionary(0), ...backupDictionary(0), ...offlineDictionary(0), ...nowDictionary(0), ...preparationDictionary(0), ...planningImportDictionary(0), ...paletteDictionary(0), ...placesDictionary(0), ...companionDictionary(0), ...assistantDictionary(0), ...mascotDictionary(0), ...souvenirDictionary(0) };
+const dictionaries: Record<Exclude<Language, 'fr'>, Record<string, string>> = { en: dictionary, 'zh-CN': { ...chinese, ...betaDictionary(1), ...backupDictionary(1), ...offlineDictionary(1), ...nowDictionary(1), ...preparationDictionary(1), ...planningImportDictionary(1), ...paletteDictionary(1), ...placesDictionary(1), ...companionDictionary(1), ...assistantDictionary(1), ...mascotDictionary(1), ...souvenirDictionary(1) }, es: { ...spanish, ...betaDictionary(2), ...backupDictionary(2), ...offlineDictionary(2), ...nowDictionary(2), ...preparationDictionary(2), ...planningImportDictionary(2), ...paletteDictionary(2), ...placesDictionary(2), ...companionDictionary(2), ...assistantDictionary(2), ...mascotDictionary(2), ...souvenirDictionary(2) } };
 export function translate(text: string, language: Language, values: TranslationValues = {}): string {
   const selected = language === 'fr' ? undefined : dictionaries[language];
   const translated = selected && Object.hasOwn(selected, text) ? selected[text] : text;

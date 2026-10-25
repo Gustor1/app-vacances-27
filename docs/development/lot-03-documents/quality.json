@@ -1,0 +1,86 @@
+{
+  "scope": "5 synthetic fixtures only; extraction and downstream recognition evaluated separately; no claim about general prose recognition",
+  "results": [
+    {
+      "fixture": "simple.pdf",
+      "extraction": "real binary opened locally, source text and page/body structure retained in compiled/validation.json",
+      "expectedPlannedActivities": [
+        "Musee rouge",
+        "Jardin bleu"
+      ],
+      "proposedActivities": [
+        "Musee rouge",
+        "Jardin bleu"
+      ],
+      "missingPlannedActivities": [],
+      "extraProposalsToReview": [],
+      "exactActivityList": true
+    },
+    {
+      "fixture": "columns.pdf",
+      "extraction": "real binary opened locally, source text and page/body structure retained in compiled/validation.json",
+      "expectedPlannedActivities": [
+        "Musee gauche",
+        "Jardin droit"
+      ],
+      "proposedActivities": [
+        "Musee gauche",
+        "Jardin droit"
+      ],
+      "missingPlannedActivities": [],
+      "extraProposalsToReview": [],
+      "exactActivityList": true
+    },
+    {
+      "fixture": "table.pdf",
+      "extraction": "real binary opened locally, source text and page/body structure retained in compiled/validation.json",
+      "expectedPlannedActivities": [
+        "Musee rouge"
+      ],
+      "proposedActivities": [
+        "Heure Activite",
+        "Musee rouge"
+      ],
+      "missingPlannedActivities": [],
+      "extraProposalsToReview": [
+        "Heure Activite"
+      ],
+      "exactActivityList": false
+    },
+    {
+      "fixture": "chinese.pdf",
+      "extraction": "real binary opened locally, source text and page/body structure retained in compiled/validation.json",
+      "expectedPlannedActivities": [
+        "博物馆"
+      ],
+      "proposedActivities": [
+        "博物馆"
+      ],
+      "missingPlannedActivities": [],
+      "extraProposalsToReview": [],
+      "exactActivityList": true
+    },
+    {
+      "fixture": "lists-table.docx",
+      "extraction": "real binary opened locally, source text and page/body structure retained in compiled/validation.json",
+      "expectedPlannedActivities": [
+        "Musée rouge",
+        "Jardin bleu"
+      ],
+      "proposedActivities": [
+        "Musée rouge",
+        "Jardin bleu",
+        "Texte du lien"
+      ],
+      "missingPlannedActivities": [],
+      "extraProposalsToReview": [
+        "Texte du lien"
+      ],
+      "exactActivityList": false
+    }
+  ],
+  "cleanActivityLists": 3,
+  "fixtures": 5,
+  "parserCodeChangedByLot03": false,
+  "validationBuildId": "df74ac86c4d0be5d3433f3e7e702e10324c1600a5590880e4d276d7a899cd863"
+}

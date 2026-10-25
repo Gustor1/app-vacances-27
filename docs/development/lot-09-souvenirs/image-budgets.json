@@ -1,0 +1,23 @@
+{
+  "header": {
+    "type": "image/jpeg",
+    "width": 30,
+    "height": 80
+  },
+  "hasExif": false,
+  "unchanged": true,
+  "errors": [
+    "media-format",
+    "media-format",
+    "media-size",
+    "media-format"
+  ],
+  "dimensions": {
+    "type": "image/jpeg",
+    "width": 1600,
+    "height": 1200
+  },
+  "bytes": 773,
+  "bigBytes": 237718,
+  "smallBytes": 12008
+}

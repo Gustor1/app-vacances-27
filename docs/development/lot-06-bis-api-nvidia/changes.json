@@ -1,0 +1,272 @@
+[
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/ESSAI-MINIMAX.md",
+    "bytes": 8381,
+    "sha256": "808504099383e1ed4cb629be770e9207bfa4e674be758294c72ecf4a93505d81"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/RAPPORT.md",
+    "bytes": 20060,
+    "sha256": "401a881706bcf8e1198e8af31c6c4ea20a1f2b367fa1a13977aab70a9733298c"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/SOURCES.md",
+    "bytes": 5054,
+    "sha256": "aebaeb343e725b0542417122057bb680d622cf40dba332a5aabf0178faf4d69e"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/benchmark-lint-first-attempt.log",
+    "bytes": 240,
+    "sha256": "5ab8cebdad15efb21fc9392596766476d90f59f8735ceea2b7c7247a136d83da"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/benchmark-lint.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/browser-tests.log",
+    "bytes": 1417,
+    "sha256": "e1b8579ce3fdeef8a07222e6392e0ac3876683e7aab99097e417eacc081a3a41"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/comparison.json",
+    "bytes": 4549,
+    "sha256": "e068ee157a8b94999094215a2b4f5186e27ce262dc8ad180bb3528f3bec45c1a"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/git-status-final.txt",
+    "bytes": 5358,
+    "sha256": "8898ae03913cc2bbe76bc3bdd17e665ab3adfa859c4b721e7b812678b2b9f41f"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/lint.log",
+    "bytes": 65,
+    "sha256": "74f8df781de6e724c4fe2f361083ea5b2a25658aff877fe637b9a0f993fd266f"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/live-analysis.json",
+    "bytes": 4571,
+    "sha256": "f6f763e30165f9bd5779566316807baff77f033ffdc03dea2c8f4df46d047f11"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/live/attempts.json",
+    "bytes": 167308,
+    "sha256": "5827c0bd87a8c0fe4e34f128c828c13fdbaf955609fc9f9ffd86012028f17ca5"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/live/protocol.json",
+    "bytes": 17368,
+    "sha256": "6be2f516b197b777dacd35f050c76fb7a69dcdc6b04771ba66ad3a228db7388c"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/live/results.json",
+    "bytes": 220292,
+    "sha256": "aa9c4dcd884e8983dbcb58f65fa97a992fbeb8d88526ded9afe7971e82ebaacf"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-analysis-tests.log",
+    "bytes": 338,
+    "sha256": "4060cba8e6516424d930846c3367fa8dd0830f56d004e823e638ab81e3cffb17"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-explicit-lint.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-first-batch/comparison.json",
+    "bytes": 4378,
+    "sha256": "d22b1b6609e34af78fe9e752757fd45bd10a573599282a682e0160decda0b2e7"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-first-batch/results.json",
+    "bytes": 207587,
+    "sha256": "bebe8bfc509650588ba38600a9ad4c4845b61781528d5301c06b4ae63f96fabf"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-lint.log",
+    "bytes": 65,
+    "sha256": "74f8df781de6e724c4fe2f361083ea5b2a25658aff877fe637b9a0f993fd266f"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-live-final-case.log",
+    "bytes": 88,
+    "sha256": "92ee586e1a6e8ec88333fca4c2f218a61b0ea66bce0bbb4c88bd6708543ee52c"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-live-resume.log",
+    "bytes": 88,
+    "sha256": "18da5c741d66ee5d986cdc215501ea7959ca65c6d69fc8237892d347988cb103"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-live.log",
+    "bytes": 86,
+    "sha256": "9eaf8813f80b996fbe307c80660d21397123d277cbbd7add9f60fe08c118633e"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-preservation.json",
+    "bytes": 764,
+    "sha256": "25e2a2a59ad2756154a4bbc0a82009e9f9cde2e3bbc79f4db86f6144e0f02519"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-second-batch/comparison.json",
+    "bytes": 4378,
+    "sha256": "d22b1b6609e34af78fe9e752757fd45bd10a573599282a682e0160decda0b2e7"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-second-batch/results.json",
+    "bytes": 207587,
+    "sha256": "bebe8bfc509650588ba38600a9ad4c4845b61781528d5301c06b4ae63f96fabf"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-secret-scan.json",
+    "bytes": 165,
+    "sha256": "ead9c891c261b11759e2707ad9c64e48dd96f2a0ecd1547244990a799c4c376c"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-targeted-tests.log",
+    "bytes": 3192,
+    "sha256": "95a220820b7531fc7ad515f3bc8c16bb608ae6cff55336d3994ad700574b6ccc"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-typecheck.log",
+    "bytes": 95,
+    "sha256": "adf6853a6a54bc07eb19155036b3c1d8ac1e521cefc53d09f19e1ae4f6576537"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-unit-tests.log",
+    "bytes": 28972,
+    "sha256": "3ee72f84f87751172ac66e0a4ad4f259fd471510c62ccb8094c26c2aa8adbc7a"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/minimax-validation.json",
+    "bytes": 3541,
+    "sha256": "1c9d64b520f2a53c4a6b1e7ede7ed318195c3381df8c62a1a2e06024fd5b484c"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/nvidia-tests.log",
+    "bytes": 3089,
+    "sha256": "39bc692a757b12c29d360f3fca20ed6e28606168a73830474c9c61b29497c175"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/patch-check.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/pre-minimax-validation.json",
+    "bytes": 1625,
+    "sha256": "79fa1566a91f908c586c680eed0ba0bda4ad77e6358961707b8d9b3a82f675b1"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/protocol.json",
+    "bytes": 17249,
+    "sha256": "6fd42fa7ab89ed667f75bec1bf08b1451fdbf620d957740e52170d85de038478"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/simulated-initial/attempts.json",
+    "bytes": 196332,
+    "sha256": "de8520648dbb7b9566133f5352970071ad519ffb5afea657937a0ab00e7882a3"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/simulated-initial/protocol.json",
+    "bytes": 17041,
+    "sha256": "c1f409634072e6f97d039e56d75567aaafc666fcd07aa8e7236d0aa0c8bad799"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/simulated-initial/results.json",
+    "bytes": 196930,
+    "sha256": "57654d733a299c8884fd9bb86a2c938124167ddfafeac61493c3b32aa453ea18"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/simulated/attempts.json",
+    "bytes": 196340,
+    "sha256": "9c3656d79531a3f7c70f1a6622b910bda1cfb6aad8c301a8e5390880b8cce283"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/simulated/protocol.json",
+    "bytes": 17357,
+    "sha256": "e8d4505d36e85a77a8e1333fe0aa43490d7352647916b64ee05dd229109d35aa"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/simulated/results.json",
+    "bytes": 256768,
+    "sha256": "8ea25233a7e858e0ba41a4e87c4804da6100facbe2bed49b73f0882aca717d74"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/simulation-replay.log",
+    "bytes": 104,
+    "sha256": "2b0e374d5d44a9cbe1d6edda4cae5e709b311713ad3f0e8f836f3674fb1b9afa"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/simulation.log",
+    "bytes": 104,
+    "sha256": "2b0e374d5d44a9cbe1d6edda4cae5e709b311713ad3f0e8f836f3674fb1b9afa"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/tests-first-attempt.log",
+    "bytes": 2869,
+    "sha256": "3e9e41ed37e40f3c7eac6cb8c2628c0b4da21e588384ed26ead6198406d38289"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/typecheck.log",
+    "bytes": 95,
+    "sha256": "adf6853a6a54bc07eb19155036b3c1d8ac1e521cefc53d09f19e1ae4f6576537"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/unit-tests.log",
+    "bytes": 28649,
+    "sha256": "e3f56bd9deed5f612697d35055b6b9811dcd03c0e1a184d626d73a78d521f53d"
+  },
+  {
+    "file": "docs/development/lot-06-bis-api-nvidia/validation.json",
+    "bytes": 3541,
+    "sha256": "1c9d64b520f2a53c4a6b1e7ede7ed318195c3381df8c62a1a2e06024fd5b484c"
+  },
+  {
+    "file": "scripts/benchmark-nvidia-import.mjs",
+    "bytes": 9448,
+    "sha256": "292e353dd98cb5ac77cfe23db0982a553ce69d3a992113e5ca37b1f3ecacb7b7"
+  },
+  {
+    "file": "scripts/nvidia-import/analyze-live.mjs",
+    "bytes": 5017,
+    "sha256": "6f94d79064f57a690af1ca4293c2ce58fa684a9658c4371b43db8609ed9e07a2"
+  },
+  {
+    "file": "scripts/nvidia-import/client.mjs",
+    "bytes": 9847,
+    "sha256": "e0136abf52919e5b10b4846429aab4470eea4bcda51f2203841dcc67e4d1ce8c"
+  },
+  {
+    "file": "scripts/nvidia-import/evaluate.mjs",
+    "bytes": 1941,
+    "sha256": "8ec055755977df57305430c80010b4af050b387ba248c64e6053c9334fea159a"
+  },
+  {
+    "file": "scripts/nvidia-import/fixtures.mjs",
+    "bytes": 902,
+    "sha256": "89759c1d30de1cfe141efb01c5954654a6ab9f187c8e505bfad9a2383c0443b6"
+  },
+  {
+    "file": "scripts/nvidia-import/journal.mjs",
+    "bytes": 2558,
+    "sha256": "b9acbaa789cdc81ec5862ead6efae055e356e8f9458b807108df2f74f528e347"
+  },
+  {
+    "file": "scripts/nvidia-import/preservation.mjs",
+    "bytes": 2050,
+    "sha256": "9a6811bf4969bd5f05e06c59df2dad26945ccc79097c986f129b0ea99134285d"
+  },
+  {
+    "file": "tests/nvidia-import.test.mjs",
+    "bytes": 17521,
+    "sha256": "4c0c046f59a326550fdb8deb2f2f4ea96fd37befc0a2b5170b67d5e3d60a78d6"
+  },
+  {
+    "file": "tests/nvidia-live-analysis.test.mjs",
+    "bytes": 2282,
+    "sha256": "7edea1d573cd00b81f69fe70f9c4d2f072ad553e91f19e486e84678f8740c07d"
+  }
+]

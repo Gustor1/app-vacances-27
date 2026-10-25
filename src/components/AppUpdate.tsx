@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useLocale } from '../i18n';
+import './AppUpdate.css';
 
 /** Check again when Safari resumes an open tab; never reload a draft automatically. */
 export default function AppUpdate() {
   const { t } = useLocale();
   const [available, setAvailable] = useState(false);
+  const [deferred, setDeferred] = useState(false);
 
   useEffect(() => {
     if (!import.meta.env.PROD) return;
@@ -55,7 +57,14 @@ export default function AppUpdate() {
   }, []);
 
   return available ? <aside className="app-update" role="status">
-    <span>{t('Une nouvelle version est prête.')}</span>
-    <button type="button" className="btn btn-primary" onClick={() => location.reload()}>{t('Mettre à jour')}</button>
+    <span>{t(deferred ? 'Enregistre tes modifications et ferme les formulaires avant de mettre à jour.' : 'Une nouvelle version est prête.')}</span>
+    <button type="button" className="btn btn-primary" onClick={() => {
+      // Forms can hold local state absent from the saved notebook. Require closing
+      // them explicitly, including custom modal forms and ongoing local writes.
+      if (document.querySelector('form, dialog[open], [role="dialog"], [data-save-pending="true"], [data-save-error="true"]')) {
+        setDeferred(true); return;
+      }
+      location.reload();
+    }}>{t('Mettre à jour')}</button>
   </aside> : null;
 }

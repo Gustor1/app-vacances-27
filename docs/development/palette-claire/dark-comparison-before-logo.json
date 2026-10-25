@@ -1,0 +1,222 @@
+[
+  {
+    "name": "chromium-dark-1440-map",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-320-home",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-320-preferences",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-320-form",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-320-planning",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-320-notebook",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-390-home",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-390-preferences",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-390-form",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-390-planning",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-390-notebook",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-430-home",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-430-preferences",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-430-form",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-430-planning",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-430-notebook",
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-home",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-1440-preferences",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-1440-form",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-1440-planning",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-1440-notebook",
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-bonus",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-1440-overview",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-1440-tools",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-1440-now",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-1440-transport",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-1440-world",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-390-home",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-390-preferences",
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-390-form",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-390-planning",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-390-notebook",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-home",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-preferences",
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-form",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-planning",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-notebook",
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-bonus",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-overview",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-map",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-tools",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-now",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-transport",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-world",
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  }
+]

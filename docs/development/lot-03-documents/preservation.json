@@ -1,0 +1,61 @@
+{
+  "initialFiles": 882,
+  "unchangedInitialFiles": 867,
+  "intentionalChangesToInitialFiles": [
+    "README.md",
+    "docs/development/IMPORT-RECOGNITION.md",
+    "package-lock.json",
+    "package.json",
+    "scripts/production-server.mjs",
+    "scripts/smoke-app-update.mjs",
+    "scripts/verify-local.mjs",
+    "src/components/JourneysApp.tsx",
+    "src/components/PlanningImport.tsx",
+    "src/locales/planning-import.ts",
+    "src/planning-import/files.ts",
+    "src/planning-import/persistence.ts",
+    "src/planning-import/types.ts",
+    "tests/e2e/planning-local.spec.ts",
+    "vite.config.ts"
+  ],
+  "unexpectedChangedOrMissingInitialFiles": [],
+  "restoredHistoricalEvidence": [
+    {
+      "file": "docs/development/import-fiable-lot-01/screenshots/review-320.png",
+      "initialSha256": "5be60638a5cebc4e574200c9a532db998c5159a5e31adb06ce1e766a3b954267",
+      "regeneratedSha256": "b0f5c34c6850c479418081cc97516140e536a5a3a1374ba5a6ae184b4310f4aa",
+      "archive": "docs\\development\\lot-03-documents\\regenerated-historical\\docs\\development\\import-fiable-lot-01\\screenshots\\review-320.png"
+    },
+    {
+      "file": "docs/development/import-fiable-lot-01/screenshots/review-390.png",
+      "initialSha256": "fa837398ebbb507a6043d61ea4c94b3843156fc7ab2840286d2ac825af735120",
+      "regeneratedSha256": "0987e461ec59bf51e6089b267a3668221012608c7311bfecae3e961af19808ec",
+      "archive": "docs\\development\\lot-03-documents\\regenerated-historical\\docs\\development\\import-fiable-lot-01\\screenshots\\review-390.png"
+    },
+    {
+      "file": "docs/development/lot-02-pwa/screenshots/iphone-header-chromium.png",
+      "initialSha256": "3b71dc6bdb0aa571f4b95471bfdcb1926a939850aa7a53f7557cb3f62bb71fb5",
+      "regeneratedSha256": "baa4d356e9039317cdac415e6f9c339aa514cdee8664dd872cb518d52c5a068f",
+      "archive": "docs\\development\\lot-03-documents\\regenerated-historical\\docs\\development\\lot-02-pwa\\screenshots\\iphone-header-chromium.png"
+    },
+    {
+      "file": "docs/development/lot-02-pwa/screenshots/iphone-header-webkit.png",
+      "initialSha256": "c01619a57ac6ae0ec9ba521b0cf1a747a2a4a04caa72eebc894a7d41522df7d3",
+      "regeneratedSha256": "691d284dadb143293858cdf0b834b10b8dc999edb269653c6e64a31646ab304a",
+      "archive": "docs\\development\\lot-03-documents\\regenerated-historical\\docs\\development\\lot-02-pwa\\screenshots\\iphone-header-webkit.png"
+    },
+    {
+      "file": "docs/development/lot-02-pwa/screenshots/update-draft-chromium.png",
+      "initialSha256": "41c2f952d40bb7ca401769e10c3ea97a0cba2d981656af6627d79aaed1cd93e8",
+      "regeneratedSha256": "86b52ad7dfff67f2e8bb552213ea3848cdb3b5f3c448af24e1c024c4e3c12b42",
+      "archive": "docs\\development\\lot-03-documents\\regenerated-historical\\docs\\development\\lot-02-pwa\\screenshots\\update-draft-chromium.png"
+    },
+    {
+      "file": "docs/development/lot-02-pwa/screenshots/update-draft-webkit.png",
+      "initialSha256": "ca47f5e6a01f552bf8ec2fc7fdea8ba7cb6d3f4259e00003cff99e1e62f7ced7",
+      "regeneratedSha256": "e5df99ca66bc9d67cb639120fc776a74a1fcc6585691f1aab48a486c2702ef60",
+      "archive": "docs\\development\\lot-03-documents\\regenerated-historical\\docs\\development\\lot-02-pwa\\screenshots\\update-draft-webkit.png"
+    }
+  ],
+  "ignoredFiles": "not read or copied by snapshot/preservation verification"
+}

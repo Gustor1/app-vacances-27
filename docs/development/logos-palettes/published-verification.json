@@ -1,0 +1,28 @@
+{
+  "url": "https://app-vacances-27-beta-eliottle.vercel.app",
+  "buildId": "6b78bce678df535a22170f98670d930bd65df61c4675448b2246380a415b1cb3",
+  "sourceFingerprint": "5a4ded414fe9d67df25df2f742bf0f313955963638173b22c355ed807f867e69",
+  "filesVerified": 33,
+  "allAssetHashesMatch": true,
+  "workerMatches": true,
+  "allTwelvePalettes": true,
+  "themeAndPalettePersist": true,
+  "darkBirdLoaded": true,
+  "lightBurgundyBirdPixels": [
+    152.74820143884892,
+    96.7841726618705,
+    116.07194244604317
+  ],
+  "lightBurgundyBackground": true,
+  "coloredBirdRestoredOffline": true,
+  "notebookUnchangedByPalette": true,
+  "offlineNote": true,
+  "closeReopenOffline": true,
+  "reconnect": true,
+  "noOverflow390": true,
+  "errors": [],
+  "limits": [
+    "Disposable synthetic profile; backend requests blocked",
+    "No real OAuth, cloud write, OS installation or physical iPhone verification"
+  ]
+}

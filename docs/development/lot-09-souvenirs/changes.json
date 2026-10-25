@@ -1,0 +1,464 @@
+[
+  {
+    "file": "README.md",
+    "kind": "modified",
+    "bytes": 36294,
+    "sha256": "073caafdcb97b61dc781909f73576a3278f53ebee77a2df31b3200769142f1e4"
+  },
+  {
+    "file": "scripts/verify-local.mjs",
+    "kind": "modified",
+    "bytes": 6984,
+    "sha256": "b0caa1f79e5c1f3c19acec75f397a44eceb08bc527c3339468acd047cb2b0869"
+  },
+  {
+    "file": "src/App.tsx",
+    "kind": "modified",
+    "bytes": 61418,
+    "sha256": "40614204282b885413e3af72a810c9d010be87adddc4152f23348fa6751ba9fe"
+  },
+  {
+    "file": "src/backup.ts",
+    "kind": "modified",
+    "bytes": 19358,
+    "sha256": "81253e3056ed2e5041f1ff56ef94cdbd3588e86c33fcf9e5c28c6e7e245d5123"
+  },
+  {
+    "file": "src/components/BackupPanel.tsx",
+    "kind": "modified",
+    "bytes": 9429,
+    "sha256": "83d31239bfb3d5ba4d129d9c6bb5f08f9da5b7a3f32271c19a231f69a75b1c03"
+  },
+  {
+    "file": "src/locale-utils.ts",
+    "kind": "modified",
+    "bytes": 4274,
+    "sha256": "020eb6c92e1003098fd241e2fb904800fd6ae1b8701ef154207823a1e6fad698"
+  },
+  {
+    "file": "tests/backup.test.mjs",
+    "kind": "modified",
+    "bytes": 12410,
+    "sha256": "1b524c4f75759731f531893816b50602ffd51a27d44ab09d849fcce3301aad16"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/RAPPORT.md",
+    "kind": "added",
+    "bytes": 17140,
+    "sha256": "085723f1470d8d3ef08e362689a95243ad3abed6cf27ecb421e7e4ea5b75a48b"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/assistant-source-check.json",
+    "kind": "added",
+    "bytes": 1382,
+    "sha256": "c467e4dd4e13204804cdce4846473de9bd667499aeb339895f200fd62528ce48"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/compiled/impression-automatisee.pdf",
+    "kind": "added",
+    "bytes": 46685,
+    "sha256": "37b515b2f01deaf346d66548fbe6ce6be27ce106bf4a9e38a0a91ed198300b19"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/compiled/mobile-preview.png",
+    "kind": "added",
+    "bytes": 36589,
+    "sha256": "af04e358e9a64ad7291013bd8eb7b7d3b2468b160984893ecbcc55b54b46c355"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/compiled/pdf-page-1.png",
+    "kind": "added",
+    "bytes": 19630,
+    "sha256": "77db1da5ba3738ed822a3d592f85b1e72c806fa7507795d9505f6b6220025c61"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/compiled/print.png",
+    "kind": "added",
+    "bytes": 15001,
+    "sha256": "6bf62e07db9c928755fcaf54a2b796180b8fc5852dd9022999ef193e4b0d23a0"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/compiled/validation.json",
+    "kind": "added",
+    "bytes": 784,
+    "sha256": "4247a7a4099fe466d0c3aafd411e4941d47a00ca179906875c21749260cca559"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/continue-validation.mjs",
+    "kind": "added",
+    "bytes": 2564,
+    "sha256": "c6053af4ba82a940281837d5dc9006174573686f8c7bd4bd991a639431fe660d"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/editor-layout.json",
+    "kind": "added",
+    "bytes": 429,
+    "sha256": "4983928d3e9b8ddce34affdbd5b62a441a4b0680ec04f7b719da20cd579a549c"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/environment.json",
+    "kind": "added",
+    "bytes": 326,
+    "sha256": "46858dd52189b73ff698b1ace899e2d7068b17b9433dd72a2ad4882692e383fd"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/exemple-souvenirs-v1.json",
+    "kind": "added",
+    "bytes": 141,
+    "sha256": "0364a6077e592a4c62825803d04361467def26c5f63c0e1b70e3eee49a67a459"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate-initial/run.log",
+    "kind": "added",
+    "bytes": 32505,
+    "sha256": "b2ace49398b0236e732e7fd5ff1dd9e606de3da1d4a971288c6bd74c6b6864f9"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate-initial/validation.json",
+    "kind": "added",
+    "bytes": 2746,
+    "sha256": "fdf3edc7f40820072fcdb21008b15ab7f5ac6b5ff84e91cb561538f073a5217a"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate-localization-audit/run.log",
+    "kind": "added",
+    "bytes": 38452,
+    "sha256": "d38f44c7b1778cb66f9138edd9d5daf50b7b0243089de99d5f15fcd9be040684"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate-print-audit/run.log",
+    "kind": "added",
+    "bytes": 38310,
+    "sha256": "837717d342167e875d3302943cc5420da27b57bee5187f3fcd758c79c95681fd"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate.log",
+    "kind": "added",
+    "bytes": 59585,
+    "sha256": "2a57c5888583a9b968933f0bfe232d1d31a2619189e48378d0f5fb816fc2c2c3"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate/planning-analysis-failure/.last-run.json",
+    "kind": "added",
+    "bytes": 96,
+    "sha256": "637abd0011da348ad6176184588df4883af61cf5cbb1f579143367f008830447"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate/planning-analysis-failure/planning-analysis-SIMULATE-34e55-n-an-account-local-notebook/error-context.md",
+    "kind": "added",
+    "bytes": 25141,
+    "sha256": "53daa6973cb633acb2db7983df4a05d7bb8c265e813681522457e35b844b1091"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate/planning-analysis-failure/planning-analysis-SIMULATE-34e55-n-an-account-local-notebook/test-failed-1.png",
+    "kind": "added",
+    "bytes": 68447,
+    "sha256": "78e4fb66d5f5849d268f2e06c160a7a4f904c5790369eaf794815b86502462cc"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate/planning-analysis-failure/planning-analysis-SIMULATE-34e55-n-an-account-local-notebook/trace.zip",
+    "kind": "added",
+    "bytes": 554712,
+    "sha256": "648fd61ded397d357e3e11816775832144d13d20d360d885736b272bcc6bfc5e"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate/souvenirs-compiled/impression-automatisee.pdf",
+    "kind": "added",
+    "bytes": 46685,
+    "sha256": "824c1fa5c6e0d81852b358bb381d4be75dac65423d2a22d393971a38ebbefbbf"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate/souvenirs-compiled/mobile-preview.png",
+    "kind": "added",
+    "bytes": 36589,
+    "sha256": "af04e358e9a64ad7291013bd8eb7b7d3b2468b160984893ecbcc55b54b46c355"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate/souvenirs-compiled/print.png",
+    "kind": "added",
+    "bytes": 15001,
+    "sha256": "6bf62e07db9c928755fcaf54a2b796180b8fc5852dd9022999ef193e4b0d23a0"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate/souvenirs-compiled/validation.json",
+    "kind": "added",
+    "bytes": 784,
+    "sha256": "4247a7a4099fe466d0c3aafd411e4941d47a00ca179906875c21749260cca559"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/gate/validation.json",
+    "kind": "added",
+    "bytes": 3894,
+    "sha256": "549f91d68ba4c300ae05039abf33057557f3fa7b22a6f580edf5d5d6d7629ce8"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/image-budgets.json",
+    "kind": "added",
+    "bytes": 366,
+    "sha256": "1024ac9af124a7f15b03a2654d9580ca23b44d34aab69dd86b43f5a23c9fc21c"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/planning-before-failure/.last-run.json",
+    "kind": "added",
+    "bytes": 96,
+    "sha256": "637abd0011da348ad6176184588df4883af61cf5cbb1f579143367f008830447"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/planning-before-failure/planning-analysis-SIMULATE-34e55-n-an-account-local-notebook/error-context.md",
+    "kind": "added",
+    "bytes": 9285,
+    "sha256": "9aaada04c9dace82c0e2933e2f89356b8e6f751595267ddba06c810f1819f35b"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/planning-before-failure/planning-analysis-SIMULATE-34e55-n-an-account-local-notebook/test-failed-1.png",
+    "kind": "added",
+    "bytes": 4259,
+    "sha256": "af040249475174ffa81a68b040642416cc33282387405ffde0744652abdc8666"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/planning-before-failure/planning-analysis-SIMULATE-34e55-n-an-account-local-notebook/trace.zip",
+    "kind": "added",
+    "bytes": 28932,
+    "sha256": "ce9482df2d30fe7203872216c15bdda7e0af6662e2edb748302407cfa5ed7ee3"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/planning-before-hashes.json",
+    "kind": "added",
+    "bytes": 1221,
+    "sha256": "339a73a07620fb523d160e46fac2b637071ff8768a76918faf482a47703ca103"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/planning-before-warm.log",
+    "kind": "added",
+    "bytes": 1816,
+    "sha256": "7e6b666168e2170cfe3496e6d0452d45c2478b4614ea041188d5c3746a7416f1"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/planning-before.log",
+    "kind": "added",
+    "bytes": 3797,
+    "sha256": "f097fbc7952cce75c327306ec4775a3656801a463df8cf9fe09bffb054a59178"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/planning-current-retry.log",
+    "kind": "added",
+    "bytes": 881,
+    "sha256": "aac3b2e33ab3ee2abce150a652820b56ee9ed0d07fcf2bbda70b1338375b48c1"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/planning-investigation.json",
+    "kind": "added",
+    "bytes": 1418,
+    "sha256": "dcd424417755dc49d7242d8ef265169e90fee2fc479eb15858ed1ee989721ac3"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/regenerated/docs/development/import-fiable-lot-01/screenshots/review-320.png",
+    "kind": "added",
+    "bytes": 37291,
+    "sha256": "b0f5c34c6850c479418081cc97516140e536a5a3a1374ba5a6ae184b4310f4aa"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/regenerated/docs/development/import-fiable-lot-01/screenshots/review-390.png",
+    "kind": "added",
+    "bytes": 38967,
+    "sha256": "0987e461ec59bf51e6089b267a3668221012608c7311bfecae3e961af19808ec"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/regenerated/docs/development/lot-04-lieux/screenshots/en-390.png",
+    "kind": "added",
+    "bytes": 36719,
+    "sha256": "4c746e8741a5c7965047b1ff72a864579294a19b32f9791bc1bbfd8f725d6063"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/regenerated/docs/development/lot-04-lieux/screenshots/es-390.png",
+    "kind": "added",
+    "bytes": 37404,
+    "sha256": "c59c1ce5e47c7303ba6c5029b923da49dfbdfda61dee4a713ba7185ee075adea"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/regenerated/docs/development/lot-04-lieux/screenshots/fr-390.png",
+    "kind": "added",
+    "bytes": 37591,
+    "sha256": "834fd578a71ce2aa429ca90c9d98d5eff945192e634a6ed884c93e96aa20baa7"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/regenerated/docs/development/lot-04-lieux/screenshots/zh-CN-390.png",
+    "kind": "added",
+    "bytes": 40033,
+    "sha256": "b09d19b6e55157d77da0ab75c72b34e23b88c4255f338b1ba291b18a9024c8b9"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/regenerated/docs/development/lot-05-compagnon/screenshots/en.png",
+    "kind": "added",
+    "bytes": 164343,
+    "sha256": "7bb142b90055cdbe61d4bfd1e11fda1737b0e5b31c4e22e664501a19b3bac117"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/regenerated/docs/development/lot-05-compagnon/screenshots/es.png",
+    "kind": "added",
+    "bytes": 177544,
+    "sha256": "9330f8b66f0771c082289b7103a5005872920d94c971cffc9939d50ab98484ef"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/regenerated/docs/development/lot-05-compagnon/screenshots/fr.png",
+    "kind": "added",
+    "bytes": 180388,
+    "sha256": "9cf8db933dd373d481d6189bfbc4ba4ff5e671a0ec06d0c3030eed283cac2409"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/regenerated/docs/development/lot-05-compagnon/screenshots/zh-CN.png",
+    "kind": "added",
+    "bytes": 233703,
+    "sha256": "2167ad9a3fae23c296e322170a244bf2178993018177b746cb7aaae3f8344dad"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/remaining-validation.json",
+    "kind": "added",
+    "bytes": 4811,
+    "sha256": "5127d760fda84a66cea0d5856cd66ca9f101e34b38b306c61191a44871437013"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/remaining.log",
+    "kind": "added",
+    "bytes": 18777,
+    "sha256": "26d6e381cb84e9a8f5f4c66f945b2dcc084c8ee3209ffcb3f64316e1c7f08d35"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/restored-evidence.json",
+    "kind": "added",
+    "bytes": 2563,
+    "sha256": "9dd0f0b2d1e10f6fadfa0c6e3efe743d4d35c3ca8b6fc8770f8bb69b422fc2fb"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/editor-en-320-dark.png",
+    "kind": "added",
+    "bytes": 50201,
+    "sha256": "00727ba4b6215928531e62123ccab5261e5d9fdbfa5d895094c465b5e5600062"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/editor-es-320-dark.png",
+    "kind": "added",
+    "bytes": 51777,
+    "sha256": "2190626e9b831f78c3f28b05bd1fcbb7d78dd6f13a29ad5cc21079fa2eb1a8bd"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/editor-fr-320-dark.png",
+    "kind": "added",
+    "bytes": 53519,
+    "sha256": "8d45f1c4302d2248d7730f63692ccf90761788cc39f58973eb53802c4aaaeb9b"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/editor-zh-CN-320-dark.png",
+    "kind": "added",
+    "bytes": 41003,
+    "sha256": "41acd8c00a145b8ad7590d5429c7c9d57415465cdca8319f538755f4d962ed27"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/preview-en.png",
+    "kind": "added",
+    "bytes": 56721,
+    "sha256": "c97f8fa4478125707a8b84feb4588f52172bc21e8a4ab1a2165240b2cf7affda"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/preview-es.png",
+    "kind": "added",
+    "bytes": 49020,
+    "sha256": "3d00c4626abe828940bca6c78a19274e614f7468d8e5e377386ecf79d1adb03b"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/preview-fr.png",
+    "kind": "added",
+    "bytes": 44082,
+    "sha256": "eae60f7279ba6d1db4e63b34bdece20800ed799651b582fe9ddaced9f311ded4"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/preview-zh-CN.png",
+    "kind": "added",
+    "bytes": 59967,
+    "sha256": "f3bbf32c46737ea14265f02e31890953e4486ba6c8faf82b647297c80da4ea98"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/print-en.png",
+    "kind": "added",
+    "bytes": 11864,
+    "sha256": "e3196044b533276cfb9e3fbe4468cbccc6e89231c0a653ea7fb16ac333b16e01"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/print-es.png",
+    "kind": "added",
+    "bytes": 12316,
+    "sha256": "3a31fbb2ee2423aa99587c26877587549990d357b8ef6f1da22a7f94eb42adce"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/print-fr.png",
+    "kind": "added",
+    "bytes": 12996,
+    "sha256": "188d0a08a8a12b187f3865c214576d3365f966f1f68b45fb0dae8fa0ef6623e7"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/screenshots/print-zh-CN.png",
+    "kind": "added",
+    "bytes": 12579,
+    "sha256": "58b4411d1e984ce20415a3b71dc93a74734f3061d917d0411962ae0de24462f4"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/validation-summary.json",
+    "kind": "added",
+    "bytes": 985,
+    "sha256": "d1e8ef73fde099efc33733cf5fb8b80398d031767289d97eae320253106db832"
+  },
+  {
+    "file": "docs/development/lot-09-souvenirs/webp-decoder.json",
+    "kind": "added",
+    "bytes": 207,
+    "sha256": "d9c75ea3d99bcb47b1acdd8215ee8bd972e32680856035bfc2a73b5e83572e71"
+  },
+  {
+    "file": "scripts/smoke-souvenirs.mjs",
+    "kind": "added",
+    "bytes": 7506,
+    "sha256": "4fefd935f96ac606e7ed66f6a70d12f1412e3f0c01391095f911a61495f38f00"
+  },
+  {
+    "file": "scripts/souvenirs-preservation.mjs",
+    "kind": "added",
+    "bytes": 4643,
+    "sha256": "9fcc882623ada29f4031766b0dd5beaa9999766aa90411ea6545c5796abdec8a"
+  },
+  {
+    "file": "src/components/Souvenirs.css",
+    "kind": "added",
+    "bytes": 1469,
+    "sha256": "fa9c5faefe86abb834b077af76ead6d2be3f4cedf4bfbad27284057272a23c69"
+  },
+  {
+    "file": "src/components/Souvenirs.tsx",
+    "kind": "added",
+    "bytes": 12849,
+    "sha256": "0848281c6f6bbeb45aa214c006e4d2566797af1e8644cc4e275d990588db506b"
+  },
+  {
+    "file": "src/locales/souvenirs.ts",
+    "kind": "added",
+    "bytes": 10472,
+    "sha256": "91c64948bb7dc03e174a21645ee767f594f19025b75323145145e8e5475acb39"
+  },
+  {
+    "file": "src/souvenirs.ts",
+    "kind": "added",
+    "bytes": 12054,
+    "sha256": "e63a42e07d6c8ec60d70825cea47a5a0334ee41285fe66e2bde28f381f998b9e"
+  },
+  {
+    "file": "tests/e2e/souvenirs.spec.ts",
+    "kind": "added",
+    "bytes": 14312,
+    "sha256": "e9fa01fc2b2d8cd54893802dbb4157f93790e5e1ac3a6213a3023b80d9e58e17"
+  },
+  {
+    "file": "tests/souvenirs.test.mjs",
+    "kind": "added",
+    "bytes": 4269,
+    "sha256": "7814df8e0e3a218c05375c39d90218382ed757ec2b4a6edb82b0568a5fbfb304"
+  }
+]

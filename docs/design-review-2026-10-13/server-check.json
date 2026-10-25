@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "csp": "default-src 'self'; connect-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
+  },
+  {
+    "path": "/app.js",
+    "status": 200,
+    "csp": "default-src 'self'; connect-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
+  },
+  {
+    "path": "/style.css",
+    "status": 200,
+    "csp": "default-src 'self'; connect-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'"
+  },
+  {
+    "path": "/.env.local",
+    "status": 404,
+    "csp": null
+  },
+  {
+    "path": "/server.mjs",
+    "status": 404,
+    "csp": null
+  },
+  {
+    "path": "/../package.json",
+    "status": 404,
+    "csp": null
+  }
+]

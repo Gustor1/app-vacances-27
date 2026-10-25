@@ -1,4 +1,6 @@
-const rows=`Application de cartes préférée|Preferred maps app|首选地图应用|Aplicación de mapas preferida
+const rows=`Actions pour {name}|Actions for {name}|{name}的操作|Acciones para {name}
+Voir sur Google Maps|View on Google Maps|在 Google 地图中查看|Ver en Google Maps
+Application de cartes préférée|Preferred maps app|首选地图应用|Aplicación de mapas preferida
 Ce choix s’applique aux lieux et aux trajets de tous tes carnets. Amap est surtout utile en Chine.|This choice applies to places and routes in all your journals. Amap is especially useful in China.|此选项适用于所有旅行笔记中的地点和路线。高德地图尤其适合在中国使用。|Esta elección se aplica a los lugares y rutas de todos tus cuadernos. Amap es especialmente útil en China.
 Ce choix est mémorisé pour ton compte sur cet appareil. Sans compte, il reste local à cet appareil.|This choice is saved for your account on this device. Without an account, it stays local to this device.|此选项保存在本设备的帐户中。未登录时，它仅保存在本设备上。|Esta elección se guarda para tu cuenta en este dispositivo. Sin cuenta, queda guardada solo en este dispositivo.
 Ce choix reste actif pour cette session, mais sa sauvegarde est indisponible.|This choice remains active for this session, but could not be saved.|此选项在本次会话中仍然有效，但无法保存。|Esta elección sigue activa durante esta sesión, pero no se ha podido guardar.

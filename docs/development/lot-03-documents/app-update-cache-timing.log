@@ -1,0 +1,3 @@
+webkit: update detected and applied; cache upgraded and new worker controls the page.
+WEBKIT CACHE VISIBILITY [{"ms":17,"found":true}]
+webkit: resume, manual update, journals and cache verified. Offline emulation excluded (Playwright #42775).

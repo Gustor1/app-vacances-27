@@ -1,0 +1,20 @@
+{
+  "snapshot": "C:\\Users\\eliot\\Documents\\detours-lot08-recovery-20261023",
+  "initialFingerprint": "54637f836f27ac6353ae3c07d7e0d467429d070aa2dd213418b82181cfe18d11",
+  "initialFiles": 1328,
+  "identical": 1320,
+  "changed": [
+    "README.md",
+    "scripts/verify-local.mjs",
+    "src/components/JourneysApp.tsx",
+    "src/components/OfflineStatus.tsx",
+    "src/components/PlanningImport.tsx",
+    "src/components/Preferences.tsx",
+    "src/locale-utils.ts",
+    "src/main.tsx"
+  ],
+  "missing": [],
+  "unexpectedChanges": [],
+  "unexpectedAdditions": [],
+  "passed": true
+}

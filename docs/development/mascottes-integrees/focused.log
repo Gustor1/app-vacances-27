@@ -1,0 +1,17 @@
+[WebServer] (node:15944) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:2480) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\floating-mascot.spec.ts:4:1 › animated companions: three characters, narrow hitbox, drag, preferences and real trip shortcuts (6.4s)
+  ok 2 tests\e2e\mascot.spec.ts:17:64 › mascot fr: genuine states, themes, widths, zoom, keyboard and accessible text (4.4s)
+  ok 3 tests\e2e\mascot.spec.ts:17:64 › mascot en: genuine states, themes, widths, zoom, keyboard and accessible text (4.1s)
+  ok 4 tests\e2e\mascot.spec.ts:17:64 › mascot zh-CN: genuine states, themes, widths, zoom, keyboard and accessible text (4.0s)
+  ok 5 tests\e2e\mascot.spec.ts:17:64 › mascot es: genuine states, themes, widths, zoom, keyboard and accessible text (4.1s)
+  ok 6 tests\e2e\mascot.spec.ts:51:1 › toggle is immediate, durable, keyboard accessible and leaves the import untouched (4.7s)
+  ok 7 tests\e2e\mascot.spec.ts:68:1 › failed image and failed preference write leave all ordinary actions available (2.7s)
+  ok 8 tests\e2e\mascot.spec.ts:82:1 › account switch resets personal visibility and welcome without touching another scope (1.9s)
+
+  8 passed (36.8s)
