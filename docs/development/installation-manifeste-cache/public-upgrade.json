@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "legacyName": "DÃ©tours â€” Mes voyages",
+  "afterUpgradeName": "Détours",
+  "offlineName": "Détours",
+  "manifestUrl": "https://app-vacances-27-beta-eliottle.vercel.app/manifest.webmanifest?v=a6c89de356b1",
+  "appIdUnchanged": true,
+  "notebookUnchanged": true,
+  "oldWorkerStayedActiveDuringUpgrade": true,
+  "buildId": "aa5567ba9eb95080adfaaa3b8ed7945194645c709e8815ea836c1c8bcb0fd6a7",
+  "commit": "578e1b1e51b9e5b7a48b3e065eeeb661c8b0c16d",
+  "profile": "disposable, fictitious notebook only"
+}
