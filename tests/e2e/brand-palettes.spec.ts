@@ -25,7 +25,7 @@ test('the rendered bird and its badge follow all 24 palettes without changing th
   const original=await page.evaluate(()=>localStorage.getItem('a-l-est-trip-v2:brand-preserved'));
   await mkdir(output+'/screenshots',{recursive:true});const rows=[];const cards=[];
   for(const theme of ['light','dark'] as const){
-    for(const id of paletteIds){
+    for(const id of paletteIds.filter(id => theme === 'dark' || id !== 'noir')){
       await preferences(page);await page.getByRole('radio',{name:theme==='light'?'Clair':'Sombre',exact:true}).check();
       await page.getByRole('radio',{name:paletteNames[id],exact:true}).check();await page.keyboard.press('Escape');
       const image=page.locator('.brand-icon');await image.evaluate(el=>(el as HTMLImageElement).decode());

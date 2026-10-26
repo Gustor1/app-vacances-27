@@ -10,7 +10,7 @@ L’interface est disponible en français, anglais, chinois simplifié et espagn
 
 ## Démarrer
 
-Pico (hirondelle), Mochi et Bivouac sont des compagnons animés flottants. Touche le personnage pour ouvrir les raccourcis, ou déplace-le au doigt/à la souris (Maj + flèches au clavier). Dans un carnet, Maintenant ouvre la vue qui utilise les dates et fuseaux du voyage ; Explorer les bonus ouvre les idées enregistrées. Sur l’accueil, les raccourcis créent ou importent un voyage. Préférences permet de choisir le personnage et de désactiver les animations ; le mouvement réduit du système est respecté. **Préférences → Afficher la mascotte** la masque immédiatement. Ce choix et l’accueil déjà vu restent personnels au compte et au navigateur sur cet appareil, hors carnets partagés et exports ; ils ne sont pas synchronisés. Les textes et actions ordinaires restent disponibles sans les images. [Rapport, provenance et limites du lot 08](docs/development/lot-08-mascotte/RAPPORT.md).
+Pico (hirondelle), Mochi et Bivouac sont des compagnons animés flottants. Touche le personnage pour ouvrir les raccourcis, ou déplace-le au doigt/à la souris (Maj + flèches au clavier). Dans un carnet, Maintenant ouvre la vue qui utilise les dates et fuseaux du voyage ; Explorer les bonus ouvre les idées enregistrées. Sur l’accueil, les raccourcis créent ou importent un voyage. Préférences permet de choisir le personnage dans un menu avec aperçu de Pico, Mochi et Bivouac, et de désactiver les animations ; le mouvement réduit du système est respecté. **Préférences → Afficher la mascotte** la masque immédiatement. Ce choix et l’accueil déjà vu restent personnels au compte et au navigateur sur cet appareil, hors carnets partagés et exports ; ils ne sont pas synchronisés. Les textes et actions ordinaires restent disponibles sans les images. [Rapport, provenance et limites du lot 08](docs/development/lot-08-mascotte/RAPPORT.md).
 
 Node.js 22.18+ et npm. Vérifié avec Node 24 sous Windows.
 
@@ -46,7 +46,7 @@ Une erreur ou un manque de quota conserve les souvenirs précédents. Annule les
 - **Expérience préservée** : planning, vue d’ensemble, carte, envies et bonus, transports, carnet pratique, outils sur place ; favoris, visites effectuées, réservations, notes, adresses personnelles, hébergements, budget, valise et copie de texte.
 - **Reprise** : les sélections sont rattachées au carnet. Un onglet garde aussi sa position de lecture, sans déplacer celle d’un autre onglet. Aujourd’hui respecte les fuseaux du voyage et de ses étapes.
 - **Documents** : joindre un fichier texte ou Markdown de moins de 500 Ko, le lire et le télécharger depuis le carnet pratique. Il est conservé dans la sauvegarde et reste disponible hors ligne. Pour transformer un PDF texte ou un DOCX en activités, utiliser **Créer depuis un planning**, avec vérification du texte puis de l’aperçu. Aucun OCR pour les scans.
-- **Interface** : français, anglais, chinois simplifié et espagnol, apparences claire, sombre et automatique, navigation mobile, clavier et mouvement réduit. Les textes personnels restent dans leur langue.
+- **Interface** : français, anglais, chinois simplifié et espagnol, apparences claire, sombre et automatique (dont une palette **Noir** à fond noir dans **Préférences → Couleurs → Plus de palettes**, en mode sombre), navigation mobile, clavier et mouvement réduit. Les textes personnels restent dans leur langue.
 
 ## Compagnon sur place
 

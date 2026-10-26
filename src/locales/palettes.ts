@@ -16,7 +16,8 @@ Bordeaux & ivoire|Burgundy & ivory|酒红与象牙|Burdeos y marfil
 Corail|Coral|珊瑚|Coral
 Abricot & encre|Apricot & ink|杏色与墨色|Albaricoque y tinta
 Soleil & pétrole|Sun & petrol|暖阳与石油蓝|Sol y petróleo
-Violet origami|Origami violet|折纸紫|Violeta origami`;
+Violet origami|Origami violet|折纸紫|Violeta origami
+Noir|Black|纯黑|Negro`;
 export function paletteDictionary(index: 0 | 1 | 2): Record<string, string> {
   return Object.fromEntries(rows.split('\n').map(row => { const parts = row.split('|'); return [parts[0], parts[index + 1]]; }));
 }

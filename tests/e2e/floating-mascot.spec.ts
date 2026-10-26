@@ -19,17 +19,19 @@ test('animated companions: three characters, narrow hitbox, drag, preferences an
   await button.focus(); await page.keyboard.press('Enter');
   await page.locator('#mascot-shortcuts').getByRole('button', { name: 'Préférences', exact: true }).click();
   for (const name of ['mochi', 'bivouac', 'pico']) {
-    await page.getByLabel('Choisir la mascotte', { exact: true }).selectOption(name);
+    await page.locator('.mascot-picker > summary').click();
+    await page.locator('.mascot-picker-options').getByRole('button', { name: name[0].toUpperCase() + name.slice(1), exact: true }).click();
     await expect(root).toHaveAttribute('data-character', name);
     await expect(page.locator('.mascot-sprite')).toHaveAttribute('data-ready', 'true');
   }
-  await page.getByLabel('Choisir la mascotte', { exact: true }).selectOption('mochi');
+  await page.locator('.mascot-picker > summary').click();
+  await page.locator('.mascot-picker-options').getByRole('button', { name: 'Mochi', exact: true }).click();
   await page.getByRole('checkbox', { name: 'Afficher la mascotte', exact: true }).uncheck();
   await expect(root).toHaveCount(0);
   await page.keyboard.press('Escape'); await page.reload();
   await expect(root).toHaveCount(0);
   await page.getByRole('button', { name: 'Préférences', exact: true }).click();
-  await expect(page.getByLabel('Choisir la mascotte', { exact: true })).toHaveValue('mochi');
+  await expect(page.locator('.mascot-picker > summary')).toContainText('Mochi');
   await page.getByRole('checkbox', { name: 'Afficher la mascotte', exact: true }).check();
   await page.keyboard.press('Escape');
   const trip = blankTrip({ title: 'Voyage mascotte' });

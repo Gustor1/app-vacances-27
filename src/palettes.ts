@@ -1,7 +1,7 @@
 /** Device-local colors. Kept separate from the historical language/theme and notebook formats. */
 export const PALETTES_KEY = 'detours-palettes-v1';
 export type Appearance = 'light' | 'dark';
-export const paletteIds = ['signature', 'porcelaine', 'eucalyptus', 'sauge', 'ocean', 'glacier', 'foret', 'bordeaux', 'corail', 'abricot', 'soleil', 'violet'] as const;
+export const paletteIds = ['signature', 'porcelaine', 'eucalyptus', 'sauge', 'ocean', 'glacier', 'foret', 'bordeaux', 'corail', 'abricot', 'soleil', 'violet', 'noir'] as const;
 export type PaletteId = typeof paletteIds[number];
 export type PalettePreferences = { version: 1; light: PaletteId; dark: PaletteId };
 export const defaultPalettes: PalettePreferences = { version: 1, light: 'signature', dark: 'signature' };
@@ -17,10 +17,11 @@ export function parsePalettes(raw: string | null): PalettePreferences {
 export const paletteNames: Record<PaletteId, string> = {
   signature: 'Signature Détours', porcelaine: 'Porcelaine', eucalyptus: 'Eucalyptus', sauge: 'Graphite & sauge',
   ocean: 'Nuit océan', glacier: 'Encre & glacier', foret: 'Forêt & jade', bordeaux: 'Bordeaux & ivoire',
-  corail: 'Corail', abricot: 'Abricot & encre', soleil: 'Soleil & pétrole', violet: 'Violet origami',
+  corail: 'Corail', abricot: 'Abricot & encre', soleil: 'Soleil & pétrole', violet: 'Violet origami', noir: 'Noir',
 };
 type Seed = [background: string, surface: string, field: string, selected: string, accent: string, muted: string, border: string];
 const seeds: Record<PaletteId, Record<Appearance, Seed>> = {
+  noir: { light: ['#eeeeee','#ffffff','#f5f5f5','#e2e2e2','#3c6e59','#595959','#777777'], dark: ['#000000','#111111','#1b1b1b','#292929','#e5c39d','#bcbcbc','#888888'] },
   signature: { light: ['#e8dfd0','#f7f2e9','#f2ebdf','#dce6d8','#3c6e59','#596459','#71806f'], dark: ['#19151b','#27222b','#302a33','#40313d','#e5c39d','#bdb0bd','#8c7e89'] },
   porcelaine: { light: ['#e9eeeb','#f8faf8','#eef3ef','#dbe9df','#31634f','#52645a','#728577'], dark: ['#161b19','#222c27','#2a352f','#33483b','#cadbcc','#aebfb3','#7b8f80'] },
   eucalyptus: { light: ['#e8dfd0','#f7f2e9','#f2ebdf','#deeadf','#41755f','#596459','#71806f'], dark: ['#17221e','#24352d','#2c4035','#375342','#b2cfbb','#b4c6ba','#82998a'] },

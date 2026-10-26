@@ -25,7 +25,7 @@ test('all twelve families apply both appearances, keep notebooks intact and rema
   const rows = [];
   for (const theme of ['light', 'dark'] as const) {
     await page.getByRole('radio', { name: theme === 'light' ? 'Clair' : 'Sombre', exact: true }).check();
-    for (const id of paletteIds) {
+    for (const id of paletteIds.filter(id => theme === 'dark' || id !== 'noir')) {
       await page.getByRole('radio', { name: paletteNames[id], exact: true }).check();
       await expect(page.locator('html')).toHaveAttribute('data-palette', id);
       const colors = paletteTokens(id, theme);

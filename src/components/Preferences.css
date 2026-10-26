@@ -8,6 +8,21 @@
 .install-help{font-size:13px;line-height:1.7;overflow-wrap:anywhere}.install-help summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:650}.install-help ol{padding-left:20px}.install-help .btn{margin-top:10px;white-space:normal}
 
 .palette-settings { min-width: 0; }
+.mascot-picker { margin: 14px 0; border: 1px solid var(--control-line); border-radius: 16px; background: var(--field); overflow: hidden; }
+.mascot-picker > summary { display: flex; align-items: center; gap: 14px; min-height: 88px; padding: 8px 16px 8px 8px; cursor: pointer; list-style: none; }
+.mascot-picker > summary::-webkit-details-marker { display: none; }
+.mascot-picker > summary > span:nth-child(2) { flex: 1; min-width: 0; }
+.mascot-picker-label { display: block; color: var(--muted); font-size: 12px; margin-bottom: 4px; }
+.mascot-picker strong { display: block; font-size: 17px; font-weight: 650; }
+.mascot-picker > summary > svg { flex-shrink: 0; }
+.mascot-picker[open] > summary > svg { transform: rotate(180deg); }
+.mascot-picker-preview { display: block; flex: 0 0 72px; width: 72px; height: 72px; pointer-events: none; }
+.mascot-picker-options { padding: 6px; border-top: 1px solid var(--line); background: var(--surface); }
+.mascot-picker-options button { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 76px; padding: 4px 12px 4px 4px; margin: 0; border: 1px solid transparent; border-radius: 12px; background: transparent; color: var(--text); text-align: start; cursor: pointer; font: inherit; }
+.mascot-picker-options button > span:nth-child(2) { flex: 1; }
+.mascot-picker-options button[aria-pressed=true] { background: var(--selected-surface); border-color: var(--green); }
+.mascot-picker-options button:hover { background: var(--field); }
+.mascot-picker > summary:focus-visible, .mascot-picker-options button:focus-visible { outline: 3px solid var(--focus); outline-offset: -4px; }
 .palette-collection { margin-top: 12px; }
 .palette-collection > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 10px 12px; border: 1px solid var(--control-line); border-radius: 12px; cursor: pointer; font-size: 13px; color: var(--text); background: var(--field); }
 .palette-collection > summary strong { font-size: 12px; font-weight: 600; text-align: right; color: var(--green); }
