@@ -3,9 +3,9 @@ import {readFile} from 'node:fs/promises';
 import {resolve,sep,extname} from 'node:path';
 
 /** Isolated compiled-app server. Start with an older worker, then update to dist/sw.js. */
-export async function productionTestServer({ previousPage = false } = {}) {
+export async function productionTestServer({ previousPage = false, previousManifest = null } = {}) {
   const root=resolve('dist');let previous=true;let failedPath=null;
-  const oldWorker=`self.addEventListener('install',e=>e.waitUntil(caches.open('a-l-est-previous-test').then(async c=>{await c.put('/previous-marker',new Response('old'));${previousPage ? "await c.addAll(['/', '/index.html']);" : ''}}).then(()=>self.skipWaiting())));self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));${previousPage ? "self.addEventListener('fetch',e=>{if(e.request.method==='GET')e.respondWith(e.request.mode==='navigate'?fetch(e.request):caches.match(e.request).then(c=>c||fetch(e.request)));});" : ''}`;
+  const oldWorker=`self.addEventListener('install',e=>e.waitUntil(caches.open('a-l-est-previous-test').then(async c=>{await c.put('/previous-marker',new Response('old'));${previousPage ? "await c.addAll(['/', '/index.html']);" : ''}${previousManifest ? `await c.put('/manifest.webmanifest',new Response(${JSON.stringify(JSON.stringify(previousManifest))},{headers:{'Content-Type':'application/manifest+json'}}));` : ''}}).then(()=>self.skipWaiting())));self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));${previousPage || previousManifest ? "self.addEventListener('fetch',e=>{if(e.request.method==='GET')e.respondWith(e.request.mode==='navigate'?fetch(e.request):caches.match(e.request).then(c=>c||fetch(e.request)));});" : ''}`;
   const server=createServer(async(request,response)=>{
     const pathname=new URL(request.url,'http://localhost').pathname;
     response.setHeader('Cache-Control','no-store');

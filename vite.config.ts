@@ -1,7 +1,18 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), {
+    name: 'version-install-manifest',
+    transformIndexHtml(html) {
+      // A previous worker can still serve its cached manifest after navigation
+      // loads the new HTML. A content version bypasses that old cache entry;
+      // the manifest's explicit id keeps the installed application unchanged.
+      const version = createHash('sha256').update(readFileSync(new URL('./public/manifest.webmanifest', import.meta.url))).digest('hex').slice(0, 12);
+      return html.replace('href="/manifest.webmanifest"', `href="/manifest.webmanifest?v=${version}"`);
+    },
+  }],
   // Dependencies used only inside the DOCX worker must be discovered before
   // first import, otherwise dev optimization reloads an open review dialog.
   optimizeDeps: { include: ['fflate', 'saxes', 'pdfjs-dist'] },

@@ -45,6 +45,7 @@ const steps = [
   local('lieux compilés hors ligne', 'scripts/smoke-places.mjs', [], output),
   local('PWA mobile compilée', 'scripts/smoke-pwa-mobile.mjs', [], output),
   local('mise à jour Chrome et WebKit', 'scripts/smoke-app-update.mjs', [], output),
+  local('titre installation Chrome avec ancien manifeste en cache', 'scripts/smoke-install-manifest.mjs', [], output),
   local('planning compilé, carte, hors ligne et restauration', 'scripts/smoke-planning-import.mjs', [], output),
 ];
 console.log(`Vérification locale : profils jetables, URL Supabase factice, sorties ${output}`);
