@@ -26,6 +26,23 @@ Captures inspectées : [menu mobile](mascottes-mobile.png), [palette noire](pale
 
 ## Livraison
 
-Les 44 captures et fichiers de preuve historiques régénérés par les tests sont archivées dans la récupération externe et remises à leurs octets initiaux. La branche conserve ses dépendances locales déjà présentes ; pas de push ni de PR vers la base commune plus ancienne dans ce sujet.
+Les 44 captures et fichiers de preuve historiques régénérés par les tests sont archivées dans la récupération externe et remises à leurs octets initiaux. La branche conserve ses dépendances locales déjà présentes ; branche poussée pour la publication demandée ; aucune fusion dans la base commune plus ancienne.
 
-Pas de déploiement, de changement d'alias Vercel, de migration distante ou de fusion. Le build du gate utilise une configuration simulée et doit être reconstruit avec la configuration cible avant toute publication.
+Le build du gate utilise une configuration simulée et n'a pas été publié. Après autorisation explicite, Vercel a reconstruit le commit applicatif avec les variables preview de la cible. Aucune migration distante ou fusion n'est réalisée.
+
+
+## Publication autorisée du 26 octobre 2026
+
+- Bêta publique : https://app-vacances-27-beta-eliottle.vercel.app/.
+- Projet existant : `app-vacances-27` (`prj_GdllwjlfvjDogyKdH2ABRJay350a`), équipe `eliottle`.
+- Commit applicatif poussé et relu sur le distant : `88b641a5eeed666b3f7a01d36c2b6b5df25befb4`, branche `codex/preferences-installation-mascottes-noir`.
+- Preview compilée sur Vercel : `dpl_7jny8PyB1CjdjrSBajQLUSvuTWZB`, état `READY`, https://app-vacances-27-aahwde5fn-eliottle.vercel.app.
+- Build servi : `b38b6476d92f3ef1017d3b8ddafbd8822ed4da7ad9fc59e32e2429d596eb1d09`, entrée `/assets/index-CWmDrseA.js`.
+- Preview protégée vérifiée via le connecteur Vercel : manifeste, révision source, entrée HTML, nom d'installation et nouveau sélecteur. Absence de l'URL backend factice du gate dans l'entrée compilée.
+- Alias bêta relu avant et après la bascule. Son exception publique préexistante est conservée ; les autres domaines et la protection du projet restent inchangés.
+- Vérification du site public : 111/111 fichiers servis contrôlés par taille et SHA-256, identité du build et du commit concordantes, manifeste `Détours`, trois mascottes et leurs aperçus sélectionnables, fond noir réel, choix conservés après rechargement, aperçus disponibles hors ligne. Un carnet fictif créé dans un profil navigateur jetable reste identique. Zéro erreur d'exécution. La route `/mascotte/` de la démo est toujours disponible.
+- [Bilan public automatisé](public-verification.json), [menu publié](public-mascottes.png), [noir publié](public-noir.png).
+
+Retour arrière du frontend : réassigner uniquement l'alias bêta à `dpl_14fsgLoLycUgW129dpWKy1N9s9D4` (https://app-vacances-27-3euse1h0j-eliottle.vercel.app), ancien déploiement conservé. [Cible enregistrée](rollback.json). Les données navigateur et les carnets ne sont pas supprimés par cette opération ; préparer à nouveau le hors-ligne après un changement de version.
+
+Limites : contrôles Chrome de bureau avec viewport mobile et profil jetable. Pas d'essai OAuth réel, d'écriture cloud, d'appareil physique ni de renommage d'une application déjà installée. La mise à jour du nom affiché par le système dépend du navigateur.
