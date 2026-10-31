@@ -8,7 +8,7 @@ import { archive, chinaTrip, parseTrip, readTrip, recoveryKey, tripKey, writeTri
 import { initialCities } from '../data/trip';
 import { useCloud } from '../cloud/CloudProvider';
 import type { TripStorage } from '../cloud/storage';
-import { commitAssistant, writeWithRecovery } from '../travel-write';
+import { commitAssistant, commitStepOrderUndo, writeWithRecovery, type StepOrderUndo } from '../travel-write';
 import { assistantRevision, type AssistantProposal } from '../assistant';
 
 export function recoveryState(raw: string): StoredState { try { return parseTrip(raw).state; } catch { const old = parseBackup(raw); return old.journey ? old : chinaTrip(old); } }
@@ -155,6 +155,20 @@ export function useTravelState(seed: StoredState, readOnly = false) {
     return ()=>window.removeEventListener('pagehide',flush);
   },[id,key,localStorage]);
   const setState = update as Dispatch<SetStateAction<StoredState>>;
+  const undoStepOrder = async (undo: StepOrderUndo) => {
+    if (!navigator.locks || strictBusy.current || pending.current || blocked.current || unsavedBase.current) throw new Error('Attends la sauvegarde. Si elle reste impossible, exporte le carnet.');
+    strictBusy.current = true; ++pending.current; setSaving(true);
+    const actionNumber = ++sequence.current;
+    try {
+      await navigator.locks.request(key, () => {
+        const active = live.current.active && live.current.scope === scope && live.current.storage === localStorage && actionNumber === sequence.current;
+        const result = commitStepOrderUndo(localStorage, { tripId: id, readOnly: readOnlyRef.current, active }, undo);
+        current.current = result.state; committed.current = result.state; lastWritten.current = JSON.stringify(archive(result.state));
+        setReactState(result.state); if (result.recovery) setRecovery(result.recovery);
+        setStorageError(''); setCorruptRaw(null);
+      });
+    } finally { strictBusy.current = false; --pending.current; if (live.current.active && !pending.current) setSaving(false); }
+  };
   const replaceState=(next:StoredState)=> {update({...next,journey:state.journey},true);};
-  return {state,setState,replaceState,storageError,corruptRaw,recovery,syncMessage,setSyncMessage,saving,applyAssistant};
+  return {state,setState,replaceState,storageError,corruptRaw,recovery,syncMessage,setSyncMessage,saving,applyAssistant,undoStepOrder};
 }

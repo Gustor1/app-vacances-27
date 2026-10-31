@@ -7,6 +7,7 @@ import { applyMissingConversions, conversionFor, currencyDigits, fetchExchangeRa
 import type { ExchangeRate, Expense, StoredState } from '../types';
 import { EditButton, EditInput, EditSelect, ReadOnlyContext, SharedFieldsContext } from './EditControls';
 import CurrencyConverter from './CurrencyConverter';
+import BudgetBreakdown from './BudgetBreakdown';
 import { useMoneyPreferences } from '../hooks/useMoneyPreferences';
 import { useExchangeRates } from '../hooks/useExchangeRates';
 import { liveExpenseSummary, pairKey, RATE_MAX_AGE } from '../live-rates';
@@ -126,6 +127,7 @@ export default function TripBudget({ state, onChange, notify }: { state: StoredS
       <div className="personal-expense-total"><p className="eyebrow">{t('Dans ma devise')}</p>{personalSummary&&personal.currency?<><strong className="personal-total-value">{personalSummary.partial!==undefined?money(personalSummary.partial,personal.currency):'—'}</strong><p>{t(personalSummary.total===undefined?'Estimation partielle au taux actuel':'Équivalent au taux actuel')}</p>{!!personalSummary.missing.length&&<p role="status">{t('Taux manquants : {currencies}. Les montants restent séparés.',{currencies:personalSummary.missing.join(', ')})}</p>}{personalSummary.dates.length>0&&<small>{t('Taux du {date}',{date:personalSummary.dates.map(date).join(' · ')})}</small>}<p className="practical-muted">{t('Cet équivalent suit tes dépenses et les derniers taux. Les montants enregistrés restent inchangés.')}</p></>:<p>{t('Choisis ton pays ou ta devise dans le convertisseur pour voir le total chez toi.')}</p>}</div>
       {state.budget !== undefined && <p>{t('Objectif :')} {budget !== undefined && Number.isFinite(budget) ? money(budget, reference) : money(state.budget, budgetCurrency)}{budgetCurrency !== reference && <> · {t('Montant d’origine :')} {money(state.budget, budgetCurrency)}{budgetQuote && <small className="budget-conversion">{quoteLabel(budgetCurrency, budgetQuote)}</small>}{budget === undefined && <small className="budget-conversion">{t('Conversion du budget indisponible. Renseigne le taux de {currency}.', { currency: budgetCurrency })}</small>}</>}{budget !== undefined && Number.isFinite(budget) && summary.total !== undefined && <> · <strong>{t(summary.total > budget ? 'Dépassement' : 'Restant')} : {money(Math.abs(budget - summary.total), reference)}</strong></>}</p>}
     </div>
+    <BudgetBreakdown expenses={state.expenses || []} currency={reference} rates={rates}/>
     <CurrencyConverter preferences={personal} from={converterFrom} to={converterTo} amount={converterAmount} quote={live.quotes[pairKey(converterFrom,converterTo)]} loading={live.loading} unavailable={live.unavailable} onFrom={setConverterFrom} onTo={setConverterTo} onAmount={setConverterAmount} onSwap={()=>{setConverterFrom(converterTo);setConverterTo(converterFrom);}} onRefresh={()=>void live.refresh()}/>
     <form className="panel practical-card" onSubmit={saveSettings} key={`${reference}-${state.budgetCurrency}-${state.budget}`}>
       <h3>{t('Mon budget et mon taux')}</h3>

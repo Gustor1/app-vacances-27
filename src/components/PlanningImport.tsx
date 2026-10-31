@@ -20,6 +20,7 @@ import { SYNTHETIC_EXAMPLES } from '../planning-import/fixtures';
 import { MAX_SOURCE_LENGTH, type DraftDay, type DraftItem, type ImportSession, type PlanningDraft, type Provenance } from '../planning-import/types';
 import './PlanningImport.css';
 import Mascot from './Mascot';
+import { ImportStepper } from './TravelInteractions';
 
 const userEvidence = (): Provenance => ({ title: { origin: 'user', quote: '' } });
 const emptyDay = (): DraftDay => ({ title: '', date: '', items: [], evidence: userEvidence() });
@@ -164,6 +165,7 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
   }
   const preservedNotes = draft ? unstructuredNotes(draft, reviewSource) : [];
   return <Modal title={t('Créer depuis un planning')} wide onClose={() => { stop(); onClose(); }}><div className="planning-import">
+    <ImportStepper step={saving || session.preparedTrip ? 2 : draft ? 1 : 0}/>
     {blocked && <div role="alert" className="notice warning-notice"><p>{t('Brouillon illisible. Sa source est conservée ; efface-le explicitement pour recommencer.')}</p><button type="button" className="text-btn" onClick={() => { try { downloadText(storage.getItem(DRAFT_KEY) || '', 'detours-brouillon-a-recuperer.json'); } catch { setError(t('Sauvegarde du brouillon impossible. Télécharge le texte avant de fermer.')); } }}><Download size={16}/>{t('Télécharger le brouillon brut')}</button></div>}
     {error && <p role="alert" className="notice warning-notice">{error}</p>}
     {structuredError && <div role="alert" className="notice warning-notice"><p>{structuredError.path} · {t(structuredError.message)}</p>

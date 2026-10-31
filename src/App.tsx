@@ -4,12 +4,13 @@ import { placeStep } from './places/model';
 import PlaceEnrichment from './components/PlaceEnrichment';
 import GuidedAssistant from './components/GuidedAssistant';
 import BrandMark from './components/BrandMark';
+import { ActionToast } from './components/TravelInteractions';
 import { EditButton, EditTextarea, EditInput, EditSelect } from './components/EditControls';
 import { ReadOnlyContext, SharedFieldsContext } from './components/EditControls';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { ComponentProps, FormEvent, ReactNode } from 'react';
-import { ArrowDown, ArrowRight, ArrowUp, BookOpen, CalendarDays, Check, CheckCheck, ChevronLeft, ChevronRight, CircleHelp, ClipboardList, Compass, Copy, Download, ExternalLink, Heart, Map as MapIcon, MapPin, Menu, Pencil, Plus, Search, Sparkles, TrainFront, Trash2, Utensils, X, Hotel, ShoppingBag, Footprints, Camera, Bookmark, Navigation, CheckCircle2 } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUp, BookOpen, CalendarDays, Check, CheckCheck, ChevronLeft, ChevronRight, CircleHelp, ClipboardList, Compass, Copy, Download, ExternalLink, Heart, Map as MapIcon, MapPin, Menu, Pencil, Plus, Search, Sparkles, TrainFront, Trash2, Utensils, X, Hotel, ShoppingBag, Footprints, Camera, Bookmark, Navigation } from 'lucide-react';
 import { useLocale } from './i18n';
 import PreferencesButton from './components/Preferences';
 import GlassSelection from './components/GlassSelection';
@@ -52,7 +53,8 @@ export function Modal({ title, children, onClose, wide = false }: { title: strin
   const ref = useRef<HTMLDivElement>(null);
   // Capture the trigger before an autoFocus field takes focus during the portal commit.
   const previousFocus = useRef(document.activeElement as HTMLElement | null);
-  const { dismiss, grabberProps } = useSheetMotion(ref, onClose);
+  const origin = useRef(previousFocus.current?.closest('.bonus-card, .memory-fan-print, .memory-album-print, .notebook-document-open, .journey-card, .overview-day')?.getBoundingClientRect());
+  const { dismiss, grabberProps } = useSheetMotion(ref, onClose, origin.current);
   const closeRef = useRef(dismiss); closeRef.current = dismiss;
   useEffect(() => {
     const previous = previousFocus.current;
@@ -82,7 +84,7 @@ function SourceDocument(props: ComponentProps<typeof LazySourceDocument>) {
 export default function App({ seed, onHome, onImport, externalError, accountControl, readOnly = false, allowedFields, collaborationControl }: { externalError?: string; seed: StoredState; onHome: () => void; onImport: (file: File) => Promise<void>; accountControl?: ReactNode; readOnly?: boolean; allowedFields?: string[]; collaborationControl?: ReactNode | ((local: { saving: boolean; storageError: string }) => ReactNode) }) {
   const { t, dateLocale } = useLocale();
   const { provider } = useMapPreferences();
-  const { state, setState, replaceState, storageError, corruptRaw, recovery, syncMessage, setSyncMessage, saving, applyAssistant } = useTravelState(seed, readOnly);
+  const { state, setState, replaceState, storageError, corruptRaw, recovery, syncMessage, setSyncMessage, saving, applyAssistant, undoStepOrder } = useTravelState(seed, readOnly);
   const [navigation] = useState(()=>initialNavigation(state));
   const [view, setView] = useState<View>(navigation?.view || 'planning');
   const journey = state.journey!;
@@ -96,6 +98,7 @@ export default function App({ seed, onHome, onImport, externalError, accountCont
   const [mobileMenu, setMobileMenu] = useState(false);
   const [modal, setModal] = useState<ModalState>(null);
   const [toast, setToast] = useState('');
+  const [undoMove, setUndoMove] = useState<{ city: string; day: string; before: Step[]; after: Step[] } | null>(null);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [mapOverview, setMapOverview] = useState(true);
   const emptyCity: City = { id: '', name: '', chineseName: '', subtitle: '', image: '/travel-landscape.svg', color: '#547764', days: [], notes: [], mapProvider: 'google' };
@@ -142,7 +145,6 @@ export default function App({ seed, onHome, onImport, externalError, accountCont
     document.addEventListener('keydown',keys);
     return ()=>{document.removeEventListener('keydown',keys);document.body.style.overflow=overflow;before?.focus();};
   },[mobileMenu]);
-  useEffect(() => { if (!toast) return; const timer = setTimeout(() => setToast(''), 3500); return () => clearTimeout(timer); }, [toast]);
   useEffect(() => { const online = () => setIsOnline(navigator.onLine); window.addEventListener('online', online); window.addEventListener('offline', online); return () => { window.removeEventListener('online', online); window.removeEventListener('offline', online); }; }, []);
   useEffect(() => { document.title = `Détours — ${journey.title}`; }, [journey.title, t]);
   useEffect(() => {
@@ -165,7 +167,22 @@ export default function App({ seed, onHome, onImport, externalError, accountCont
   function changeDay(updated: Day) { changeCity({ ...city, days: city.days.map(d => d.id === updated.id ? updated : d) }); }
   function toggleDone(id: string) { setState(s => ({ ...s, done: toggleValue(s.done, id) })); }
   function toggleFavorite(id: string) { setState(s => ({ ...s, favorites: toggleValue(s.favorites, id) })); }
-  function moveStep(step: Step, direction: number) { if (!day) return; const steps = [...day.steps]; const idx = steps.findIndex(s => s.id === step.id); const target = idx + direction; if (target < 0 || target >= steps.length) return; [steps[idx], steps[target]] = [steps[target], steps[idx]]; changeDay({ ...day, steps }); }
+  function moveStep(step: Step, direction: number) {
+    if (!day) return;
+    const steps = [...day.steps];
+    const index = steps.findIndex(item => item.id === step.id), target = index + direction;
+    if (index < 0 || target < 0 || target >= steps.length) return;
+    [steps[index], steps[target]] = [steps[target], steps[index]];
+    changeDay({ ...day, steps });
+    setUndoMove({ city: city.id, day: day.id, before: day.steps, after: steps });
+    setToast(t('Activité déplacée.'));
+  }
+  const moveCanUndo = !readOnly && !saving && !storageError && !!navigator.locks && undoMove && JSON.stringify(state.cities.find(item => item.id === undoMove.city)?.days.find(item => item.id === undoMove.day)?.steps) === JSON.stringify(undoMove.after);
+  async function undoLastMove() {
+    if (!undoMove || !moveCanUndo) return;
+    try { await undoStepOrder(undoMove); setUndoMove(null); setToast(t('Déplacement annulé.')); }
+    catch (error) { setUndoMove(null); setToast(t(error instanceof Error ? error.message : 'Annulation impossible.')); }
+  }
   async function copy(text: string) { try { await navigator.clipboard.writeText(text); setToast(t('Texte copié.')); } catch { setToast(t('Copie indisponible : sélectionne le nom affiché pour le copier.')); } }
   function exportData() { downloadText(JSON.stringify(archive(state), null, 2), `a-l-est-${journey.id}.json`); setToast(t('Ton carnet a été exporté.')); }
   function exportOriginal() { if(corruptRaw) downloadText(corruptRaw,'a-l-est-sauvegarde-a-recuperer.json'); }
@@ -240,7 +257,7 @@ export default function App({ seed, onHome, onImport, externalError, accountCont
       {([{ id: 'planning', label: 'Planning', icon: CalendarDays }, { id: 'map', label: 'Carte', icon: MapIcon }, { id: 'bonus', label: 'Bonus', icon: Sparkles }, { id: 'practical', label: 'Outils', icon: Compass }] as const).map(({ id, label, icon: Icon }) => <button key={id} aria-current={view === id ? 'page' : undefined} onClick={() => navigate(id)}><Icon size={20}/><span>{t(label)}</span></button>)}
       <button aria-label={t('Menu')} aria-expanded={mobileMenu} aria-controls="sidebar" onClick={() => setMobileMenu(true)}><Menu size={20}/><span>{t('Menu')}</span></button>
     </nav>
-    {toast && <div className="toast" role="status"><CheckCircle2 size={18}/>{t(toast)}<button onClick={() => setToast('')} aria-label={t("Fermer la notification")}><X size={15}/></button></div>}
+    {toast && <ActionToast key={`${toast}:${undoMove?.after.map(step => step.id).join(',') || ''}`} message={t(toast)} duration={undoMove && toast === t('Activité déplacée.') ? 8000 : 3500} action={moveCanUndo && toast === t('Activité déplacée.') ? { label: t('Annuler'), run: undoLastMove } : undefined} onClose={() => { setToast(''); setUndoMove(null); }}/>}
     {modal && <Modal title={modal.type === 'city' ? modal.city ? t('Modifier {name}', { name: modal.city.name }) : t('Une nouvelle ville, un nouveau chapitre') : modal.type === 'step' ? modal.step ? t('Modifier cette étape') : t('Ajouter une étape') : modal.type === 'day' ? modal.day ? t('Modifier cette journée') : t('Une nouvelle journée') : modal.type === 'bonus' ? modal.bonus.title : modal.type === 'bonus-editor' ? modal.bonus ? t('Modifier mon adresse') : t('Ajouter une adresse personnelle') : modal.type === 'confirm' ? modal.title : sourceLabel} wide={modal.type === 'source' || modal.type === 'document'} onClose={() => setModal(null)}>
       {modal.type === 'city' && <form onSubmit={cityForm} className="editor-form"><div className="form-row"><label className="field">{t("Ville, région ou lieu de séjour")}<EditInput name="name" required maxLength={100} defaultValue={modal.city?.name} placeholder={t("Ex. Kyoto, Bretagne…")}/></label><label className="field">{t("Nom local (facultatif)")}<EditInput name="chineseName" defaultValue={modal.city?.chineseName} placeholder={t("Dans l’écriture locale")}/></label></div><label className="field">{t("En quelques mots")}<EditInput name="subtitle" defaultValue={modal.city?.subtitle} placeholder={t("Entre jardins secrets et lumières de la ville")}/></label><label className="field">{t("Position dans le voyage")}<EditSelect name="position" defaultValue={modal.city?state.cities.findIndex(c=>c.id===modal.city?.id):state.cities.length}>{Array.from({length:state.cities.length+(modal.city?0:1)},(_,index)=><option value={index} key={index}>{t("Étape")} {index+1}{state.cities[index] && state.cities[index].id!==modal.city?.id ? t(' · avant {city}', { city: state.cities[index].name }) : ''}</option>)}</EditSelect></label><label className="field">{t("Nombre de nuits (facultatif)")}<EditInput name="nights" type="number" min="0" step="1" defaultValue={modal.city?.nights}/></label><label className="field">{t("Fuseau de cette étape (facultatif)")}<EditInput name="timezone" defaultValue={modal.city?.timezone} placeholder={journey.timezone}/></label><label className="field">{t("Pense-bête de la ville")}<EditTextarea category="notes" name="notes" rows={4} defaultValue={modal.city?.notes.join('\n')} placeholder={t("Une information par ligne…")}/></label><p className="muted small">{t("Centre de l’étape sur la carte (facultatif), en coordonnées WGS84. Sans coordonnées, aucun repère n’est inventé.")}</p><div className="form-row"><label className="field">{t("Latitude")}<EditInput name="lat" type="number" step="any" min="-90" max="90" defaultValue={modal.city?.coordinates?.[0]}/></label><label className="field">{t("Longitude")}<EditInput name="lng" type="number" step="any" min="-180" max="180" defaultValue={modal.city?.coordinates?.[1]}/></label></div><div className="form-actions"><button type="button" className="btn btn-secondary" onClick={() => setModal(null)}>{t("Annuler")}</button><EditButton className="btn btn-primary" type="submit"><Check size={16}/> {t("Enregistrer la ville")}</EditButton></div></form>}
       {modal.type === 'day' && <form className="editor-form" onSubmit={dayForm}><label className="field">{t("Le thème de cette journée")}<EditInput name="title" required maxLength={140} defaultValue={modal.day?.title} placeholder={t("Balades, bonnes tables et coucher de soleil")}/></label><label className="field">{t("Date de cette journée (facultative)")}<EditInput type="date" name="date" max="9999-12-30" min="0001-01-01" defaultValue={modal.day?.date}/></label><p className="muted">{t("Les dates sont choisies par journée. Deux villes peuvent partager la même date lors d’un transfert.")}</p><div className="form-actions"><button type="button" className="btn btn-secondary" onClick={() => setModal(null)}>{t("Annuler")}</button><EditButton className="btn btn-primary" type="submit">{t("Enregistrer la journée")}</EditButton></div></form>}
