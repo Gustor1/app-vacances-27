@@ -1,3 +1,4 @@
+import typographyStyles from '../typography.css?inline';
 import { activeSteps } from '../day-preparation';
 import { EditInput, EditButton } from './EditControls';
 import { useLocale, translate } from '../i18n';
@@ -34,7 +35,7 @@ export function printWholeTrip(state: StoredState, language: Language = 'fr', pr
   const dateLocale = localeFor(language);
   const displayDate = (value: string) => validCalendarDate(value) ? new Intl.DateTimeFormat(dateLocale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(`${value}T12:00:00Z`)) : value;
   const style = doc.createElement('style');
-  style.textContent = `@page { margin: 16mm; } body { font: 12pt system-ui,sans-serif; color:#172a27; line-height:1.5; } h1 {font-size:25pt} h2 {font-size:20pt;break-after:avoid} h3 {break-after:avoid} article {border-top:1px solid #aaa;padding-top:8px} p {white-space:pre-wrap;overflow-wrap:anywhere} a {color:#172a27;overflow-wrap:anywhere} .city {break-before:page} .city:first-of-type {break-before:auto} .step {break-inside:avoid} @media print {body {margin:0}}`;
+  style.textContent = typographyStyles + `@page { margin: 16mm; } body { font: 12pt var(--font-ui); color:#172a27; line-height:1.5; } h1,h2,h3 {font-family:var(--font-heading);font-weight:500;letter-spacing:-.015em} h1 {font-size:25pt} h2 {font-size:20pt;break-after:avoid} h3 {break-after:avoid} article {border-top:1px solid #aaa;padding-top:8px} p {white-space:pre-wrap;overflow-wrap:anywhere} a {color:#172a27;overflow-wrap:anywhere} .city {break-before:page} .city:first-of-type {break-before:auto} .step {break-inside:avoid} @media print {body {margin:0}}`;
   doc.head.append(style);
   const add = (parent: HTMLElement, tag: string, content: string, className = '') => {
     const node = doc.createElement(tag); node.textContent = content; node.className = className; parent.append(node); return node;

@@ -124,8 +124,11 @@ for (const width of [320, 390]) {
     for (const language of ['fr', 'en'] as const) {
       for (const theme of ['light', 'dark'] as const) {
         const dialog = await preferences(page);
-        await dialog.locator(`input[name="language"][value="${language}"]`).check();
-        await dialog.locator(`input[name="theme"][value="${theme}"]`).check();
+        // Click the visible label: the radio itself is intentionally visually hidden.
+        await dialog.locator(`label:has(input[name="language"][value="${language}"])`).click();
+        await expect(dialog.locator(`input[name="language"][value="${language}"]`)).toBeChecked();
+        await dialog.locator(`label:has(input[name="theme"][value="${theme}"])`).click();
+        await expect(dialog.locator(`input[name="theme"][value="${theme}"]`)).toBeChecked();
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
         await page.keyboard.press('Escape');
         const bottom = page.locator('.mobile-bottom-nav');

@@ -1,7 +1,7 @@
 /* Apple-inspired presentation. Existing travel data and workflows stay in their owners.
  * Repeating :root gives this final skin priority over legacy themed :is() selectors. */
 html:root:root {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-family: var(--font-ui);
   font-size: 15px;
   font-optical-sizing: auto;
   line-height: 1.5;
@@ -77,8 +77,17 @@ html:root:root :is(h1, h2, h3, h4, h5, .brand, .shared-trip-stats dd, .shared-st
   font-family: inherit;
   font-optical-sizing: auto;
 }
-html:root:root :is(h1, h2) { letter-spacing: -.035em; line-height: 1.14; font-weight: 700; }
-html:root:root h3 { letter-spacing: -.018em; font-weight: 650; }
+html:root:root :is(h1, h2) { letter-spacing: -.025em; line-height: 1.18; font-weight: 600; }
+html:root:root h3 { letter-spacing: -.01em; font-weight: 600; }
+/* Editorial titles; controls, activity names and data retain the UI family. */
+html:root:root :is(.journeys-intro h1, .journey-title h2, .page-intro h1, .city-heading h2, .day-heading h3, .overview-city > h2, .overview-day-link, .souvenir-pages h1, .souvenir-pages h2) {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -.015em;
+  font-optical-sizing: auto;
+}
+html:root:root :is(time, .currency-result, .personal-total-value, .shared-trip-stats dd) { font-variant-numeric: tabular-nums; }
+html:root:root:lang(zh-CN) :is(h1, h2, h3, .overview-day-link) { letter-spacing: normal; }
 html:root:root :is(button, a, input, select, textarea, summary) { -webkit-tap-highlight-color: transparent; }
 html:root:root :is(button, a, input, select, textarea, summary):focus-visible {
   outline: 3px solid var(--focus); outline-offset: 4px;
@@ -261,7 +270,7 @@ html:root:root .intro-actions .btn { font-size: .8rem; }
 html:root:root .hero { height: 300px; border-radius: 26px; margin-bottom: 2rem; background: #244c40; }
 html:root:root .hero-copy { padding: 2.5rem; }
 html:root:root .hero.custom-hero .hero-copy { height: 100%; background: linear-gradient(90deg, #0c172dd9, #0c172d12); }
-html:root:root .hero h2, html:root:root .hero.custom-hero h2 { font-family: inherit; font-size: clamp(2rem, 3.5vw, 3.2rem); letter-spacing: -.04em; line-height: 1.13; color: #fff; }
+html:root:root .hero h2, html:root:root .hero.custom-hero h2 { font-family: var(--font-heading); font-size: clamp(2rem, 3.5vw, 3.2rem); letter-spacing: -.015em; line-height: 1.18; font-weight: 500; color: #fff; }
 html:root:root .hero p { color: #f4f6facf; font-size: .95rem; max-width: 530px; }
 html:root:root .hero-pill { font-size: .65rem; color: #fff; letter-spacing: .1em; padding: .5rem .8rem; background: #ffffff1a; border-color: #ffffff40; }
 html:root:root .hero-stats { font-size: .82rem; color: #f4f6fa; gap: 1.25rem; }

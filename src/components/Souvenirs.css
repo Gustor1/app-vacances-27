@@ -12,7 +12,7 @@
 @media print {
   body:has(#souvenir-print-root) { overflow: visible !important; background: white !important; }
   body:has(#souvenir-print-root) > :not(#souvenir-print-root) { display: none !important; }
-  #souvenir-print-root { display: block !important; color: #111; background: white; font: 12pt sans-serif; }
+  #souvenir-print-root { display: block !important; color: #111; background: white; font: 12pt var(--font-ui); }
   #souvenir-print-root .souvenir-photo { max-height: 150mm; max-width: 170mm; }
   #souvenir-print-root h1 { font-size: 22pt; color: #111; }
   #souvenir-print-root h2 { font-size: 17pt; color: #111; }

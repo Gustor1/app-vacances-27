@@ -8,6 +8,7 @@ import AppUpdate from './components/AppUpdate';
 import { InstallProvider } from './components/InstallHelp';
 import { MapPreferencesProvider } from './MapPreferences';
 import { MascotPreferencesProvider } from './MascotPreferences';
+import './typography.css';
 import './styles.css';
 import './theme.css';
 import './apple-design.css';
