@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "buildId": "840c8d95e6a0074c6597b932a6befc29d0daf8b5da16a3438f3324433560f1d0",
+  "offlineReload": true,
+  "albumAndViewer": true,
+  "localBlobImage": true,
+  "fourLanguageTests": "separate Playwright suite",
+  "physicalDevice": false,
+  "errors": []
+}

@@ -44,4 +44,21 @@ Le travail part du checkout typographique `1e0d869`, descendant de la base parta
 
 ## Vérifications
 
-Résultats finaux à compléter après la fin des contrôles. Les captures utilisent uniquement une fixture fictive et l’illustration locale `public/china-landscape.svg`, jamais des photos personnelles.
+Code testé : `70327210c642c199f1b7452006b8647bccd09f51`. Le rapport complet se trouve dans [validation/gate-local.json](validation/gate-local.json). L’empreinte des sources est restée inchangée pendant le gate.
+
+- `npm run typecheck` et `npm run lint` : réussis, également exécutés dans le gate sur la version finale.
+- `npm test` : **336/336 réussis**, dont quatre essais d’annulation : modifications concurrentes, droits retirés, reprise après accusé interrompu et conservation des autres données.
+- Suites ciblées souvenirs, import, budget, navigation et nouveaux composants : **41 scénarios réussis** au passage groupé. Les deux scénarios ajoutés ensuite (reprise de lecture IndexedDB et navigation/budget/documents à 320 px) ont également réussi. Les dix scénarios du nouveau fichier ont tous été validés ; le passage principal en a validé neuf, le dernier a été rejoué après correction du sélecteur mobile de test.
+- Contrôle Impeccable des cinq nouveaux composants/styles : aucun signalement (`[]`). Inspection visuelle des captures ordinateur/téléphone ; clavier, Échap, mouvement réduit et quatre langues vérifiés dans les parcours dédiés.
+- Version compilée : **album et visionneuse validés après rechargement hors ligne**, image Blob locale décodée, aucune erreur JavaScript. [Preuve](verification-hors-ligne.json).
+- `npm run verify:local` avec PGlite externe : **incomplet / échec**. Huit étapes réussies : types produit, types tests, lint, tests unitaires, build, préparation hors ligne, intégrité du build, SQL simulé. Neuvième étape : **92 scénarios navigateur réussis, un échec**, `tests/e2e/planning-documents.spec.ts:33`, attente de 5 secondes de l’erreur de `scan.pdf` alors que la lecture était toujours en cours. [Contexte de l’échec](validation/echec-pdf-premier-gate.md).
+- Rejeu isolé du scénario PDF, avec les mêmes paramètres factices et le réseau externe bloqué : **réussi en 18,1 secondes** (22,1 secondes avec démarrage). Aucun changement du lecteur PDF ni assouplissement du test. Cela ne transforme pas le gate initial en succès.
+- **26 étapes non exécutées par le gate**, listées dans son JSON : palettes/préférences ; analyse planning simulée ; états L4/L5/L6 ; smokes production/sauvegarde/interface/partage/hors ligne/persistance/L5/L6/livraison ; kits structurés ; PDF/DOCX compilés ; compagnon compilé ; souvenirs navigateur/compilés ; assistant navigateur/compilé ; mascottes navigateur/compilées ; lieux compilés ; PWA mobile ; mise à jour Chrome/WebKit ; manifeste d’installation ; planning compilé. Les essais ciblés des souvenirs et le nouveau smoke de l’album sont des validations séparées.
+
+Build de test : `840c8d95e6a0074c6597b932a6befc29d0daf8b5da16a3438f3324433560f1d0`. `dist/` contient la configuration factice du gate et ne doit pas être publié tel quel. Aucun essai OAuth réel, service distant, appareil physique ou dialogue d’impression manuel dans cette contribution.
+
+## Captures et revue
+
+Captures fictives, sans données personnelles : [accueil](captures/accueil-desktop.png), [boîte et éventail](captures/souvenirs-desktop.png), [téléphone](captures/souvenirs-mobile.png), [étapes](captures/etapes-desktop.png), [budget](captures/budget-desktop.png), [documents](captures/documents-desktop.png). Les photos de démonstration utilisent l’illustration déjà livrée `public/china-landscape.svg` ; les cartes utilisent également `public/travel-landscape.svg`.
+
+La base partagée `9fa03b1` ne contient pas les **14 commits antérieurs** du checkout `1e0d869`. La branche conserve ces prérequis pour préserver les fonctions actuelles ; une PR vers `codex/carnets-universels` les inclut aussi. Pour une revue strictement limitée à cette contribution : comparer `1e0d869..7032721` (27 fichiers). Le brouillon n’est pas une validation de fusion de l’ensemble historique.
