@@ -1,0 +1,13 @@
+{
+  "buildId": "1cb4f78b8ecf71edbb7c2decbafe7c6c6aa75512473bed1c7e97413206f58cbb",
+  "baseRevision": "757ceadd14846fbc5d70fb3b0b977b96da22b915",
+  "files": 111,
+  "errors": [],
+  "fonts": [
+    "Hanken Grotesk",
+    "Newsreader"
+  ],
+  "heading": "Newsreader, Georgia, \"Songti SC\", SimSun, serif",
+  "runtime": [],
+  "fontsPrecached": true
+}

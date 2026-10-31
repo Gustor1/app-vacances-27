@@ -89,8 +89,10 @@ try {
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   await page.screenshot({ path: 'docs/transition/screenshots/production-china-mobile.png', fullPage: true });
   await page.getByRole('button', { name: 'Préférences', exact: true }).click();
-  await page.getByRole('dialog').getByRole('radio', { name: 'Sombre', exact: true }).check();
-  await page.getByRole('dialog').getByRole('radio', { name: 'English', exact: true }).check();
+  await page.getByRole('dialog').locator('label').filter({ has: page.getByRole('radio', { name: 'Sombre', exact: true }) }).click();
+  assert.equal(await page.getByRole('dialog').getByRole('radio', { name: 'Sombre', exact: true }).isChecked(), true);
+  await page.getByRole('dialog').locator('label').filter({ has: page.getByRole('radio', { name: 'English', exact: true }) }).click();
+  assert.equal(await page.getByRole('dialog').getByRole('radio', { name: 'English', exact: true }).isChecked(), true);
   await page.keyboard.press('Escape');
   await page.reload();
   assert.equal(await page.locator('html').getAttribute('lang'), 'en');
@@ -132,7 +134,8 @@ try {
   for (const [language, label] of [['zh-CN', '中文（简体）'], ['es', 'Español']]) {
     const t = source => translate(source, language);
     await page.getByRole('button', { name: preferenceLabel, exact: true }).click();
-    await page.getByRole('dialog').getByRole('radio', { name: label, exact: true }).check();
+    await page.getByRole('dialog').locator('label').filter({ has: page.getByRole('radio', { name: label, exact: true }) }).click();
+  assert.equal(await page.getByRole('dialog').getByRole('radio', { name: label, exact: true }).isChecked(), true);
     await page.keyboard.press('Escape');
     await page.reload();
     assert.equal(await page.locator('html').getAttribute('lang'), language);
