@@ -22,7 +22,7 @@ test('header fills the viewport and has no seam in both themes, before and after
       expect(header.image).toBe('none');
       expect(header.shadow).toBe('none');
       expect(header.border).toBe('0px');
-      await expect.poll(() => page.locator('.topbar').evaluate(el => getComputedStyle(el).backgroundColor.replace(/, [\d.]+\)$/, ')').replace('rgba(', 'rgb('))).toBe(header.body);
+      await expect.poll(() => page.locator('.topbar').evaluate(el => getComputedStyle(el).backgroundColor)).toBe(header.body);
     }
   }
   expect(await page.locator('meta[name=viewport]').getAttribute('content')).toContain('viewport-fit=cover');
