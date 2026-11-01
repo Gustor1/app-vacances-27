@@ -46,7 +46,8 @@ export function PeekCard({ title, children }: { title: string; children: ReactNo
 
 export function ImportStepper({ step }: { step: number }) {
   const { t } = useLocale();
-  return <ol className="travel-stepper" aria-label={t('Étapes de création du carnet')}>{['Ton programme', 'Vérifier le programme', 'Créer le carnet'].map((label, index) => <li key={label} data-state={index < step ? 'done' : index === step ? 'current' : 'next'} aria-current={index === step ? 'step' : undefined}><span>{index < step ? <Check size={16}/> : index + 1}</span><strong>{t(label)}</strong></li>)}</ol>;
+  const labels = ['Ton programme', 'Vérifier le programme', 'Créer le carnet'];
+  return <div className="travel-import-progress"><p className="travel-import-current" aria-live="polite"><strong>{step + 1} / 3</strong><span>{t(labels[step])}</span></p><ol className="travel-stepper" aria-label={t('Étapes de création du carnet')}>{labels.map((label, index) => <li key={label} data-state={index < step ? 'done' : index === step ? 'current' : 'next'} aria-current={index === step ? 'step' : undefined}><span key={String(index === step)}>{index < step ? <Check size={16}/> : index + 1}</span><strong>{t(label)}</strong></li>)}</ol></div>;
 }
 
 export function ScrollProgressNav({ items }: { items: { id: string; title: string }[] }) {

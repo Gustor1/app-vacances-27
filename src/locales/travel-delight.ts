@@ -33,5 +33,12 @@ const rows: [string, string, string, string][] = [
   ['Animer le relief', 'Animate the terrain', '播放地形动画', 'Animar el relieve'],
   ['Activité déplacée.', 'Activity moved.', '活动已移动。', 'Actividad movida.'],
   ['Déplacement annulé.', 'Move undone.', '已撤销移动。', 'Movimiento deshecho.'],
+  ['Ton dossier de voyage attend ses premiers documents', 'Your travel folder is ready for its first documents', '旅行文件夹等待你的第一份文档', 'Tu carpeta de viaje espera sus primeros documentos'],
+  ['Ajoute un fichier texte ou Markdown pour le garder à portée de main.', 'Add a text or Markdown file to keep it close at hand.', '添加文本或Markdown文件，随时查阅。', 'Añade un archivo de texto o Markdown para tenerlo a mano.'],
+  ['Joindre mon premier document', 'Attach my first document', '添加我的第一份文档', 'Adjuntar mi primer documento'],
+  ['Aucune dépense', 'No expenses', '暂无支出', 'Sin gastos'],
+  ['En attente de conversion', 'Awaiting conversion', '等待换算', 'Pendiente de conversión'],
+  ['Ajoute ta première dépense : sa répartition apparaîtra ici.', 'Add your first expense: its breakdown will appear here.', '添加第一笔支出后，这里将显示支出分布。', 'Añade tu primer gasto: su distribución aparecerá aquí.'],
+  ['Les dépenses sont conservées. Ajoute les taux manquants pour dessiner leur répartition.', 'Your expenses are preserved. Add the missing exchange rates to show their breakdown.', '支出已保留。补充缺失的汇率后即可显示分布。', 'Tus gastos se conservan. Añade los tipos de cambio que faltan para ver su distribución.'],
 ];
 export const travelDelightDictionary = (index: 0 | 1 | 2): Record<string, string> => Object.fromEntries(rows.map(row => [row[0], row[index + 1]]));

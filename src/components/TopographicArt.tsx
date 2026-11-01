@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
 
 /** Authored contour geometry; decorative terrain, never a geographic map. */
 const contours = Array.from({ length: 14 }, (_, index) => {
@@ -12,7 +12,7 @@ const contours = Array.from({ length: 14 }, (_, index) => {
   }).join(' ') + 'Z';
 });
 
-export default function TopographicArt({ relief = false, animated = true }: { relief?: boolean; animated?: boolean }) {
+export default function TopographicArt({ relief = false, animated = true, forceMotion = false }: { relief?: boolean; animated?: boolean; forceMotion?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const element = ref.current;
@@ -24,9 +24,9 @@ export default function TopographicArt({ relief = false, animated = true }: { re
     document.addEventListener('visibilitychange', update);
     return () => { observer.disconnect(); document.removeEventListener('visibilitychange', update); };
   }, []);
-  return <div ref={ref} className={`topographic-art ${relief ? 'topographic-relief' : ''}`} data-animated={animated} aria-hidden="true">
+  return <div ref={ref} className={`topographic-art ${relief ? 'topographic-relief' : ''}`} data-animated={animated} data-user-motion={forceMotion} aria-hidden="true">
     <svg viewBox="0 0 720 360" preserveAspectRatio="xMidYMid slice" focusable="false">
-      <g>{[...contours].reverse().map((path, index) => <path key={index} d={path} className={index % 4 === 0 ? 'contour-major' : undefined}/>)}</g>
+      <g>{[...contours].reverse().map((path, index) => <path key={index} d={path} style={{ '--contour-index': index } as CSSProperties} className={index % 4 === 0 ? 'contour-major' : undefined}/>)}</g>
     </svg>
   </div>;
 }
