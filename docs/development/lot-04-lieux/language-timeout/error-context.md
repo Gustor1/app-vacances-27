@@ -1,0 +1,1656 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: world-languages.spec.ts >> 中文（简体）: library, all views, dates, forms and saved notes
+- Location: tests\e2e\world-languages.spec.ts:8:3
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: locator.click: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for getByRole('tab', { name: '我的行李', exact: true })
+    - locator resolved to <button role="tab" tabindex="-1" id="practical-tab-2" aria-selected="false" aria-controls="practical-panel-2">我的行李</button>
+  - attempting click action
+    - waiting for element to be visible, enabled and stable
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - link "跳转到内容" [ref=e4] [cursor=pointer]:
+      - /url: "#main"
+    - complementary [ref=e5]:
+      - link "détours. 发现美好旅途" [ref=e6] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e9]:
+          - text: détours.
+          - generic [ref=e10]: 发现美好旅途
+      - button "我的旅行" [ref=e11] [cursor=pointer]:
+        - generic [ref=e12]: 中
+        - generic [ref=e13]:
+          - strong [ref=e14]: Chine 2027
+          - generic [ref=e15]: 我的旅行
+      - paragraph [ref=e18]: 我的旅行
+      - navigation "主导航" [ref=e19]:
+        - button "现在" [ref=e20] [cursor=pointer]
+        - button "我的行程" [ref=e25] [cursor=pointer]
+        - button "旅行总览" [ref=e29] [cursor=pointer]
+        - button "旅行地图" [ref=e34] [cursor=pointer]
+        - button "心愿与备选 ♡" [ref=e38] [cursor=pointer]:
+          - generic [ref=e41]: 心愿与备选
+          - generic [ref=e42]: ♡
+        - button "我的交通" [ref=e43] [cursor=pointer]
+        - button "旅行手册" [ref=e52] [cursor=pointer]
+        - button "旅途工具" [ref=e56] [cursor=pointer]
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - generic [ref=e64]: 旅行路线
+          - generic [ref=e65]: 7 站
+        - button "Shenzhen 3 天" [ref=e66] [cursor=pointer]:
+          - generic [ref=e68]: Shenzhen
+          - generic [ref=e69]: 3 天
+        - button "Guangzhou 3 天" [ref=e70] [cursor=pointer]:
+          - generic [ref=e72]: Guangzhou
+          - generic [ref=e73]: 3 天
+        - button "Yangshuo 3 天" [ref=e74] [cursor=pointer]:
+          - generic [ref=e76]: Yangshuo
+          - generic [ref=e77]: 3 天
+        - button "Chongqing & Wulong 4 天" [ref=e78] [cursor=pointer]:
+          - generic [ref=e80]: Chongqing & Wulong
+          - generic [ref=e81]: 4 天
+        - button "Chengdu 3 天" [ref=e82] [cursor=pointer]:
+          - generic [ref=e84]: Chengdu
+          - generic [ref=e85]: 3 天
+        - button "Shanghai 即将安排" [ref=e86] [cursor=pointer]:
+          - generic [ref=e88]: Shanghai
+          - generic [ref=e89]: 即将安排
+        - button "Suzhou 1 天 最后一站" [ref=e90] [cursor=pointer]:
+          - generic [ref=e92]: Suzhou
+          - generic [ref=e93]: 1 天
+          - generic [ref=e94]: 最后一站
+        - button "添加城市" [ref=e95] [cursor=pointer]
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - text: 慢慢来
+          - paragraph [ref=e99]: 慢慢来。保持探索的好奇心。
+        - generic [ref=e102]: 手册已保存在此设备上
+    - generic [ref=e104]:
+      - banner [ref=e105]:
+        - generic [ref=e106]:
+          - generic [ref=e107]: 我的旅行手册
+          - strong [ref=e110]: Chine 2027
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - textbox "搜索手册" [ref=e116]:
+              - /placeholder: 查找地点、心愿…
+            - generic [ref=e117]: ⌕
+          - button "实用信息" [ref=e118] [cursor=pointer]
+          - button "偏好设置" [ref=e122] [cursor=pointer]
+          - button "登录" [ref=e125] [cursor=pointer]
+      - main [ref=e132]:
+        - region "共享与同步" [ref=e133]:
+          - generic [ref=e134]:
+            - generic [ref=e135]: 我的旅行 · 所有者
+            - button "共享" [ref=e143] [cursor=pointer]
+          - generic [ref=e149]:
+            - status [ref=e150]: 已保存在此设备
+            - button "查看同步状态" [ref=e154] [cursor=pointer]
+          - paragraph [ref=e155]: 有网络连接，但这不代表数据已上传或已备份到其他设备。
+        - button "查看现在" [ref=e156] [cursor=pointer]
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - generic [ref=e159]: 旅程从这里开始
+            - heading "大旅行的小工具。" [level=1] [ref=e161]
+            - paragraph [ref=e162]: 住宿、预算、行李和沟通常用语。
+          - generic [ref=e163]:
+            - button "继续" [ref=e164] [cursor=pointer]
+            - button "导出手册" [ref=e167] [cursor=pointer]
+        - generic [ref=e171]:
+          - generic [ref=e173]:
+            - generic [ref=e174]: 你的旅行伙伴
+            - heading "实用工具" [level=2] [ref=e175]
+            - paragraph [ref=e176]: 随手可查的地址、支出和必需品。
+          - tablist "实用工具" [ref=e177]:
+            - tab "住宿" [ref=e178] [cursor=pointer]
+            - tab "预算" [active] [selected] [ref=e179] [cursor=pointer]
+            - tab "我的行李" [ref=e180] [cursor=pointer]
+            - tab "实用短语" [ref=e181] [cursor=pointer]
+          - tabpanel "预算" [ref=e182]:
+            - generic [ref=e183]:
+              - generic [ref=e184]:
+                - heading "我的支出" [level=3] [ref=e185]
+                - strong [ref=e187]: CNY 0.00
+                - paragraph [ref=e188]:
+                  - text: CNY 总额：
+                  - strong [ref=e189]: CNY 0.00
+                - generic [ref=e190]:
+                  - paragraph [ref=e191]: 以我的货币计价
+                  - paragraph [ref=e192]: 在转换器中选择国家或货币，即可查看家乡货币总额。
+              - region [ref=e193]:
+                - generic [ref=e194]:
+                  - generic [ref=e195]:
+                    - paragraph [ref=e196]: 旅途中和家乡
+                    - heading "货币转换器" [level=3] [ref=e197]
+                  - button "刷新汇率" [disabled] [ref=e198]
+                - generic [ref=e204]:
+                  - generic [ref=e205]:
+                    - text: 我的国家
+                    - combobox "我的国家" [ref=e206]:
+                      - option "选择我的国家" [selected]
+                      - option "阿尔巴尼亚"
+                      - option "阿尔及利亚"
+                      - option "阿富汗"
+                      - option "阿根廷"
+                      - option "阿拉伯联合酋长国"
+                      - option "阿鲁巴"
+                      - option "阿曼"
+                      - option "阿塞拜疆"
+                      - option "埃及"
+                      - option "埃塞俄比亚"
+                      - option "爱尔兰"
+                      - option "爱沙尼亚"
+                      - option "安道尔"
+                      - option "安哥拉"
+                      - option "安圭拉"
+                      - option "安提瓜和巴布达"
+                      - option "奥地利"
+                      - option "奥兰群岛"
+                      - option "澳大利亚"
+                      - option "澳门"
+                      - option "巴巴多斯"
+                      - option "巴布亚新几内亚"
+                      - option "巴哈马"
+                      - option "巴基斯坦"
+                      - option "巴拉圭"
+                      - option "巴勒斯坦"
+                      - option "巴林"
+                      - option "巴拿马"
+                      - option "巴西"
+                      - option "白俄罗斯"
+                      - option "百慕大"
+                      - option "保加利亚"
+                      - option "北马里亚纳群岛"
+                      - option "北马其顿"
+                      - option "贝宁"
+                      - option "比利时"
+                      - option "冰岛"
+                      - option "波多黎各"
+                      - option "波兰"
+                      - option "波斯尼亚和黑塞哥维那"
+                      - option "玻利维亚"
+                      - option "伯利兹"
+                      - option "博茨瓦纳"
+                      - option "不丹"
+                      - option "布基纳法索"
+                      - option "布隆迪"
+                      - option "布韦岛"
+                      - option "朝鲜"
+                      - option "赤道几内亚"
+                      - option "丹麦"
+                      - option "德国"
+                      - option "东帝汶"
+                      - option "多哥"
+                      - option "多米尼加共和国"
+                      - option "多米尼克"
+                      - option "俄罗斯"
+                      - option "厄瓜多尔"
+                      - option "厄立特里亚"
+                      - option "法国"
+                      - option "法罗群岛"
+                      - option "法属波利尼西亚"
+                      - option "法属圭亚那"
+                      - option "法属南部领地"
+                      - option "法属圣马丁"
+                      - option "梵蒂冈"
+                      - option "菲律宾"
+                      - option "斐济"
+                      - option "芬兰"
+                      - option "佛得角"
+                      - option "福克兰群岛（马尔维纳斯群岛）"
+                      - option "冈比亚"
+                      - option "刚果（布）"
+                      - option "刚果（金）"
+                      - option "哥伦比亚"
+                      - option "哥斯达黎加"
+                      - option "格林纳达"
+                      - option "格陵兰"
+                      - option "格鲁吉亚"
+                      - option "根西岛"
+                      - option "古巴"
+                      - option "瓜德罗普"
+                      - option "关岛"
+                      - option "圭亚那"
+                      - option "哈萨克斯坦"
+                      - option "海地"
+                      - option "韩国"
+                      - option "荷兰"
+                      - option "荷属加勒比区"
+                      - option "荷属圣马丁"
+                      - option "赫德岛和麦克唐纳群岛"
+                      - option "黑山"
+                      - option "洪都拉斯"
+                      - option "基里巴斯"
+                      - option "吉布提"
+                      - option "吉尔吉斯斯坦"
+                      - option "几内亚"
+                      - option "几内亚比绍"
+                      - option "加拿大"
+                      - option "加纳"
+                      - option "加蓬"
+                      - option "柬埔寨"
+                      - option "捷克"
+                      - option "津巴布韦"
+                      - option "喀麦隆"
+                      - option "卡塔尔"
+                      - option "开曼群岛"
+                      - option "科科斯（基林）群岛"
+                      - option "科摩罗"
+                      - option "科索沃"
+                      - option "科特迪瓦"
+                      - option "科威特"
+                      - option "克罗地亚"
+                      - option "肯尼亚"
+                      - option "库克群岛"
+                      - option "库拉索"
+                      - option "拉脱维亚"
+                      - option "莱索托"
+                      - option "老挝"
+                      - option "黎巴嫩"
+                      - option "立陶宛"
+                      - option "利比里亚"
+                      - option "利比亚"
+                      - option "列支敦士登"
+                      - option "留尼汪"
+                      - option "卢森堡"
+                      - option "卢旺达"
+                      - option "罗马尼亚"
+                      - option "马达加斯加"
+                      - option "马恩岛"
+                      - option "马尔代夫"
+                      - option "马耳他"
+                      - option "马拉维"
+                      - option "马来西亚"
+                      - option "马里"
+                      - option "马绍尔群岛"
+                      - option "马提尼克"
+                      - option "马约特"
+                      - option "毛里求斯"
+                      - option "毛里塔尼亚"
+                      - option "美国"
+                      - option "美国本土外小岛屿"
+                      - option "美属萨摩亚"
+                      - option "美属维尔京群岛"
+                      - option "蒙古"
+                      - option "蒙特塞拉特"
+                      - option "孟加拉国"
+                      - option "秘鲁"
+                      - option "密克罗尼西亚"
+                      - option "缅甸"
+                      - option "摩尔多瓦"
+                      - option "摩洛哥"
+                      - option "摩纳哥"
+                      - option "莫桑比克"
+                      - option "墨西哥"
+                      - option "纳米比亚"
+                      - option "南非"
+                      - option "南极洲"
+                      - option "南乔治亚和南桑威奇群岛"
+                      - option "南苏丹"
+                      - option "瑙鲁"
+                      - option "尼加拉瓜"
+                      - option "尼泊尔"
+                      - option "尼日尔"
+                      - option "尼日利亚"
+                      - option "纽埃"
+                      - option "挪威"
+                      - option "诺福克岛"
+                      - option "帕劳"
+                      - option "皮特凯恩群岛"
+                      - option "葡萄牙"
+                      - option "日本"
+                      - option "瑞典"
+                      - option "瑞士"
+                      - option "萨尔瓦多"
+                      - option "萨摩亚"
+                      - option "塞尔维亚"
+                      - option "塞拉利昂"
+                      - option "塞内加尔"
+                      - option "塞浦路斯"
+                      - option "塞舌尔"
+                      - option "沙特阿拉伯"
+                      - option "圣巴泰勒米"
+                      - option "圣诞岛"
+                      - option "圣多美和普林西比"
+                      - option "圣赫勒拿"
+                      - option "圣基茨和尼维斯"
+                      - option "圣卢西亚"
+                      - option "圣马力诺"
+                      - option "圣皮埃尔和密克隆群岛"
+                      - option "圣文森特和格林纳丁斯"
+                      - option "斯里兰卡"
+                      - option "斯洛伐克"
+                      - option "斯洛文尼亚"
+                      - option "斯瓦尔巴和扬马延"
+                      - option "斯威士兰"
+                      - option "苏丹"
+                      - option "苏里南"
+                      - option "所罗门群岛"
+                      - option "索马里"
+                      - option "塔吉克斯坦"
+                      - option "台湾"
+                      - option "泰国"
+                      - option "坦桑尼亚"
+                      - option "汤加"
+                      - option "特克斯和凯科斯群岛"
+                      - option "特立尼达和多巴哥"
+                      - option "突尼斯"
+                      - option "图瓦卢"
+                      - option "土耳其"
+                      - option "土库曼斯坦"
+                      - option "托克劳"
+                      - option "瓦利斯和富图纳"
+                      - option "瓦努阿图"
+                      - option "危地马拉"
+                      - option "委内瑞拉"
+                      - option "文莱"
+                      - option "乌干达"
+                      - option "乌克兰"
+                      - option "乌拉圭"
+                      - option "乌兹别克斯坦"
+                      - option "西班牙"
+                      - option "西撒哈拉"
+                      - option "希腊"
+                      - option "香港"
+                      - option "新加坡"
+                      - option "新喀里多尼亚"
+                      - option "新西兰"
+                      - option "匈牙利"
+                      - option "叙利亚"
+                      - option "牙买加"
+                      - option "亚美尼亚"
+                      - option "也门"
+                      - option "伊拉克"
+                      - option "伊朗"
+                      - option "以色列"
+                      - option "意大利"
+                      - option "印度"
+                      - option "印度尼西亚"
+                      - option "英国"
+                      - option "英属维尔京群岛"
+                      - option "英属印度洋领地"
+                      - option "约旦"
+                      - option "越南"
+                      - option "赞比亚"
+                      - option "泽西岛"
+                      - option "乍得"
+                      - option "直布罗陀"
+                      - option "智利"
+                      - option "中非共和国"
+                      - option "中国"
+                  - generic [ref=e207]:
+                    - text: 我的货币
+                    - combobox "我的货币" [ref=e208]:
+                      - option "选择我的货币" [selected]
+                      - option "AED · 阿联酋迪拉姆"
+                      - option "AFN · 阿富汗尼"
+                      - option "ALL · 阿尔巴尼亚列克"
+                      - option "AMD · 亚美尼亚德拉姆"
+                      - option "ANG · 荷属安的列斯盾"
+                      - option "AOA · 安哥拉宽扎"
+                      - option "ARS · 阿根廷比索"
+                      - option "AUD · 澳大利亚元"
+                      - option "AWG · 阿鲁巴弗罗林"
+                      - option "AZN · 阿塞拜疆马纳特"
+                      - option "BAM · 波斯尼亚-黑塞哥维那可兑换马克"
+                      - option "BBD · 巴巴多斯元"
+                      - option "BDT · 孟加拉塔卡"
+                      - option "BGN · 保加利亚列弗"
+                      - option "BHD · 巴林第纳尔"
+                      - option "BIF · 布隆迪法郎"
+                      - option "BMD · 百慕大元"
+                      - option "BND · 文莱元"
+                      - option "BOB · 玻利维亚诺"
+                      - option "BRL · 巴西雷亚尔"
+                      - option "BSD · 巴哈马元"
+                      - option "BTN · 不丹努尔特鲁姆"
+                      - option "BWP · 博茨瓦纳普拉"
+                      - option "BYN · 白俄罗斯卢布"
+                      - option "BZD · 伯利兹元"
+                      - option "CAD · 加拿大元"
+                      - option "CDF · 刚果法郎"
+                      - option "CHF · 瑞士法郎"
+                      - option "CLP · 智利比索"
+                      - option "CNY · 人民币"
+                      - option "COP · 哥伦比亚比索"
+                      - option "CRC · 哥斯达黎加科朗"
+                      - option "CUC · 古巴可兑换比索"
+                      - option "CUP · 古巴比索"
+                      - option "CVE · 佛得角埃斯库多"
+                      - option "CZK · 捷克克朗"
+                      - option "DJF · 吉布提法郎"
+                      - option "DKK · 丹麦克朗"
+                      - option "DOP · 多米尼加比索"
+                      - option "DZD · 阿尔及利亚第纳尔"
+                      - option "EGP · 埃及镑"
+                      - option "ERN · 厄立特里亚纳克法"
+                      - option "ETB · 埃塞俄比亚比尔"
+                      - option "EUR · 欧元"
+                      - option "FJD · 斐济元"
+                      - option "FKP · 福克兰群岛镑"
+                      - option "GBP · 英镑"
+                      - option "GEL · 格鲁吉亚拉里"
+                      - option "GHS · 加纳塞地"
+                      - option "GIP · 直布罗陀镑"
+                      - option "GMD · 冈比亚达拉西"
+                      - option "GNF · 几内亚法郎"
+                      - option "GTQ · 危地马拉格查尔"
+                      - option "GYD · 圭亚那元"
+                      - option "HKD · 港元"
+                      - option "HNL · 洪都拉斯伦皮拉"
+                      - option "HRK · 克罗地亚库纳"
+                      - option "HTG · 海地古德"
+                      - option "HUF · 匈牙利福林"
+                      - option "IDR · 印度尼西亚卢比"
+                      - option "ILS · 以色列新谢克尔"
+                      - option "INR · 印度卢比"
+                      - option "IQD · 伊拉克第纳尔"
+                      - option "IRR · 伊朗里亚尔"
+                      - option "ISK · 冰岛克朗"
+                      - option "JMD · 牙买加元"
+                      - option "JOD · 约旦第纳尔"
+                      - option "JPY · 日元"
+                      - option "KES · 肯尼亚先令"
+                      - option "KGS · 吉尔吉斯斯坦索姆"
+                      - option "KHR · 柬埔寨瑞尔"
+                      - option "KMF · 科摩罗法郎"
+                      - option "KPW · 朝鲜元"
+                      - option "KRW · 韩元"
+                      - option "KWD · 科威特第纳尔"
+                      - option "KYD · 开曼元"
+                      - option "KZT · 哈萨克斯坦坚戈"
+                      - option "LAK · 老挝基普"
+                      - option "LBP · 黎巴嫩镑"
+                      - option "LKR · 斯里兰卡卢比"
+                      - option "LRD · 利比里亚元"
+                      - option "LSL · 莱索托洛蒂"
+                      - option "LYD · 利比亚第纳尔"
+                      - option "MAD · 摩洛哥迪拉姆"
+                      - option "MDL · 摩尔多瓦列伊"
+                      - option "MGA · 马达加斯加阿里亚里"
+                      - option "MKD · 马其顿第纳尔"
+                      - option "MMK · 缅甸元"
+                      - option "MNT · 蒙古图格里克"
+                      - option "MOP · 澳门币"
+                      - option "MRU · 毛里塔尼亚乌吉亚"
+                      - option "MUR · 毛里求斯卢比"
+                      - option "MVR · 马尔代夫卢菲亚"
+                      - option "MWK · 马拉维克瓦查"
+                      - option "MXN · 墨西哥比索"
+                      - option "MYR · 马来西亚林吉特"
+                      - option "MZN · 莫桑比克美提卡"
+                      - option "NAD · 纳米比亚元"
+                      - option "NGN · 尼日利亚奈拉"
+                      - option "NIO · 尼加拉瓜科多巴"
+                      - option "NOK · 挪威克朗"
+                      - option "NPR · 尼泊尔卢比"
+                      - option "NZD · 新西兰元"
+                      - option "OMR · 阿曼里亚尔"
+                      - option "PAB · 巴拿马巴波亚"
+                      - option "PEN · 秘鲁索尔"
+                      - option "PGK · 巴布亚新几内亚基那"
+                      - option "PHP · 菲律宾比索"
+                      - option "PKR · 巴基斯坦卢比"
+                      - option "PLN · 波兰兹罗提"
+                      - option "PYG · 巴拉圭瓜拉尼"
+                      - option "QAR · 卡塔尔里亚尔"
+                      - option "RON · 罗马尼亚列伊"
+                      - option "RSD · 塞尔维亚第纳尔"
+                      - option "RUB · 俄罗斯卢布"
+                      - option "RWF · 卢旺达法郎"
+                      - option "SAR · 沙特里亚尔"
+                      - option "SBD · 所罗门群岛元"
+                      - option "SCR · 塞舌尔卢比"
+                      - option "SDG · 苏丹镑"
+                      - option "SEK · 瑞典克朗"
+                      - option "SGD · 新加坡元"
+                      - option "SHP · 圣赫勒拿群岛磅"
+                      - option "SLL · 塞拉利昂利昂"
+                      - option "SOS · 索马里先令"
+                      - option "SRD · 苏里南元"
+                      - option "SSP · 南苏丹镑"
+                      - option "STN · 圣多美和普林西比多布拉"
+                      - option "SVC · 萨尔瓦多科朗"
+                      - option "SYP · 叙利亚镑"
+                      - option "SZL · 斯威士兰里兰吉尼"
+                      - option "THB · 泰铢"
+                      - option "TJS · 塔吉克斯坦索莫尼"
+                      - option "TMT · 土库曼斯坦马纳特"
+                      - option "TND · 突尼斯第纳尔"
+                      - option "TOP · 汤加潘加"
+                      - option "TRY · 土耳其里拉"
+                      - option "TTD · 特立尼达和多巴哥元"
+                      - option "TWD · 新台币"
+                      - option "TZS · 坦桑尼亚先令"
+                      - option "UAH · 乌克兰格里夫纳"
+                      - option "UGX · 乌干达先令"
+                      - option "USD · 美元"
+                      - option "UYU · 乌拉圭比索"
+                      - option "UZS · 乌兹别克斯坦苏姆"
+                      - option "VES · 委内瑞拉玻利瓦尔"
+                      - option "VND · 越南盾"
+                      - option "VUV · 瓦努阿图瓦图"
+                      - option "WST · 萨摩亚塔拉"
+                      - option "XAF · 中非法郎"
+                      - option "XCD · 东加勒比元"
+                      - option "XDR · 特别提款权"
+                      - option "XOF · 西非法郎"
+                      - option "XPF · 太平洋法郎"
+                      - option "XSU · 苏克雷"
+                      - option "YER · 也门里亚尔"
+                      - option "ZAR · 南非兰特"
+                      - option "ZMW · 赞比亚克瓦查"
+                      - option "ZWL · 津巴布韦元 (2009)"
+                - paragraph [ref=e209]: 你的货币设置为个人设置，不会改变旅行或其他参与者的货币。
+                - generic [ref=e210]:
+                  - text: 要转换的金额
+                  - textbox "要转换的金额" [ref=e211]: "100"
+                - generic [ref=e212]:
+                  - generic [ref=e213]:
+                    - text: 从
+                    - combobox "从" [ref=e214]:
+                      - option "AED · 阿联酋迪拉姆"
+                      - option "AFN · 阿富汗尼"
+                      - option "ALL · 阿尔巴尼亚列克"
+                      - option "AMD · 亚美尼亚德拉姆"
+                      - option "ANG · 荷属安的列斯盾"
+                      - option "AOA · 安哥拉宽扎"
+                      - option "ARS · 阿根廷比索"
+                      - option "AUD · 澳大利亚元"
+                      - option "AWG · 阿鲁巴弗罗林"
+                      - option "AZN · 阿塞拜疆马纳特"
+                      - option "BAM · 波斯尼亚-黑塞哥维那可兑换马克"
+                      - option "BBD · 巴巴多斯元"
+                      - option "BDT · 孟加拉塔卡"
+                      - option "BGN · 保加利亚列弗"
+                      - option "BHD · 巴林第纳尔"
+                      - option "BIF · 布隆迪法郎"
+                      - option "BMD · 百慕大元"
+                      - option "BND · 文莱元"
+                      - option "BOB · 玻利维亚诺"
+                      - option "BRL · 巴西雷亚尔"
+                      - option "BSD · 巴哈马元"
+                      - option "BTN · 不丹努尔特鲁姆"
+                      - option "BWP · 博茨瓦纳普拉"
+                      - option "BYN · 白俄罗斯卢布"
+                      - option "BZD · 伯利兹元"
+                      - option "CAD · 加拿大元"
+                      - option "CDF · 刚果法郎"
+                      - option "CHF · 瑞士法郎"
+                      - option "CLP · 智利比索"
+                      - option "CNY · 人民币" [selected]
+                      - option "COP · 哥伦比亚比索"
+                      - option "CRC · 哥斯达黎加科朗"
+                      - option "CUC · 古巴可兑换比索"
+                      - option "CUP · 古巴比索"
+                      - option "CVE · 佛得角埃斯库多"
+                      - option "CZK · 捷克克朗"
+                      - option "DJF · 吉布提法郎"
+                      - option "DKK · 丹麦克朗"
+                      - option "DOP · 多米尼加比索"
+                      - option "DZD · 阿尔及利亚第纳尔"
+                      - option "EGP · 埃及镑"
+                      - option "ERN · 厄立特里亚纳克法"
+                      - option "ETB · 埃塞俄比亚比尔"
+                      - option "EUR · 欧元"
+                      - option "FJD · 斐济元"
+                      - option "FKP · 福克兰群岛镑"
+                      - option "GBP · 英镑"
+                      - option "GEL · 格鲁吉亚拉里"
+                      - option "GHS · 加纳塞地"
+                      - option "GIP · 直布罗陀镑"
+                      - option "GMD · 冈比亚达拉西"
+                      - option "GNF · 几内亚法郎"
+                      - option "GTQ · 危地马拉格查尔"
+                      - option "GYD · 圭亚那元"
+                      - option "HKD · 港元"
+                      - option "HNL · 洪都拉斯伦皮拉"
+                      - option "HRK · 克罗地亚库纳"
+                      - option "HTG · 海地古德"
+                      - option "HUF · 匈牙利福林"
+                      - option "IDR · 印度尼西亚卢比"
+                      - option "ILS · 以色列新谢克尔"
+                      - option "INR · 印度卢比"
+                      - option "IQD · 伊拉克第纳尔"
+                      - option "IRR · 伊朗里亚尔"
+                      - option "ISK · 冰岛克朗"
+                      - option "JMD · 牙买加元"
+                      - option "JOD · 约旦第纳尔"
+                      - option "JPY · 日元"
+                      - option "KES · 肯尼亚先令"
+                      - option "KGS · 吉尔吉斯斯坦索姆"
+                      - option "KHR · 柬埔寨瑞尔"
+                      - option "KMF · 科摩罗法郎"
+                      - option "KPW · 朝鲜元"
+                      - option "KRW · 韩元"
+                      - option "KWD · 科威特第纳尔"
+                      - option "KYD · 开曼元"
+                      - option "KZT · 哈萨克斯坦坚戈"
+                      - option "LAK · 老挝基普"
+                      - option "LBP · 黎巴嫩镑"
+                      - option "LKR · 斯里兰卡卢比"
+                      - option "LRD · 利比里亚元"
+                      - option "LSL · 莱索托洛蒂"
+                      - option "LYD · 利比亚第纳尔"
+                      - option "MAD · 摩洛哥迪拉姆"
+                      - option "MDL · 摩尔多瓦列伊"
+                      - option "MGA · 马达加斯加阿里亚里"
+                      - option "MKD · 马其顿第纳尔"
+                      - option "MMK · 缅甸元"
+                      - option "MNT · 蒙古图格里克"
+                      - option "MOP · 澳门币"
+                      - option "MRU · 毛里塔尼亚乌吉亚"
+                      - option "MUR · 毛里求斯卢比"
+                      - option "MVR · 马尔代夫卢菲亚"
+                      - option "MWK · 马拉维克瓦查"
+                      - option "MXN · 墨西哥比索"
+                      - option "MYR · 马来西亚林吉特"
+                      - option "MZN · 莫桑比克美提卡"
+                      - option "NAD · 纳米比亚元"
+                      - option "NGN · 尼日利亚奈拉"
+                      - option "NIO · 尼加拉瓜科多巴"
+                      - option "NOK · 挪威克朗"
+                      - option "NPR · 尼泊尔卢比"
+                      - option "NZD · 新西兰元"
+                      - option "OMR · 阿曼里亚尔"
+                      - option "PAB · 巴拿马巴波亚"
+                      - option "PEN · 秘鲁索尔"
+                      - option "PGK · 巴布亚新几内亚基那"
+                      - option "PHP · 菲律宾比索"
+                      - option "PKR · 巴基斯坦卢比"
+                      - option "PLN · 波兰兹罗提"
+                      - option "PYG · 巴拉圭瓜拉尼"
+                      - option "QAR · 卡塔尔里亚尔"
+                      - option "RON · 罗马尼亚列伊"
+                      - option "RSD · 塞尔维亚第纳尔"
+                      - option "RUB · 俄罗斯卢布"
+                      - option "RWF · 卢旺达法郎"
+                      - option "SAR · 沙特里亚尔"
+                      - option "SBD · 所罗门群岛元"
+                      - option "SCR · 塞舌尔卢比"
+                      - option "SDG · 苏丹镑"
+                      - option "SEK · 瑞典克朗"
+                      - option "SGD · 新加坡元"
+                      - option "SHP · 圣赫勒拿群岛磅"
+                      - option "SLL · 塞拉利昂利昂"
+                      - option "SOS · 索马里先令"
+                      - option "SRD · 苏里南元"
+                      - option "SSP · 南苏丹镑"
+                      - option "STN · 圣多美和普林西比多布拉"
+                      - option "SVC · 萨尔瓦多科朗"
+                      - option "SYP · 叙利亚镑"
+                      - option "SZL · 斯威士兰里兰吉尼"
+                      - option "THB · 泰铢"
+                      - option "TJS · 塔吉克斯坦索莫尼"
+                      - option "TMT · 土库曼斯坦马纳特"
+                      - option "TND · 突尼斯第纳尔"
+                      - option "TOP · 汤加潘加"
+                      - option "TRY · 土耳其里拉"
+                      - option "TTD · 特立尼达和多巴哥元"
+                      - option "TWD · 新台币"
+                      - option "TZS · 坦桑尼亚先令"
+                      - option "UAH · 乌克兰格里夫纳"
+                      - option "UGX · 乌干达先令"
+                      - option "USD · 美元"
+                      - option "UYU · 乌拉圭比索"
+                      - option "UZS · 乌兹别克斯坦苏姆"
+                      - option "VES · 委内瑞拉玻利瓦尔"
+                      - option "VND · 越南盾"
+                      - option "VUV · 瓦努阿图瓦图"
+                      - option "WST · 萨摩亚塔拉"
+                      - option "XAF · 中非法郎"
+                      - option "XCD · 东加勒比元"
+                      - option "XDR · 特别提款权"
+                      - option "XOF · 西非法郎"
+                      - option "XPF · 太平洋法郎"
+                      - option "XSU · 苏克雷"
+                      - option "YER · 也门里亚尔"
+                      - option "ZAR · 南非兰特"
+                      - option "ZMW · 赞比亚克瓦查"
+                      - option "ZWL · 津巴布韦元 (2009)"
+                  - button "交换货币" [ref=e215] [cursor=pointer]
+                  - generic [ref=e219]:
+                    - text: 到
+                    - combobox "到" [ref=e220]:
+                      - option "AED · 阿联酋迪拉姆"
+                      - option "AFN · 阿富汗尼"
+                      - option "ALL · 阿尔巴尼亚列克"
+                      - option "AMD · 亚美尼亚德拉姆"
+                      - option "ANG · 荷属安的列斯盾"
+                      - option "AOA · 安哥拉宽扎"
+                      - option "ARS · 阿根廷比索"
+                      - option "AUD · 澳大利亚元"
+                      - option "AWG · 阿鲁巴弗罗林"
+                      - option "AZN · 阿塞拜疆马纳特"
+                      - option "BAM · 波斯尼亚-黑塞哥维那可兑换马克"
+                      - option "BBD · 巴巴多斯元"
+                      - option "BDT · 孟加拉塔卡"
+                      - option "BGN · 保加利亚列弗"
+                      - option "BHD · 巴林第纳尔"
+                      - option "BIF · 布隆迪法郎"
+                      - option "BMD · 百慕大元"
+                      - option "BND · 文莱元"
+                      - option "BOB · 玻利维亚诺"
+                      - option "BRL · 巴西雷亚尔"
+                      - option "BSD · 巴哈马元"
+                      - option "BTN · 不丹努尔特鲁姆"
+                      - option "BWP · 博茨瓦纳普拉"
+                      - option "BYN · 白俄罗斯卢布"
+                      - option "BZD · 伯利兹元"
+                      - option "CAD · 加拿大元"
+                      - option "CDF · 刚果法郎"
+                      - option "CHF · 瑞士法郎"
+                      - option "CLP · 智利比索"
+                      - option "CNY · 人民币"
+                      - option "COP · 哥伦比亚比索"
+                      - option "CRC · 哥斯达黎加科朗"
+                      - option "CUC · 古巴可兑换比索"
+                      - option "CUP · 古巴比索"
+                      - option "CVE · 佛得角埃斯库多"
+                      - option "CZK · 捷克克朗"
+                      - option "DJF · 吉布提法郎"
+                      - option "DKK · 丹麦克朗"
+                      - option "DOP · 多米尼加比索"
+                      - option "DZD · 阿尔及利亚第纳尔"
+                      - option "EGP · 埃及镑"
+                      - option "ERN · 厄立特里亚纳克法"
+                      - option "ETB · 埃塞俄比亚比尔"
+                      - option "EUR · 欧元" [selected]
+                      - option "FJD · 斐济元"
+                      - option "FKP · 福克兰群岛镑"
+                      - option "GBP · 英镑"
+                      - option "GEL · 格鲁吉亚拉里"
+                      - option "GHS · 加纳塞地"
+                      - option "GIP · 直布罗陀镑"
+                      - option "GMD · 冈比亚达拉西"
+                      - option "GNF · 几内亚法郎"
+                      - option "GTQ · 危地马拉格查尔"
+                      - option "GYD · 圭亚那元"
+                      - option "HKD · 港元"
+                      - option "HNL · 洪都拉斯伦皮拉"
+                      - option "HRK · 克罗地亚库纳"
+                      - option "HTG · 海地古德"
+                      - option "HUF · 匈牙利福林"
+                      - option "IDR · 印度尼西亚卢比"
+                      - option "ILS · 以色列新谢克尔"
+                      - option "INR · 印度卢比"
+                      - option "IQD · 伊拉克第纳尔"
+                      - option "IRR · 伊朗里亚尔"
+                      - option "ISK · 冰岛克朗"
+                      - option "JMD · 牙买加元"
+                      - option "JOD · 约旦第纳尔"
+                      - option "JPY · 日元"
+                      - option "KES · 肯尼亚先令"
+                      - option "KGS · 吉尔吉斯斯坦索姆"
+                      - option "KHR · 柬埔寨瑞尔"
+                      - option "KMF · 科摩罗法郎"
+                      - option "KPW · 朝鲜元"
+                      - option "KRW · 韩元"
+                      - option "KWD · 科威特第纳尔"
+                      - option "KYD · 开曼元"
+                      - option "KZT · 哈萨克斯坦坚戈"
+                      - option "LAK · 老挝基普"
+                      - option "LBP · 黎巴嫩镑"
+                      - option "LKR · 斯里兰卡卢比"
+                      - option "LRD · 利比里亚元"
+                      - option "LSL · 莱索托洛蒂"
+                      - option "LYD · 利比亚第纳尔"
+                      - option "MAD · 摩洛哥迪拉姆"
+                      - option "MDL · 摩尔多瓦列伊"
+                      - option "MGA · 马达加斯加阿里亚里"
+                      - option "MKD · 马其顿第纳尔"
+                      - option "MMK · 缅甸元"
+                      - option "MNT · 蒙古图格里克"
+                      - option "MOP · 澳门币"
+                      - option "MRU · 毛里塔尼亚乌吉亚"
+                      - option "MUR · 毛里求斯卢比"
+                      - option "MVR · 马尔代夫卢菲亚"
+                      - option "MWK · 马拉维克瓦查"
+                      - option "MXN · 墨西哥比索"
+                      - option "MYR · 马来西亚林吉特"
+                      - option "MZN · 莫桑比克美提卡"
+                      - option "NAD · 纳米比亚元"
+                      - option "NGN · 尼日利亚奈拉"
+                      - option "NIO · 尼加拉瓜科多巴"
+                      - option "NOK · 挪威克朗"
+                      - option "NPR · 尼泊尔卢比"
+                      - option "NZD · 新西兰元"
+                      - option "OMR · 阿曼里亚尔"
+                      - option "PAB · 巴拿马巴波亚"
+                      - option "PEN · 秘鲁索尔"
+                      - option "PGK · 巴布亚新几内亚基那"
+                      - option "PHP · 菲律宾比索"
+                      - option "PKR · 巴基斯坦卢比"
+                      - option "PLN · 波兰兹罗提"
+                      - option "PYG · 巴拉圭瓜拉尼"
+                      - option "QAR · 卡塔尔里亚尔"
+                      - option "RON · 罗马尼亚列伊"
+                      - option "RSD · 塞尔维亚第纳尔"
+                      - option "RUB · 俄罗斯卢布"
+                      - option "RWF · 卢旺达法郎"
+                      - option "SAR · 沙特里亚尔"
+                      - option "SBD · 所罗门群岛元"
+                      - option "SCR · 塞舌尔卢比"
+                      - option "SDG · 苏丹镑"
+                      - option "SEK · 瑞典克朗"
+                      - option "SGD · 新加坡元"
+                      - option "SHP · 圣赫勒拿群岛磅"
+                      - option "SLL · 塞拉利昂利昂"
+                      - option "SOS · 索马里先令"
+                      - option "SRD · 苏里南元"
+                      - option "SSP · 南苏丹镑"
+                      - option "STN · 圣多美和普林西比多布拉"
+                      - option "SVC · 萨尔瓦多科朗"
+                      - option "SYP · 叙利亚镑"
+                      - option "SZL · 斯威士兰里兰吉尼"
+                      - option "THB · 泰铢"
+                      - option "TJS · 塔吉克斯坦索莫尼"
+                      - option "TMT · 土库曼斯坦马纳特"
+                      - option "TND · 突尼斯第纳尔"
+                      - option "TOP · 汤加潘加"
+                      - option "TRY · 土耳其里拉"
+                      - option "TTD · 特立尼达和多巴哥元"
+                      - option "TWD · 新台币"
+                      - option "TZS · 坦桑尼亚先令"
+                      - option "UAH · 乌克兰格里夫纳"
+                      - option "UGX · 乌干达先令"
+                      - option "USD · 美元"
+                      - option "UYU · 乌拉圭比索"
+                      - option "UZS · 乌兹别克斯坦苏姆"
+                      - option "VES · 委内瑞拉玻利瓦尔"
+                      - option "VND · 越南盾"
+                      - option "VUV · 瓦努阿图瓦图"
+                      - option "WST · 萨摩亚塔拉"
+                      - option "XAF · 中非法郎"
+                      - option "XCD · 东加勒比元"
+                      - option "XDR · 特别提款权"
+                      - option "XOF · 西非法郎"
+                      - option "XPF · 太平洋法郎"
+                      - option "XSU · 苏克雷"
+                      - option "YER · 也门里亚尔"
+                      - option "ZAR · 南非兰特"
+                      - option "ZMW · 赞比亚克瓦查"
+                      - option "ZWL · 津巴布韦元 (2009)"
+                - status "转换结果" [ref=e221]:
+                  - text: —
+                  - generic [ref=e222]: 正在查询汇率…
+                - status [ref=e223]: 正在刷新汇率…
+              - generic [ref=e224]:
+                - heading "预算与汇率" [level=3] [ref=e225]
+                - generic [ref=e226]:
+                  - text: 预算目标（CNY）
+                  - textbox "预算目标（CNY）" [ref=e227]:
+                    - /placeholder: 可选
+                - generic [ref=e228]:
+                  - text: 待兑换币种
+                  - combobox "待兑换币种" [ref=e229]: EUR
+                - generic [ref=e230]:
+                  - text: 此币种 1 单位等于多少 CNY？
+                  - textbox "此币种 1 单位等于多少 CNY？" [ref=e231]
+                - generic [ref=e232]:
+                  - text: 汇率日期
+                  - textbox "汇率日期" [ref=e233]: 2026-10-21
+                - paragraph [ref=e234]: 手动汇率
+                - button "建议当日汇率" [ref=e235] [cursor=pointer]
+                - paragraph [ref=e236]: 每笔支出的汇率均固定。保存时只兑换无汇率的支出，已有兑换保持不变。
+                - button "保存设置" [ref=e237] [cursor=pointer]
+              - generic [ref=e238]:
+                - heading "添加支出" [level=3] [ref=e239]
+                - generic [ref=e240]:
+                  - text: 名称
+                  - textbox "名称" [ref=e241]:
+                    - /placeholder: 例如：午餐
+                - generic [ref=e242]:
+                  - generic [ref=e243]:
+                    - text: 金额
+                    - textbox "金额" [ref=e244]:
+                      - /placeholder: 例如：45,50
+                  - generic [ref=e245]:
+                    - text: 币种
+                    - combobox "币种" [ref=e246]: CNY
+                - generic [ref=e247]:
+                  - generic [ref=e248]:
+                    - text: 城市
+                    - combobox "城市" [ref=e249]:
+                      - option "整个旅程" [selected]
+                      - option "Shenzhen"
+                      - option "Guangzhou"
+                      - option "Yangshuo"
+                      - option "Chongqing & Wulong"
+                      - option "Chengdu"
+                      - option "Shanghai"
+                      - option "Suzhou"
+                  - generic [ref=e250]:
+                    - text: 分类
+                    - combobox "分类" [ref=e251]:
+                      - option "餐饮" [selected]
+                      - option "交通"
+                      - option "住宿"
+                      - option "游览"
+                      - option "购物"
+                      - option "其他"
+                - generic [ref=e252]:
+                  - text: 日期（选填）
+                  - textbox "日期（选填）" [ref=e253]
+                - button "添加支出" [ref=e254] [cursor=pointer]
+              - generic [ref=e256]:
+                - heading "旅行支出" [level=3] [ref=e257]
+                - paragraph [ref=e258]: 暂时没有支出。
+        - generic [ref=e259]:
+          - generic [ref=e260]: 随心而行，探索世界。
+          - generic [ref=e262]: 旅行在变化，手册也在成长。
+  - iframe [ref=e265]:
+    - generic [ref=f1e1]:
+      - heading "Chine 2027" [level=1] [ref=f1e2]
+      - paragraph [ref=f1e3]: 7 座城市 · 17 天
+      - generic [ref=f1e4]:
+        - heading "Shenzhen · 深圳" [level=2] [ref=f1e5]
+        - paragraph [ref=f1e6]: Premiers pas entre gratte-ciel et bord de mer
+        - paragraph [ref=f1e7]: "Séjour prévu : 3 jours et 2 nuits. Dates et hôtel à compléter."
+        - paragraph [ref=f1e8]: "À réserver : entrée du musée et train pour Guangzhou. Aucune réservation confirmée dans le document."
+        - paragraph [ref=f1e9]: "Le musée d’histoire naturelle est indiqué à Pingshan dans le planning : vérifier le nom exact, l’adresse, l’ouverture et la billetterie avant de fixer le trajet."
+        - paragraph [ref=f1e10]: Si Huaqiangbei prend plus de temps que prévu, supprimer Qianhai Stone Park.
+        - paragraph [ref=f1e11]: 我的笔记：Mi nota personnelle 中文 · 14 h
+        - article [ref=f1e12]:
+          - heading "Arrivée · 2027年3月12日" [level=3] [ref=f1e13]
+          - generic [ref=f1e14]:
+            - heading "Arrivée à Shenzhen" [level=4] [ref=f1e15]
+            - paragraph [ref=f1e16]: Rejoindre Shenzhen ; horaire et point d’arrivée à compléter.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Arriv%C3%A9e+%C3%A0+Shenzhen+%E6%B7%B1%E5%9C%B3" [ref=f1e17] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Arriv%C3%A9e+%C3%A0+Shenzhen+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e18]:
+            - heading "Installation à Futian · 福田区" [level=4] [ref=f1e19]
+            - paragraph [ref=f1e20]: Rejoindre l’hôtel dans le quartier de Futian. Établissement à préciser.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E7%94%B0%E5%8C%BA+%E6%B7%B1%E5%9C%B3" [ref=f1e21] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E7%94%B0%E5%8C%BA+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e22]:
+            - heading "Soir · Dîner dans le quartier" [level=4] [ref=f1e23]
+            - paragraph [ref=f1e24]: Première soirée et dîner près de l’hôtel, à Futian.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=D%C3%AEner+dans+le+quartier+%E6%B7%B1%E5%9C%B3" [ref=f1e25] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=D%C3%AEner+dans+le+quartier+%E6%B7%B1%E5%9C%B3
+        - article [ref=f1e26]:
+          - heading "Musée et panorama · 日期待填写" [level=3] [ref=f1e27]
+          - generic [ref=f1e28]:
+            - heading "Shenzhen Natural History Museum · 深圳自然博物馆" [level=4] [ref=f1e29]
+            - paragraph [ref=f1e30]: Visite du musée, indiqué à Pingshan dans le document. Localisation et ouverture à vérifier avant réservation.
+            - paragraph [ref=f1e31]: 需要预订
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%B7%B1%E5%9C%B3%E8%87%AA%E7%84%B6%E5%8D%9A%E7%89%A9%E9%A6%86+%E6%B7%B1%E5%9C%B3" [ref=f1e32] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%B7%B1%E5%9C%B3%E8%87%AA%E7%84%B6%E5%8D%9A%E7%89%A9%E9%A6%86+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e33]:
+            - heading "Déjeuner" [level=4] [ref=f1e34]
+            - paragraph [ref=f1e35]: Pause déjeuner après le musée.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=D%C3%A9jeuner+%E6%B7%B1%E5%9C%B3" [ref=f1e36] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=D%C3%A9jeuner+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e37]:
+            - heading "Lianhuashan Park · 莲花山公园" [level=4] [ref=f1e38]
+            - paragraph [ref=f1e39]: Promenade dans le parc jusqu’à la statue de Deng Xiaoping.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E8%8E%B2%E8%8A%B1%E5%B1%B1%E5%85%AC%E5%9B%AD+%E6%B7%B1%E5%9C%B3" [ref=f1e40] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E8%8E%B2%E8%8A%B1%E5%B1%B1%E5%85%AC%E5%9B%AD+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e41]:
+            - heading "Avant le coucher du soleil · Free Sky · Ping An Finance Center · 平安金融中心 云际观光层" [level=4] [ref=f1e42]
+            - paragraph [ref=f1e43]: Monter au point de vue avant le coucher du soleil.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%B9%B3%E5%AE%89%E9%87%91%E8%9E%8D%E4%B8%AD%E5%BF%83+%E4%BA%91%E9%99%85%E8%A7%82%E5%85%89%E5%B1%82+%E6%B7%B1%E5%9C%B3" [ref=f1e44] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%B9%B3%E5%AE%89%E9%87%91%E8%9E%8D%E4%B8%AD%E5%BF%83+%E4%BA%91%E9%99%85%E8%A7%82%E5%85%89%E5%B1%82+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e45]:
+            - heading "Soir · Dîner à Futian" [level=4] [ref=f1e46]
+            - paragraph [ref=f1e47]: Retour à Futian pour le dîner.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=D%C3%AEner+%C3%A0+Futian+%E6%B7%B1%E5%9C%B3" [ref=f1e48] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=D%C3%AEner+%C3%A0+Futian+%E6%B7%B1%E5%9C%B3
+        - article [ref=f1e49]:
+          - heading "Marché, bord de mer et Guangzhou · 日期待填写" [level=3] [ref=f1e50]
+          - generic [ref=f1e51]:
+            - heading "Huaqiangbei · SEG Electronics Market · 华强北 赛格电子市场" [level=4] [ref=f1e52]
+            - paragraph [ref=f1e53]: Explorer le quartier et le marché de l’électronique.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%8D%8E%E5%BC%BA%E5%8C%97+%E8%B5%9B%E6%A0%BC%E7%94%B5%E5%AD%90%E5%B8%82%E5%9C%BA+%E6%B7%B1%E5%9C%B3" [ref=f1e54] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%8D%8E%E5%BC%BA%E5%8C%97+%E8%B5%9B%E6%A0%BC%E7%94%B5%E5%AD%90%E5%B8%82%E5%9C%BA+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e55]:
+            - heading "Déjeuner" [level=4] [ref=f1e56]
+            - paragraph [ref=f1e57]: Pause déjeuner après Huaqiangbei.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=D%C3%A9jeuner+%E6%B7%B1%E5%9C%B3" [ref=f1e58] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=D%C3%A9jeuner+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e59]:
+            - heading "Récupérer les bagages" [level=4] [ref=f1e60]
+            - paragraph [ref=f1e61]: Repasser à l’hôtel avant de poursuivre vers le bord de mer.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=R%C3%A9cup%C3%A9rer+les+bagages+%E6%B7%B1%E5%9C%B3" [ref=f1e62] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=R%C3%A9cup%C3%A9rer+les+bagages+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e63]:
+            - heading "Qianhai Stone Park · 前海石公园" [level=4] [ref=f1e64]
+            - paragraph [ref=f1e65]: Étape facultative à supprimer si Huaqiangbei a pris plus de temps que prévu.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%89%8D%E6%B5%B7%E7%9F%B3%E5%85%AC%E5%9B%AD+%E6%B7%B1%E5%9C%B3" [ref=f1e66] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%89%8D%E6%B5%B7%E7%9F%B3%E5%85%AC%E5%9B%AD+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e67]:
+            - heading "Coucher du soleil · Happy Harbour · OH Bay · 欢乐港湾" [level=4] [ref=f1e68]
+            - paragraph [ref=f1e69]: Promenade, grande roue et coucher de soleil au bord de l’eau.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%AC%A2%E4%B9%90%E6%B8%AF%E6%B9%BE+%E6%B7%B1%E5%9C%B3" [ref=f1e70] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%AC%A2%E4%B9%90%E6%B8%AF%E6%B9%BE+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e71]:
+            - heading "Gare de Shenzhen North · 深圳北站" [level=4] [ref=f1e72]
+            - paragraph [ref=f1e73]: Rejoindre la gare avec une marge adaptée au départ du train.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%B7%B1%E5%9C%B3%E5%8C%97%E7%AB%99+%E6%B7%B1%E5%9C%B3" [ref=f1e74] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%B7%B1%E5%9C%B3%E5%8C%97%E7%AB%99+%E6%B7%B1%E5%9C%B3
+          - generic [ref=f1e75]:
+            - heading "Train pour Guangzhou" [level=4] [ref=f1e76]
+            - paragraph [ref=f1e77]: Trajet Shenzhen → Guangzhou. Train, horaire et gare d’arrivée à préciser.
+            - paragraph [ref=f1e78]: 需要预订
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Train+pour+Guangzhou+%E6%B7%B1%E5%9C%B3" [ref=f1e79] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Train+pour+Guangzhou+%E6%B7%B1%E5%9C%B3
+      - generic [ref=f1e80]:
+        - heading "Guangzhou · 广州" [level=2] [ref=f1e81]
+        - paragraph [ref=f1e82]: Quartiers historiques et lumières de Canton
+        - paragraph [ref=f1e83]: "Séjour prévu : 3 jours et 2 nuits. Dates et hôtel à compléter."
+        - paragraph [ref=f1e84]: Prévoir une demi-journée pour Baiyun Mountain.
+        - paragraph [ref=f1e85]: Le transport entre Guangzhou et Yangshuo reste à organiser.
+        - article [ref=f1e86]:
+          - heading "Arrivée en soirée · 日期待填写" [level=3] [ref=f1e87]
+          - generic [ref=f1e88]:
+            - heading "Soir · Installation à l’hôtel" [level=4] [ref=f1e89]
+            - paragraph [ref=f1e90]: Arrivée à Guangzhou en soirée et dépôt des bagages.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Installation+%C3%A0+l%E2%80%99h%C3%B4tel+%E5%B9%BF%E5%B7%9E" [ref=f1e91] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Installation+%C3%A0+l%E2%80%99h%C3%B4tel+%E5%B9%BF%E5%B7%9E
+          - generic [ref=f1e92]:
+            - heading "Beijing Road · 北京路步行街" [level=4] [ref=f1e93]
+            - paragraph [ref=f1e94]: Première promenade dans le quartier animé de Beijing Road.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E4%BA%AC%E8%B7%AF%E6%AD%A5%E8%A1%8C%E8%A1%97+%E5%B9%BF%E5%B7%9E" [ref=f1e95] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E4%BA%AC%E8%B7%AF%E6%AD%A5%E8%A1%8C%E8%A1%97+%E5%B9%BF%E5%B7%9E
+          - generic [ref=f1e96]:
+            - heading "Temple Dafo · 大佛寺" [level=4] [ref=f1e97]
+            - paragraph [ref=f1e98]: Visite si vous avez encore de l’énergie après l’arrivée.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E4%BD%9B%E5%AF%BA+%E5%B9%BF%E5%B7%9E" [ref=f1e99] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E4%BD%9B%E5%AF%BA+%E5%B9%BF%E5%B7%9E
+        - article [ref=f1e100]:
+          - heading "Visites et Canton Tower · 日期待填写" [level=3] [ref=f1e101]
+          - generic [ref=f1e102]:
+            - heading "Chen Clan Ancestral Hall · 陈家祠" [level=4] [ref=f1e103]
+            - paragraph [ref=f1e104]: Commencer la journée par la maison ancestrale du clan Chen.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%99%88%E5%AE%B6%E7%A5%A0+%E5%B9%BF%E5%B7%9E" [ref=f1e105] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%99%88%E5%AE%B6%E7%A5%A0+%E5%B9%BF%E5%B7%9E
+          - generic [ref=f1e106]:
+            - heading "Lychee Bay · 荔枝湾" [level=4] [ref=f1e107]
+            - paragraph [ref=f1e108]: Découvrir les canaux et le quartier de Lychee Bay.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E8%8D%94%E6%9E%9D%E6%B9%BE+%E5%B9%BF%E5%B7%9E" [ref=f1e109] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E8%8D%94%E6%9E%9D%E6%B9%BE+%E5%B9%BF%E5%B7%9E
+          - generic [ref=f1e110]:
+            - heading "Yongqing Fang et Enning Road · 永庆坊 恩宁路" [level=4] [ref=f1e111]
+            - paragraph [ref=f1e112]: Poursuivre dans les rues historiques de Yongqing Fang et d’Enning Road.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%B0%B8%E5%BA%86%E5%9D%8A+%E6%81%A9%E5%AE%81%E8%B7%AF+%E5%B9%BF%E5%B7%9E" [ref=f1e113] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%B0%B8%E5%BA%86%E5%9D%8A+%E6%81%A9%E5%AE%81%E8%B7%AF+%E5%B9%BF%E5%B7%9E
+          - generic [ref=f1e114]:
+            - heading "Shamian Island · 沙面岛" [level=4] [ref=f1e115]
+            - paragraph [ref=f1e116]: Promenade sur l’île de Shamian.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%B2%99%E9%9D%A2%E5%B2%9B+%E5%B9%BF%E5%B7%9E" [ref=f1e117] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%B2%99%E9%9D%A2%E5%B2%9B+%E5%B9%BF%E5%B7%9E
+          - generic [ref=f1e118]:
+            - heading "Pause" [level=4] [ref=f1e119]
+            - paragraph [ref=f1e120]: Garder un moment de repos avant la soirée.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Pause+%E5%B9%BF%E5%B7%9E" [ref=f1e121] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Pause+%E5%B9%BF%E5%B7%9E
+          - generic [ref=f1e122]:
+            - heading "Huacheng Square · 花城广场" [level=4] [ref=f1e123]
+            - paragraph [ref=f1e124]: Rejoindre la grande place du quartier moderne.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E8%8A%B1%E5%9F%8E%E5%B9%BF%E5%9C%BA+%E5%B9%BF%E5%B7%9E" [ref=f1e125] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E8%8A%B1%E5%9F%8E%E5%B9%BF%E5%9C%BA+%E5%B9%BF%E5%B7%9E
+          - generic [ref=f1e126]:
+            - heading "Haixin Bridge · 海心桥" [level=4] [ref=f1e127]
+            - paragraph [ref=f1e128]: Poursuivre vers le pont piéton au-dessus de la rivière des Perles.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%B5%B7%E5%BF%83%E6%A1%A5+%E5%B9%BF%E5%B7%9E" [ref=f1e129] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%B5%B7%E5%BF%83%E6%A1%A5+%E5%B9%BF%E5%B7%9E
+          - generic [ref=f1e130]:
+            - heading "20 h–22 h · prévu · Canton Tower de nuit · 广州塔" [level=4] [ref=f1e131]
+            - paragraph [ref=f1e132]: "Profiter de la tour illuminée. Créneau souhaité dans le planning : 20 h–22 h ; ce n’est pas une réservation."
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%B9%BF%E5%B7%9E%E5%A1%94+%E5%B9%BF%E5%B7%9E" [ref=f1e133] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%B9%BF%E5%B7%9E%E5%A1%94+%E5%B9%BF%E5%B7%9E
+        - article [ref=f1e134]:
+          - heading "Matinée nature · 日期待填写" [level=3] [ref=f1e135]
+          - generic [ref=f1e136]:
+            - heading "Matinée · une demi-journée · Baiyun Mountain · 白云山" [level=4] [ref=f1e137]
+            - paragraph [ref=f1e138]: Prévoir une demi-journée pour découvrir la montagne et ses panoramas.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E4%BA%91%E5%B1%B1+%E5%B9%BF%E5%B7%9E" [ref=f1e139] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E7%99%BD%E4%BA%91%E5%B1%B1+%E5%B9%BF%E5%B7%9E
+      - generic [ref=f1e140]:
+        - heading "Yangshuo · 阳朔" [level=2] [ref=f1e141]
+        - paragraph [ref=f1e142]: Rivières paisibles et reliefs karstiques
+        - paragraph [ref=f1e143]: "Séjour prévu : 3 jours et 2 nuits. Dates et hôtel à compléter."
+        - paragraph [ref=f1e144]: Le train pour Chongqing est souhaité l’après-midi du troisième jour ; horaire et disponibilité à vérifier.
+        - article [ref=f1e145]:
+          - heading "Arrivée et West Street · 日期待填写" [level=3] [ref=f1e146]
+          - generic [ref=f1e147]:
+            - heading "Arrivée à Yangshuo" [level=4] [ref=f1e148]
+            - paragraph [ref=f1e149]: Mode de transport et horaire d’arrivée à compléter.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Arriv%C3%A9e+%C3%A0+Yangshuo+%E9%98%B3%E6%9C%94" [ref=f1e150] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Arriv%C3%A9e+%C3%A0+Yangshuo+%E9%98%B3%E6%9C%94
+          - generic [ref=f1e151]:
+            - heading "Installation à l’hôtel" [level=4] [ref=f1e152]
+            - paragraph [ref=f1e153]: Déposer les bagages et s’installer.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Installation+%C3%A0+l%E2%80%99h%C3%B4tel+%E9%98%B3%E6%9C%94" [ref=f1e154] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Installation+%C3%A0+l%E2%80%99h%C3%B4tel+%E9%98%B3%E6%9C%94
+          - generic [ref=f1e155]:
+            - heading "West Street · 西街" [level=4] [ref=f1e156]
+            - paragraph [ref=f1e157]: Découvrir la rue animée de Yangshuo.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E8%A5%BF%E8%A1%97+%E9%98%B3%E6%9C%94" [ref=f1e158] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E8%A5%BF%E8%A1%97+%E9%98%B3%E6%9C%94
+        - article [ref=f1e159]:
+          - heading "La vallée de Yulong · 日期待填写" [level=3] [ref=f1e160]
+          - generic [ref=f1e161]:
+            - heading "Radeau sur la rivière Yulong · 遇龙河" [level=4] [ref=f1e162]
+            - paragraph [ref=f1e163]: Descente en radeau. Embarcadère et portion de rivière à choisir.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%81%87%E9%BE%99%E6%B2%B3+%E9%98%B3%E6%9C%94" [ref=f1e164] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%81%87%E9%BE%99%E6%B2%B3+%E9%98%B3%E6%9C%94
+          - generic [ref=f1e165]:
+            - heading "Balade dans la vallée de Yulong · 遇龙河" [level=4] [ref=f1e166]
+            - paragraph [ref=f1e167]: Prendre le temps de découvrir les paysages de la vallée.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%81%87%E9%BE%99%E6%B2%B3+%E9%98%B3%E6%9C%94" [ref=f1e168] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%81%87%E9%BE%99%E6%B2%B3+%E9%98%B3%E6%9C%94
+          - generic [ref=f1e169]:
+            - heading "Silver Cave · 银子岩" [level=4] [ref=f1e170]
+            - paragraph [ref=f1e171]: Visiter la grotte de Silver Cave.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%93%B6%E5%AD%90%E5%B2%A9+%E9%98%B3%E6%9C%94" [ref=f1e172] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%93%B6%E5%AD%90%E5%B2%A9+%E9%98%B3%E6%9C%94
+          - generic [ref=f1e173]:
+            - heading "Coucher du soleil · Coucher de soleil au bord de la Yulong · 遇龙河" [level=4] [ref=f1e174]
+            - paragraph [ref=f1e175]: Revenir au bord de la rivière pour le coucher du soleil, si possible.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%81%87%E9%BE%99%E6%B2%B3+%E9%98%B3%E6%9C%94" [ref=f1e176] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%81%87%E9%BE%99%E6%B2%B3+%E9%98%B3%E6%9C%94
+          - generic [ref=f1e177]:
+            - heading "Retour à l’hôtel" [level=4] [ref=f1e178]
+            - paragraph [ref=f1e179]: Repos après la journée dans la vallée.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Retour+%C3%A0+l%E2%80%99h%C3%B4tel+%E9%98%B3%E6%9C%94" [ref=f1e180] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Retour+%C3%A0+l%E2%80%99h%C3%B4tel+%E9%98%B3%E6%9C%94
+        - article [ref=f1e181]:
+          - heading "Lever de soleil et départ · 日期待填写" [level=3] [ref=f1e182]
+          - generic [ref=f1e183]:
+            - heading "Lever du soleil · Xianggong Mountain · 相公山" [level=4] [ref=f1e184]
+            - paragraph [ref=f1e185]: Réserver une voiture aller-retour et confirmer l’accès avant l’aube, l’attente et les conditions de report météo. Prévoir une lampe et des chaussures de marche.
+            - paragraph [ref=f1e186]: 需要预订
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E7%9B%B8%E5%85%AC%E5%B1%B1+%E9%98%B3%E6%9C%94" [ref=f1e187] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E7%9B%B8%E5%85%AC%E5%B1%B1+%E9%98%B3%E6%9C%94
+          - generic [ref=f1e188]:
+            - heading "Récupérer les valises" [level=4] [ref=f1e189]
+            - paragraph [ref=f1e190]: Retour à l’hôtel avant le départ.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=R%C3%A9cup%C3%A9rer+les+valises+%E9%98%B3%E6%9C%94" [ref=f1e191] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=R%C3%A9cup%C3%A9rer+les+valises+%E9%98%B3%E6%9C%94
+          - generic [ref=f1e192]:
+            - heading "Gare de Yangshuo · 阳朔站" [level=4] [ref=f1e193]
+            - paragraph [ref=f1e194]: Rejoindre la gare de Yangshuo.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%98%B3%E6%9C%94%E7%AB%99+%E9%98%B3%E6%9C%94" [ref=f1e195] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%98%B3%E6%9C%94%E7%AB%99+%E9%98%B3%E6%9C%94
+          - generic [ref=f1e196]:
+            - heading "Après-midi souhaité · Train vers Chongqing" [level=4] [ref=f1e197]
+            - paragraph [ref=f1e198]: Départ idéalement dans l’après-midi. Réserver le train, vérifier une éventuelle correspondance et confirmer la gare d’arrivée avant de fixer les activités.
+            - paragraph [ref=f1e199]: 需要预订
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Train+vers+Chongqing+%E9%98%B3%E6%9C%94" [ref=f1e200] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Train+vers+Chongqing+%E9%98%B3%E6%9C%94
+      - generic [ref=f1e201]:
+        - heading "Chongqing & Wulong · 重庆 · 武隆" [level=2] [ref=f1e202]
+        - paragraph [ref=f1e203]: La ville verticale et les Trois Ponts naturels
+        - paragraph [ref=f1e204]: "Séjour prévu : 4 jours et 3 nuits. Dates et hôtel à compléter."
+        - paragraph [ref=f1e205]: "Pour Wulong : vérifier les trains Chongqing Est ↔ Wulong Sud ainsi que la liaison vers le centre d’accueil."
+        - paragraph [ref=f1e206]: Le départ du quatrième jour se fait par gare ou aéroport ; le transport vers Chengdu reste à préciser.
+        - article [ref=f1e207]:
+          - heading "Arrivée et centre-ville · 日期待填写" [level=3] [ref=f1e208]
+          - generic [ref=f1e209]:
+            - heading "Arrivée en gare de Chongqing" [level=4] [ref=f1e210]
+            - paragraph [ref=f1e211]: La gare exacte dépendra du train réservé.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Arriv%C3%A9e+en+gare+de+Chongqing+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e212] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Arriv%C3%A9e+en+gare+de+Chongqing+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e213]:
+            - heading "Installation à l’hôtel" [level=4] [ref=f1e214]
+            - paragraph [ref=f1e215]: Déposer les bagages avant de découvrir la ville.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Installation+%C3%A0+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e216] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Installation+%C3%A0+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e217]:
+            - heading "Coucher du soleil · Skywalk de Raffles City · 重庆来福士 云中漫步" [level=4] [ref=f1e218]
+            - paragraph [ref=f1e219]: Réserver un billet mentionnant bien 云中漫步 / Skywalk. Prévoir l’activité avant le coucher du soleil et un repli si la météo empêche l’accès.
+            - paragraph [ref=f1e220]: 需要预订
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%87%8D%E5%BA%86%E6%9D%A5%E7%A6%8F%E5%A3%AB+%E4%BA%91%E4%B8%AD%E6%BC%AB%E6%AD%A5+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e221] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%87%8D%E5%BA%86%E6%9D%A5%E7%A6%8F%E5%A3%AB+%E4%BA%91%E4%B8%AD%E6%BC%AB%E6%AD%A5+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e222]:
+            - heading "Dîner à Jiefangbei · 解放碑" [level=4] [ref=f1e223]
+            - paragraph [ref=f1e224]: Dîner dans le quartier de Jiefangbei.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E8%A7%A3%E6%94%BE%E7%A2%91+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e225] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E8%A7%A3%E6%94%BE%E7%A2%91+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e226]:
+            - heading "Hongyadong vu d’en bas · 洪崖洞" [level=4] [ref=f1e227]
+            - paragraph [ref=f1e228]: Observer les façades illuminées depuis le niveau inférieur.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%B4%AA%E5%B4%96%E6%B4%9E+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e229] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%B4%AA%E5%B4%96%E6%B4%9E+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e230]:
+            - heading "Pont Qiansimen · 千厮门大桥" [level=4] [ref=f1e231]
+            - paragraph [ref=f1e232]: Poursuivre la promenade vers le pont pour les vues nocturnes.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%8D%83%E5%8E%AE%E9%97%A8%E5%A4%A7%E6%A1%A5+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e233] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%8D%83%E5%8E%AE%E9%97%A8%E5%A4%A7%E6%A1%A5+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e234]:
+            - heading "Retour à l’hôtel" [level=4] [ref=f1e235]
+            - paragraph [ref=f1e236]: Fin de la première soirée.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Retour+%C3%A0+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e237] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Retour+%C3%A0+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+        - article [ref=f1e238]:
+          - heading "Ciqikou et rives du fleuve · 日期待填写" [level=3] [ref=f1e239]
+          - generic [ref=f1e240]:
+            - heading "Départ de l’hôtel" [level=4] [ref=f1e241]
+            - paragraph [ref=f1e242]: Rejoindre Ciqikou.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=D%C3%A9part+de+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e243] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=D%C3%A9part+de+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e244]:
+            - heading "Ciqikou · 磁器口古镇" [level=4] [ref=f1e245]
+            - paragraph [ref=f1e246]: Explorer les ruelles du quartier ancien.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E7%A3%81%E5%99%A8%E5%8F%A3%E5%8F%A4%E9%95%87+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e247] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E7%A3%81%E5%99%A8%E5%8F%A3%E5%8F%A4%E9%95%87+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e248]:
+            - heading "Théâtre Chongqing 1949 · 重庆1949大剧院" [level=4] [ref=f1e249]
+            - paragraph [ref=f1e250]: Réserver le spectacle Chongqing 1949. Vérifier la séance choisie ; ce théâtre est à Ciqikou, distinct du Grand Theatre près de Jiangbeizui.
+            - paragraph [ref=f1e251]: 需要预订
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%87%8D%E5%BA%861949%E5%A4%A7%E5%89%A7%E9%99%A2+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e252] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%87%8D%E5%BA%861949%E5%A4%A7%E5%89%A7%E9%99%A2+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e253]:
+            - heading "Coucher du soleil · Parc de Jiangbeizui · 江北嘴江滩公园" [level=4] [ref=f1e254]
+            - paragraph [ref=f1e255]: Profiter du parc et des vues au coucher du soleil.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%B1%9F%E5%8C%97%E5%98%B4%E6%B1%9F%E6%BB%A9%E5%85%AC%E5%9B%AD+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e256] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%B1%9F%E5%8C%97%E5%98%B4%E6%B1%9F%E6%BB%A9%E5%85%AC%E5%9B%AD+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e257]:
+            - heading "Longmenhao · 龙门浩老街" [level=4] [ref=f1e258]
+            - paragraph [ref=f1e259]: Découvrir le quartier au bord du fleuve.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%BE%99%E9%97%A8%E6%B5%A9%E8%80%81%E8%A1%97+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e260] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%BE%99%E9%97%A8%E6%B5%A9%E8%80%81%E8%A1%97+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e261]:
+            - heading "Promenade sur Nanbin Road · 南滨路" [level=4] [ref=f1e262]
+            - paragraph [ref=f1e263]: Marcher le long de la rive et profiter de la vue sur Chongqing.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%8D%97%E6%BB%A8%E8%B7%AF+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e264] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%8D%97%E6%BB%A8%E8%B7%AF+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e265]:
+            - heading "Retour à l’hôtel" [level=4] [ref=f1e266]
+            - paragraph [ref=f1e267]: Fin de la journée.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Retour+%C3%A0+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e268] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Retour+%C3%A0+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+        - article [ref=f1e269]:
+          - heading "Excursion à Wulong · 日期待填写" [level=3] [ref=f1e270]
+          - generic [ref=f1e271]:
+            - heading "Départ de l’hôtel" [level=4] [ref=f1e272]
+            - paragraph [ref=f1e273]: Préparer l’excursion à Wulong.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=D%C3%A9part+de+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e274] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=D%C3%A9part+de+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e275]:
+            - heading "Gare de Chongqing Est · 重庆东站" [level=4] [ref=f1e276]
+            - paragraph [ref=f1e277]: Prendre le train vers Wulong Sud et organiser le billet de retour. Horaires à préciser.
+            - paragraph [ref=f1e278]: 需要预订
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%87%8D%E5%BA%86%E4%B8%9C%E7%AB%99+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e279] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%87%8D%E5%BA%86%E4%B8%9C%E7%AB%99+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e280]:
+            - heading "Gare de Wulong Sud · 武隆南站" [level=4] [ref=f1e281]
+            - paragraph [ref=f1e282]: Arrivée à Wulong, puis liaison vers le centre d’accueil à organiser.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%AD%A6%E9%9A%86%E5%8D%97%E7%AB%99+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e283] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%AD%A6%E9%9A%86%E5%8D%97%E7%AB%99+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e284]:
+            - heading "Centre d’accueil de Wulong · 武隆游客接待中心" [level=4] [ref=f1e285]
+            - paragraph [ref=f1e286]: Rejoindre le centre d’accueil pour accéder au site. Vérifier le point de départ des navettes.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%AD%A6%E9%9A%86%E6%B8%B8%E5%AE%A2%E6%8E%A5%E5%BE%85%E4%B8%AD%E5%BF%83+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e287] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%AD%A6%E9%9A%86%E6%B8%B8%E5%AE%A2%E6%8E%A5%E5%BE%85%E4%B8%AD%E5%BF%83+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e288]:
+            - heading "Trois Ponts naturels · 天生三桥" [level=4] [ref=f1e289]
+            - paragraph [ref=f1e290]: Visiter les grands ponts naturels et les paysages karstiques de Wulong.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E7%94%9F%E4%B8%89%E6%A1%A5+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e291] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E7%94%9F%E4%B8%89%E6%A1%A5+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e292]:
+            - heading "Retour à Chongqing" [level=4] [ref=f1e293]
+            - paragraph [ref=f1e294]: Revenir à Chongqing après la visite ; correspondances et horaires à vérifier.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Retour+%C3%A0+Chongqing+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e295] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Retour+%C3%A0+Chongqing+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+        - article [ref=f1e296]:
+          - heading "Shopping et départ · 日期待填写" [level=3] [ref=f1e297]
+          - generic [ref=f1e298]:
+            - heading "Départ de l’hôtel" [level=4] [ref=f1e299]
+            - paragraph [ref=f1e300]: Préparer les bagages avant la dernière balade.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=D%C3%A9part+de+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e301] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=D%C3%A9part+de+l%E2%80%99h%C3%B4tel+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e302]:
+            - heading "Shopping à Jiefangbei · 解放碑" [level=4] [ref=f1e303]
+            - paragraph [ref=f1e304]: Derniers achats dans le quartier commerçant.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E8%A7%A3%E6%94%BE%E7%A2%91+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e305] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E8%A7%A3%E6%94%BE%E7%A2%91+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+          - generic [ref=f1e306]:
+            - heading "Gare ou aéroport" [level=4] [ref=f1e307]
+            - paragraph [ref=f1e308]: Départ de Chongqing. Mode de transport et terminal à compléter.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Gare+ou+a%C3%A9roport+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86" [ref=f1e309] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Gare+ou+a%C3%A9roport+%E9%87%8D%E5%BA%86+%C2%B7+%E6%AD%A6%E9%9A%86
+      - generic [ref=f1e310]:
+        - heading "Chengdu · 成都" [level=2] [ref=f1e311]
+        - paragraph [ref=f1e312]: Pandas, maisons de thé et promenades nocturnes
+        - paragraph [ref=f1e313]: "Séjour prévu : 3 jours et 2 nuits. Dates et hôtel à compléter."
+        - paragraph [ref=f1e314]: "Si l’arrivée est tardive, aller directement à U Fun puis aux tours jumelles. Le document indique une fermeture de HARMAY à 22 h : horaire à revérifier."
+        - paragraph [ref=f1e315]: La base des pandas est prévue dès l’ouverture. Consulter la billetterie et les horaires en vigueur.
+        - paragraph [ref=f1e316]: Jianshe Alley ajoute un trajet en voiture. En cas de fatigue après les pandas, dîner plutôt à Wangping Street et commencer directement la promenade.
+        - paragraph [ref=f1e317]: "Parcours détaillé de la promenade : 望平街 → 天仙桥北路 → 东门码头 → 水津桥 → 合江亭 → 音乐广场 → 安顺廊桥 → 九眼桥."
+        - paragraph [ref=f1e318]: Le document mentionne « Billets pandas », « Allée rouge de Wuhou » et « Marché de Jianshe Alley » sans fournir de liens.
+        - article [ref=f1e319]:
+          - heading "Arrivée et illuminations · 日期待填写" [level=3] [ref=f1e320]
+          - generic [ref=f1e321]:
+            - heading "Arrivée à Chengdu" [level=4] [ref=f1e322]
+            - paragraph [ref=f1e323]: Horaire et point d’arrivée à compléter.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Arriv%C3%A9e+%C3%A0+Chengdu+%E6%88%90%E9%83%BD" [ref=f1e324] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Arriv%C3%A9e+%C3%A0+Chengdu+%E6%88%90%E9%83%BD
+          - generic [ref=f1e325]:
+            - heading "Installation à l’hôtel" [level=4] [ref=f1e326]
+            - paragraph [ref=f1e327]: Déposer les bagages avant la soirée.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Installation+%C3%A0+l%E2%80%99h%C3%B4tel+%E6%88%90%E9%83%BD" [ref=f1e328] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Installation+%C3%A0+l%E2%80%99h%C3%B4tel+%E6%88%90%E9%83%BD
+          - generic [ref=f1e329]:
+            - heading "Tour lumineuse de SKP · 生机之塔" [level=4] [ref=f1e330]
+            - paragraph [ref=f1e331]: Découvrir les installations lumineuses de SKP.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E7%94%9F%E6%9C%BA%E4%B9%8B%E5%A1%94+%E6%88%90%E9%83%BD" [ref=f1e332] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E7%94%9F%E6%9C%BA%E4%B9%8B%E5%A1%94+%E6%88%90%E9%83%BD
+          - generic [ref=f1e333]:
+            - heading "Dîner à U Fun · 悠方" [level=4] [ref=f1e334]
+            - paragraph [ref=f1e335]: Dîner dans le centre U Fun avant le shopping.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%82%A0%E6%96%B9+%E6%88%90%E9%83%BD" [ref=f1e336] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%82%A0%E6%96%B9+%E6%88%90%E9%83%BD
+          - generic [ref=f1e337]:
+            - heading "Petit shopping chez HARMAY · 話梅 悠方" [level=4] [ref=f1e338]
+            - paragraph [ref=f1e339]: Boutique HARMAY à U Fun. Fermeture indiquée à 22 h dans le document, à confirmer.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E8%A9%B1%E6%A2%85+%E6%82%A0%E6%96%B9+%E6%88%90%E9%83%BD" [ref=f1e340] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E8%A9%B1%E6%A2%85+%E6%82%A0%E6%96%B9+%E6%88%90%E9%83%BD
+          - generic [ref=f1e341]:
+            - heading "Pont circulaire de Jiaozi · 交子之环" [level=4] [ref=f1e342]
+            - paragraph [ref=f1e343]: Poursuivre la balade vers le pont circulaire.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E4%BA%A4%E5%AD%90%E4%B9%8B%E7%8E%AF+%E6%88%90%E9%83%BD" [ref=f1e344] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E4%BA%A4%E5%AD%90%E4%B9%8B%E7%8E%AF+%E6%88%90%E9%83%BD
+          - generic [ref=f1e345]:
+            - heading "Soir · Tours jumelles illuminées · 天府双塔" [level=4] [ref=f1e346]
+            - paragraph [ref=f1e347]: Profiter de la vue sur les tours jumelles de nuit.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E5%BA%9C%E5%8F%8C%E5%A1%94+%E6%88%90%E9%83%BD" [ref=f1e348] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E5%BA%9C%E5%8F%8C%E5%A1%94+%E6%88%90%E9%83%BD
+          - generic [ref=f1e349]:
+            - heading "Retour à l’hôtel" [level=4] [ref=f1e350]
+            - paragraph [ref=f1e351]: Repos après la soirée.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Retour+%C3%A0+l%E2%80%99h%C3%B4tel+%E6%88%90%E9%83%BD" [ref=f1e352] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Retour+%C3%A0+l%E2%80%99h%C3%B4tel+%E6%88%90%E9%83%BD
+        - article [ref=f1e353]:
+          - heading "Pandas, Wuhou et soirée au bord de l’eau · 日期待填写" [level=3] [ref=f1e354]
+          - generic [ref=f1e355]:
+            - heading "Dès l’ouverture · Base des pandas · 成都大熊猫繁育研究基地" [level=4] [ref=f1e356]
+            - paragraph [ref=f1e357]: Arriver dès l’ouverture. Horaire, accès et billets à vérifier.
+            - paragraph [ref=f1e358]: 需要预订
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%88%90%E9%83%BD%E5%A4%A7%E7%86%8A%E7%8C%AB%E7%B9%81%E8%82%B2%E7%A0%94%E7%A9%B6%E5%9F%BA%E5%9C%B0+%E6%88%90%E9%83%BD" [ref=f1e359] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%88%90%E9%83%BD%E5%A4%A7%E7%86%8A%E7%8C%AB%E7%B9%81%E8%82%B2%E7%A0%94%E7%A9%B6%E5%9F%BA%E5%9C%B0+%E6%88%90%E9%83%BD
+          - generic [ref=f1e360]:
+            - heading "Déjeuner" [level=4] [ref=f1e361]
+            - paragraph [ref=f1e362]: Pause déjeuner après la visite des pandas.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=D%C3%A9jeuner+%E6%88%90%E9%83%BD" [ref=f1e363] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=D%C3%A9jeuner+%E6%88%90%E9%83%BD
+          - generic [ref=f1e364]:
+            - heading "Wuhou et son allée rouge · 武侯祠" [level=4] [ref=f1e365]
+            - paragraph [ref=f1e366]: Visiter Wuhou et son allée bordée de murs rouges et de bambous.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%AD%A6%E4%BE%AF%E7%A5%A0+%E6%88%90%E9%83%BD" [ref=f1e367] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%AD%A6%E4%BE%AF%E7%A5%A0+%E6%88%90%E9%83%BD
+          - generic [ref=f1e368]:
+            - heading "Rue Jinli · 锦里" [level=4] [ref=f1e369]
+            - paragraph [ref=f1e370]: Promenade dans la rue Jinli, à côté de Wuhou.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%94%A6%E9%87%8C+%E6%88%90%E9%83%BD" [ref=f1e371] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%94%A6%E9%87%8C+%E6%88%90%E9%83%BD
+          - generic [ref=f1e372]:
+            - heading "Soir · Marché de nuit de Jianshe Alley · 建设巷" [level=4] [ref=f1e373]
+            - paragraph [ref=f1e374]: Étape gourmande avec un trajet en voiture supplémentaire. Si vous êtes fatigué, dîner à Wangping Street à la place.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%BB%BA%E8%AE%BE%E5%B7%B7+%E6%88%90%E9%83%BD" [ref=f1e375] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%BB%BA%E8%AE%BE%E5%B7%B7+%E6%88%90%E9%83%BD
+          - generic [ref=f1e376]:
+            - heading "Wangping Street · 望平街" [level=4] [ref=f1e377]
+            - paragraph [ref=f1e378]: Départ de la promenade le long du Jinjiang. Possibilité d’y dîner à la place de Jianshe Alley.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%9C%9B%E5%B9%B3%E8%A1%97+%E6%88%90%E9%83%BD" [ref=f1e379] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%9C%9B%E5%B9%B3%E8%A1%97+%E6%88%90%E9%83%BD
+          - generic [ref=f1e380]:
+            - heading "Tianxianqiao North Road · 天仙桥北路" [level=4] [ref=f1e381]
+            - paragraph [ref=f1e382]: Suivre la promenade depuis Wangping Street vers Tianxianqiao North Road.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E4%BB%99%E6%A1%A5%E5%8C%97%E8%B7%AF+%E6%88%90%E9%83%BD" [ref=f1e383] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%A4%A9%E4%BB%99%E6%A1%A5%E5%8C%97%E8%B7%AF+%E6%88%90%E9%83%BD
+          - generic [ref=f1e384]:
+            - heading "Quai de Dongmen · 东门码头" [level=4] [ref=f1e385]
+            - paragraph [ref=f1e386]: Poursuivre le parcours au bord du Jinjiang jusqu’au quai.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E4%B8%9C%E9%97%A8%E7%A0%81%E5%A4%B4+%E6%88%90%E9%83%BD" [ref=f1e387] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E4%B8%9C%E9%97%A8%E7%A0%81%E5%A4%B4+%E6%88%90%E9%83%BD
+          - generic [ref=f1e388]:
+            - heading "Pont Shuijin · 水津桥" [level=4] [ref=f1e389]
+            - paragraph [ref=f1e390]: Étape suivante de la promenade le long de l’eau.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%B0%B4%E6%B4%A5%E6%A1%A5+%E6%88%90%E9%83%BD" [ref=f1e391] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%B0%B4%E6%B4%A5%E6%A1%A5+%E6%88%90%E9%83%BD
+          - generic [ref=f1e392]:
+            - heading "Pavillon Hejiang · 合江亭" [level=4] [ref=f1e393]
+            - paragraph [ref=f1e394]: Rejoindre le pavillon à la confluence.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%90%88%E6%B1%9F%E4%BA%AD+%E6%88%90%E9%83%BD" [ref=f1e395] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%90%88%E6%B1%9F%E4%BA%AD+%E6%88%90%E9%83%BD
+          - generic [ref=f1e396]:
+            - heading "Place de la musique · 音乐广场" [level=4] [ref=f1e397]
+            - paragraph [ref=f1e398]: Continuer la balade vers la place de la musique près du parcours au bord de l’eau.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%9F%B3%E4%B9%90%E5%B9%BF%E5%9C%BA+%E6%88%90%E9%83%BD" [ref=f1e399] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%9F%B3%E4%B9%90%E5%B9%BF%E5%9C%BA+%E6%88%90%E9%83%BD
+          - generic [ref=f1e400]:
+            - heading "Pont Anshun · 安顺廊桥" [level=4] [ref=f1e401]
+            - paragraph [ref=f1e402]: Profiter du pont et de ses illuminations au-dessus du Jinjiang.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%AE%89%E9%A1%BA%E5%BB%8A%E6%A1%A5+%E6%88%90%E9%83%BD" [ref=f1e403] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%AE%89%E9%A1%BA%E5%BB%8A%E6%A1%A5+%E6%88%90%E9%83%BD
+          - generic [ref=f1e404]:
+            - heading "Pont Jiuyan · 九眼桥" [level=4] [ref=f1e405]
+            - paragraph [ref=f1e406]: Dernière étape du parcours détaillé fourni.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E7%9C%BC%E6%A1%A5+%E6%88%90%E9%83%BD" [ref=f1e407] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E4%B9%9D%E7%9C%BC%E6%A1%A5+%E6%88%90%E9%83%BD
+        - article [ref=f1e408]:
+          - heading "Matinée tranquille puis Shanghai · 日期待填写" [level=3] [ref=f1e409]
+          - generic [ref=f1e410]:
+            - heading "Matin · Parc du Peuple · 人民公园" [level=4] [ref=f1e411]
+            - paragraph [ref=f1e412]: Commencer la journée par une promenade tranquille.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E4%BA%BA%E6%B0%91%E5%85%AC%E5%9B%AD+%E6%88%90%E9%83%BD" [ref=f1e413] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E4%BA%BA%E6%B0%91%E5%85%AC%E5%9B%AD+%E6%88%90%E9%83%BD
+          - generic [ref=f1e414]:
+            - heading "Thé à Heming · 鹤鸣茶社" [level=4] [ref=f1e415]
+            - paragraph [ref=f1e416]: Prendre un thé à la maison de thé Heming dans le parc.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E9%B9%A4%E9%B8%A3%E8%8C%B6%E7%A4%BE+%E6%88%90%E9%83%BD" [ref=f1e417] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E9%B9%A4%E9%B8%A3%E8%8C%B6%E7%A4%BE+%E6%88%90%E9%83%BD
+          - generic [ref=f1e418]:
+            - heading "To Summer · Guānxià · 观夏蜀馆" [level=4] [ref=f1e419]
+            - paragraph [ref=f1e420]: Boutique située au 16 Citang Street, d’après le planning.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E8%A7%82%E5%A4%8F%E8%9C%80%E9%A6%86+%E6%88%90%E9%83%BD" [ref=f1e421] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E8%A7%82%E5%A4%8F%E8%9C%80%E9%A6%86+%E6%88%90%E9%83%BD
+          - generic [ref=f1e422]:
+            - heading "Récupérer les bagages" [level=4] [ref=f1e423]
+            - paragraph [ref=f1e424]: Repasser à l’hôtel avant de rejoindre l’aéroport.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=R%C3%A9cup%C3%A9rer+les+bagages+%E6%88%90%E9%83%BD" [ref=f1e425] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=R%C3%A9cup%C3%A9rer+les+bagages+%E6%88%90%E9%83%BD
+          - generic [ref=f1e426]:
+            - heading "Transfert vers l’aéroport" [level=4] [ref=f1e427]
+            - paragraph [ref=f1e428]: Aéroport, terminal et moyen de transfert à préciser selon le vol.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Transfert+vers+l%E2%80%99a%C3%A9roport+%E6%88%90%E9%83%BD" [ref=f1e429] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Transfert+vers+l%E2%80%99a%C3%A9roport+%E6%88%90%E9%83%BD
+          - generic [ref=f1e430]:
+            - heading "Vol vers Shanghai" [level=4] [ref=f1e431]
+            - paragraph [ref=f1e432]: Poursuite du voyage à Shanghai. Vol, horaire et aéroport d’arrivée à compléter.
+            - paragraph [ref=f1e433]: 需要预订
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Vol+vers+Shanghai+%E6%88%90%E9%83%BD" [ref=f1e434] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Vol+vers+Shanghai+%E6%88%90%E9%83%BD
+      - generic [ref=f1e435]:
+        - heading "Shanghai · 上海" [level=2] [ref=f1e436]
+        - paragraph [ref=f1e437]: La suite du voyage reste à imaginer
+        - paragraph [ref=f1e438]: Arrivée prévue depuis Chengdu en avion.
+        - paragraph [ref=f1e439]: Planning, durée du séjour, hôtel et dates à compléter.
+        - paragraph [ref=f1e440]: Une excursion à Suzhou figure déjà dans le planning.
+      - generic [ref=f1e441]:
+        - heading "Suzhou · 苏州" [level=2] [ref=f1e442]
+        - paragraph [ref=f1e443]: Une excursion entre jardins, canaux et skyline
+        - paragraph [ref=f1e444]: Excursion d’une journée, placée après Shanghai dans le document. Date et trajets aller-retour à préciser.
+        - paragraph [ref=f1e445]: « Jinji Yi 09 » est le nom fourni pour le point de vue au lac Jinji ; confirmer le lieu exact sur Amap.
+        - article [ref=f1e446]:
+          - heading "Jardins, vieille ville et lac Jinji · 日期待填写" [level=3] [ref=f1e447]
+          - generic [ref=f1e448]:
+            - heading "Suzhou Station · 苏州站" [level=4] [ref=f1e449]
+            - paragraph [ref=f1e450]: Début de l’excursion à la gare de Suzhou.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E8%8B%8F%E5%B7%9E%E7%AB%99+%E8%8B%8F%E5%B7%9E" [ref=f1e451] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E8%8B%8F%E5%B7%9E%E7%AB%99+%E8%8B%8F%E5%B7%9E
+          - generic [ref=f1e452]:
+            - heading "Tiger Hill · 虎丘" [level=4] [ref=f1e453]
+            - paragraph [ref=f1e454]: Première visite de la journée à la colline du Tigre.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E8%99%8E%E4%B8%98+%E8%8B%8F%E5%B7%9E" [ref=f1e455] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E8%99%8E%E4%B8%98+%E8%8B%8F%E5%B7%9E
+          - generic [ref=f1e456]:
+            - heading "Shantang Street · 山塘街" [level=4] [ref=f1e457]
+            - paragraph [ref=f1e458]: Promenade dans le quartier historique et le long du canal.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%B1%B1%E5%A1%98%E8%A1%97+%E8%8B%8F%E5%B7%9E" [ref=f1e459] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%B1%B1%E5%A1%98%E8%A1%97+%E8%8B%8F%E5%B7%9E
+          - generic [ref=f1e460]:
+            - heading "Pagode Beisi · 北寺塔" [level=4] [ref=f1e461]
+            - paragraph [ref=f1e462]: Poursuivre vers la pagode du temple du Nord.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E5%AF%BA%E5%A1%94+%E8%8B%8F%E5%B7%9E" [ref=f1e463] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%8C%97%E5%AF%BA%E5%A1%94+%E8%8B%8F%E5%B7%9E
+          - generic [ref=f1e464]:
+            - heading "Jardin de l’Humble Administrateur · 拙政园" [level=4] [ref=f1e465]
+            - paragraph [ref=f1e466]: Découvrir l’un des grands jardins classiques de Suzhou.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E6%8B%99%E6%94%BF%E5%9B%AD+%E8%8B%8F%E5%B7%9E" [ref=f1e467] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E6%8B%99%E6%94%BF%E5%9B%AD+%E8%8B%8F%E5%B7%9E
+          - generic [ref=f1e468]:
+            - heading "Pingjiang Road · 平江路" [level=4] [ref=f1e469]
+            - paragraph [ref=f1e470]: Marcher le long des canaux de Pingjiang Road.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E5%B9%B3%E6%B1%9F%E8%B7%AF+%E8%8B%8F%E5%B7%9E" [ref=f1e471] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E5%B9%B3%E6%B1%9F%E8%B7%AF+%E8%8B%8F%E5%B7%9E
+          - generic [ref=f1e472]:
+            - heading "Jinji Yi 09 · lac Jinji" [level=4] [ref=f1e473]
+            - paragraph [ref=f1e474]: Point de vue sur la skyline au lac Jinji, selon le planning. Confirmer le lieu exact avant le déplacement.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Jinji+Yi+09+%C2%B7+lac+Jinji+%E8%8B%8F%E5%B7%9E" [ref=f1e475] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Jinji+Yi+09+%C2%B7+lac+Jinji+%E8%8B%8F%E5%B7%9E
+          - generic [ref=f1e476]:
+            - heading "Gate of the Orient · 东方之门" [level=4] [ref=f1e477]
+            - paragraph [ref=f1e478]: Dernière étape près de l’emblématique porte de l’Orient.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=%E4%B8%9C%E6%96%B9%E4%B9%8B%E9%97%A8+%E8%8B%8F%E5%B7%9E" [ref=f1e479] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=%E4%B8%9C%E6%96%B9%E4%B9%8B%E9%97%A8+%E8%8B%8F%E5%B7%9E
+          - generic [ref=f1e480]:
+            - heading "Retour en gare" [level=4] [ref=f1e481]
+            - paragraph [ref=f1e482]: Rejoindre la gare pour le retour. Gare et train à confirmer.
+            - 'link "Google Maps : https://www.google.com/maps/search/?api=1&query=Retour+en+gare+%E8%8B%8F%E5%B7%9E" [ref=f1e483] [cursor=pointer]':
+              - /url: https://www.google.com/maps/search/?api=1&query=Retour+en+gare+%E8%8B%8F%E5%B7%9E
+```
+
+# Test source
+
+```ts
+  1   | import { test, expect } from './fixtures';
+  2   | import { translate, localeFor } from '../../src/locale-utils';
+  3   | 
+  4   | for (const [language, nativeLabel, title] of [
+  5   |   ['zh-CN', '中文（简体）', '我的旅行'],
+  6   |   ['es', 'Español', 'Mis viajes'],
+  7   | ] as const) {
+  8   |   test(`${nativeLabel}: library, all views, dates, forms and saved notes`, async ({ page }) => {
+  9   |     const t = (source: string) => translate(source, language);
+  10  |     await page.goto('/');
+  11  |     await expect(page).toHaveTitle(/^Détours —/);
+  12  |     await expect(page.locator('.brand')).toContainText('détours');
+  13  |     const note = 'Mi nota personnelle 中文 · 14 h';
+  14  |     await page.getByLabel('Ma note pour Shenzhen', { exact: true }).fill(note);
+  15  |     await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('a-l-est-trip-v2:china-legacy')!).state.notes.shenzhen)).toBe(note);
+  16  |     const before = await page.evaluate(() => localStorage.getItem('a-l-est-trip-v2:china-legacy'));
+  17  |     await page.getByRole('button', { name: 'Préférences', exact: true }).click();
+  18  |     await page.getByRole('dialog').getByRole('radio', { name: nativeLabel, exact: true }).check();
+  19  |     await expect(page.getByRole('dialog').getByText(t('Langue de l’interface'), { exact: true })).toBeVisible();
+  20  |     await page.keyboard.press('Escape');
+  21  |     await expect(page.locator('html')).toHaveAttribute('lang', language);
+  22  |     await expect(page.getByLabel(translate('Ma note pour {city}', language, { city: 'Shenzhen' }), { exact: true })).toHaveValue(note);
+  23  |     await expect(page.getByRole('heading', { name: 'Arrivée à Shenzhen', exact: true })).toBeVisible();
+  24  |     expect(await page.evaluate(() => localStorage.getItem('a-l-est-trip-v2:china-legacy'))).toBe(before);
+  25  |     await page.getByRole('button', { name: t('Ajouter une étape à cette journée'), exact: true }).click();
+  26  |     await expect(page.getByRole('dialog').getByLabel(t('Lieu ou activité'), { exact: true })).toBeVisible();
+  27  |     await page.keyboard.press('Escape');
+  28  |     const nav = page.getByRole('navigation', { name: t('Navigation principale'), exact: true });
+  29  |     await nav.getByRole('button', { name: t('Vue d’ensemble'), exact: true }).click();
+  30  |     await page.locator('input[type="date"]').first().fill('2027-03-12');
+  31  |     // Capture the actual print document while avoiding the system print dialog.
+  32  |     await page.evaluate(() => {
+  33  |       const append = Element.prototype.append;
+  34  |       Element.prototype.append = function (...nodes) {
+  35  |         append.apply(this, nodes);
+  36  |         for (const node of nodes) if (node instanceof HTMLIFrameElement && node.contentWindow) {
+  37  |           node.contentWindow.print = () => {
+  38  |             document.body.dataset.printLang = node.contentDocument!.documentElement.lang;
+  39  |             document.body.dataset.printText = node.contentDocument!.body.textContent || '';
+  40  |           };
+  41  |         }
+  42  |       };
+  43  |     });
+  44  |     await page.getByRole('button', { name: t('Imprimer tout le voyage'), exact: true }).click();
+  45  |     await expect(page.locator('body')).toHaveAttribute('data-print-lang', language);
+  46  |     const printed = await page.locator('body').getAttribute('data-print-text');
+  47  |     expect(printed).toContain(note);
+  48  |     expect(printed).toContain(new Date('2027-03-12T12:00:00Z').toLocaleDateString(localeFor(language), { dateStyle: 'medium', timeZone: 'UTC' }));
+  49  |     await nav.getByRole('button', { name: t('Mon planning'), exact: true }).click();
+  50  |     const date = new Date('2027-03-12T12:00:00Z').toLocaleDateString(localeFor(language), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  51  |     await expect(page.locator('.day-date')).toHaveText(date);
+  52  |     await nav.getByRole('button', { name: t('La carte du voyage'), exact: true }).click();
+  53  |     await expect(page.locator('.leaflet-container').first()).toBeVisible();
+  54  |     await nav.getByRole('button', { name: t('Mes envies & bonus') }).click();
+  55  |     await page.getByRole('button', { name: t('Ajouter une adresse'), exact: true }).click();
+  56  |     await expect(page.getByRole('dialog').getByLabel(t('Nom de l’adresse'), { exact: true })).toBeVisible();
+  57  |     await page.keyboard.press('Escape');
+  58  |     await nav.getByRole('button', { name: t('Mes transports'), exact: true }).click();
+  59  |     await page.getByRole('button', { name: t('Ajouter un trajet'), exact: true }).click();
+  60  |     await expect(page.getByLabel(t('Nom du trajet (facultatif)'), { exact: true })).toBeVisible();
+  61  |     await nav.getByRole('button', { name: t('Mes outils sur place'), exact: true }).click();
+  62  |     for (const tab of ['Hébergements', 'Budget', 'Dans ma valise', 'Phrases utiles']) {
+> 63  |       await page.getByRole('tab', { name: t(tab), exact: true }).click();
+      |                                                                  ^ Error: locator.click: Test timeout of 30000ms exceeded.
+  64  |       if (tab === 'Budget') await expect(page.getByLabel(t('Montant'), { exact: true })).toBeVisible();
+  65  |     }
+  66  |     await nav.getByRole('button', { name: t('Mon carnet pratique'), exact: true }).click();
+  67  |     await expect(page.getByRole('button', { name: t('Exporter ma sauvegarde'), exact: true })).toBeVisible();
+  68  |     await page.getByRole('button', { name: title, exact: true }).click();
+  69  |     await expect(page).toHaveTitle(`Détours — ${title}`);
+  70  |     await page.getByRole('button', { name: t('Créer un voyage'), exact: true }).click();
+  71  |     await expect(page.getByRole('dialog').getByLabel(t('Titre du voyage'), { exact: true })).toBeVisible();
+  72  |     await page.keyboard.press('Escape');
+  73  |     await page.reload();
+  74  |     await expect(page.locator('html')).toHaveAttribute('lang', language);
+  75  |     await page.getByRole('button', { name: translate('Ouvrir {title}', language, { title: 'Chine 2027' }), exact: true }).click();
+  76  |     await nav.getByRole('button', { name: t('Mon planning'), exact: true }).click();
+  77  |     await expect(page.getByLabel(translate('Ma note pour {city}', language, { city: 'Shenzhen' }), { exact: true })).toHaveValue(note);
+  78  |   });
+  79  | 
+  80  |   test(`${nativeLabel}: 320px navigation, preferences and both themes fit`, async ({ page }) => {
+  81  |     await page.setViewportSize({ width: 320, height: 844 });
+  82  |     await page.goto('/');
+  83  |     const t = (source: string) => translate(source, language);
+  84  |     for (const theme of ['light', 'dark']) {
+  85  |       await page.getByRole('button', { name: /^(Préférences|偏好设置|Preferencias)$/ }).click();
+  86  |       await page.getByRole('dialog').getByRole('radio', { name: nativeLabel, exact: true }).check();
+  87  |       await page.getByRole('dialog').locator(`input[value="${theme}"]`).check();
+  88  |       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  89  |       await page.screenshot({ path: `test-results/locales-${language}-${theme}-preferences.png` });
+  90  |       await page.keyboard.press('Escape');
+  91  |       const bottom = page.locator('.mobile-bottom-nav');
+  92  |       for (const key of ['Planning', 'Carte', 'Bonus', 'Outils']) {
+  93  |         await bottom.getByRole('button', { name: t(key), exact: true }).click();
+  94  |         expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${language} ${theme} ${key}`).toBe(true);
+  95  |       }
+  96  |       await bottom.getByRole('button', { name: t('Menu'), exact: true }).click();
+  97  |       await expect(page.locator('.sidebar')).toHaveClass(/open/);
+  98  |       await page.keyboard.press('Escape');
+  99  |       await bottom.getByRole('button', { name: t('Planning'), exact: true }).click();
+  100 |       await page.screenshot({ path: `test-results/locales-${language}-${theme}-planning.png`, fullPage: true });
+  101 |     }
+  102 |   });
+  103 | }
+  104 | 
+```

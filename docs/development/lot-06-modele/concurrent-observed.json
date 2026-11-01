@@ -1,0 +1,15 @@
+{
+  "observation": "Changes detected during mission, not written by this mission; preserved and excluded from lot06 patch. Original audit initially passed all 1191 files.",
+  "files": [
+    {
+      "file": "docs/development/lots-suivants/00-LIRE-AVANT-LES-LOTS.md",
+      "sha256": "b3918d68524d648c3f9d5a23d9f42f16d738c1d936eb14afea41051fd3e66798",
+      "bytes": 8641
+    },
+    {
+      "file": "docs/development/lots-suivants/LOT-06-BIS-API-NVIDIA.md",
+      "sha256": "8a5fcdec52c9ae48449c54ddca1c630b1f4a60ac897d39e386fb6596e5fd070a",
+      "bytes": 14176
+    }
+  ]
+}

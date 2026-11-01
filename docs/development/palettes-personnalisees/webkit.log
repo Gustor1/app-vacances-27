@@ -1,0 +1,17 @@
+
+Running 10 tests using 1 worker
+
+(node:20016) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\palettes-personnalisees.spec.ts:17:1 › all twelve families apply both appearances, keep notebooks intact and remain usable at 390px (59.8s)
+  ok  2 tests\e2e\palettes-personnalisees.spec.ts:59:1 › independent day/night choices survive reload, tab changes and legacy preference writes (22.8s)
+  ok  3 tests\e2e\palettes-personnalisees.spec.ts:78:3 › palette saving throw: session choices work, failure is visible, notebooks and old settings are preserved (12.1s)
+  ok  4 tests\e2e\palettes-personnalisees.spec.ts:78:3 › palette saving silent: session choices work, failure is visible, notebooks and old settings are preserved (11.3s)
+  ok  5 tests\e2e\palettes-personnalisees.spec.ts:97:1 › unknown stored version is retained, defaults stay usable and changing language does not overwrite it (5.1s)
+  ok  6 tests\e2e\palettes-personnalisees.spec.ts:107:3 › palette collection keyboard, narrow layout and 200% reflow in fr (8.2s)
+  ok  7 tests\e2e\palettes-personnalisees.spec.ts:107:3 › palette collection keyboard, narrow layout and 200% reflow in en (7.3s)
+  ok  8 tests\e2e\palettes-personnalisees.spec.ts:107:3 › palette collection keyboard, narrow layout and 200% reflow in zh-CN (6.0s)
+  ok  9 tests\e2e\palettes-personnalisees.spec.ts:107:3 › palette collection keyboard, narrow layout and 200% reflow in es (6.7s)
+  ok 10 tests\e2e\palettes-personnalisees.spec.ts:122:1 › automatic appearance follows the system while keeping both choices, including before React loads (3.3s)
+
+  10 passed (2.4m)

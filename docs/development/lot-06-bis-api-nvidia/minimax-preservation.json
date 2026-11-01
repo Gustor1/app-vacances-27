@@ -1,0 +1,20 @@
+{
+  "snapshot": "C:\\Users\\eliot\\Documents\\detours-minimax-recovery-20261023",
+  "initialFiles": 1265,
+  "identical": 1255,
+  "changedInMission": [
+    "docs/development/lot-06-bis-api-nvidia/RAPPORT.md",
+    "docs/development/lot-06-bis-api-nvidia/SOURCES.md",
+    "docs/development/lot-06-bis-api-nvidia/changes.json",
+    "docs/development/lot-06-bis-api-nvidia/comparison.json",
+    "docs/development/lot-06-bis-api-nvidia/preservation.json",
+    "docs/development/lot-06-bis-api-nvidia/validation.json",
+    "scripts/benchmark-nvidia-import.mjs",
+    "scripts/nvidia-import/client.mjs",
+    "scripts/nvidia-import/preservation.mjs",
+    "tests/nvidia-import.test.mjs"
+  ],
+  "missing": [],
+  "unexpectedChanges": [],
+  "passed": true
+}

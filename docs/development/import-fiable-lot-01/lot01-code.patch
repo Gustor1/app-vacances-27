@@ -1,0 +1,696 @@
+--- a/src/components/PlanningImport.tsx
++++ b/src/components/PlanningImport.tsx
+@@ -8,6 +8,7 @@
+ import { applyDepartureDate, correctField, draftSummary, unstructuredNotes, validateDraft } from '../planning-import/draft';
+ import { clearSession, commitImport, createSession, DRAFT_KEY, loadSession, saveSession } from '../planning-import/persistence';
+ import { extractPlanning, getExtractionAvailability } from '../planning-import/extraction';
++import { activityFromPassage, reviewPassages } from '../planning-import/review';
+ import { parsePlanning } from '../planning-import/parser';
+ import { PlanningFileError, PLANNING_FILE_ACCEPT, readPlanningFile } from '../planning-import/files';
+ import { SYNTHETIC_EXAMPLES } from '../planning-import/fixtures';
+@@ -33,6 +34,7 @@
+   const [busy, setBusy] = useState(false);
+   const [reading, setReading] = useState(false);
+   const [pendingSource, setPendingSource] = useState<{ source: string; draft: PlanningDraft | null } | null>(null);
++  const [noteTarget, setNoteTarget] = useState('0:0');
+   const [saving, setSaving] = useState(false);
+   const [resetRequested, setResetRequested] = useState(false);
+   const request = useRef<{ controller: AbortController; sequence: number } | null>(null);
+@@ -50,7 +52,7 @@
+   function stop() { sequence.current++; request.current?.controller.abort(); request.current = null; setBusy(false); setReading(false); setPendingSource(null); }
+   function proposeSource(source: string, draft: PlanningDraft | null = null) {
+     if (current.current.source.trim() && current.current.source !== source) setPendingSource({ source, draft });
+-    else update({ ...current.current, source, draft });
++    else update({ ...current.current, source, draft, reviewedQuotes: [] });
+   }
+   async function openFile(file: File) {
+     if (blocked || current.current.draft) return;
+@@ -115,6 +117,17 @@
+   }
+   const draft = session.draft;
+   const summary = draft ? draftSummary(draft, session.source) : null;
++  const passages = draft ? reviewPassages(draft, session.source, session.reviewedQuotes) : [];
++  function keepNote(quote: string) { update({ ...current.current, reviewedQuotes: [...new Set([...(current.current.reviewedQuotes || []), quote])] }); }
++  function promote(quote: string) {
++    const [ci,di] = noteTarget.split(':').map(Number);
++    changeDraft(d => {
++      if (!d.cities[ci]?.days[di]) return d;
++      const item=activityFromPassage(quote);
++      d.cities[ci].days[di].items.push(item); return d;
++    });
++    keepNote(quote);
++  }
+   const preservedNotes = draft ? unstructuredNotes(draft, session.source) : [];
+   return <Modal title={t('Créer depuis un planning')} wide onClose={() => { stop(); onClose(); }}><div className="planning-import">
+     {blocked && <div role="alert" className="notice warning-notice"><p>{t('Brouillon illisible. Sa source est conservée ; efface-le explicitement pour recommencer.')}</p><button type="button" className="text-btn" onClick={() => { try { downloadText(storage.getItem(DRAFT_KEY) || '', 'detours-brouillon-a-recuperer.json'); } catch { setError(t('Sauvegarde du brouillon impossible. Télécharge le texte avant de fermer.')); } }}><Download size={16}/>{t('Télécharger le brouillon brut')}</button></div>}
+@@ -125,7 +138,7 @@
+       <label className="field">{t('Ouvrir un fichier texte ou Markdown')}<input type="file" accept={PLANNING_FILE_ACCEPT} disabled={blocked || busy || reading} aria-describedby="planning-file-help" onChange={event => { const file = event.currentTarget.files?.[0]; event.currentTarget.value = ''; if (file) void openFile(file); }}/></label>
+       <p id="planning-file-help" className="muted small">{t('Fichiers .txt, .md et .markdown en UTF-8, 200 Ko et 50 000 caractères maximum. Pour un PDF ou Word, copie le texte ici.')}</p>
+       {reading && <p role="status">{t('Lecture du fichier…')}</p>}
+-      {pendingSource && <div className="notice warning-notice"><p>{t('Un texte est déjà présent. Vérifie le nouveau texte avant de choisir de le remplacer.')}</p><pre className="planning-source">{pendingSource.source}</pre><div className="planning-actions"><button type="button" className="btn btn-secondary" onClick={() => setPendingSource(null)}>{t('Annuler')}</button><button type="button" className="btn btn-primary" onClick={() => { update({ ...current.current, ...pendingSource }); setPendingSource(null); }}>{t('Remplacer le texte')}</button></div></div>}
++      {pendingSource && <div className="notice warning-notice"><p>{t('Un texte est déjà présent. Vérifie le nouveau texte avant de choisir de le remplacer.')}</p><pre className="planning-source">{pendingSource.source}</pre><div className="planning-actions"><button type="button" className="btn btn-secondary" onClick={() => setPendingSource(null)}>{t('Annuler')}</button><button type="button" className="btn btn-primary" onClick={() => { update({ ...current.current, ...pendingSource, reviewedQuotes: [] }); setPendingSource(null); }}>{t('Remplacer le texte')}</button></div></div>}
+       {session.source.length > MAX_SOURCE_LENGTH && <p role="alert">{t('Le texte dépasse 50 000 caractères. Réduis-le avant analyse ; rien n’a été tronqué.')}</p>}
+       <p className="muted small">{t('La reconnaissance des journées et activités fonctionne sur cet appareil, sans compte ni envoi du texte. Vérifie ensuite l’aperçu avant de créer le carnet.')}</p>
+       <div className="planning-actions">
+@@ -142,21 +155,36 @@
+     </> : <form onSubmit={event => void create(event)}>
+       {session.preparedTrip && <p className="notice">{t('Création préparée. Réessayer termine le même carnet sauvegardé ; les corrections sont verrouillées.')}</p>}
+       <fieldset className="planning-review-fields" disabled={!!session.preparedTrip}>
++      <div className="planning-summary" role="status">{t('{days} journées · {items} propositions · {review} passages à vérifier', { days: summary!.days, items: summary!.activities + summary!.suggestions, review: passages.length })}</div>
++      {summary!.activities + summary!.suggestions === 0 && <p className="notice warning-notice">{t('Aucune activité proposée. Le texte est conservé ; ajoute les éléments manquants avant la création.')}</p>}
++      {passages.length > 0 && <section className="planning-passages" aria-label={t('Passages à vérifier')}>
++        <p className="muted small">{t('Blocs non traités, conflits, rattachements incomplets ou champs ambigus. Les notes explicites restent accessibles plus bas.')}</p>
++        {passages.map((passage,index) => <details key={`${passage.kind}:${passage.target}:${index}`}>
++          <summary>{t('Passage à vérifier {count}', {count:index+1})} · {t(passage.kind === 'conflict' ? 'Conflit' : passage.kind === 'assignment' ? 'Affectation ville / journée' : passage.kind === 'ambiguous' ? 'Champ ambigu' : 'Bloc non traité')}</summary>
++          <pre className="planning-source">{passage.quote}</pre>
++          {passage.target ? <a href={`#${passage.target}`} onClick={event => { event.preventDefault(); const element=document.getElementById(passage.target!); element?.scrollIntoView({block:'center'}); element?.focus(); }}>{t('Corriger la proposition')}</a> : <div className="planning-actions">
++            <label className="field">{t('Journée de destination')}<select aria-label={t('Journée de destination')} value={noteTarget} onChange={e=>setNoteTarget(e.target.value)}>{draft.cities.flatMap((c,ci)=>c.days.map((d,di)=><option key={`${ci}:${di}`} value={`${ci}:${di}`}>{c.name} · {d.title || t('Jour {count}',{count:di+1})}</option>))}</select></label>
++            <button type="button" className="text-btn" disabled={!draft.cities.some(c=>c.days.length)} onClick={()=>promote(passage.quote)}>{t('Transformer en activité')}</button>
++            <button type="button" className="text-btn" onClick={()=>keepNote(passage.quote)}>{t('Conserver comme note')}</button>
++          </div>}
++        </details>)}
++      </section>}
+       {(!draft.title.trim() || draft.cities.some(city => !city.name.trim())) && <p className="notice">{t('Le titre du voyage ou une ville n’a pas pu être identifié avec certitude. Complète les champs vides avant de créer le carnet ; aucune destination n’a été inventée.')}</p>}
+-      <label className="field">{t('Titre du voyage')}<input required maxLength={140} value={draft.title} onChange={e => changeDraft(d => correctField(d, 'title', e.target.value))}/></label>
++      <label className="field">{t('Titre du voyage')}<input id="planning-title" required maxLength={140} value={draft.title} onChange={e => changeDraft(d => correctField(d, 'title', e.target.value))}/></label>
+       {provenance(draft.evidence)}
+       <div className="form-row"><label className="field">{t('Devise de référence')}<input required maxLength={3} placeholder="EUR" value={session.currency} onChange={e => update({ ...current.current, currency: e.target.value.toUpperCase() })}/></label><label className="field">{t('Fuseau du voyage')}<input required placeholder="Europe/Paris" value={session.timezone} onChange={e => update({ ...current.current, timezone: e.target.value })}/></label></div>
+       <div className="planning-actions"><label className="field">{t('Date de départ (facultative)')}<input type="date" value={session.departureDate} onChange={e => update({ ...current.current, departureDate: e.target.value })}/></label><button type="button" className="btn btn-secondary" disabled={!session.departureDate} onClick={() => { try { changeDraft(d => applyDepartureDate(d, session.departureDate)); } catch { setError(t('Date de départ invalide.')); } }}>{t('Dater les journées sans date')}</button></div>
+       {draft.cities.map((city, ci) => <section className="planning-city" key={ci}>
+-        <label className="field">{t('Ville, région ou lieu de séjour')}<input required maxLength={100} value={city.name} onChange={e => changeDraft(d => { d.cities[ci] = correctField(d.cities[ci], 'name', e.target.value); return d; })}/></label>
++        <label className="field">{t('Ville, région ou lieu de séjour')}<input id={`planning-city-${ci}`} required maxLength={100} value={city.name} onChange={e => changeDraft(d => { d.cities[ci] = correctField(d.cities[ci], 'name', e.target.value); return d; })}/></label>
+         {provenance(city.evidence)}
+         {city.days.map((day, di) => <section className="planning-day" key={di}>
+-          <div className="form-row"><label className="field">{t('Titre de la journée')}<input required maxLength={180} value={day.title} onChange={e => changeDraft(d => { d.cities[ci].days[di] = correctField(d.cities[ci].days[di], 'title', e.target.value); return d; })}/></label><label className="field">{t('Date (facultative)')}<input type="date" value={day.date} onChange={e => changeDraft(d => { d.cities[ci].days[di] = correctField(d.cities[ci].days[di], 'date', e.target.value); return d; })}/></label></div>
++          <div className="form-row"><label className="field">{t('Titre de la journée')}<input id={`planning-day-${ci}-${di}`} required maxLength={180} value={day.title} onChange={e => changeDraft(d => { d.cities[ci].days[di] = correctField(d.cities[ci].days[di], 'title', e.target.value); return d; })}/></label><label className="field">{t('Date (facultative)')}<input id={`planning-day-${ci}-${di}-date`} type="date" value={day.date} onChange={e => changeDraft(d => { d.cities[ci].days[di] = correctField(d.cities[ci].days[di], 'date', e.target.value); return d; })}/></label></div>
+           {provenance(day.evidence)}
+           {day.items.map((item, ii) => <article className={`planning-item${item.excluded ? ' planning-excluded' : ''}`} key={ii}>
+             <div className="planning-item-toolbar"><strong>{t(item.kind === 'stay' ? 'Hébergement' : item.kind === 'transfer' ? 'Transport' : item.kind === 'suggestion' ? 'Suggestion' : item.kind === 'alternative' ? 'Alternative' : 'Activité')}</strong><button title={t('Monter')} aria-label={t('Monter')} type="button" className="icon-btn" disabled={ii === 0} onClick={() => reorder(ci, di, ii, -1)}><ArrowUp size={16}/></button><button title={t('Descendre')} aria-label={t('Descendre')} type="button" className="icon-btn" disabled={ii === day.items.length - 1} onClick={() => reorder(ci, di, ii, 1)}><ArrowDown size={16}/></button><label className="checkbox-label"><input type="checkbox" checked={item.excluded} onChange={e => editItem(ci, di, ii, 'excluded', e.target.checked)}/>{t('Exclure')}</label></div>
+             <fieldset disabled={item.excluded}>
+-              <label className="field">{t('Lieu ou activité')}<input required={!item.excluded} maxLength={180} value={item.title} onChange={e => editItem(ci, di, ii, 'title', e.target.value)}/></label>
++              {!item.title && (item.evidence.description?.quote.length || 0) > 300 && <p className="notice">{t('Nomme cette activité. Le passage long reste intégralement accessible dans sa provenance et les notes.')}</p>}
++              <label className="field">{t('Lieu ou activité')}<input id={`planning-item-${ci}-${di}-${ii}`} required={!item.excluded} maxLength={180} value={item.title} onChange={e => editItem(ci, di, ii, 'title', e.target.value)}/></label>
+               <div className="form-row"><label className="field">{t('Type')}<select value={item.kind} onChange={e => editItem(ci, di, ii, 'kind', e.target.value as DraftItem['kind'])}>{(['activity', 'stay', 'transfer', 'suggestion', 'alternative'] as const).map((kind, index) => <option key={kind} value={kind}>{t(['Activité', 'Hébergement', 'Transport', 'Suggestion', 'Alternative'][index])}</option>)}</select></label><label className="field">{t('Catégorie')}<select value={item.category} onChange={e => editItem(ci, di, ii, 'category', e.target.value as DraftItem['category'])}>{Object.entries(categoryLabels).filter(([key]) => key !== 'photo').map(([key, label]) => <option key={key} value={key}>{t(label)}</option>)}</select></label></div>
+               <label className="field">{t('Adresse précise')}<input value={item.address} onChange={e => editItem(ci, di, ii, 'address', e.target.value)}/></label>
+               {!item.address && !item.coordinates && <p className="muted small">{t('Lieu à préciser : aucun repère géographique ajouté.')}</p>}
+@@ -166,7 +194,7 @@
+               <label className="field">{t('Détails et informations')}<textarea rows={2} value={item.description} onChange={e => editItem(ci, di, ii, 'description', e.target.value)}/></label>
+               <label className="field">{t('Référence de réservation')}<input value={item.reference} onChange={e => editItem(ci, di, ii, 'reference', e.target.value)}/></label>
+               <div className="planning-actions"><label className="checkbox-label"><input type="checkbox" checked={item.optional} onChange={e => editItem(ci, di, ii, 'optional', e.target.checked)}/>{t('Facultatif')}</label><label className="checkbox-label"><input type="checkbox" checked={item.booked} onChange={e => editItem(ci, di, ii, 'booked', e.target.checked)}/>{t('Réservation confirmée')}</label></div>
+-              <label className="field">{t('Affectation ville / journée')}<select value={`${ci}:${di}`} onChange={e => move(ci, di, ii, e.target.value)}>{draft.cities.flatMap((c, cIndex) => c.days.map((d, dIndex) => <option key={`${cIndex}:${dIndex}`} value={`${cIndex}:${dIndex}`}>{c.name} · {d.title || t('Jour {count}', { count: dIndex + 1 })}</option>))}</select></label>
++              <label className="field">{t('Affectation ville / journée')}<select aria-label={t('Affectation ville / journée')} value={`${ci}:${di}`} onChange={e => move(ci, di, ii, e.target.value)}>{draft.cities.flatMap((c, cIndex) => c.days.map((d, dIndex) => <option key={`${cIndex}:${dIndex}`} value={`${cIndex}:${dIndex}`}>{c.name} · {d.title || t('Jour {count}', { count: dIndex + 1 })}</option>))}</select></label>
+             </fieldset>
+             {provenance(item.evidence)}
+           </article>)}
+--- a/src/components/PlanningImport.css
++++ b/src/components/PlanningImport.css
+@@ -23,3 +23,8 @@
+ .planning-source { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; font-size: 13px; max-height: 360px; overflow-y: auto; }
+ .planning-summary { border-top: 1px solid var(--line); padding-top: 16px; font-weight: 600; overflow-wrap: anywhere; }
+ @media (max-width: 500px) { .planning-import .form-row { grid-template-columns: minmax(0, 1fr); } .planning-item { padding: 12px; } }
++
++.planning-passages { min-width: 0; overflow-wrap: anywhere; }
++.planning-passages details { border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin: 8px 0; }
++.planning-passages summary { cursor: pointer; }
++.planning-import [id] { scroll-margin-block: 24px; }
+--- a/src/locales/planning-import.ts
++++ b/src/locales/planning-import.ts
+@@ -103,5 +103,17 @@
+   ['Télécharger le texte source', 'Download source text', '下载原始文本', 'Descargar texto fuente'],
+   ['Effacer le brouillon', 'Erase draft', '删除草稿', 'Borrar borrador'],
+   ['Effacer le texte et les corrections ? Cette action permet de lancer un nouvel import.', 'Erase the text and corrections? This starts a new import.', '删除文本和修改？此操作将开始新的导入。', '¿Borrar el texto y las correcciones? Esta acción inicia una nueva importación.'],
++  ["{days} journées · {items} propositions · {review} passages à vérifier", "{days} days · {items} proposals · {review} passages to review", "{days} 天 · {items} 项建议 · {review} 处待检查", "{days} días · {items} propuestas · {review} fragmentos por revisar"],
++  ["Aucune activité proposée. Le texte est conservé ; ajoute les éléments manquants avant la création.", "No activities proposed. Your text is preserved; add missing items before creating the notebook.", "未识别到活动。文本已保留；创建前请补充缺失内容。", "No se proponen actividades. El texto se conserva; añade lo que falta antes de crear el cuaderno."],
++  ["Passages à vérifier", "Passages to review", "待检查的片段", "Fragmentos por revisar"],
++  ["Passage à vérifier {count}", "Passage to review {count}", "待检查片段 {count}", "Fragmento por revisar {count}"],
++  ["Blocs non traités, conflits, rattachements incomplets ou champs ambigus. Les notes explicites restent accessibles plus bas.", "Unprocessed blocks, conflicts, incomplete assignments or ambiguous fields. Explicit notes remain available below.", "未处理的内容、冲突、不完整的归属或不明确的字段。下方仍可查看明确的笔记。", "Bloques sin procesar, conflictos, asignaciones incompletas o campos ambiguos. Las notas explícitas siguen disponibles abajo."],
++  ["Champ ambigu", "Ambiguous field", "不明确的字段", "Campo ambiguo"],
++  ["Bloc non traité", "Unprocessed block", "未处理的内容", "Bloque sin procesar"],
++  ["Corriger la proposition", "Correct the proposal", "修改建议", "Corregir la propuesta"],
++  ["Journée de destination", "Destination day", "目标日期组", "Día de destino"],
++  ["Transformer en activité", "Convert to activity", "转换为活动", "Convertir en actividad"],
++  ["Conserver comme note", "Keep as note", "保留为笔记", "Conservar como nota"],
++  ['Nomme cette activité. Le passage long reste intégralement accessible dans sa provenance et les notes.', 'Name this activity. The full long passage remains available in its provenance and notes.', '请为此活动命名。完整的长片段仍可在来源和笔记中查看。', 'Pon nombre a esta actividad. El fragmento largo sigue disponible íntegro en su procedencia y en las notas.'],
+ ] as const;
+ export function planningImportDictionary(index: 0 | 1 | 2): Record<string, string> { return Object.fromEntries(rows.map(row => [row[0], row[index + 1]])); }
+--- a/src/planning-import/parser.ts
++++ b/src/planning-import/parser.ts
+@@ -1,19 +1,22 @@
+ import { blankItem, validateDraft, validateSource } from './draft.ts';
+ import { hasConfirmedBooking } from './booking.ts';
+-import { beginsWithPlanningDate, findExplicitDates, findExplicitTimes, plainPlanningText } from './normalizations.ts';
++import { beginsWithPlanningDate, isWeekdayHeading, findExplicitDates, findExplicitTimes, plainPlanningText } from './normalizations.ts';
+ import type { DraftCity, DraftDay, DraftItem, Evidence, PlanningDraft } from './types.ts';
+ 
+ const dayPrefix = /^(?:(?:jour(?:née)?|day|d[ií]a)\s*\d{1,3}\b|J\s*\d{1,3}\b|第[\d一二三四五六七八九十百]+天)/iu;
+ const periodPrefix = /^(matin(?:ée)?|après[- ]midi|soir(?:ée)?|midi|morning|afternoon|evening|night|mañana|tarde|noche|上午|早上|中午|下午|晚上|傍晚)(?=\s|[:：]|$)/iu;
+-const notesPrefix = /^(?:notes?|budget|conseils?|à réserver|a reserver|à vérifier|attention|important|penser|prévoir|si\b|pour la promenade|ignore\b|remarque|consejo|nota|备注|注意|提示|如果|建议预订|to book)\b|^(?:备注|注意|提示|如果)/iu;
++const notesPrefix = /^(?:notes?|correction|budget|conseils?|à réserver|a reserver|à vérifier|attention|important|penser|prévoir|si\b|pour la promenade|ignore\b|remarque|consejo|nota|备注|注意|提示|如果|建议预订|to book)\b|^(?:备注|注意|提示|如果)/iu;
+ const genericHeading = /\b(voyage|voyages|trip|travel|holiday|itinerary|planning|programme|program|circuit|escapade|journey|week[- ]end|trajet|conseils|budget|notes|réservation)\b|行程|旅行|攻略/iu;
+ const suggestionPrefix = /^(suggestions?|idée|envie|optional|optionnel|facultatif|sugerencia|opcional|建议|推荐)\s*[:：-]?\s*/iu;
+ const alternativePrefix = /^(alternatives?|option b|plan b|alternativa|备选|替代)\s*[:：-]?\s*/iu;
++const unchosenStay = /^(?:h[oô]tel|hotel|alojamiento|酒店)\s*[:：]\s*(?:(?:environ|estimated?|aproximadamente|约)\s*\d|.*(?:pas encore choisi|not chosen|sin elegir|未定))/iu;
+ const proof = (quote: string, origin: Evidence['origin'] = 'source'): Evidence => ({ origin,quote });
+ const clean = (value: string) => plainPlanningText(value).trim();
+-const content = (line: string) => clean(line.replace(/^\s{0,3}#{1,6}\s+/,'').replace(/\s+#+\s*$/,''));
++const unquote = (line: string) => line.replace(/^\s*(?:>\s*)+/u, '');
++const undecorate = (line: string) => line.replace(/^[\p{Extended_Pictographic}\p{Emoji_Presentation}\uFE0F\u200D\s]+/u, '');
++const content = (line: string) => undecorate(clean(unquote(line).replace(/^\s{0,3}#{1,6}\s+/,'').replace(/\s+#+\s*$/,'')));
+ const dayLabel = (text: string) => text.replace(/^(?:[-+*•●▪]\s+|\d+[.)]\s+)/u,'');
+-const isDay = (text: string) => dayPrefix.test(dayLabel(text)) || beginsWithPlanningDate(dayLabel(text));
++const isDay = (text: string) => dayPrefix.test(dayLabel(text)) || beginsWithPlanningDate(dayLabel(text)) || isWeekdayHeading(dayLabel(text));
+ 
+ function category(title: string): DraftItem['category'] {
+   if (/h[oô]tel|hostel|hébergement|alojamiento|酒店|旅馆|住宿/iu.test(title)) return 'hotel';
+@@ -24,8 +27,9 @@
+   return 'visit';
+ }
+ function parseItem(text: string, quote: string, context: DraftItem['kind'] = 'activity'): DraftItem | null {
+-  let title = clean(text).replace(/^(?:[-+*•●▪]\s+|\d+[.)]\s+)(?:\[[ xX]\]\s*)?/u,'').trim();
+-  let kind = context;
++  let title = undecorate(clean(unquote(text)).replace(/^(?:[-+•●▪]\s+|\*\s*|\d+[.)]\s+)(?:\[[ xX]\]\s*)?/u,'').trim());
++  if (unchosenStay.test(title)) return null;
++  let kind = /^(?:(?:si|if|sinon|otherwise)\b|如果|否则)/iu.test(title) ? 'alternative' as const : context;
+   if (alternativePrefix.test(title)) { kind = 'alternative'; title = title.replace(alternativePrefix,''); }
+   else if (suggestionPrefix.test(title)) { kind = 'suggestion'; title = title.replace(suggestionPrefix,''); }
+   const time = findExplicitTimes(title).find(t => t.index === 0);
+@@ -68,6 +72,9 @@
+   validateSource(source);
+   const draft: PlanningDraft = { version:1,title:'',cities:[],notes:[],evidence:{} };
+   const lines = source.split(/\r?\n/);
++  const nextLines = new Array<string>(lines.length);
++  let nextLine = '';
++  for (let i=lines.length-1; i>=0; i--) { nextLines[i]=nextLine; if (lines[i].trim()) nextLine=lines[i]; }
+   let city: DraftCity | undefined, day: DraftDay | undefined, lastItem: DraftItem | null = null;
+   let section: DraftItem['kind'] = 'activity', notesSection = false, fence = false, table: Column[] | null = null;
+   let inheritedPeriod = '', plainCityBlocks = false;
+@@ -80,16 +87,16 @@
+   const selectDay = (title: string, quote: string, dateText = title, reuse = false) => {
+     if (!city) selectCity('','');
+     const dates = findExplicitDates(dateText), date = dates.length === 1 ? dates[0] : null;
+-    if (reuse && day?.title === title && day.date === (date?.value || '')) return day;
++    if (reuse && day?.title === title && (!date || day.date === date.value)) return day;
+     day = { title:title.slice(0,200),date:date?.value || '',items:[],evidence:title ? { title:proof(quote) } : {} };
+     if (date) day.evidence.date = proof(date.quote);
+     city!.days.push(day); lastItem = null; inheritedPeriod = ''; section = 'activity'; notesSection = false; return day;
+   };
+   const addItems = (line: string, quote = line) => {
+     if (!day) selectDay('','');
+-    const parts = line.split(/\s*→\s*/u);
++    const parts = line.split(/\s*(?:→|->)\s*/u);
+     for (const part of parts) {
+-      const item = parseItem(part,parts.length > 1 ? part : quote,section);
++      const item = parseItem(part,quote,section);
+       if (item && day!.items.length < 1000) {
+         if (!item.period && inheritedPeriod) { item.period = inheritedPeriod; item.evidence.period = proof(inheritedPeriod); }
+         day!.items.push(item); lastItem = item;
+@@ -98,13 +105,14 @@
+     }
+   };
+   for (let index = 0; index < lines.length; index++) {
+-    const raw = lines[index], text = content(raw);
++    const raw = lines[index], structural = unquote(raw), text = content(raw);
+     if (!text) { table = null; continue; }
+     if (/^\s*(```|~~~)/.test(raw)) { fence = !fence; note(raw); continue; }
+     if (fence) { note(raw); continue; }
++    if (/^(?:Page\s+\d+\s*(?:\/|of|sur)\s*\d+|第\s*\d+\s*页)$/iu.test(text)) { note(raw); lastItem = null; continue; }
+     if (/^\s*(?:[-*_]\s*){3,}$/.test(raw)) continue;
+-    if (raw.includes('|')) {
+-      const cells = tableCells(raw);
++    if (structural.includes('|')) {
++      const cells = tableCells(structural);
+       if (cells.every(cell => /^:?-{3,}:?$/.test(cell))) continue;
+       const columns = cells.map(tableColumn);
+       if (columns.includes('title')) { table = columns; continue; }
+@@ -140,15 +148,15 @@
+       }
+       continue;
+     }
+-    const next = lines.slice(index+1).find(line => line.trim()) || '';
+-    const heading = /^\s{0,3}#{1,6}\s+/.test(raw);
++    const next = nextLines[index];
++    const heading = /^\s{0,3}#{1,6}\s+/.test(structural);
+     const period = text.match(periodPrefix)?.[0] || '';
+     if (day && period && /^[\s:：–—-]*$/u.test(text.slice(period.length))) {
+       inheritedPeriod = period; notesSection = false; lastItem = null; continue;
+     }
+     const cityTitle = text.replace(/\s*(?:[-–—]\s*)?\d+\s*[jJdD]\s*\/\s*\d+\s*[nN]\s*$/u,'').replace(/\s+daytrip$/iu,'').trim();
+     const plainCity = !heading && (!draft.cities.length || (plainCityBlocks && index > 0 && !lines[index-1].trim()))
+-      && /^[\p{Lu}\p{Script=Han}][\p{L}\p{M} '-]{0,59}$/u.test(cityTitle) && !period && !notesPrefix.test(cityTitle);
++      && /^[\p{L}][\p{L}\p{M} '-]{0,59}$/u.test(cityTitle) && !period && !notesPrefix.test(cityTitle);
+     if ((heading || plainCity) && cityTitle.length <= 100 && !genericHeading.test(cityTitle)
+       && (isDay(content(next)) || (heading && /\s+daytrip$/iu.test(text)))) {
+       if (plainCity) plainCityBlocks = true;
+@@ -162,19 +170,26 @@
+       section = /alternativ|备选/iu.test(text) ? 'alternative' : 'suggestion'; notesSection=false; note(raw); continue;
+     }
+     if (heading) { notesSection=true; lastItem=null; note(raw); continue; }
++    if (unchosenStay.test(text)) { note(raw); lastItem=null; continue; }
++    if (/^(?:-\s*)?(?:(?:ne pas|pas de|do not|don't|no visitar)\b|不要|不去)/iu.test(text)) { note(raw); lastItem=null; continue; }
+     if (notesSection || notesPrefix.test(text)) { note(raw); lastItem=null; continue; }
+-    if (lastItem && /^\s{2,}\S/.test(raw) && !/^\s*[-+*•●▪]\s|^\s*\d+[.)]\s/u.test(raw) && !raw.includes('→')) {
++    if (lastItem && /^\s{2,}\S/.test(structural) && !/^\s*[-+*•●▪]\s|^\s*\d+[.)]\s/u.test(raw) && !raw.includes('→')) {
+       const previous = lastItem.evidence.description?.quote || '';
+       const start = source.indexOf(previous), end = source.indexOf(raw,start + previous.length);
+       if (start >= 0 && end >= 0 && end-start+raw.length <= 10000) {
+         const quote=source.slice(start,end+raw.length);
+-        lastItem.description=quote; lastItem.evidence.description=proof(quote); continue;
+-      }
+-    }
+-    const bullet = /^\s*(?:[-+*•●▪]\s+|\d+[.)]\s+)/u.test(raw);
++        lastItem.description=quote; lastItem.evidence.description=proof(quote);
++        const combined = `${lastItem.title} ${text}`;
++        if (combined.length <= 300 && /(?:\b(?:des|de|du|the|of|del|la|las|los)|[-‐])$/iu.test(lastItem.title)) {
++          lastItem.title=combined; lastItem.evidence.title=proof(quote);
++        }
++        continue;
++      }
++    }
++    const bullet = /^\s*(?:[-+•●▪]\s+|\*\s*|\d+[.)]\s+)/u.test(structural);
+     const timed = findExplicitTimes(text).some(t => t.index === 0) || periodPrefix.test(text);
+     if ((bullet && (day || city)) || (day && (timed || raw.includes('→') || (text.length <= 160 && !/[.!?。！？]$/.test(text))))) {
+-      addItems(raw); continue;
++      addItems(structural, raw); continue;
+     }
+     if (!draft.title && !draft.cities.length && text.length <= 140 && !/[.!?。！？]$/.test(text)) { draft.title=text; draft.evidence.title=proof(raw); }
+     else note(raw);
+--- a/src/planning-import/normalizations.ts
++++ b/src/planning-import/normalizations.ts
+@@ -1,14 +1,17 @@
+ /** Deterministic, source-checkable formatting only; no inferred year or locale. */
+ export type SourceMatch = { value: string; quote: string; index: number };
+ const months: Record<string, number> = Object.fromEntries([
+-  ['january','janvier','enero'], ['february','février','fevrier','febrero'], ['march','mars','marzo'],
++  ['january','janvier','enero','jan.','janv.'], ['february','février','fevrier','febrero','feb.','févr.'], ['march','mars','marzo'],
+   ['april','avril','abril'], ['may','mai','mayo'], ['june','juin','junio'],
+-  ['july','juillet','julio'], ['august','août','aout','agosto'], ['september','septembre','septiembre'],
++  ['july','juillet','julio','jul.','juil.'], ['august','août','aout','agosto'], ['september','septembre','septiembre','sept.'],
+   ['october','octobre','octubre'], ['november','novembre','noviembre'], ['december','décembre','decembre','diciembre'],
+ ].flatMap((names,index) => names.map(name => [name,index+1])));
+-const monthPattern = Object.keys(months).join('|');
++const monthPattern = Object.keys(months).map(name => name.replaceAll('.', '\\.')).join('|');
+ const weekdayPattern = 'monday|tuesday|wednesday|thursday|friday|saturday|sunday|lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche|lunes|martes|miércoles|jueves|viernes|sábado|domingo';
+ /** A date label can define a day while its missing year or ambiguous locale stays unresolved. */
++export function isWeekdayHeading(text: string): boolean {
++  return new RegExp(`^(?:${weekdayPattern}|星期[一二三四五六日天]|周[一二三四五六日天])[:：]?$`, 'iu').test(text);
++}
+ export function beginsWithPlanningDate(text: string): boolean {
+   const label = text.replace(new RegExp(`^(?:${weekdayPattern})\\s*,?\\s+`,'iu'),'');
+   if (findExplicitDates(label).some(date => date.index === 0)) return true;
+@@ -45,9 +48,9 @@
+   }
+   return result;
+ }
+-/** Only presentation delimiters, never links, HTML, content, or whitespace rewriting. */
++/** Presentation delimiters and whitespace joins only; source quotations stay unchanged. */
+ export function plainPlanningText(text: string): string {
+-  return text.replace(/\*\*([^\n]+?)\*\*/g,'$1').replace(/__([^\n]+?)__/g,'$1').replace(/\*([^*\n]+?)\*/g,'$1').replace(/`([^`\n]+?)`/g,'$1').replace(/\\([-*#])/g,'$1');
++  return text.replace(/\s+/g, ' ').replace(/\*\*([^\n]+?)\*\*/g,'$1').replace(/__([^\n]+?)__/g,'$1').replace(/\*([^*\n]+?)\*/g,'$1').replace(/`([^`\n]+?)`/g,'$1').replace(/\\([-*#])/g,'$1');
+ }
+ export function isSourceNormalization(field: string, value: string, quote: string): boolean {
+   if (['date','checkIn','checkOut'].includes(field)) return findExplicitDates(quote).some(m => m.index === 0 && m.quote.length === quote.length && m.value === value);
+--- /dev/null
++++ b/src/planning-import/review.ts
+@@ -0,0 +1,47 @@
++import { blankItem } from './draft.ts';
++import { beginsWithPlanningDate, findExplicitDates } from './normalizations.ts';
++import type { PlanningDraft, Provenance } from './types.ts';
++export type ReviewPassage = { kind: 'unprocessed' | 'conflict' | 'assignment' | 'ambiguous'; quote: string; target?: string };
++const explicitNote = /^(?:#{1,6}\s|[-*_]{3,}$|(?:>\s*)?(?:notes?|nota|备注|budget|conseil|page\s+\d+\s*\/|objet\s*:)|(?:suggestions?|alternatives?)\s*[:：]?$)/iu;
++/** A review passage is an unmapped source block, conflict, incomplete assignment or ambiguous field.
++ * Missing optional addresses/coordinates/dates alone are not extraction failures.
++ * Recomputed from the source and existing provenance; never a confidence percentage.
++ */
++export function reviewPassages(draft: PlanningDraft, source: string, reviewedQuotes: string[] = []): ReviewPassage[] {
++  const passages: ReviewPassage[] = [];
++  const add = (p: ReviewPassage) => { if (p.quote && !passages.some(v=>v.quote===p.quote && v.target===p.target && v.kind===p.kind)) passages.push(p); };
++  const conflicts = (e: Provenance, target: string) => { for (const value of Object.values(e)) if (value.origin==='conflict') add({kind:'conflict',quote:value.quote,target}); };
++  conflicts(draft.evidence, 'planning-title');
++  draft.cities.forEach((city,ci)=> {
++    const fallback = city.days.flatMap(d=>d.items).find(i=>!i.excluded)?.evidence.title?.quote || source.split(/\r?\n/).find(l=>l.trim()) || source;
++    if (!city.name.trim()) add({kind:'assignment',quote:fallback,target:`planning-city-${ci}`});
++    conflicts(city.evidence,`planning-city-${ci}`);
++    city.days.forEach((day,di)=> {
++      const target=`planning-day-${ci}-${di}`, quote=day.evidence.title?.quote || fallback;
++      if (!day.title.trim()) add({kind:'assignment',quote,target});
++      conflicts(day.evidence,target);
++      if (!day.date && (beginsWithPlanningDate(day.title) || /\b\d{1,2}[/.-]\d{1,2}(?:[/.-]\d{2,4})?\b/u.test(day.title)) && !findExplicitDates(day.title).length && day.evidence.date?.origin!=='user') add({kind:'ambiguous',quote,target:`${target}-date`});
++      day.items.forEach((item,ii)=> {
++        if (item.excluded) return;
++        const target=`planning-item-${ci}-${di}-${ii}`;
++        conflicts(item.evidence,target);
++        if (item.kind==='alternative' && item.evidence.title?.origin!=='user' && /(?:\b(?:si|if|sinon|otherwise)\b|如果|否则)/iu.test(item.title)) add({kind:'ambiguous',quote:item.evidence.title?.quote || item.description,target});
++      });
++    });
++  });
++  for (const note of draft.notes) {
++    if (!source.includes(note) || reviewedQuotes.includes(note)) continue;
++    if (note.includes('\n') || !explicitNote.test(note.trim())) add({kind:/correction|contradic|annul|peut-être|maybe|perhaps|si\b|sinon|如果|取消|quizás/iu.test(note)?'ambiguous':'unprocessed',quote:note});
++  }
++  return passages;
++}
++
++export function activityFromPassage(quote: string) {
++  // A long source block needs a user-written title; never silently truncate it.
++  const item=blankItem(quote.length <= 300 ? quote : '');
++  item.description=quote.length <= 10000 ? quote : '';
++  // Even when the description field cannot hold the block, its exact source remains
++  // in provenance and in the original notes, within the existing 50k quote contract.
++  item.evidence={title:{origin:'user',quote:''},description:{origin:'source',quote}};
++  return item;
++}
+--- a/src/planning-import/persistence.ts
++++ b/src/planning-import/persistence.ts
+@@ -12,6 +12,7 @@
+ export function createSession(scope: string, source = ''): ImportSession { return { version:1, id:uid('trip'),scope,source,draft:null,keepSource:false,departureDate:'',currency:'',timezone:'',committedId:null }; }
+ function validateSession(value: unknown, scope: string): ImportSession {
+   if (!isObj(value) || value.version !== 1 || value.scope !== scope || typeof value.id !== 'string' || !/^trip-[0-9a-f-]{36}$/.test(value.id) || typeof value.source !== 'string' || value.source.length > MAX_SOURCE_LENGTH || typeof value.keepSource !== 'boolean' || typeof value.currency !== 'string' || typeof value.timezone !== 'string' || typeof value.departureDate !== 'string' || (value.departureDate && !isValidDate(value.departureDate)) || (value.committedId !== null && value.committedId !== value.id)) throw new Error('Brouillon illisible. La source est conservée.');
++  if (value.reviewedQuotes !== undefined && (!Array.isArray(value.reviewedQuotes) || value.reviewedQuotes.length > 1000 || value.reviewedQuotes.some(q => typeof q !== 'string' || !q || !(value.source as string).includes(q)))) throw new Error('Brouillon illisible. La source est conservée.');
+   if (value.draft !== null) validateDraft(value.draft, value.source, true, true);
+   if (value.preparedTrip !== undefined && (!validateState(value.preparedTrip) || value.preparedTrip.journey?.id !== value.id)) throw new Error('Brouillon illisible. La source est conservée.');
+   return value as ImportSession;
+--- a/src/planning-import/types.ts
++++ b/src/planning-import/types.ts
+@@ -22,5 +22,6 @@
+   version: 1; id: string; scope: string; source: string; draft: PlanningDraft | null;
+   keepSource: boolean; departureDate: string; currency: string; timezone: string;
+   committedId: string | null;
++  reviewedQuotes?: string[];
+   preparedTrip?: import('../types').StoredState;
+ };
+--- a/tests/planning-import.test.mjs
++++ b/tests/planning-import.test.mjs
+@@ -147,3 +147,12 @@
+   assert.throws(()=>commitImport(b,s),/espace/);
+   const intentional=commitImport(a,prepared('A'));assert.notEqual(intentional.journey.id,trip.journey.id);
+ });
++
++test('old draft sessions and additive review decisions round-trip without changing source',()=> {
++ const storage=new MemoryStorage(), old=prepared(); saveSession(storage,old);
++ assert.deepEqual(loadSession(storage,'local'),old);
++ const updated={...old,reviewedQuotes:[old.source.slice(0,10)]}; saveSession(storage,updated);
++ assert.deepEqual(loadSession(storage,'local'),updated);
++ assert.throws(()=>saveSession(storage,{...old,reviewedQuotes:['invented quote']}));
++ assert.deepEqual(loadSession(storage,'local'),updated);
++});
+--- /dev/null
++++ b/tests/planning-lot01.test.mjs
+@@ -0,0 +1,84 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { parsePlanning } from '../src/planning-import/parser.ts';
++import { assessPlanning } from '../scripts/evaluate-planning-stress.mjs';
++import { stressCorpus } from './fixtures/planning/stress-corpus.mjs';
++for (const id of ['07','08','12','15','17','19','20','23','33']) test(`lot01 defect ${id}`,()=> {
++ const e=stressCorpus.find(e=>e.id===id); const d=parsePlanning(e.source);
++ assert.equal(assessPlanning(e,d).passed,true,JSON.stringify(assessPlanning(e,d)));
++});
++import { reviewPassages } from '../src/planning-import/review.ts';
++test('review separates explicit notes from unprocessed material and links incomplete assignments',()=> {
++ const source='# Programme\nJour 1\n- Musée\nCorrection finale : changer le jour.\nNote : prendre de l’eau.';
++ const d=parsePlanning(source), p=reviewPassages(d,source);
++ assert.ok(p.some(p=>p.quote==='Correction finale : changer le jour.'));
++ assert.ok(p.some(p=>p.kind==='assignment'));
++ assert.ok(!p.some(p=>p.quote==='Note : prendre de l’eau.'));
++});
++test('lowercase words without a following structural day do not become cities',()=> {
++ const d=parsePlanning('préparer le sac\nNote : vérifier les horaires.');assert.equal(d.cities[0].name,'');
++});
++test('emoji and quoted text retain exact source provenance',()=> {
++ const source='## 📍 Arles\n### 📅 Jour 1\n> - 🏛 Musée bleu'; const d=parsePlanning(source);
++ assert.equal(d.cities[0].days[0].items[0].title,'Musée bleu');
++ assert.equal(d.cities[0].days[0].items[0].evidence.title.quote,'> - 🏛 Musée bleu');
++});
++test('ASCII arrows do not split hyphenated names or ordinary minus signs',()=> {
++ const d=parsePlanning('Ville: Vannes\nJour 1\n*Saint-Anne -> Port-Saint-Louis\n- Est - Ouest');
++ assert.deepEqual(d.cities[0].days[0].items.map(i=>i.title),['Saint-Anne','Port-Saint-Louis','Est - Ouest']);
++});
++test('quote removal is restricted to line starts',()=> {
++ const d=parsePlanning('Ville: Vannes\nJour 1\n> - Atelier A > B');assert.equal(d.cities[0].days[0].items[0].title,'Atelier A > B');
++});
++test('weekday inside an activity does not define a new day',()=> {
++ const d=parsePlanning('Ville: Vannes\nJour 1\n- Marché du mardi');assert.equal(d.cities[0].days.length,1);
++});
++test('abbreviated dates need an explicit year and a literal dot',()=> {
++ const d=parsePlanning('Ville: Vannes\n14 juil.\n- Port\n15 juilX 2027\n- Quai');assert.equal(d.cities[0].days[0].date,'');
++});
++test('table inheritance stops at a new day or conflicting explicit date',()=> {
++ const d=parsePlanning('Ville: Vannes\n| Jour | Date | Activité |\n| --- | --- | --- |\n| Jour 1 | 2027-05-01 | Port |\n| Jour 2 | | Quai |');
++ assert.deepEqual(d.cities[0].days.map(d=>d.date),['2027-05-01','']);
++});
++test('PDF footer filtering preserves numbered activities and cautious continuation',()=> {
++ const d=parsePlanning('Ville: Vannes\nJour 1\n1. Tour 2\n- Palais des\n  Ducs\n- Musée\n  fermé le mardi\nPage 1 / 2');
++ assert.deepEqual(d.cities[0].days[0].items.map(i=>i.title),['Tour 2','Palais des Ducs','Musée']);
++});
++test('a named confirmed hotel stays a stay while a budget estimate stays in notes',()=> {
++ const d=parsePlanning('Ville: Vannes\nJour 1\n- Hôtel Bleu réservé\nHôtel : environ 80 EUR, pas encore choisi');
++ assert.equal(d.cities[0].days[0].items[0].kind,'stay');assert.equal(d.cities[0].days[0].items.length,1);
++});
++test('compacted long notes never disappear from the review behind a heading',()=> {
++ const source='# Brouillon\n'+Array.from({length:320},(_,i)=>`Phrase inconnue ${i}.`).join('\n');
++ const d=parsePlanning(source);assert.ok(reviewPassages(d,source).some(p=>p.kind==='unprocessed'));
++});
++test('a conditional alternative is never proposed as a confirmed ordinary activity',()=> {
++ const source='Ville: Vannes\nJour 1\n- Si pluie : Musée Bleu ; sinon : Parc Vert';const d=parsePlanning(source);
++ assert.ok(d.cities[0].days[0].items.every(i=>i.kind==='alternative'&&!i.booked));
++ assert.ok(reviewPassages(d,source).some(p=>p.kind==='ambiguous'));
++});
++test('ambiguous numeric date after a day label leads to a review passage until user correction',()=> {
++ const source='Ville: Vannes\nJour 1 — 06/07/2027\n- Musée bleu';const d=parsePlanning(source);
++ assert.ok(reviewPassages(d,source).some(p=>p.kind==='ambiguous'));
++});
++test('new personal notes are not mistaken for unprocessed source quotes',()=> {
++ const source='Ville: Vannes\nJour 1\n- Musée bleu';const d=parsePlanning(source);d.notes.push('Mon ajout personnel.');
++ assert.ok(!reviewPassages(d,source).some(p=>p.quote==='Mon ajout personnel.'));
++});
++import { activityFromPassage } from '../src/planning-import/review.ts';
++import { validateDraft } from '../src/planning-import/draft.ts';
++test('a long promoted passage stays durable without truncating source or inventing a title',()=> {
++ const source='Note : '+'x'.repeat(20000);const d=parsePlanning(source);d.cities[0].days.push({title:'Jour 1',date:'',items:[activityFromPassage(source)],evidence:{title:{origin:'user',quote:''}}});
++ assert.doesNotThrow(()=>validateDraft(d,source,true,true));
++ assert.equal(d.cities[0].days[0].items[0].title,'');
++ assert.equal(d.cities[0].days[0].items[0].evidence.description.quote,source);
++});
++test('a named hotel with only an estimated price remains a proposed stay',()=> {
++ const d=parsePlanning('Ville: Vannes\nJour 1\nHôtel : Hôtel Cuivre, environ 90 EUR');
++ assert.equal(d.cities[0].days[0].items.length,1);assert.equal(d.cities[0].days[0].items[0].kind,'stay');assert.equal(d.cities[0].days[0].items[0].booked,false);
++});
++test('unselected hotel estimates stay notes inside bullets and table cells too',()=> {
++ for(const source of ['Ville: Vannes\nJour 1\n- Hôtel : environ 90 EUR, pas encore choisi','Ville: Vannes\n| Jour | Activité |\n| --- | --- |\n| Jour 1 | Hôtel : environ 90 EUR, pas encore choisi |']) {
++  const d=parsePlanning(source);assert.equal(d.cities.flatMap(c=>c.days.flatMap(d=>d.items)).length,0);
++ }
++});
+--- /dev/null
++++ b/tests/e2e/planning-lot01.spec.ts
+@@ -0,0 +1,55 @@
++import {test,expect} from '@playwright/test';
++import {mkdir} from 'node:fs/promises';
++
++test('unprocessed source can become an activity or a durable note; assignment survives reload',async({page})=> {
++ await page.goto('/');await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();
++ let dialog=page.getByRole('dialog');
++ await dialog.getByLabel('Ouvrir un fichier texte ou Markdown',{exact:true}).setInputFiles({name:'brouillon.md',mimeType:'text/markdown',buffer:Buffer.from('# Escale\nVille: Albi\nJour 1\n- Musée rouge\nJour 2\n- Jardin bleu\nUn passage encore incompris.\nCorrection finale : vérifier la journée du musée.')});
++ await dialog.getByRole('button',{name:'Reconnaître mon programme',exact:true}).click();
++ const passages=dialog.locator('.planning-passages');await expect(passages.locator('details')).toHaveCount(2);
++ await passages.locator('summary').first().click();
++ await expect(passages.locator('pre').first()).toHaveText('Un passage encore incompris.');
++ await passages.getByLabel('Journée de destination',{exact:true}).first().selectOption('0:1');
++ await passages.getByRole('button',{name:'Transformer en activité',exact:true}).first().click();
++ await expect(dialog.locator('.planning-day').last().locator('.planning-item')).toHaveCount(2);
++ await passages.locator('summary').first().click();
++ await passages.getByRole('button',{name:'Conserver comme note',exact:true}).click();
++ await expect(passages).toHaveCount(0);
++ await dialog.getByLabel('Affectation ville / journée',{exact:true}).first().selectOption('0:1');
++ await page.reload();await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();dialog=page.getByRole('dialog');
++ await expect(dialog.locator('.planning-passages')).toHaveCount(0);
++ await expect(dialog.locator('.planning-day').last().locator('.planning-item')).toHaveCount(3);
++ await expect(dialog.locator('.planning-day').last().getByLabel('Lieu ou activité',{exact:true}).last()).toHaveValue('Musée rouge');
++ await dialog.locator('details').filter({has:page.getByText('Texte source',{exact:true})}).locator('summary').click();
++ await expect(dialog.locator('.planning-source').filter({hasText:'Correction finale'}).last()).toBeAttached();
++ for(const width of [320,390]) {
++  await page.setViewportSize({width,height:844});await dialog.getByLabel('Titre du voyage',{exact:true}).focus();await page.keyboard.press('Tab');
++  expect(await dialog.evaluate(e=>e.contains(document.activeElement))).toBe(true);
++  expect(await dialog.evaluate(e=>e.scrollWidth<=e.clientWidth)).toBe(true);
++  await mkdir('docs/development/import-fiable-lot-01/screenshots',{recursive:true});
++  await page.screenshot({path:`docs/development/import-fiable-lot-01/screenshots/review-${width}.png`});
++ }
++});
++
++test('nearly empty recognition gives an explicit factual summary and source links',async({page})=> {
++ await page.goto('/');await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();
++ const dialog=page.getByRole('dialog');await dialog.getByLabel('Ton programme',{exact:true}).fill('Nous aimerions voyager sans programme précis.');
++ await dialog.getByRole('button',{name:'Reconnaître mon programme',exact:true}).click();
++ await expect(dialog.getByText('Aucune activité proposée.',{exact:false})).toBeVisible();
++ await expect(dialog.locator('.planning-summary').first()).toContainText('0 journées · 0 propositions');
++ await dialog.locator('.planning-passages summary').first().click();await dialog.getByRole('link',{name:'Corriger la proposition',exact:true}).click();
++ await expect(dialog.getByLabel('Ville, région ou lieu de séjour',{exact:true})).toBeFocused();
++});
++
++test('a long passage can become a durable activity without truncating its provenance',async({page})=> {
++ await page.goto('/');await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();let dialog=page.getByRole('dialog');
++ const quote='Un long passage '+ 'texte '.repeat(2000)+'.';const source='# Escale\nVille: Albi\nJour 1\n'+quote;
++ await dialog.getByLabel('Ton programme',{exact:true}).fill(source);await dialog.getByRole('button',{name:'Reconnaître mon programme',exact:true}).click();
++ await dialog.locator('.planning-passages summary').click();await dialog.getByRole('button',{name:'Transformer en activité',exact:true}).click();
++ await expect(dialog.getByText('Nomme cette activité.',{exact:false})).toBeVisible();
++ await dialog.getByLabel('Lieu ou activité',{exact:true}).fill('Activité nommée personnellement');
++ await page.reload();await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();dialog=page.getByRole('dialog');
++ await expect(dialog.getByLabel('Lieu ou activité',{exact:true})).toHaveValue('Activité nommée personnellement');
++ const session=await page.evaluate(()=>JSON.parse(localStorage.getItem('detours-planning-draft-v1')!));
++ expect(session.source).toBe(source);expect(session.draft.cities[0].days[0].items[0].evidence.description.quote).toBe(quote);
++});
+--- a/scripts/evaluate-planning-stress.mjs
++++ b/scripts/evaluate-planning-stress.mjs
+@@ -1,3 +1,4 @@
++import { createHash } from 'node:crypto';
+ import { mkdir, writeFile, readFile } from 'node:fs/promises';
+ import { execFileSync } from 'node:child_process';
+ import { fileURLToPath } from 'node:url';
+@@ -48,7 +49,7 @@
+ }
+ 
+ async function main() {
+-  const destination = fileURLToPath(new URL('../docs/development/planning-stress-2026-10-16/',import.meta.url));
++  const destination = process.argv[2] ? resolve(process.argv[2]) : fileURLToPath(new URL('../docs/development/planning-stress-2026-10-16/',import.meta.url));
+   await mkdir(join(destination,'plannings'),{recursive:true});
+   const results=[];
+   for(const entry of stressCorpus) {
+@@ -74,16 +75,17 @@
+     assignedItems:rows.reduce((n,row)=>n+row.assignedItems,0),fieldErrors:rows.reduce((n,row)=>n+row.fieldErrors,0)});
+   const byFamily=Object.fromEntries([...new Set(stressCorpus.map(entry=>entry.family))].map(family=>[family,summarize(results.filter(row=>row.family===family))]));
+   const report={generatedAt:new Date().toISOString(),revision:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),
+-    method:'36 new synthetic sources, expected before execution; actual unchanged local parser; no model or mocked extraction.',
++    hashes: { parser:createHash('sha256').update(await readFile(new URL('../src/planning-import/parser.ts',import.meta.url))).digest('hex'), corpus:createHash('sha256').update(JSON.stringify(stressCorpus)).digest('hex') },
++    method:'36 fixed synthetic sources with unchanged historical expectations; real local parser execution; no model or mocked extraction.',
+     limits:['Purposive stress set, not a representative accuracy estimate.', 'No binary PDF/DOCX/image parsing; case 17 is text after hypothetical PDF extraction.', 'Title-anchor matching tolerates decoration; full semantic fidelity is not measured.', 'Expected dates and source order are checked; ambiguous sources require review.'],
+     summary:summarize(results),byFamily,results};
+   await writeFile(join(destination,'results.json'),JSON.stringify(report,null,2)+'\n');
+   const text=[
+     '# Banc d’essai : plannings propres et brouillons',
+-    '',`Exécution du 16 octobre 2026. Version du produit : \`${report.revision}\`. **Reconnaissance inchangée pendant cet essai**. Les 36 sources sont fictives et nouvelles par rapport au corpus de régression précédent.`,
++    '',`Exécution : ${report.generatedAt}. Révision de base : \`${report.revision}\`. Empreinte du parseur : \`${report.hashes.parser}\`. Les 36 sources sont fictives et nouvelles par rapport au corpus de régression précédent.`,
+     '',`**${report.summary.passed}/${results.length} plannings conformes à toutes les attentes. ${report.summary.separateItems}/${report.summary.expectedItems} activités retrouvées séparément ; ${report.summary.assignedItems}/${report.summary.expectedItems} au bon emplacement ville/journée. ${report.summary.errors} erreur(s) de parsing.**`,
+-    '', 'Ces nombres décrivent ce jeu volontairement difficile, pas un taux de précision général. Les sources et attentes ont été écrites avant le premier passage. Aucun ajustement du parseur aux cas de ce banc n’a été réalisé.',
+-    '', '## Conclusion et corrections à prioriser',
++    '', 'Ces nombres décrivent ce jeu volontairement difficile, pas un taux de précision général. Les sources et attentes ont été écrites avant le premier passage. Les attentes historiques sont conservées. Les modifications éventuelles du parseur sont décrites dans le rapport de contribution associé.',
++    '', '## Pistes issues du corpus historique',
+     '', 'La reconnaissance actuelle est bonne sur les conventions explicites testées, mais insuffisante pour promettre un import fiable de plannings écrits librement. Le précédent corpus de régression réussi ne démontrait pas cette robustesse.',
+     '', '1. Normaliser la présentation : émojis avant les titres (08), citations de courriel (15), séparateurs ASCII (12), noms de ville en minuscules (07).',
+     '2. Protéger la structure : répétition du même jour avec date laissée vide dans un tableau (23), jours de semaine (19), mois abrégés (20).',
+--- /dev/null
++++ b/scripts/evaluate-import-lot01.mjs
+@@ -0,0 +1,26 @@
++import { readFile, writeFile } from 'node:fs/promises';
++import { createHash } from 'node:crypto';
++import { cpus, totalmem } from 'node:os';
++import { performance } from 'node:perf_hooks';
++import { pathToFileURL } from 'node:url';
++import { parsePlanning } from '../src/planning-import/parser.ts';
++import { reviewPassages } from '../src/planning-import/review.ts';
++import { assessPlanning } from './evaluate-planning-stress.mjs';
++const root = 'docs/development/import-fiable-lot-01/';
++const read = async name => JSON.parse(await readFile(root+name,'utf8'));
++const hash = data => createHash('sha256').update(data).digest('hex');
++const frozen=await read('holdout-freeze.json'), bytes=await readFile(root+'holdout.json');
++if(hash(bytes)!==frozen.sha256) throw Error('Frozen validation sources changed');
++const entries=JSON.parse(bytes);
++const results=entries.map(e=> { const draft=parsePlanning(e.source);return {id:e.id,...assessPlanning(e,draft),reviewExpected:e.reviewExpected,review:reviewPassages(draft,e.source),draft}; });
++const summarize=rows=>({cases:rows.length,passed:rows.filter(r=>r.passed).length,expectedItems:rows.reduce((n,r)=>n+r.expectedItems,0),separateItems:rows.reduce((n,r)=>n+r.separateItems,0),assignedItems:rows.reduce((n,r)=>n+r.assignedItems,0),omissions:rows.reduce((n,r)=>n+r.expectedItems-r.separateItems,0),extraItems:rows.reduce((n,r)=>n+(r.unexpected?.length||0),0),fieldErrors:rows.reduce((n,r)=>n+r.fieldErrors,0)});
++const before=(await read('before/results.json')).results, after=(await read('after/results.json')).results;
++const sources=['Note : '+'é'.repeat(49993),'# Voyage\n'+'*'.repeat(49991),Array.from({length:999},(_,i)=>`Texte incompris ${i}.`).join('\n')];
++const measure=fn=>sources.map(source=>{const runsMs=[];for(let i=0;i<5;i++){const start=performance.now();fn(source);runsMs.push(performance.now()-start);}return {characters:source.length,bytes:Buffer.byteLength(source),runsMs,medianMs:runsMs.toSorted((a,b)=>a-b)[2]};});
++let baselineTiming=null;
++if(process.env.DETOURS_BASELINE_PARSER){const baseline=await import(pathToFileURL(process.env.DETOURS_BASELINE_PARSER));baselineTiming=measure(baseline.parsePlanning);}
++const files=['src/planning-import/parser.ts','src/planning-import/normalizations.ts','src/planning-import/review.ts','tests/fixtures/planning/stress-corpus.mjs',root+'holdout.json'];
++const hashes=Object.fromEntries(await Promise.all(files.map(async file=>[file,hash(await readFile(file))])));
++const report={generatedAt:new Date().toISOString(),environment:{node:process.version,platform:process.platform,cpu:cpus()[0].model,memoryBytes:totalmem(),timing:'5 runs without CPU throttling; Node process on development PC; before parser only, after parser plus review'},hashes,stress:{before:summarize(before),after:summarize(after),regressions:before.filter(r=>r.passed&&!after.find(a=>a.id===r.id).passed).map(r=>r.id)},holdout:{before:summarize(await read('holdout-before.json')),after:summarize(results),reviewExpected:results.filter(r=>r.reviewExpected).length,reviewSignaled:results.filter(r=>r.reviewExpected&&r.review.length).length,results},longInputs:{before:baselineTiming,after:measure(source=>reviewPassages(parsePlanning(source),source))},limits:['Anchor comparison is not general semantic fidelity. Field errors only cover specified expected fields.','Held-out set uses six repeated structural patterns across four languages.','4 email subjects were annotated as reviewExpected despite being explicit metadata. These frozen disagreements remain visible, not silently rescored.']};
++await writeFile(root+'comparison.json',JSON.stringify(report,null,2)+'\n');
++console.log(JSON.stringify({stress:report.stress,holdout:{before:report.holdout.before,after:report.holdout.after,reviewExpected:report.holdout.reviewExpected,reviewSignaled:report.holdout.reviewSignaled},longInputs:report.longInputs},null,2));
+--- a/scripts/smoke-planning-import.mjs
++++ b/scripts/smoke-planning-import.mjs
+@@ -5,6 +5,7 @@
+ import { chromium, expect } from '@playwright/test';
+ import { chromiumTestOptions } from './browser-test-options.ts';
+ import { productionTestServer } from './production-server.mjs';
++import { archive, blankTrip } from '../src/journeys.ts';
+ import { checkServedBuild } from './build-identity.mjs';
+ 
+ const server = await productionTestServer();
+@@ -152,7 +153,10 @@
+   await readyOffline(recognized.context, recognized.page);
+   await recognized.page.getByRole('button', { name: 'Créer depuis un planning', exact: true }).click();
+   const localDialog = recognized.page.getByRole('dialog');
+-  const localSource = '# Lyon\n## Jour 1 — 2 mai 2027\n- 9h30 : Musée des Confluences\n- Après-midi : Parc de la Tête d’or\n## Jour 2 — 3 mai 2027\n- 10:00 : Vieux Lyon\n- Suggestion : Musée Gadagne\nBudget estimé : 100 EUR';
++  const existing=blankTrip({title:'Carnet antérieur protégé',currency:'EUR',timezone:'UTC'});
++  const existingKey='a-l-est-trip-v2:'+existing.journey.id, existingRaw=JSON.stringify(archive(existing));
++  await recognized.page.evaluate(({key,raw})=>localStorage.setItem(key,raw),{key:existingKey,raw:existingRaw});
++  const localSource = '# Lyon\n## Jour 1 — 2 mai 2027\n- 9h30 : Musée des Confluences\n- Après-midi : Parc de la Tête d’or\n## Jour 2 — 3 mai 2027\n- 10:00 : Vieux Lyon\n- Suggestion : Musée Gadagne\nBudget estimé : 100 EUR\nCorrection finale : vérifier le rattachement du parc.';
+   await localDialog.getByLabel('Ouvrir un fichier texte ou Markdown', { exact: true }).setInputFiles({ name: 'weekend-lyon.md', mimeType: 'text/markdown', buffer: Buffer.from(localSource) });
+   await expect(localDialog.getByRole('textbox', { name: 'Ton programme', exact: true })).toHaveValue(localSource);
+   await localDialog.getByRole('button', { name: 'Reconnaître mon programme', exact: true }).click();
+@@ -160,6 +164,13 @@
+   await expect(localDialog.getByLabel('Lieu ou activité', { exact: true })).toHaveCount(4);
+   await expect(localDialog.getByLabel('Date (facultative)', { exact: true }).first()).toHaveValue('2027-05-02');
+   await expect(localDialog.getByLabel('Heure explicite (facultative)', { exact: true }).first()).toHaveValue('09:30');
++  await localDialog.locator('.planning-passages summary').filter({hasText:'Passage à vérifier'}).first().click();
++  await expect(localDialog.locator('.planning-passages pre').first()).toContainText('Correction finale');
++  await localDialog.getByRole('button',{name:'Conserver comme note',exact:true}).click();
++  await localDialog.getByLabel('Affectation ville / journée',{exact:true}).nth(1).selectOption('0:1');
++  await recognized.page.reload();
++  await recognized.page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();
++  await expect(localDialog.locator('.planning-day').last().getByLabel('Lieu ou activité',{exact:true}).last()).toHaveValue('Parc de la Tête d’or');
+   await localDialog.getByLabel('Devise de référence', { exact: true }).fill('EUR');
+   await localDialog.getByLabel('Fuseau du voyage', { exact: true }).fill('Europe/Paris');
+   await localDialog.getByLabel('Conserver le texte original dans le carnet après création', { exact: true }).check();
+@@ -170,10 +181,10 @@
+   await expect(localDialog).toHaveCount(0);
+   await recognized.page.reload();
+   await expect(recognized.page.getByRole('heading', { name: 'Musée des Confluences', exact: true })).toBeVisible();
+-  const [localTrip] = await states(recognized.page);
++  const localTrip = (await states(recognized.page)).find(s=>s.journey.id!==existing.journey.id);
+   assert.equal(localTrip.cities.length, 1);
+   assert.deepEqual(localTrip.cities[0].days.map(day => day.date), ['2027-05-02', '2027-05-03']);
+-  assert.deepEqual(localTrip.cities[0].days.map(day => day.steps.length), [2, 1]);
++  assert.deepEqual(localTrip.cities[0].days.map(day => day.steps.length), [1, 2]);
+   assert.equal(localTrip.cities[0].days[0].preparation.timings[localTrip.cities[0].days[0].steps[0].id].startTime, '09:30');
+   assert.equal(localTrip.customBonus.length, 1);
+   assert.equal(localTrip.customBonus[0].title, 'Musée Gadagne');
+@@ -182,6 +193,15 @@
+   assert.ok(localTrip.cities[0].days.every(day => day.steps.every(step => !step.coordinates)));
+   assert.ok(localTrip.documents.some(document => document.content.includes('Budget estimé : 100 EUR')));
+   assert.equal(localTrip.documents.find(document => document.title === 'Planning — texte original').content, localSource);
++
++  assert.equal(await recognized.page.evaluate(key=>localStorage.getItem(key),existingKey),existingRaw);
++  const localDownloading=recognized.page.waitForEvent('download');
++  await recognized.page.getByRole('button',{name:'Exporter le carnet',exact:true}).click();
++  const localDownload=await localDownloading, localExport=await readFile(await localDownload.path(),'utf8');
++  const localTarget=await profile(); await readyOffline(localTarget.context,localTarget.page);
++  await localTarget.page.getByLabel('Choisir une sauvegarde JSON',{exact:true}).setInputFiles({name:'lot01.json',mimeType:'application/json',buffer:Buffer.from(localExport)});
++  await localTarget.page.reload();
++  assert.deepEqual(equivalentContent((await states(localTarget.page))[0]),equivalentContent(localTrip));
+ 
+   const unknown = await profile();
+   await unknown.page.getByRole('button', { name: 'Créer depuis un planning', exact: true }).click();
+--- a/scripts/verify-local.mjs
++++ b/scripts/verify-local.mjs
+@@ -28,7 +28,7 @@
+   local('service worker et manifeste', 'scripts/build-sw.mjs'),
+   local('intégrité du build', 'scripts/check-build.mjs'),
+   local('compatibilité SQL L6', 'scripts/test-l6-sql-local.mjs', [process.env.DETOURS_PGLITE_PATH || '']),
+-  local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts', 'tests/e2e/planning-import.spec.ts', 'tests/e2e/planning-local.spec.ts']),
++  local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts', 'tests/e2e/planning-import.spec.ts', 'tests/e2e/planning-local.spec.ts', 'tests/e2e/planning-lot01.spec.ts']),
+   local('analyse planning simulée dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', '--config', 'playwright.planning.config.ts']),
+   local('états L4/L5/L6 et préférences dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l4-status.spec.ts', 'tests/e2e/l5-now.spec.ts', 'tests/e2e/l5-maps.spec.ts', 'tests/e2e/map-preferences.spec.ts', 'tests/e2e/l6-preparation.spec.ts']),
+   ...['smoke-production', 'smoke-backup', 'smoke-ui', 'smoke-common-sharing', 'smoke-l4-offline', 'smoke-l4-persistence', 'smoke-l5-now', 'smoke-l6-preparation', 'smoke-l8-release'].map(name => local(name, `scripts/${name}.mjs`, [], output)),
+--- a/docs/development/IMPORT-RECOGNITION.md
++++ b/docs/development/IMPORT-RECOGNITION.md
+@@ -74,3 +74,10 @@
+ Le code est local à cette branche. Aucun déploiement, modification de base distante, achat, entraînement ou fusion dans la base partagée n'est effectué. Le build du gate utilise une configuration factice et n'est pas un build à publier. Les contrôles locaux ne prouvent ni OAuth réel, ni un service IA réel, ni un appareil physique.
+ 
+ Pour revenir au code précédent, conserver une sauvegarde exportée des carnets et utiliser le commit `bbe9e25` dans un checkout distinct. Les carnets créés restent des archives Détours ordinaires ; aucun format serveur n'a été migré et les données du navigateur ne doivent pas être effacées.
++
++
++## Lot 01 — amélioration locale du 18 octobre 2026
++
++Titres décorés et cités, minuscules en contexte de journées, flèches ASCII, jours de semaine, mois abrégés explicites, continuité de tableau et texte déjà extrait d’un PDF sont mieux reconnus. Un hôtel non choisi estimé reste en notes. L’aperçu affiche les passages à vérifier, leur source et les opérations de correction ou de conservation comme note, avec reprise des décisions. Les alternatives conditionnelles restent facultatives et à vérifier.
++
++Corpus difficile historique inchangé : **18/36 → 27/36 plannings conformes**, **75/114 → 85/114 activités séparées**, **66/114 → 83/114 bien rattachées** ; aucune régression des 18 cas initialement conformes. Lot inédit figé : **11/24 → 24/24 structures conformes** sur six motifs répétés dans quatre langues ; cela ne prouve pas la compréhension générale. Les chiffres et validations des sections précédentes restent historiques. [Rapport, résultats séparés, limites et retour arrière](import-fiable-lot-01/RAPPORT.md).

@@ -1,0 +1,1744 @@
+diff --git a/index.html b/index.html
+index 5aa0cde..f8f545d 100644
+--- a/index.html
++++ b/index.html
+@@ -1,2 +1,2 @@
+ <!doctype html>
+-<html lang="fr"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/><meta name="theme-color" content="#f5f5f7"/><meta name="description" content="Tous tes carnets de voyage : étapes, planning, carte et belles adresses, toujours à portée de main."/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><link rel="manifest" href="/manifest.webmanifest"/><title>Détours — Mes voyages</title><script>try{var p=JSON.parse(localStorage.getItem('a-l-est-preferences-v1')||'null');var dark=p&&p.theme==='dark'||(!p||!['light','dark'].includes(p.theme))&&matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.dataset.theme=dark?'dark':'light';document.documentElement.style.colorScheme=dark?'dark':'light';document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#161618':'#f5f5f7');if(p&&['fr','en','zh-CN','es'].includes(p.language))document.documentElement.lang=p.language}catch(e){}</script></head><body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>
++<html lang="fr"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/><meta name="theme-color" content="#f5f5f7"/><meta name="description" content="Tous tes carnets de voyage : étapes, planning, carte et belles adresses, toujours à portée de main."/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png"/><link rel="manifest" href="/manifest.webmanifest"/><title>Détours — Mes voyages</title><script>try{var p=JSON.parse(localStorage.getItem('a-l-est-preferences-v1')||'null');var dark=p&&p.theme==='dark'||(!p||!['light','dark'].includes(p.theme))&&matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.dataset.theme=dark?'dark':'light';document.documentElement.style.colorScheme=dark?'dark':'light';document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#161618':'#f5f5f7');if(p&&['fr','en','zh-CN','es'].includes(p.language))document.documentElement.lang=p.language}catch(e){}</script></head><body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body></html>
+diff --git a/public/manifest.webmanifest b/public/manifest.webmanifest
+index 9137203..61efcb5 100644
+--- a/public/manifest.webmanifest
++++ b/public/manifest.webmanifest
+@@ -1 +1,37 @@
+-{"name":"Détours — Mes voyages","short_name":"Détours","start_url":"/","display":"standalone","background_color":"#f5f5f7","theme_color":"#f5f5f7","lang":"fr","icons":[{"src":"/favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}
++{
++  "name": "Détours — Mes voyages",
++  "short_name": "Détours",
++  "start_url": "/",
++  "display": "standalone",
++  "background_color": "#f5f5f7",
++  "theme_color": "#f5f5f7",
++  "lang": "fr",
++  "icons": [
++    {
++      "src": "/favicon.svg",
++      "sizes": "any",
++      "type": "image/svg+xml",
++      "purpose": "any"
++    },
++    {
++      "src": "/icons/icon-192.png",
++      "sizes": "192x192",
++      "type": "image/png",
++      "purpose": "any"
++    },
++    {
++      "src": "/icons/icon-512.png",
++      "sizes": "512x512",
++      "type": "image/png",
++      "purpose": "any"
++    },
++    {
++      "src": "/icons/maskable-512.png",
++      "sizes": "512x512",
++      "type": "image/png",
++      "purpose": "maskable"
++    }
++  ],
++  "id": "/",
++  "scope": "/"
++}
+diff --git a/scripts/build-sw.mjs b/scripts/build-sw.mjs
+index e1f5bcc..46488fc 100644
+--- a/scripts/build-sw.mjs
++++ b/scripts/build-sw.mjs
+@@ -19,7 +19,9 @@ await writeFile('dist/build-info.json', JSON.stringify({ version: 1, id, baseRev
+ files.push('/build-info.json');
+ const cacheName = `a-l-est-${id.slice(0, 12)}`;
+ await writeFile('dist/sw.js', `const CACHE = ${JSON.stringify(cacheName)};\nconst FILES = ${JSON.stringify(['/', ...files])};
+-self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES.map(file => new Request(file, { cache: 'reload' })))).then(() => self.skipWaiting())); });
++// Let an update wait until existing windows close: their lazy modules still use
++// the old build. A failed addAll must leave the active worker/cache intact.
++self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES.map(file => new Request(file, { cache: 'reload' }))))); });
+ self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('a-l-est-') && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())); });
+ self.addEventListener('fetch', event => {
+   if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return;
+diff --git a/scripts/production-server.mjs b/scripts/production-server.mjs
+index cef02d2..7ff1380 100644
+--- a/scripts/production-server.mjs
++++ b/scripts/production-server.mjs
+@@ -4,11 +4,12 @@ import {resolve,sep,extname} from 'node:path';
+ 
+ /** Isolated compiled-app server. Start with an older worker, then update to dist/sw.js. */
+ export async function productionTestServer({ previousPage = false } = {}) {
+-  const root=resolve('dist');let previous=true;
++  const root=resolve('dist');let previous=true;let failedPath=null;
+   const oldWorker=`self.addEventListener('install',e=>e.waitUntil(caches.open('a-l-est-previous-test').then(async c=>{await c.put('/previous-marker',new Response('old'));${previousPage ? "await c.addAll(['/', '/index.html']);" : ''}}).then(()=>self.skipWaiting())));self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));${previousPage ? "self.addEventListener('fetch',e=>{if(e.request.method==='GET')e.respondWith(e.request.mode==='navigate'?fetch(e.request):caches.match(e.request).then(c=>c||fetch(e.request)));});" : ''}`;
+   const server=createServer(async(request,response)=>{
+     const pathname=new URL(request.url,'http://localhost').pathname;
+     response.setHeader('Cache-Control','no-store');
++    if(pathname===failedPath){response.writeHead(503);response.end('Synthetic cache failure');return;}
+     if(pathname==='/sw.js' && previous){response.setHeader('Content-Type','text/javascript');response.end(oldWorker);return;}
+     const file=resolve(root,'.'+(pathname==='/'?'/index.html':pathname));
+     if(!file.startsWith(root+sep)){response.writeHead(403);response.end();return;}
+@@ -16,10 +17,10 @@ export async function productionTestServer({ previousPage = false } = {}) {
+       let body=await readFile(file);
+       // Same executable code under an older entry URL, to test release detection.
+       if(previousPage && previous && file===resolve(root,'index.html')) body=Buffer.from(body.toString().replace(/(src="\/assets\/index-[^"]+\.js)(")/, '$1?previous=1$2'));
+-      const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webmanifest':'application/manifest+json','.svg':'image/svg+xml','.woff2':'font/woff2','.md':'text/plain'};
++      const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webmanifest':'application/manifest+json','.svg':'image/svg+xml','.png':'image/png','.woff2':'font/woff2','.md':'text/plain'};
+       response.setHeader('Content-Type',types[extname(file)] || 'application/octet-stream');response.end(body);
+     } catch {response.writeHead(404);response.end();}
+   });
+   await new Promise(done=>server.listen(0,'127.0.0.1',done));
+-  return {url:`http://127.0.0.1:${server.address().port}`,update:()=>{previous=false;},close:()=>new Promise(done=>server.close(done))};
++  return {url:`http://127.0.0.1:${server.address().port}`,update:()=>{previous=false;},failResource:path=>{failedPath=path;},close:()=>new Promise(done=>server.close(done))};
+ }
+diff --git a/scripts/smoke-app-update.mjs b/scripts/smoke-app-update.mjs
+index 0ffc07d..5bbd25e 100644
+--- a/scripts/smoke-app-update.mjs
++++ b/scripts/smoke-app-update.mjs
+@@ -1,56 +1,95 @@
+ import assert from 'node:assert/strict';
+-import { mkdir } from 'node:fs/promises';
+-import { chromium, webkit, devices } from '@playwright/test';
++import { mkdir, readFile } from 'node:fs/promises';
++import { chromium, webkit, devices, expect } from '@playwright/test';
+ import { productionTestServer } from './production-server.mjs';
+ 
+-await mkdir('docs/design/screenshots', { recursive: true });
++await mkdir('docs/development/lot-02-pwa/screenshots', { recursive: true });
+ for (const engine of [chromium, webkit]) {
+   const server = await productionTestServer({ previousPage: true });
+   const browser = await engine.launch(engine === chromium && process.platform === 'win32' ? { channel: 'chrome' } : {});
+   try {
+     const context = await browser.newContext({ ...devices['iPhone 13'], colorScheme: 'dark' });
+-    const page = await context.newPage();
++    await context.route('https://**/*', route => route.abort());
++    let page = await context.newPage();
+     const errors = [];
+     const checks = [];
+     page.on('request', request => { if (request.url().includes('app-update=')) checks.push(request.url()); });
+     page.on('pageerror', error => errors.push(error.message));
+     await page.goto(server.url);
+     await page.getByRole('button', { name: 'Ajouter l’exemple Chine', exact: true }).click();
+-    await page.getByRole('heading', { name: 'Un grand voyage, de beaux détours.' }).waitFor();
++    await page.locator('.app-shell').waitFor();
+     await page.evaluate(() => navigator.serviceWorker.ready);
+     await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
+     assert.equal(await page.locator('.app-update').count(), 0, 'no update prompt for the current release');
+     const before = await page.evaluate(() => Object.fromEntries(Object.keys(localStorage).map(key => [key, localStorage.getItem(key)])));
+     const oldEntry = await page.locator('script[type=module][src]').getAttribute('src');
+     assert.ok(oldEntry.endsWith('?previous=1'));
+-    // Leave an unsaved search visible: discovering an update must not reload it.
+-    await page.getByRole('textbox', { name: 'Rechercher dans le carnet' }).fill('Brouillon conservé');
++    // Leave a real unsaved city form visible through failed installation/resume.
++    await page.getByRole('button', { name: 'Menu', exact: true }).click();
++    await page.getByRole('button', { name: 'Mon planning', exact: true }).click();
++    await page.getByRole('button', { name: 'Modifier Shenzhen', exact: true }).click();
++    await page.getByRole('dialog').getByLabel('Ville, région ou lieu de séjour', { exact: true }).fill('Brouillon ville préservé');
++    const build = JSON.parse(await readFile('dist/build-info.json', 'utf8'));
++    const lazy = build.files.find(file => /\/WorldView-.*\.js$/.test(file.path));
++    assert.ok(lazy);
++    server.failResource(lazy.path);
+     server.update();
++    // A partial precache install fails, without activating or deleting the old cache.
++    await page.evaluate(async () => {
++      const registration = await navigator.serviceWorker.getRegistration();
++      await new Promise((resolve, reject) => {
++        const timeout = setTimeout(() => reject(new Error('Failed install did not settle')), 15000);
++        registration.addEventListener('updatefound', () => {
++          const worker = registration.installing;
++          worker.addEventListener('statechange', () => {
++            if (worker.state === 'redundant') { clearTimeout(timeout); resolve(); }
++          });
++        }, { once: true });
++        registration.update().catch(reject);
++      });
++    });
++    assert.ok(await page.evaluate(async () => (await caches.keys()).includes('a-l-est-previous-test')));
++    assert.equal(await page.getByRole('dialog').getByLabel('Ville, région ou lieu de séjour', { exact: true }).inputValue(), 'Brouillon ville préservé');
++    server.failResource(null);
+     // Resume as Safari would when returning to a tab from its page cache.
+     await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+     try { await page.getByText('Une nouvelle version est prête.', { exact: true }).waitFor({ timeout: 8000 }); }
+     catch (error) { console.log({ checks, errors, entry: await page.locator('script[type=module][src]').getAttribute('src'), html: await page.evaluate(async () => (await (await fetch('/index.html?diagnostic=1')).text()).match(/src="\/assets\/index-[^"]+/)?.[0]) }); throw error; }
+-    assert.equal(await page.getByRole('textbox', { name: 'Rechercher dans le carnet' }).inputValue(), 'Brouillon conservé');
+     assert.equal(await page.locator('script[type=module][src]').getAttribute('src'), oldEntry);
+     assert.deepEqual(await page.evaluate(() => Object.fromEntries(Object.keys(localStorage).map(key => [key, localStorage.getItem(key)]))), before);
+-    await page.screenshot({ path: `docs/design/screenshots/iphone-update-${engine.name()}.png` });
++    await page.evaluate(() => document.querySelector('.app-update button').click());
++    await page.getByText('Enregistre tes modifications et ferme les formulaires avant de mettre à jour.', { exact: true }).waitFor();
++    assert.equal(await page.getByRole('dialog').getByLabel('Ville, région ou lieu de séjour', { exact: true }).inputValue(), 'Brouillon ville préservé');
++    assert.equal(await page.locator('script[type=module][src]').getAttribute('src'), oldEntry);
++    await page.waitForFunction(() => document.querySelector('.modal')?.style.opacity === '1');
++    await page.screenshot({ path: `docs/development/lot-02-pwa/screenshots/update-draft-${engine.name()}.png` });
++    await page.getByRole('dialog').getByRole('button', { name: 'Annuler', exact: true }).click();
+     await page.getByRole('button', { name: 'Mettre à jour', exact: true }).tap();
+     await page.waitForFunction(() => !document.querySelector('script[type=module][src]')?.getAttribute('src')?.includes('previous=1'));
+-    await page.getByRole('heading', { name: 'Un grand voyage, de beaux détours.' }).waitFor();
++    await page.locator('.app-shell').waitFor();
+     assert.equal(await page.locator('.app-update').count(), 0);
+     assert.deepEqual(await page.evaluate(() => Object.fromEntries(Object.keys(localStorage).map(key => [key, localStorage.getItem(key)]))), before);
++    await page.waitForFunction(async () => !!(await navigator.serviceWorker.getRegistration())?.waiting);
++    assert.ok(await page.evaluate(async () => (await caches.keys()).includes('a-l-est-previous-test')), 'Old cache retained while a window uses it');
++    await page.close();
++    if (engine === chromium) await expect.poll(async () => (await Promise.all(context.serviceWorkers().map(worker => worker.evaluate(async () => !(await caches.keys()).includes('a-l-est-previous-test')).catch(() => false)))).some(Boolean), { timeout: 15000 }).toBe(true);
++    page = await context.newPage(); await page.goto(server.url);
++    page.on('pageerror', error => errors.push(error.message));
++    await page.getByRole('button', { name: 'Ouvrir Chine 2027', exact: true }).click();
++    await page.locator('.app-shell').waitFor();
+     await page.waitForFunction(async () => !(await caches.keys()).includes('a-l-est-previous-test'));
+     await page.waitForFunction(async () => {
+       const registration = await navigator.serviceWorker.getRegistration();
+       return registration?.active === navigator.serviceWorker.controller && registration?.active?.state === 'activated';
+     });
+     console.log(`${engine.name()}: update detected and applied; cache upgraded and new worker controls the page.`);
++    assert.deepEqual(errors, []);
+     if (engine === webkit) {
+       // Playwright rejects even literal SW responses under WebKit offline emulation:
+       // https://github.com/microsoft/playwright/issues/42775
+       // Keep this engine's real update/cache checks; Chromium covers offline reload.
+       assert.equal(await page.evaluate(async () => Boolean(await caches.match('/'))), true);
+-      await page.screenshot({ path: 'docs/design/screenshots/iphone-header-webkit.png' });
++      await page.screenshot({ path: 'docs/development/lot-02-pwa/screenshots/iphone-header-webkit.png' });
+       console.log('webkit: resume, manual update, journals and cache verified. Offline emulation excluded (Playwright #42775).');
+       continue;
+     }
+@@ -60,10 +99,10 @@ for (const engine of [chromium, webkit]) {
+       console.log(`${engine.name()} offline navigation diagnostic`, await page.evaluate(async () => ({ worker: navigator.serviceWorker.controller?.state, caches: await caches.keys(), htmlCached: Boolean(await caches.match('/')), fetch: await fetch('/index.html').then(r => r.status).catch(e => e.message) })).catch(e => e.message));
+       throw error;
+     }
+-    await page.getByRole('heading', { name: 'Un grand voyage, de beaux détours.' }).waitFor();
++    await page.locator('.app-shell').waitFor();
+     assert.equal(await page.locator('.app-update').count(), 0, 'offline fallback must not claim an update');
+     assert.deepEqual(errors, []);
+-    await page.screenshot({ path: `docs/design/screenshots/iphone-header-${engine.name()}.png` });
++    await page.screenshot({ path: `docs/development/lot-02-pwa/screenshots/iphone-header-${engine.name()}.png` });
+     console.log(`${engine.name()}: resume detects release through the old HTML cache; manual update preserves journals; new release works offline.`);
+   } finally { await browser.close(); await server.close(); }
+ }
+diff --git a/scripts/smoke-production.mjs b/scripts/smoke-production.mjs
+index 38fe43b..259e297 100644
+--- a/scripts/smoke-production.mjs
++++ b/scripts/smoke-production.mjs
+@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
+ import { mkdir } from 'node:fs/promises';
+ import { productionTestServer } from './production-server.mjs';
+ import { checkServedBuild } from './build-identity.mjs';
+-import { chromium } from '@playwright/test';
++import { chromium, expect } from '@playwright/test';
+ import { translate } from '../src/locale-utils.ts';
+ 
+ if (process.env.PRODUCTION_TEST_URL && process.env.DETOURS_ALLOW_NETWORK !== '1') {
+@@ -16,7 +16,7 @@ const browser = await chromium.launch(chromiumTestOptions()).catch(async error =
+ await mkdir('docs/transition/screenshots',{recursive:true});
+ try {
+   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+-  const page = await context.newPage();
++  let page = await context.newPage();
+   const errors = [];
+   page.on('pageerror', error => errors.push(error.message));
+   await page.goto(process.env.PRODUCTION_TEST_URL || server.url);
+@@ -30,6 +30,16 @@ try {
+     assert.ok(await page.evaluate(async()=> (await caches.keys()).includes('a-l-est-previous-test')));
+     server.update();
+     await page.evaluate(async()=>{const registration=await navigator.serviceWorker.getRegistration();await registration.update();});
++    await page.waitForFunction(async () => !!(await navigator.serviceWorker.getRegistration())?.waiting);
++    assert.ok(await page.evaluate(async () => (await caches.keys()).includes('a-l-est-previous-test')), 'Old cache must survive while its window is open');
++    await page.close();
++    // Reopening immediately can create another client of the old worker before
++    // its asynchronous activation task runs. Observe the worker with no windows.
++    await expect.poll(async () => (await Promise.all(context.serviceWorkers().map(worker => worker.evaluate(async () => !(await caches.keys()).includes('a-l-est-previous-test')).catch(() => false)))).some(Boolean), { timeout: 15000 }).toBe(true);
++    page = await context.newPage();
++    page.on('pageerror', error => errors.push(error.message));
++    await page.goto(server.url);
++    await page.getByRole('button', { name: 'Ouvrir Chine 2027', exact: true }).click();
+     await page.evaluate(async()=>{
+       for(let attempt=0;attempt<150;attempt++) {
+         const names=await caches.keys();
+diff --git a/scripts/verify-local.mjs b/scripts/verify-local.mjs
+index ae0140c..9603d35 100644
+--- a/scripts/verify-local.mjs
++++ b/scripts/verify-local.mjs
+@@ -28,10 +28,12 @@ const steps = [
+   local('service worker et manifeste', 'scripts/build-sw.mjs'),
+   local('intégrité du build', 'scripts/check-build.mjs'),
+   local('compatibilité SQL L6', 'scripts/test-l6-sql-local.mjs', [process.env.DETOURS_PGLITE_PATH || '']),
+-  local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts', 'tests/e2e/planning-import.spec.ts', 'tests/e2e/planning-local.spec.ts', 'tests/e2e/planning-lot01.spec.ts']),
++  local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts', 'tests/e2e/planning-import.spec.ts', 'tests/e2e/planning-local.spec.ts', 'tests/e2e/planning-lot01.spec.ts', 'tests/e2e/pwa-lot02.spec.ts']),
+   local('analyse planning simulée dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', '--config', 'playwright.planning.config.ts']),
+   local('états L4/L5/L6 et préférences dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l4-status.spec.ts', 'tests/e2e/l5-now.spec.ts', 'tests/e2e/l5-maps.spec.ts', 'tests/e2e/map-preferences.spec.ts', 'tests/e2e/l6-preparation.spec.ts']),
+   ...['smoke-production', 'smoke-backup', 'smoke-ui', 'smoke-common-sharing', 'smoke-l4-offline', 'smoke-l4-persistence', 'smoke-l5-now', 'smoke-l6-preparation', 'smoke-l8-release'].map(name => local(name, `scripts/${name}.mjs`, [], output)),
++  local('PWA mobile compilée', 'scripts/smoke-pwa-mobile.mjs', [], output),
++  local('mise à jour Chrome et WebKit', 'scripts/smoke-app-update.mjs', [], output),
+   local('planning compilé, carte, hors ligne et restauration', 'scripts/smoke-planning-import.mjs', [], output),
+ ];
+ console.log(`Vérification locale : profils jetables, URL Supabase factice, sorties ${output}`);
+diff --git a/src/App.tsx b/src/App.tsx
+index 5b0bd09..c385117 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -204,7 +204,7 @@ export default function App({ seed, onHome, onImport, externalError, accountCont
+       <p className="nav-caption">{t("MON VOYAGE")}</p>
+       <nav className="glass-selection-group" aria-label={t("Navigation principale")}><GlassSelection selection={view}/>{navItems.map(({ id, label, icon: Icon }) => <button key={id} className={`nav-item ${view === id ? 'active' : ''}`} aria-current={view === id ? 'page' : undefined} onClick={() => navigate(id)}><Icon size={19} strokeWidth={1.7}/><span>{t(label)}</span>{id === 'bonus' && <small>{state.favorites.length || '♡'}</small>}{view === id && <span className="nav-dot"/>}</button>)}</nav>
+       <div className="sidebar-route"><div className="sidebar-route-title"><span>{t("LE FIL DU VOYAGE")}</span><span>{state.cities.length} {t("étapes")}</span></div>{state.cities.map((c, index) => <button key={c.id} className={`route-stop ${c.id === city.id ? 'selected' : ''}`} onClick={() => { chooseCity(c); navigate('planning'); }}><span className="route-dot"/><span>{c.name}</span><small>{c.days.length ? t('{count} j', { count: c.days.length }) : t('à venir')}</small>{index === state.cities.length - 1 && <span className="sr-only">{t("Dernière étape")}</span>}</button>)}<EditButton className="route-add" onClick={() => { setModal({ type: 'city' }); setMobileMenu(false); }}><Plus size={14}/> {t("Ajouter une ville")}</EditButton></div>
+-      <div className="sidebar-bottom"><div className="mini-note"><span>{isChina ? "慢慢来" : <Compass size={22}/>}</span><p>{t("Prendre le temps.")}<br/>{t("Garder l’envie de découvrir.")}</p><Sparkles size={17}/></div><div className="local-status"><span className={`status-dot ${storageError ? 'warning' : ''}`}/>{storageError ? t('Export conseillé') : saving ? t('Enregistrement…') : t('Carnet sauvegardé sur cet appareil')}</div></div>
++      <div className="sidebar-bottom"><div className="mini-note"><span>{isChina ? "慢慢来" : <Compass size={22}/>}</span><p>{t("Prendre le temps.")}<br/>{t("Garder l’envie de découvrir.")}</p><Sparkles size={17}/></div><div className="local-status" data-save-pending={saving} data-save-error={!!storageError}><span className={`status-dot ${storageError ? 'warning' : ''}`}/>{storageError ? t('Export conseillé') : saving ? t('Enregistrement…') : t('Carnet sauvegardé sur cet appareil')}</div></div>
+     </aside>
+     <div className="workspace" inert={!!modal || mobileMenu}>
+       <header className="topbar"><div className="breadcrumb"><button className="icon-btn mobile-only" aria-label={t("Ouvrir le menu")} aria-expanded={mobileMenu} aria-controls="sidebar" onClick={() => setMobileMenu(true)}><Menu size={21}/></button><span>{t("Mon carnet de voyage")}</span><ChevronRight size={14}/><strong>{journey.title}</strong></div><div className="topbar-actions"><label className="search-box"><Search size={17}/><input value={query} onChange={e => setQuery(e.target.value)} placeholder={t("Retrouver un lieu, une envie…")} aria-label={t("Rechercher dans le carnet")}/>{query && <button onClick={() => setQuery('')} aria-label={t("Effacer la recherche")}><X size={14}/></button>}<span className="search-shortcut">⌕</span></label><button className="icon-btn help-btn" onClick={() => navigate('notebook')} aria-label={t("Informations pratiques")}><CircleHelp size={20}/></button><PreferencesButton/>{accountControl}</div></header>
+diff --git a/src/components/AppUpdate.tsx b/src/components/AppUpdate.tsx
+index b7b7908..a6ebcf9 100644
+--- a/src/components/AppUpdate.tsx
++++ b/src/components/AppUpdate.tsx
+@@ -1,10 +1,12 @@
+ import { useEffect, useState } from 'react';
+ import { useLocale } from '../i18n';
++import './AppUpdate.css';
+ 
+ /** Check again when Safari resumes an open tab; never reload a draft automatically. */
+ export default function AppUpdate() {
+   const { t } = useLocale();
+   const [available, setAvailable] = useState(false);
++  const [deferred, setDeferred] = useState(false);
+ 
+   useEffect(() => {
+     if (!import.meta.env.PROD) return;
+@@ -55,7 +57,14 @@ export default function AppUpdate() {
+   }, []);
+ 
+   return available ? <aside className="app-update" role="status">
+-    <span>{t('Une nouvelle version est prête.')}</span>
+-    <button type="button" className="btn btn-primary" onClick={() => location.reload()}>{t('Mettre à jour')}</button>
++    <span>{t(deferred ? 'Enregistre tes modifications et ferme les formulaires avant de mettre à jour.' : 'Une nouvelle version est prête.')}</span>
++    <button type="button" className="btn btn-primary" onClick={() => {
++      // Forms can hold local state absent from the saved notebook. Require closing
++      // them explicitly, including custom modal forms and ongoing local writes.
++      if (document.querySelector('form, dialog[open], [role="dialog"], [data-save-pending="true"], [data-save-error="true"]')) {
++        setDeferred(true); return;
++      }
++      location.reload();
++    }}>{t('Mettre à jour')}</button>
+   </aside> : null;
+ }
+diff --git a/src/components/OfflineStatus.css b/src/components/OfflineStatus.css
+index 69a2178..1b4646e 100644
+--- a/src/components/OfflineStatus.css
++++ b/src/components/OfflineStatus.css
+@@ -7,3 +7,5 @@
+ .offline-recovery ol{padding-left:20px;display:grid;gap:8px}
+ .offline-status .muted{overflow-wrap:anywhere}
+ @media(max-width:480px){.offline-checklist li{flex-direction:column;gap:2px}.offline-status-body{flex-basis:calc(100% - 42px)}.offline-status-actions{width:100%}}
++
++.offline-persistence{margin-top:16px}.offline-persistence .btn{white-space:normal;text-align:start;max-width:100%}
+diff --git a/src/components/OfflineStatus.tsx b/src/components/OfflineStatus.tsx
+index 40a8907..d3c0064 100644
+--- a/src/components/OfflineStatus.tsx
++++ b/src/components/OfflineStatus.tsx
+@@ -1,19 +1,19 @@
+ import { useLocale } from '../i18n';
+ import { useEffect, useRef, useState } from 'react';
+-import { CheckCircle2, Download, RefreshCw, WifiOff } from 'lucide-react';
++import { CheckCircle2, RefreshCw, WifiOff } from 'lucide-react';
+ import { useCloud } from '../cloud/CloudProvider';
+ import { archive, parseTrip, tripKey } from '../journeys';
+ import { checkOfflineAssets, contentDigest, offlineReceiptKey, readOfflineReceipt, type OfflineAssets, type OfflineReceipt } from '../offline';
+ import { localeFor } from '../locale-utils';
+ import type { StoredState } from '../types';
+ import './OfflineStatus.css';
++import InstallHelp from './InstallHelp';
++import StoragePersistence from './StoragePersistence';
+ 
+-type InstallEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: string }> };
+ export default function OfflineStatus({ state, saving, storageError }: { state: StoredState; saving: boolean; storageError: string }) {
+   const { t, language } = useLocale();
+   const cloud = useCloud();
+   const [status, setStatus] = useState<'checking'|'ready'|'missing'|'dev'>('checking');
+-  const [install, setInstall] = useState<InstallEvent|null>(null);
+   const [receipt, setReceipt] = useState<OfflineReceipt|null>(null);
+   const [result, setResult] = useState<{ assets: OfflineAssets; saved: boolean; signature: string } | null>(null);
+   const latest = useRef({ state, saving, storageError }); latest.current = { state, saving, storageError };
+@@ -56,9 +56,7 @@ export default function OfflineStatus({ state, saving, storageError }: { state:
+   useEffect(() => {
+     try { setReceipt(readOfflineReceipt(localStorage.getItem(receiptKey))); } catch { setReceipt(null); }
+     setResult(null); void check();
+-    const before = (event: Event) => { event.preventDefault(); setInstall(event as InstallEvent); };
+-    window.addEventListener('beforeinstallprompt', before);
+-    return () => { generation.current++; window.removeEventListener('beforeinstallprompt', before); };
++    return () => { generation.current++; };
+   }, [receiptKey]);
+   const checkedDate = receipt ? new Intl.DateTimeFormat(localeFor(language), { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(receipt.checkedAt)) : '';
+   const available = (yes: boolean) => t(yes ? 'Disponible ici' : 'À vérifier');
+@@ -76,11 +74,8 @@ export default function OfflineStatus({ state, saving, storageError }: { state:
+       </ul>
+       <p className="muted small">{receipt ? <>{t('Dernier contrôle :')} <time dateTime={receipt.checkedAt}>{checkedDate}</time></> : t('Aucun contrôle enregistré pour ce carnet.')}{result && !current && <> · {t('Carnet modifié : vérifie de nouveau avant le départ.')}</>}</p>
+       <p className="muted small">{t(status === 'dev' ? 'Le cache hors ligne se prépare dans la version publiée ou la version de production. Garde aussi une sauvegarde JSON.' : 'Ce contrôle relit cette copie et les ressources de la version ouverte. Il ne constitue pas une sauvegarde sur un autre appareil.')}</p>
+-      <details className="offline-recovery"><summary>{t('Installer sur iPhone ou iPad')}</summary><ol>
+-        <li>{t('Ouvre ce site dans Safari, puis ouvre le menu Partager.')}</li>
+-        <li>{t('Choisis « Sur l’écran d’accueil », puis « Ajouter ». Si proposé, active « Ouvrir comme app web ».')}</li>
+-        <li>{t('Ouvre Détours depuis son icône, retrouve ton carnet puis vérifie sa disponibilité hors ligne avant le départ.')}</li>
+-      </ol><p>{t('Garde une sauvegarde avant de changer de navigateur ou de mode d’ouverture. Installer l’app ne transfère pas automatiquement tes carnets.')}</p></details>
++      <InstallHelp/>
++      <StoragePersistence/>
+       <details className="offline-recovery"><summary>{t('Retrouver mes données')}</summary><ol>
+         <li>{t('Reviens sur le même site, dans le même navigateur et le même compte.')}</li>
+         <li>{t('Sans Internet, seuls les carnets déjà téléchargés sont disponibles ici.')}</li>
+@@ -90,6 +85,6 @@ export default function OfflineStatus({ state, saving, storageError }: { state:
+         <li>{t('Un accès retiré bloque les échanges futurs ; des copies déjà téléchargées peuvent subsister.')}</li>
+       </ol></details>
+     </div>
+-    <div className="offline-status-actions"><button className="btn btn-secondary" disabled={status === 'checking'} onClick={() => void check()}><RefreshCw size={16}/>{t('Vérifier')}</button>{install && <button className="btn btn-primary" onClick={async () => { await install.prompt(); await install.userChoice; setInstall(null); }}><Download size={16}/>{t('Installer le carnet')}</button>}</div>
++    <div className="offline-status-actions"><button className="btn btn-secondary" disabled={status === 'checking'} onClick={() => void check()}><RefreshCw size={16}/>{t('Vérifier')}</button></div>
+   </section>;
+ }
+diff --git a/src/components/Preferences.css b/src/components/Preferences.css
+index 077b072..5eba51a 100644
+--- a/src/components/Preferences.css
++++ b/src/components/Preferences.css
+@@ -4,3 +4,5 @@
+ .preferences-dialog header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}.preferences-dialog h2{font-size:23px;margin-top:5px}.preferences-dialog fieldset{border:0;padding:0;margin:0 0 24px;min-width:0}.preferences-dialog legend{display:flex;align-items:center;gap:7px;font-weight:650;margin-bottom:13px}.preferences-dialog fieldset p{margin-top:10px;font-size:12px}.theme-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.theme-options label,.language-options label{position:relative;border:1px solid var(--line);border-radius:12px;cursor:pointer;background:var(--surface-alt,#f7f8f5);min-height:52px}.theme-options label{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 5px 13px;font-size:12px}.theme-options input,.language-options input{position:absolute;width:1px;height:1px;opacity:0}.theme-options label:has(input:focus-visible),.language-options label:has(input:focus-visible){outline:3px solid #c88959;outline-offset:3px}.theme-options label.selected,.language-options label.selected{border-color:var(--green);background:var(--selected-surface,#ecf3e9);color:var(--green)}.theme-check{position:absolute;right:8px;top:8px}.language-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}.language-options label{display:flex;justify-content:center;align-items:center;gap:10px;padding:14px}.preferences-save-note{border-top:1px solid var(--line);padding-top:18px;font-size:12px;color:var(--muted)}
+ @media(max-width:470px){.preferences-dialog{padding:22px 18px;border-radius:20px}}
+ @media(max-width:350px){.language-options label{padding:12px 8px;gap:6px;font-size:12px}.language-options span{white-space:nowrap}}
++
++.install-help{font-size:13px;line-height:1.7;overflow-wrap:anywhere}.install-help summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:650}.install-help ol{padding-left:20px}.install-help .btn{margin-top:10px;white-space:normal}
+diff --git a/src/components/Preferences.tsx b/src/components/Preferences.tsx
+index 498f2c0..fdc5fe7 100644
+--- a/src/components/Preferences.tsx
++++ b/src/components/Preferences.tsx
+@@ -4,6 +4,7 @@ import { useLocale } from '../i18n';
+ import type { Theme } from '../i18n';
+ import { interfaceLanguages } from '../locale-utils';
+ import './Preferences.css';
++import InstallHelp from './InstallHelp';
+ 
+ export default function PreferencesButton() {
+   const { t, theme, language, setTheme, setLanguage, preferenceError } = useLocale();
+@@ -27,6 +28,7 @@ export default function PreferencesButton() {
+       <header><div><p className="eyebrow">{t('Personnalise ton carnet')}</p><h2 id="preferences-title">{t('Préférences')}</h2></div><button type="button" className="icon-btn" aria-label={t('Fermer')} onClick={() => setOpen(false)}><X size={20}/></button></header>
+       <fieldset><legend>{t('Apparence')}</legend><div className="theme-options">{options.map(({ id, label, icon: Icon }) => <label key={id} className={theme === id ? 'selected' : ''}><input type="radio" name="theme" value={id} checked={theme === id} onChange={() => setTheme(id)}/><Icon size={23}/><span>{t(label)}</span>{theme === id && <Check size={13} className="theme-check" aria-hidden="true"/>}</label>)}</div><p className="muted">{t('Suit les réglages de ton appareil.')}</p></fieldset>
+       <fieldset><legend><Languages size={17}/> {t('Langue de l’interface')}</legend><div className="language-options">{interfaceLanguages.map(({id, label}) => <label key={id} className={language === id ? 'selected' : ''}><input type="radio" name="language" value={id} checked={language === id} onChange={() => setLanguage(id)}/><span lang={id}>{label}</span>{language === id && <Check size={15} aria-hidden="true"/>}</label>)}</div><p className="muted">{t('Les documents d’origine et tes notes gardent leur langue.')}</p></fieldset>
++      <fieldset><legend>{t('Installer Détours')}</legend><InstallHelp/></fieldset>
+       <p className="preferences-save-note" role="status">{t(preferenceError ? 'Ces réglages restent actifs pour cette session, mais leur sauvegarde est indisponible.' : 'Ces réglages sont mémorisés sur cet appareil.')}</p>
+     </dialog>}
+   </>;
+diff --git a/src/locales/offline.ts b/src/locales/offline.ts
+index 0f42e68..6725c2e 100644
+--- a/src/locales/offline.ts
++++ b/src/locales/offline.ts
+@@ -1,6 +1,14 @@
+-const rows = `Installer sur iPhone ou iPad|Install on iPhone or iPad|在 iPhone 或 iPad 上安装|Instalar en iPhone o iPad
++const rows = `Installer Détours|Install Détours|安装 Détours|Instalar Détours
++Détours est installé sur cet appareil.|Détours is installed on this device.|Détours 已安装在此设备上。|Détours está instalado en este dispositivo.
++Ajoute Détours à ton écran d’accueil depuis le menu de ton navigateur.|Add Détours to your home screen from your browser menu.|从浏览器菜单将 Détours 添加到主屏幕。|Añade Détours a tu pantalla de inicio desde el menú del navegador.
++Protéger le stockage sur cet appareil|Protect storage on this device|保护此设备上的存储|Proteger el almacenamiento en este dispositivo
++Stockage persistant accordé. Garde aussi une sauvegarde sur un autre support.|Persistent storage granted. Also keep a backup elsewhere.|已获准持久存储。请同时在其他介质上保留备份。|Almacenamiento persistente concedido. Guarda también una copia en otro soporte.
++Le navigateur n’a pas accordé la persistance. Tu peux continuer ; garde une sauvegarde.|The browser did not grant persistence. You can continue; keep a backup.|浏览器未授予持久存储。你可以继续使用；请保留备份。|El navegador no ha concedido la persistencia. Puedes continuar; guarda una copia.
++Avant le départ, demande au navigateur de conserver les données. Une sauvegarde reste nécessaire.|Before leaving, ask the browser to retain data. A backup is still necessary.|出发前，请求浏览器保留数据。仍然需要备份。|Antes de salir, pide al navegador que conserve los datos. Sigue siendo necesaria una copia.
++Enregistre tes modifications et ferme les formulaires avant de mettre à jour.|Save your changes and close forms before updating.|更新前请保存更改并关闭表单。|Guarda los cambios y cierra los formularios antes de actualizar.
++Installer sur iPhone ou iPad|Install on iPhone or iPad|在 iPhone 或 iPad 上安装|Instalar en iPhone o iPad
+ Ouvre ce site dans Safari, puis ouvre le menu Partager.|Open this site in Safari, then open the Share menu.|在 Safari 中打开此网站，然后打开共享菜单。|Abre este sitio en Safari y luego el menú Compartir.
+-Choisis « Sur l’écran d’accueil », puis « Ajouter ». Si proposé, active « Ouvrir comme app web ».|Choose “Add to Home Screen”, then “Add”. If offered, enable “Open as Web App”.|选择“添加到主屏幕”，然后点按“添加”。如有“作为网页 App 打开”选项，请启用。|Elige “Añadir a pantalla de inicio” y luego “Añadir”. Si aparece, activa “Abrir como app web”.
++Choisis « Sur l’écran d’accueil ». Si proposé, active « Ouvrir comme app web », puis touche « Ajouter ».|Choose “Add to Home Screen”. If offered, enable “Open as Web App”, then tap “Add”.|选择“添加到主屏幕”。如有“作为网页 App 打开”选项，请启用，然后点按“添加”。|Elige “Añadir a pantalla de inicio”. Si aparece, activa “Abrir como app web” y luego toca “Añadir”.
+ Ouvre Détours depuis son icône, retrouve ton carnet puis vérifie sa disponibilité hors ligne avant le départ.|Open Détours from its icon, find your journal, then check its offline availability before leaving.|从图标打开 Détours，找到旅行笔记，并在出发前检查其离线可用性。|Abre Détours desde su icono, busca tu cuaderno y comprueba su disponibilidad sin conexión antes de salir.
+ Garde une sauvegarde avant de changer de navigateur ou de mode d’ouverture. Installer l’app ne transfère pas automatiquement tes carnets.|Keep a backup before changing browser or opening mode. Installing the app does not automatically transfer your journals.|更换浏览器或打开方式前，请保留备份。安装应用不会自动转移旅行笔记。|Guarda una copia antes de cambiar de navegador o modo de apertura. Instalar la app no transfiere automáticamente tus cuadernos.
+ Enregistrement local impossible|Local saving failed|本地保存失败|No se pudo guardar en este dispositivo
+diff --git a/src/main.tsx b/src/main.tsx
+index 2b3794b..bf9c19d 100644
+--- a/src/main.tsx
++++ b/src/main.tsx
+@@ -5,9 +5,10 @@ import { LocaleProvider } from './i18n';
+ import { CloudProvider, useCloud } from './cloud/CloudProvider';
+ import { useScrollMaterial } from './hooks/useScrollMaterial';
+ import AppUpdate from './components/AppUpdate';
++import { InstallProvider } from './components/InstallHelp';
+ import { MapPreferencesProvider } from './MapPreferences';
+ import './styles.css';
+ import './theme.css';
+ import './apple-design.css';
+ function Root() { useScrollMaterial(); const { scope, ready } = useCloud(); return <>{ready ? <MapPreferencesProvider key={scope}><App/></MapPreferencesProvider> : <p role="status">Détours…</p>}<AppUpdate/></>; }
+-ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><LocaleProvider><CloudProvider><Root /></CloudProvider></LocaleProvider></React.StrictMode>);
++ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><LocaleProvider><CloudProvider><InstallProvider><Root /></InstallProvider></CloudProvider></LocaleProvider></React.StrictMode>);
+diff --git a/public/icons/apple-touch-icon.png b/public/icons/apple-touch-icon.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..2e57c2fefaf825ee76c17c3cc65bb38bf0ff3c75
+GIT binary patch
+literal 5761
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/public/icons/icon-192.png b/public/icons/icon-192.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..e9c5f3196194ae9bbe7ea4d2cbab9c22da94a3ac
+GIT binary patch
+literal 5905
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/public/icons/icon-512.png b/public/icons/icon-512.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..9be1400c39f6b39d397ea48644c20fe1cba1014f
+GIT binary patch
+literal 20851
+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
+V2@lWE<PLZRtabNtt7Z!_{sMPkv2y?b
+
+literal 0
+HcmV?d00001
+
+diff --git a/public/icons/maskable-512.png b/public/icons/maskable-512.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..a61cfaf6920b76786345b2d44d02213a7e9e4882
+GIT binary patch
+literal 18426
+zcmZ8Jby!qSw7csfrF01rA|;IoD7i{^ONR)Of^@?I3eq6msfaWvNTaAogLES;-3|L@
+zf#3JN_x{r5-kB3~dd|7QDoWBfaVT*h5Xeng83{EA1P1;KgJ4|;|LnT;A44Dn5Lt=G
+z8g9_l3CvV|&5^?`bL+}HLOOywyF^%w1Tt8BZ@FM5(Au}B(VyP3uxc9`3E}KV7;70y
+z?2;1XN<|TQL{Glyc_LF@Z(4ymv2pnxf6sMc+@VXP(d)iYh3mS=qVN>2<3aV>xYg02
+zqqs2lG;fnRvKx{C6}{%;ef`rLUo1K#1cpU7orJ`~M!Fg(HC_H83bJ_%0fE8^5KThR
+zn~5TjPfgd*zaY?VxC}&i<<)md^wUiPV}nx$$ja@*VDv6Xq!x?;V(2XJjUK)0A!k%*
+z2Aq!h8!!491V)1$1##;ic^z^Av9@VtD+W?$`;F~lUw9oM9dz?U0XE46R9C-V@HA|2
+zn(uOLIu=;_r}y;*oax%8;X_%-FON;C%cq9ur@fu<|DGPApN4J<UBN{^?P-1e_6qI~
+z@RTW;8{>i?zYg3eh-pJ8Ho+BKF93H={Tb!u+FRsw(BE#D#5Cxi$PL)hEHm`?#&?ZN
+zobPiWU{U|p86RH!oWj8QsSHz*3H*1-L{n`foUS=d-s0kC11?EK20XL$=Efz<qjaD|
+z$PO0{zdM(_QepQYLYfHH1zm6wA%!6Wxj$O=`pqTMh%JD0$jK(>C0a=&04>uhB9be#
+z-p?>YSr~tuTme=AfCJLxWUc_mq5*#<bi4xm2o2cz9`p(@0TTesE!Pon3HTQ{;QNDF
+zuP=U1*CM_Gz~3M7kY52N0)RDKiEdm0eg^n~#rD(d3a|_SES@IIas~KxBsl*%QpXE%
+zpo_YN2JFP>cY((tr-~Agop}o$uFI`&0Ri|eBTaPuYU_D4Gt<c(?_Nk~6gF6_;B@!#
+ze~WF=i$i$Ct`-x3#Rz61*nf*#z~Y8m@|Pq}*Fmt6I|ee4E4(y_#IO;JR_vD~BWHos
+zM!3>-N?*!!W;r04)$#eg%R^2jql3PxIk6DF+B)tR*gF4q`vv>xrc1%r&1uqoglK*7
+zBL651xY@R*O>`k$P;+pMscV9i5tqk^lm%Ebd9a6G@EVze2JCXXQ|c0M6A%FiuUP!W
+zPehX}lnBCH8!mOhfJ07WN-=C?K3)4IKc+JQ+<-Kxm@By4fYnXoQAB7Rg%i9|Lc*J>
+zIdi^U5iCIn2qp=M^}B@o91Yi*qVr0L>5>7#+4i|4R|JDIe)Xx=g8hnMRd5glaSZcU
+zyo>^X#nU9!uK>U01OzX!-^0El7>G~mKUT^sB}c>pb&|-J)wvXqhx7>8w2XAG!j-~g
+zhXVo8RhAP+BaLVRXAEJk36{Dt9|X>TTdJXI7s>~L;Q>8<*dzOZ@Zw!pza=1hZzp4k
+zE)XFoH3TFdb7uQpk^BQq^6gKtSC(lWkR0zy(0KuA(||4=kUV4m{z{Px!5Np<cv{@P
+zBH12IasvDOrQjNu0g`{FiT5dB1p33=-WnUfAn*!1j6_($wlo!B1Q{HR()22PpJJ!K
+zoO4j|y+3R>_W65<;w{B3nXkUh8H#6h^Dk)61O>v);j2K%OY^vd?ShNh_juBuxfKcC
+z=W$E3i;s47e?q6}_qY4S<}HJ%x4k8f#Li6Kb3Ti={AOVG4e~I8JWexmLW+8#ep0h_
+zRa3&rCr$2t<BR$kj^D!0Ip;oXg&|G>jayXe;)c+tNOzsYrQoI|vE!UZ-1OJViFYt&
+z(!$|%hDLHmzN@4-Z~`o@Ol*JA?_A$fv0~W}FqLA8odhz9ipf7kRNk?MVUGw9bj+Dk
+zx4gqnMHhtl?uX}f;QpYd!$ypMH;fZ2|4!+?&FbVYNvGtuH<iD~HB%T~E`qk;xjD~q
+z)rX|TkHxKxc_m5R=m;{Je!D6(I#!n$c*UtYe1dIhDZvOD?fI>L7kN2(YrGdLzs00_
+z$M`+cXVJl^cHFhME$|OZ3eX#yb!w`yc)gLir=t9o(foI&V-V}Li6^$lB%XoK73m)k
+zAsJ$MRi#VgZ`BV(2Pa~|{BB^wjZ}L#J}!mc_$kR!2K>zrsgyGR0{>22k@du~QY=hA
+z1?(kPjmCl`oVFI@cfm<;x?AQ4*4XFgwX|?Tx@kYilqSC5qhx~rtq=5sGM@;Dkh!@A
+z`9VdPS{@-T^eX9)skQAo;lvbpQ-Bg4tx4Rg^QcXHKN}plk=<Wh&V7`8@f!w6tB#(&
+zx@{lbfsMVoCGaQ|SaS`t)#d@&+Wqc8)E8^HLm+_yH?vvZ-oKFkhMh_m^>=IZP#Lw9
+znoCVCl>lP>E+X^Rl~^-S0kJNh><_%uWKwYCPo2bx!h2$TcB3T>`hkYq;w%Y1p|!1?
+z+<VGA0hBZMr+U6}V~@w5NKrLQNE|&9Nerur=m{$3O|{?-e*i2ecax*J>e-XpK3!d)
+zx0bl2T`~=r?@FTKbnZKIRt&+)UCGG=zq27LQSAH6$B8nKL3Ptj3|X)1LUB<9GAc-C
+z8Ixg44GCCOprG@WtuKdQBig7Ddsk@Z5(Bga*ZVKb0uu2Fpq;-ht^J63MdGcjDi)mz
+z*hKMhvfPx6^&=wW=eeBXgc#>+viHJpg5S(dHB1>HF@3<WtXB4hGf~qPeY1uW$jBj`
+zl^^{17xx4fmF^AaTOp5f5{AiyARvC_7)}#8E1BiwrcilckJ$fVC0|&+=?p|NVGJZU
+z-%h{k#q_T?DrhFEWI<LkasC!+hryddY%>WjFh0l5rQ*Rx)SUNUSZ*YO6^(JJ`n@Xy
+zVF~<8lncJfmHW8|Oj9n>P$y2`Ry~PI{tgmR4l6A9?w%(`j*U3>CMd^9eMv<WG6IxJ
+z6FR7wzn!4^2pe%r`(I}pIje}Ll@!Ep8$;VX?taBzZz2elN0v5K;K7HRC>DP54YZ#j
+z!-lUEPB%*4%)aLi2-?on<_ne>{j{FRgGEQ6hIG~<WD%OAhnD8hT410tgusGvq96=y
+zie^{*9|j%|$szJs=u)b{nZfBE+kAR*<#^E6aP?nkbi76|9CZ;DBA&tnhb)`L%868&
+zW`NBqqS_PsKF?dZhqLw=0wsnT<o&DZ%nb`;w^pZMfbj1H`p5?E1}TPTa{!14IIPC@
+z`5qb6)JZZ5B4KW6NOY^b`VJ!qq3U6iC9|u`ltd7{<A9Fg`1DL_Ktdj5rRJe?J8KF&
+zlf9V2oQXGrFd>@|(L@Q29C9Aq{U#$W1CgRr^QOP66qnIPh@g809dySISS*Qv(>2O}
+zS3lxsxS`~XMHlr68M#uY@ond+5-ci#@o%u^DzUtF>as9tVz1g=J%y5(B7u(yop}ST
+z{U0cm8P)JooDJKkON%{-kj{Ab&KZc62s1wMviE3fF=E<GFyyU?Y5MGTh0m1}o41xs
+zimCg!?MiLe=kUkUV)psCb|_Tu9xBd{*^Q|v4V#CoR=bM_O4{IdmN;j;JRYSXf@sR@
+zeH--sbgGg5$d8);QvxquG7~v%Req}b<^%UWyw3YV!=ojfo0=&adW>Tj?YFBPL%p_o
+zZq7xv*wVLfrLw0e6nCbE8$d~y2x=*l{tarF3kr?}%<kBE;`fRM!JQJ$b%GQU90Q7u
+zeva|WW{DlXe`00*F}|wvW!%nGMOiAzDyc=jIiF5j;mkq34(3yKk`;fi^5^p$st-Mz
+z<RDx8u)pw#(J#(!3Fp}yRLvX&4#ju<>tSNJL{O1f0tdnuY|=<)<43yD-N64mx`#oJ
+zM5w`>`82cj&S*zH9c(m}EDLEwV_%K?A1=Qw+9I)egDeWCgUS?{4<E!)ijbN=F?J{|
+zIA4+Oi27J{jQh9ldBW49xf#nhlP^4e!U}QOKJe;C!J7!8eu5))hl(_#8u2F(F2i39
+z-<`Tn^D8nyW&O>wIXwf=d)hrbMDHoY^=e_}U$gnTJPzss_Vg=6>}DZuPCt7dI}y_1
+zb0Rquu10>?l>V}OXw|7?Xs8*QN|AUh{Vn+V@VE>SB*inR@(!|z!tW84@;ldVYbsuj
+zA|ufbMt{p*bvp^5<AjgZKy3SiYxDfb<#cOEW^WmJfa!U6mk%GljXNw72dCRQ{~I>+
+zqcxwK7=~MA6I-34P|iw5&5R_xma|MW7_KTC$PommE7UOEvHvb_8cQ-4*YwO$w=nFW
+z(=oZoCc!hjZL+3!Uliz6eUJq$4C}^JwcU{7+URk&bNkFoS%?Ffa4jRqE8Kje=b4n0
+z-gM!zCsMBwG^+Y9)nEG>YD|)?qbDHsjL7a5@b<?MYzC3`|DKPV`ba|jvSGEI<&G<2
+zLrW7c-h1kp6jR%Zt<<Q}+DiXbTakt6FLR8BAoF0dk%wBGJNr~jLiEq7*PfrxVd#GZ
+zw!YWUgj_3o{8qjKm%x~dRFO^n<D#X*gIm~aP82E11u@B1wN*FFl}m7`@p;LJjj44M
+zn3oS^AQx7eo~TD`pP9oZeyZLsnf;M-;P|Vy8`XyaeRCbx^xkI;u8X}TB)mah@yxn&
+zv!YXs3FD0COY6DIs7+!~Wi{bVY$Vm01e*xaN1XFY-{s7w?#DY+?aC3!tU+tTbi89$
+zrh~DRk4$T?A1x5Z%vYn*@0qVou?pG^T8=VRmnHv+fmTeC|486~3N+}9+-IhQhv1}s
+z`KsCAV3DHmlKpgVJhNK2!QL(9bctF$x0vZSMM(V8eoFBVE%T#iI8|a8wqGXW2FVPY
+zzY_WJu669ojV9Ta)@6CtWf`6?HZlbr=M?)=C>svb=dH)At@L0H=}ubS?WDRrbGV1~
+z<}dMzoOn}DXbj}_hx=*KaRK?pg9$?hr{s0kpZepEicZ^7nA_v~ta;n}MmD6b_lzt`
+z39X?rzcv(qHhMVp{k|4oHPIl~>;Gy2Kiz;Y_=pjaGR5vFa1Uj(y>QHWG)|?LV;jLY
+z&#^)A`2)ur%5wh0lrMFC=PqPcVtr>I7nCWS8YzmS_!2-`|4c5t&eu@=Cx`D2-p%rZ
+zg*{R(yB+`TBFfTg_vV);-Et>m564xQeZJNgJNdiiMl(R}5|oMAdvUv%B(Obn&mbFl
+zAvIsSC16z){d~Vr*spY?*se25_~_GwuQ9E6_0)?eRinRZ?w6f|C?zC0m;avS;&QK_
+zk5cfoL<4?@HK)fs(vdrd(rcr9Qnhj9VEf$6d!Mgufb0=~hnog(Dmu^pa*O2fcXqst
+z)S-2fM%+j}L_VWZ0NOK)lFwLcoo0@SD(3|9zemF)T7cnHg-XJ#lo<S_9w3e#?mRN~
+z+GF#*sJqphv>>RhTb-WA^+5U+aU2J&rZ4d^kgtQ!KMU}}1Vg6EJo)AI#GQ=96<NqS
+zx)xfITB7}yW>ZE-nQ3d~M4?hTj06+OEuTs)Zou|&SA{E-L`$W2nb)ZswH!yDV-J@w
+zZXaOQ&K+r57g{YhrY}baJ%aXp5|u6CSsze<O&ezP&V*s5HW-C2&HJhbIsQnM(&6@0
+z>;I{%I=Qi7QI$<yEp_@=sdhBRn!Fq9HQ`4*Ug90#7eB)s`HN%jx>|)*_C){LHElXr
+zr#VZ16FsBuU9;6{TfJVkt}zx>aGFq66mM=+u~YY2pUPcHsp)633`BpGZ*;Y;$(*dJ
+z?emAj1|PeT{H$zM3<Km@Z#dh0QY>n7xfmtCzV^y5l%HNjg|2~5<r}N}HE1J-(~8(S
+z$8J&)-*%V5>_~Hz%f`PZ#8k~XpXG+4`RZAa(K7HM$9*oDJ}K~V8(eH;%9&IFHE9pk
+zS!$(Ss78y|d&6~{faByuHo1J-bR8Z#qnho3A2AT>t&MiAde&<J`uhoLL+USIqwS{&
+z8D~hG<TI+q$)rY|`rB1nj`WZ11goVc%jEeFU@V#G-oAro?ZiU2OLvnDk5=c~&79>t
+zX&$`rrLisIHCQ7jf@pb0xCk+;klTd&&L9URxO)58ZaS3&IBMUaD)fYPecg>4R=!cU
+zRP1u3RyyB}6uTo7IFbsY*jL#p7N%ryykV<%?34T>?K@79&7yh?dggz;-!H<wPL7A>
+zQmqX`y;6}UMoTfuXU^59gXQh`G5jAIOknE`(y(dUsa}T`xah&JL788tTmq{H-PZ49
+zzl;cz8-IRdNbfcy$<-QZt9$Q5^Yy9PLgfaJJ)B1?cI}cucW4aoO9+35fSC8G$GeAx
+zWW!>^$3~yc1odV%M(Sl<#y)phWw21?-M#L!tIUOOSB*Mqh)}5_qR|&(K;c#H`+9oT
+zraEl3Z;!Ocw{s}l2V}6EFcz3q-zLXKw%1FKr4b%(XT2=TI5NV@scvA6zY~NzVBYRD
+z;n27_IN&hK$kjgPTc#lD(#p0S=UW)HF<GkSv)LV&9dxt7ZN8w{cXMic$87tbu{A2Y
+zcI?)8OFUjKbs4C8{ZLZCXuxHkeDQ8I<<FpR*Ll<$rKv|nqmiqK@^rA)$^2lR=UlRM
+z?cArJ+Cb&ob+aRe=hKU#48mG;)BE)2#f0PQ0=gS-k+$9$4ZhaPMH3DlMP3#@_Y-J8
+z(6HYGfw&5gh^)j!Y`-=*nOz@U&{~hm$oHIhkEMC&zomlHQ44CfrLRYdIdXH1FswwJ
+zuMNW3$Q2QplOocdB43gHlAP_N2iwUl9`mn5wc1GWlhR@<o28t$jmA=#?=qE@f(pg(
+zT?EWn*{J7T820T7>57h#;nh`75f|@$(lv*jzO(HZy_&E$qU9eYm#sd9wP!&<ZNvy<
+zRA-_LFkB3$gcIq5m+_R%cEevH_gd4s_wc3NPAbkE&St%vOW4k~7N{xfY8Xn@nB&Ep
+zFrm!@G58Wc-Xe}*f`<|74qU#iLkZdg6;B)7n^&q**9>?W#A>Q{_HMDdy$`ypq-~s@
+zsG;JV8*1TCYUxK3h)9CzB&NaXaO-7mJjGu6=xI(n{$l*Y`)_0@Mdk2`8Pv)(k?qq@
+zk8{fLCo3N-#1Q9P*Z8^_$T6_}FF<!*nKqTv_mOSQ>F!eg_TTyxvzG7<yb6us+hpQR
+zm$_sV#D>^yV_mU)BJhh;CnY7((bLkslI|Q_T`C3C{Mw5}n2qQcsmXf1*(H-ApCY}J
+zsfS+W!khWwk{OYs?^P%7=cy{)*f%|$UQ;)1&F7svbybR6yV+SJm1!T3ZJP6l0Wz{A
+zon0znTrnNF^6%seMb(0*fOFeB<`&ztMVzyvmj>l^jxX1TLei%y9dme@ulcN%wl?dX
+z*I*iZmDW_5NtK#U9~vt+nYGx_3C?XFx*t+QK};0|nR9){3M0j?6FF=abd9MAiSOii
+z!2OUx42uZ)4dy$$N6^%m-j#8Cu8n1{ZY@mE-KaD#yWh*Qv1Czg$ri=EHtZ3gTfLNM
+zdH+lFfG!2sLcTs7oBXz7tDG{C^fHX<fmVA9{qS+4v1OI;7Zb%^Hy^@Pj2?-sB?ZaJ
+z!kZ08%$zoy_oa{RI#V>cro2~T%PGt4t;4-U9_p(MKIsSp@zOV|roP|URDN$UL>qhy
+zI?`XbtQxtlWl-Hd;Trhtdp!uV*zIFgzm4Qn2C#TGLd}Ksl5E^=6=lV8qV-=jS*v~h
+z(x;lTAlJOeIPOHHRmnoi`w}GHWjD<QTJ_HMd{8{xITP774KDI6$|>-bId@a8YA8I+
+zVjfC!H!fJ3M26r7TRs-4MJ*XnvauSR%p{5=v+BmbA=s1!f}A(WG&l@*8uD$3>2J&5
+z6l24jKlxUMDs9(4dQ~F4IfED;+37myGN3Z6$p7L#C2yULmsMzflG2arGDtBk>0D6^
+zG1h@^<Ct2~V<X}{Vzku=hpjw{Qp+Qcwsxn+M;P%NZ=d7WOx|8vtV%W@8YWw<emGL@
+z2yNJ2Xw43SC<s=Vsl|D1BX>8xTM%7qrzfZaMsWOlY=*nv^F@JHsUkipdrmzOmd5&u
+zQ-kBi+5){%Ph5RYf^tde^?nwQ>)yXdo~J3cDEFL@N~i|odDi_it?&uXrjCtf^t1U1
+zQv0HFhUC{6E*YB4Eo%cd`YT!`|Dsyr$;EcWj2H#=Hzf}eCm3I)-1@RzY@FcUupN{7
+zL2qsGw&<gBN228Af;r-Eh7juWhpi7k;zG4R>a73o-l*mKCRtoP(-{7WA_b8h6myk^
+z=r5FVfEgblH&pOtBiSq!c~XB#I}KlzrQ2&UZ|Z^B08jp4!}NQn;&d>-Lej^us4p~(
+z=|A93RYyV#PhCD7FG=}q{AxoTT0c5qr{ZpqpAK8F>NQx<HKdHxQMa0#J*krE*IVgJ
+z{xpAxwcnHb>`5Bd4{&!tP{loO{&YIj&WiZ#+H<1J^?g)Vc*)dO$)ED`SFTk{6EHRd
+zL*UnC9W4!r-1ff}nF#uuWDScwXw<Qx-pEu*NwUpB?2m%NOT8##HXOc--zMbBH+DQk
+zb++`@XW~r!7sudZzj)zi{KA_)dW!EJQKj5`t}jb>9EAEh9qGi_9;hSLZSQtq8-`2p
+zE5!X26n-}g8iV=iq11@H;ty>fA51u-PHNlG%zj_9hf2XIrl&B9kEj>((M@e!F_sV$
+zvHG;6=si;?9VC+eT?976(B(Cvb0Z2)7g{f;P=>=kYVxj*&7Y%fC*J8d?pi?fm%UM7
+z%_W<+o#b`6eufsRGUEKHCE`q^Mj=Ib^{nS!V=QP{$6^Il5x$ZG(w)DaU1o{9#N$A{
+zUFH04WDwP8bUUj3X3I9MUD>)7tisQ4*R-x`-PFb6xmPXDS;PFUZto5YPCf0slSs?o
+zoKRhpsXhX;lzZ(=em0eF;B+ZxavD6?w?8WeXb4K3Eirj-(XRcvb{NLVb)egQkKzFp
+zxy&v%f+(RYt>&YSOLEfqBg~2q{W2t4FXsx~rJ9^U(Qe2yYM+@k^ZB{JK+4OrDb#o5
+zlA`a7#a9~G;YwrY_3MAcA@-=O{)zLJ^`uiy_qE3SR9u1<X|6uA7km$ikcIo~_L7{X
+z+z+36PY=d~wHXlGq@gyA(xl8{b+r#*OWrWKPOT+xk!qe#f8BNlREZ0nyFA-TX60FS
+z;tZ@tPdk_AUpmG-`l0%Xqb?FL3j3zTv&IC<Q2V$`v_&P<{3C}<e6AuxT#Yq%lX+3N
+z`37eeCG6gnjXh&oA2vu<lZT3SRd^E~#iUzMXpKBe&aR>y)Vm&(l;BQ4&{_<|M!1~B
+z|E4F=E<Iux@nzd7LU9>Pa9#^o7&;@zefd)5wA*%##G8}fDE~lds)TPl`e=8q)sBXz
+zT4SKBq2$2MZKdmG+2G^9SYPQtq5lb2?=KCE-NDa!8&f9Zfdw@G;;1t2Qx!7X+&w=s
+z%@}|2m3(^5kxCL%7)Q@M@u=aIOv+Y0@%MgpoAl#k)<@R%dULIcWrFVA27c^Ssc^dX
+zdU=~@tlJIG#Tm>aeLZD^oc1wN7Nb9Za=YUpJ8ielUCW@t<=#)VOHy+0v=;TnJ79@1
+z_HV*(vBkFZFWEUP3%&y58j3b}BN6qGzn>G?3P5zCv!*i>B9WQjASYT=ax~aT6Ejq_
+zEkj9K9@S2>O4|1<a7w5|b=Tu8N|P*AF$TMy&yFN#%lo{|WtNA;NgqNTfEd#(?XB}e
+znx=q~+Sr-AQy^?(^o#8N<hWOEP2YKW+hL+tb=DF~Kx5s64OdeH)j%)}4olVg)=oxg
+zrX=3zuhrW)96Rfam~-Y;PHpC>2HjmLIl-boLHjG;IXcEPEYH}3z&SHOEDs=idTg2I
+z=e{rO3zp36nZoP#%S5Zs#9o-sYw4m6?3N!);$~i>O|rRX*ROlmNc6L!(>O|Qwr9TP
+zIB1U8SC7%--h2Sp&ELua5{SGMVWo*YNlL5EU(Ve58D?u_zdcrDAmx+IKeWo4qJ@$&
+z;8iuQMP56{5g}v7HJP@Is1?f!Vtm(;-0gbEu{4Sp^Rt9QXCq#EZ0&58;onzV^&-D=
+z?pZnHxITX1{K6fs53<r%WkVK@tFRi)k1cN%*=o+WM636=4Es#N;!#IM22!5TT_ta3
+zuEJGetor&*OTtv~tl$o<VoTcDQk%U@uak@y0j&S3As!~#qLKGfjR>MviNRHEV`OkC
+z%nyHkgh8mgu)w%=i2NT2yo~BUG#`fT4apa-4mdw1a+t!s7RMo69vk6Ts-8sSQ9a=<
+ztrRhLUD&9xQk=%9;YBWAiP*o7AvFo}d-vuWb?Z7AdR1xKjovX5ywU@9XYD*^j|Xds
+zXJvNZil6fc-_^POj4S!<FQ2W1O4BDGOrB8x1X9!x$6O5Ag9PW>s95jh`OG3J)?(hO
+z%yr4?UBC44lIQ7KPDOEIQwgYg9$vB|GhKCO1}zVgeE+K3B%4{S3=q-X`#kZCo9h#l
+zk}Y9e)>-zvE6x$upQ-&<3t0Am8II?ihZj^%muLx(-;J!hZ;x9u4RfD-_@ev8h>g|D
+zbXO*&KegCC48waR%xX$r0;eP*f0dO_tv3wxUS-ivjWcpN-yri6>!1o+Bj}uuc(!ap
+z1GhonLA__T2qJ~`r4-DoV}7Bmns@y+*!a)Zbyg~j6@hvEPYOIdSz}+G`qx2`(3`RB
+zp%W$>J`w$LmBKrX4LS1b22Z`X+6=l6+Qn#ignG+B2(Z)|@^kdNrzrLzAsaT5_Dmu6
+z4n_pN%UQQg5%we3^AV@djU@&``>(&8Ix-3E;k&wqrY9Jyt(+|IwSI^RJz3J(^Ju1y
+z@o*Y3*TM^#6nbow;Bh(^uk`O0H<j7eurYqis^x;Le17G&D6A3`+lT)Uf4=JsrQX{B
+zzLg@95S4dQ6Yg5o;<sgTlBs{5IYNq!F5fs=%spA_tB0F&@lOS0&--rt!aGuqf-kM8
+z;ZxK7cIvsi<|}ekp<z&$;SDvSXMk?L&kL@|Z9?Hzp6`Kc7hbZYztx%n+x1kPoQiB}
+zbz6Fi`crqP0}t-H4cRJUjM;;{-@R}DFCH-oJA>P7Taf3x|NDt=1+P$h`nV#!s@?Ti
+zRTAgb=wgn?Ka+FUq!2_Uh(XE+G9=Wqkm=Yy``;GyiWA0%p8rfjy`fn5DmGfji%25(
+z5bM~*s92eADq>bl)O5}8Ju7V`{*WN_81v|8Mr^d5W=^`h`s?YP3X$6>ibc_`Yopq>
+zF-c<TuyeRLY+Bif*pd)h|F`>BV9WU)r?Xf?HSgZadFbm$r-LQ7_>E>FbxmJs1!ex+
+zJNX=z!n%DVP#JO#P1}@8BK9Gou*z0jFlnyHaP+RdLDpbw?3S)3=7b-_^!ok6tT$Yr
+z{G*EqWHb_)kHmYmlVv<qV)<z5Yq5B`+rX-tP#^zmo%2u99`kt3p2W9B^BzkvE9|@&
+z2tEIML*2K`eOLHRMX|QQR(Oo9PmPhS=iq7s?wE}V8||2#iNAW`L|p<kG=u&QbThvy
+zn6Cs$b2247yq9v&8Aa^;pk~L8uXe}q_op!PKI;XPnz3<O>6;Zpq&hiYXvF>yDA<d6
+zwUAgA3)JRE*jBH26DxG99<GN|OKHKEGNlEDOY!_}4+b0&yix_~{nId~Ga7rz-nxFb
+z`!j<2-BWyMVth>hcH<4aYjvY$l_jT32FY`ZW6JLix<eP@TMyV*5^w`tk|>w3Uss7f
+zuOv5)sZ9R+RblM=b}{zhfFTj2@i@hz1>5U5^J(v6<6nxLD_Rq4sOFUM;p1+MeTT)&
+z(*>mpe!Hq?MW?GEe|sZ7>hSaFX(98u_uo(Z<;th+TF<mlDhygC=z`0Z`CX%v#6Tnm
+zF#46d@HH8I;}@lI<UgIKKoC9V#xj~4Fw{Qp<07B1H1EjdT=2K>-cQWyIO^wB2~NKU
+zB9qg;iPfZ2r7y+#-kQAbzRu*l{p%%_6nXnf815k%4K~tFM5(SB2I3!cd|Ofx9}(fK
+z@3evnYZ&sKmAPz%qi$s_@g>oW%E>pgtjFJGB8O^*+T7&@!@DQ(Lv&F_-FFXt;IlkS
+zr9Hg5+KR<N^O7Inho<JAgs_<ko0O=AT0H}v4?SDtdXQnbUuE-UB-{cgF71cY*<DM)
+z*Tt4Xjb6^4?4Bx|)s52WKAo$d!kq8Y@+SxW-d4go90CP;)N$(DYkraJR?+$4FKAJD
+zPYVhAD*gq0$UR1d0QE{I5*Q1v@T*BVuO+m}U$oAlSvdTrm?kxQzyCUIbPPE^6+V7i
+ziMN6{-Alje*)$j8kF<WK7)~U$uB#>unt3?`N$Ii~Hgm+*ePZu?8%oS)sIV1!<(V5D
+z6r~IK&Q=FG-5)&cf2P*DUa>sCgeA(w^wN0b5W}m`58l*bcp$u>es}nIXm-)JZp=nP
+zM6c%WyOY}abMos%c3o!p`)z!L>4yni$o2C(M*|??wpco%H(#|ARd8z9=eg<k0NiQ+
+z>CapLfw7yoPUzUtwQ5-Lbgqt(I=ed<lR*59M@v1bUSPyjO8K-;?`(PAm*@3^55MJU
+zmv|b4W(`w@+8gwg>QLVjLk@pFgNmgn!KTd{J#T%X={^I+q2`>SBnSxfjC|}<MxMTx
+zJ+o&&$(!azOeJSM4C&HaSS+zgXu0XyxybRbTcU_LM3qu`szlNW{zF)k8ym`uZc|z1
+zr!)vg+MYF9)&|Ov88n93mMzozdK-%IT;p=$&Iw(YUC>8j8c{|WO+?$koO?wkw&l!A
+zSAJ!dOx8H&tcui5X2Qw7Xf_SGL_-cochY|r>DgxJj9Yo}AM8aQ1h1=gQD&syI6O<4
+z5xJw>xm((rlu$$_!e7$JyyuqX-Q!lG=p6T(8P9@rA|_U&HXqaPA;4;;|GkYheD^Er
+znNV`ZQHel-<p$r_yU*9n^u^bGd=R!iqc%6r>?M^B_wuToLLvsl{)WSumKgm!=KW+f
+zLn}WfT&rBrhY*XO#P3x}GC<Dv>$ReN-5ytL#gDxNc`{XoobO!SL!tHWW3{=y-06<c
+zUG9K$!ib8qpKXJ+bcPNYBhMo4g%3Dve~&jA*rb7V0q66uPxHZNHNS&S>vv~W_s6XI
+z^aj$md<z&_iRW3vhfJ$cHzVR&oMkf&V@eW~lRtMmjezv0&7s*5dTxDkou}UWv*m4e
+z+B9T0BVg3{3C)k<mY3bar2~f@C~KOPIK7Nu*MqM&C$e1soa~DU-L*q|+EBcd+wR}Y
+z$PPE#ul>pq;2+RxUA+7Cnn{wPxeJ^gbg8{fjfK4=dgzcRl_XTr^-=a%dMgMOavqtj
+znq#7`O`OJ3)xQ@JV18<}&3sNue>`C@@yqqGunUMIUP!&nVoh8RLr&dfgl^WNc&WYh
+z#P>Gibv5I35`Dchr9pXPsE{Bi-e=(p-*(<fHWkHE32Hr#isS2waWSsbZA?X&L!;Jq
+zVa_$03h9_FO~$zX&ihyr;1UbnHl)q`YB=I%`PhdSdMFRQ5y#?4)b_)%&GUnFnqZT{
+zfCQoI^SlWqm8`-dty?VuDUsrvf9nJ4AylR0O`p0rDtH>Yfux@>)8%a04Xbg`8kqW2
+z?*BY+p~AnrLSKeA=s0k9!BeEc-XLhnfcPcv*OMck>d{S6IMtWI-@&*kFLA^7=?HW|
+zZ2o|hw}xSJaw5gl@9)Q#f)<@a#cSN6hO6)Nii<#Qo9636v4)|2Y}0tkGaM7e*7w0Y
+ze52s;)bao|)0)RvS9m$cA}o>M!&i3A7|<R0I~DjRRFBsV2d~J!-Rz*X8nw&Btar92
+zjI~G^KW*s_QZ6CVvpOYxImR<S$zY`H=V#qVq7O+3T=nkJ`aJ|uz>LcK4h;+?JeT&a
+zi65)OjfNYjBepd`m$V0;@bJC%NekXrl$?SDm!Y;%xF^Obru~!hY@axZ$hG+vftu`D
+ze^d3CuHHVkmyHk(k~`38^{9J(@v@o@zo13Gc+So_#UjrlgKB5~8up4qXY<HU&d@2w
+zZeuYke<<I^naJCX%4wB1vH>3iv_jJfEYz;I(?<n@(hcQu|E-iJ%mW)T5va<I^M6rg
+zV%0xS+3f?Ev@1T^GG<ies&i_OGI}UU<Olw<N2#CJsXcY7wr_+_91ji4{nT7O>pQR}
+zRD{cQwwzRA_27}xK~*qlk_d)vtin&bQ%1v{S1+a0RPQ{hc;5Ugy!0ca-mfd)*N`#q
+zy6-Tm!a?Q1J&Fn8GlQ4_qlsR|jgtxMY}uxzgO|QV&xP6Dzpv8ZgM9pV)|kLB4eOe?
+zaTo-<i2~2ZUI$?}U{ym}S#DmG>X_y`be6E}D#ARoSmn}+w^+xpalVH02vx~h?K*<g
+z_wbEO-A~XgUvxE$$3L@wFI;V+n4ewf>8shZNIq%X(6SioJ&bE?ut;V>5HkdNhzcF2
+z^JZaVcG_&x9XwMop@TrYUU5i-<B!2pVCkz5C)17XnphvrnYYhh^L0~nN;FlxZc^~T
+z&z~<^r_!V6<A<Y^f%Y+1+Xt)xZwO`7fGEnoTn<s3{_%z*JHa$bBh$Qgg?dGyZPQGL
+zddg_yQy%tXGLyj*5wGS~-H|{PR!?8_QmL4IW2ogJ&;gBoprf{;0+#Z5;5X(1->oXt
+zVwJO?<94!rDGB#ugz|N-vI#G)rW5)@b|s73!~}02gB8~`LKL1(I|hBG%<wDHt5}?z
+z?xse)Te~A*)yD?&c@;Bap2@GBlU`YJM9^>hwt7TP_pAo7Y43eTZg^)pxoOq%i^KQH
+z1-9{w@jv%I==m0p^iBrDd}~UiX^d=L=x6J6_8gi9W0=UgNZ{<mAiF3Ow@`9}iVPk{
+zOLk_r7&de9*>?pQ(nR4VBxhiVmYII|%Cz~Tz<Tb$HDv-v$4<-})VBU;Yt8E((tJ)J
+zkOoCz(E9sD9X9q-o0*xNd+Hc9ur{&1Dp&EmQR!Rna5k**YmvOd#<N$O{5OHhg*^R{
+zf|bh-E)5+pRlMh6!0WIU#dK7bryKD-^iuSkFEVZ|#IEZRWf5HPlhv;wpWZ#w3p-Fs
+z`s`=MjKghK2*gMm-^WqHxR)$uu9Ui?<OBucY)MRidj^~2BqTDz=3_!Yvf+%|W@XG=
+z)LMsF4)$vW(sa;c<2Jfg9CWs2ywc{>-?->s<Xdl@wnFw<%mYeIvZU5rdrQgoV?2wk
+zJhit|L%huREO2R{Gr4vTCOF+4EyPFp#qm|qZ-J5x0_vH;k91^Rg~&;avK+hLEDg=B
+zHc<uwMZ9RKc`FYNkyEEFTyeVAF2%;nW-s0BY&%7$vui(s1A$Zd1Yu`=O5R)#@nCGy
+z2^}kZ+j1a9fRX?$v%yRXW!i|U50m#>Y*vh#`<~aW)qk^voV~$>VZeR7r4zOu(c6tx
+zKX$4MfoXEz^6LkdNi8RD#sS00dYLy=uie1r`>B9%FEhwec%KOp6Hsuy0=FaERhXVF
+z%A6|)HOZ{KTdYpwA?0MI3s@K|tQo+Fh?0KLxmP;0uxH}2YILnn=-hsxQEn6KZe|9#
+zh&e+?-J6BplWR8oUn+aX6r|}$0h$`a`JeTn^~Ji<TGk)=YS)b-R}9H*2IBO@c23wf
+zf3sQ7m1B19Q@kA4z01sHvro=5|2to_5rFa`|DemX8BrZxJ{A9Bwx9$X@5pyydm#15
+zPG@R#GS%<fouk2<)a8S#{*Xr=LsBCy*FB*&8+I9^;JQ!UPU!Xu2sq+o1NBg@r+G%j
+z?j5Uc#m%oDOdzJ?&5!4c7mshs5%jiep{5L1F}R-;T0A3TWdO~RpvQX<YstdO)6USY
+zpJpON$W=B-^%nbTRg(a4U1#4WA;fQD{F@;hfz4Ve{oUnQVW7d30<^8Iz|lqN_MpmJ
+zRV&*;9`hm7&-4i}+}JX;BF48rj~F5=1FasJ(e6-byN_Yp7#1)6R|_D8chSEA!h<um
+z8G!+-*%R~Sttj%PUfVbwt9iI@_t>{)@-@r#$Yax253O~H3k-+EaCI!iGQP9#nn*n#
+z2K^6R!ab)oDEW<zXkX#)WvDP81)`fPcKG{m)A5bf{)NR`xu1+n#n5Z>e};hW4mv2y
+zhi1=woZI#CF^M!ML%dac!$qQblsDo)Pmkn~?$JMvv|nYZb)}LoDhIGo1TyMCKoz~0
+zIaxAu^3uMR>L^Gn*Rl_r)NZ`-^WWRN4x7i(-#0E1-Wg4HAgAI*f%tmvqrosP_jSfV
+zBbM^7;3Vy7ClzH8K}u;teXE>S24~{iZwf}ues3PH#bSLNRD)7WZl|tvmaw>^>X?$o
+zn^=ec*zRZRcpcX*y{PgpEXk)71^0!hq|c|z(w_4^mFJ3BI+e(#l8q%Yk=rWMYbr6W
+z8Jb*n6V-S6>pC=oA?>lC+Kuj+55~PM)Yy7>xK!}1Y;@za?^OHc%s2HcVwlJ^affez
+zICClouUk(k)An0=CANPgWMBP)*d*K)^zpA!Fa~WYy>Z!=6+WKkRpYxF8J0Zkk%-68
+z`p>(qr05H`#%F1D_CotG5($2{07-dZ*JAliBH$PilkZh4Q*HSTk3nT}J9Mn0vWw_O
+z(x=;`ZZiXX+lwb1wnVu>)uNuS3YMO6N#C-lYzDa?o~z+ta>G$S<s-{yq4wIxEvUa*
+z4|k?0-ofN>mJE^PqnPqtS~h{+RjCZ2m4#gVxEpaCO|WM`p}({6DAU7^Tc&nxEj<GF
+zK{oejM=Y8q=Utw^IE0)s9XB)Ncx0#^dYp_2lLa1+fl*OJ5`*8iC>q4Ltb)pk0(+~g
+z2|^u}zrXi43uApm;&D5F`(xXyr?|2aCyF=G@OW4C-!{9zQ{>clu>7^7NpT{EsJn4!
+z-LsI9-xgdLzK4y@0Y`fyJVA0>w}^Wl`}ueWjXYxZ2x<bCMCJ;CuWZOaR@VD{<~o6;
+zC>0Y@Qw}`%gRWk+KdsoaTmHR0kLz_diucdpIsZ(5imOGGcjdG`a(l0Z>)XaNpcLQb
+zc#PO#9^*T?Z#w^I7@29D=advihpzwQM;p(N8VD}Ty3@xMR7!l9Q+_PAKAM&{*cXAJ
+zLi&2!YW@&<sn1M1)j04~5mZXl(H>2)(*7<>lQpznHp<Z7%0IKJF<qo{^}cq@aYZRR
+z&ub8EW7+*o<-zh|dAOdhC(0x#R_oB?rokU`tV0GR)!sJE(BJtuGOZr&thrrwrb|Js
+z^4R?c=xHGk;vpp=8lJtmx1B!Gx$$<tb45tP?o|CF&4;^DubZZIqa72R-ioI5yN;hS
+zjl2M+ij~(i-vOLpTd&Ea490GUZ~bX^ZqMS=oA;M9u<6>RSThAOj!&9_tbOLwXvaL5
+z3qi^V1%BTKo@vhPnaMazaD3yhQ1Z*O6~1AyQ?0yR{NyxmYS+TpjYyCh-Z@$iUr5Mq
+za6Mp3stq1lD?L;76;U&cV+JM;OkPMcY=$>8hyE)=p(_GAc55LYB}oDh4`4%Llg#*a
+z7W^b%@It*iXcT)Nyj3G$0VRJGNMP$0_Nr)s((VVb4}4y;H7-0NE2E!p0<{o@ig5jO
+zazaeta_79!bP}C9?Mu`xhGY~w{7jsZL2P)qEQ>A(oK|nOiXM$Mc1C=m#Q6Rli-hp-
+zY+|B(cjTPjG1kZWg<g0n;Wx(e_tqwOM&RVV){bIlChZD59x?e7r*;|q0sWS8-ZEd_
+zV+00DaMsngABG@_$sU9nQfk*oEg&+zfUnu^)Xsk5H#*(tGC0HEyNDA?VYrG8j<<t`
+zk7<8R2YrG0p14M$Zzqg()xUVT*%f1zR>n}<X_v~m2*Z*$!kT~x#?}i6(5{^BXcaHG
+zG<NOQG~V?7VqLVfg!}+&!Ni6v!eZ6t&g8(!v8p~#3PJajJe}o1Ij>CZ3a*4uc0a+=
+zpnElNw|=`Hr{c~h*K{3bX>g0xYJ;I@PKXay2``yaJ@M+>zgfQc0_08LDsTIJ!PrZz
+zAbvUmIm7|XYvWg!$_`nI>_&X`W8Q+5CsGO}3P@!QGh24eKqSo$YV})@8GE$vpiufs
+zf-hW8<7mo^73P9-dJ0M$W!^m>?FCtSRBJ(wg%$mV8RWDIbkCmj!$7+o%Zcry)~~}m
+zb}R2D`NV(CgC1#FoF()9Y)_A{F1=oc<J~jeYFU-Zi03Bnfl-QUE7NE3%Lf_qXah&q
+z0tbIzQTJ}UI9F15@zX-DNpU((KM*45Y)fPmE*n^D{H)})nlGiM3Trcd2A8^w^PJ~k
+zLEV;7*DCp^j)zjt(QSw9sRrHGuH}hd^Oz4cY;XLv%7WC;3{LfamC|22NK=tMlhB57
+z$f9Z6@{SSCH1M?5Jb?76bLk8#k9BL+RJC=E{^_@W4$Yv6VKm0wc)H7cIyr_vDl{UA
+zNmaisul0uy;cX?hqc_j5a{*S@EiE|t3)?@gSh8(ru^!5L?Q9()J+O&o|8RICGx$~P
+zlwS;4CB>8sTibrF9@&=^z^ufjGMmRxk@ch2YkEPhdSt1=0tARm8)!YHabr;jenFf8
+z53VUXQg<}4l16My7O75hzyB5Ss|N>upCL1--)TcP@X4o#BxDbOqvhUt{!bVdL-lF?
+zZfHmMX}9`=7|<q8kSI`KSUFb8@AlId&I&Bf$MFb8T&&d^%d`%G+j}L5UIox7h%jy*
+zw0dNs^n9~z5%t5C74*We{@x~ryNu-8et*COI?kM69`{#mA7@h=1jo+h0FxJ4Pvh9(
+z@xr4+Q$-jyiMv$f?=3~=;s|aw9mVA+m^U4QM&6pwhRkY#&ilKYa?Dc|!t4sH;z)Sr
+z4fYo|nK%2bUsQ?R)WUVVGhNk`Q*tQ$pmNHaR&y6j>d2~fdHA&?ln_$axSqic0rXs0
+ziAzzOUi!bt&k8s@%AoYxC>kkZQor{v(r!Jho`x0Cq~&*cFSxqH=XGb(0vrgKM2fYC
+zP1R(Hb9$D#j%$F<R;aokxEDZ|Ax+n!EM?g@YC*t2pMk_$4~&r!$|*1fL3FK8#S_k&
+zJiS49Ne)}mJAzHE%zD?N)ZM%|hmG<=S`=4h*KQRmCjwj~TB)|_arN+WGi)5KSvw3L
+zm9$Z#{?S(ayia0Nze(^75}=j=J$vH3d$U#9?%z9(hV6Gt>%M8fu0hoSo75l2bKQHj
+zms5WqRa+v{oEP6(Y2+(A>F}+<p}$0HvkBRac-!5i$EAO#qVY64)vHy`y(neEl2Pkn
+z$A5K*WSko}@PZBRWG-Gur=u5Z{&hE@&T50iPCu~G#&?5>oT!91!57{8``A6%EWp-f
+z_vf--PH5c*H#o0yb1axZum5x{WJ?;nPEf@B{%R!cH8^JC35mPt!Kf*Ww_;Yn=zWyD
+zhkrStg$Y>vZaFtAmo=LPJ#_WV54Iu~bho_n9|J_zS&>v+k4aKd1Z-RiS!w$r7zwB2
+zvHCOm<6}M+6n>lRcU7^|!`q>t`e<yw*z@2LpBWHJy_I))Qhghii1-c%e>C=Q`r$nP
+zS|^bp7@QPC*fX4GRZl4x7r^Ym6o$4I(;hZxT9r%oxEM!ZB`}Wu3b2}a_g?>ULw58$
+z)>lUh^b{tVz!u<<2r^!#zk5{8h>rvG1L8*r9gMz95G))GVfe1Vc)_T7+){~DV3X{Z
+zm00w;Z3kLj3nZe42i-U`SERh%x}uB^86emuB?Tb{`d2fnVPuJ4ZEv4(mgJyIX#Z!J
+zjBbmQzFjdj6$i{AK>fB>q%f0L-H2r&L>q_*dq&Wh4NyZuR(|CQ1;gnq?Uyem%UJF;
+z-Pi(V?T4Mh%?q5cv;peI1_?cMXkNQQXOy1+yMR4k=ltrsydfDAn8q;&o$!6juh3&J
+z`JjCrD1QlrI0hWC%&$kv9I0E$m~UhOtTf2V_s=yzdO6&eF9!F1-)+jxMIYw7E-n0^
+zhV6Xrn_vQw(3m>WN*N5fw05VLJlM;pg2Mlh{jR`MsFf8R07EMtb~`s^>TxXqUvlZ1
+zYPc|Vc{JZa!v4z4lJEPy&r(VQQxuhm24|zum)iwk9+B$U^R2>gplv3gCn^fEQujJD
+zR7)JDGR~ak+WMN<{{tnQp!5kHO0YZRgL^*~SRk0P;eWFpK?Ml82gWpHWyy<z;F&DS
+z{&o%|mqRBY%fu;OQL~P&B8>r8d3&Zm(DxkRP#<Dw5B<#7dpg1ZF|+?E%$sE2(L@pn
+zf#u_n=(M~a<y2;4hL+~f^6?h`q2=cbsYFk@5MnLWgb(P!qk2JO4ndmP14hfhjsylu
+zc{w0#LU5<F4=a`aMSsH|09O4`;nFqV<iI{BPkSSPR*!_sDHnY!=Y=sjSkw_G69Ros
+zwou)K2q3use_~1f(Um~vp*!^Bh4-$eowC8ZA%|I?7V45z6gpl*VDZ?m^<8xatxA%`
+zVaA@WEAzbfPn-AS|A>O!jV0)`%`s5YK7U))fIX2HdSO!`^S<R`nt7Omz$MMhl|;vm
+z8XL(g(m~#qRGgiK<;Kxe(-ybR41M)J@8OMU1?659_$e7y<HnR--fj*vRHhN%0t!$=
+z5B>n@W4Mq`@PnQr7d@i<{|A+n;=rrO4cL#227vgnw{Z`wtCFwjxhkB1o6MNnR3Xs>
+z$^f}HqmG`wp3Z})j)B<DSe#2^{CfR(;Eg&HQ8Eb#^cvLQU`g<ICKj2ZCXi{(a~9S`
+zT#7gJX29@Q!{SOj+lqpZW`P{PZQ(mo<GZEY@YD({n}TZ(nSN*iU2uQm7-n_;$<Cnp
+zJ?k7k@%N}-kO-3Dk)nM$(n$f<Qus|@OqSC5K&?upfdffz$h_2cECwb(8ig|sseQQ;
+z&XPtjA`nh*6lD6F=~@=(6UZdS4Qy%^#ISS&lj~2gO7XD$=GNI6AnW@Ew>X%?xvquk
+z5F!vWI_41T1Yj=>&Ir}5AA}EaeHJzO<ZlAzQLbGL$=xTwyF&uXm@I8E?*;a7iz3;7
+zO0a{Or6OeU-Ce?$`73g>c`wmdb$eLo(I~Y3LV>}BN9Du7k4*#Q;TpOmR-$Y{czHsX
+zowut`Fu+6}?pkg**ee|IXX?m8SMgpi2;3!B{#jU7$M`sOM+82uAVg%oMyv~&?~H=4
+z24MQ4zZa11$;l&RXO1pv_f6>8zWVm`@n+-r`$Sq`pb03>ZSheub!8eBd4R06vv-CC
+z!`w36>B)p|)sY)6sWnRRim++Zs$L7Upp!yJEepVVMIz7jYKJ{ai=-{^VMiE;#S5;_
+zmf?U5YzBqjY}_P;nxFioCk2wg4E<BAiwVl74_+ADJ+v$Vi|f6g>$C?-1nxf5sj$F<
+zVHFZ%HKaFBsoKs}bOmHE0@o!+#M4aSH?9OR7zuL^Faj(h^&5BPIhas*Pxyw_tfmw2
+zkN+T|^JROHjnjON=XD!fwwK~`*0AHWzK!%>aVMP1)-+hLcR+@5ovdPkuqQ5(#`U%j
+zTa^^$`5Rim!0O8()8mQIx>F0>+y}J)=;}Ici>^Sq6s5aE;no9ks3*ptZ{A>IX;snZ
+z4ls%iF|TRM3XHJHEwnBxF5N9#7w`e|O%%|xuBGRulRQ)T(UyZ^y@)Zelg-AR#j!kV
+zPVa}bSWvpCOr($bZnSZn#(Wx}-qpZXzA2~D_Nz^6yiyi*Fm~AatmtuVl=d}~lD9ak
+zz^{}xM&2L&zQu+xz+S$a^OuMW)(kto)h!ap3>TB~CHFTvibOmC9Ke38u6Pd$UV47&
+zRa4%fh-<i*!g#>njg@<k`*h@nXwJ$Q_p!5Wc2{oX_=b)*6DK(^Y5GfyC1Vdg%x=|n
+zRVi^S5qF4rx%ruYyK@+;ar_92?B<T|VMV_4+zXojGk|O%I|l;^(H(!kB)`oP1?US`
+z5aBh2`(&dn18@xzAe1Dy$NUBzQ8eHZG_nEoig!uYfc~Nd{0Wc@ES`HfR{}nPjz{uJ
+zEH0)aA+Tsr1CWrCeSBqPHr@d)$=6HjU264P^hW~dWkS%p;zds9Qw4|^U*^)ioQX#;
+z07%i?YFJl>wiYP)v~FatApi>&(1Skzw~%Oh^bZi)Oo@PVJU9*`yBvx)1|?u)1sUjn
+zfPq;?hSp1^Tmt3>ElJ#PQ+u@B14rx%N>)vsJ~;!I6jK1CDYnYE|APw{Fm2V{YkLXz
+z20-%0rZ)QH6ljf}0QTTj)rJMy9RLoI0-LL$(Bl6eTrm84(YJpI_ahj#%zW~Y3>_d`
+z5DX-0d|gZz_%*NqAqfa3Eh{7V4=|_`Oncz}@wo)d3JCrP377njU~e?RCs9}z+#p~9
+z%}SXz_sP(#0b8H5gXF|Ci#!;LJ|&3XeE_Kq{@mq?;%@W>5C3sA%hh5~RL*4Qe1ZPl
+z0D5sDdhvVa;L9(4_}vF2w>6nO{ckbaAG#dBlet`sg>GL>4!MOU5glX711fZu6-}-z
+zU@mxBhULW-$>%nJxuykT!PhVGQUNcc#{#anS%Eg>praNYjsjes06bnJOvwHNoDTNd
+zKaPESh4npP1m3;9h5m&G9Et|Ks%dgD$_i{Hco~~+@;{nvfIT&>FbYOXDqu)9cv;fj
+zjrc#n;E<yR(iu4~0fzv<B;WpW{0F!gO)=<)yaLPu07nIaOz#qKI~wr1fyqVOhsZ>N
+zm!T9)Xh8%D<68+>Up~<&arHS5L!dBq><Vc0xnMOA7}NTo;LDKQPZ(_Fu967i2Jq1o
+z#OVmI8NYpKiSJxW7cn>prYLUonWAOS8%V@vRzmQ_XAmHM_F(NS;*j*}=^6TIPDb$M
+z_b2>#z|-ds57FN`xmXJn72V^6W&mJ^DtMa1?S}qD0vhf)p#QLMNaAuxyU7FKyhl=p
+zJ`%LpW&kw2mS37&#GW9CLBfsU{>)drIsmfNRC3Owd&$W_Kz-n?L-f!!dgBIg{D*_H
+zKdw|91QP^wo4{LL;B*GO<7P>BFvSH<P;iwg4tR*=#sxt}0{lex1$i#C+l>n-#+ft(
+za<vR-^Jc|VFeQ3f6FPtG7K6M7I)ye@C17F0zOen}LLjQs&IiQc10EMt0+BczJCL~i
+zBnSG_4lQZQOP6`Z2{0hjjvK@mUyeamfn6qDMEvev#7Y}gO(;wV1chSTli35l_&VAZ
+aUxQFO;ObT$K|{b_AhME562(u9{r?AobNbEz
+
+literal 0
+HcmV?d00001
+
+diff --git a/scripts/generate-pwa-icons.mjs b/scripts/generate-pwa-icons.mjs
+new file mode 100644
+index 0000000..41c7c1a
+--- /dev/null
++++ b/scripts/generate-pwa-icons.mjs
+@@ -0,0 +1,27 @@
++import { readFile, mkdir, writeFile } from 'node:fs/promises';
++import { chromium } from '@playwright/test';
++import { chromiumTestOptions } from './browser-test-options.ts';
++
++// Rasterize the existing project identity; no service or additional dependency.
++const svg = await readFile('public/favicon.svg', 'utf8');
++const browser = await chromium.launch(chromiumTestOptions());
++try {
++  const page = await browser.newPage();
++  await mkdir('public/icons', { recursive: true });
++  for (const [name, size, maskable] of [['apple-touch-icon', 180, false], ['icon-192', 192, false], ['icon-512', 512, false], ['maskable-512', 512, true]]) {
++    const data = await page.evaluate(async ({ svg, size, maskable }) => {
++      const image = new Image();
++      image.src = 'data:image/svg+xml,' + encodeURIComponent(svg);
++      await image.decode();
++      const canvas = document.createElement('canvas'); canvas.width = canvas.height = size;
++      const ctx = canvas.getContext('2d');
++      ctx.fillStyle = '#0071e3'; ctx.fillRect(0, 0, size, size);
++      // All foreground pixels inside radius .4*size (maskable safe zone).
++      const scale = maskable ? .65 : 1;
++      const inset = (1 - scale) * size / 2;
++      ctx.drawImage(image, inset, inset, size * scale, size * scale);
++      return canvas.toDataURL('image/png').split(',')[1];
++    }, { svg, size, maskable });
++    await writeFile(`public/icons/${name}.png`, Buffer.from(data, 'base64'));
++  }
++} finally { await browser.close(); }
+diff --git a/scripts/smoke-pwa-mobile.mjs b/scripts/smoke-pwa-mobile.mjs
+new file mode 100644
+index 0000000..781b7e0
+--- /dev/null
++++ b/scripts/smoke-pwa-mobile.mjs
+@@ -0,0 +1,103 @@
++import assert from 'node:assert/strict';
++import { mkdir, readFile, writeFile, mkdtemp } from 'node:fs/promises';
++import { tmpdir } from 'node:os';
++import { join } from 'node:path';
++import { chromium, expect } from '@playwright/test';
++import { chromiumTestOptions } from './browser-test-options.ts';
++import { productionTestServer } from './production-server.mjs';
++import { translate } from '../src/locale-utils.ts';
++
++const output = 'docs/development/lot-02-pwa';
++await mkdir(output + '/screenshots', { recursive: true });
++const server = await productionTestServer(); server.update();
++const profile = await mkdtemp(join(tmpdir(), 'detours-pwa-install-'));
++const context = await chromium.launchPersistentContext(profile, { ...chromiumTestOptions(), reducedMotion: 'reduce', viewport: { width: 390, height: 844 } });
++const errors = [], matrix = [];
++try {
++  await context.route('https://**/*', route => route.abort());
++  const page = await context.newPage(); page.on('pageerror', error => errors.push(error.message));
++  await page.goto(server.url);
++  await page.getByRole('button', { name: 'Préférences', exact: true }).waitFor();
++  const manifest = await page.evaluate(async () => (await fetch('/manifest.webmanifest')).json());
++  assert.equal(manifest.id, '/'); assert.equal(manifest.start_url, '/'); assert.equal(manifest.scope, '/'); assert.equal(manifest.display, 'standalone');
++  const resources = [...manifest.icons.filter(icon => icon.type === 'image/png').map(icon => [icon.src, Number(icon.sizes.split('x')[0])]), ['/icons/apple-touch-icon.png', 180]];
++  for (const [path, size] of resources) {
++    const bytes = await readFile('dist' + path);
++    assert.equal(bytes.subarray(1, 4).toString(), 'PNG');
++    assert.equal(bytes.readUInt32BE(16), size); assert.equal(bytes.readUInt32BE(20), size);
++    assert.equal((await context.request.get(server.url + path)).status(), 200);
++  }
++  assert.equal(await page.locator('link[rel=apple-touch-icon]').getAttribute('href'), '/icons/apple-touch-icon.png');
++  assert.doesNotMatch(await page.locator('meta[name=viewport]').getAttribute('content'), /user-scalable=no|maximum-scale=1/);
++  const cdp = await context.newCDPSession(page);
++  const appManifest = await cdp.send('Page.getAppManifest');
++  assert.deepEqual(appManifest.errors, []);
++  const installability = await cdp.send('Page.getInstallabilityErrors');
++  assert.deepEqual(installability.installabilityErrors, []);
++  for (const language of ['fr', 'en', 'zh-CN', 'es']) {
++    const t = source => translate(source, language);
++    await page.evaluate(language => localStorage.setItem('a-l-est-preferences-v1', JSON.stringify({ language, theme: 'light' })), language);
++    await page.reload();
++    await page.getByRole('button', { name: t('Préférences'), exact: true }).click();
++    await page.getByRole('dialog').getByText(t('Installer Détours'), { exact: true }).waitFor();
++    await page.getByRole('dialog').locator('summary').click();
++    for (const [width, height, zoom] of [[320, 740, 1], [390, 844, 1], [430, 932, 1], [844, 390, 1], [390, 360, 1], [640, 1000, 2]]) {
++      await page.setViewportSize({ width, height });
++      await page.evaluate(zoom => { document.documentElement.style.zoom = String(zoom); }, zoom);
++      const dialog = page.getByRole('dialog');
++      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${language} home ${width} zoom ${zoom}`);
++      assert.ok(await dialog.evaluate(el => el.scrollWidth <= el.clientWidth + 1), `${language} preferences ${width} zoom ${zoom}`);
++      await dialog.getByRole('button', { name: t('Fermer'), exact: true }).focus();
++      await page.keyboard.press('Tab'); assert.ok(await dialog.evaluate(el => el.contains(document.activeElement)));
++      matrix.push({ language, width, height, zoom, view: 'preferences', overflow: false });
++      if (width === 320) await page.screenshot({ path: `${output}/screenshots/install-${language}-320.png` });
++    }
++    await page.evaluate(() => { document.documentElement.style.zoom = ''; });
++    await page.keyboard.press('Escape');
++    await page.setViewportSize({ width: 390, height: 844 });
++    await page.getByRole('button', { name: t('Créer depuis un planning'), exact: true }).click();
++    const source = page.getByRole('dialog').getByRole('textbox', { name: t('Ton programme'), exact: true });
++    await source.fill('# Escale\nVille: Albi\nJour 1\n- Musée rouge');
++    for (const [width, height] of [[320, 740], [390, 360], [430, 932], [844, 390]]) {
++      await page.setViewportSize({ width, height }); await source.focus();
++      await source.scrollIntoViewIfNeeded(); await expect(source).toBeInViewport();
++      assert.ok(await page.getByRole('dialog').evaluate(el => el.scrollWidth <= el.clientWidth + 1));
++      matrix.push({ language, width, height, view: 'import-focused', overflow: false });
++    }
++    await page.keyboard.press('Escape');
++  }
++  await page.evaluate(() => localStorage.setItem('a-l-est-preferences-v1', JSON.stringify({ language: 'fr', theme: 'light' })));
++  await page.setViewportSize({ width: 390, height: 844 }); await page.reload();
++  await page.getByRole('button', { name: 'Ajouter l’exemple Chine', exact: true }).click();
++  await page.getByRole('button', { name: 'Menu', exact: true }).click();
++  await page.getByRole('button', { name: 'Mon carnet pratique', exact: true }).click();
++  await expect(page.locator('.offline-status')).toHaveClass(/offline-ready/);
++  await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true);
++  const cacheIcons = await page.evaluate(async () => {
++    const cache = await caches.open((await caches.keys()).find(name => /^a-l-est-[a-f0-9]{12}$/.test(name)));
++    return Promise.all(['/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png', '/icons/apple-touch-icon.png'].map(async p => !!(await cache.match(p))));
++  });
++  assert.ok(cacheIcons.every(Boolean));
++  await context.setOffline(true);
++  await page.getByRole('textbox', { name: 'Notes personnelles', exact: true }).fill('Lot 02 : note conservée hors ligne');
++  await expect(page.locator('.local-status')).toHaveText('Carnet sauvegardé sur cet appareil');
++  await page.close();
++  const reopened = await context.newPage(); await reopened.goto(server.url);
++  reopened.on('pageerror', error => errors.push(error.message));
++  await reopened.getByRole('button', { name: 'Ouvrir Chine 2027', exact: true }).click();
++  await reopened.getByRole('button', { name: 'Menu', exact: true }).click();
++  await reopened.getByRole('button', { name: 'Mon carnet pratique', exact: true }).click();
++  await expect(reopened.getByRole('textbox', { name: 'Notes personnelles', exact: true })).toHaveValue('Lot 02 : note conservée hors ligne');
++  await expect(reopened.locator('.offline-status')).toHaveClass(/offline-ready/);
++  await context.setOffline(false); await reopened.reload();
++  await expect(reopened.getByRole('textbox', { name: 'Notes personnelles', exact: true })).toHaveValue('Lot 02 : note conservée hors ligne');
++  assert.deepEqual(errors, []);
++  const build = JSON.parse(await readFile('dist/build-info.json', 'utf8'));
++  await writeFile(`${output}/mobile-validation.json`, JSON.stringify({ buildId: build.id, browser: context.browser()?.version(), profile, engine: 'Chromium desktop; CSS zoom and reduced viewport, not physical keyboard/safe areas', matrix, resources, manifestErrors: appManifest.errors, installability, cacheIcons, closeReopenOffline: true, reconnect: true, errors, physicalIphone: 'NON EXÉCUTÉ', osInstallation: 'NON EXÉCUTÉ' }, null, 2));
++  console.log(`PWA mobile compiled passed: ${matrix.length} layouts, icons served/cached, manifest/installability, four languages, offline edit/close/reopen/reconnect; build ${build.id}.`);
++} catch (error) {
++  const page = context.pages().at(-1);
++  console.error({ lastLayouts: matrix.slice(-3), dialogs: await page?.locator('[role=dialog],dialog').allTextContents() });
++  await page?.screenshot({ path: `${output}/screenshots/failure.png`, fullPage: true });
++  throw error;
++} finally { await context.close(); await server.close(); }
+diff --git a/src/components/AppUpdate.css b/src/components/AppUpdate.css
+new file mode 100644
+index 0000000..ec21094
+--- /dev/null
++++ b/src/components/AppUpdate.css
+@@ -0,0 +1,2 @@
++.app-update span{min-width:0;overflow-wrap:anywhere}
++@media(max-width:480px){html:root:root .app-update{flex-wrap:wrap;max-height:40dvh;overflow-y:auto}.app-update span{flex:1 1 180px}}
+diff --git a/src/components/InstallHelp.tsx b/src/components/InstallHelp.tsx
+new file mode 100644
+index 0000000..96b7ece
+--- /dev/null
++++ b/src/components/InstallHelp.tsx
+@@ -0,0 +1,47 @@
++import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
++import { useLocale } from '../i18n';
++
++type InstallEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: string }> };
++const InstallContext = createContext({ installed: false, available: false, prompt: async () => {} });
++
++/** Listen from startup: Chromium may offer installation before Preferences opens. */
++export function InstallProvider({ children }: { children: ReactNode }) {
++  const [offer, setOffer] = useState<InstallEvent | null>(null);
++  const [installed, setInstalled] = useState(false);
++  useEffect(() => {
++    const display = matchMedia('(display-mode: standalone)');
++    const sync = () => setInstalled(display.matches || !!(navigator as Navigator & { standalone?: boolean }).standalone);
++    const before = (event: Event) => { event.preventDefault(); setOffer(event as InstallEvent); };
++    const done = () => { setInstalled(true); setOffer(null); };
++    sync();
++    display.addEventListener('change', sync);
++    window.addEventListener('beforeinstallprompt', before);
++    window.addEventListener('appinstalled', done);
++    return () => {
++      display.removeEventListener('change', sync);
++      window.removeEventListener('beforeinstallprompt', before);
++      window.removeEventListener('appinstalled', done);
++    };
++  }, []);
++  async function prompt() {
++    if (!offer) return;
++    setOffer(null);
++    try { await offer.prompt(); await offer.userChoice; } catch { /* Manual instructions remain available. */ }
++  }
++  return <InstallContext.Provider value={{ installed, available: !!offer, prompt }}>{children}</InstallContext.Provider>;
++}
++
++export default function InstallHelp() {
++  const { t } = useLocale();
++  const { installed, available, prompt } = useContext(InstallContext);
++  return <div className="install-help">
++    <p role="status">{t(installed ? 'Détours est installé sur cet appareil.' : 'Ajoute Détours à ton écran d’accueil depuis le menu de ton navigateur.')}</p>
++    {!installed && available && <button type="button" className="btn btn-primary" onClick={() => void prompt()}>{t('Installer le carnet')}</button>}
++    <details className="offline-recovery"><summary>{t('Installer sur iPhone ou iPad')}</summary><ol>
++      <li>{t('Ouvre ce site dans Safari, puis ouvre le menu Partager.')}</li>
++      <li>{t('Choisis « Sur l’écran d’accueil ». Si proposé, active « Ouvrir comme app web », puis touche « Ajouter ».')}</li>
++      <li>{t('Ouvre Détours depuis son icône, retrouve ton carnet puis vérifie sa disponibilité hors ligne avant le départ.')}</li>
++    </ol></details>
++    <p className="muted small">{t('Garde une sauvegarde avant de changer de navigateur ou de mode d’ouverture. Installer l’app ne transfère pas automatiquement tes carnets.')}</p>
++  </div>;
++}
+diff --git a/src/components/StoragePersistence.tsx b/src/components/StoragePersistence.tsx
+new file mode 100644
+index 0000000..0d5278c
+--- /dev/null
++++ b/src/components/StoragePersistence.tsx
+@@ -0,0 +1,18 @@
++import { useState } from 'react';
++import { useLocale } from '../i18n';
++
++/** A departure preparation action, never a permission request on startup. */
++export default function StoragePersistence() {
++  const { t } = useLocale();
++  const [status, setStatus] = useState<'idle' | 'busy' | 'granted' | 'denied'>('idle');
++  if (typeof navigator.storage?.persist !== 'function') return null;
++  async function request() {
++    setStatus('busy');
++    try { setStatus(await navigator.storage.persisted() || await navigator.storage.persist() ? 'granted' : 'denied'); }
++    catch { setStatus('denied'); }
++  }
++  return <div className="offline-persistence">
++    <button type="button" className="btn btn-secondary" disabled={status === 'busy' || status === 'granted'} onClick={() => void request()}>{t('Protéger le stockage sur cet appareil')}</button>
++    <p className="muted small" role="status">{t(status === 'granted' ? 'Stockage persistant accordé. Garde aussi une sauvegarde sur un autre support.' : status === 'denied' ? 'Le navigateur n’a pas accordé la persistance. Tu peux continuer ; garde une sauvegarde.' : 'Avant le départ, demande au navigateur de conserver les données. Une sauvegarde reste nécessaire.')}</p>
++  </div>;
++}
+diff --git a/tests/e2e/pwa-lot02.spec.ts b/tests/e2e/pwa-lot02.spec.ts
+new file mode 100644
+index 0000000..0efc499
+--- /dev/null
++++ b/tests/e2e/pwa-lot02.spec.ts
+@@ -0,0 +1,76 @@
++import { test, expect } from '@playwright/test';
++import { MAP_PREFERENCES_KEY } from '../../src/map-preferences';
++
++test('installation offer received before Preferences, dismissal and installed state', async ({ page }) => {
++  await page.goto('/');
++  await expect(page.getByRole('button', { name: 'Préférences', exact: true })).toBeVisible();
++  await page.evaluate(() => {
++    const offer = new Event('beforeinstallprompt', { cancelable: true });
++    Object.assign(offer, { prompt: async () => {}, userChoice: Promise.resolve({ outcome: 'dismissed' }) });
++    window.dispatchEvent(offer);
++  });
++  await page.getByRole('button', { name: 'Préférences', exact: true }).click();
++  await page.getByRole('button', { name: 'Installer le carnet', exact: true }).click();
++  await expect(page.getByRole('button', { name: 'Installer le carnet', exact: true })).toHaveCount(0);
++  await page.evaluate(() => window.dispatchEvent(new Event('appinstalled')));
++  await expect(page.getByText('Détours est installé sur cet appareil.', { exact: true })).toBeVisible();
++  await page.keyboard.press('Escape');
++  await expect(page.getByRole('button', { name: 'Préférences', exact: true })).toBeFocused();
++});
++
++for (const result of ['denied', 'granted', 'error', 'unsupported'] as const) {
++  test(`storage persistence ${result}: no startup request, no notebook mutation`, async ({ page }) => {
++    await page.setViewportSize({ width: 1440, height: 1000 });
++    await page.addInitScript(result => {
++      Object.assign(window, { persistenceCalls: 0 });
++      Object.defineProperty(navigator, 'storage', { configurable: true, value: result === 'unsupported' ? {} : {
++        persisted: async () => false,
++        persist: async () => {
++          (window as unknown as { persistenceCalls: number }).persistenceCalls++;
++          if (result === 'error') throw new Error('unavailable');
++          return result === 'granted';
++        },
++      } });
++    }, result);
++    await page.goto('/');
++    await page.getByRole('button', { name: 'Ajouter l’exemple Chine', exact: true }).click();
++    await page.getByRole('button', { name: 'Mon carnet pratique', exact: true }).click();
++    await expect(page.locator('.local-status')).toHaveText('Carnet sauvegardé sur cet appareil');
++    expect(await page.evaluate(() => (window as unknown as { persistenceCalls: number }).persistenceCalls)).toBe(0);
++    const notebooks = () => page.evaluate(() => Object.fromEntries(Object.keys(localStorage).filter(k => k.startsWith('a-l-est-trip-v2:')).map(k => [k, localStorage.getItem(k)])));
++    const before = await notebooks();
++    const action = page.getByRole('button', { name: 'Protéger le stockage sur cet appareil', exact: true });
++    if (result === 'unsupported') await expect(action).toHaveCount(0);
++    else {
++      await action.click();
++      await expect(page.getByText(result === 'granted' ? 'Stockage persistant accordé. Garde aussi une sauvegarde sur un autre support.' : 'Le navigateur n’a pas accordé la persistance. Tu peux continuer ; garde une sauvegarde.', { exact: true })).toBeVisible();
++      if (result === 'granted') await expect(action).toBeDisabled();
++      else await expect(action).toBeEnabled();
++    }
++    expect(await notebooks()).toEqual(before);
++  });
++}
++
++test('maps external window and return preserve the notebook for Google and Amap', async ({ page, context }) => {
++  await page.setViewportSize({ width: 1440, height: 1000 });
++  await context.route('https://**/*', route => route.fulfill({ contentType: 'text/html', body: '<title>Navigation simulée</title><p>Carte externe factice</p>' }));
++  await page.goto('/');
++  await page.getByRole('button', { name: 'Ajouter l’exemple Chine', exact: true }).click();
++  for (const provider of ['google', 'amap']) {
++    await page.evaluate(({ key, provider }) => localStorage.setItem(key, JSON.stringify({ provider })), { key: MAP_PREFERENCES_KEY, provider });
++    await page.reload();
++    await page.getByRole('button', { name: 'Mon planning', exact: true }).click();
++    const before = await page.evaluate(() => Object.fromEntries(Object.keys(localStorage).filter(k => k.startsWith('a-l-est-trip-v2:')).map(k => [k, localStorage.getItem(k)])));
++    const actions = page.locator('.timeline .map-actions').first();
++    await actions.locator('.map-route-toggle').click();
++    const link = provider === 'google' ? actions.locator('.map-place-link') : actions.getByRole('link', { name: 'Y aller · Amap ↗', exact: true });
++    const popupPromise = context.waitForEvent('page');
++    await link.click();
++    const popup = await popupPromise; await popup.waitForLoadState();
++    expect(new URL(popup.url()).hostname).toBe(provider === 'google' ? 'www.google.com' : 'uri.amap.com');
++    await popup.close(); await page.bringToFront();
++    await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
++    expect(await page.evaluate(() => Object.fromEntries(Object.keys(localStorage).filter(k => k.startsWith('a-l-est-trip-v2:')).map(k => [k, localStorage.getItem(k)])))).toEqual(before);
++    await expect(page.locator('.timeline')).toBeVisible();
++  }
++});

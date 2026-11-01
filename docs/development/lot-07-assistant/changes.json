@@ -1,0 +1,248 @@
+[
+  {
+    "file": "README.md",
+    "kind": "modified",
+    "bytes": 33327,
+    "sha256": "fd3ceaea3893e0f2e8fd1829ebcee4b89cd97db5de33bf30b9047248c5e8ddcd"
+  },
+  {
+    "file": "scripts/verify-local.mjs",
+    "kind": "modified",
+    "bytes": 6659,
+    "sha256": "64fab2cce1f0cf1e5c31d82f57ee1d6d06ce9859ae0d9466631d2f4cf364c19c"
+  },
+  {
+    "file": "src/App.tsx",
+    "kind": "modified",
+    "bytes": 61551,
+    "sha256": "313c2320433f53803df55eb2146c65266569c2074d0806ed8484392368af8b06"
+  },
+  {
+    "file": "src/hooks/useTravelState.ts",
+    "kind": "modified",
+    "bytes": 11278,
+    "sha256": "1d08a92fcf04fc71f45215539d463edbe75bd8582fd4dbe1a48fd45134c38ac4"
+  },
+  {
+    "file": "src/locale-utils.ts",
+    "kind": "modified",
+    "bytes": 4064,
+    "sha256": "60495547320cde43f9abe30c5a889c3ef33de992e6149c3092d73283abc53702"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/RAPPORT.md",
+    "kind": "added",
+    "bytes": 19519,
+    "sha256": "0fc8db9fea7984ac614a41c6af2259ddd44827041379780d319ed6ed1c1837e8"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/closure.json",
+    "kind": "added",
+    "bytes": 117,
+    "sha256": "ca42f38ae2d71155447df98fed28f92a9490ffe96b01739d4b9b364899b3e1ed"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/compiled/offline.png",
+    "kind": "added",
+    "bytes": 38857,
+    "sha256": "7641269b4aa7268c4b94a9883f7ee4b80151f52b01b6dbda376fc49488292786"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/compiled/validation.json",
+    "kind": "added",
+    "bytes": 745,
+    "sha256": "d0f0c3d3234a516f6a2b1005922561a9bd93a32b2d31fd5c99f6941133a6afa0"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/gate/assistant-compiled/offline.png",
+    "kind": "added",
+    "bytes": 38857,
+    "sha256": "7641269b4aa7268c4b94a9883f7ee4b80151f52b01b6dbda376fc49488292786"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/gate/assistant-compiled/validation.json",
+    "kind": "added",
+    "bytes": 745,
+    "sha256": "2093f329c9753719ba6de4429d2ec16385eb15c1d5a4fee8d4f2db5ddc15b6ba"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/gate/build-info.json",
+    "kind": "added",
+    "bytes": 16819,
+    "sha256": "0141a72f180b4170b506a9f2e71b5477a7f854236705fa72b7957dc950a8e755"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/gate/validation.json",
+    "kind": "added",
+    "bytes": 6878,
+    "sha256": "703ccde46069c29f1f7805bd9a4b0289a4da3c9d9a304b511e4f10a8ce3efa1c"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/keyboard-additional.json",
+    "kind": "added",
+    "bytes": 372,
+    "sha256": "840fefd9bc7b2d6b36897e4f370e0524b24c11d95e5a45f6629ad6f727101335"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/patch-check.json",
+    "kind": "added",
+    "bytes": 807,
+    "sha256": "f3ddfc51fae7cc5573680844ef1205466e9c411bd339a48eab45cdda7c9af86e"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/regenerated/docs/development/import-fiable-lot-01/screenshots/review-320.png",
+    "kind": "added",
+    "bytes": 37291,
+    "sha256": "b0f5c34c6850c479418081cc97516140e536a5a3a1374ba5a6ae184b4310f4aa"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/regenerated/docs/development/import-fiable-lot-01/screenshots/review-390.png",
+    "kind": "added",
+    "bytes": 38967,
+    "sha256": "0987e461ec59bf51e6089b267a3668221012608c7311bfecae3e961af19808ec"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/regenerated/docs/development/lot-04-lieux/screenshots/zh-CN-390.png",
+    "kind": "added",
+    "bytes": 39996,
+    "sha256": "aa29f6dc03a8b6e62e9969db438680c3fba0ed5694a956a02446b3eab0c39e02"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/regenerated/docs/development/lot-05-compagnon/screenshots/en.png",
+    "kind": "added",
+    "bytes": 164361,
+    "sha256": "669d98df4de5d7c6c91da9511bc47cc8f7174909c83cc6e368888201bc5264cd"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/regenerated/docs/development/lot-05-compagnon/screenshots/es.png",
+    "kind": "added",
+    "bytes": 177550,
+    "sha256": "ec74834281a59e01df91a3ba97842d74fdd39aa13e334e83f1f5bebe62d5e474"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/regenerated/docs/development/lot-05-compagnon/screenshots/fr.png",
+    "kind": "added",
+    "bytes": 180388,
+    "sha256": "9cf8db933dd373d481d6189bfbc4ba4ff5e671a0ec06d0c3030eed283cac2409"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/regenerated/docs/development/lot-05-compagnon/screenshots/zh-CN.png",
+    "kind": "added",
+    "bytes": 233703,
+    "sha256": "2167ad9a3fae23c296e322170a244bf2178993018177b746cb7aaae3f8344dad"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/restored-evidence.json",
+    "kind": "added",
+    "bytes": 2973,
+    "sha256": "8dbf2f825d9927f9178625d615f1cef282470bf941764ac453585aeedf946879"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/screenshots/en.png",
+    "kind": "added",
+    "bytes": 39376,
+    "sha256": "7158599a8cf4845c5d01386ed09c6f9ac752df974d2d56fff8504ea88d96b1cf"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/screenshots/es.png",
+    "kind": "added",
+    "bytes": 39666,
+    "sha256": "11ef3d706c8e4c21ca81c4cbc3eccc6241e9cdd198006800b2b61757f2a911b4"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/screenshots/fr.png",
+    "kind": "added",
+    "bytes": 39568,
+    "sha256": "dfe3a72c3844d49ae80b79b89de2f1cd922d80d5b646b9427c440f51ba848e6c"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/screenshots/zh-CN.png",
+    "kind": "added",
+    "bytes": 36595,
+    "sha256": "154dfc40aa04307cc8bf2c6a3a908c0d62ca3aeb4d7d83c4a10e77fd79abf508"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/verify-local-interrupted.log",
+    "kind": "added",
+    "bytes": 38077,
+    "sha256": "6848023bc8ec334d28b0bbe0d8b26bde49354e0373ca449c653253421f3ddc0f"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/verify-local-second-interrupted.log",
+    "kind": "added",
+    "bytes": 37938,
+    "sha256": "8102f8b637d9b52e8e1d0ccf11e1b35321c6f16e9723c26c3d06f5ec8824abd7"
+  },
+  {
+    "file": "docs/development/lot-07-assistant/verify-local.log",
+    "kind": "added",
+    "bytes": 67385,
+    "sha256": "890e85631235c13035ee6038fcbd674d5ec1b803811df597d6768f5f6f5cda5c"
+  },
+  {
+    "file": "scripts/assistant-fixture.d.mts",
+    "kind": "added",
+    "bytes": 89,
+    "sha256": "99cad8bc70ad1a1f1620b46daa891de467f6e30b329253851f3aa57e300bd5cc"
+  },
+  {
+    "file": "scripts/assistant-fixture.mjs",
+    "kind": "added",
+    "bytes": 512,
+    "sha256": "04d884f40aca435a2b0fd8f7ac53ed75589136d66a19732d18eab5908920b971"
+  },
+  {
+    "file": "scripts/assistant-preservation.mjs",
+    "kind": "added",
+    "bytes": 2414,
+    "sha256": "33b72f0e37aad43e7dc5ebbbd128711ebb5cdab61fdfed301b808c5a1060fad9"
+  },
+  {
+    "file": "scripts/smoke-assistant.mjs",
+    "kind": "added",
+    "bytes": 4957,
+    "sha256": "2d9520cb261cd566011c44bf81350e52f22dfa5ef6916055a93e50e062ad2362"
+  },
+  {
+    "file": "src/assistant.ts",
+    "kind": "added",
+    "bytes": 10021,
+    "sha256": "c2dd55cbdc6322fdcbefe1ef32108c597fcc0daa8cea1c2d9110da3af3d4ec7f"
+  },
+  {
+    "file": "src/components/GuidedAssistant.css",
+    "kind": "added",
+    "bytes": 986,
+    "sha256": "e6a00ab077987394996b4a7ddd73edbaec2a77f668c7bcec424a480c1b8d7618"
+  },
+  {
+    "file": "src/components/GuidedAssistant.tsx",
+    "kind": "added",
+    "bytes": 12041,
+    "sha256": "a84af916ab9c196fdd7eb61c71eb0e32f71e4d0d4e6e9caa37f909c80105ff1c"
+  },
+  {
+    "file": "src/locales/assistant.ts",
+    "kind": "added",
+    "bytes": 9326,
+    "sha256": "8901acae26a0aa0a27b7cf5a52ecd2e6c88ba692d348ecd0c8c23312d8d91f62"
+  },
+  {
+    "file": "src/travel-write.ts",
+    "kind": "added",
+    "bytes": 2950,
+    "sha256": "c48d3dff1e02e875e1a40520aec37a4c46f35a9e1975ffb11ce499074d4b9407"
+  },
+  {
+    "file": "tests/assistant.test.mjs",
+    "kind": "added",
+    "bytes": 11303,
+    "sha256": "c45238a5b4352e454e18711e6a123f0c54e489acaf9aba5fce6e26e5b698601e"
+  },
+  {
+    "file": "tests/e2e/assistant.spec.ts",
+    "kind": "added",
+    "bytes": 16795,
+    "sha256": "d19f10b0a91638bc3a3270989c1cc17f4cfc6b71815648cfcb9096b038edf2bb"
+  }
+]

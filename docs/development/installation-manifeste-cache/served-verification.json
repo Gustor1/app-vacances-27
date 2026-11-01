@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "base": "https://app-vacances-27-beta-eliottle.vercel.app",
+  "commit": "578e1b1e51b9e5b7a48b3e065eeeb661c8b0c16d",
+  "buildId": "aa5567ba9eb95080adfaaa3b8ed7945194645c709e8815ea836c1c8bcb0fd6a7",
+  "filesVerifiedBySizeAndSHA256": 111,
+  "manifestPath": "/manifest.webmanifest?v=a6c89de356b1",
+  "chromeParsedName": "Détours",
+  "appId": "https://app-vacances-27-beta-eliottle.vercel.app/",
+  "versionedManifestCachedOffline": true,
+  "runtimeErrors": []
+}

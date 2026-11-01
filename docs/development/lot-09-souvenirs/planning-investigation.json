@@ -1,0 +1,34 @@
+{
+  "preexistingReproduced": false,
+  "scenario": "SIMULATED provider: paste, analyze, correct, create and open an account-local notebook",
+  "failure": "planning-analysis.spec.ts:36; dialog textbox Ton programme absent after simulated sign-in",
+  "currentGate": {
+    "failed": 1,
+    "passed": 2,
+    "log": "gate.log",
+    "report": "gate/validation.json"
+  },
+  "beforeLot09": {
+    "repeats": 3,
+    "failed": 1,
+    "passed": 2,
+    "log": "planning-before.log",
+    "source": "C:/Users/eliot/Documents/detours-lot09-before-validation-20261024",
+    "snapshot": "C:/Users/eliot/Documents/detours-lot09-recovery-20261024",
+    "failure": "page.goto timeout at line 21 (different from the gate failure at line 36)",
+    "warmRepeats": {
+      "passed": 5,
+      "failed": 0,
+      "log": "planning-before-warm.log"
+    }
+  },
+  "sameRelevantSources": "planning-before-hashes.json",
+  "inference": "The missing-dialog failure was observed once in the common gate, not reproduced in the current retry or warm baseline. A different initial navigation timeout occurred on the baseline. Relevant import/auth sources are unchanged. Exact origin remains unestablished; no claim that the exact failure was reproduced before lot 09.",
+  "fixedInThisLot": false,
+  "globalGatePassed": false,
+  "currentRetry": {
+    "passed": 3,
+    "failed": 0,
+    "log": "planning-current-retry.log"
+  }
+}

@@ -1,0 +1,353 @@
+{
+  "buildId": "1804a388b9fc93a5cb73bb4e0783ead553b57318c3e4d29bb4a2fa407016310d",
+  "browser": "155.0.8059.80",
+  "profile": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-pwa-install-hHnx1P",
+  "engine": "Chromium desktop; CSS zoom and reduced viewport, not physical keyboard/safe areas",
+  "matrix": [
+    {
+      "language": "fr",
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "fr",
+      "width": 390,
+      "height": 844,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "fr",
+      "width": 430,
+      "height": 932,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "fr",
+      "width": 844,
+      "height": 390,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "fr",
+      "width": 390,
+      "height": 360,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "fr",
+      "width": 640,
+      "height": 1000,
+      "zoom": 2,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "fr",
+      "width": 320,
+      "height": 740,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "fr",
+      "width": 390,
+      "height": 360,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "fr",
+      "width": 430,
+      "height": 932,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "fr",
+      "width": 844,
+      "height": 390,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "height": 844,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "en",
+      "width": 430,
+      "height": 932,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "en",
+      "width": 844,
+      "height": 390,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "height": 360,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "en",
+      "width": 640,
+      "height": 1000,
+      "zoom": 2,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "height": 740,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "height": 360,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "en",
+      "width": 430,
+      "height": 932,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "en",
+      "width": 844,
+      "height": 390,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "zh-CN",
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "zh-CN",
+      "width": 390,
+      "height": 844,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "zh-CN",
+      "width": 430,
+      "height": 932,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "zh-CN",
+      "width": 844,
+      "height": 390,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "zh-CN",
+      "width": 390,
+      "height": 360,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "zh-CN",
+      "width": 640,
+      "height": 1000,
+      "zoom": 2,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "zh-CN",
+      "width": 320,
+      "height": 740,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "zh-CN",
+      "width": 390,
+      "height": 360,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "zh-CN",
+      "width": 430,
+      "height": 932,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "zh-CN",
+      "width": 844,
+      "height": 390,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "es",
+      "width": 320,
+      "height": 740,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "es",
+      "width": 390,
+      "height": 844,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "es",
+      "width": 430,
+      "height": 932,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "es",
+      "width": 844,
+      "height": 390,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "es",
+      "width": 390,
+      "height": 360,
+      "zoom": 1,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "es",
+      "width": 640,
+      "height": 1000,
+      "zoom": 2,
+      "view": "preferences",
+      "overflow": false
+    },
+    {
+      "language": "es",
+      "width": 320,
+      "height": 740,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "es",
+      "width": 390,
+      "height": 360,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "es",
+      "width": 430,
+      "height": 932,
+      "view": "import-focused",
+      "overflow": false
+    },
+    {
+      "language": "es",
+      "width": 844,
+      "height": 390,
+      "view": "import-focused",
+      "overflow": false
+    }
+  ],
+  "resources": [
+    [
+      "/icons/icon-192.png",
+      192
+    ],
+    [
+      "/icons/icon-512.png",
+      512
+    ],
+    [
+      "/icons/maskable-512.png",
+      512
+    ],
+    [
+      "/icons/apple-touch-icon.png",
+      180
+    ]
+  ],
+  "manifestErrors": [],
+  "installability": {
+    "installabilityErrors": []
+  },
+  "cacheIcons": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "closeReopenOffline": true,
+  "reconnect": true,
+  "customPaletteOfflineReopen": true,
+  "notebooksUnchangedByPalette": true,
+  "errors": [],
+  "physicalIphone": "NON EXÉCUTÉ",
+  "osInstallation": "NON EXÉCUTÉ"
+}

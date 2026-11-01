@@ -8,8 +8,9 @@ type SheetController = {
 };
 
 /** A critically damped spring keeps its current position and velocity on retarget. */
-export function useSheetMotion(ref: RefObject<HTMLDivElement | null>, onClose: () => void) {
+export function useSheetMotion(ref: RefObject<HTMLDivElement | null>, onClose: () => void, origin?: DOMRect) {
   const close = useRef(onClose);
+  const source = useRef(origin);
   close.current = onClose;
   const controller = useRef<SheetController | null>(null);
 
@@ -19,6 +20,8 @@ export function useSheetMotion(ref: RefObject<HTMLDivElement | null>, onClose: (
     const backdrop = element.parentElement;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const mobile = window.matchMedia('(max-width: 760px)');
+    const destination = element.getBoundingClientRect();
+    const start = source.current;
     let position = reduced.matches ? 0 : mobile.matches ? 90 : 18;
     let velocity = 0;
     let target = 0;
@@ -30,7 +33,11 @@ export function useSheetMotion(ref: RefObject<HTMLDivElement | null>, onClose: (
     let gesture: { id: number; origin: number; initial: number; committed: boolean; samples: { y: number; time: number }[] } | null = null;
 
     const paint = () => {
-      element.style.transform = reduced.matches ? 'none' : `translate3d(0, ${position}px, 0)`;
+      const progress = opening && !mobile.matches && start ? Math.max(0, Math.min(1, position / 18)) : 0;
+      const x = progress && start ? (start.x + start.width / 2 - destination.x - destination.width / 2) * progress : 0;
+      const y = progress && start ? (start.y + start.height / 2 - destination.y - destination.height / 2) * progress : position;
+      const scale = progress && start ? 1 - (1 - Math.max(.35, Math.min(.95, start.width / destination.width))) * progress : 1;
+      element.style.transform = reduced.matches ? 'none' : `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
       const distance = mobile.matches ? element.offsetHeight + 32 : 24;
       const opacity = closing ? Math.max(0, 1 - position / distance) : opening ? Math.max(0, 1 - position / (mobile.matches ? 180 : 36)) : 1;
       element.style.opacity = String(opacity);

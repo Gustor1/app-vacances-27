@@ -1,0 +1,37 @@
+{
+  "baseline": "C:\\Users\\eliot\\Documents\\detours-logos-palettes-recovery-20261019",
+  "branch": "codex/logos-palettes",
+  "modifiedContributionFiles": [
+    {
+      "file": "public/palettes.css",
+      "before": "a4b4c83f99babade95fde015628b87e869f76013fb35e8c25b2d9cd38ef14c0e",
+      "after": "c3c435decd2a188a80191bbe18cf3a5d646802b7fc3aed839843ec35aded70fb"
+    },
+    {
+      "file": "scripts/smoke-pwa-mobile.mjs",
+      "before": "5040078aaec583467458caad81e59fe4be4e9956bcf11147b9b5930b40251186",
+      "after": "4c7236e3966484023fd55b36207c07b89266df638ba6814f750b08356d517b15"
+    },
+    {
+      "file": "src/components/BrandMark.tsx",
+      "before": "e1c4de669c01f8fde1aaea284cfb90985fed6d1612a1018ba20a74e7b54e5616",
+      "after": "404d81be81437f562bacb99c958fbc8a9c50f40156b0a3381c4c006b8af66546"
+    },
+    {
+      "file": "src/palettes.ts",
+      "before": "61156bb39dd58623ef67e63e8413ea7e5bdde9c5ed39bff2c61829acf013a178",
+      "after": "8c30dad5ce6d8a761842a0643499d0b1510a0794412cef1ccf9f1bcdf125d885"
+    },
+    {
+      "file": "scripts/verify-local.mjs",
+      "before": "97d0640770a073e3bfd9a1d904b55640bffdddc4a5c605cd8076d42aa68d1b40",
+      "after": "c0e8b17856cf1a145814b849db754cc2b040b3e7a15d970b6b4bf338f3ae1f57"
+    }
+  ],
+  "addedContributionFiles": [
+    {
+      "file": "tests/e2e/brand-palettes.spec.ts",
+      "sha256": "b14943791c28c9b0d256172e08f71f19856d1c33c9882568bbcf5e7bf0c54d45"
+    }
+  ]
+}

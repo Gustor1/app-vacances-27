@@ -1,0 +1,59 @@
+[WebServer] (node:10592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:28880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\assistant.spec.ts:78:1 › revision arriving during pending lock is preserved and refreshed for a new preview (9.6s)
+(node:22420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\assistant.spec.ts:78:1 › revision arriving during pending lock is preserved and refreshed for a new preview (6.6s)
+(node:21452) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  3 tests\e2e\assistant.spec.ts:78:1 › revision arriving during pending lock is preserved and refreshed for a new preview (11.0s)
+
+
+  1) tests\e2e\assistant.spec.ts:78:1 › revision arriving during pending lock is preserved and refreshed for a new preview 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('dialog').getByRole('alert')
+    Expected substring: "droits ont changé"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByRole('dialog').getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('dialog').getByRole('alert')
+
+
+      80 |  await other.evaluate(key=>new Promise<void>(acquired=>{void navigator.locks.request(key,()=>{acquired();return new Promise<void>(resolve=>{(window as unknown as {release:()=>void}).release=resolve;});});}),key);
+      81 |  const d=page.getByRole('dialog');await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await other.evaluate(key=>{const a=JSON.parse(localStorage.getItem(key)!);a.state.notes.a='Written while waiting';localStorage.setItem(key,JSON.stringify(a));(window as unknown as {release:()=>void}).release();},key);
+    > 82 |  await expect(d.getByRole('alert')).toContainText('droits ont changé');await d.getByRole('button',{name:'Annuler',exact:true}).click();await proposeNote(page,'Retried after conflict');await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await expect(d.locator('.assistant-preview')).toHaveCount(0);const saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state,key);expect(saved.notes.a).toBe('Written while waiting');expect(saved.notes.b).toBe('Retried after conflict');await other.close();
+         |                                     ^
+      83 | });
+      84 |
+        at C:\Users\eliot\Documents\app-vacances-27\tests\e2e\assistant.spec.ts:82:37
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\assistant-revision-arrivin-48895-refreshed-for-a-new-preview-repeat2\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\assistant-revision-arrivin-48895-refreshed-for-a-new-preview-repeat2\test-failed-2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\assistant-revision-arrivin-48895-refreshed-for-a-new-preview-repeat2\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\assistant-revision-arrivin-48895-refreshed-for-a-new-preview-repeat2\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\assistant-revision-arrivin-48895-refreshed-for-a-new-preview-repeat2\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\assistant.spec.ts:78:1 › revision arriving during pending lock is preserved and refreshed for a new preview 
+  2 passed (36.1s)

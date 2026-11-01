@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-10-19T10:11:33.013Z",
+  "baseRevision": "c1dd8a686e5962a156bad1489e4e4d3f2c731d64",
+  "sourceFingerprint": "9b35078d63686ad9d3cc8a80d11a008158e1362e285111d049c7a3182a0790c7",
+  "validationReport": "C:\\Users\\eliot\\Documents\\app-vacances-27\\docs\\development\\palettes-personnalisees\\validation.json",
+  "validationBuildId": "71f5b458e96192bf26bfb70b9b4f3336f05bae43c5a78c4d221c37b90a6e30c1",
+  "candidateBuildId": "d5781145720af29541dd8bec34246df769733596383a5d88e737af769406fb0f",
+  "entry": "/assets/index-BwgUIzqR.js",
+  "configuration": "Rebuilt with existing local target configuration; fixture backend absent; public frontend parameters only",
+  "published": true,
+  "remoteMigrationApplied": false,
+  "remaining": [
+    "Physical iPhone/OS installation and real OAuth/cloud synchronization not tested by this release"
+  ],
+  "rollback": "Keep the previous deployment and database helper migration. Code rollback does not revert data; export a complete notebook backup before any explicit data restoration.",
+  "deploymentId": "dpl_E6v9zr2TgMEdTLKh1NJq5NeMRCLG",
+  "deploymentType": "preview with stable public beta alias",
+  "publicUrl": "https://app-vacances-27-beta-eliottle.vercel.app",
+  "previousDeploymentId": "dpl_Pa7FKYDyjEwsAtMaYxKRvnZe76NS",
+  "sourceStillMatchesGate": true,
+  "publicationDate": "2026-10-19",
+  "timezone": "Asia/Shanghai"
+}

@@ -1,0 +1,126 @@
+{
+  "initialRevision": "c1dd8a686e5962a156bad1489e4e4d3f2c731d64",
+  "initialSnapshot": "../detours-lot02-recovery-20261018",
+  "initialFingerprint": "77fc888d8308268059b6b8f17f408734d52e9b4d98c90a0004b41040784ada09",
+  "modifiedExisting": [
+    {
+      "file": "index.html",
+      "initial": "3a9a0a729b2980a375ebf35e0af0f92de804459cebae06f55be03da9c41d7da8",
+      "current": "0f600fe891515dfad7f965ba407c5b5215b6e321c7b20bae31e8533c9a1917c5"
+    },
+    {
+      "file": "public/manifest.webmanifest",
+      "initial": "6ec99226be5bea43262ceaf284227873dfccf53f767f2ed9abc81cb75962f309",
+      "current": "2901b870fc07bb89b5a812a4932353ea2510af542c79744f43353150243867f6"
+    },
+    {
+      "file": "scripts/build-sw.mjs",
+      "initial": "de03a941a803b9cbb9f241cc2c311fb6856d591222d21eb2a595e1152fd8f406",
+      "current": "77a0e181df747889d594a6574c2b0b19ce77688493431c5298a64427f6e71fd3"
+    },
+    {
+      "file": "scripts/production-server.mjs",
+      "initial": "af6544a98a109683aa0704932c665fd3c46382a15e11152d4fb33957c65158c9",
+      "current": "8371d53a01b15c1c5715132d9c4725e98aa71c587d962e7dd069e6f4cffd351d"
+    },
+    {
+      "file": "scripts/smoke-app-update.mjs",
+      "initial": "ef0c6a6474a74796fd204a7805ef77df24fdb7f78c0fbff79f06bb818467d23e",
+      "current": "137b37ded28ec62676646cc3927bcf656a2462ce50017a495378a2a9258f7191"
+    },
+    {
+      "file": "scripts/smoke-production.mjs",
+      "initial": "e1f3d987c70769885f74e41559702d1a91b32ae7a3f9c3fdefb45af6c03a2b52",
+      "current": "035db6faf5b8b8001371be8b084f725d779f712c7370e8124c22aa85ae07176c"
+    },
+    {
+      "file": "scripts/verify-local.mjs",
+      "initial": "a5c9316cb1bd4d76a05be93706415306b0a06d2edd1ea9e819da477b34764228",
+      "current": "3898d3e32209005e3dfa73e96d2161124a1f75c119b724352d2f193bd91d39a6"
+    },
+    {
+      "file": "src/App.tsx",
+      "initial": "ab3455c652c0411b60925be85d5bb4c97f566484a1eb8fd4710c22204645c796",
+      "current": "19c30c2b1074e8ed70ed67b425f1b76fdc08ff14086f39d6fa31a9412e200ae3"
+    },
+    {
+      "file": "src/components/AppUpdate.tsx",
+      "initial": "a2e4505454fdca913ca8b9e1291e04b8a041a171823f2d005163ae16c88eb205",
+      "current": "bd2d382f5c75c2f599008c3a8e4274f5339d5c2622beec3bf7fac069518ffa79"
+    },
+    {
+      "file": "src/components/OfflineStatus.css",
+      "initial": "4e7d9a2f6b22469d28c61553392d236cadb1a946b17912122540d4ae97c9338a",
+      "current": "cae746525e3e49849b1e39b5e4d049b802360deb63b5045bb0f26a8f8f88d432"
+    },
+    {
+      "file": "src/components/OfflineStatus.tsx",
+      "initial": "c9eae353bbc742d8c93f19e3d6494a4f7484c97ef59a6928d780232acf9bed55",
+      "current": "d5db04432bfb5151b77f277eecb396b6dd9ff52b436b4312193f370be4188f59"
+    },
+    {
+      "file": "src/components/Preferences.css",
+      "initial": "d4ee080c1c90ea5b8dc1b5ad38a2d15e8da104585e082ef5f23392079f93fbfe",
+      "current": "85115910a2f332bb41b2c558f24ab48464b51ae2e8b51419440ada9ed9de9f32"
+    },
+    {
+      "file": "src/components/Preferences.tsx",
+      "initial": "81ea0dc48018500631ea56213fe955bdf1662f1b46ba8519f276b72a93ec7c95",
+      "current": "33aa5dccd2a820ce135fb3a40abd73676c3423623200e8e888d598ea7e324024"
+    },
+    {
+      "file": "src/locales/offline.ts",
+      "initial": "0733e76ed9e3b4846d216df1df60c2de91785477faf8e6a4ff25f031c070cab7",
+      "current": "993c75a06fac2f18a1cdf71a6a7f29b92306b0efebe17dcde00a6fa69583a5b5"
+    },
+    {
+      "file": "src/main.tsx",
+      "initial": "29b41d912d8e0e658c396559853107e9b5c0b64808ccff11dc58fffcad9cfea3",
+      "current": "47b7f30289b08b744e38c832e252e5c836dc82c8c7dca8cefee61d43636c2aa7"
+    }
+  ],
+  "addedCode": [
+    {
+      "file": "public/icons/apple-touch-icon.png",
+      "sha256": "b5dde41735540fa87ea7e1bd1905fd48f603bf2cc347c6b4eb9394ea3f18fbe2"
+    },
+    {
+      "file": "public/icons/icon-192.png",
+      "sha256": "c44186b0a692c401529fae71d4b21614115dd6aaae6ab15e7f5cf8186eeae727"
+    },
+    {
+      "file": "public/icons/icon-512.png",
+      "sha256": "6e30782fea4e881be94fc5235e56c2457ac5ea6dd29261b0a2581da66d88ef33"
+    },
+    {
+      "file": "public/icons/maskable-512.png",
+      "sha256": "e9ef1a6174af061bc7538e868d4efb17ded5fc33087213878d83dee5d62add1c"
+    },
+    {
+      "file": "scripts/generate-pwa-icons.mjs",
+      "sha256": "2a866b122108bca36b124f109eaf9aa76662d58e95cf0f8059cc4ffd47aebaf5"
+    },
+    {
+      "file": "scripts/smoke-pwa-mobile.mjs",
+      "sha256": "4050f4a7da132eae6a39273744edb4122a8dbb6c44ae3e7555d889dff317dfaa"
+    },
+    {
+      "file": "src/components/AppUpdate.css",
+      "sha256": "f252d16dbf4558aa473e1167bde6f3f3662d05fcdb02b3dafc4e803b1a30e521"
+    },
+    {
+      "file": "src/components/InstallHelp.tsx",
+      "sha256": "0235b427a0d675587b7fcd3be397b249a93f0cb70fbf5b634b7065c47fc03604"
+    },
+    {
+      "file": "src/components/StoragePersistence.tsx",
+      "sha256": "8e2bdb42c5d9d22789b51a99378c3663fedc126213e72b9c17fab8b40e2bb611"
+    },
+    {
+      "file": "tests/e2e/pwa-lot02.spec.ts",
+      "sha256": "805a46e0921c3b16d15f3f25309c393e57ffc5985a6904a03e83c553d7802569"
+    }
+  ],
+  "missingInitialFiles": [],
+  "unchangedInitialFiles": 517
+}

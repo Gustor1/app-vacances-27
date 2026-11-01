@@ -1,0 +1,190 @@
+{
+  "generatedAt": "2026-10-23T06:11:35.424Z",
+  "corpusSha256": "fbeaebe6424c3fe505a967135ee6ceec524367be05efee99aeed83265a81180f",
+  "localEvidenceSha256": "8ae3af6e65a93ecfe07270e30e95cb29f38dd0f7beb6bff755e29e33ec164f49",
+  "rules": {
+    "cases": 12,
+    "passed": 7,
+    "rejected": 0,
+    "expectedItems": 31,
+    "separateItems": 17,
+    "assignedItems": 17,
+    "omissions": 14,
+    "fieldErrors": 0,
+    "falseBookings": 0,
+    "inventedCoordinates": 0,
+    "unexpectedDates": 0,
+    "unexpectedTimes": 0,
+    "alternativeErrors": 0
+  },
+  "localModel": {
+    "cases": 12,
+    "passed": 0,
+    "rejected": 12,
+    "expectedItems": 31,
+    "separateItems": 0,
+    "assignedItems": 0,
+    "omissions": 31,
+    "fieldErrors": 0,
+    "falseBookings": 0,
+    "inventedCoordinates": 0,
+    "unexpectedDates": 0,
+    "unexpectedTimes": 0,
+    "alternativeErrors": 0,
+    "warmGenerationMs": {
+      "count": 17,
+      "min": 19706.867100000003,
+      "median": 31096.049700000003,
+      "max": 86045.88930000001,
+      "reloadOccurred": false
+    },
+    "model": "Qwen3-0.6B ONNX q8"
+  },
+  "localHybrid": {
+    "cases": 12,
+    "passed": 7,
+    "rejected": 6,
+    "expectedItems": 31,
+    "separateItems": 17,
+    "assignedItems": 17,
+    "omissions": 14,
+    "fieldErrors": 0,
+    "falseBookings": 0,
+    "inventedCoordinates": 0,
+    "unexpectedDates": 0,
+    "unexpectedTimes": 0,
+    "alternativeErrors": 0
+  },
+  "nvidia": {
+    "status": "incomplete",
+    "model": "minimaxai/minimax-m3.1-flash",
+    "attempts": 12,
+    "quality": {
+      "cases": 12,
+      "passed": 6,
+      "rejected": 6,
+      "expectedItems": 31,
+      "separateItems": 17,
+      "assignedItems": 17,
+      "omissions": 14,
+      "fieldErrors": 0,
+      "falseBookings": 0,
+      "inventedCoordinates": 0,
+      "unexpectedDates": 0,
+      "unexpectedTimes": 0,
+      "alternativeErrors": 0,
+      "jsonValid": 10,
+      "contractValid": 10,
+      "sourceIssues": 7,
+      "expectedNotePassages": 1,
+      "preservedNotePassages": 0
+    },
+    "latencyMs": {
+      "count": 10,
+      "median": 7824.497600000001,
+      "max": 40736.5636
+    },
+    "usage": [
+      {
+        "id": "fr-structure",
+        "usage": {
+          "prompt_tokens": 3433,
+          "completion_tokens": 1366,
+          "total_tokens": 4799
+        }
+      },
+      {
+        "id": "en-structure",
+        "usage": {
+          "prompt_tokens": 3428,
+          "completion_tokens": 870,
+          "total_tokens": 4298
+        }
+      },
+      {
+        "id": "es-structure",
+        "usage": {
+          "prompt_tokens": 3430,
+          "completion_tokens": 807,
+          "total_tokens": 4237
+        }
+      },
+      {
+        "id": "zh-structure",
+        "usage": {
+          "prompt_tokens": 3432,
+          "completion_tokens": 869,
+          "total_tokens": 4301
+        }
+      },
+      {
+        "id": "fr-prose",
+        "usage": {
+          "prompt_tokens": 3434,
+          "completion_tokens": 946,
+          "total_tokens": 4380
+        }
+      },
+      {
+        "id": "en-prose",
+        "usage": {
+          "prompt_tokens": 3437,
+          "completion_tokens": 862,
+          "total_tokens": 4299
+        }
+      },
+      {
+        "id": "es-prose",
+        "usage": null
+      },
+      {
+        "id": "zh-prose",
+        "usage": {
+          "prompt_tokens": 3423,
+          "completion_tokens": 1007,
+          "total_tokens": 4430
+        }
+      },
+      {
+        "id": "booking-negation",
+        "usage": {
+          "prompt_tokens": 3425,
+          "completion_tokens": 824,
+          "total_tokens": 4249
+        }
+      },
+      {
+        "id": "alternative",
+        "usage": {
+          "prompt_tokens": 3427,
+          "completion_tokens": 1075,
+          "total_tokens": 4502
+        }
+      },
+      {
+        "id": "injection",
+        "usage": null
+      },
+      {
+        "id": "late-change",
+        "usage": {
+          "prompt_tokens": 3461,
+          "completion_tokens": 2013,
+          "total_tokens": 5474
+        }
+      }
+    ],
+    "cost": "not established by API; no payment flow permitted",
+    "regressions": [
+      "booking-negation",
+      "injection"
+    ],
+    "criteriaOutcome": "not-assessable-incomplete"
+  },
+  "decision": "benchmark-only; review real results and provider conditions before any UI proposal",
+  "limits": [
+    "Internal compact format in lot06 differs from complete public JSON here.",
+    "Simulation results are transport tests, never model quality.",
+    "No iPhone or provider compatibility established."
+  ]
+}

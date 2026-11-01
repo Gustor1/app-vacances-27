@@ -1,0 +1,184 @@
+{
+  "passed": true,
+  "extraction": [
+    {
+      "name": "simple.pdf",
+      "sha256": "720a1289e029bfa74db6427bcba2a2a8bf24fdb0570ff639d4947115113e6fdb",
+      "durationMs": 1066,
+      "source": "Page 1 / 1\n# Escale fictive\n\nVille: Albi\n\nJour 1 - 2027-05-03\n\n- 09:00 : Musee rouge\n\n- Matin : Jardin bleu",
+      "pages": 1,
+      "parser": {
+        "title": "Escale fictive",
+        "cities": [
+          {
+            "name": "Albi",
+            "days": [
+              {
+                "date": "2027-05-03",
+                "activities": [
+                  {
+                    "title": "Musee rouge",
+                    "time": "09:00",
+                    "period": ""
+                  },
+                  {
+                    "title": "Jardin bleu",
+                    "time": "",
+                    "period": "Matin"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "columns.pdf",
+      "sha256": "f7b39b65a125e2b461a8a21ea4b1fecd91a646a6160a3921865a80fb5f9f48a6",
+      "durationMs": 729,
+      "source": "Page 1 / 1\n# Escale fictive\n\nVille: Albi\n\nJour 1\n\n- Musee gauche\n\nJour 2\n\n- Jardin droit",
+      "pages": 1,
+      "parser": {
+        "title": "Escale fictive",
+        "cities": [
+          {
+            "name": "Albi",
+            "days": [
+              {
+                "date": "",
+                "activities": [
+                  {
+                    "title": "Musee gauche",
+                    "time": "",
+                    "period": ""
+                  }
+                ]
+              },
+              {
+                "date": "",
+                "activities": [
+                  {
+                    "title": "Jardin droit",
+                    "time": "",
+                    "period": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "table.pdf",
+      "sha256": "95a65fac1c115cbe0381648ec10e1e48369ddde8cc0308c50d1f39fa19444bcd",
+      "durationMs": 721,
+      "source": "Page 1 / 1\n# Escale fictive\n\nVille: Albi\n\nJour 1\n\nHeure   Activite\n\n09:00   Musee rouge",
+      "pages": 1,
+      "parser": {
+        "title": "Escale fictive",
+        "cities": [
+          {
+            "name": "Albi",
+            "days": [
+              {
+                "date": "",
+                "activities": [
+                  {
+                    "title": "Heure Activite",
+                    "time": "",
+                    "period": ""
+                  },
+                  {
+                    "title": "Musee rouge",
+                    "time": "09:00",
+                    "period": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "chinese.pdf",
+      "sha256": "25d54a7d63f48bc8b6b456630e7934099006ce301d5a929684c718a992ce895e",
+      "durationMs": 750,
+      "source": "Page 1 / 1\n# 上海旅行\n\n城市：上海\n\n第1天 - 2027-05-03\n\n- 上午：博物馆",
+      "pages": 1,
+      "parser": {
+        "title": "上海旅行",
+        "cities": [
+          {
+            "name": "上海",
+            "days": [
+              {
+                "date": "2027-05-03",
+                "activities": [
+                  {
+                    "title": "博物馆",
+                    "time": "",
+                    "period": "上午"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "lists-table.docx",
+      "sha256": "e8b120d90b72cb1a9d88ea3878b8727e757dd648d826c42d24a9e0d46dff5e82",
+      "durationMs": 745,
+      "source": "# Escale fictive\nVille: Albi\nJour 1 - 2027-05-03\n- 09:00 : Musée rouge\n| Heure | Activité |\n| --- | --- |\n| 14:00 | Jardin bleu |\n\n备注：未知信息保留。\nTexte du lien",
+      "parser": {
+        "title": "Escale fictive",
+        "cities": [
+          {
+            "name": "Albi",
+            "days": [
+              {
+                "date": "2027-05-03",
+                "activities": [
+                  {
+                    "title": "Musée rouge",
+                    "time": "09:00",
+                    "period": ""
+                  },
+                  {
+                    "title": "Jardin bleu",
+                    "time": "14:00",
+                    "period": ""
+                  },
+                  {
+                    "title": "Texte du lien",
+                    "time": "",
+                    "period": ""
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "uploads": [],
+  "documentExternal": [],
+  "offlineMapAttempts": [
+    "https://c.tile.openstreetmap.org/2/1/1.png",
+    "https://a.tile.openstreetmap.org/2/2/1.png",
+    "https://a.tile.openstreetmap.org/2/1/2.png",
+    "https://b.tile.openstreetmap.org/2/2/2.png",
+    "https://c.tile.openstreetmap.org/2/1/1.png",
+    "https://a.tile.openstreetmap.org/2/2/1.png",
+    "https://a.tile.openstreetmap.org/2/1/2.png",
+    "https://b.tile.openstreetmap.org/2/2/2.png"
+  ],
+  "offlineFirstUse": true,
+  "physicalDevice": false
+}

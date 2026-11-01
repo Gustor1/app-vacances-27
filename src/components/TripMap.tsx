@@ -1,3 +1,4 @@
+import { placeStep } from '../places/model';
 import { activeSteps } from '../day-preparation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
@@ -47,12 +48,12 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
   const onSelectRef = useRef(onSelectStep);
   const [tilesUnavailable, setTilesUnavailable] = useState(false);
   onSelectRef.current = onSelectStep;
-  const plottedSteps = (steps ?? city.days.flatMap(day => activeSteps(day))).filter(step => validCoordinates(step.coordinates));
+  const plottedSteps = (steps ?? city.days.flatMap(day => activeSteps(day))).map(placeStep).filter(step => validCoordinates(step.coordinates));
   const hasCoordinates = overview ? cities.some(item => validCoordinates(item.coordinates)) : plottedSteps.length > 0;
   // Only geographic content affects the layers. Editing a note must not reset the map.
   const geographicContent = JSON.stringify(overview
     ? cities.map((item, index) => ({ id: item.id, title: item.name, chineseName: item.chineseName, coordinates: item.coordinates, url: searchUrl(item,undefined,provider), index }))
-    : (steps ?? city.days.flatMap(day => activeSteps(day))).map((step, index) => ({ id: step.id, title: step.title, chineseName: step.chineseName, coordinates: step.coordinates, url: searchUrl(city,step,provider), index })));
+    : (steps ?? city.days.flatMap(day => activeSteps(day))).map(placeStep).map((step, index) => ({ id: step.id, title: step.title, chineseName: step.chineseName, coordinates: step.coordinates, url: searchUrl(city,step,provider), index })));
   const mapItems = useMemo(() => JSON.parse(geographicContent) as { id: string; title: string; chineseName?: string; coordinates?: [number, number]; url: string; index: number }[], [geographicContent]);
   const centerLat = validCoordinates(city.coordinates) ? city.coordinates[0] : 20;
   const centerLng = validCoordinates(city.coordinates) ? city.coordinates[1] : 0;
@@ -199,7 +200,7 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
         <div className="trip-map-fallback" role="status">
           <p>{t(overview ? 'Fond détaillé indisponible · contours des pays et repères indicatifs.' : 'Fond détaillé indisponible · repères indicatifs, sans rues.')}</p>
           <div className="trip-map-fallback-links">
-            {overview ? cities.slice(0, 5).map(item => <a key={item.id} href={searchUrl(item,undefined,provider)} target="_blank" rel="noopener noreferrer">{item.name} ↗</a>) : (steps ?? city.days.flatMap(day => activeSteps(day))).slice(0, 4).map(step => <a key={step.id} href={searchUrl(city,step,provider)} target="_blank" rel="noopener noreferrer">{step.title} ↗</a>)}
+            {overview ? cities.slice(0, 5).map(item => <a key={item.id} href={searchUrl(item,undefined,provider)} target="_blank" rel="noopener noreferrer">{item.name} ↗</a>) : (steps ?? city.days.flatMap(day => activeSteps(day))).map(placeStep).slice(0, 4).map(step => <a key={step.id} href={searchUrl(city,step,provider)} target="_blank" rel="noopener noreferrer">{step.title} ↗</a>)}
             {!overview && <a href={searchUrl(city,undefined,provider)} target="_blank" rel="noopener noreferrer">{t('Carte de {city} ↗',{city:city.name})}</a>}
           </div>
         </div>

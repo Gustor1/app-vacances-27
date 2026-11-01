@@ -1,0 +1,14 @@
+{
+  "snapshot": "C:\\Users\\eliot\\Documents\\detours-lot06-recovery-20261023",
+  "initialFiles": 1191,
+  "identical": 1190,
+  "changed": [
+    "docs/development/lots-suivants/00-LIRE-AVANT-LES-LOTS.md"
+  ],
+  "missing": [],
+  "unexpectedAdditions": [
+    "docs/development/lots-suivants/LOT-06-BIS-API-NVIDIA.md"
+  ],
+  "missionAdditions": 37,
+  "passed": false
+}

@@ -1,0 +1,688 @@
+[
+  {
+    "type": "after",
+    "callId": "pw:api@31",
+    "time": 97717.051
+  },
+  {
+    "type": "after",
+    "callId": "fixture@30",
+    "time": 97727.594
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@33",
+    "time": 98079.182
+  },
+  {
+    "type": "after",
+    "callId": "fixture@32",
+    "time": 98079.386
+  },
+  {
+    "type": "after",
+    "callId": "hook@1",
+    "time": 98079.5
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@34",
+    "time": 98937.248
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@35",
+    "time": 99208.425
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@36",
+    "time": 99735.841
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@37",
+    "time": 100317.953
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@38",
+    "time": 100816.435
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@39",
+    "time": 100907.1
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@40",
+    "time": 101049.587
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@41",
+    "time": 101234.379
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@42",
+    "time": 101339.421
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@43",
+    "time": 102516.797
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@44",
+    "time": 103143.639
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@45",
+    "time": 103439.816
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@46",
+    "time": 103466.525
+  },
+  {
+    "type": "after",
+    "callId": "expect@47",
+    "time": 108711.196,
+    "error": {
+      "name": "",
+      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog').getByRole('alert')\nExpected substring: \u001b[32m\"droits ont changé\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('dialog').getByRole('alert') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('alert')\u001b[22m\n",
+      "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('dialog').getByRole('alert')\nExpected substring: \u001b[32m\"droits ont changé\"\u001b[39m\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" getByRole('dialog').getByRole('alert') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('dialog').getByRole('alert')\u001b[22m\n\n    at C:\\Users\\eliot\\Documents\\app-vacances-27\\tests\\e2e\\assistant.spec.ts:82:37"
+    }
+  },
+  {
+    "type": "after",
+    "callId": "fixture@49",
+    "time": 108933.383
+  },
+  {
+    "type": "after",
+    "callId": "pw:api@51",
+    "time": 109692.053
+  },
+  {
+    "type": "after",
+    "callId": "fixture@50",
+    "time": 109692.118
+  },
+  {
+    "type": "after",
+    "callId": "attach@ebf9e20e70d694b1f805f8eeda35b6e9",
+    "time": 109700.998
+  },
+  {
+    "type": "after",
+    "callId": "fixture@60",
+    "time": 109703.051
+  },
+  {
+    "type": "after",
+    "callId": "hook@48",
+    "time": 109713.239
+  },
+  {
+    "type": "after",
+    "callId": "fixture@90",
+    "time": 110001.911
+  },
+  {
+    "type": "after",
+    "callId": "fixture@95",
+    "time": 110003.739
+  },
+  {
+    "type": "after",
+    "callId": "fixture@99",
+    "time": 110004.713
+  },
+  {
+    "type": "after",
+    "callId": "hook@85",
+    "time": 110005.135
+  },
+  {
+    "type": "after",
+    "callId": "call@970",
+    "time": 98077.604,
+    "result": {
+      "page": "<Page>"
+    }
+  },
+  {
+    "type": "before",
+    "callId": "call@972",
+    "time": 98083.147,
+    "method": "goto"
+  },
+  {
+    "type": "log",
+    "callId": "call@972",
+    "time": 98092.22,
+    "message": "navigating to \"http://127.0.0.1:5173/\", waiting until \"load\""
+  },
+  {
+    "type": "after",
+    "callId": "call@972",
+    "time": 98897.481,
+    "result": {
+      "response": "<Response>"
+    }
+  },
+  {
+    "type": "before",
+    "callId": "call@974",
+    "time": 98942.093,
+    "method": "evaluateExpression",
+    "expression": "({\n    key,\n    raw,\n    language\n  }) => {\n    localStorage.setItem(key, raw);\n    localStorage.setItem('a-l-est-preferences-v1', JSON.stringify({\n      language,\n      theme: language === 'en' ? 'dark' : 'light'\n    }));\n  }"
+  },
+  {
+    "type": "after",
+    "callId": "call@974",
+    "time": 99203.565,
+    "result": {
+      "value": {
+        "v": "undefined"
+      }
+    }
+  },
+  {
+    "type": "log",
+    "callId": "call@976",
+    "time": 99216.186,
+    "message": "waiting for navigation until \"load\""
+  },
+  {
+    "type": "log",
+    "callId": "call@976",
+    "time": 99257.825,
+    "message": "  navigated to \"http://127.0.0.1:5173/\""
+  },
+  {
+    "type": "after",
+    "callId": "call@976",
+    "time": 99666.106,
+    "result": {
+      "response": "<Response>"
+    }
+  },
+  {
+    "type": "before",
+    "callId": "call@978",
+    "time": 99740.382,
+    "method": "click",
+    "selector": "internal:role=button[name=\"Ouvrir Assistant fictif\"s]"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 99792.506,
+    "message": "waiting for getByRole('button', { name: 'Ouvrir Assistant fictif', exact: true })"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 99860.574,
+    "message": "  locator resolved to <button class=\"journey-cover\" aria-label=\"Ouvrir Assistant fictif\">…</button>"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 99864.041,
+    "message": "attempting click action"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 99864.125,
+    "message": "  waiting for element to be visible, enabled and stable"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 99884.484,
+    "message": "  element is visible, enabled and stable"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 99884.526,
+    "message": "  scrolling into view if needed"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 99886.748,
+    "message": "  done scrolling"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 99906.357,
+    "message": "  performing click action"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 100233.395,
+    "message": "  click action done"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 100233.439,
+    "message": "  waiting for scheduled navigations to finish"
+  },
+  {
+    "type": "log",
+    "callId": "call@978",
+    "time": 100244.461,
+    "message": "  navigations have finished"
+  },
+  {
+    "type": "after",
+    "callId": "call@978",
+    "time": 100244.747
+  },
+  {
+    "type": "before",
+    "callId": "call@980",
+    "time": 100320.47,
+    "method": "click",
+    "selector": "internal:role=button[name=\"Assistant du carnet\"s]"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100367.577,
+    "message": "waiting for getByRole('button', { name: 'Assistant du carnet', exact: true })"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100686.612,
+    "message": "  locator resolved to <button class=\"btn btn-secondary\">Assistant du carnet</button>"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100690.988,
+    "message": "attempting click action"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100691.129,
+    "message": "  waiting for element to be visible, enabled and stable"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100703.416,
+    "message": "  element is visible, enabled and stable"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100703.463,
+    "message": "  scrolling into view if needed"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100705.352,
+    "message": "  done scrolling"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100738.21,
+    "message": "  performing click action"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100779.918,
+    "message": "  click action done"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100779.952,
+    "message": "  waiting for scheduled navigations to finish"
+  },
+  {
+    "type": "log",
+    "callId": "call@980",
+    "time": 100781.99,
+    "message": "  navigations have finished"
+  },
+  {
+    "type": "after",
+    "callId": "call@980",
+    "time": 100782.291
+  },
+  {
+    "type": "log",
+    "callId": "call@982",
+    "time": 100832.024,
+    "message": "waiting for getByRole('dialog').getByLabel('Activité concernée', { exact: true })"
+  },
+  {
+    "type": "log",
+    "callId": "call@982",
+    "time": 100851.749,
+    "message": "  locator resolved to <select required=\"\" aria-label=\"Activité concernée\">…</select>"
+  },
+  {
+    "type": "log",
+    "callId": "call@982",
+    "time": 100856.234,
+    "message": "attempting select option action"
+  },
+  {
+    "type": "log",
+    "callId": "call@982",
+    "time": 100873.59,
+    "message": "  waiting for element to be visible and enabled"
+  },
+  {
+    "type": "log",
+    "callId": "call@982",
+    "time": 100889.883,
+    "message": "  selected specified option(s)"
+  },
+  {
+    "type": "after",
+    "callId": "call@982",
+    "time": 100890.186,
+    "result": {
+      "values": [
+        "b"
+      ]
+    }
+  },
+  {
+    "type": "log",
+    "callId": "call@984",
+    "time": 100924.866,
+    "message": "waiting for getByRole('dialog').getByLabel('Texte à ajouter', { exact: true })"
+  },
+  {
+    "type": "log",
+    "callId": "call@984",
+    "time": 100949.607,
+    "message": "  locator resolved to <textarea rows=\"3\" required=\"\" maxlength=\"4000\" aria-label=\"Texte à ajouter\"></textarea>"
+  },
+  {
+    "type": "log",
+    "callId": "call@984",
+    "time": 100953.872,
+    "message": "  fill(\"Retried after conflict\")"
+  },
+  {
+    "type": "log",
+    "callId": "call@984",
+    "time": 100953.906,
+    "message": "attempting fill action"
+  },
+  {
+    "type": "log",
+    "callId": "call@984",
+    "time": 100981.001,
+    "message": "  waiting for element to be visible, enabled and editable"
+  },
+  {
+    "type": "after",
+    "callId": "call@984",
+    "time": 101018.536
+  },
+  {
+    "type": "before",
+    "callId": "call@986",
+    "time": 101052.674,
+    "method": "click",
+    "selector": "internal:role=dialog >> internal:role=button[name=\"Prévisualiser cette action\"s]"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101083.16,
+    "message": "waiting for getByRole('dialog').getByRole('button', { name: 'Prévisualiser cette action', exact: true })"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101098.405,
+    "message": "  locator resolved to <button type=\"submit\" class=\"btn btn-secondary\">Prévisualiser cette action</button>"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101101.472,
+    "message": "attempting click action"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101101.557,
+    "message": "  waiting for element to be visible, enabled and stable"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101134.938,
+    "message": "  element is visible, enabled and stable"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101134.972,
+    "message": "  scrolling into view if needed"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101136.599,
+    "message": "  done scrolling"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101163.059,
+    "message": "  performing click action"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101213.052,
+    "message": "  click action done"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101213.097,
+    "message": "  waiting for scheduled navigations to finish"
+  },
+  {
+    "type": "log",
+    "callId": "call@986",
+    "time": 101215.902,
+    "message": "  navigations have finished"
+  },
+  {
+    "type": "after",
+    "callId": "call@986",
+    "time": 101216.204
+  },
+  {
+    "type": "after",
+    "callId": "call@988",
+    "time": 101337.42,
+    "result": {
+      "page": "<Page>"
+    }
+  },
+  {
+    "type": "before",
+    "callId": "call@990",
+    "time": 101342.407,
+    "method": "goto"
+  },
+  {
+    "type": "log",
+    "callId": "call@990",
+    "time": 101355.307,
+    "message": "navigating to \"http://127.0.0.1:5173/\", waiting until \"load\""
+  },
+  {
+    "type": "after",
+    "callId": "call@990",
+    "time": 102420.99,
+    "result": {
+      "response": "<Response>"
+    }
+  },
+  {
+    "type": "before",
+    "callId": "call@992",
+    "time": 102520.827,
+    "method": "evaluateExpression",
+    "expression": "key => new Promise(acquired => {\n    void navigator.locks.request(key, () => {\n      acquired();\n      return new Promise(resolve => {\n        window.release = resolve;\n      });\n    });\n  })"
+  },
+  {
+    "type": "after",
+    "callId": "call@992",
+    "time": 103134.064,
+    "result": {
+      "value": {
+        "v": "undefined"
+      }
+    }
+  },
+  {
+    "type": "before",
+    "callId": "call@994",
+    "time": 103147.269,
+    "method": "click",
+    "selector": "internal:role=dialog >> internal:role=button[name=\"Confirmer cette action\"s]"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103164.462,
+    "message": "waiting for getByRole('dialog').getByRole('button', { name: 'Confirmer cette action', exact: true })"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103178.856,
+    "message": "  locator resolved to <button class=\"btn btn-primary\">Confirmer cette action</button>"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103182.178,
+    "message": "attempting click action"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103182.262,
+    "message": "  waiting for element to be visible, enabled and stable"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103200.96,
+    "message": "  element is visible, enabled and stable"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103200.995,
+    "message": "  scrolling into view if needed"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103205.023,
+    "message": "  done scrolling"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103237.699,
+    "message": "  performing click action"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103415.808,
+    "message": "  click action done"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103415.84,
+    "message": "  waiting for scheduled navigations to finish"
+  },
+  {
+    "type": "log",
+    "callId": "call@994",
+    "time": 103418.758,
+    "message": "  navigations have finished"
+  },
+  {
+    "type": "after",
+    "callId": "call@994",
+    "time": 103419.026
+  },
+  {
+    "type": "before",
+    "callId": "call@996",
+    "time": 103442.001,
+    "method": "evaluateExpression",
+    "expression": "key => {\n    const a = JSON.parse(localStorage.getItem(key));\n    a.state.notes.a = 'Written while waiting';\n    localStorage.setItem(key, JSON.stringify(a));\n    window.release();\n  }"
+  },
+  {
+    "type": "after",
+    "callId": "call@996",
+    "time": 103457.518,
+    "result": {
+      "value": {
+        "v": "undefined"
+      }
+    }
+  },
+  {
+    "type": "log",
+    "callId": "call@998",
+    "time": 103679.465,
+    "message": "Expect \"toContainText\" getByRole('dialog').getByRole('alert') with timeout 5000ms"
+  },
+  {
+    "type": "log",
+    "callId": "call@998",
+    "time": 103679.503,
+    "message": "waiting for getByRole('dialog').getByRole('alert')"
+  },
+  {
+    "type": "after",
+    "callId": "call@998",
+    "time": 108694.193,
+    "error": {
+      "message": "Expect failed",
+      "stack": "ExpectError: Expect failed\n    at _Frame.expect (C:\\Users\\eliot\\Documents\\app-vacances-27\\node_modules\\playwright-core\\lib\\coreBundle.js:24312:17)\n    at _FrameDispatcher.expect (C:\\Users\\eliot\\Documents\\app-vacances-27\\node_modules\\playwright-core\\lib\\coreBundle.js:54886:11)\n    at _ProgressController.run (C:\\Users\\eliot\\Documents\\app-vacances-27\\node_modules\\playwright-core\\lib\\coreBundle.js:12374:27)\n    at DispatcherConnection.dispatch (C:\\Users\\eliot\\Documents\\app-vacances-27\\node_modules\\playwright-core\\lib\\coreBundle.js:19135:27)",
+      "name": "ExpectError"
+    }
+  }
+]

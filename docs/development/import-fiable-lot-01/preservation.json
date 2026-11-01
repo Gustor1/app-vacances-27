@@ -1,0 +1,17 @@
+{
+  "initialHead": "c1dd8a686e5962a156bad1489e4e4d3f2c731d64",
+  "initialBranch": "codex/audit-pwa-api",
+  "contributionBranch": "codex/import-fiable-lot-01",
+  "recovery": "C:\\Users\\eliot\\Documents\\detours-lot01-recovery-20261018",
+  "previouslyModifiedFilesChangedDuringLot": [
+    "scripts/evaluate-planning-stress.mjs",
+    "docs/development/IMPORT-RECOGNITION.md"
+  ],
+  "strategy": "Fetched shared base, kept the current HEAD containing recognition commits. Created a new branch without switching the dirty checkout to the older shared base. Initial tracked diff and untracked files saved outside repository.",
+  "expectedChanges": [
+    "scripts/evaluate-planning-stress.mjs (output parameter and report metadata)",
+    "docs/development/IMPORT-RECOGNITION.md (additive lot01 section)"
+  ],
+  "missingPriorFiles": [],
+  "recognitionDocumentationInitialPrefixPreserved": true
+}

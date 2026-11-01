@@ -1,0 +1,44 @@
+import { useContext, useEffect, useRef, useState } from 'react';
+import type { City, Step } from '../types';
+import type { CommonsPhoto, PlaceAssociation, PlaceValues } from '../places/model';
+import { wikimedia, WikimediaError } from '../places/wikimedia';
+import type { Candidate, PlaceDetails } from '../places/wikimedia';
+import { useLocale } from '../i18n';
+import { EditButton, ReadOnlyContext } from './EditControls';
+import { Modal } from '../App';
+import './PlaceEnrichment.css';
+
+function Photo({ photo }: { photo: CommonsPhoto }) {
+  const { t } = useLocale();
+  const [show, setShow] = useState(false);
+  return <figure className="place-photo">{show ? <img src={photo.url} width={photo.width} height={photo.height} alt={t('Photo du lieu')} loading="lazy" referrerPolicy="no-referrer" onError={() => setShow(false)}/> : <button type="button" className="text-btn" onClick={() => setShow(true)}>{t('Afficher la photo distante')}</button>}<figcaption>{photo.author} · <a href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.license}</a> · <a href={photo.source} target="_blank" rel="noreferrer">Commons</a><span>{t('Vignette redimensionnée · photo distante, non disponible hors ligne.')}</span></figcaption></figure>;
+}
+export default function PlaceEnrichment({ step, city, onSave }: { step: Step; city: City; onSave: (base: Step, place?: PlaceAssociation) => void }) {
+  const { t } = useLocale();
+  const [open, setOpen] = useState(false);
+  const readOnly = useContext(ReadOnlyContext);
+  const blocked = readOnly;
+  const place = step.place;
+  return <div className="place-enrichment">{place && <div className="place-summary"><a href={place.source} target="_blank" rel="noreferrer">Wikidata · {place.qid}</a><span> · {place.checkedAt.slice(0, 10)}</span>{place.values.title && <p>{t('Nom accepté')} : {place.values.title}</p>}{place.values.localName && <p>{place.values.localName} ({t('Nom dans la langue d’origine (Wikidata)')})</p>}{place.values.chineseName && <p lang="zh">{place.values.chineseName} <span>({t('Libellé chinois Wikidata')})</span></p>}{place.values.coordinates && <p>{t('Coordonnées acceptées')} : {place.values.coordinates.join(', ')}</p>}{place.values.website && <p><a href={place.values.website} target="_blank" rel="noreferrer">{t('Site officiel')}</a></p>}{place.values.photo && <Photo key={place.values.photo.url} photo={place.values.photo}/>}</div>}<EditButton disabled={blocked} className="text-btn" onClick={() => setOpen(true)}>{t('Compléter ce lieu')}</EditButton>{place && <EditButton disabled={blocked} className="text-btn" onClick={() => onSave(step, undefined)}>{t('Retirer l’association')}</EditButton>}{open && <Modal title={t('Compléter ce lieu')} onClose={() => setOpen(false)}><PlaceSearch key={`${step.id}:${city.id}`} step={step} city={city} blocked={blocked} onClose={() => setOpen(false)} onSave={place => { if (!blocked) onSave(step, place); setOpen(false); }}/></Modal>}</div>;
+}
+
+function PlaceSearch({ step, city, blocked, onSave, onClose }: { step: Step; city: City; blocked: boolean; onSave: (place: PlaceAssociation) => void; onClose: () => void }) {
+  const { t, language } = useLocale();
+  const [name, setName] = useState(step.title.slice(0, 100)), [town, setTown] = useState(city.name.slice(0, 100)), [country, setCountry] = useState('');
+  const [candidates, setCandidates] = useState<Candidate[] | null>(null), [detail, setDetail] = useState<PlaceDetails | null>(null);
+  const [selected, setSelected] = useState<string[]>([]), [busy, setBusy] = useState(false), [error, setError] = useState('');
+  const request = useRef<AbortController | null>(null), generation = useRef(0);
+  const lang = language === 'zh-CN' ? 'zh' : language;
+  useEffect(() => () => { generation.current++; request.current?.abort(); }, []);
+  const stop = () => { generation.current++; request.current?.abort(); setBusy(false); };
+  const run = async (action: (signal: AbortSignal) => Promise<void>) => {
+    stop(); const token = generation.current, controller = new AbortController(); request.current = controller; setBusy(true); setError('');
+    try { await action(controller.signal); } catch (e) { if (token === generation.current && !controller.signal.aborted) setError(e instanceof WikimediaError && e.code === 'rate' ? 'Wikimedia demande de patienter avant de réessayer.' : 'Wikimedia indisponible ou réponse invalide. Le carnet reste accessible.'); }
+    finally { if (token === generation.current) setBusy(false); }
+  };
+  const search = () => { if (/^Q[1-9]\d*$/.test(name.trim())) { choose(name.trim()); return; } setDetail(null); setSelected([]); setCandidates(null); void run(async signal => { const result = await wikimedia.search(name, town, country, lang, signal); signal.throwIfAborted(); setCandidates(result); }); };
+  const choose = (qid: string) => { setDetail(null); setSelected([]); void run(async signal => { const result = await wikimedia.details(qid, lang, signal); signal.throwIfAborted(); setDetail(result); }); };
+  const labels: Record<keyof PlaceValues, string> = { title: 'Nom accepté', chineseName: 'Libellé chinois Wikidata', localName: 'Nom dans la langue d’origine (Wikidata)', website: 'Site officiel', coordinates: 'Coordonnées acceptées', photo: 'Photo du lieu' };
+  const previous = (key: keyof PlaceValues) => key === 'photo' ? step.place?.values.photo?.source : key === 'website' ? step.place?.values.website : key === 'coordinates' ? (step.place?.values.coordinates ?? step.coordinates)?.join(', ') : key === 'localName' ? step.place?.values.localName ?? step.chineseName : step.place?.values[key] ?? step[key];
+  return <div className="editor-form place-search"><p>{t('Suggestions personnelles sur cet appareil : les valeurs d’origine sont conservées. Elles ne sont pas envoyées à la synchronisation.')}</p><p className="muted">{t('Seuls les termes ci-dessous sont envoyés à Wikimedia après Recherche. Retire toute information privée.')}</p><form onSubmit={e => { e.preventDefault(); search(); }}><label className="field">{t('Nom du lieu ou identifiant Q')}<input maxLength={100} required value={name} onChange={e => setName(e.target.value)}/></label><div className="form-row"><label className="field">{t('Ville')}<input maxLength={100} value={town} onChange={e => setTown(e.target.value)}/></label><label className="field">{t('Pays (facultatif)')}<input maxLength={100} value={country} onChange={e => setCountry(e.target.value)}/></label></div><button disabled={busy || blocked} className="btn btn-secondary" type="submit">{t('Rechercher sur Wikidata')}</button></form>{busy && <p role="status">{t('Recherche en cours…')} <button className="text-btn" onClick={stop}>{t('Annuler')}</button></p>}{error && <p role="alert">{t(error)}</p>}{candidates && !detail && <div className="place-candidates">{!candidates.length && <p role="status">{t('Aucun résultat. Modifie les termes de recherche.')}</p>}{candidates.map(candidate => <button key={candidate.qid} className="btn btn-secondary" disabled={busy || blocked} onClick={() => choose(candidate.qid)}><strong>{candidate.label} · {candidate.qid}</strong><span>{candidate.description || t('Description indisponible')}</span></button>)}<button className="text-btn" onClick={onClose}>{t('Aucun de ces lieux')}</button></div>}{detail && <section className="place-comparison"><h3>{detail.values.title || detail.qid} · {detail.qid}</h3><p>{detail.description}</p><a href={detail.source} target="_blank" rel="noreferrer">{t('Consulter la source')}</a><p>{t('Coche uniquement les valeurs à accepter. Aucun champ n’est sélectionné automatiquement.')}</p>{Object.entries(detail.values).filter(([, value]) => value !== undefined).map(([rawKey, value]) => { const key = rawKey as keyof PlaceValues; return <div className="place-field" key={key}><label className="checkbox-label"><input type="checkbox" disabled={blocked} checked={selected.includes(key)} onChange={e => setSelected(s => e.target.checked ? [...s, key] : s.filter(k => k !== key))}/>{t(labels[key])}</label><p>{t('Avant')} : {String(previous(key) || '—')}</p><p>{t('Proposition')} : {key === 'photo' ? (value as CommonsPhoto).source : Array.isArray(value) ? value.join(', ') : String(value)}</p>{key === 'photo' && <Photo photo={value as CommonsPhoto}/>}</div>; })}{!detail.values.photo && <p>{t('Aucune photo avec une licence prise en charge.')}</p>}<p className="muted">{t('Aucun horaire ni avis actualisé n’est fourni.')}</p><div className="form-actions"><button className="btn btn-secondary" onClick={() => { setDetail(null); setSelected([]); }}>{t('Revenir aux résultats')}</button><button disabled={blocked} className="btn btn-primary" onClick={() => onSave({ qid: detail.qid, source: detail.source, checkedAt: detail.checkedAt, values: Object.fromEntries(Object.entries(detail.values).filter(([key]) => selected.includes(key))) })}>{t('Confirmer ce lieu et les valeurs cochées')}</button></div></section>}</div>;
+}

@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-24",
+  "generatedAt": "2026-10-24T04:32:12.375Z",
+  "timezone": "Asia/Shanghai",
+  "baseRevision": "c1dd8a686e5962a156bad1489e4e4d3f2c731d64",
+  "sourceFingerprint": "50d7912609ef6d38e639525fa8fc6a78c720fe23ccafe5b1047d692d73536362",
+  "fingerprintScope": "Git-visible code, configs, tests and assets; docs/ and Markdown excluded; ignored files excluded",
+  "sourceUnchanged": true,
+  "buildId": "356fc643954dce876d817539b41ed763fa3dd5eba8bd1970bc29de6a5a0003cf",
+  "environment": {
+    "platform": "win32",
+    "node": "v24.15.0",
+    "browser": "Playwright Chromium / installed Chrome",
+    "backend": "simulated, isolated profiles"
+  },
+  "exitCode": 1,
+  "checks": [
+    {
+      "name": "types produit",
+      "startedAt": "2026-10-24T04:31:18.216Z",
+      "finishedAt": "2026-10-24T04:31:46.528Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "types tests/configurations",
+      "startedAt": "2026-10-24T04:31:46.528Z",
+      "finishedAt": "2026-10-24T04:31:52.125Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "lint",
+      "startedAt": "2026-10-24T04:31:52.126Z",
+      "finishedAt": "2026-10-24T04:32:08.439Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "tests unitaires",
+      "startedAt": "2026-10-24T04:32:08.439Z",
+      "finishedAt": "2026-10-24T04:32:11.453Z",
+      "exitCode": 1,
+      "status": "failed"
+    }
+  ],
+  "notRun": [
+    "build Vite",
+    "service worker et manifeste",
+    "intégrité du build",
+    "compatibilité SQL L6",
+    "tests navigateur retenus",
+    "palettes, logo et préférences",
+    "analyse planning simulée dans le navigateur",
+    "états L4/L5/L6 et préférences dans le navigateur",
+    "smoke-production",
+    "smoke-backup",
+    "smoke-ui",
+    "smoke-common-sharing",
+    "smoke-l4-offline",
+    "smoke-l4-persistence",
+    "smoke-l5-now",
+    "smoke-l6-preparation",
+    "smoke-l8-release",
+    "kit et JSON structurés compilés hors ligne",
+    "PDF et DOCX compilés hors ligne",
+    "compagnon compilé hors ligne",
+    "souvenirs navigateur",
+    "souvenirs compilés hors ligne",
+    "assistant navigateur",
+    "assistant compilé hors ligne",
+    "mascotte navigateur",
+    "mascotte compilée hors ligne",
+    "lieux compilés hors ligne",
+    "PWA mobile compilée",
+    "mise à jour Chrome et WebKit",
+    "planning compilé, carte, hors ligne et restauration"
+  ],
+  "limits": [
+    "No remote service, Google OAuth, physical device or full browser suite verification",
+    "Browser external DNS blocked; loopback and intercepted mocks available; network test commands not invoked"
+  ],
+  "output": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-verify-eud6X6"
+}

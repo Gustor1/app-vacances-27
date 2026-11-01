@@ -1,0 +1,38 @@
+[
+  {
+    "scroll": 625,
+    "url": "http://127.0.0.1:4318/?direction=editorial&screen=home",
+    "viewport": "width=device-width, initial-scale=1",
+    "width": 640
+  },
+  {
+    "scroll": 625,
+    "url": "http://127.0.0.1:4318/?direction=editorial&screen=day",
+    "viewport": "width=device-width, initial-scale=1",
+    "width": 640
+  },
+  {
+    "scroll": 625,
+    "url": "http://127.0.0.1:4318/?direction=editorial&screen=import",
+    "viewport": "width=device-width, initial-scale=1",
+    "width": 640
+  },
+  {
+    "scroll": 625,
+    "url": "http://127.0.0.1:4318/?direction=practical&screen=home",
+    "viewport": "width=device-width, initial-scale=1",
+    "width": 640
+  },
+  {
+    "scroll": 625,
+    "url": "http://127.0.0.1:4318/?direction=practical&screen=day",
+    "viewport": "width=device-width, initial-scale=1",
+    "width": 640
+  },
+  {
+    "scroll": 625,
+    "url": "http://127.0.0.1:4318/?direction=practical&screen=import",
+    "viewport": "width=device-width, initial-scale=1",
+    "width": 640
+  }
+]

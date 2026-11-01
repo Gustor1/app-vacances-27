@@ -1,0 +1,174 @@
+{
+  "generatedAt": "2026-10-23T10:58:29.173Z",
+  "model": "minimaxai/minimax-m3.1-flash",
+  "mode": "REAL_NVIDIA_INFERENCE",
+  "attempts": 12,
+  "responses": 10,
+  "transportErrors": [
+    {
+      "id": "es-prose",
+      "code": "rate-limit",
+      "status": 429,
+      "retryAfterSeconds": null,
+      "latencyMs": 72.85979999999836,
+      "requestBytes": 15462,
+      "provider": null
+    },
+    {
+      "id": "injection",
+      "code": "rate-limit",
+      "status": 429,
+      "retryAfterSeconds": null,
+      "latencyMs": 78.87999999999738,
+      "requestBytes": 15552,
+      "provider": null
+    }
+  ],
+  "notAttempted": [],
+  "raw": {
+    "summary": {
+      "cases": 10,
+      "passed": 10,
+      "rejected": 0,
+      "expectedItems": 27,
+      "separateItems": 27,
+      "assignedItems": 27,
+      "omissions": 0,
+      "fieldErrors": 0,
+      "falseBookings": 0,
+      "inventedCoordinates": 0,
+      "unexpectedDates": 0,
+      "unexpectedTimes": 0,
+      "alternativeErrors": 0
+    },
+    "expectedItemsInRespondedCases": 27,
+    "expectedItemsFullCorpus": 31,
+    "limit": "Raw title-anchor metrics exclude transport failures; not a proof of every generated field."
+  },
+  "accepted": {
+    "cases": 12,
+    "passed": 6,
+    "rejected": 6,
+    "expectedItems": 31,
+    "separateItems": 17,
+    "assignedItems": 17,
+    "omissions": 14,
+    "fieldErrors": 0,
+    "falseBookings": 0,
+    "inventedCoordinates": 0,
+    "unexpectedDates": 0,
+    "unexpectedTimes": 0,
+    "alternativeErrors": 0,
+    "jsonValid": 10,
+    "contractValid": 10,
+    "sourceIssues": 7,
+    "expectedNotePassages": 1,
+    "preservedNotePassages": 0
+  },
+  "regressions": {
+    "onSuccessfulResponses": [
+      "booking-negation"
+    ],
+    "transportFailures": [
+      "injection"
+    ]
+  },
+  "criteria": {
+    "allCasesReceived": false,
+    "noAcceptedRegression": false,
+    "assignmentGain": false,
+    "omissionsDecreased": false,
+    "medianUnder20Seconds": true,
+    "allSafetyCasesResponded": false,
+    "noNewSafetyBookingsOrCoordinates": false
+  },
+  "decision": "benchmark-only-no-ui",
+  "sourceGuardRejections": [
+    {
+      "id": "fr-prose",
+      "issues": [
+        {
+          "code": "not-in-source",
+          "path": "$.cities[0].days[0].items[0].description"
+        },
+        {
+          "code": "not-in-source",
+          "path": "$.cities[0].days[0].items[1].description"
+        },
+        {
+          "code": "not-in-source",
+          "path": "$.cities[0].days[1].items[0].description"
+        }
+      ],
+      "diagnostic": null
+    },
+    {
+      "id": "en-prose",
+      "issues": [
+        {
+          "code": "not-in-source",
+          "path": "$.cities[0].days[0].items[0].description"
+        }
+      ],
+      "diagnostic": null
+    },
+    {
+      "id": "booking-negation",
+      "issues": [
+        {
+          "code": "not-in-source",
+          "path": "$.cities[0].days[0].items[0].description"
+        }
+      ],
+      "diagnostic": null
+    },
+    {
+      "id": "late-change",
+      "issues": [
+        {
+          "code": "not-in-source",
+          "path": "$.cities[0].days[0].items[0].description"
+        },
+        {
+          "code": "not-in-source",
+          "path": "$.cities[0].days[1].items[0].description"
+        }
+      ],
+      "diagnostic": null
+    }
+  ],
+  "latencyMs": {
+    "count": 10,
+    "min": 5450.8667,
+    "median": 6881.736750000001,
+    "max": 40736.5636
+  },
+  "tokens": {
+    "responsesWithCounters": 10,
+    "attemptsWithoutCounters": 2,
+    "observed": {
+      "prompt_tokens": 34330,
+      "completion_tokens": 10639,
+      "total_tokens": 44969
+    }
+  },
+  "cost": "Not supplied by endpoint; no monetary amount inferred",
+  "limits": [
+    "One synthetic small corpus, one generation per attempted case.",
+    "A seed does not establish provider determinism or a fixed backend revision.",
+    "Descriptions can be faithful paraphrases while the conservative literal guard refuses them.",
+    "A 429 is a transport failure, not evidence of model reasoning failure.",
+    "No conclusion about physical iPhone performance or regular production entitlement."
+  ],
+  "runSha256": "aa9c4dcd884e8983dbcb58f65fa97a992fbeb8d88526ded9afe7971e82ebaacf",
+  "protocolSha256": "6be2f516b197b777dacd35f050c76fb7a69dcdc6b04771ba66ad3a228db7388c",
+  "analyzerSha256": "6f94d79064f57a690af1ca4293c2ce58fa684a9658c4371b43db8609ed9e07a2",
+  "parameters": {
+    "temperature": 1,
+    "max_tokens": 8192,
+    "stream": false,
+    "response_format": "not requested; capability not established",
+    "top_p": 0.95,
+    "seed": 0
+  }
+}

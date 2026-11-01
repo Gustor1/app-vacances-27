@@ -1,0 +1,2 @@
+.app-update span{min-width:0;overflow-wrap:anywhere}
+@media(max-width:480px){html:root:root .app-update{flex-wrap:wrap;max-height:40dvh;overflow-y:auto}.app-update span{flex:1 1 180px}}

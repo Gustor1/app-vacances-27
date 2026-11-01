@@ -1,0 +1,25 @@
+{
+  "beforeBuild": "280948357783039c5737267ac94c60e260f67f17be7f1725e4c78ee8e55cb957",
+  "afterBuild": "887128f78468f88214e958f6251a558518fa6e2b67ad41a1b5c97c7d88724338",
+  "method": "Sum of all build-info files bytes, excluding sw.js and build-info.json consistently. Same Vite, source prerequisite baseline and simulated backend configuration; no dependency change.",
+  "beforeBytes": 11402943,
+  "afterBytes": 11414105,
+  "deltaBytes": 11162,
+  "svgSources": [
+    {
+      "file": "src/assets/mascot/welcome.svg",
+      "bytes": 812
+    },
+    {
+      "file": "src/assets/mascot/attention.svg",
+      "bytes": 851
+    },
+    {
+      "file": "src/assets/mascot/ready.svg",
+      "bytes": 871
+    }
+  ],
+  "svgBytes": 2534,
+  "targetBytes": 150000,
+  "passed": true
+}

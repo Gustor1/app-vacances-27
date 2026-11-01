@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8faf8">
+  <title>Détours — L’atelier des compagnons</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <a class="wordmark" href="#main">détours<span aria-hidden="true">✦</span></a>
+      <span class="prototype-label">L’atelier des compagnons</span>
+      <span class="demo-label">Prototype</span>
+    </header>
+    <main id="main">
+      <section class="intro" aria-labelledby="page-title">
+        <div><h1 id="page-title">Un petit compagnon.<br>De grands détours.</h1><p>Pico prend vie. Choisis son univers, teste ses petites habitudes<br class="wide-only"> et invite-le dans un carnet de démonstration.</p></div>
+        <p class="intro-note">Un clic sur ton compagnon,<br>et le voyage reprend.</p>
+      </section>
+
+      <div class="workbench">
+        <section class="stage-panel" aria-labelledby="character-name">
+          <div class="stage-heading"><div><span class="caption">Ton compagnon</span><h2 id="character-name">Pico</h2></div><span class="status-pill" id="state-label">Se repose</span></div>
+          <div class="pet-stage" id="pet-stage">
+            <div class="stage-landscape" aria-hidden="true"><span class="landscape-line"></span><span class="landscape-point point-a"></span><span class="landscape-point point-b"></span><span class="landscape-point point-c"></span></div>
+            <div class="mascot-wrap hero-wrap">
+              <button class="pet-button hero-pet" id="hero-pet" aria-label="Ouvrir les raccourcis de Pico" aria-expanded="false" aria-controls="hero-menu"><span id="hero-sprite" class="sprite-mount" aria-hidden="true"></span></button>
+              <div class="pet-menu" id="hero-menu" hidden><p>On fait quoi ?</p><button data-action="now"><span aria-hidden="true">◷</span><span class="now-label">En ce moment</span><span aria-hidden="true">›</span></button><button data-action="ideas"><span aria-hidden="true">✧</span><span>J’ai un peu de temps</span><span aria-hidden="true">›</span></button><button data-action="help"><span aria-hidden="true">?</span><span>Un coup de main</span><span aria-hidden="true">›</span></button></div>
+            </div>
+            <div class="hidden-pet" id="hidden-pet" hidden><span aria-hidden="true">✦</span><p>Un peu de calme.</p><small>Ton compagnon revient quand tu veux.</small></div>
+          </div>
+          <div class="stage-footer"><p id="character-note">Une hirondelle curieuse, toujours prête à repartir.</p><span id="click-hint">Clique sur Pico</span></div>
+          <fieldset class="animation-controls"><legend>Une petite animation ?</legend><div class="segmented"><button type="button" data-state="idle" aria-pressed="true">Au repos</button><button type="button" data-state="greet" aria-pressed="false">Salut !</button><button type="button" data-state="map" aria-pressed="false">La carte</button><button type="button" data-state="sleep" aria-pressed="false">Dodo</button></div></fieldset>
+        </section>
+
+        <aside class="settings" aria-label="Personnaliser le compagnon"><p class="floating-instructions">Ton compagnon flotte sur la page. Glisse-le où tu veux, puis clique dessus pour ouvrir ses raccourcis.</p>
+          <fieldset class="character-picker"><legend>Qui part avec toi ?</legend>
+            <button type="button" data-character="pico" class="character-choice" aria-pressed="true"><span class="character-symbol" aria-hidden="true"><span class="sprite-mount" id="preview-pico"></span></span><span><strong>Pico</strong><small>L’hirondelle voyageuse</small></span><span class="selection-mark" aria-hidden="true">✓</span></button>
+            <button type="button" data-character="mochi" class="character-choice" aria-pressed="false"><span class="character-symbol" aria-hidden="true"><span class="sprite-mount" id="preview-mochi"></span></span><span><strong>Mochi</strong><small>L’axolotl explorateur</small></span><span class="selection-mark" aria-hidden="true">✓</span></button>
+            <button type="button" data-character="bivouac" class="character-choice" aria-pressed="false"><span class="character-symbol" aria-hidden="true"><span class="sprite-mount" id="preview-bivouac"></span></span><span><strong>Bivouac</strong><small>Le sac à dos vivant</small></span><span class="selection-mark" aria-hidden="true">✓</span></button>
+          </fieldset>
+          <fieldset class="palette-picker"><legend>À tes couleurs</legend><div class="palette-buttons" id="palette-buttons"></div><p class="palette-label" id="palette-label">Porcelaine</p><div class="appearance-picker"><button type="button" data-appearance="light" aria-pressed="true">Clair</button><button type="button" data-appearance="dark" aria-pressed="false">Sombre</button></div></fieldset>
+          <div class="preferences"><label class="switch-row" for="animate"><span><strong>Petites animations</strong><small id="motion-note">Des mouvements doux et espacés.</small></span><input type="checkbox" id="animate" checked></label><label class="switch-row" for="visible"><span><strong>Afficher le compagnon</strong><small>Tu peux aussi voyager sans lui.</small></span><input type="checkbox" id="visible" checked></label></div>
+        <button type="button" id="reset-position" class="reset-position">Replacer le compagnon sur le côté</button></aside>
+      </div>
+
+      <section class="trip-demo" aria-labelledby="trip-title">
+        <div class="section-heading"><div><span class="caption">Dans un carnet</span><h2 id="trip-title">Une journée à Kyoto</h2></div><span class="fiction-badge">Voyage fictif</span></div>
+        <p class="trip-description">Teste les raccourcis du compagnon. L’heure ci-dessous est simulée ; aucun de tes carnets n’est utilisé.</p>
+        <fieldset class="clock-control"><legend>Horloge de démo <span>12 mai 2027 · Kyoto, UTC+9</span></legend><div class="segmented"><button type="button" data-time="09:30" aria-pressed="true">09:30</button><button type="button" data-time="12:00" aria-pressed="false">12:00</button><button type="button" data-time="17:00" aria-pressed="false">17:00</button><button type="button" data-time="unknown" aria-pressed="false">Sans horaires</button></div></fieldset>
+        <div class="trip-window">
+          <div class="trip-window-header"><div><strong>Kyoto, à notre rythme</strong><span>Mercredi 12 mai</span></div><span aria-hidden="true">✦</span></div>
+          <div class="trip-body"><ol class="itinerary" id="itinerary"><li data-slot="09:30"><span class="trip-time">09:00 – 10:30</span><div><strong>Flâner au marché Nishiki</strong><p>Prendre le temps de goûter et de regarder.</p></div></li><li data-slot="12:00"><span class="trip-time">12:00 – 13:00</span><div><strong>Une pause déjeuner</strong><p>Choisir une petite adresse près du marché.</p></div></li><li data-slot="17:00"><span class="trip-time">16:30 – 17:30</span><div><strong>Balade du côté de Yasaka</strong><p>Finir doucement la journée à pied.</p></div></li></ol>
+          <div class="travel-companion"><div class="mascot-wrap mini-wrap"><button class="pet-button trip-pet" id="trip-pet" aria-label="Ouvrir les raccourcis de Pico dans le carnet" aria-expanded="false" aria-controls="trip-menu" aria-describedby="drag-help"><span id="trip-sprite" class="sprite-mount" aria-hidden="true"></span></button><div class="pet-menu" id="trip-menu" hidden><p>On fait quoi ?</p><button data-action="now"><span aria-hidden="true">◷</span><span class="now-label">En ce moment</span><span aria-hidden="true">›</span></button><button data-action="ideas"><span aria-hidden="true">✧</span><span>J’ai un peu de temps</span><span aria-hidden="true">›</span></button><button data-action="help"><span aria-hidden="true">?</span><span>Un coup de main</span><span aria-hidden="true">›</span></button></div></div><span class="mini-caption" aria-hidden="true">Déplace-moi</span><span class="sr-only" id="drag-help">Glisser pour déplacer. Au clavier : Maj et les flèches. Cliquer ou Entrée pour les raccourcis.</span></div></div>
+          <nav class="trip-navigation" aria-label="Raccourcis du carnet de démonstration"><button data-action="now">Ma journée</button><button data-action="ideas">Mes idées</button><button data-action="help">Coup de main</button></nav>
+        </div>
+        <section id="action-panel" class="action-panel" aria-labelledby="action-heading" hidden><div class="action-heading-row"><h3 id="action-heading" tabindex="-1"></h3><button id="close-panel" aria-label="Fermer le détail">×</button></div><div id="action-content"></div><small>Démonstration locale · Aucune modification de carnet</small></section>
+      </section>
+      <footer class="footer"><span>Petit compagnon, grandes escapades.</span><span>Apparence et interactions à valider avant intégration.</span></footer>
+    </main>
+  </div>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>
+

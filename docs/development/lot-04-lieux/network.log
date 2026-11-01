@@ -1,0 +1,175 @@
+{
+  "date": "2026-10-21T07:38:07.015Z",
+  "kind": "real-public-GETs-not-browser-CORS-proof",
+  "requests": [
+    {
+      "url": "https://www.wikidata.org/w/api.php?format=json&origin=*&maxlag=5&action=wbsearchentities&search=Tour+Eiffel+Paris+France&language=fr&uselang=fr&type=item&limit=6",
+      "status": 200,
+      "cors": "*",
+      "milliseconds": 359
+    },
+    {
+      "url": "https://www.wikidata.org/w/api.php?format=json&origin=*&maxlag=5&action=wbsearchentities&search=Tour+Eiffel&language=fr&uselang=fr&type=item&limit=6",
+      "status": 200,
+      "cors": "*",
+      "milliseconds": 286
+    },
+    {
+      "url": "https://www.wikidata.org/w/api.php?format=json&origin=*&maxlag=5&action=wbgetentities&ids=Q243&props=labels%7Cdescriptions%7Cclaims&languages=fr%7Cmul%7Cen%7Czh%7Cfr%7Ces",
+      "status": 200,
+      "cors": "*",
+      "milliseconds": 476
+    },
+    {
+      "url": "https://commons.wikimedia.org/w/api.php?format=json&origin=*&maxlag=5&action=query&titles=File%3ATour+Eiffel+Wikimedia+Commons.jpg&prop=imageinfo&iiprop=url%7Csize%7Cmime%7Cextmetadata&iiurlwidth=640&iiurlheight=1280&iiextmetadatalanguage=en",
+      "status": 200,
+      "cors": "*",
+      "milliseconds": 106
+    },
+    {
+      "url": "https://www.wikidata.org/w/api.php?format=json&origin=*&maxlag=5&action=wbsearchentities&search=%E6%95%85%E5%AE%AB+%E5%8C%97%E4%BA%AC+%E4%B8%AD%E5%9B%BD&language=zh&uselang=zh&type=item&limit=6",
+      "status": 200,
+      "cors": "*",
+      "milliseconds": 274
+    },
+    {
+      "url": "https://www.wikidata.org/w/api.php?format=json&origin=*&maxlag=5&action=wbsearchentities&search=%E6%95%85%E5%AE%AB&language=zh&uselang=zh&type=item&limit=6",
+      "status": 200,
+      "cors": "*",
+      "milliseconds": 305
+    },
+    {
+      "url": "https://www.wikidata.org/w/api.php?format=json&origin=*&maxlag=5&action=wbgetentities&ids=Q80290&props=labels%7Cdescriptions%7Cclaims&languages=zh%7Cmul%7Cen%7Czh%7Cfr%7Ces",
+      "status": 200,
+      "cors": "*",
+      "milliseconds": 429
+    },
+    {
+      "url": "https://commons.wikimedia.org/w/api.php?format=json&origin=*&maxlag=5&action=query&titles=File%3AHall+of+Supreme+Harmony+%2820241127120000%29.jpg&prop=imageinfo&iiprop=url%7Csize%7Cmime%7Cextmetadata&iiurlwidth=640&iiurlheight=1280&iiextmetadatalanguage=en",
+      "status": 200,
+      "cors": "*",
+      "milliseconds": 30
+    }
+  ],
+  "outcomes": [
+    {
+      "name": "Tour Eiffel",
+      "city": "Paris",
+      "country": "France",
+      "qid": "Q243",
+      "language": "fr",
+      "candidates": [
+        {
+          "qid": "Q243",
+          "label": "tour Eiffel",
+          "description": "tour de fer puddlé de 330 mètres à Paris, France"
+        },
+        {
+          "qid": "Q28092184",
+          "label": "Tour Eiffel",
+          "description": "pochoir de Robert Delaunay (Museum of Modern Art, 1918)"
+        },
+        {
+          "qid": "Q28061050",
+          "label": "Tour Eiffel",
+          "description": "série de tableaux de Robert Delaunay"
+        },
+        {
+          "qid": "Q18927486",
+          "label": "Tour Eiffel",
+          "description": "tableau de Robert Delaunay (musée d'art moderne de la Ville de Paris)"
+        },
+        {
+          "qid": "Q19018655",
+          "label": "Champs-de-Mars, La Tour rouge",
+          "description": "tableau de Robert Delaunay"
+        },
+        {
+          "qid": "Q3533063",
+          "label": "Tour Eiffel aux arbres",
+          "description": "peinture à l’huile de Robert Delaunay (Solomon R. Guggenheim Museum)"
+        }
+      ],
+      "details": {
+        "qid": "Q243",
+        "source": "https://www.wikidata.org/wiki/Q243",
+        "checkedAt": "2026-10-21T07:38:05.960Z",
+        "values": {
+          "title": "tour Eiffel",
+          "chineseName": "埃菲尔铁塔",
+          "localName": "tour Eiffel",
+          "website": "https://www.toureiffel.paris",
+          "coordinates": [
+            48.858296,
+            2.294479
+          ]
+        },
+        "description": "tour de fer puddlé de 330 mètres à Paris, France"
+      }
+    },
+    {
+      "name": "故宫",
+      "city": "北京",
+      "country": "中国",
+      "qid": "Q80290",
+      "language": "zh",
+      "candidates": [
+        {
+          "qid": "Q80290",
+          "label": "故宫",
+          "description": "中國明清兩個朝代二十四位皇帝的皇宫"
+        },
+        {
+          "qid": "Q96677004",
+          "label": "故宮",
+          "description": "台灣演義第86集"
+        },
+        {
+          "qid": "Q63717578",
+          "label": "故宫博物院院刊",
+          "description": "期刊"
+        },
+        {
+          "qid": "Q2047427",
+          "label": "故宫博物院",
+          "description": "中國北京故宮的博物館"
+        },
+        {
+          "qid": "Q63491199",
+          "label": "故宫",
+          "description": "1976年学术文章"
+        },
+        {
+          "qid": "Q63482046",
+          "label": "故宫",
+          "description": "article published in 1957"
+        }
+      ],
+      "details": {
+        "qid": "Q80290",
+        "source": "https://www.wikidata.org/wiki/Q80290",
+        "checkedAt": "2026-10-21T07:38:07.015Z",
+        "values": {
+          "title": "故宫",
+          "chineseName": "故宫",
+          "website": "https://www.dpm.org.cn",
+          "coordinates": [
+            39.91583333333333,
+            116.39083333333333
+          ],
+          "photo": {
+            "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Hall_of_Supreme_Harmony_%2820241127120000%29.jpg/960px-Hall_of_Supreme_Harmony_%2820241127120000%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "source": "https://commons.wikimedia.org/wiki/File:Hall_of_Supreme_Harmony_(20241127120000).jpg",
+            "author": "N509FZ",
+            "license": "CC BY-SA 4.0",
+            "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "width": 640,
+            "height": 427,
+            "mime": "image/jpeg"
+          }
+        },
+        "description": "中國明清兩個朝代二十四位皇帝的皇宫"
+      }
+    }
+  ]
+}

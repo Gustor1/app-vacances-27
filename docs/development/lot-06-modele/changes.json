@@ -1,0 +1,187 @@
+[
+  {
+    "file": "docs/development/lot-06-modele/RAPPORT.md",
+    "bytes": 20739,
+    "sha256": "d3b60b73ff581b4b17db1a6fa9fa087e7f73d5ba8c4efbecf64126c6325c6518"
+  },
+  {
+    "file": "docs/development/lot-06-modele/SOURCES.md",
+    "bytes": 8262,
+    "sha256": "dab802773b78f50854d24c31abb38d38770e5c5022e66e718c1e857afb793613"
+  },
+  {
+    "file": "docs/development/lot-06-modele/analysis.json",
+    "bytes": 347150,
+    "sha256": "8ae3af6e65a93ecfe07270e30e95cb29f38dd0f7beb6bff755e29e33ec164f49"
+  },
+  {
+    "file": "docs/development/lot-06-modele/analysis.log",
+    "bytes": 3471,
+    "sha256": "6f792e81223cc178bb87b4c398cfe80f59b840e20a83aa8d2008a735bec8ea22"
+  },
+  {
+    "file": "docs/development/lot-06-modele/benchmark-final-tests.log",
+    "bytes": 775,
+    "sha256": "47608b8f7a4497fe7e9ada97ced39e384a3d984ee8206d1bb8539c03e6d1f19c"
+  },
+  {
+    "file": "docs/development/lot-06-modele/benchmark-first-attempt.log",
+    "bytes": 859,
+    "sha256": "a36fef0865c1770f4d130826011e8c35f008a9b79e9c7f9dfe3e474ba5b77ef0"
+  },
+  {
+    "file": "docs/development/lot-06-modele/benchmark-lint.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "docs/development/lot-06-modele/benchmark.log",
+    "bytes": 859,
+    "sha256": "a36fef0865c1770f4d130826011e8c35f008a9b79e9c7f9dfe3e474ba5b77ef0"
+  },
+  {
+    "file": "docs/development/lot-06-modele/concurrent-observed.json",
+    "bytes": 588,
+    "sha256": "8857f895161a8619d398cf4a7fc78a9ff58cd0163443ed9978c9474de20df38a"
+  },
+  {
+    "file": "docs/development/lot-06-modele/download.json",
+    "bytes": 1893,
+    "sha256": "5186eb488176a7ebe98403ef93eac293bd40b47b81537ddc06096fbe7f4dd05e"
+  },
+  {
+    "file": "docs/development/lot-06-modele/execution-fixes.json",
+    "bytes": 228,
+    "sha256": "efac05b7b942ad3c70981bfa5276d9da5f062e6fa8aa48c3f8e57813192cdc92"
+  },
+  {
+    "file": "docs/development/lot-06-modele/freeze.json",
+    "bytes": 948,
+    "sha256": "afe09da76e70d79ddd2dad4759465dab90d3a17fdcf16f5a62d795a174dab370"
+  },
+  {
+    "file": "docs/development/lot-06-modele/git-status-final.txt",
+    "bytes": 5179,
+    "sha256": "8ce12de0d17bf5a1d50c55f6272eff01e0df30a004aabb2c1acf9ef82ab812af"
+  },
+  {
+    "file": "docs/development/lot-06-modele/lint.log",
+    "bytes": 65,
+    "sha256": "74f8df781de6e724c4fe2f361083ea5b2a25658aff877fe637b9a0f993fd266f"
+  },
+  {
+    "file": "docs/development/lot-06-modele/patch-check.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "file": "docs/development/lot-06-modele/protocol-initial.md",
+    "bytes": 3154,
+    "sha256": "7a8b23af0b275447a0a715823fac55e8836c9e6269e0df4d4aebdd5cf429f81b"
+  },
+  {
+    "file": "docs/development/lot-06-modele/recovery.json",
+    "bytes": 1148,
+    "sha256": "c739d2143d6dd978eab3a5068d4fbaa117f44488704bf7aa9cd48afe4c8254a2"
+  },
+  {
+    "file": "docs/development/lot-06-modele/recovery.log",
+    "bytes": 884,
+    "sha256": "6cde8f58c838181eb6f5283892c1cdd56efb5594feb01168a1aea743653b3830"
+  },
+  {
+    "file": "docs/development/lot-06-modele/results-first-attempt.json",
+    "bytes": 189782,
+    "sha256": "6c417530340cd2cea0b6a27fcc7b6f3eba65275317d18bd4ab81d5aa152e470c"
+  },
+  {
+    "file": "docs/development/lot-06-modele/results.json",
+    "bytes": 191335,
+    "sha256": "6fef97784deae1f600644fa143c255279a66920e55653b7de6edd894986ab0b0"
+  },
+  {
+    "file": "docs/development/lot-06-modele/rules-only-smoke.json",
+    "bytes": 57732,
+    "sha256": "8a7803afb693b46e8f03740dafb5c4290d87811fd7905b0cad7c852fb675a556"
+  },
+  {
+    "file": "docs/development/lot-06-modele/rules-only-smoke.log",
+    "bytes": 230,
+    "sha256": "6e82f6cd4207e109d2e3e20cd4d7fa1a7ff2771ff42d4284eaf7f4f641a9d485"
+  },
+  {
+    "file": "docs/development/lot-06-modele/runner-initial.mjs.txt",
+    "bytes": 6040,
+    "sha256": "8ba1b55c77c72b30e4b437f935400a43baf705896f3ce8a62a110f2b0976a3da"
+  },
+  {
+    "file": "docs/development/lot-06-modele/runtime-package-lock.json",
+    "bytes": 35053,
+    "sha256": "e613c7f6e2a15fabc25d8540ce74962eed82ae955e5f0811aad02c3c5bc38fae"
+  },
+  {
+    "file": "docs/development/lot-06-modele/tests.log",
+    "bytes": 6786,
+    "sha256": "d340637a36a8c39562d4d6806d838eb9ed752bc62f0bb205743be7a35e7a8268"
+  },
+  {
+    "file": "docs/development/lot-06-modele/typecheck.log",
+    "bytes": 95,
+    "sha256": "adf6853a6a54bc07eb19155036b3c1d8ac1e521cefc53d09f19e1ae4f6576537"
+  },
+  {
+    "file": "docs/development/lot-06-modele/validation.json",
+    "bytes": 1606,
+    "sha256": "6d790c77de39466ed82dd6eb2c6b42e5de2d36850d2beec4a0c963a652f25623"
+  },
+  {
+    "file": "scripts/benchmark-lot06.mjs",
+    "bytes": 6451,
+    "sha256": "327a3f5c98ba78421b106ae01b1008297d225a4410b3d494a50441e45497156c"
+  },
+  {
+    "file": "scripts/lot06-analyze.mjs",
+    "bytes": 6738,
+    "sha256": "048ab55758f4515ce29da5dd3f4515e5fbc237c395137cded9668953b07e5124"
+  },
+  {
+    "file": "scripts/lot06-core.mjs",
+    "bytes": 4281,
+    "sha256": "fd5c79d4307f09ebe520878b88261d22005a91c0f89ee941bcbc01628d42ca7c"
+  },
+  {
+    "file": "scripts/lot06-download.mjs",
+    "bytes": 2834,
+    "sha256": "2843573e3a6a71ed36a9f260105e6ae1f1929676f63723104ac0c4e9ad047ba4"
+  },
+  {
+    "file": "scripts/lot06-preservation.mjs",
+    "bytes": 1992,
+    "sha256": "fb7099c9c5938036ee87cdf38ea060b4c492773743cf420c32cdd73b27ca88ec"
+  },
+  {
+    "file": "scripts/lot06-process.mjs",
+    "bytes": 543,
+    "sha256": "c7909d4ff1cf9da8f402bc5cb8be9f390c210b6fe5f2f9e73d3a6e80d3e1cb87"
+  },
+  {
+    "file": "scripts/lot06-recover.mjs",
+    "bytes": 2143,
+    "sha256": "59d99da107fbebdfe4fc3b58039f80e8fb4a19b8ef44a42a8aa0651064024e00"
+  },
+  {
+    "file": "scripts/lot06-worker.mjs",
+    "bytes": 1685,
+    "sha256": "58cb32d25b5a195d26a1841bf4ef491960a7d169e0e547fc7881272f65381167"
+  },
+  {
+    "file": "tests/fixtures/planning/lot06-corpus.json",
+    "bytes": 4429,
+    "sha256": "fbeaebe6424c3fe505a967135ee6ceec524367be05efee99aeed83265a81180f"
+  },
+  {
+    "file": "tests/lot06-benchmark.test.mjs",
+    "bytes": 5590,
+    "sha256": "3fb4ce2a74b38d44bbc78de10ee11459dd8940b86f0575bb98b7f4ad2373a7a2"
+  }
+]

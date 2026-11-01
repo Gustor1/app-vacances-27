@@ -1,0 +1,354 @@
+[
+  {
+    "name": "chromium-dark-1440-map",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 73,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-320-home",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 38,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-320-preferences",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 46,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-320-form",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 50,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-320-planning",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 125,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-320-notebook",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 77,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-390-home",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 38,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-390-preferences",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 46,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-390-form",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 50,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-390-planning",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 125,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-390-notebook",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 77,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-430-home",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 38,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-430-preferences",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 46,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-430-form",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 50,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-430-planning",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 125,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "chromium-dark-430-notebook",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 77,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-home",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 39,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-preferences",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 47,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-form",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 50,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-planning",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 128,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-notebook",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 78,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-bonus",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 83,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-overview",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 62,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-tools",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 58,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-now",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 58,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-transport",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 68,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "chromium-dark-1440-world",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 35,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-390-home",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 38,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-390-preferences",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 46,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-390-form",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 50,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-390-planning",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 125,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-390-notebook",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 77,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": true
+  },
+  {
+    "name": "webkit-dark-1440-home",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 39,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-preferences",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 47,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-form",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 50,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-planning",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 128,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-notebook",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 78,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-bonus",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 83,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-overview",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 62,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-map",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 73,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-tools",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 58,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-now",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 58,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-transport",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 68,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  },
+  {
+    "name": "webkit-dark-1440-world",
+    "scope": "Common semantic HTML classes; authorized brand artwork, SVG and asynchronous Leaflet internals excluded",
+    "comparedClasses": 35,
+    "differences": [],
+    "stylesIdentical": true,
+    "pixelsIdentical": false
+  }
+]

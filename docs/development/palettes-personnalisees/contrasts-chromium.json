@@ -1,0 +1,189 @@
+[
+  {
+    "name": "Texte principal sur lin",
+    "foreground": [
+      37,
+      59,
+      50,
+      1
+    ],
+    "background": [
+      232,
+      223,
+      208,
+      1
+    ],
+    "ratio": 9.082434008992017,
+    "target": 4.5
+  },
+  {
+    "name": "Texte secondaire sur lin",
+    "foreground": [
+      89,
+      100,
+      89,
+      1
+    ],
+    "background": [
+      232,
+      223,
+      208,
+      1
+    ],
+    "ratio": 4.686778359682672,
+    "target": 4.5
+  },
+  {
+    "name": "Texte sur bouton vert",
+    "foreground": [
+      250,
+      246,
+      238,
+      1
+    ],
+    "background": [
+      59,
+      109,
+      88,
+      1
+    ],
+    "ratio": 5.543502580628404,
+    "target": 4.5
+  },
+  {
+    "name": "Marque sur barre translucide",
+    "foreground": [
+      37,
+      59,
+      50,
+      1
+    ],
+    "background": [
+      232,
+      223,
+      208,
+      1
+    ],
+    "ratio": 9.082434008992017,
+    "target": 4.5
+  },
+  {
+    "name": "Titre sur surface crème",
+    "foreground": [
+      37,
+      59,
+      50,
+      1
+    ],
+    "background": [
+      247,
+      242,
+      233,
+      1
+    ],
+    "ratio": 10.759441451928412,
+    "target": 4.5
+  },
+  {
+    "name": "Saisie sur champ",
+    "foreground": [
+      37,
+      59,
+      50,
+      1
+    ],
+    "background": [
+      242,
+      235,
+      223,
+      1
+    ],
+    "ratio": 10.126410638092386,
+    "target": 4.5
+  },
+  {
+    "name": "Bordure du champ sur surface",
+    "foreground": [
+      113,
+      128,
+      111,
+      1
+    ],
+    "background": [
+      247,
+      242,
+      233,
+      1
+    ],
+    "ratio": 3.751944297315189,
+    "target": 3
+  },
+  {
+    "name": "Placeholder sur champ",
+    "foreground": [
+      89,
+      100,
+      89,
+      1
+    ],
+    "background": [
+      242,
+      235,
+      223,
+      1
+    ],
+    "ratio": 5.22549816413574,
+    "target": 4.5
+  },
+  {
+    "name": "Texte sélectionné sur sauge",
+    "foreground": [
+      59,
+      109,
+      88,
+      1
+    ],
+    "background": [
+      220,
+      230,
+      216,
+      1
+    ],
+    "ratio": 4.653351685035627,
+    "target": 4.5
+  },
+  {
+    "name": "Focus clavier sur lin",
+    "foreground": [
+      59,
+      109,
+      88,
+      1
+    ],
+    "background": [
+      232,
+      223,
+      208,
+      1
+    ],
+    "ratio": 4.523488270688507,
+    "target": 3
+  },
+  {
+    "name": "Marque sur repli opaque à contraste renforcé",
+    "foreground": [
+      37,
+      59,
+      50,
+      1
+    ],
+    "background": [
+      232,
+      223,
+      208,
+      1
+    ],
+    "ratio": 9.082434008992017,
+    "target": 4.5
+  }
+]

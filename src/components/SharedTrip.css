@@ -20,7 +20,7 @@
 .shared-trip-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:28px 0 0}
 .shared-trip-stats>div{display:flex;flex-direction:column-reverse;gap:7px;padding:16px;background:var(--surface-alt);border:1px solid var(--line);border-radius:12px;min-width:0}
 .shared-trip-stats dt{font-size:11px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
-.shared-trip-stats dd{font-family:'Manrope Variable',sans-serif;font-size:24px;font-weight:750;margin:0}
+.shared-trip-stats dd{font-family:var(--font-ui);font-size:24px;font-weight:750;margin:0}
 .shared-trip-actions{padding-left:28px;border-left:1px solid var(--line);display:flex;flex-direction:column;align-items:stretch;gap:12px;min-width:0}
 .shared-trip-actions h2{font-size:18px;line-height:1.4}
 .shared-trip-actions>p{font-size:13px;line-height:1.75;color:var(--muted);margin-bottom:4px}
@@ -51,7 +51,7 @@
 .read-only-trip .shared-steps>li{counter-increment:shared-step;position:relative;margin:0;padding:20px 20px 20px 62px;border:1px solid var(--line);border-radius:14px;background:var(--surface-alt);line-height:1.75;min-width:0}
 .shared-steps>li:before{content:counter(shared-step,decimal-leading-zero);position:absolute;left:20px;top:22px;font-size:12px;font-weight:650;color:var(--green)}
 .shared-step-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.shared-step-title h5{font:700 16px/1.5 'Manrope Variable',sans-serif;margin:0;overflow-wrap:anywhere}
+.shared-step-title h5{font:700 16px/1.5 var(--font-ui);margin:0;overflow-wrap:anywhere}
 .shared-step-title>span{font-size:12px;color:var(--muted)}
 .shared-steps p{margin-top:10px;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
 .shared-step-address{display:flex;align-items:flex-start;gap:8px;color:var(--muted)}

@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-25",
+  "generatedAt": "2026-10-25T08:50:28.276Z",
+  "timezone": "Asia/Shanghai",
+  "baseRevision": "1366febb5c9ed2e6d121b28d7b2935f20d8c5fe6",
+  "sourceFingerprint": "8889602332f479968a8d6a8cb126253f33787f3ff1c6298736388020cc21d6d4",
+  "fingerprintScope": "Git-visible code, configs, tests and assets; docs/ and Markdown excluded; ignored files excluded",
+  "sourceUnchanged": true,
+  "buildId": "66a0649558f7047329ff97514a976921d2dd87dc7c4c9d6f0f0e327d94a0e4dd",
+  "environment": {
+    "platform": "win32",
+    "node": "v24.15.0",
+    "browser": "Playwright Chromium / installed Chrome",
+    "backend": "simulated, isolated profiles"
+  },
+  "exitCode": 1,
+  "checks": [
+    {
+      "name": "palettes, logo et préférences",
+      "startedAt": "2026-10-25T08:41:20.484Z",
+      "finishedAt": "2026-10-25T08:44:10.289Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "analyse planning simulée dans le navigateur",
+      "startedAt": "2026-10-25T08:44:10.289Z",
+      "finishedAt": "2026-10-25T08:44:28.684Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "états L4/L5/L6 et préférences dans le navigateur",
+      "startedAt": "2026-10-25T08:44:28.684Z",
+      "finishedAt": "2026-10-25T08:46:23.614Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-production",
+      "startedAt": "2026-10-25T08:46:23.614Z",
+      "finishedAt": "2026-10-25T08:46:51.902Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-backup",
+      "startedAt": "2026-10-25T08:46:51.902Z",
+      "finishedAt": "2026-10-25T08:46:57.008Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-ui",
+      "startedAt": "2026-10-25T08:46:57.008Z",
+      "finishedAt": "2026-10-25T08:47:13.352Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-common-sharing",
+      "startedAt": "2026-10-25T08:47:13.352Z",
+      "finishedAt": "2026-10-25T08:47:28.015Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-l4-offline",
+      "startedAt": "2026-10-25T08:47:28.016Z",
+      "finishedAt": "2026-10-25T08:47:36.786Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-l4-persistence",
+      "startedAt": "2026-10-25T08:47:36.786Z",
+      "finishedAt": "2026-10-25T08:47:42.809Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-l5-now",
+      "startedAt": "2026-10-25T08:47:42.809Z",
+      "finishedAt": "2026-10-25T08:47:47.687Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-l6-preparation",
+      "startedAt": "2026-10-25T08:47:47.687Z",
+      "finishedAt": "2026-10-25T08:47:52.517Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "smoke-l8-release",
+      "startedAt": "2026-10-25T08:47:52.517Z",
+      "finishedAt": "2026-10-25T08:47:59.261Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "kit et JSON structurés compilés hors ligne",
+      "startedAt": "2026-10-25T08:47:59.261Z",
+      "finishedAt": "2026-10-25T08:48:09.529Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "PDF et DOCX compilés hors ligne",
+      "startedAt": "2026-10-25T08:48:09.529Z",
+      "finishedAt": "2026-10-25T08:48:20.582Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "compagnon compilé hors ligne",
+      "startedAt": "2026-10-25T08:48:20.582Z",
+      "finishedAt": "2026-10-25T08:48:25.907Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "souvenirs navigateur",
+      "startedAt": "2026-10-25T08:48:25.907Z",
+      "finishedAt": "2026-10-25T08:49:05.119Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "souvenirs compilés hors ligne",
+      "startedAt": "2026-10-25T08:49:05.119Z",
+      "finishedAt": "2026-10-25T08:49:13.458Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "assistant navigateur",
+      "startedAt": "2026-10-25T08:49:13.458Z",
+      "finishedAt": "2026-10-25T08:50:26.841Z",
+      "exitCode": 1,
+      "status": "failed"
+    }
+  ],
+  "notRun": [
+    "assistant compilé hors ligne",
+    "mascotte navigateur",
+    "mascotte compilée hors ligne",
+    "lieux compilés hors ligne",
+    "PWA mobile compilée",
+    "mise à jour Chrome et WebKit",
+    "planning compilé, carte, hors ligne et restauration"
+  ],
+  "limits": [
+    "No remote service, Google OAuth, physical device or full browser suite verification",
+    "Browser external DNS blocked; loopback and intercepted mocks available; network test commands not invoked"
+  ],
+  "output": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-verify-g4vkcH"
+}

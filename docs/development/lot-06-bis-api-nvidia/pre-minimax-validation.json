@@ -1,0 +1,68 @@
+{
+  "status": "prepared-and-verified-no-live-inference",
+  "unitTests": {
+    "passed": 301,
+    "failed": 0,
+    "log": "unit-tests.log"
+  },
+  "nvidiaTargetedTests": {
+    "passed": 33,
+    "failed": 0,
+    "log": "nvidia-tests.log"
+  },
+  "browserTests": {
+    "passed": 7,
+    "failed": 0,
+    "provider": "not-called",
+    "backend": "simulated",
+    "log": "browser-tests.log"
+  },
+  "typecheck": {
+    "exitCode": 0,
+    "log": "typecheck.log"
+  },
+  "lint": {
+    "exitCode": 0,
+    "log": "lint.log"
+  },
+  "explicitBenchmarkLint": {
+    "exitCode": 0,
+    "log": "benchmark-lint.log"
+  },
+  "simulation": {
+    "oracleConstructedFromExpectations": true,
+    "attempts": 12,
+    "replayAttempts": 12,
+    "notModelQuality": true,
+    "protocolFingerprint": "c09d3cf3342c8fd5c60eb0d64a566cb1a6afb7752adcbba86520db4d97365fa5"
+  },
+  "live": {
+    "inferenceCalls": 0,
+    "tokens": null,
+    "latency": null,
+    "quality": null,
+    "model": null,
+    "keyUsed": false,
+    "deferredByUser": true
+  },
+  "fullGate": {
+    "executed": false,
+    "reason": "Isolated benchmark; no product/server changes"
+  },
+  "physicalIPhone": false,
+  "published": false,
+  "comparisonSha256": "3ec7e4aca314ebf379ad0d4966914ace6a0f865a972c498be2dfdab19a28eb39",
+  "preservation": {
+    "initialFiles": 1232,
+    "identical": 1232,
+    "changed": 0,
+    "missing": 0,
+    "unexpectedAdditions": 0
+  },
+  "patchReverseCheck": {
+    "passed": true,
+    "applied": false
+  },
+  "benchmarkOrTestProcessesRemaining": 0,
+  "productReferencesToNvidiaClientOrKeyName": 0
+}

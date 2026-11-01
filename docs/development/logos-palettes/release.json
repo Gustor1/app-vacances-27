@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-10-19T10:42:07.518Z",
+  "baseRevision": "c1dd8a686e5962a156bad1489e4e4d3f2c731d64",
+  "sourceFingerprint": "5a4ded414fe9d67df25df2f742bf0f313955963638173b22c355ed807f867e69",
+  "validationReport": "C:\\Users\\eliot\\Documents\\app-vacances-27\\docs\\development\\logos-palettes\\validation.json",
+  "validationBuildId": "1804a388b9fc93a5cb73bb4e0783ead553b57318c3e4d29bb4a2fa407016310d",
+  "candidateBuildId": "6b78bce678df535a22170f98670d930bd65df61c4675448b2246380a415b1cb3",
+  "entry": "/assets/index-BND7xtOv.js",
+  "configuration": "Vite configuration from this checkout; environment values not copied into this report",
+  "published": true,
+  "remoteMigrationApplied": false,
+  "remaining": [
+    "Physical devices, real OAuth/cloud synchronization and OS installation not tested"
+  ],
+  "rollback": "Keep the previous deployment and database helper migration. Code rollback does not revert data; export a complete notebook backup before any explicit data restoration.",
+  "deploymentId": "dpl_61vHQY2eSUUTK9x6WPy6RgPkV1sy",
+  "deploymentUrl": "https://app-vacances-27-p1t1y8udg-eliottle.vercel.app",
+  "publicUrl": "https://app-vacances-27-beta-eliottle.vercel.app",
+  "previousDeploymentId": "dpl_E6v9zr2TgMEdTLKh1NJq5NeMRCLG",
+  "type": "preview with public stable beta alias",
+  "sourceStillMatchesGate": true
+}

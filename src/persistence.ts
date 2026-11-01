@@ -1,5 +1,6 @@
 import type { City, StoredState } from './types';
 import { cleanReferences, isObj } from './lib.ts';
+import { validAssociation } from './places/model.ts';
 
 const equal = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
 type Identified = { id?: string; cityId?: string };
@@ -9,6 +10,9 @@ const identified = (values: unknown[]): values is Identified[] => values.every(x
 export function mergeChanges<T>(base: T, local: T, remote: T): T {
   if (equal(base, local)) return remote;
   if (equal(base, remote) || equal(local, remote)) return local;
+  // An entity and its accepted values form one choice. Never combine two places
+  // when tabs confirm different entities from the same initial snapshot.
+  if (validAssociation(local) && validAssociation(remote)) return local;
   if (base === undefined && Array.isArray(local) && Array.isArray(remote)) return mergeChanges([] as T, local, remote);
   if (base === undefined && isObj(local) && isObj(remote)) return mergeChanges({} as T, local, remote);
   if (Array.isArray(base) && Array.isArray(local) && Array.isArray(remote)) {

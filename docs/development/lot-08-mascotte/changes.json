@@ -1,0 +1,818 @@
+[
+  {
+    "file": "README.md",
+    "kind": "modified",
+    "bytes": 33856,
+    "sha256": "c9ab6e10f4fb0a4684ce94f0a042dce56e5a8e552f71f8a66083300b5b93dd51"
+  },
+  {
+    "file": "scripts/verify-local.mjs",
+    "kind": "modified",
+    "bytes": 6853,
+    "sha256": "19b0d4115a2ac2004caae666668ca7dc5ea61ebd6d59c424f3850f89c9aba3bd"
+  },
+  {
+    "file": "src/components/JourneysApp.tsx",
+    "kind": "modified",
+    "bytes": 35184,
+    "sha256": "4eb39aee70f10c30db6c56fc03404b69fbf4d2cf222398149dac7a8c6b1e693e"
+  },
+  {
+    "file": "src/components/OfflineStatus.tsx",
+    "kind": "modified",
+    "bytes": 7751,
+    "sha256": "2dd2e008a6a28679e50e15fbda8ab67f4fcb2f9153f42e8e5e2ea0f8be6aac3f"
+  },
+  {
+    "file": "src/components/PlanningImport.tsx",
+    "kind": "modified",
+    "bytes": 36692,
+    "sha256": "c4808c78f2f8b43945208032b201c1269985af722666d821e088462f41c12180"
+  },
+  {
+    "file": "src/components/Preferences.tsx",
+    "kind": "modified",
+    "bytes": 5852,
+    "sha256": "e62aa0ac3e1a7c890db87772f1670d06db8ed237740daebfea28b0b8f3cf8792"
+  },
+  {
+    "file": "src/locale-utils.ts",
+    "kind": "modified",
+    "bytes": 4192,
+    "sha256": "b95fe9443fd3dec373e8052f903245faf6968bbdbedb0a2b5479b4322736763b"
+  },
+  {
+    "file": "src/main.tsx",
+    "kind": "modified",
+    "bytes": 1082,
+    "sha256": "926f20aaa3a90f30efbf548dc11f97700c8f2991b0753fa43b026a3577139500"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/RAPPORT.md",
+    "kind": "added",
+    "bytes": 16042,
+    "sha256": "9d05c1819ea45385caa284e8c386f6840ebef2d2899bdda9b2ffe383f677034e"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/assistant-baseline-diagnostic.log",
+    "kind": "added",
+    "bytes": 1754,
+    "sha256": "f5a150d9495ce3aede9f1de033a4973c29eacc261d9fb18401984fbc80a844d4"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/assistant-baseline-extended.log",
+    "kind": "added",
+    "bytes": 8854,
+    "sha256": "9e41509657d87c188d59508b07e3e440bc917fbe645dfa47e5b77a37612d0620"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/assistant-diagnostic.log",
+    "kind": "added",
+    "bytes": 5203,
+    "sha256": "04cf10158c8f6cc9b072575000d39e3eac00dcaf320aa92ed57d67d96e5cc666"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/assistant-preexisting.json",
+    "kind": "added",
+    "bytes": 1414,
+    "sha256": "4e1d256e788dffa4adb38e524249de9b4b009f15fef2703c56bfeea2827bcb0c"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/before/attention-dark.png",
+    "kind": "added",
+    "bytes": 44344,
+    "sha256": "b5196c422f1eae8d665c844bcee5c34d32d72f4955d251d3b9f47eacbdff5a66"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/before/attention-light.png",
+    "kind": "added",
+    "bytes": 44255,
+    "sha256": "02d1c56f3a95ca00afa7f4b49212516f85da3b2444ae9430dadc80ba927804af"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/before/build-info.json",
+    "kind": "added",
+    "bytes": 16819,
+    "sha256": "0141a72f180b4170b506a9f2e71b5477a7f854236705fa72b7957dc950a8e755"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/before/ready-dark.png",
+    "kind": "added",
+    "bytes": 54708,
+    "sha256": "2992cf89f22d57ed684695f85d92ee7d29133f5e7f653818e697063280848a53"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/before/ready-light.png",
+    "kind": "added",
+    "bytes": 58426,
+    "sha256": "e5e401cdb06bc6f397d873f1abe6f8e136c3fa95f8490ad0905a5a4cf678de10"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/before/size.json",
+    "kind": "added",
+    "bytes": 119,
+    "sha256": "f55f295243935a561d5f31cfbcfbec7be826c99255cbab0323b8c5c8efc82b44"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/before/validation.json",
+    "kind": "added",
+    "bytes": 246,
+    "sha256": "923d35f43e6676b6d8391e73d2bc68ca7f01d51016bd5d4e0186da9ea5307bfe"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/before/welcome-dark.png",
+    "kind": "added",
+    "bytes": 54550,
+    "sha256": "7dd42841718e6abe9500c4366cc213a961a62a5c48ca8d4559bba341630a6c04"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/before/welcome-light.png",
+    "kind": "added",
+    "bytes": 57844,
+    "sha256": "d3b438c9f3d9b2deef46bf8c3dfe8d18b7ea1fdf30dea2a75f0d4e2db2426e25"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/build.log",
+    "kind": "added",
+    "bytes": 5354,
+    "sha256": "a44359c53fe9fe69d856ad8229da5799d8acdd18bf0f399b575964f84ab26c56"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/attention-dark-1440.png",
+    "kind": "added",
+    "bytes": 119127,
+    "sha256": "48c77ccf99cb986e5eb2163274fe07365059ec6e801874f4cb313e7c961f8f09"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/attention-dark-320.png",
+    "kind": "added",
+    "bytes": 44490,
+    "sha256": "2958d39d63d29f88afbcd4cad3aacb42e8606189e42343334a93ccdd2a0fd0e3"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/attention-dark-390.png",
+    "kind": "added",
+    "bytes": 47057,
+    "sha256": "71c2fff208088b40a1fed83e0e1f14083265bc3f1628bd0a9e51af7c65785ddb"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/attention-dark.png",
+    "kind": "added",
+    "bytes": 47057,
+    "sha256": "71c2fff208088b40a1fed83e0e1f14083265bc3f1628bd0a9e51af7c65785ddb"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/attention-light-1440.png",
+    "kind": "added",
+    "bytes": 118258,
+    "sha256": "7962fbcb59be2e258037daa053b1fc8d97c685e2d7f1d3cbdb08ac0d3760f6df"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/attention-light-320.png",
+    "kind": "added",
+    "bytes": 44059,
+    "sha256": "9bb46b28ff84298a5abfb2d3f2181d198e5fdc807216dc6fcb387c408259b1b3"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/attention-light-390.png",
+    "kind": "added",
+    "bytes": 46871,
+    "sha256": "bf3a63da8b84fd1c629d1296602987eddfe0a75258c9e18c5349be84c460b38a"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/attention-light.png",
+    "kind": "added",
+    "bytes": 46871,
+    "sha256": "bf3a63da8b84fd1c629d1296602987eddfe0a75258c9e18c5349be84c460b38a"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/ready-dark-1440.png",
+    "kind": "added",
+    "bytes": 125642,
+    "sha256": "8aa6804a698b9f4af1128388ef6b21a9c8db7c561b08c9325824c73662270758"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/ready-dark-320.png",
+    "kind": "added",
+    "bytes": 47969,
+    "sha256": "43bb9612c0ebcf85cd2f5c602a938d321df85c10ee40400fd8bee8fcef00db7c"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/ready-dark-390.png",
+    "kind": "added",
+    "bytes": 56456,
+    "sha256": "3df57410bbfa4cd48c8481004d604345acc636377d3bd0ca09d711c6988ba74e"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/ready-dark.png",
+    "kind": "added",
+    "bytes": 56456,
+    "sha256": "3df57410bbfa4cd48c8481004d604345acc636377d3bd0ca09d711c6988ba74e"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/ready-light-1440.png",
+    "kind": "added",
+    "bytes": 132210,
+    "sha256": "462006246194a292733d654abe458b5e38d908c5b846db3436046cee6096e383"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/ready-light-320.png",
+    "kind": "added",
+    "bytes": 52055,
+    "sha256": "59c01867a59a42e694dfa99b8bb7f73fafa66a07ff05965414801222c9da4ce1"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/ready-light-390.png",
+    "kind": "added",
+    "bytes": 60482,
+    "sha256": "3ad975f92793d19faadc5e74eeddb3918f1fc6e21182c4c018f54c4c8b283d48"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/ready-light.png",
+    "kind": "added",
+    "bytes": 60482,
+    "sha256": "3ad975f92793d19faadc5e74eeddb3918f1fc6e21182c4c018f54c4c8b283d48"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/validation.json",
+    "kind": "added",
+    "bytes": 243,
+    "sha256": "6c13bba0312f96c0ff8db3a0474a9035c5b7482783bc027eb13b73f3a9208493"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/welcome-dark-1440.png",
+    "kind": "added",
+    "bytes": 81975,
+    "sha256": "1d7484e43263c7983120fc6cb9172e388eca1d638e43dcd0b34cbc1012f59b23"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/welcome-dark-320.png",
+    "kind": "added",
+    "bytes": 49803,
+    "sha256": "aa873e719a02daab43f57cee509de820a2160ba1700a1419e8afbce0f6f1b687"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/welcome-dark-390.png",
+    "kind": "added",
+    "bytes": 52323,
+    "sha256": "5067a07f330a3298006091a6db690ea1c5434d8fddca8c329744185e3cb8b2b0"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/welcome-dark.png",
+    "kind": "added",
+    "bytes": 52323,
+    "sha256": "5067a07f330a3298006091a6db690ea1c5434d8fddca8c329744185e3cb8b2b0"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/welcome-light-1440.png",
+    "kind": "added",
+    "bytes": 86494,
+    "sha256": "a214f619d01513852886dad98978037f66b4d8ff3ab05e22749b77711e485ba1"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/welcome-light-320.png",
+    "kind": "added",
+    "bytes": 52607,
+    "sha256": "58dbf8468897640582e887aece5eabde32f9bc241ef4b190bbe0e688c45ebde8"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/welcome-light-390.png",
+    "kind": "added",
+    "bytes": 55561,
+    "sha256": "8e75ad872ac60d14c8e51502cff56466c436ec70d9840884a7a6e02d6a9a464a"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/compiled/welcome-light.png",
+    "kind": "added",
+    "bytes": 55561,
+    "sha256": "8e75ad872ac60d14c8e51502cff56466c436ec70d9840884a7a6e02d6a9a464a"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/assistant/error-context.md",
+    "kind": "added",
+    "bytes": 26968,
+    "sha256": "e200b2c088c5f2e7484559330b219318375ab904a3afeaa01a8576bb86437896"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/assistant/test-failed-1.png",
+    "kind": "added",
+    "bytes": 114376,
+    "sha256": "b51e05354fcedb1285f1d8bfafba718cb67aded5855535c98d7156b23d3d7be4"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/assistant/test-failed-2.png",
+    "kind": "added",
+    "bytes": 61876,
+    "sha256": "073bdc6c0339509a6d3290a3df48808d4b17d38caa26b628b5fcb286fc393dda"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/assistant/trace.zip",
+    "kind": "added",
+    "bytes": 3601845,
+    "sha256": "196989877603d8cc5338271ace74842f1f3a929e1c9fa7e742c004e0331eb3e5"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/baseline/assistant/error-context.md",
+    "kind": "added",
+    "bytes": 26968,
+    "sha256": "e200b2c088c5f2e7484559330b219318375ab904a3afeaa01a8576bb86437896"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/baseline/assistant/test-failed-1.png",
+    "kind": "added",
+    "bytes": 114376,
+    "sha256": "b51e05354fcedb1285f1d8bfafba718cb67aded5855535c98d7156b23d3d7be4"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/baseline/assistant/test-failed-2.png",
+    "kind": "added",
+    "bytes": 61876,
+    "sha256": "073bdc6c0339509a6d3290a3df48808d4b17d38caa26b628b5fcb286fc393dda"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/baseline/assistant/trace.zip",
+    "kind": "added",
+    "bytes": 3114336,
+    "sha256": "e2e66018996d8e54cee7aea8fc878a438889f64b4ade5d4f1cbd70a7448f8c77"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/trace-events.json",
+    "kind": "added",
+    "bytes": 16506,
+    "sha256": "0278dc116e985bddedfb678148097f94a7ef5a8743629d5eacdac6e0745bc11e"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/validation.json",
+    "kind": "added",
+    "bytes": 6124,
+    "sha256": "915c4f739661c13c6d8c6bbf26dd6422784a68bdd54ca59d4e44f6ab885a78b6"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/failed-gate/verify-local.log",
+    "kind": "added",
+    "bytes": 69956,
+    "sha256": "12c2e6e044850dc053216685edd60711417ca6c5be2373784889af5c5ccc75d6"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/build-info.json",
+    "kind": "added",
+    "bytes": 16973,
+    "sha256": "7fea121e37db968c14a37f14bce9072cf42e811fc4f5802d0428a61ae4a8c6c1"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/attention-dark-1440.png",
+    "kind": "added",
+    "bytes": 119127,
+    "sha256": "48c77ccf99cb986e5eb2163274fe07365059ec6e801874f4cb313e7c961f8f09"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/attention-dark-320.png",
+    "kind": "added",
+    "bytes": 44490,
+    "sha256": "2958d39d63d29f88afbcd4cad3aacb42e8606189e42343334a93ccdd2a0fd0e3"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/attention-dark-390.png",
+    "kind": "added",
+    "bytes": 47057,
+    "sha256": "71c2fff208088b40a1fed83e0e1f14083265bc3f1628bd0a9e51af7c65785ddb"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/attention-dark.png",
+    "kind": "added",
+    "bytes": 47057,
+    "sha256": "71c2fff208088b40a1fed83e0e1f14083265bc3f1628bd0a9e51af7c65785ddb"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/attention-light-1440.png",
+    "kind": "added",
+    "bytes": 118258,
+    "sha256": "7962fbcb59be2e258037daa053b1fc8d97c685e2d7f1d3cbdb08ac0d3760f6df"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/attention-light-320.png",
+    "kind": "added",
+    "bytes": 44059,
+    "sha256": "9bb46b28ff84298a5abfb2d3f2181d198e5fdc807216dc6fcb387c408259b1b3"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/attention-light-390.png",
+    "kind": "added",
+    "bytes": 46871,
+    "sha256": "bf3a63da8b84fd1c629d1296602987eddfe0a75258c9e18c5349be84c460b38a"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/attention-light.png",
+    "kind": "added",
+    "bytes": 46871,
+    "sha256": "bf3a63da8b84fd1c629d1296602987eddfe0a75258c9e18c5349be84c460b38a"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/ready-dark-1440.png",
+    "kind": "added",
+    "bytes": 125580,
+    "sha256": "199edb18ac72dc8bcbb6834f7e9f5b671159e4f38cec0a417e7106546a41c9df"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/ready-dark-320.png",
+    "kind": "added",
+    "bytes": 51513,
+    "sha256": "7deba5ca48ab22870517d5a9fdd6aeb37d78cda18eaa42fc0f615492275e5945"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/ready-dark-390.png",
+    "kind": "added",
+    "bytes": 58530,
+    "sha256": "0995b109e5a4665114cc625a3ba28d3b508b7bd9337aaa592104f6652a06c1d8"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/ready-dark.png",
+    "kind": "added",
+    "bytes": 56516,
+    "sha256": "be47bab1d895628c8c39e0b28413e28da08c1fbed826f87db673beb4f29b5285"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/ready-light-1440.png",
+    "kind": "added",
+    "bytes": 132146,
+    "sha256": "a35cc25e136ca44b0d64a37a6103aa6217653117843c670ad339b46b15c4f965"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/ready-light-320.png",
+    "kind": "added",
+    "bytes": 54884,
+    "sha256": "4e3556f65845eac6dcfe98ed591a12aa2d603d203fe5e1ea9d98217b5ec4df40"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/ready-light-390.png",
+    "kind": "added",
+    "bytes": 62271,
+    "sha256": "4e599a3cd50862401bd40d3668bcb60e6bd91b3e4428fd7c11691fe22c38b9bd"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/ready-light.png",
+    "kind": "added",
+    "bytes": 60437,
+    "sha256": "1fa122c001389fa312fae561c4b34e0fdc1b6070d2cefbc789b49e8e8f37a9b0"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/validation.json",
+    "kind": "added",
+    "bytes": 243,
+    "sha256": "6062192b8d0743797be0df5643f0e1a51239ebaf66694e901d810f27f21fdefd"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/welcome-dark-1440.png",
+    "kind": "added",
+    "bytes": 74160,
+    "sha256": "7a54f4bb4ab6c06c037fb70e60b12341ebed7574ba7a7cc2bf2110f0e3d94463"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/welcome-dark-320.png",
+    "kind": "added",
+    "bytes": 45363,
+    "sha256": "8306a8d4e5ce7f7335f539cc05bb8a01d0d650a684758542b45702f51bbdc256"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/welcome-dark-390.png",
+    "kind": "added",
+    "bytes": 54406,
+    "sha256": "d98559f8ca20fb5b4c7acb42599a2bc5175246acb6936532aec0affa3d8fad27"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/welcome-dark.png",
+    "kind": "added",
+    "bytes": 52323,
+    "sha256": "5067a07f330a3298006091a6db690ea1c5434d8fddca8c329744185e3cb8b2b0"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/welcome-light-1440.png",
+    "kind": "added",
+    "bytes": 79317,
+    "sha256": "0bf9c5c5e675bd5e162004f610d9a3d517011649ef026f6c3c7f87e504c77047"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/welcome-light-320.png",
+    "kind": "added",
+    "bytes": 46051,
+    "sha256": "534f0c15993dc279b96eb44749ae7a85c65890089ca0cb65f615a8b5e3d0082f"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/welcome-light-390.png",
+    "kind": "added",
+    "bytes": 57357,
+    "sha256": "59f65fb195a2cdeb3cadeb1b38de95736e4590b1f2b7842ea2c4152d09965310"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/mascot-compiled/welcome-light.png",
+    "kind": "added",
+    "bytes": 55561,
+    "sha256": "8e75ad872ac60d14c8e51502cff56466c436ec70d9840884a7a6e02d6a9a464a"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/gate/validation.json",
+    "kind": "added",
+    "bytes": 6124,
+    "sha256": "915c4f739661c13c6d8c6bbf26dd6422784a68bdd54ca59d4e44f6ab885a78b6"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/regenerated/docs/development/import-fiable-lot-01/screenshots/review-320.png",
+    "kind": "added",
+    "bytes": 37291,
+    "sha256": "b0f5c34c6850c479418081cc97516140e536a5a3a1374ba5a6ae184b4310f4aa"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/regenerated/docs/development/import-fiable-lot-01/screenshots/review-390.png",
+    "kind": "added",
+    "bytes": 38967,
+    "sha256": "0987e461ec59bf51e6089b267a3668221012608c7311bfecae3e961af19808ec"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/regenerated/docs/development/lot-04-lieux/screenshots/zh-CN-390.png",
+    "kind": "added",
+    "bytes": 39996,
+    "sha256": "aa29f6dc03a8b6e62e9969db438680c3fba0ed5694a956a02446b3eab0c39e02"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/regenerated/docs/development/lot-05-compagnon/screenshots/en.png",
+    "kind": "added",
+    "bytes": 164343,
+    "sha256": "7bb142b90055cdbe61d4bfd1e11fda1737b0e5b31c4e22e664501a19b3bac117"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/regenerated/docs/development/lot-05-compagnon/screenshots/es.png",
+    "kind": "added",
+    "bytes": 177550,
+    "sha256": "ec74834281a59e01df91a3ba97842d74fdd39aa13e334e83f1f5bebe62d5e474"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/regenerated/docs/development/lot-05-compagnon/screenshots/fr.png",
+    "kind": "added",
+    "bytes": 174348,
+    "sha256": "41a2c019c6d7e0b67c372778bca4e2651096ef20c50aa16f21b6c1b6c362ac01"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/regenerated/docs/development/lot-05-compagnon/screenshots/zh-CN.png",
+    "kind": "added",
+    "bytes": 233703,
+    "sha256": "2167ad9a3fae23c296e322170a244bf2178993018177b746cb7aaae3f8344dad"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/remaining-checks.log",
+    "kind": "added",
+    "bytes": 3155,
+    "sha256": "56b9f2ff16d605c2d71ff2a314ea6c6674e57772df16d29327a525414ca6488b"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/remaining-validation.json",
+    "kind": "added",
+    "bytes": 1761,
+    "sha256": "1ac5acf75aa24e08629941afabd71d697bc193bf9e98b4eca83132f5594ba27a"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/restored-evidence.json",
+    "kind": "added",
+    "bytes": 1804,
+    "sha256": "7d1415a6e3ecdb1fd42d1616f2f987f46a57814ae31de3f5ae59e932f668ee18"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-en-dark-1440.png",
+    "kind": "added",
+    "bytes": 114465,
+    "sha256": "f1f24cdedec559385c8b202a4395053382dc706de940d0bb4c6ee0d6bafb454d"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-en-dark-320.png",
+    "kind": "added",
+    "bytes": 42844,
+    "sha256": "4c1aa1d606de8596b74a56530c5fb5aa8ab836fe7d2151d0ed079d5df3272dd2"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-en-dark-390.png",
+    "kind": "added",
+    "bytes": 48763,
+    "sha256": "a3a7141940a41265745952747965399264661b67fec5bd28930379a313899301"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-en-light-1440.png",
+    "kind": "added",
+    "bytes": 113041,
+    "sha256": "09a21fb2907961e333893d4c403656b23e6d6f26bb54eb3732b3a22475791b80"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-en-light-320.png",
+    "kind": "added",
+    "bytes": 42733,
+    "sha256": "e2cac340c3d88304b243740138813810d0d8d102fdeccb0c451eaa7f04c5cc70"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-en-light-390.png",
+    "kind": "added",
+    "bytes": 48587,
+    "sha256": "72f0a29763bae39aa9f7cc5297ef5a7279490e26a778787035c8cbbb795f29f2"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-es-dark-1440.png",
+    "kind": "added",
+    "bytes": 117091,
+    "sha256": "7f72d58337c0314abb29f805de1905c502b1b26ec43d5a86e7e9bfeec9f020ce"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-es-dark-320.png",
+    "kind": "added",
+    "bytes": 45128,
+    "sha256": "89e269844683a7e023183ab019d39faabc19d321b58a5fae13a423394747e1f7"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-es-dark-390.png",
+    "kind": "added",
+    "bytes": 48944,
+    "sha256": "ae90be9b063a5c8cff4d5592a8d36f09c121d9b78c2e4f81dc9487b8c63f8c94"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-es-light-1440.png",
+    "kind": "added",
+    "bytes": 115871,
+    "sha256": "6a5697c73bf4508b2c9d48800122756f219b07652a5a1313d710e45e74171a4b"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-es-light-320.png",
+    "kind": "added",
+    "bytes": 44731,
+    "sha256": "206ae5e76cc9c4afdb7f4146706ce7607befa68ceeabcc3102533e0c143b6632"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-es-light-390.png",
+    "kind": "added",
+    "bytes": 48654,
+    "sha256": "5c4033500e959b6df11f7382bcbbd1b34ae3611c92f5d374c1ebf18aa4395b4b"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-fr-dark-1440.png",
+    "kind": "added",
+    "bytes": 115773,
+    "sha256": "0b697ce7be5f1661aec20732f200ec6a91525093482b4d3385d7610037be8775"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-fr-dark-320.png",
+    "kind": "added",
+    "bytes": 44490,
+    "sha256": "2958d39d63d29f88afbcd4cad3aacb42e8606189e42343334a93ccdd2a0fd0e3"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-fr-dark-390.png",
+    "kind": "added",
+    "bytes": 47057,
+    "sha256": "71c2fff208088b40a1fed83e0e1f14083265bc3f1628bd0a9e51af7c65785ddb"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-fr-light-1440.png",
+    "kind": "added",
+    "bytes": 114723,
+    "sha256": "42872d1bbb3f2cf69e5f24bcd8d43022c3a85b6fcf3af80373d2df813fda1f0c"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-fr-light-320.png",
+    "kind": "added",
+    "bytes": 44059,
+    "sha256": "9bb46b28ff84298a5abfb2d3f2181d198e5fdc807216dc6fcb387c408259b1b3"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-fr-light-390.png",
+    "kind": "added",
+    "bytes": 46871,
+    "sha256": "bf3a63da8b84fd1c629d1296602987eddfe0a75258c9e18c5349be84c460b38a"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-zh-CN-dark-1440.png",
+    "kind": "added",
+    "bytes": 110517,
+    "sha256": "352d4a9e1ff133484e4a19a3bb3320821df2090952dfff836440c56e54900f41"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-zh-CN-dark-320.png",
+    "kind": "added",
+    "bytes": 40831,
+    "sha256": "8821bab36ecc275bf6b672d53d7894710d8413f8a6a950f96a9773047f2adf10"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-zh-CN-dark-390.png",
+    "kind": "added",
+    "bytes": 41645,
+    "sha256": "b53a4e6548d97f646a1a65e921b1b8598b64daed64524f0b7b136b88d12cd2bd"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-zh-CN-light-1440.png",
+    "kind": "added",
+    "bytes": 109396,
+    "sha256": "e61090a9c0114d4ecda730b5707dd67602b0957fd994cb60ac1f3232d29e863a"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-zh-CN-light-320.png",
+    "kind": "added",
+    "bytes": 40482,
+    "sha256": "194dd8deccf0e4c562cdde5f60056c5e42a479cfa052203fedda48ae0230d350"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/screenshots/review-zh-CN-light-390.png",
+    "kind": "added",
+    "bytes": 41398,
+    "sha256": "f02ffcb1f8d4c5c71c503dc4502d4ee5d15a18b09505c8b61e8fe63be0dee108"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/size.json",
+    "kind": "added",
+    "bytes": 769,
+    "sha256": "56310fe1b30dc02f82218d100d1adb3e0e3c6325fc7187932dec0a3480cc2e7e"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/validation-summary.json",
+    "kind": "added",
+    "bytes": 748,
+    "sha256": "230b15f53adc8cc5412faa04d44b6fad59d46e4e9b3acd096d78df8d15d83328"
+  },
+  {
+    "file": "docs/development/lot-08-mascotte/verify-local.log",
+    "kind": "added",
+    "bytes": 69956,
+    "sha256": "12c2e6e044850dc053216685edd60711417ca6c5be2373784889af5c5ccc75d6"
+  },
+  {
+    "file": "public/licenses/mascot.md",
+    "kind": "added",
+    "bytes": 1757,
+    "sha256": "428d65ea8b07e1bfb606a023d4d39223139a070613dcafedae46efc954b76dec"
+  },
+  {
+    "file": "scripts/mascot-preservation.mjs",
+    "kind": "added",
+    "bytes": 4835,
+    "sha256": "6d6339303cb0bd33fe062b8b1d6161db7a14fe79c7e65dfd36145cba36bc4688"
+  },
+  {
+    "file": "scripts/smoke-mascot.mjs",
+    "kind": "added",
+    "bytes": 7317,
+    "sha256": "7eb1bdd14431984d65a199bc70b77753a38384b1b3a41b290255f987abcd2f58"
+  },
+  {
+    "file": "src/MascotPreferences.tsx",
+    "kind": "added",
+    "bytes": 2271,
+    "sha256": "39224017f95f0d1d1fdbafdf8f2e04b6120d37f473069fe54e574851e023d637"
+  },
+  {
+    "file": "src/assets/mascot/attention.svg",
+    "kind": "added",
+    "bytes": 851,
+    "sha256": "1ab102770e8c2cb636e4b4d93a19c968ca17795e92f5ba184c056ee5e9ce5a9e"
+  },
+  {
+    "file": "src/assets/mascot/ready.svg",
+    "kind": "added",
+    "bytes": 871,
+    "sha256": "93afc413dab454d462361747b295d2c65891170d536a7982d169dc170816f0c9"
+  },
+  {
+    "file": "src/assets/mascot/welcome.svg",
+    "kind": "added",
+    "bytes": 812,
+    "sha256": "3eb5861e77e87f7ac3701c2c7ca243df7f03ac7450b5688b152e12d0fdc53f67"
+  },
+  {
+    "file": "src/components/Mascot.css",
+    "kind": "added",
+    "bytes": 783,
+    "sha256": "b501aff656b4314ac9ef54feef2d730ad794adfb463c6b29c41e2b95407504c9"
+  },
+  {
+    "file": "src/components/Mascot.tsx",
+    "kind": "added",
+    "bytes": 1834,
+    "sha256": "0ff0c861fb2ca913eb5620686be5f5c6664d6cea209e539c704f6e5f8c5f8dd2"
+  },
+  {
+    "file": "src/locales/mascot.ts",
+    "kind": "added",
+    "bytes": 2484,
+    "sha256": "24b8e12a08b7974e1631895a39b8c19a70c11982b297bd44c7e5be4fdc6e7173"
+  },
+  {
+    "file": "src/mascot.ts",
+    "kind": "added",
+    "bytes": 641,
+    "sha256": "8e2878469c2b517135fcd81cfaa31669747b08798529088314e6aef1ddff2293"
+  },
+  {
+    "file": "tests/e2e/mascot.spec.ts",
+    "kind": "added",
+    "bytes": 7490,
+    "sha256": "547a2091d344de1333a38e5105f2b06c700055cd74b20fa58cbfff32677ba3a8"
+  },
+  {
+    "file": "tests/mascot.test.mjs",
+    "kind": "added",
+    "bytes": 2100,
+    "sha256": "8245c8f03172e39ad07120e3a40b4798b9cde034f9541d9f4aea4d5f710eddb7"
+  }
+]

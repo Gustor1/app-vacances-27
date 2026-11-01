@@ -1,0 +1,9 @@
+
+Running 2 tests using 1 worker
+
+(node:30280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\brand-palettes.spec.ts:19:1 › the rendered bird and its badge follow all 24 palettes without changing the notebook (32.1s)
+  ok 2 tests\e2e\brand-palettes.spec.ts:67:1 › palette-colored brand survives reload and reaches the notebook footer (6.0s)
+
+  2 passed (39.3s)

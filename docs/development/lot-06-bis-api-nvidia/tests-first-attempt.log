@@ -1,0 +1,39 @@
+✔ disabled, missing key, unknown model and invalid settings never make a request (3.4314ms)
+✔ fixed endpoint, no redirect, key only in header, exact original text and strict public provenance (53.7701ms)
+✔ transport oracle covers all frozen languages and is explicitly distinct from real model quality (34.0408ms)
+✔ hostile source stays in one data message and never becomes tools or extra roles (0.6427ms)
+✔ public validator rejects version without altering source (0.8005ms)
+✔ public validator rejects coordinates without altering source (1.1143ms)
+✔ public validator rejects field without altering source (0.5622ms)
+✔ structurally valid invented city is refused by additional source guard (0.9226ms)
+✔ structurally valid invented date is refused by additional source guard (2.8219ms)
+✔ structurally valid invented booking is refused by additional source guard (3.5585ms)
+✔ structurally valid invented address is refused by additional source guard (0.7981ms)
+✔ negative reservation and valid literal date/time normalization are handled conservatively (3.2163ms)
+✔ wrong assignment and lost alternatives fail business metrics even if structure is valid (2.5995ms)
+✔ omissions, merges, false bookings and missing notes are not hidden by JSON validity (1.8739ms)
+✔ invalid JSON and Markdown fences remain visible errors, not repaired responses (2.7822ms)
+✔ HTTP 401 is sanitized, counted and never retried (2.4854ms)
+✔ HTTP 403 is sanitized, counted and never retried (1.1146ms)
+✔ HTTP 402 is sanitized, counted and never retried (1.29ms)
+✔ HTTP 429 is sanitized, counted and never retried (0.9257ms)
+✔ HTTP 500 is sanitized, counted and never retried (0.8382ms)
+✔ HTTP 503 is sanitized, counted and never retried (0.8782ms)
+✔ refusal, tool response, truncated output and malformed envelope do not become plannings (3.6776ms)
+✔ provider token counters are retained, absent or malformed counters are unavailable (4.8994ms)
+✔ body byte limits, UTF-8 errors and API-key echo are rejected safely (5.0341ms)
+✔ double submission makes one call, cancellation rejects late fetch and allows another request (6.8918ms)
+✔ pre-cancelled requests consume no attempt and timeout rejects fetch that ignores abort (25.6131ms)
+✔ timeout includes reading a delayed response body (15.7195ms)
+✔ in-process budget is bounded and durable reservation runs before each fetch (4.1244ms)
+✔ journal persists interruption, refuses replay, and a lock excludes simultaneous runs (46.939ms)
+✔ 100 durable attempts cannot be reset by a new client or fresh process state (15.1425ms)
+✔ existing review correction, reload and idempotent creation preserve the previous notebook (44.3821ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 31
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 695.6427

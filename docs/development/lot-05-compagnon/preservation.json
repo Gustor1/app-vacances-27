@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-10-22T19:29:52.419591+00:00",
+  "initialFiles": 1142,
+  "unchanged": 1132,
+  "missionModified": [
+    "README.md",
+    "scripts/verify-local.mjs",
+    "src/App.tsx",
+    "src/cloud/engine.ts",
+    "src/components/DayPreparation.tsx",
+    "src/components/NowView.css",
+    "src/components/NowView.tsx",
+    "src/lib.ts",
+    "src/locale-utils.ts",
+    "src/types.ts"
+  ],
+  "missing": [],
+  "unexpectedChanges": [],
+  "finalMissionHashErrors": [],
+  "codeAdded": 9,
+  "snapshotCopiesVerified": true,
+  "historicalProofsRestored": [
+    "docs/development/import-fiable-lot-01/screenshots/review-320.png",
+    "docs/development/import-fiable-lot-01/screenshots/review-390.png"
+  ],
+  "restoredThisPass": [],
+  "patchSha256": "5f9f14fbe33e0e21115bba4143850382d37b836f0871a1a875ce6dafd0e2517a"
+}

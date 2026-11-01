@@ -1,0 +1,4 @@
+chromium: update detected and applied; cache upgraded and new worker controls the page.
+chromium: resume detects release through the old HTML cache; manual update preserves journals; new release works offline.
+webkit: update detected and applied; cache upgraded and new worker controls the page.
+webkit: resume, manual update, journals and cache verified. Offline emulation excluded (Playwright #42775).

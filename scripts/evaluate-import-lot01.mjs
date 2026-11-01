@@ -1,0 +1,26 @@
+import { readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { cpus, totalmem } from 'node:os';
+import { performance } from 'node:perf_hooks';
+import { pathToFileURL } from 'node:url';
+import { parsePlanning } from '../src/planning-import/parser.ts';
+import { reviewPassages } from '../src/planning-import/review.ts';
+import { assessPlanning } from './evaluate-planning-stress.mjs';
+const root = 'docs/development/import-fiable-lot-01/';
+const read = async name => JSON.parse(await readFile(root+name,'utf8'));
+const hash = data => createHash('sha256').update(data).digest('hex');
+const frozen=await read('holdout-freeze.json'), bytes=await readFile(root+'holdout.json');
+if(hash(bytes)!==frozen.sha256) throw Error('Frozen validation sources changed');
+const entries=JSON.parse(bytes);
+const results=entries.map(e=> { const draft=parsePlanning(e.source);return {id:e.id,...assessPlanning(e,draft),reviewExpected:e.reviewExpected,review:reviewPassages(draft,e.source),draft}; });
+const summarize=rows=>({cases:rows.length,passed:rows.filter(r=>r.passed).length,expectedItems:rows.reduce((n,r)=>n+r.expectedItems,0),separateItems:rows.reduce((n,r)=>n+r.separateItems,0),assignedItems:rows.reduce((n,r)=>n+r.assignedItems,0),omissions:rows.reduce((n,r)=>n+r.expectedItems-r.separateItems,0),extraItems:rows.reduce((n,r)=>n+(r.unexpected?.length||0),0),fieldErrors:rows.reduce((n,r)=>n+r.fieldErrors,0)});
+const before=(await read('before/results.json')).results, after=(await read('after/results.json')).results;
+const sources=['Note : '+'é'.repeat(49993),'# Voyage\n'+'*'.repeat(49991),Array.from({length:999},(_,i)=>`Texte incompris ${i}.`).join('\n')];
+const measure=fn=>sources.map(source=>{const runsMs=[];for(let i=0;i<5;i++){const start=performance.now();fn(source);runsMs.push(performance.now()-start);}return {characters:source.length,bytes:Buffer.byteLength(source),runsMs,medianMs:runsMs.toSorted((a,b)=>a-b)[2]};});
+let baselineTiming=null;
+if(process.env.DETOURS_BASELINE_PARSER){const baseline=await import(pathToFileURL(process.env.DETOURS_BASELINE_PARSER));baselineTiming=measure(baseline.parsePlanning);}
+const files=['src/planning-import/parser.ts','src/planning-import/normalizations.ts','src/planning-import/review.ts','tests/fixtures/planning/stress-corpus.mjs',root+'holdout.json'];
+const hashes=Object.fromEntries(await Promise.all(files.map(async file=>[file,hash(await readFile(file))])));
+const report={generatedAt:new Date().toISOString(),environment:{node:process.version,platform:process.platform,cpu:cpus()[0].model,memoryBytes:totalmem(),timing:'5 runs without CPU throttling; Node process on development PC; before parser only, after parser plus review'},hashes,stress:{before:summarize(before),after:summarize(after),regressions:before.filter(r=>r.passed&&!after.find(a=>a.id===r.id).passed).map(r=>r.id)},holdout:{before:summarize(await read('holdout-before.json')),after:summarize(results),reviewExpected:results.filter(r=>r.reviewExpected).length,reviewSignaled:results.filter(r=>r.reviewExpected&&r.review.length).length,results},longInputs:{before:baselineTiming,after:measure(source=>reviewPassages(parsePlanning(source),source))},limits:['Anchor comparison is not general semantic fidelity. Field errors only cover specified expected fields.','Held-out set uses six repeated structural patterns across four languages.','4 email subjects were annotated as reviewExpected despite being explicit metadata. These frozen disagreements remain visible, not silently rescored.']};
+await writeFile(root+'comparison.json',JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify({stress:report.stress,holdout:{before:report.holdout.before,after:report.holdout.after,reviewExpected:report.holdout.reviewExpected,reviewSignaled:report.holdout.reviewSignaled},longInputs:report.longInputs},null,2));
