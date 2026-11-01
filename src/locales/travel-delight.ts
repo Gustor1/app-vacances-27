@@ -25,7 +25,6 @@ const rows: [string, string, string, string][] = [
   ['Aller à une étape du voyage', 'Jump to a travel stop', '跳转到旅程中的一站', 'Ir a una etapa del viaje'],
   ['Étapes de création du carnet', 'Notebook creation steps', '创建手册的步骤', 'Pasos para crear el cuaderno'],
   ['Vérifier le programme', 'Review the itinerary', '检查行程', 'Revisar el programa'],
-  ['Créer le carnet', 'Create notebook', '创建手册', 'Crear el cuaderno'],
   ['Répartition des dépenses', 'Expense breakdown', '支出分布', 'Distribución de gastos'],
   ['Total converti', 'Converted total', '已换算总额', 'Total convertido'],
   ['Le graphique inclut uniquement les montants convertis. Les dépenses sans taux restent dans la liste.', 'The chart only includes converted amounts. Expenses without exchange rates remain in the list.', '图表仅包含已换算的金额。缺少汇率的支出仍保留在列表中。', 'El gráfico solo incluye importes convertidos. Los gastos sin tipo de cambio permanecen en la lista.'],

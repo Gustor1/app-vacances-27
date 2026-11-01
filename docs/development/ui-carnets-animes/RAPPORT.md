@@ -1,5 +1,7 @@
 # Carnets animés — 1er novembre 2026
 
+**Suivi après retour utilisateur :** [correction des états vides, de la progression et du relief](correction-visibilite/RAPPORT.md).
+
 ## Intention et accès
 
 Intégration autorisée par l’utilisateur après sélection des catalogues EasyUI et ReactDrops. Direction : papier manipulable, souvenirs photographiques et relief cartographique, en conservant les palettes, la typographie Newsreader/Hanken et les parcours existants. Les animations sont volontairement visibles pour permettre un jugement après essai.
