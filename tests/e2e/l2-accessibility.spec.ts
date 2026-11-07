@@ -34,7 +34,7 @@ for (const language of ['fr', 'en', 'zh-CN', 'es'] as Language[]) {
       await trips.focus(); await page.keyboard.press('Enter'); await expect(trips).toHaveAttribute('aria-selected', 'true');
       const tripPanel = page.getByRole('tabpanel', { name: translate('Mes voyages', language), exact: true });
       await expect(tripPanel).toBeVisible();
-      const date = tripPanel.locator('time[datetime="2027-05-01"]');
+      const date = tripPanel.locator('.journey-details time[datetime="2027-05-01"]');
       const expected = new Intl.DateTimeFormat(localeFor(language), { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date('2027-05-01T00:00:00Z'));
       await expect(date).toHaveText(expected);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
