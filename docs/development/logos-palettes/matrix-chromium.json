@@ -1,0 +1,194 @@
+[
+  {
+    "theme": "light",
+    "id": "signature",
+    "filter": "approved original",
+    "badge": "rgb(225, 214, 196)",
+    "hueDifference": 0,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "porcelaine",
+    "filter": "palette paper relief",
+    "badge": "rgb(238, 243, 239)",
+    "hueDifference": 0.016265996890297174,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "eucalyptus",
+    "filter": "palette paper relief",
+    "badge": "rgb(242, 235, 223)",
+    "hueDifference": 0.24725590440971246,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "sauge",
+    "filter": "palette paper relief",
+    "badge": "rgb(234, 240, 227)",
+    "hueDifference": 0.4035661315830339,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "ocean",
+    "filter": "palette paper relief",
+    "badge": "rgb(233, 240, 245)",
+    "hueDifference": 0.06243020532076571,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "glacier",
+    "filter": "palette paper relief",
+    "badge": "rgb(236, 242, 248)",
+    "hueDifference": 0.04843577594601811,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "foret",
+    "filter": "palette paper relief",
+    "badge": "rgb(233, 240, 229)",
+    "hueDifference": 0.15214446147820126,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "bordeaux",
+    "filter": "palette paper relief",
+    "badge": "rgb(244, 232, 229)",
+    "hueDifference": 0.11251301327581587,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "corail",
+    "filter": "palette paper relief",
+    "badge": "rgb(245, 232, 221)",
+    "hueDifference": 0.03500100948241425,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "abricot",
+    "filter": "palette paper relief",
+    "badge": "rgb(247, 229, 212)",
+    "hueDifference": 0.08205754837797485,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "soleil",
+    "filter": "palette paper relief",
+    "badge": "rgb(242, 236, 217)",
+    "hueDifference": 0.1826253593101228,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "light",
+    "id": "violet",
+    "filter": "palette paper relief",
+    "badge": "rgb(240, 230, 244)",
+    "hueDifference": 0.025926705788720028,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "signature",
+    "filter": "approved original",
+    "badge": "rgb(39, 34, 43)",
+    "hueDifference": 0,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "porcelaine",
+    "filter": "palette paper relief",
+    "badge": "rgb(34, 44, 39)",
+    "hueDifference": 0.20797511970903315,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "eucalyptus",
+    "filter": "palette paper relief",
+    "badge": "rgb(36, 53, 45)",
+    "hueDifference": 0.05912146080470393,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "sauge",
+    "filter": "palette paper relief",
+    "badge": "rgb(30, 39, 34)",
+    "hueDifference": 0.14758859738242336,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "ocean",
+    "filter": "palette paper relief",
+    "badge": "rgb(38, 62, 80)",
+    "hueDifference": 0.8567127005075008,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "glacier",
+    "filter": "palette paper relief",
+    "badge": "rgb(32, 40, 50)",
+    "hueDifference": 0.25719910574252935,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "foret",
+    "filter": "palette paper relief",
+    "badge": "rgb(32, 60, 50)",
+    "hueDifference": 0.06600440029336596,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "bordeaux",
+    "filter": "palette paper relief",
+    "badge": "rgb(58, 35, 48)",
+    "hueDifference": 0.16555336225479778,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "corail",
+    "filter": "palette paper relief",
+    "badge": "rgb(54, 38, 34)",
+    "hueDifference": 0.24777287977053675,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "abricot",
+    "filter": "palette paper relief",
+    "badge": "rgb(50, 42, 34)",
+    "hueDifference": 0.4076708529005941,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "soleil",
+    "filter": "palette paper relief",
+    "badge": "rgb(25, 60, 65)",
+    "hueDifference": 0.15794473913388174,
+    "notebookUnchanged": true
+  },
+  {
+    "theme": "dark",
+    "id": "violet",
+    "filter": "palette paper relief",
+    "badge": "rgb(48, 34, 63)",
+    "hueDifference": 0.08856313941055305,
+    "notebookUnchanged": true
+  }
+]

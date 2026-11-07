@@ -1,0 +1,37 @@
+[WebServer] (node:31944) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 249 tests using 1 worker
+
+(node:31712) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x    1 tests\e2e\apple-design.spec.ts:3:1 › closing a sheet preserves keyboard navigation and an unsaved trip stays unsaved (30.9s)
+(node:15880) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok   2 tests\e2e\apple-design.spec.ts:15:1 › a mobile sheet follows a drag, reverses without losing the draft, then dismisses on a flick (9.8s)
+  ok   3 tests\e2e\apple-design.spec.ts:44:1 › reduced motion uses a static sheet and retains all keyboard controls (11.7s)
+  ok   4 tests\e2e\assistant.spec.ts:16:62 › assistant fr search, safe sources, preview, actual note, undo, keyboard and mobile (13.6s)
+  ok   5 tests\e2e\assistant.spec.ts:16:62 › assistant en search, safe sources, preview, actual note, undo, keyboard and mobile (11.8s)
+  ok   6 tests\e2e\assistant.spec.ts:16:62 › assistant zh-CN search, safe sources, preview, actual note, undo, keyboard and mobile (14.6s)
+  ok   7 tests\e2e\assistant.spec.ts:16:62 › assistant es search, safe sources, preview, actual note, undo, keyboard and mobile (24.7s)
+  x    8 tests\e2e\assistant.spec.ts:30:1 › actual field, move and coherent lightened day retain original history and export (32.5s)
+(node:20204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x    9 tests\e2e\assistant.spec.ts:40:1 › concurrent revision blocks application and undo, preserving the other tab (43.7s)
+(node:14844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  10 tests\e2e\assistant.spec.ts:46:48 › storage before failure keeps explicit retry idempotent (18.5s)
+  ok  11 tests\e2e\assistant.spec.ts:46:48 › storage after failure keeps explicit retry idempotent (7.5s)
+  ok  12 tests\e2e\assistant.spec.ts:50:48 › shared reader controls, revoked rights are rechecked at commit (20.4s)
+  ok  13 tests\e2e\assistant.spec.ts:50:48 › shared editor controls, revoked rights are rechecked at commit (10.3s)
+  x   14 tests\e2e\assistant.spec.ts:59:1 › closing a pending action cancels its late lock callback without writing (38.2s)
+(node:10904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  15 tests\e2e\assistant.spec.ts:66:1 › ambiguous tomorrow near midnight requires an explicit dated destination (5.4s)
+  x   16 tests\e2e\assistant.spec.ts:71:1 › account switch while waiting for lock clears session and rejects late action (36.0s)
+(node:14120) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   17 tests\e2e\assistant.spec.ts:78:1 › revision arriving during pending lock is preserved and refreshed for a new preview (24.0s)
+(node:26792) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  18 tests\e2e\audit-features.spec.ts:16:1 › deux onglets conservent des notes distinctes et une visite après rechargement (17.1s)

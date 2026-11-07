@@ -6,6 +6,9 @@ for (const [language, nativeLabel, title] of [
   ['es', 'Español', 'Mis viajes'],
 ] as const) {
   test(`${nativeLabel}: library, all views, dates, forms and saved notes`, async ({ page }) => {
+    // This scenario includes a cold app load, every view, printing and a reload.
+    // Keep individual assertions unchanged while allowing for cold Vite startup.
+    test.setTimeout(60000);
     const t = (source: string) => translate(source, language);
     await page.goto('/');
     await expect(page).toHaveTitle(/^Détours —/);

@@ -1,0 +1,38 @@
+[WebServer] (node:20504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:30996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\world-languages.spec.ts:8:3 › 中文（简体）: library, all views, dates, forms and saved notes (49.3s)
+  x  2 tests\e2e\world-languages.spec.ts:8:3 › Español: library, all views, dates, forms and saved notes (22.3m)
+
+
+  1) tests\e2e\world-languages.spec.ts:8:3 › Español: library, all views, dates, forms and saved notes 
+
+    Test timeout of 60000ms exceeded.
+
+    Tearing down "context" exceeded the test timeout of 60000ms.
+
+    Error: browserContext.close: Target page, context or browser has been closed
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\world-languages-Español-li-0b8f0-dates-forms-and-saved-notes\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\world-languages-Español-li-0b8f0-dates-forms-and-saved-notes\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\world-languages-Español-li-0b8f0-dates-forms-and-saved-notes\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\world-languages-Español-li-0b8f0-dates-forms-and-saved-notes\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Slow test file: tests\e2e\world-languages.spec.ts (23.1m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  1 failed
+    tests\e2e\world-languages.spec.ts:8:3 › Español: library, all views, dates, forms and saved notes 
+  1 passed (23.3m)

@@ -1,0 +1,330 @@
+{
+  "baseline": {
+    "source": "initial recovery snapshot, built with same fake public Vite configuration and installed toolchain",
+    "bytes": 7452708,
+    "files": 33
+  },
+  "final": {
+    "buildId": "df74ac86c4d0be5d3433f3e7e702e10324c1600a5590880e4d276d7a899cd863",
+    "bytes": 11239628,
+    "files": 92
+  },
+  "documentAssets": [
+    {
+      "path": "/assets/Adobe-CNS1-UCS2-fO900upv.bcmap",
+      "bytes": 41193,
+      "sha256": "e665837f2197c6bd08cd8955ad4d6932cee2398e2e328b25b00e6bfb3bd72af9",
+      "gzipBytes": 35216
+    },
+    {
+      "path": "/assets/Adobe-GB1-UCS2-BA083yIo.bcmap",
+      "bytes": 33974,
+      "sha256": "20507620260c0c935c35afc1e70e5888aa7125d5ec7ffc03cef1959feb2c1641",
+      "gzipBytes": 28782
+    },
+    {
+      "path": "/assets/Adobe-Japan1-UCS2-BL-4M2vS.bcmap",
+      "bytes": 40951,
+      "sha256": "66c5d0dc4964f4093e77b194023f3a0f689324028ec8330e1e1d0570bcba7c2f",
+      "gzipBytes": 31679
+    },
+    {
+      "path": "/assets/Adobe-Korea1-UCS2-BEQZuOdo.bcmap",
+      "bytes": 23293,
+      "sha256": "857b723088be97255053562bfa41bd1075a7f7910d3bab59a0645c8bbc7060ff",
+      "gzipBytes": 18664
+    },
+    {
+      "path": "/assets/ETHK-B5-H-1MLb5v9x.bcmap",
+      "bytes": 4426,
+      "sha256": "d2f10fa519336bc4efcc7b6deb9604b75429946b40d82e311cb3a97a1994c89a",
+      "gzipBytes": 3722
+    },
+    {
+      "path": "/assets/FoxitDingbats-BaQLufoW.pfb",
+      "bytes": 29513,
+      "sha256": "845c752392b6c914fb989c75a08b7792b88f542d2499042ef2889f8c814a16ed",
+      "gzipBytes": 26857
+    },
+    {
+      "path": "/assets/FoxitFixed-Dyd5Nipw.pfb",
+      "bytes": 17597,
+      "sha256": "b6c8fe53f134b8b6d4578cd2d544df4cee9624c4efa8d51a560fb40ea296101b",
+      "gzipBytes": 15700
+    },
+    {
+      "path": "/assets/FoxitFixedBold-D5TuYRwj.pfb",
+      "bytes": 18055,
+      "sha256": "f1b7159702973f54fc86254ea38bcf3712b2a736eb3a0995751e9f4bb45ad603",
+      "gzipBytes": 16133
+    },
+    {
+      "path": "/assets/FoxitFixedBoldItalic-BqlXQ_Yv.pfb",
+      "bytes": 19151,
+      "sha256": "8a000945843bd31add06aee63bf9fd41b7578b4f3242a4b7cd46349ad9d24d4d",
+      "gzipBytes": 17008
+    },
+    {
+      "path": "/assets/FoxitFixedItalic-DqjQkmbS.pfb",
+      "bytes": 18746,
+      "sha256": "5007faf8320fa1fcc08b8894b356ad976f60b992ba29ee5272578bbdebaf3876",
+      "gzipBytes": 16566
+    },
+    {
+      "path": "/assets/FoxitSerif-qbgiDIe-.pfb",
+      "bytes": 19469,
+      "sha256": "4f57d2b9d884af8f907bf22df6019b52d86cbf6214fdbd02b1ae05472a543f35",
+      "gzipBytes": 17651
+    },
+    {
+      "path": "/assets/FoxitSerifBold-DZZ4CclT.pfb",
+      "bytes": 19395,
+      "sha256": "0bdf4b04e964139818d51eda03d566ba999fc3ba2421b1c6c51f9dc969022e80",
+      "gzipBytes": 17342
+    },
+    {
+      "path": "/assets/FoxitSerifBoldItalic-DSQtwd_X.pfb",
+      "bytes": 20733,
+      "sha256": "a406cac82583bf98175cb62c87ed5e95c45fbb34eece63a10b0a13e793cb2e10",
+      "gzipBytes": 18739
+    },
+    {
+      "path": "/assets/FoxitSerifItalic-CQs5lx9Y.pfb",
+      "bytes": 21227,
+      "sha256": "610ae0687198045c4db5d1a6650fd5e92536631706382eb8b72e38df578d0ae9",
+      "gzipBytes": 19158
+    },
+    {
+      "path": "/assets/FoxitSymbol-BVtbc20u.pfb",
+      "bytes": 16729,
+      "sha256": "47967d055530e7357088a08403115425643ec2cdfd6201ba8af0fbd7116c1539",
+      "gzipBytes": 14961
+    },
+    {
+      "path": "/assets/GBK-EUC-H-CAORqCkf.bcmap",
+      "bytes": 14692,
+      "sha256": "2103fed28650ede096a2281104a1a8a4304dae0db414342c636867522307123b",
+      "gzipBytes": 12164
+    },
+    {
+      "path": "/assets/GBK2K-H-Cv55KPk8.bcmap",
+      "bytes": 19662,
+      "sha256": "3d919ae72af16c5cc6846ec87a4326a9f125e493c59d3628429d35c2c95fe8c4",
+      "gzipBytes": 14898
+    },
+    {
+      "path": "/assets/GBKp-EUC-H-CElrnV5g.bcmap",
+      "bytes": 14686,
+      "sha256": "d15ebd8e81fb4fe8a244f1b1e877922e03500ac69eddf5001093e502430451d2",
+      "gzipBytes": 12160
+    },
+    {
+      "path": "/assets/GBT-EUC-H-BTsQIL1M.bcmap",
+      "bytes": 7290,
+      "sha256": "dc5f44e48a39f3367ae28665027d8ab1d8cedb5a9dcc5068a900acd6709f60f9",
+      "gzipBytes": 6199
+    },
+    {
+      "path": "/assets/GBT-H-DL9h-WkS.bcmap",
+      "bytes": 7269,
+      "sha256": "8afda745a505763f3ff54c8126eeb48ef376ea9ed07d9f42ff9a22c5c547ec57",
+      "gzipBytes": 6146
+    },
+    {
+      "path": "/assets/GBTpc-EUC-H-DnIh5WJ3.bcmap",
+      "bytes": 7298,
+      "sha256": "7b23e2f7bfdb6c918f567b7324bf858f398bd8cd5f268d74ece19a3c91bf4f32",
+      "gzipBytes": 6206
+    },
+    {
+      "path": "/assets/HKscs-B5-H-CXbBbq6g.bcmap",
+      "bytes": 4437,
+      "sha256": "08599378f41d96b40537adef6e6edcc4a787bc63f5accf47c026df4905a13914",
+      "gzipBytes": 3731
+    },
+    {
+      "path": "/assets/KSC-Johab-H-CGtV3MPT.bcmap",
+      "bytes": 16791,
+      "sha256": "939993d213f68db763bf156217c217ae23af082b91a0eacecf3d11eb4ff8ef8c",
+      "gzipBytes": 12980
+    },
+    {
+      "path": "/assets/LiberationSans-Bold-BPt4bU5Z.ttf",
+      "bytes": 137052,
+      "sha256": "361c61b82d575c5c35fd9157fda8b0194bcfcd0d88ea8521a4fb5dd53d33dddc",
+      "gzipBytes": 85223
+    },
+    {
+      "path": "/assets/LiberationSans-BoldItalic-Bj53-jFw.ttf",
+      "bytes": 135124,
+      "sha256": "a224075ac17495ad0a3af3bc0a419ac0704a8b3fd1095456201fb9b095fc281d",
+      "gzipBytes": 83487
+    },
+    {
+      "path": "/assets/LiberationSans-Italic-5QhGB3P9.ttf",
+      "bytes": 162036,
+      "sha256": "832b4406dbef23628800d3aaad21048534ac84d7e3ad955be83b8172ed8ef512",
+      "gzipBytes": 98681
+    },
+    {
+      "path": "/assets/LiberationSans-Regular-cbskN6YR.ttf",
+      "bytes": 139512,
+      "sha256": "f8ace1f892b2bd9dc1792ba7f097fa7588f84fed48321480e04de5390828221f",
+      "gzipBytes": 89894
+    },
+    {
+      "path": "/assets/UniCNS-UCS2-H-DWzv8UhH.bcmap",
+      "bytes": 48280,
+      "sha256": "779428116752f34e2490a1941d24e4634c71e3c22d053b811d2090ae2fb3c704",
+      "gzipBytes": 41765
+    },
+    {
+      "path": "/assets/UniCNS-UTF16-H-Bw0JKgCq.bcmap",
+      "bytes": 50419,
+      "sha256": "32ff139b3c7b91d6ad25f994701f3ce7b242906022c418fd73e6493fc228bfe5",
+      "gzipBytes": 44533
+    },
+    {
+      "path": "/assets/UniCNS-UTF32-H-IE_GrH2i.bcmap",
+      "bytes": 52679,
+      "sha256": "bf26eb67fe19ee5ba915799e80ca72408400aa8342fdf6a244a4f44de8f97336",
+      "gzipBytes": 44994
+    },
+    {
+      "path": "/assets/UniCNS-UTF8-H-BbLcFh6Q.bcmap",
+      "bytes": 53629,
+      "sha256": "2f2a742bcd1a84a148a4a518b9eed51a8f9c6ca5ed3bc5e2e41fff97de5dc2d8",
+      "gzipBytes": 46724
+    },
+    {
+      "path": "/assets/UniGB-UCS2-H-D7xzRvZN.bcmap",
+      "bytes": 43366,
+      "sha256": "9201569b402e81ad8860650bd86350c4fa28e5dd5971f05fcacaf40f51de18ed",
+      "gzipBytes": 37105
+    },
+    {
+      "path": "/assets/UniGB-UTF16-H-DKjbEwc0.bcmap",
+      "bytes": 44086,
+      "sha256": "386fd39581245c034da016a92d23f3df1117d169f996100050b264fc09a84e35",
+      "gzipBytes": 37953
+    },
+    {
+      "path": "/assets/UniGB-UTF32-H-Behfouj5.bcmap",
+      "bytes": 45738,
+      "sha256": "f48a145dc4e3ed1dca1dde7111716a72306a2a4191ab05c6bae3a5c3a961cd2f",
+      "gzipBytes": 38495
+    },
+    {
+      "path": "/assets/UniGB-UTF8-H-EROft1ro.bcmap",
+      "bytes": 46837,
+      "sha256": "f217b439c80ee5fa1bc2cf6d1defcc319f8d84483d166a00ee199e05a68588df",
+      "gzipBytes": 39900
+    },
+    {
+      "path": "/assets/UniJIS-UCS2-H-2DbZ0MaQ.bcmap",
+      "bytes": 25439,
+      "sha256": "ad2352f40870880fbf7f8ee5abadff743fbd025fbf9830b8ada472d1c5e4da0b",
+      "gzipBytes": 21624
+    },
+    {
+      "path": "/assets/UniJIS-UTF16-H-BlDDPdCK.bcmap",
+      "bytes": 39443,
+      "sha256": "f6a89c5688978548c83fcee990e205bc63c74274d5c69b49032a3bd4c49a05ee",
+      "gzipBytes": 34011
+    },
+    {
+      "path": "/assets/UniJIS-UTF32-H-BIQPWkjv.bcmap",
+      "bytes": 40539,
+      "sha256": "96195950ce0fe24443d8eb426fa6b88534ec421d7bef9046f0b2362809cfba73",
+      "gzipBytes": 34254
+    },
+    {
+      "path": "/assets/UniJIS-UTF8-H-CGusholx.bcmap",
+      "bytes": 41695,
+      "sha256": "798fb0bf06ab0788d1f6a91c2db7de581612eef03c628f10e8f7ecd8f70ab448",
+      "gzipBytes": 35685
+    },
+    {
+      "path": "/assets/UniJIS2004-UTF16-H-KXixH-HI.bcmap",
+      "bytes": 39534,
+      "sha256": "710a32d7cb43fd6bd9dbf30da5971f8c941590f74441e208d852c2be0e74cc97",
+      "gzipBytes": 34167
+    },
+    {
+      "path": "/assets/UniJIS2004-UTF32-H-CXrD-9YE.bcmap",
+      "bytes": 40630,
+      "sha256": "8d2658e18741af7937d586a57c89729a6fec0d86121197c1f8518aa58b29cdfb",
+      "gzipBytes": 34421
+    },
+    {
+      "path": "/assets/UniJIS2004-UTF8-H-BkOctZjn.bcmap",
+      "bytes": 41779,
+      "sha256": "691c614ce432b3e62486efb54e5c84c6da5afe9b51b21253bde4758feb484183",
+      "gzipBytes": 35849
+    },
+    {
+      "path": "/assets/UniJISX0213-UTF32-H-BavAhZjb.bcmap",
+      "bytes": 40517,
+      "sha256": "692044e1fb33445668632bc9fe7386805c624864be1ddeb29d65bb0c99fc630c",
+      "gzipBytes": 34234
+    },
+    {
+      "path": "/assets/UniJISX02132004-UTF32-H-DAH-AgUq.bcmap",
+      "bytes": 40608,
+      "sha256": "f80ea5a989be30ccda5a8804baef6d3b4b044d2b339bf8b31c671b2466171cf6",
+      "gzipBytes": 34396
+    },
+    {
+      "path": "/assets/UniKS-UCS2-H-YeUc7k1L.bcmap",
+      "bytes": 25783,
+      "sha256": "a1081396ab4adb6f4a5b6c15f896963c244c1c9bcb65ce5616d06096a1b9811c",
+      "gzipBytes": 22147
+    },
+    {
+      "path": "/assets/UniKS-UTF16-H-B0dvB-Td.bcmap",
+      "bytes": 26327,
+      "sha256": "42d35b396286499dfae1737a07adb3a64500df37b426580bfb1d3ea872938519",
+      "gzipBytes": 20966
+    },
+    {
+      "path": "/assets/UniKS-UTF32-H-olR_LtmR.bcmap",
+      "bytes": 26451,
+      "sha256": "3a01ec51ed1b828101351e337ffb8250abe11880032e5210f881170fed2588de",
+      "gzipBytes": 21012
+    },
+    {
+      "path": "/assets/UniKS-UTF8-H-CbpebD-y.bcmap",
+      "bytes": 27790,
+      "sha256": "3fac9c65145f72d7d42157a3b9c5ed6904632184e6a0888f2b828699afd2002f",
+      "gzipBytes": 22263
+    },
+    {
+      "path": "/assets/document-pdf-BfIa-OkE.js",
+      "bytes": 573788,
+      "sha256": "c5d60961476dadc94389ed04af168641a8bf6f0909128391011a4efbf68db40a",
+      "gzipBytes": 181739
+    },
+    {
+      "path": "/assets/documents-DZeVpvgj.js",
+      "bytes": 2350,
+      "sha256": "dba363a6179b170d3df9aae11b5cf326a15a773ebc7fb959057a1d2a7b676737",
+      "gzipBytes": 1091
+    },
+    {
+      "path": "/assets/docx.worker-Cj-8v7mF.js",
+      "bytes": 36829,
+      "sha256": "09c0e6084a1ca2b8ca003104ec4de8ca357aa5ef43be9e2d862badaefeaef4ea",
+      "gzipBytes": 12301
+    },
+    {
+      "path": "/assets/pdf.worker.min-CjEcRF4W.mjs",
+      "bytes": 1264342,
+      "sha256": "9536359f1b8367850d485731ca1d5e45c159a7b7a0912325e539937aa21ceb18",
+      "gzipBytes": 375511
+    }
+  ],
+  "documentAssetsBytes": 3729179,
+  "documentAssetsGzipBytes": 2017087,
+  "limits": "gzip is a local estimate, not measured CDN transfer; eager service-worker precache includes lazy modules, fonts and CMaps",
+  "addedBytes": 3786920
+}

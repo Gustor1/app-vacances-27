@@ -1,0 +1,5021 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\eliot\\Documents\\app-vacances-27\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "C:\\Users\\eliot\\Documents\\app-vacances-27\\docs\\development\\audit-impeccable-2026-11-02\\preuves\\audit.playwright.config.mts",
+      "--grep-invert",
+      "a mobile sheet follows a drag, reverses without losing the draft, then dismisses on a flick$|reduced motion uses a static sheet and retains all keyboard controls$|assistant fr search, safe sources, preview, actual note, undo, keyboard and mobile$|assistant en search, safe sources, preview, actual note, undo, keyboard and mobile$|assistant zh-CN search, safe sources, preview, actual note, undo, keyboard and mobile$|assistant es search, safe sources, preview, actual note, undo, keyboard and mobile$|storage before failure keeps explicit retry idempotent$|storage after failure keeps explicit retry idempotent$|shared reader controls, revoked rights are rechecked at commit$|shared editor controls, revoked rights are rechecked at commit$|ambiguous tomorrow near midnight requires an explicit dated destination$|deux onglets conservent des notes distinctes et une visite après rechargement$|closing a sheet preserves keyboard navigation and an unsaved trip stays unsaved$|actual field, move and coherent lightened day retain original history and export$|concurrent revision blocks application and undo, preserving the other tab$|closing a pending action cancels its late lock callback without writing$|account switch while waiting for lock clears session and rejects late action$|revision arriving during pending lock is preserved and refreshed for a new preview$|sauvegarde corrompue télécharge exactement les octets originaux$|nouvelle ville sans coordonnées n’invente aucun repère$|budget garde les devises séparées puis convertit au taux manuel$|hébergement conserve nom chinois et adresse précise dans Amap$|trajet garde référence billet et heures chinoises après rechargement$|valise coche un essentiel et garde une liste vide après suppression$|phrases chinoises s’agrandissent et se copient$|vue d’ensemble exporte seulement les journées explicitement datées$|adresse personnelle ajoutée au programme conserve sa recherche Amap$|mobile Escape ferme le menu et les favoris ne volent pas le focus du dialogue$|une nouvelle activité peut être ajoutée directement dans une autre journée$|voyage multi-pays terminé, confirmation explicite, copie et suppression sans nouveau souvenir$|ancien séjour indépendant, envie, palette et nouveau voyage prérempli$|partage local sans notes sensibles ; menu de compte conforme à la configuration$|Mon monde : mobile, clavier, quatre langues et thèmes sans débordement$|souvenirs corrompus conservés et aucune visite ajoutée sur erreur$|fin de voyage passée : proposition de clôture sans statut imposé$|the rendered bird and its badge follow all 24 palettes without changing the notebook$|palette-colored brand survives reload and reaches the notebook footer$|devise suggérée reste modifiable, choix explicite pour plusieurs pays$|taux daté figé par dépense, rechargement et conversion manquante$|proposition Frankfurter datée et erreur réseau sans faux total$|un ancien taux sans date ne convertit pas implicitement une nouvelle dépense$|departure corrections, explicit requirements, versioned dismissal, restore and no optional-empty warnings$|companion fr safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile$|companion en safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile$|companion zh-CN safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile$|companion es safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile$|concurrent edits invalidate idea and plan B previews and preserve notes, bookings and original history$|companion shared reader permissions and private exclusions$|companion shared editor permissions and private exclusions$|animated companions: three characters, narrow hitbox, drag, preferences and real trip shortcuts$|touch drag, cancellation, reduced motion and viewport resizing$|companion and menu stay reachable at every edge \\(home\\)$|companion and menu stay reachable at every edge \\(notebook\\)$|compact connection leaves space for search at 320px$|compact connection leaves space for search at 390px$|compact connection leaves space for search at 740px$|compact connection leaves space for search at 1000px$|glass selection travels between mobile buttons and can reverse before settling$|reduced motion places selection immediately and desktop navigation stays usable$|glass stays inside its dock when an animation starts after the frame timestamp$|glass bubble opens a bridge to Carte then closes on the selected button$|glass bubble opens a bridge to Bonus then closes on the selected button$|the sidebar bubble opens vertically and closes without displacing the buttons$|export réel puis restauration vierge retrouve contenus, relations et documents ; réessai sans doublon$|corruption et manque de quota préservent les données ; reprise explicite après interruption$|collection réelle de plus de 5 Mo restaurée dans Chrome sans doubler le quota$|bilan de sauvegarde fr : mobile, clavier et annulation sans écriture$|bilan de sauvegarde en : mobile, clavier et annulation sans écriture$|bilan de sauvegarde zh-CN : mobile, clavier et annulation sans écriture$|bilan de sauvegarde es : mobile, clavier et annulation sans écriture$|header fills the viewport and has no seam in both themes, before and after scrolling$|a real touch opens and closes the glass bridge$|naviguer entre villes et journées puis rechercher un lieu chinois$|modifier une étape, la marquer visitée et retrouver les changements après rechargement$|ajouter une ville, une journée et une étape avec son repère$|garder un bonus favori puis l’ajouter au bon jour$|enregistrer réservations, date et notes personnelles$|exporter puis importer une copie indépendante sans remplacer le carnet courant$|source corrompue récupérable et import dans un nouveau carnet sans l’écraser$|utiliser le menu et les vues sur mobile sans débordement horizontal$|accueil fr : onglets, clavier, focus et date civile dans un fuseau occidental$|accueil en : onglets, clavier, focus et date civile dans un fuseau occidental$|accueil zh-CN : onglets, clavier, focus et date civile dans un fuseau occidental$|accueil es : onglets, clavier, focus et date civile dans un fuseau occidental$|compte sans session : file conservée, changement de compte isolé et échec local explicite$|cartes google : recherche distincte du trajet, modes et prochaine étape$|cartes amap : recherche distincte du trajet, modes et prochaine étape$|voyage CN : préférence personnelle Google par défaut$|voyage FR : préférence personnelle Google par défaut$|liens sans clé : fr, google, clavier, hors ligne et reflow$|liens sans clé : fr, amap, clavier, hors ligne et reflow$|liens sans clé : en, google, clavier, hors ligne et reflow$|liens sans clé : en, amap, clavier, hors ligne et reflow$|liens sans clé : zh-CN, google, clavier, hors ligne et reflow$|liens sans clé : zh-CN, amap, clavier, hors ligne et reflow$|liens sans clé : es, google, clavier, hors ligne et reflow$|liens sans clé : es, amap, clavier, hors ligne et reflow$|Maintenant fr : deux actions, adresse locale, données du jour, clavier et dates$|Maintenant en : deux actions, adresse locale, données du jour, clavier et dates$|Maintenant zh-CN : deux actions, adresse locale, données du jour, clavier et dates$|Maintenant es : deux actions, adresse locale, données du jour, clavier et dates$|L6 urban : comparer, annuler, adopter et revenir sans perdre billets/dépenses$|L6 excursion : comparer, annuler, adopter et revenir sans perdre billets/dépenses$|L6 transfer : comparer, annuler, adopter et revenir sans perdre billets/dépenses$|L6 fr : saisie, inconnues, comparaison, clavier et 320px$|L6 en : saisie, inconnues, comparaison, clavier et 320px$|L6 zh-CN : saisie, inconnues, comparaison, clavier et 320px$|L6 es : saisie, inconnues, comparaison, clavier et 320px$|L6 lecteur : comparaison disponible, adoption et formulaires bloqués$|mobile glass dock stays compact, centred and touchable at 320px$"
+    ],
+    "configFile": "C:\\Users\\eliot\\Documents\\app-vacances-27\\docs\\development\\audit-impeccable-2026-11-02\\preuves\\audit.playwright.config.mts",
+    "rootDir": "C:/Users/eliot/Documents/app-vacances-27/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/eliot/AppData/Local/Temp/detours-audit-e2e-final-20261102",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "C:/Users/eliot/Documents/app-vacances-27/tests/e2e",
+        "testIgnore": [
+          "planning-analysis.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\eliot\\Documents\\app-vacances-27\\docs\\development\\audit-impeccable-2026-11-02\\preuves\\e2e-final.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run dev -- --host 127.0.0.1 --port 52983 --strictPort",
+      "url": "http://127.0.0.1:52983",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "liquid-glass.spec.ts",
+      "file": "liquid-glass.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "mobile glass dock stays compact, centred and touchable at 390px",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11095,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/, 0\\.96\\)$/\u001b[39m\nReceived string:  \u001b[31m\"rgba(247, 242, 233, 0.98)\"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/, 0\\.96\\)$/\u001b[39m\nReceived string:  \u001b[31m\"rgba(247, 242, 233, 0.98)\"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n    at C:\\Users\\eliot\\Documents\\app-vacances-27\\tests\\e2e\\liquid-glass.spec.ts:21:88",
+                    "location": {
+                      "file": "C:\\Users\\eliot\\Documents\\app-vacances-27\\tests\\e2e\\liquid-glass.spec.ts",
+                      "column": 88,
+                      "line": 21
+                    },
+                    "snippet": "  19 |     await page.locator('.day-panel').scrollIntoViewIfNeeded();\n  20 |     await expect(page.locator('html')).toHaveAttribute('data-scrolled', 'true');\n> 21 |     await expect.poll(() => dock.evaluate(el => getComputedStyle(el).backgroundColor)).toMatch(/, 0\\.96\\)$/);\n     |                                                                                        ^\n  22 |     await dock.getByRole('button', { name: 'Carte', exact: true }).click();\n  23 |     await expect(page.getByRole('heading', { name: 'Les petits points d’un grand voyage', exact: true })).toBeVisible();\n  24 |     await expect(page.locator('html')).toHaveAttribute('data-scrolled', 'false');"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\eliot\\Documents\\app-vacances-27\\tests\\e2e\\liquid-glass.spec.ts",
+                        "column": 88,
+                        "line": 21
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/, 0\\.96\\)$/\u001b[39m\nReceived string:  \u001b[31m\"rgba(247, 242, 233, 0.98)\"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  19 |     await page.locator('.day-panel').scrollIntoViewIfNeeded();\n  20 |     await expect(page.locator('html')).toHaveAttribute('data-scrolled', 'true');\n> 21 |     await expect.poll(() => dock.evaluate(el => getComputedStyle(el).backgroundColor)).toMatch(/, 0\\.96\\)$/);\n     |                                                                                        ^\n  22 |     await dock.getByRole('button', { name: 'Carte', exact: true }).click();\n  23 |     await expect(page.getByRole('heading', { name: 'Les petits points d’un grand voyage', exact: true })).toBeVisible();\n  24 |     await expect(page.locator('html')).toHaveAttribute('data-scrolled', 'false');\n    at C:\\Users\\eliot\\Documents\\app-vacances-27\\tests\\e2e\\liquid-glass.spec.ts:21:88"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:43:43.630Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-audit-e2e-final-20261102\\liquid-glass-mobile-glass--1dbcd-tred-and-touchable-at-390px\\test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-audit-e2e-final-20261102\\liquid-glass-mobile-glass--1dbcd-tred-and-touchable-at-390px\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-audit-e2e-final-20261102\\liquid-glass-mobile-glass--1dbcd-tred-and-touchable-at-390px\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\eliot\\Documents\\app-vacances-27\\tests\\e2e\\liquid-glass.spec.ts",
+                    "column": 88,
+                    "line": 21
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "51f96f31d5ef565509d3-e90339b6a26924322bad",
+          "file": "liquid-glass.spec.ts",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "scroll glass changes its material without changing dock position or travel data",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2035,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:43:56.709Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "51f96f31d5ef565509d3-a8e53e04b7dd9e384487",
+          "file": "liquid-glass.spec.ts",
+          "line": 28,
+          "column": 1
+        },
+        {
+          "title": "increased contrast gives glass chrome a solid background",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1951,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:43:59.102Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "51f96f31d5ef565509d3-59957c65b9a97c56cd66",
+          "file": "liquid-glass.spec.ts",
+          "line": 42,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "live-converter.spec.ts",
+      "file": "live-converter.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "convertisseur connecté et dépenses synchronisées en devise locale et personnelle, taux enregistrés conservés",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4975,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:01.138Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0af694e35bca49cfd463-8218a9e5380fa280aa19",
+          "file": "live-converter.spec.ts",
+          "line": 10,
+          "column": 1
+        },
+        {
+          "title": "inversion, arrondis, montants invalides et changement de paire pendant une requête",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3559,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:06.128Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0af694e35bca49cfd463-73033907a99e1f143821",
+          "file": "live-converter.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "hors ligne : cache daté disponible et paire manquante signalée, reprise automatique",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2588,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:09.712Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0af694e35bca49cfd463-27bd35b512c37d8e104f",
+          "file": "live-converter.spec.ts",
+          "line": 34,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "map-preferences.spec.ts",
+      "file": "map-preferences.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "choix personnel : Google par défaut, Amap dans toutes les vues, conservation après rechargement sans modifier le carnet",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4908,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:12.341Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "975fe99b18c9894f1283-ebea352f59608f804714",
+          "file": "map-preferences.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "préférence entre onglets et sauvegarde refusée : choix actif mais échec annoncé",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5105,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:17.266Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "975fe99b18c9894f1283-128eebb9edc0b9ded5ff",
+          "file": "map-preferences.spec.ts",
+          "line": 46,
+          "column": 1
+        },
+        {
+          "title": "préférences des comptes A et B et du mode local isolées, sans envoi de carnet",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4848,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:22.388Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "975fe99b18c9894f1283-4f13f3365a419e646d91",
+          "file": "map-preferences.spec.ts",
+          "line": 55,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "mascot.spec.ts",
+      "file": "mascot.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "mascot fr: genuine states, themes, widths, zoom, keyboard and accessible text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4992,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:27.388Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28125981a02e881ea0c0-9f6db822ee1ffa68fd58",
+          "file": "mascot.spec.ts",
+          "line": 17,
+          "column": 64
+        },
+        {
+          "title": "mascot en: genuine states, themes, widths, zoom, keyboard and accessible text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4534,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:32.400Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28125981a02e881ea0c0-a5561c6597062f4b1bad",
+          "file": "mascot.spec.ts",
+          "line": 17,
+          "column": 64
+        },
+        {
+          "title": "mascot zh-CN: genuine states, themes, widths, zoom, keyboard and accessible text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4930,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:36.956Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28125981a02e881ea0c0-bf99095a2b77e64a854c",
+          "file": "mascot.spec.ts",
+          "line": 17,
+          "column": 64
+        },
+        {
+          "title": "mascot es: genuine states, themes, widths, zoom, keyboard and accessible text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5118,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:41.902Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28125981a02e881ea0c0-2de90f5d1f198e24ee7c",
+          "file": "mascot.spec.ts",
+          "line": 17,
+          "column": 64
+        },
+        {
+          "title": "toggle is immediate, durable, keyboard accessible and leaves the import untouched",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8426,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:47.034Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28125981a02e881ea0c0-9ac6418ec9ee32d40a1f",
+          "file": "mascot.spec.ts",
+          "line": 51,
+          "column": 1
+        },
+        {
+          "title": "failed image and failed preference write leave all ordinary actions available",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5015,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:44:55.485Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28125981a02e881ea0c0-e18b3b88dd84f3687700",
+          "file": "mascot.spec.ts",
+          "line": 68,
+          "column": 1
+        },
+        {
+          "title": "account switch resets personal visibility and welcome without touching another scope",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4290,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:45:00.538Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "28125981a02e881ea0c0-8c6e83a83da4f8f2a08d",
+          "file": "mascot.spec.ts",
+          "line": 82,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "multi-trip.spec.ts",
+      "file": "multi-trip.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "installation vierge, voyages vides et première étape sans journée sur mobile",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7130,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:45:04.900Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ac3abc6e2ed5d221d8f6-45ec80c82f3d83529769",
+          "file": "multi-trip.spec.ts",
+          "line": 27,
+          "column": 1
+        },
+        {
+          "title": "Chine, Japon et France restent isolés après notes, recherche, export et rechargement",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10426,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:45:12.053Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ac3abc6e2ed5d221d8f6-d2034d8c9bab8a5aee4f",
+          "file": "multi-trip.spec.ts",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "duplication puis notes, activité, favoris et valise de la copie préservent l’original",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7167,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:45:22.523Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ac3abc6e2ed5d221d8f6-c362fa971892d62ecb78",
+          "file": "multi-trip.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "deux onglets ouverts sur des carnets différents ne partagent aucune écriture",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8448,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:45:29.713Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ac3abc6e2ed5d221d8f6-b0eeeed750b82de41e91",
+          "file": "multi-trip.spec.ts",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "écriture en attente du carnet A après ouverture par import du carnet B",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2590,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:45:38.187Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ac3abc6e2ed5d221d8f6-28c329ba4bbde5aebed1",
+          "file": "multi-trip.spec.ts",
+          "line": 78,
+          "column": 1
+        },
+        {
+          "title": "échec de sauvegarde exportable puis reprise sans perdre la modification précédente",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3582,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:45:40.799Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ac3abc6e2ed5d221d8f6-7fb5d89f946f20a4888d",
+          "file": "multi-trip.spec.ts",
+          "line": 90,
+          "column": 1
+        },
+        {
+          "title": "deux onglets sur le même carnet, brouillon ouvert et changement distant conservé",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8314,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:45:44.403Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ac3abc6e2ed5d221d8f6-83aee33f92425d83f4b1",
+          "file": "multi-trip.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "nouvelle devise de référence préserve le budget et les montants originaux",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2912,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:45:52.742Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ac3abc6e2ed5d221d8f6-2a09d6a2e99351843d6b",
+          "file": "multi-trip.spec.ts",
+          "line": 110,
+          "column": 1
+        },
+        {
+          "title": "document personnel répertorié, conservé et exporté uniquement dans son carnet",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5125,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:45:55.684Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ac3abc6e2ed5d221d8f6-b517ed84b6ba4fdeac66",
+          "file": "multi-trip.spec.ts",
+          "line": 118,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "navigation-shortcuts.spec.ts",
+      "file": "navigation-shortcuts.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Reprendre retrouve la première activité restante de la ville sélectionnée",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2813,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:46:00.863Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8921c15f91ce995901cb-2317c3bac3167f76bd45",
+          "file": "navigation-shortcuts.spec.ts",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "Aujourd’hui retrouve une journée datée en heure chinoise depuis une autre ville",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2871,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:46:03.698Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "8921c15f91ce995901cb-64411d99bb2a333d494c",
+          "file": "navigation-shortcuts.spec.ts",
+          "line": 12,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "palette-claire.spec.ts",
+      "file": "palette-claire.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "the approved bird is loaded and selection menus use the softened light field surface",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1713,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:46:06.627Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1efad2b904721fbe4b34-2ff04ff12b97babd4686",
+          "file": "palette-claire.spec.ts",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "bootstrap resolves the palette before React, including an explicit dark preference",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1959,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:46:08.365Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1efad2b904721fbe4b34-7e2b08d07dabebe18607",
+          "file": "palette-claire.spec.ts",
+          "line": 24,
+          "column": 1
+        },
+        {
+          "title": "theme changes sync between tabs, follow system settings and preserve notebook data",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10474,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:46:10.350Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1efad2b904721fbe4b34-864c9c4573cc899f682a",
+          "file": "palette-claire.spec.ts",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "rendered light surfaces, controls and composed translucent colors meet their contrast targets",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2603,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:46:20.842Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1efad2b904721fbe4b34-9144ee8e66a94dac9678",
+          "file": "palette-claire.spec.ts",
+          "line": 66,
+          "column": 1
+        },
+        {
+          "title": "light palette reflows preferences, form and import in fr, including zoom and landscape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7517,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:46:23.470Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1efad2b904721fbe4b34-0da3e33fd6dec083eb89",
+          "file": "palette-claire.spec.ts",
+          "line": 113,
+          "column": 3
+        },
+        {
+          "title": "light palette reflows preferences, form and import in en, including zoom and landscape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8182,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:46:31.007Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1efad2b904721fbe4b34-d751eb1c108221d0a08b",
+          "file": "palette-claire.spec.ts",
+          "line": 113,
+          "column": 3
+        },
+        {
+          "title": "light palette reflows preferences, form and import in zh-CN, including zoom and landscape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8823,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:46:39.220Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1efad2b904721fbe4b34-f61a11118a50ac70c2ab",
+          "file": "palette-claire.spec.ts",
+          "line": 113,
+          "column": 3
+        },
+        {
+          "title": "light palette reflows preferences, form and import in es, including zoom and landscape",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14665,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:46:48.066Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1efad2b904721fbe4b34-ddc85744e8746669612f",
+          "file": "palette-claire.spec.ts",
+          "line": 113,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "palettes-personnalisees.spec.ts",
+      "file": "palettes-personnalisees.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "all twelve families apply both appearances, keep notebooks intact and remain usable at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 45476,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:47:02.821Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e0ef2e46fd3d74ee0ef-bf5dfa5d2b717311b435",
+          "file": "palettes-personnalisees.spec.ts",
+          "line": 17,
+          "column": 1
+        },
+        {
+          "title": "independent day/night choices survive reload, tab changes and legacy preference writes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14260,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:47:48.338Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e0ef2e46fd3d74ee0ef-ed7ce0fc12e8dd39dc37",
+          "file": "palettes-personnalisees.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "palette saving throw: session choices work, failure is visible, notebooks and old settings are preserved",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10054,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:48:02.649Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e0ef2e46fd3d74ee0ef-1884a379a74695a445f4",
+          "file": "palettes-personnalisees.spec.ts",
+          "line": 78,
+          "column": 3
+        },
+        {
+          "title": "palette saving silent: session choices work, failure is visible, notebooks and old settings are preserved",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9723,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:48:12.760Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e0ef2e46fd3d74ee0ef-4380caf480c5d67da392",
+          "file": "palettes-personnalisees.spec.ts",
+          "line": 78,
+          "column": 3
+        },
+        {
+          "title": "unknown stored version is retained, defaults stay usable and changing language does not overwrite it",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3432,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:48:22.555Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e0ef2e46fd3d74ee0ef-f796dca27e2ceaefb5f7",
+          "file": "palettes-personnalisees.spec.ts",
+          "line": 97,
+          "column": 1
+        },
+        {
+          "title": "palette collection keyboard, narrow layout and 200% reflow in fr",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5983,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:48:26.046Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e0ef2e46fd3d74ee0ef-acba6a7af56ec4cfe9a0",
+          "file": "palettes-personnalisees.spec.ts",
+          "line": 107,
+          "column": 3
+        },
+        {
+          "title": "palette collection keyboard, narrow layout and 200% reflow in en",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6147,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:48:32.073Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e0ef2e46fd3d74ee0ef-730bd95e990ba9c60e3d",
+          "file": "palettes-personnalisees.spec.ts",
+          "line": 107,
+          "column": 3
+        },
+        {
+          "title": "palette collection keyboard, narrow layout and 200% reflow in zh-CN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5970,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:48:38.271Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e0ef2e46fd3d74ee0ef-76fd00d8c6b2e276b877",
+          "file": "palettes-personnalisees.spec.ts",
+          "line": 107,
+          "column": 3
+        },
+        {
+          "title": "palette collection keyboard, narrow layout and 200% reflow in es",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5754,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:48:44.290Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e0ef2e46fd3d74ee0ef-e51090fb0cc3f8320f4b",
+          "file": "palettes-personnalisees.spec.ts",
+          "line": 107,
+          "column": 3
+        },
+        {
+          "title": "automatic appearance follows the system while keeping both choices, including before React loads",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3210,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:48:50.094Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9e0ef2e46fd3d74ee0ef-a9b54e72faecec08f04d",
+          "file": "palettes-personnalisees.spec.ts",
+          "line": 122,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "places.spec.ts",
+      "file": "places.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "explicit candidate/field confirmation, original correction, remote credits, export/restore and offline removal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13597,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:48:53.409Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcb06c250fb04c2cfce7-d9f258bda3daa2976192",
+          "file": "places.spec.ts",
+          "line": 20,
+          "column": 1
+        },
+        {
+          "title": "places fr keyboard, reduced motion, 320px and 200% zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8405,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:49:07.049Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcb06c250fb04c2cfce7-9cb714ab6b2ff401bd4d",
+          "file": "places.spec.ts",
+          "line": 40,
+          "column": 62
+        },
+        {
+          "title": "places en keyboard, reduced motion, 320px and 200% zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8628,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:49:15.496Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcb06c250fb04c2cfce7-10c9434cba660eaddd02",
+          "file": "places.spec.ts",
+          "line": 40,
+          "column": 62
+        },
+        {
+          "title": "places zh-CN keyboard, reduced motion, 320px and 200% zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8652,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:49:24.171Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcb06c250fb04c2cfce7-7e3f75da0bc0d5c3801c",
+          "file": "places.spec.ts",
+          "line": 40,
+          "column": 62
+        },
+        {
+          "title": "places es keyboard, reduced motion, 320px and 200% zoom",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8340,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:49:32.865Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcb06c250fb04c2cfce7-c53ba9df9f90ddab402a",
+          "file": "places.spec.ts",
+          "line": 40,
+          "column": 62
+        },
+        {
+          "title": "empty, malformed, 429, cancellation and late response after switching activity",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6368,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:49:41.256Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcb06c250fb04c2cfce7-0a368fea3668c2aa4202",
+          "file": "places.spec.ts",
+          "line": 50,
+          "column": 1
+        },
+        {
+          "title": "a late entity response cannot associate a different notebook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7174,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:49:47.674Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcb06c250fb04c2cfce7-72173924fb85c290d6a1",
+          "file": "places.spec.ts",
+          "line": 64,
+          "column": 1
+        },
+        {
+          "title": "places account reader respects role and keeps associations personal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6277,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:49:54.891Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcb06c250fb04c2cfce7-084c2ebe96caa1e45d72",
+          "file": "places.spec.ts",
+          "line": 73,
+          "column": 48
+        },
+        {
+          "title": "places account editor respects role and keeps associations personal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7528,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:50:01.217Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcb06c250fb04c2cfce7-f0596181b6e884f41223",
+          "file": "places.spec.ts",
+          "line": 73,
+          "column": 48
+        }
+      ]
+    },
+    {
+      "title": "planning-documents.spec.ts",
+      "file": "planning-documents.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "PDF and DOCX binaries are reviewed locally; corrections and original extraction survive reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 19005,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:50:08.832Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d9abab6efecdcf8f167c-2861c7e49a277a93549a",
+          "file": "planning-documents.spec.ts",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "protected, scanned, corrupt, false-extension and excessive binaries preserve the previous source",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 25219,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:50:27.877Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d9abab6efecdcf8f167c-32d89a48615b1c622b4a",
+          "file": "planning-documents.spec.ts",
+          "line": 33,
+          "column": 1
+        },
+        {
+          "title": "cancellation, timeout and a later file cannot overwrite a newer source",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7997,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:50:53.141Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d9abab6efecdcf8f167c-6cdf55532e56dcb20a3c",
+          "file": "planning-documents.spec.ts",
+          "line": 47,
+          "column": 1
+        },
+        {
+          "title": "localized document review and static clipboard at 320px: fr",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6084,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:51:01.186Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d9abab6efecdcf8f167c-1ff5d75ec43053cf2203",
+          "file": "planning-documents.spec.ts",
+          "line": 68,
+          "column": 4
+        },
+        {
+          "title": "localized document review and static clipboard at 320px: en",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5796,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:51:07.315Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d9abab6efecdcf8f167c-d4d0ca53582265c6d0f3",
+          "file": "planning-documents.spec.ts",
+          "line": 68,
+          "column": 4
+        },
+        {
+          "title": "localized document review and static clipboard at 320px: zh-CN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6186,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:51:13.157Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d9abab6efecdcf8f167c-d4fb01cc1b1eedfa7d81",
+          "file": "planning-documents.spec.ts",
+          "line": 68,
+          "column": 4
+        },
+        {
+          "title": "localized document review and static clipboard at 320px: es",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6012,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:51:19.391Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d9abab6efecdcf8f167c-2ff7c8275e654232f276",
+          "file": "planning-documents.spec.ts",
+          "line": 68,
+          "column": 4
+        }
+      ]
+    },
+    {
+      "title": "planning-import.spec.ts",
+      "file": "planning-import.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "manual source, corrections and new notebook survive reload without replacing an existing notebook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12874,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:51:25.501Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "10978c9d1e0ae208186a-2bde15108be0f0c07675",
+          "file": "planning-import.spec.ts",
+          "line": 5,
+          "column": 1
+        },
+        {
+          "title": "ambiguous fixture keeps conflicts visible and exclusion permits creating a notebook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5670,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:51:38.423Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "10978c9d1e0ae208186a-676f1172482c2faf4a90",
+          "file": "planning-import.spec.ts",
+          "line": 50,
+          "column": 1
+        },
+        {
+          "title": "review fits 320px and keyboard focus stays in dialog (fr)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4960,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:51:44.134Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "10978c9d1e0ae208186a-1837c00577449495a01c",
+          "file": "planning-import.spec.ts",
+          "line": 73,
+          "column": 5
+        },
+        {
+          "title": "review fits 390px and keyboard focus stays in dialog (fr)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4805,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:51:49.144Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "10978c9d1e0ae208186a-b7fc1893edbf9219f1a0",
+          "file": "planning-import.spec.ts",
+          "line": 73,
+          "column": 5
+        },
+        {
+          "title": "review fits 320px and keyboard focus stays in dialog (en)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4850,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:51:53.995Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "10978c9d1e0ae208186a-42454c56a609171deba0",
+          "file": "planning-import.spec.ts",
+          "line": 73,
+          "column": 5
+        },
+        {
+          "title": "review fits 390px and keyboard focus stays in dialog (en)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4221,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:51:58.886Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "10978c9d1e0ae208186a-fef791af8930e9e00395",
+          "file": "planning-import.spec.ts",
+          "line": 73,
+          "column": 5
+        },
+        {
+          "title": "review fits 320px and keyboard focus stays in dialog (zh-CN)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5219,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:52:03.151Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "10978c9d1e0ae208186a-c883521ce9bba29ee32e",
+          "file": "planning-import.spec.ts",
+          "line": 73,
+          "column": 5
+        },
+        {
+          "title": "review fits 390px and keyboard focus stays in dialog (zh-CN)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4726,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:52:08.414Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "10978c9d1e0ae208186a-514f5758c8c6b0c14042",
+          "file": "planning-import.spec.ts",
+          "line": 73,
+          "column": 5
+        },
+        {
+          "title": "review fits 320px and keyboard focus stays in dialog (es)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5108,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:52:13.188Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "10978c9d1e0ae208186a-04578110af3a1055c35c",
+          "file": "planning-import.spec.ts",
+          "line": 73,
+          "column": 5
+        },
+        {
+          "title": "review fits 390px and keyboard focus stays in dialog (es)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4786,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:52:18.339Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "10978c9d1e0ae208186a-2f9be7ba548289851874",
+          "file": "planning-import.spec.ts",
+          "line": 73,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "planning-local.spec.ts",
+      "file": "planning-local.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "a real Markdown file becomes corrected days and activities, survives reload and preserves the existing notebook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12424,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:52:23.223Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4cf914c9b4edf80e5613-18825e94a97d40692cbb",
+          "file": "planning-local.spec.ts",
+          "line": 14,
+          "column": 1
+        },
+        {
+          "title": "pasted source without a city keeps the missing city visible and requires correction before creation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6210,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:52:35.695Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4cf914c9b4edf80e5613-8111c31fe00352abb7f3",
+          "file": "planning-local.spec.ts",
+          "line": 59,
+          "column": 1
+        },
+        {
+          "title": "invalid real files preserve the current source and valid replacement needs an explicit choice",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10864,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:52:41.954Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4cf914c9b4edf80e5613-267735df0b26572e8042",
+          "file": "planning-local.spec.ts",
+          "line": 86,
+          "column": 1
+        },
+        {
+          "title": "local file recognition works in en at 320px without overflow",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4782,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:52:52.862Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4cf914c9b4edf80e5613-364cec7268208eeb7cf4",
+          "file": "planning-local.spec.ts",
+          "line": 129,
+          "column": 3
+        },
+        {
+          "title": "local file recognition works in zh-CN at 320px without overflow",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4902,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:52:57.689Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4cf914c9b4edf80e5613-8f9c6216c821b88c3bd9",
+          "file": "planning-local.spec.ts",
+          "line": 129,
+          "column": 3
+        },
+        {
+          "title": "local file recognition works in es at 320px without overflow",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4884,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:53:02.640Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "4cf914c9b4edf80e5613-cba5bd0e44d76858f471",
+          "file": "planning-local.spec.ts",
+          "line": 129,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "planning-lot01.spec.ts",
+      "file": "planning-lot01.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "unprocessed source can become an activity or a durable note; assignment survives reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9322,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:53:07.609Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "440b1fbf2fffa6224396-1c929d7ad9ff4b40d31d",
+          "file": "planning-lot01.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "nearly empty recognition gives an explicit factual summary and source links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3407,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:53:16.971Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "440b1fbf2fffa6224396-371c764db5bb70e0e43b",
+          "file": "planning-lot01.spec.ts",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "a long passage can become a durable activity without truncating its provenance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6915,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:53:20.426Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "440b1fbf2fffa6224396-910fc07d5f8e316fa4a4",
+          "file": "planning-lot01.spec.ts",
+          "line": 44,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "planning-structured.spec.ts",
+      "file": "planning-structured.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "real JSON download/import, explicit replacement, correction, reload, confirmation and replay preserve the previous notebook",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16330,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:53:27.462Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7939583a738545a7f76f-14b4425f15c4108f33ed",
+          "file": "planning-structured.spec.ts",
+          "line": 10,
+          "column": 1
+        },
+        {
+          "title": "invalid JSON, versions, backup, fields and executable URLs do not overwrite a draft; errors export contains no values",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5639,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:53:43.834Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7939583a738545a7f76f-fb27d526471df7b4bdef",
+          "file": "planning-structured.spec.ts",
+          "line": 48,
+          "column": 1
+        },
+        {
+          "title": "structured quota failure and interrupted write remain recoverable through reload",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9095,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:53:49.520Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7939583a738545a7f76f-7148969c804c4f4849ef",
+          "file": "planning-structured.spec.ts",
+          "line": 62,
+          "column": 1
+        },
+        {
+          "title": "downloaded localized kit, keyboard, JSON and 200% reflow: fr",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4047,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:53:58.663Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7939583a738545a7f76f-56d5bc01183b22691612",
+          "file": "planning-structured.spec.ts",
+          "line": 76,
+          "column": 3
+        },
+        {
+          "title": "downloaded localized kit, keyboard, JSON and 200% reflow: en",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3730,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:54:02.751Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7939583a738545a7f76f-ae31d8f3707de6d93a92",
+          "file": "planning-structured.spec.ts",
+          "line": 76,
+          "column": 3
+        },
+        {
+          "title": "downloaded localized kit, keyboard, JSON and 200% reflow: zh-CN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3941,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:54:06.516Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7939583a738545a7f76f-54f6870eb802d52e606b",
+          "file": "planning-structured.spec.ts",
+          "line": 76,
+          "column": 3
+        },
+        {
+          "title": "downloaded localized kit, keyboard, JSON and 200% reflow: es",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3960,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:54:10.483Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7939583a738545a7f76f-e616e7d624e629387b23",
+          "file": "planning-structured.spec.ts",
+          "line": 76,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "preferences-refresh.spec.ts",
+      "file": "preferences-refresh.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "installation has the correct name and keeps the existing identity",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 60,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:54:14.499Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c546c7bc8a39b73d6dc0-1a317544a5d6526dbcde",
+          "file": "preferences-refresh.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "mascot previews work while hidden, with keyboard selection and persistence",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7087,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:54:14.580Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c546c7bc8a39b73d6dc0-52014a12e6b60937f471",
+          "file": "preferences-refresh.spec.ts",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "black palette persists, follows automatic mode and is translated in every language",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11152,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:54:21.705Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c546c7bc8a39b73d6dc0-f922786adcca4d9a5853",
+          "file": "preferences-refresh.spec.ts",
+          "line": 48,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "preferences.spec.ts",
+      "file": "preferences.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "dark preference persists and readable surfaces follow it",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9219,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:54:32.945Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "14778efd97370ce75a77-7b9854ffbcd089f2ae60",
+          "file": "preferences.spec.ts",
+          "line": 19,
+          "column": 1
+        },
+        {
+          "title": "automatic theme follows device changes but an explicit theme remains stable",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7298,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:54:42.216Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "14778efd97370ce75a77-9eae977f1e152b1b03cd",
+          "file": "preferences.spec.ts",
+          "line": 33,
+          "column": 1
+        },
+        {
+          "title": "English navigation and editable forms cover all main views",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14793,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:54:49.565Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "14778efd97370ce75a77-1cc54b9cdc64c0c4d6f8",
+          "file": "preferences.spec.ts",
+          "line": 47,
+          "column": 1
+        },
+        {
+          "title": "interface language does not translate or rewrite personal notes and source content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8824,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:55:04.411Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "14778efd97370ce75a77-52ee265ee89efd5c0623",
+          "file": "preferences.spec.ts",
+          "line": 80,
+          "column": 1
+        },
+        {
+          "title": "two tabs synchronise theme and language preferences",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12533,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:55:13.290Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "14778efd97370ce75a77-3afa08278083d461b5b8",
+          "file": "preferences.spec.ts",
+          "line": 93,
+          "column": 1
+        },
+        {
+          "title": "preferences keyboard Escape returns focus to its trigger",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4801,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:55:25.885Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "14778efd97370ce75a77-c2f0bddfb444975cc620",
+          "file": "preferences.spec.ts",
+          "line": 108,
+          "column": 1
+        },
+        {
+          "title": "mobile navigation and layouts fit 320px in both languages and themes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20179,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:55:30.738Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "14778efd97370ce75a77-5cbb7d6e90812d2876f4",
+          "file": "preferences.spec.ts",
+          "line": 121,
+          "column": 3
+        },
+        {
+          "title": "mobile navigation and layouts fit 390px in both languages and themes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 19385,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:55:50.964Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "14778efd97370ce75a77-29b218f8bb4110d391b7",
+          "file": "preferences.spec.ts",
+          "line": 121,
+          "column": 3
+        },
+        {
+          "title": "selected map markers remain selected and their Amap popup follows the language",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6325,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:56:10.407Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "14778efd97370ce75a77-0f7a7b29593f0115a22f",
+          "file": "preferences.spec.ts",
+          "line": 151,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "pwa-lot02.spec.ts",
+      "file": "pwa-lot02.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "installation offer received before Preferences, dismissal and installed state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3361,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:56:16.824Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "68cf05c360f48206a66e-6dd1a51a2d7c05f2cbcb",
+          "file": "pwa-lot02.spec.ts",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "storage persistence denied: no startup request, no notebook mutation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4293,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:56:20.227Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "68cf05c360f48206a66e-b8c01e4acb90357e74a2",
+          "file": "pwa-lot02.spec.ts",
+          "line": 22,
+          "column": 3
+        },
+        {
+          "title": "storage persistence granted: no startup request, no notebook mutation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3913,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:56:24.558Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "68cf05c360f48206a66e-470e5841b6a19bbf9c60",
+          "file": "pwa-lot02.spec.ts",
+          "line": 22,
+          "column": 3
+        },
+        {
+          "title": "storage persistence error: no startup request, no notebook mutation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4266,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:56:28.521Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "68cf05c360f48206a66e-4ff5b9598ca5fc0f8f7d",
+          "file": "pwa-lot02.spec.ts",
+          "line": 22,
+          "column": 3
+        },
+        {
+          "title": "storage persistence unsupported: no startup request, no notebook mutation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3714,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:56:32.831Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "68cf05c360f48206a66e-2dcc706ae7a466f3d2ee",
+          "file": "pwa-lot02.spec.ts",
+          "line": 22,
+          "column": 3
+        },
+        {
+          "title": "maps external window and return preserve the notebook for Google and Amap",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13183,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:56:36.587Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "68cf05c360f48206a66e-efe7bca27e0ab08252b2",
+          "file": "pwa-lot02.spec.ts",
+          "line": 54,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "souvenirs.spec.ts",
+      "file": "souvenirs.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "personal memory fr: durable caption, explicit print consent, keyboard, widths and no private leaks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11817,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:56:49.881Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcae3dd6b9f49fcd29d2-7f8d53fe1d888e0f224e",
+          "file": "souvenirs.spec.ts",
+          "line": 15,
+          "column": 64
+        },
+        {
+          "title": "personal memory en: durable caption, explicit print consent, keyboard, widths and no private leaks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11440,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:57:01.746Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcae3dd6b9f49fcd29d2-e1e51606d97489c26820",
+          "file": "souvenirs.spec.ts",
+          "line": 15,
+          "column": 64
+        },
+        {
+          "title": "personal memory zh-CN: durable caption, explicit print consent, keyboard, widths and no private leaks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 12178,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:57:13.237Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcae3dd6b9f49fcd29d2-2a9ec71492d4ebf9892d",
+          "file": "souvenirs.spec.ts",
+          "line": 15,
+          "column": 64
+        },
+        {
+          "title": "personal memory es: durable caption, explicit print consent, keyboard, widths and no private leaks",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11419,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:57:25.464Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcae3dd6b9f49fcd29d2-ab781cd60dcd766f1d85",
+          "file": "souvenirs.spec.ts",
+          "line": 15,
+          "column": 64
+        },
+        {
+          "title": "real decoder: EXIF rotation, metadata removal, signatures, unsupported formats and bounded output",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2819,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:57:36.928Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcae3dd6b9f49fcd29d2-f26c44e608c759edb0ec",
+          "file": "souvenirs.spec.ts",
+          "line": 36,
+          "column": 1
+        },
+        {
+          "title": "IndexedDB atomic abort, quota failure, missing media, conflicts and account/trip isolation",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2409,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:57:39.794Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcae3dd6b9f49fcd29d2-6f9b5896b3d3bb608f06",
+          "file": "souvenirs.spec.ts",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "photo package is bounded, integrity checked, restored without overwrite and idempotent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2458,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:57:42.248Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcae3dd6b9f49fcd29d2-7c57cc2ab01310375f0f",
+          "file": "souvenirs.spec.ts",
+          "line": 80,
+          "column": 1
+        },
+        {
+          "title": "global media budget refuses a large batch atomically and concurrent tabs preserve revisions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5229,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:57:44.759Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcae3dd6b9f49fcd29d2-d2f74c332a8b02b203ca",
+          "file": "souvenirs.spec.ts",
+          "line": 95,
+          "column": 1
+        },
+        {
+          "title": "cancel and unreadable photo recovery; deleting all days leaves the package accessible",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13100,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:57:50.037Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "dcae3dd6b9f49fcd29d2-07e673a23777c9128a29",
+          "file": "souvenirs.spec.ts",
+          "line": 112,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "travel-delight-visibility.spec.ts",
+      "file": "travel-delight-visibility.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "empty document folder is visible and opens the real file picker: fr",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7594,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:58:03.219Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-5c09e65480b090d7cc3a",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 24,
+          "column": 3
+        },
+        {
+          "title": "expense chart remains visible with no data or missing rates: fr",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9892,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:58:10.857Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-b97504a5d241be562ba3",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 35,
+          "column": 3
+        },
+        {
+          "title": "empty document folder is visible and opens the real file picker: en",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7796,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:58:20.793Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-3783ef9b7941d041441e",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 24,
+          "column": 3
+        },
+        {
+          "title": "expense chart remains visible with no data or missing rates: en",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9793,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:58:28.638Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-67c068743f2d57d452ef",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 35,
+          "column": 3
+        },
+        {
+          "title": "empty document folder is visible and opens the real file picker: zh-CN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7710,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:58:38.477Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-d5ffb6659fbb204c1e8d",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 24,
+          "column": 3
+        },
+        {
+          "title": "expense chart remains visible with no data or missing rates: zh-CN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10219,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:58:46.236Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-47682ccb0b31da08a6da",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 35,
+          "column": 3
+        },
+        {
+          "title": "empty document folder is visible and opens the real file picker: es",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7291,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:58:56.500Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-15b84be485dcada4f3a0",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 24,
+          "column": 3
+        },
+        {
+          "title": "expense chart remains visible with no data or missing rates: es",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10082,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:59:03.847Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-e5ce0e4bc65487b805e9",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 35,
+          "column": 3
+        },
+        {
+          "title": "import progress stays visible while scrolling on a small screen",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4447,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:59:13.979Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-6eea6d4713b4b0623bcb",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "terrain movement is perceptible within the first two seconds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3639,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:59:18.472Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-63ee13f040ef2996c3f6",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "reduced motion starts static but an explicit terrain play action works",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3366,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:59:22.160Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "42c2d19390368a0171ab-99bba26e003919c0914b",
+          "file": "travel-delight-visibility.spec.ts",
+          "line": 74,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "travel-delight.spec.ts",
+      "file": "travel-delight.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "photo box and album fr: keyboard, isolation, widths and reduced motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11165,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:59:25.621Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "71cd5966499db43e54a8-4f1b75897d7795f37838",
+          "file": "travel-delight.spec.ts",
+          "line": 41,
+          "column": 67
+        },
+        {
+          "title": "photo box and album en: keyboard, isolation, widths and reduced motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10768,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:59:36.833Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "71cd5966499db43e54a8-ae4e34be2860df507ba0",
+          "file": "travel-delight.spec.ts",
+          "line": 41,
+          "column": 67
+        },
+        {
+          "title": "photo box and album zh-CN: keyboard, isolation, widths and reduced motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11032,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:59:47.649Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "71cd5966499db43e54a8-b6f336631a3bffd77428",
+          "file": "travel-delight.spec.ts",
+          "line": 41,
+          "column": 67
+        },
+        {
+          "title": "photo box and album es: keyboard, isolation, widths and reduced motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8929,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:59:58.725Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "71cd5966499db43e54a8-e191551e12604eb24406",
+          "file": "travel-delight.spec.ts",
+          "line": 41,
+          "column": 67
+        },
+        {
+          "title": "empty memories, native peek, story navigation and import stepper",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5958,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T20:00:07.687Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "71cd5966499db43e54a8-7b5c7909c3deabb0ed96",
+          "file": "travel-delight.spec.ts",
+          "line": 76,
+          "column": 1
+        },
+        {
+          "title": "budget chart uses converted amounts; documents retain open and download actions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6426,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T20:00:13.681Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "71cd5966499db43e54a8-79b4b3e6f101418c7ad6",
+          "file": "travel-delight.spec.ts",
+          "line": 95,
+          "column": 1
+        },
+        {
+          "title": "move undo preserves order and a subsequent step edit prevents stale undo",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17914,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T20:00:20.141Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "71cd5966499db43e54a8-72902bb478b222b3926e",
+          "file": "travel-delight.spec.ts",
+          "line": 111,
+          "column": 1
+        },
+        {
+          "title": "terrain animation can pause and remains static with reduced motion",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2627,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T20:00:38.109Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "71cd5966499db43e54a8-5e1caf5f576a5d7433c1",
+          "file": "travel-delight.spec.ts",
+          "line": 126,
+          "column": 1
+        },
+        {
+          "title": "memory read failure can retry; caption-only memories remain available",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7998,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T20:00:40.789Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "71cd5966499db43e54a8-5ddacab5d0da31733faa",
+          "file": "travel-delight.spec.ts",
+          "line": 136,
+          "column": 1
+        },
+        {
+          "title": "home memory entry, mobile chart and folders remain usable at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11219,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T20:00:48.829Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "71cd5966499db43e54a8-779af84018fa2cb44f63",
+          "file": "travel-delight.spec.ts",
+          "line": 155,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "world-languages.spec.ts",
+      "file": "world-languages.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "中文（简体）: library, all views, dates, forms and saved notes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21286,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T20:01:00.140Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "bae1d636ee4cac546b3b-c1fc6beed97ecadd0027",
+          "file": "world-languages.spec.ts",
+          "line": 8,
+          "column": 3
+        },
+        {
+          "title": "中文（简体）: 320px navigation, preferences and both themes fit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13809,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T20:01:21.473Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "bae1d636ee4cac546b3b-21b1bd1afed97503142e",
+          "file": "world-languages.spec.ts",
+          "line": 83,
+          "column": 3
+        },
+        {
+          "title": "Español: library, all views, dates, forms and saved notes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20330,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T20:01:35.326Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "bae1d636ee4cac546b3b-c02838701093dfced4ca",
+          "file": "world-languages.spec.ts",
+          "line": 8,
+          "column": 3
+        },
+        {
+          "title": "Español: 320px navigation, preferences and both themes fit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 14179,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T20:01:55.702Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "bae1d636ee4cac546b3b-6c503cea3a17bfd5dd3f",
+          "file": "world-languages.spec.ts",
+          "line": 83,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-01T19:43:39.698Z",
+    "duration": 1119535.252,
+    "expected": 138,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

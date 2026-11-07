@@ -1,0 +1,94 @@
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 2224 modules transformed.
+
+(!) outDir C:\Users\eliot\Documents\detours-release-20261102-impeccable-1793622720540\candidate\dist is not inside project root and will not be emptied.
+Use --emptyOutDir to override.
+
+rendering chunks...
+[plugin vite:reporter] 
+(!) C:/Users/eliot/Documents/app-vacances-27/src/mascots/sprites.js is dynamically imported by C:/Users/eliot/Documents/app-vacances-27/src/components/FloatingMascot.tsx but also statically imported by C:/Users/eliot/Documents/app-vacances-27/src/components/MascotPicker.tsx, dynamic import will not move module into another chunk.
+
+computing gzip size...
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/index.html                                         1.27 kB │ gzip:   0.59 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/ETHK-B5-H-1MLb5v9x.bcmap                    4.43 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/HKscs-B5-H-CXbBbq6g.bcmap                   4.44 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/GBT-H-DL9h-WkS.bcmap                        7.27 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/GBT-EUC-H-BTsQIL1M.bcmap                    7.29 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/GBTpc-EUC-H-DnIh5WJ3.bcmap                  7.30 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/GBKp-EUC-H-CElrnV5g.bcmap                  14.69 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/GBK-EUC-H-CAORqCkf.bcmap                   14.69 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/FoxitSymbol-BVtbc20u.pfb                   16.73 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/KSC-Johab-H-CGtV3MPT.bcmap                 16.79 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/FoxitFixed-Dyd5Nipw.pfb                    17.60 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/FoxitFixedBold-D5TuYRwj.pfb                18.06 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/FoxitFixedItalic-DqjQkmbS.pfb              18.75 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/FoxitFixedBoldItalic-BqlXQ_Yv.pfb          19.15 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/FoxitSerifBold-DZZ4CclT.pfb                19.40 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/FoxitSerif-qbgiDIe-.pfb                    19.47 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/GBK2K-H-Cv55KPk8.bcmap                     19.66 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/FoxitSerifBoldItalic-DSQtwd_X.pfb          20.73 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/FoxitSerifItalic-CQs5lx9Y.pfb              21.23 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/Adobe-Korea1-UCS2-BEQZuOdo.bcmap           23.29 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniJIS-UCS2-H-2DbZ0MaQ.bcmap               25.44 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniKS-UCS2-H-YeUc7k1L.bcmap                25.78 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniKS-UTF16-H-B0dvB-Td.bcmap               26.33 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniKS-UTF32-H-olR_LtmR.bcmap               26.45 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniKS-UTF8-H-CbpebD-y.bcmap                27.79 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/FoxitDingbats-BaQLufoW.pfb                 29.51 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/Adobe-GB1-UCS2-BA083yIo.bcmap              33.97 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/docx.worker-Cj-8v7mF.js                    36.83 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniJIS-UTF16-H-BlDDPdCK.bcmap              39.44 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniJIS2004-UTF16-H-KXixH-HI.bcmap          39.53 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniJISX0213-UTF32-H-BavAhZjb.bcmap         40.52 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniJIS-UTF32-H-BIQPWkjv.bcmap              40.54 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniJISX02132004-UTF32-H-DAH-AgUq.bcmap     40.61 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniJIS2004-UTF32-H-CXrD-9YE.bcmap          40.63 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/Adobe-Japan1-UCS2-BL-4M2vS.bcmap           40.95 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/Adobe-CNS1-UCS2-fO900upv.bcmap             41.19 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniJIS-UTF8-H-CGusholx.bcmap               41.70 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniJIS2004-UTF8-H-BkOctZjn.bcmap           41.78 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniGB-UCS2-H-D7xzRvZN.bcmap                43.37 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniGB-UTF16-H-DKjbEwc0.bcmap               44.09 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniGB-UTF32-H-Behfouj5.bcmap               45.74 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniGB-UTF8-H-EROft1ro.bcmap                46.84 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniCNS-UCS2-H-DWzv8UhH.bcmap               48.28 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniCNS-UTF16-H-Bw0JKgCq.bcmap              50.42 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniCNS-UTF32-H-IE_GrH2i.bcmap              52.68 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/UniCNS-UTF8-H-BbLcFh6Q.bcmap               53.63 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/LiberationSans-BoldItalic-Bj53-jFw.ttf    135.12 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/LiberationSans-Bold-BPt4bU5Z.ttf          137.05 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/LiberationSans-Regular-cbskN6YR.ttf       139.51 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/LiberationSans-Italic-5QhGB3P9.ttf        162.04 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/pdf.worker.min-CjEcRF4W.mjs             1,264.34 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/pico-CqwbONyM.png                       1,975.27 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/mochi-DzQVK6bR.png                      2,071.38 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/bivouac-CFATfYUK.png                    2,086.08 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/PlanningImport-B1n2JwKN.css                 2.30 kB │ gzip:   0.71 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/map-CIGW-MKW.css                           15.61 kB │ gzip:   6.46 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/App-_J9QJNJg.css                           23.83 kB │ gzip:   5.35 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/index-Bm7tq8M3.css                        168.12 kB │ gzip:  32.27 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/trash-2-CmwRqe6e.js                         0.35 kB │ gzip:   0.25 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/SourceDocument-C_EqL4S0.js                  1.56 kB │ gzip:   0.91 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/documents-CtQ77c6R.js                       2.41 kB │ gzip:   1.11 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/markdown-81WzlVMr.js                        3.21 kB │ gzip:   1.32 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/index-B4CftUe7.js                           6.03 kB │ gzip:   1.84 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/TravelInteractions-QxwvPQhM.js              6.31 kB │ gzip:   2.47 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/WorldView-DwvOyp80.js                      10.34 kB │ gzip:   4.13 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/PlanningImport-NUh6WNKH.js                 81.82 kB │ gzip:  28.79 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/map-BBfE2e2Q.js                           149.50 kB │ gzip:  43.29 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/index-D_f-vvEH.js                         154.46 kB │ gzip:  46.93 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/translations-BSKsgNsi.js                  199.33 kB │ gzip:  69.40 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/cloud-2-wFLFeG.js                         217.40 kB │ gzip:  56.99 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/react-7_dknjxo.js                         221.87 kB │ gzip:  69.04 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/App-B2xNePfM.js                           222.19 kB │ gzip:  64.65 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/index-Ct_FCZFl.js                         434.42 kB │ gzip: 138.02 kB
+../detours-release-20261102-impeccable-1793622720540/candidate/dist/assets/document-pdf-Bagd0fug.js                  573.83 kB │ gzip: 181.44 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 6.20s
+Offline cache prepared: 117 files (a-l-est-5fc4f79d3281).
+{"destination":"C:\\Users\\eliot\\Documents\\detours-release-20261102-impeccable-1793622720540\\candidate","candidateBuildId":"5fc4f79d3281fa0171977082efae642f949882df47c16d3fd3f8f3949559d444","published":false}

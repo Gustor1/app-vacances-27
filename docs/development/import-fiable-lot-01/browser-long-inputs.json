@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-10-17T22:01:45.766Z",
+  "buildId": "b1f8ffaba7333517c2e67af1384e0b46845e317d724ba5199e427462c5bd0c1d",
+  "browser": "Installed desktop Chrome, final compiled build, no CPU throttling, isolated profile, external network blocked",
+  "results": [
+    {
+      "characters": 50000,
+      "bytes": 149986,
+      "recognitionToPreviewMs": 1496.9479999999994,
+      "editAndPersistMs": 64.42479999999978,
+      "sourcePreserved": true
+    },
+    {
+      "characters": 50000,
+      "bytes": 50000,
+      "recognitionToPreviewMs": 297.95490000000063,
+      "editAndPersistMs": 57.79950000000008,
+      "sourcePreserved": true
+    }
+  ]
+}

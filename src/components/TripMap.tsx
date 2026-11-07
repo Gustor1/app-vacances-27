@@ -1,3 +1,4 @@
+import { placeStep } from '../places/model';
 import { activeSteps } from '../day-preparation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import L from 'leaflet';
@@ -47,12 +48,12 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
   const onSelectRef = useRef(onSelectStep);
   const [tilesUnavailable, setTilesUnavailable] = useState(false);
   onSelectRef.current = onSelectStep;
-  const plottedSteps = (steps ?? city.days.flatMap(day => activeSteps(day))).filter(step => validCoordinates(step.coordinates));
+  const plottedSteps = (steps ?? city.days.flatMap(day => activeSteps(day))).map(placeStep).filter(step => validCoordinates(step.coordinates));
   const hasCoordinates = overview ? cities.some(item => validCoordinates(item.coordinates)) : plottedSteps.length > 0;
   // Only geographic content affects the layers. Editing a note must not reset the map.
   const geographicContent = JSON.stringify(overview
     ? cities.map((item, index) => ({ id: item.id, title: item.name, chineseName: item.chineseName, coordinates: item.coordinates, url: searchUrl(item,undefined,provider), index }))
-    : (steps ?? city.days.flatMap(day => activeSteps(day))).map((step, index) => ({ id: step.id, title: step.title, chineseName: step.chineseName, coordinates: step.coordinates, url: searchUrl(city,step,provider), index })));
+    : (steps ?? city.days.flatMap(day => activeSteps(day))).map(placeStep).map((step, index) => ({ id: step.id, title: step.title, chineseName: step.chineseName, coordinates: step.coordinates, url: searchUrl(city,step,provider), index })));
   const mapItems = useMemo(() => JSON.parse(geographicContent) as { id: string; title: string; chineseName?: string; coordinates?: [number, number]; url: string; index: number }[], [geographicContent]);
   const centerLat = validCoordinates(city.coordinates) ? city.coordinates[0] : 20;
   const centerLng = validCoordinates(city.coordinates) ? city.coordinates[1] : 0;
@@ -132,6 +133,8 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
       const marker = L.marker(item.coordinates, { icon: markerIcon(item.index), title: `${item.index + 1}. ${item.title}`, keyboard: true })
         .bindPopup(content)
         .addTo(layer);
+      marker.getElement()?.addEventListener('keydown', event => { if (event.key === 'Escape') { event.stopPropagation(); marker.closePopup(); } });
+      marker.getElement()?.setAttribute('aria-label', `${item.index + 1}. ${item.title}${item.chineseName ? ` · ${item.chineseName}` : ''}`);
       if (overview) {
         const label = document.createElement('span');
         label.textContent = item.title;
@@ -154,11 +157,13 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
       link.rel = 'noopener noreferrer';
       link.textContent = t('Ouvrir la carte ↗');
       content.append(heading, link);
-      L.marker([centerLat, centerLng], {
+      const centerMarker = L.marker([centerLat, centerLng], {
         icon: L.divIcon({ className: 'trip-map-marker trip-map-center-marker', html: '<span>·</span>', iconSize: [30, 30], iconAnchor: [15, 15], popupAnchor: [0, -18] }),
         title: t('{city} · centre indicatif', {city: city.name}),
         keyboard: true,
       }).bindPopup(content).bindTooltip(label, { permanent: true, direction: 'bottom', offset: [0, 18], className: 'trip-map-city-label', opacity: 1 }).addTo(layer);
+      centerMarker.getElement()?.addEventListener('keydown', event => { if (event.key === 'Escape') { event.stopPropagation(); centerMarker.closePopup(); } });
+      centerMarker.getElement()?.setAttribute('aria-label', t('{city} · centre indicatif', {city: city.name}));
     }
     if (overview && coordinates.length > 1) L.polyline(coordinates, { color: '#64826c', weight: 2, opacity: 0.75, dashArray: '6 9', interactive: false }).addTo(layer);
     if (coordinates.length > 1) map.fitBounds(L.latLngBounds(coordinates), { padding: [46, 46], maxZoom: 14, animate: false });
@@ -199,7 +204,7 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
         <div className="trip-map-fallback" role="status">
           <p>{t(overview ? 'Fond détaillé indisponible · contours des pays et repères indicatifs.' : 'Fond détaillé indisponible · repères indicatifs, sans rues.')}</p>
           <div className="trip-map-fallback-links">
-            {overview ? cities.slice(0, 5).map(item => <a key={item.id} href={searchUrl(item,undefined,provider)} target="_blank" rel="noopener noreferrer">{item.name} ↗</a>) : (steps ?? city.days.flatMap(day => activeSteps(day))).slice(0, 4).map(step => <a key={step.id} href={searchUrl(city,step,provider)} target="_blank" rel="noopener noreferrer">{step.title} ↗</a>)}
+            {overview ? cities.slice(0, 5).map(item => <a key={item.id} href={searchUrl(item,undefined,provider)} target="_blank" rel="noopener noreferrer">{item.name} ↗</a>) : (steps ?? city.days.flatMap(day => activeSteps(day))).map(placeStep).slice(0, 4).map(step => <a key={step.id} href={searchUrl(city,step,provider)} target="_blank" rel="noopener noreferrer">{step.title} ↗</a>)}
             {!overview && <a href={searchUrl(city,undefined,provider)} target="_blank" rel="noopener noreferrer">{t('Carte de {city} ↗',{city:city.name})}</a>}
           </div>
         </div>

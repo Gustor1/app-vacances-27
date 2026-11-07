@@ -1,0 +1,5 @@
+# Voyage
+Ville: Orléans
+Jour 1
+- Cathédrale Sainte-Croix
+- Si pluie : Musée des Beaux-Arts ; sinon : Parc Floral

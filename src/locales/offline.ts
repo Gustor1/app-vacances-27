@@ -1,4 +1,17 @@
-const rows = `Enregistrement local impossible|Local saving failed|本地保存失败|No se pudo guardar en este dispositivo
+const rows = `Installer Détours|Install Détours|安装 Détours|Instalar Détours
+Détours est installé sur cet appareil.|Détours is installed on this device.|Détours 已安装在此设备上。|Détours está instalado en este dispositivo.
+Ajoute Détours à ton écran d’accueil depuis le menu de ton navigateur.|Add Détours to your home screen from your browser menu.|从浏览器菜单将 Détours 添加到主屏幕。|Añade Détours a tu pantalla de inicio desde el menú del navegador.
+Protéger le stockage sur cet appareil|Protect storage on this device|保护此设备上的存储|Proteger el almacenamiento en este dispositivo
+Stockage persistant accordé. Garde aussi une sauvegarde sur un autre support.|Persistent storage granted. Also keep a backup elsewhere.|已获准持久存储。请同时在其他介质上保留备份。|Almacenamiento persistente concedido. Guarda también una copia en otro soporte.
+Le navigateur n’a pas accordé la persistance. Tu peux continuer ; garde une sauvegarde.|The browser did not grant persistence. You can continue; keep a backup.|浏览器未授予持久存储。你可以继续使用；请保留备份。|El navegador no ha concedido la persistencia. Puedes continuar; guarda una copia.
+Avant le départ, demande au navigateur de conserver les données. Une sauvegarde reste nécessaire.|Before leaving, ask the browser to retain data. A backup is still necessary.|出发前，请求浏览器保留数据。仍然需要备份。|Antes de salir, pide al navegador que conserve los datos. Sigue siendo necesaria una copia.
+Enregistre tes modifications et ferme les formulaires avant de mettre à jour.|Save your changes and close forms before updating.|更新前请保存更改并关闭表单。|Guarda los cambios y cierra los formularios antes de actualizar.
+Installer sur iPhone ou iPad|Install on iPhone or iPad|在 iPhone 或 iPad 上安装|Instalar en iPhone o iPad
+Ouvre ce site dans Safari, puis ouvre le menu Partager.|Open this site in Safari, then open the Share menu.|在 Safari 中打开此网站，然后打开共享菜单。|Abre este sitio en Safari y luego el menú Compartir.
+Choisis « Sur l’écran d’accueil ». Si proposé, active « Ouvrir comme app web », puis touche « Ajouter ».|Choose “Add to Home Screen”. If offered, enable “Open as Web App”, then tap “Add”.|选择“添加到主屏幕”。如有“作为网页 App 打开”选项，请启用，然后点按“添加”。|Elige “Añadir a pantalla de inicio”. Si aparece, activa “Abrir como app web” y luego toca “Añadir”.
+Ouvre Détours depuis son icône, retrouve ton carnet puis vérifie sa disponibilité hors ligne avant le départ.|Open Détours from its icon, find your journal, then check its offline availability before leaving.|从图标打开 Détours，找到旅行笔记，并在出发前检查其离线可用性。|Abre Détours desde su icono, busca tu cuaderno y comprueba su disponibilidad sin conexión antes de salir.
+Garde une sauvegarde avant de changer de navigateur ou de mode d’ouverture. Installer l’app ne transfère pas automatiquement tes carnets.|Keep a backup before changing browser or opening mode. Installing the app does not automatically transfer your journals.|更换浏览器或打开方式前，请保留备份。安装应用不会自动转移旅行笔记。|Guarda una copia antes de cambiar de navegador o modo de apertura. Instalar la app no transfiere automáticamente tus cuadernos.
+Enregistrement local impossible|Local saving failed|本地保存失败|No se pudo guardar en este dispositivo
 Enregistrement sur cet appareil…|Saving on this device…|正在保存到此设备…|Guardando en este dispositivo…
 Carnet non téléchargé|Journal not downloaded|旅行笔记尚未下载|Cuaderno sin descargar
 Accès retiré|Access removed|访问权限已撤销|Acceso retirado

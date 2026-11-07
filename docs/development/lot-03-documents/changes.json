@@ -1,0 +1,303 @@
+{
+  "initialSnapshot": "C:\\Users\\eliot\\Documents\\detours-lot03-recovery-20261021",
+  "initialFingerprint": "3e733838d1f88f45fb9acd2157c406dc93d7f66995c999710447d9cec1eac4c6",
+  "codeChanges": [
+    {
+      "file": "package-lock.json",
+      "initialSha256": "45288276893db504ba868c0a837ead1a7d6c4f18edcb4088863aadf26c7f17c4",
+      "sha256": "a666d02279f497dbe70769821c38f06b8da7cbeace9929c8112460fec7f51d32",
+      "bytes": 185480
+    },
+    {
+      "file": "package.json",
+      "initialSha256": "3684e5b14e3bf02513b3e6dfb75a36a79f209b5501ad293ac16cc6eef9245212",
+      "sha256": "fb52cef917edf5cb8a904b7ebc42f985a39e957c34bfca3ae57e19d7386c21c8",
+      "bytes": 1806
+    },
+    {
+      "file": "public/licenses/lot03/cmaps.txt",
+      "initialSha256": null,
+      "sha256": "aa92ab5a472974865a96fd4a4e9c13bb41bf6fe1b309cb6b8da48bc9e19839a2",
+      "bytes": 2080
+    },
+    {
+      "file": "public/licenses/lot03/fflate.txt",
+      "initialSha256": null,
+      "sha256": "0a1df3a083d0c010560aa342e87959c8c1070e6fd54545741f083f22d0c8b551",
+      "bytes": 1069
+    },
+    {
+      "file": "public/licenses/lot03/foxit.txt",
+      "initialSha256": null,
+      "sha256": "b578cdd2345840ada550bd12519533812320d5f1d21cf4c1c7e1b1b0a31c98b7",
+      "bytes": 1553
+    },
+    {
+      "file": "public/licenses/lot03/liberation.txt",
+      "initialSha256": null,
+      "sha256": "d2c4d5b3e115a519cb58eb691aa64538397e2611f9ebe801392cf9667997e7dc",
+      "bytes": 22154
+    },
+    {
+      "file": "public/licenses/lot03/pdfjs.txt",
+      "initialSha256": null,
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "bytes": 10174
+    },
+    {
+      "file": "public/licenses/lot03/saxes.txt",
+      "initialSha256": null,
+      "sha256": "0fac2374380621b22e6b50451057721a9c52935b02d16d106a9f04897f061d0e",
+      "bytes": 3011
+    },
+    {
+      "file": "public/licenses/lot03/xmlchars.txt",
+      "initialSha256": null,
+      "sha256": "45d196313c2647d313cc65ca9b093d2d6974b64d35ee7346f2c60c9d518dff2c",
+      "bytes": 1086
+    },
+    {
+      "file": "scripts/production-server.mjs",
+      "initialSha256": "8371d53a01b15c1c5715132d9c4725e98aa71c587d962e7dd069e6f4cffd351d",
+      "sha256": "282bdb2aea5874dadc79a8a2c317b8287ee643cdd61c9056f8803e0221236c08",
+      "bytes": 2447
+    },
+    {
+      "file": "scripts/smoke-app-update.mjs",
+      "initialSha256": "137b37ded28ec62676646cc3927bcf656a2462ce50017a495378a2a9258f7191",
+      "sha256": "d1373649ef468897863d06b1542977216f33bf5b1ef6769cda69f94eae07d494",
+      "bytes": 8623
+    },
+    {
+      "file": "scripts/smoke-planning-documents.mjs",
+      "initialSha256": null,
+      "sha256": "05f18e73aadae1ffe776934782b2a900b81a836b2008cbbd29e912a729046b21",
+      "bytes": 5272
+    },
+    {
+      "file": "scripts/verify-local.mjs",
+      "initialSha256": "c0e8b17856cf1a145814b849db754cc2b040b3e7a15d970b6b4bf338f3ae1f57",
+      "sha256": "cb4a0b07f652944ad2cd5092c87679a6a51340c6018037cd1825a097a0c61514",
+      "bytes": 6081
+    },
+    {
+      "file": "src/components/JourneysApp.tsx",
+      "initialSha256": "c6d7bbfbb9ea1315edc1ab18bef09c0e59a3aca6d2b5c036bd7bf174af22a627",
+      "sha256": "7854eee3b19fce4c8c54ee4646b70f8b67aecc535d87fd539c7e827ede69be94",
+      "bytes": 34997
+    },
+    {
+      "file": "src/components/PlanningImport.tsx",
+      "initialSha256": "97aa8c8bb7589455cdc6ab2f8b6d081f6664db81e617ddceb6b55ae0d6ee6a99",
+      "sha256": "c3b2d3f9a15ac09dd433f71b19199874d22ece902147ff422e6a0a8a16c65bca",
+      "bytes": 31902
+    },
+    {
+      "file": "src/locales/planning-import.ts",
+      "initialSha256": "25ceae61de83b05697e77ebbcff16bf8d23815c8eee256b8e54cbf7b75b36ef6",
+      "sha256": "42ca32b42581ac28960be5b6d0daec97b954471dba9b1172901b174008193348",
+      "bytes": 30187
+    },
+    {
+      "file": "src/planning-import/document-contract.ts",
+      "initialSha256": null,
+      "sha256": "a447c1ba66cb5875b7ebad15d90fc7c4bc48587660c16c253e979fa791b8b77e",
+      "bytes": 2080
+    },
+    {
+      "file": "src/planning-import/document-docx.ts",
+      "initialSha256": null,
+      "sha256": "6c63f3a4ae8d834d9d89960f3702502c9a47906df7ebda3f0e9906211e7ae66a",
+      "bytes": 6844
+    },
+    {
+      "file": "src/planning-import/document-pdf.ts",
+      "initialSha256": null,
+      "sha256": "5fb90e5d1f3abf83f70082e4b83edfda1990b616bc4664698c461b8948a6fdb2",
+      "bytes": 3775
+    },
+    {
+      "file": "src/planning-import/documents.ts",
+      "initialSha256": null,
+      "sha256": "73d7177072f1968ba829e6e996275c735553e4200bda73cf50cd4ee2be77c746",
+      "bytes": 3016
+    },
+    {
+      "file": "src/planning-import/docx.worker.ts",
+      "initialSha256": null,
+      "sha256": "f6c59434e30c8eba47a0d90c639de95ef41448d8e1b1972a05f8ed32afa2475f",
+      "bytes": 353
+    },
+    {
+      "file": "src/planning-import/external-prompt.ts",
+      "initialSha256": null,
+      "sha256": "eec9c39237dc38fb089c16f23edabe39f1cf88f1db6262b9f970abf09e94bc4b",
+      "bytes": 4068
+    },
+    {
+      "file": "src/planning-import/files.ts",
+      "initialSha256": "8826e22a6f9fab5058eed474377568021f5744130b03b7b5389eae2e4df88086",
+      "sha256": "d55ec0eb20b79678b2176a336e30d421b70bfbf576214d1c578a538a9712ad79",
+      "bytes": 3076
+    },
+    {
+      "file": "src/planning-import/persistence.ts",
+      "initialSha256": "0f4e33be74a9478cf311a32d6124b8c0d878b2a2ecac0759a0eda2e74a273b49",
+      "sha256": "eb19fab67d3c3693da3d66afbfad7360025f33633e61d62aa2aa2ab524257c25",
+      "bytes": 5932
+    },
+    {
+      "file": "src/planning-import/types.ts",
+      "initialSha256": "5a743a32edd916586031947c5d53915b0b9e5a01568db701b1dc1367a352c03b",
+      "sha256": "fefd7dd8922269f5745d19eac57caf1c3b8e429de34b8ec7fb53d56da7205956",
+      "bytes": 1440
+    },
+    {
+      "file": "tests/e2e/planning-documents.spec.ts",
+      "initialSha256": null,
+      "sha256": "a6c96967ecff009b2526f15c85aba1ee50ec1e6cdecfc04db9d24524a98a2319",
+      "bytes": 8373
+    },
+    {
+      "file": "tests/e2e/planning-local.spec.ts",
+      "initialSha256": "49275cb1431eaf00014c6a70a1aad472a95af3a2239fe48d4373c1e70a4bfbca",
+      "sha256": "2666cec48c30872b1778e5fc4b88ed02e6624735295592ac30223f3192f4b8e4",
+      "bytes": 11155
+    },
+    {
+      "file": "tests/fixtures/planning/documents/active.docx",
+      "initialSha256": null,
+      "sha256": "8c9dbc1a0ad47ae3357fe0f7a643f68fb30c448440fa7f18264ed232faf68426",
+      "bytes": 1230
+    },
+    {
+      "file": "tests/fixtures/planning/documents/chinese.pdf",
+      "initialSha256": null,
+      "sha256": "25d54a7d63f48bc8b6b456630e7934099006ce301d5a929684c718a992ce895e",
+      "bytes": 2439
+    },
+    {
+      "file": "tests/fixtures/planning/documents/columns.pdf",
+      "initialSha256": null,
+      "sha256": "f7b39b65a125e2b461a8a21ea4b1fecd91a646a6160a3921865a80fb5f9f48a6",
+      "bytes": 1441
+    },
+    {
+      "file": "tests/fixtures/planning/documents/corrupt.pdf",
+      "initialSha256": null,
+      "sha256": "13c4a977cae4905963166d8ed528a6ad064d6aab34d0cf91deb1dc0e726fff07",
+      "bytes": 24
+    },
+    {
+      "file": "tests/fixtures/planning/documents/entity.docx",
+      "initialSha256": null,
+      "sha256": "27ba514bd7ee883ffd7d791a0eb6cfd0c226fc703888dfe9198f3098ff72332a",
+      "bytes": 788
+    },
+    {
+      "file": "tests/fixtures/planning/documents/entries.docx",
+      "initialSha256": null,
+      "sha256": "a9e4ac99eb4094411d51f79e216e373177fb325c6d535bae4a544732182d4881",
+      "bytes": 97978
+    },
+    {
+      "file": "tests/fixtures/planning/documents/fake.docx",
+      "initialSha256": null,
+      "sha256": "487f4bd93d46353f0914e31b55dd7064881ff1930502b587ccf36b8e19561a93",
+      "bytes": 28
+    },
+    {
+      "file": "tests/fixtures/planning/documents/forged-size.docx",
+      "initialSha256": null,
+      "sha256": "51453283d56dac77f79e9d8022847e8956cacb422f4bd04cc4d24288bbf7f99d",
+      "bytes": 1158
+    },
+    {
+      "file": "tests/fixtures/planning/documents/generate.mjs",
+      "initialSha256": null,
+      "sha256": "d089ed23cc24ce3ef9d9b4f9d35ee98a3c76315ee75c5764292a983e6675d4b5",
+      "bytes": 2853
+    },
+    {
+      "file": "tests/fixtures/planning/documents/generate.py",
+      "initialSha256": null,
+      "sha256": "730ede64705dae2edeff1657dcc29dfb7d9d1b81d182faea358217c8345e4461",
+      "bytes": 1921
+    },
+    {
+      "file": "tests/fixtures/planning/documents/lists-table.docx",
+      "initialSha256": null,
+      "sha256": "e8b120d90b72cb1a9d88ea3878b8727e757dd648d826c42d24a9e0d46dff5e82",
+      "bytes": 1099
+    },
+    {
+      "file": "tests/fixtures/planning/documents/long.docx",
+      "initialSha256": null,
+      "sha256": "39be5f9e1bf944d815414f22e089fcfcc090eb6fd27385679327fdbc25a2e29f",
+      "bytes": 915
+    },
+    {
+      "file": "tests/fixtures/planning/documents/long.pdf",
+      "initialSha256": null,
+      "sha256": "aeb42da7e101105fb65554be84be83829fbafe28249c4846ff7adc2208bb0a49",
+      "bytes": 9659
+    },
+    {
+      "file": "tests/fixtures/planning/documents/pages-51.pdf",
+      "initialSha256": null,
+      "sha256": "f4c924c20bf005442ebcaac351e6fab9714cd804a61dbb082a47a885401faaf2",
+      "bytes": 28991
+    },
+    {
+      "file": "tests/fixtures/planning/documents/protected.pdf",
+      "initialSha256": null,
+      "sha256": "199c04346c70fb2887aa17fafdcaa27fc32890b80a8e77995f7343fe345aab0f",
+      "bytes": 1925
+    },
+    {
+      "file": "tests/fixtures/planning/documents/scan.pdf",
+      "initialSha256": null,
+      "sha256": "c23691504e2b1e9796f9fd98b07af6b9f5ffdd8e86249f1d7e2768accd7e329d",
+      "bytes": 2987
+    },
+    {
+      "file": "tests/fixtures/planning/documents/simple.pdf",
+      "initialSha256": null,
+      "sha256": "720a1289e029bfa74db6427bcba2a2a8bf24fdb0570ff639d4947115113e6fdb",
+      "bytes": 1457
+    },
+    {
+      "file": "tests/fixtures/planning/documents/table.pdf",
+      "initialSha256": null,
+      "sha256": "95a65fac1c115cbe0381648ec10e1e48369ddde8cc0308c50d1f39fa19444bcd",
+      "bytes": 1447
+    },
+    {
+      "file": "tests/fixtures/planning/documents/zip-bomb.docx",
+      "initialSha256": null,
+      "sha256": "2d01804e8622a5e7475c6a22f9cef625997c1f0ced3611d1b7878bbd316622ce",
+      "bytes": 3939
+    },
+    {
+      "file": "tests/planning-documents.test.mjs",
+      "initialSha256": null,
+      "sha256": "c56ebeb48322a61f7fb0770b57dcd2bf53bb4201a98802b8820500f8da5606c6",
+      "bytes": 3546
+    },
+    {
+      "file": "vite.config.ts",
+      "initialSha256": "8bfe98525bcb393100cb9258ee67cdde76d560488590024da8b39c28b8d68a86",
+      "sha256": "aed56f37fa030f971f35e55476b11b00b421cd04ee5de4c5f53334af819e8759",
+      "bytes": 1059
+    }
+  ],
+  "documentationChanges": [
+    "README.md",
+    "docs/development/IMPORT-RECOGNITION.md"
+  ],
+  "patchComparisonDirectory": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-lot03-final-patch-n4sg33k5",
+  "patchBytes": 184277,
+  "patchSha256": "c9f83d23411bd22316bf1f14695d352312a681dffe86563372502c5beaa32ba4",
+  "patchIncludesOnlyLot03": true,
+  "excluded": "Unchanged pre-existing dirty work; documentation/evidence maintained separately"
+}

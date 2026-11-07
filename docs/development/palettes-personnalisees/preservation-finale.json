@@ -1,0 +1,21 @@
+{
+  "sourceMatchesFinalGate": true,
+  "sourceFingerprint": "9b35078d63686ad9d3cc8a80d11a008158e1362e285111d049c7a3182a0790c7",
+  "initialFiles": 760,
+  "unchangedInitialFiles": 749,
+  "modifiedInitialFiles": [
+    "index.html",
+    "scripts/generate-pwa-icons.mjs",
+    "scripts/smoke-pwa-mobile.mjs",
+    "scripts/verify-local.mjs",
+    "src/apple-design.css",
+    "src/components/BrandMark.tsx",
+    "src/components/Preferences.css",
+    "src/components/Preferences.tsx",
+    "src/i18n.tsx",
+    "src/locale-utils.ts",
+    "tests/e2e/palette-claire.spec.ts"
+  ],
+  "missingInitialFiles": [],
+  "reversePatchCheck": 0
+}

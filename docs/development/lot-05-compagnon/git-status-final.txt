@@ -1,0 +1,147 @@
+ M README.md
+ M docs/development/IMPORT-RECOGNITION.md
+ M index.html
+ M package-lock.json
+ M package.json
+ M public/favicon.svg
+ M public/manifest.webmanifest
+ M scripts/build-sw.mjs
+ M scripts/production-server.mjs
+ M scripts/smoke-app-update.mjs
+ M scripts/smoke-l4-offline.mjs
+ M scripts/smoke-l5-now.mjs
+ M scripts/smoke-planning-import.mjs
+ M scripts/smoke-production.mjs
+ M scripts/verify-local.mjs
+ M src/App.tsx
+ M src/apple-design.css
+ M src/cloud/engine.ts
+ M src/components/AppUpdate.tsx
+ M src/components/DayPreparation.tsx
+ M src/components/JourneysApp.tsx
+ M src/components/MapActions.css
+ M src/components/MapActions.tsx
+ M src/components/NowView.css
+ M src/components/NowView.tsx
+ M src/components/OfflineStatus.css
+ M src/components/OfflineStatus.tsx
+ M src/components/PlanningImport.css
+ M src/components/PlanningImport.tsx
+ M src/components/Preferences.css
+ M src/components/Preferences.tsx
+ M src/components/SharePanel.tsx
+ M src/components/SourceDocument.tsx
+ M src/components/TripMap.tsx
+ M src/i18n.tsx
+ M src/lib.ts
+ M src/locale-utils.ts
+ M src/locales/now.ts
+ M src/locales/offline.ts
+ M src/locales/planning-import.ts
+ M src/main.tsx
+ M src/maps.ts
+ M src/persistence.ts
+ M src/planning-import/draft.ts
+ M src/planning-import/files.ts
+ M src/planning-import/normalizations.ts
+ M src/planning-import/parser.ts
+ M src/planning-import/persistence.ts
+ M src/planning-import/types.ts
+ M src/types.ts
+ M tests/beta.test.mjs
+ M tests/e2e/l5-maps.spec.ts
+ M tests/e2e/map-preferences.spec.ts
+ M tests/e2e/planning-local.spec.ts
+ M tests/e2e/world-languages.spec.ts
+ M tests/planning-import.test.mjs
+ M vite.config.ts
+?? CHECKLIST_PERSONNELLE_DETOURS_STUDIO.md
+?? DOSSIER_VISION_DETOURS_STUDIO.md
+?? IMPLEMENTATION_PLAN_IMPORT_PLANNING_IA.md
+?? MISSIONS_IA_NUIT_DETOURS_STUDIO.md
+?? docs/design-review-2026-10-13/
+?? docs/design/palette-claire-detours/
+?? docs/development/AUDIT-PRODUIT-2026-10-18.md
+?? docs/development/CHANGEMENT-UI-PALETTE-CLAIRE.md
+?? docs/development/IMPORT-IA-STRUCTURE.md
+?? docs/development/LOT-01-IMPORT-FIABLE.md
+?? docs/development/PLAN-GOOGLE-MAPS.md
+?? docs/development/audit-produit-2026-10-18-validation.json
+?? docs/development/import-fiable-lot-01/
+?? docs/development/logos-palettes/
+?? docs/development/lot-02-pwa/
+?? docs/development/lot-03-bis-kit-import/
+?? docs/development/lot-03-documents/
+?? docs/development/lot-04-lieux/
+?? docs/development/lot-05-compagnon/
+?? docs/development/lots-suivants/
+?? docs/development/palette-claire/
+?? docs/development/palettes-personnalisees/
+?? docs/development/planning-stress-2026-10-16/
+?? docs/development/pwa-installation-2026-10-18.png
+?? prototypes/
+?? public/icons/
+?? public/import-kit/
+?? public/licenses/
+?? public/palette-bootstrap.js
+?? public/palettes.css
+?? scripts/companion-fixture.d.mts
+?? scripts/companion-fixture.mjs
+?? scripts/evaluate-import-lot01.mjs
+?? scripts/evaluate-planning-stress.mjs
+?? scripts/generate-import-kit.mjs
+?? scripts/generate-palettes.mjs
+?? scripts/generate-pwa-icons.mjs
+?? scripts/palette-assets.mjs
+?? scripts/smoke-companion.mjs
+?? scripts/smoke-palette-claire.mjs
+?? scripts/smoke-places.mjs
+?? scripts/smoke-planning-documents.mjs
+?? scripts/smoke-planning-structured.mjs
+?? scripts/smoke-pwa-mobile.mjs
+?? scripts/test-wikimedia-browser.mjs
+?? scripts/test-wikimedia-live.mjs
+?? src/companion.ts
+?? src/components/AppUpdate.css
+?? src/components/BrandMark.tsx
+?? src/components/Companion.css
+?? src/components/Companion.tsx
+?? src/components/InstallHelp.tsx
+?? src/components/PlaceEnrichment.css
+?? src/components/PlaceEnrichment.tsx
+?? src/components/StoragePersistence.tsx
+?? src/locales/companion.ts
+?? src/locales/palettes.ts
+?? src/locales/places.ts
+?? src/palettes.ts
+?? src/places/
+?? src/planning-import/document-contract.ts
+?? src/planning-import/document-docx.ts
+?? src/planning-import/document-pdf.ts
+?? src/planning-import/documents.ts
+?? src/planning-import/docx.worker.ts
+?? src/planning-import/external-prompt.ts
+?? src/planning-import/import-kit.ts
+?? src/planning-import/public-contract.ts
+?? src/planning-import/public-examples.ts
+?? src/planning-import/review.ts
+?? src/planning-import/structured.ts
+?? tests/companion.test.mjs
+?? tests/e2e/brand-palettes.spec.ts
+?? tests/e2e/companion.spec.ts
+?? tests/e2e/palette-claire.spec.ts
+?? tests/e2e/palettes-personnalisees.spec.ts
+?? tests/e2e/places.spec.ts
+?? tests/e2e/planning-documents.spec.ts
+?? tests/e2e/planning-lot01.spec.ts
+?? tests/e2e/planning-structured.spec.ts
+?? tests/e2e/pwa-lot02.spec.ts
+?? tests/fixtures/planning/documents/
+?? tests/fixtures/planning/stress-corpus.mjs
+?? tests/maps.test.mjs
+?? tests/palettes.test.mjs
+?? tests/places.test.mjs
+?? tests/planning-documents.test.mjs
+?? tests/planning-lot01.test.mjs
+?? tests/planning-stress-evaluator.test.mjs
+?? tests/planning-structured.test.mjs

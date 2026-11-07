@@ -1,0 +1,334 @@
+{
+  "date": "2026-11-02",
+  "generatedAt": "2026-11-02T13:14:30.767Z",
+  "timezone": "Asia/Shanghai",
+  "baseRevision": "480c0f8257274d0ebfaa630e50933da90a16e5f6",
+  "sourceFingerprint": "fd75931a1285eeb6e4c087a87b8ae1c0bfe07992eb0ca5d53c66d8b5c602bbbe",
+  "fingerprintScope": "Git-visible code, configs, tests and assets; docs/ and Markdown excluded; ignored files excluded",
+  "sourceUnchanged": true,
+  "buildId": "728569b4b6759a479bc505563804655e5a666b5f4b0fecdb6a1dd198f6870758",
+  "environment": {
+    "platform": "win32",
+    "node": "v24.15.0",
+    "browser": "Playwright Chromium / installed Chrome",
+    "backend": "simulated, isolated profiles"
+  },
+  "exitCode": 1,
+  "checks": [
+    {
+      "name": "types produit",
+      "startedAt": "2026-11-02T12:37:49.007Z",
+      "finishedAt": "2026-11-02T12:37:56.342Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "types tests/configurations",
+      "startedAt": "2026-11-02T12:37:56.342Z",
+      "finishedAt": "2026-11-02T12:37:59.004Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "lint",
+      "startedAt": "2026-11-02T12:37:59.004Z",
+      "finishedAt": "2026-11-02T12:38:05.695Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "tests unitaires",
+      "startedAt": "2026-11-02T12:38:05.695Z",
+      "finishedAt": "2026-11-02T12:38:10.685Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "build Vite",
+      "startedAt": "2026-11-02T12:38:10.685Z",
+      "finishedAt": "2026-11-02T12:38:17.692Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "service worker et manifeste",
+      "startedAt": "2026-11-02T12:38:17.692Z",
+      "finishedAt": "2026-11-02T12:38:17.966Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "intégrité du build",
+      "startedAt": "2026-11-02T12:38:17.966Z",
+      "finishedAt": "2026-11-02T12:38:18.301Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "compatibilité SQL L6",
+      "startedAt": "2026-11-02T12:38:18.301Z",
+      "finishedAt": "2026-11-02T12:38:22.078Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "tests navigateur retenus",
+      "startedAt": "2026-11-02T12:38:22.078Z",
+      "finishedAt": "2026-11-02T12:45:23.429Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "palettes, logo et préférences",
+      "startedAt": "2026-11-02T12:45:23.429Z",
+      "finishedAt": "2026-11-02T12:48:57.474Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "analyse planning simulée dans le navigateur",
+      "startedAt": "2026-11-02T12:48:57.474Z",
+      "finishedAt": "2026-11-02T12:49:21.921Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "états L4/L5/L6 et préférences dans le navigateur",
+      "startedAt": "2026-11-02T12:49:21.921Z",
+      "finishedAt": "2026-11-02T12:51:50.542Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "smoke-production",
+      "startedAt": "2026-11-02T12:51:50.542Z",
+      "finishedAt": "2026-11-02T12:52:16.042Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "smoke-backup",
+      "startedAt": "2026-11-02T12:52:16.042Z",
+      "finishedAt": "2026-11-02T12:52:20.667Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "smoke-ui",
+      "startedAt": "2026-11-02T12:52:20.667Z",
+      "finishedAt": "2026-11-02T12:52:39.366Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "smoke-common-sharing",
+      "startedAt": "2026-11-02T13:01:51.585Z",
+      "finishedAt": "2026-11-02T13:02:05.461Z",
+      "exitCode": 0,
+      "status": "passed",
+      "previousAttempts": [
+        {
+          "name": "smoke-common-sharing",
+          "startedAt": "2026-11-02T12:52:39.366Z",
+          "finishedAt": "2026-11-02T12:52:44.316Z",
+          "exitCode": 1,
+          "status": "failed"
+        }
+      ],
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "smoke-l4-offline",
+      "startedAt": "2026-11-02T13:02:05.462Z",
+      "finishedAt": "2026-11-02T13:02:13.552Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "smoke-l4-persistence",
+      "startedAt": "2026-11-02T13:02:13.552Z",
+      "finishedAt": "2026-11-02T13:02:18.512Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "smoke-l5-now",
+      "startedAt": "2026-11-02T13:02:18.512Z",
+      "finishedAt": "2026-11-02T13:02:23.103Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "smoke-l6-preparation",
+      "startedAt": "2026-11-02T13:02:23.103Z",
+      "finishedAt": "2026-11-02T13:02:27.858Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "smoke-l8-release",
+      "startedAt": "2026-11-02T13:02:27.859Z",
+      "finishedAt": "2026-11-02T13:02:34.548Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "kit et JSON structurés compilés hors ligne",
+      "startedAt": "2026-11-02T13:02:34.548Z",
+      "finishedAt": "2026-11-02T13:02:42.614Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "PDF et DOCX compilés hors ligne",
+      "startedAt": "2026-11-02T13:02:42.614Z",
+      "finishedAt": "2026-11-02T13:02:52.407Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "compagnon compilé hors ligne",
+      "startedAt": "2026-11-02T13:02:52.407Z",
+      "finishedAt": "2026-11-02T13:02:57.708Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "souvenirs navigateur",
+      "startedAt": "2026-11-02T13:02:57.708Z",
+      "finishedAt": "2026-11-02T13:03:36.203Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "souvenirs compilés hors ligne",
+      "startedAt": "2026-11-02T13:03:36.203Z",
+      "finishedAt": "2026-11-02T13:03:44.645Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "assistant navigateur",
+      "startedAt": "2026-11-02T13:03:44.645Z",
+      "finishedAt": "2026-11-02T13:04:47.316Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "assistant compilé hors ligne",
+      "startedAt": "2026-11-02T13:04:47.316Z",
+      "finishedAt": "2026-11-02T13:04:53.797Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "mascotte navigateur",
+      "startedAt": "2026-11-02T13:04:53.797Z",
+      "finishedAt": "2026-11-02T13:05:43.835Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "mascotte compilée hors ligne",
+      "startedAt": "2026-11-02T13:05:43.835Z",
+      "finishedAt": "2026-11-02T13:05:59.388Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "lieux compilés hors ligne",
+      "startedAt": "2026-11-02T13:05:59.388Z",
+      "finishedAt": "2026-11-02T13:06:05.145Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "PWA mobile compilée",
+      "startedAt": "2026-11-02T13:06:05.145Z",
+      "finishedAt": "2026-11-02T13:06:19.714Z",
+      "exitCode": 0,
+      "status": "passed",
+      "reusedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json"
+    },
+    {
+      "name": "mise à jour Chrome et WebKit",
+      "startedAt": "2026-11-02T13:13:26.288Z",
+      "finishedAt": "2026-11-02T13:13:46.525Z",
+      "exitCode": 0,
+      "status": "passed",
+      "previousAttempts": [
+        {
+          "name": "mise à jour Chrome et WebKit",
+          "startedAt": "2026-11-02T13:06:19.714Z",
+          "finishedAt": "2026-11-02T13:06:51.762Z",
+          "exitCode": 1,
+          "status": "failed"
+        }
+      ]
+    },
+    {
+      "name": "titre installation Chrome avec ancien manifeste en cache",
+      "startedAt": "2026-11-02T13:13:46.525Z",
+      "finishedAt": "2026-11-02T13:13:57.703Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "planning compilé, carte, hors ligne et restauration",
+      "startedAt": "2026-11-02T13:13:57.703Z",
+      "finishedAt": "2026-11-02T13:14:30.566Z",
+      "exitCode": 1,
+      "status": "failed"
+    }
+  ],
+  "notRun": [],
+  "resumedFrom": "C:/Users/eliot/Documents/detours-release-20261102-impeccable-1793622720540/publication-resumed-attempt2.json",
+  "sourceDelta": [
+    {
+      "file": "scripts/production-server.mjs",
+      "before": "a0ea4695969dca87969120aa532a2c094ecdecd5c2f863e048aa80b31fb6b66f",
+      "after": "b5a71825259743e390c2a065e662fd72e703b9d769bdcca682e4f958ac9da3d6"
+    }
+  ],
+  "lintSupplement": {
+    "file": "scripts\\production-server.mjs",
+    "sha256": "b5a71825259743e390c2a065e662fd72e703b9d769bdcca682e4f958ac9da3d6",
+    "exitCode": 0
+  },
+  "continuationMethod": "Only failed/unrun checks executed. Exact per-file hashes prove identical product and all prior passed inputs except the previous-page module identity fixture used by the failed update smoke; changed harness linted separately. Initial failures retained.",
+  "limits": [
+    "No remote service, Google OAuth, physical device or full browser suite verification",
+    "Browser external DNS blocked; loopback and intercepted mocks available; network test commands not invoked"
+  ],
+  "output": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-verify-Qdc5Ri"
+}

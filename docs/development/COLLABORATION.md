@@ -41,6 +41,8 @@ Le **mode local marche sans `.env.local`**. Ne pas copier `.env.example` tel que
 
 ## 3. Contrôles reproductibles
 
+Choisir les contrôles utiles selon le risque, comme indiqué dans `AGENTS.md`. Pour une modification visuelle, privilégier la revue desktop/mobile et les tests UI ciblés. Les commandes ci-dessous sont disponibles selon le périmètre ; elles ne sont pas une batterie à répéter à chaque itération. Le gate complet est réservé aux changements transversaux à risque, à la préparation d'une publication ou à une demande explicite.
+
 ```powershell
 npm test
 npm run typecheck

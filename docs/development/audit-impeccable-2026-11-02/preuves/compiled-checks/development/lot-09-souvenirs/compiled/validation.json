@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "offlineReload": true,
+  "freshProfileRestore": true,
+  "restoreRetryNoOverwrite": true,
+  "deletion": true,
+  "mediaPackageBytes": 8950,
+  "backupExcludesMedia": true,
+  "automatedPrintPDF": true,
+  "physicalDevice": false,
+  "manualPrintDialog": false,
+  "errors": [],
+  "externalRequests": [
+    "https://c.tile.openstreetmap.org/2/1/1.png",
+    "https://a.tile.openstreetmap.org/2/2/1.png",
+    "https://a.tile.openstreetmap.org/2/1/2.png",
+    "https://b.tile.openstreetmap.org/2/2/2.png"
+  ],
+  "inheritedMapRequests": [
+    "https://c.tile.openstreetmap.org/2/1/1.png",
+    "https://a.tile.openstreetmap.org/2/2/1.png",
+    "https://a.tile.openstreetmap.org/2/1/2.png",
+    "https://b.tile.openstreetmap.org/2/2/2.png"
+  ],
+  "otherExternalRequests": []
+}

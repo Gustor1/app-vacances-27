@@ -1,0 +1,18 @@
+{
+  "base": "https://app-vacances-27-873i684rj-eliottle.vercel.app",
+  "buildId": "5fc4f79d3281fa0171977082efae642f949882df47c16d3fd3f8f3949559d444",
+  "baseRevision": "480c0f8257274d0ebfaa630e50933da90a16e5f6",
+  "verifiedFiles": 115,
+  "compactImportReview": true,
+  "widths": [
+    320,
+    390,
+    768,
+    1440
+  ],
+  "offlineNoteReload": true,
+  "errors": [],
+  "limits": [
+    "No real OAuth or cloud sync; disposable browser storage, external requests blocked."
+  ]
+}

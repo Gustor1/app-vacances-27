@@ -1,12 +1,12 @@
 import type { City, Step } from './types.ts';
-import { amapLink } from './lib.ts';
+import { amapLink, googlePlaceLink, placeQuery } from './lib.ts';
 
 export type TravelMode = 'walking' | 'driving' | 'transit';
 export type Place = Pick<Step, 'title' | 'chineseName' | 'address' | 'amapUrl'> & { coordinates?: [number, number] };
 export function placeDestination(city: City, place: Place): string {
   const coordinates = place.coordinates;
   if (coordinates?.length === 2 && coordinates.every(Number.isFinite) && Math.abs(coordinates[0]) <= 90 && Math.abs(coordinates[1]) <= 180) return coordinates.join(',');
-  return [place.chineseName || place.title, city.chineseName || city.name, place.address].filter(Boolean).join(' ');
+  return placeQuery(city, place);
 }
 /** No origin means Google determines the current departure; no browser geolocation. */
 export function directionsLink(city: City, place: Place, mode: TravelMode = 'walking', origin?: Place): string {
@@ -17,5 +17,5 @@ export function directionsLink(city: City, place: Place, mode: TravelMode = 'wal
 }
 export function placeLink(city: City, place: Place) {
   if (city.mapProvider !== 'google') return amapLink(city, place);
-  return `https://www.google.com/maps/search/?${new URLSearchParams({ api: '1', query: placeDestination(city, place) })}`;
+  return googlePlaceLink(city, place);
 }

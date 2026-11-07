@@ -1,0 +1,17 @@
+{
+  "snapshot": "C:\\Users\\eliot\\Documents\\detours-lot07-recovery-20261023",
+  "initialFingerprint": "ebc9e3a1e5fe62b807d96018db573e11c91c7e8d295728b5eb736e30af344ffd",
+  "initialFiles": 1289,
+  "identical": 1284,
+  "changed": [
+    "README.md",
+    "scripts/verify-local.mjs",
+    "src/App.tsx",
+    "src/hooks/useTravelState.ts",
+    "src/locale-utils.ts"
+  ],
+  "missing": [],
+  "unexpectedChanges": [],
+  "unexpectedAdditions": [],
+  "passed": true
+}

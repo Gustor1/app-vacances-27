@@ -1,0 +1,2678 @@
+diff --git a/README.md b/README.md
+index 5a259af..9e662d0 100644
+--- a/README.md
++++ b/README.md
+@@ -27,11 +27,11 @@ Les tests navigateur utilisent Chrome installé sous Windows, ou `/usr/bin/chrom
+ 
+ - **Mes voyages** : créer, ouvrir, modifier le titre, les destinations, la couverture, la devise et le fuseau ; dupliquer ou importer. Le bouton portant le nom du voyage dans la barre latérale ramène à la collection. Sur téléphone, ouvrir le menu.
+ - **Carnet vierge** : aucun contenu Chine n’est ajouté. Créer une première ville, région ou base de séjour, puis ses journées et activités. Dates et coordonnées sont facultatives.
+-- **Créer depuis un planning** : coller du texte ou ouvrir un fichier `.txt`, `.md` ou `.markdown` UTF-8 (200 Ko et 50 000 caractères maximum), puis choisir **Reconnaître mon programme**. La reconnaissance locale prépare les journées et activités dans un aperçu à corriger, sans compte ni envoi du texte. Les éléments ambigus restent à vérifier et les notes sont conservées ; la création ajoute un nouveau carnet. PDF, Word et scans ne sont pas lus directement : copier leur texte dans ce parcours. [Formats testés, preuves et limites](docs/development/IMPORT-RECOGNITION.md).
++- **Créer depuis un planning** : coller du texte ou ouvrir un fichier `.txt`, `.md` ou `.markdown` UTF-8 (200 Ko et 50 000 caractères maximum), puis choisir **Reconnaître mon programme**. La reconnaissance locale prépare les journées et activités dans un aperçu à corriger, sans compte ni envoi du texte. Les éléments ambigus restent à vérifier et les notes sont conservées ; la création ajoute un nouveau carnet. Les PDF contenant du texte et les fichiers Word `.docx` sont extraits localement (10 Mio, 50 pages PDF, 50 000 caractères maximum) : relire le texte extrait avant reconnaissance. L’original extrait reste récupérable dans le brouillon après correction ; aucun binaire n’est sauvegardé. Pas de `.doc`, `.docm` ni OCR pour les scans. Un prompt/modèle vide FR/EN/ZH/ES peut être copié dans son propre outil IA, sans copie automatique du carnet. [Formats testés, preuves et limites](docs/development/IMPORT-RECOGNITION.md).
+ - **Exemple Chine** : proposé explicitement ; 7 étapes, 17 journées et 130 bonus, les noms chinois, phrases et documents d’origine. Le carnet déjà présent dans le navigateur est migré automatiquement.
+ - **Expérience préservée** : planning, vue d’ensemble, carte, envies et bonus, transports, carnet pratique, outils sur place ; favoris, visites effectuées, réservations, notes, adresses personnelles, hébergements, budget, valise et copie de texte.
+ - **Reprise** : les sélections sont rattachées au carnet. Un onglet garde aussi sa position de lecture, sans déplacer celle d’un autre onglet. Aujourd’hui respecte les fuseaux du voyage et de ses étapes.
+-- **Documents** : joindre un fichier texte ou Markdown de moins de 500 Ko, le lire et le télécharger depuis le carnet pratique. Il est conservé dans la sauvegarde et reste disponible hors ligne. La lecture automatique de PDF, Word ou scans et leur conversion en activités ne sont pas incluses.
++- **Documents** : joindre un fichier texte ou Markdown de moins de 500 Ko, le lire et le télécharger depuis le carnet pratique. Il est conservé dans la sauvegarde et reste disponible hors ligne. Pour transformer un PDF texte ou un DOCX en activités, utiliser **Créer depuis un planning**, avec vérification du texte puis de l’aperçu. Aucun OCR pour les scans.
+ - **Interface** : français, anglais, chinois simplifié et espagnol, apparences claire, sombre et automatique, navigation mobile, clavier et mouvement réduit. Les textes personnels restent dans leur langue.
+ 
+ ## Bêta du plan d’action
+diff --git a/docs/development/IMPORT-RECOGNITION.md b/docs/development/IMPORT-RECOGNITION.md
+index 36362af..6e27b06 100644
+--- a/docs/development/IMPORT-RECOGNITION.md
++++ b/docs/development/IMPORT-RECOGNITION.md
+@@ -21,7 +21,7 @@ Au début du travail, ce checkout ne contenait pas le parcours développé sur l
+ 
+ Les fichiers sont bornés avant lecture puis après décodage : **200 000 octets et 50 000 caractères**. Fichier vide, trop grand, binaire renommé ou UTF-8 invalide : erreur explicite et texte courant conservé. Remplacer une source déjà saisie demande un choix dans l'interface après aperçu du nouveau texte. Il n'y a pas de troncature silencieuse.
+ 
+-La reconnaissance est un ensemble de règles explicites, pas un modèle entraîné ni une garantie sur toute formulation libre. L'aperçu reste nécessaire : titre, ville, dates, activités et rattachements sont modifiables avant création. PDF, DOCX et scans ne sont pas décodés ; copier leur texte est possible. L'OCR n'est pas inclus. Les trajets complexes, changements de fuseau et détails d'hébergement non structurés restent dans le texte à relire.
++La reconnaissance est un ensemble de règles explicites, pas un modèle entraîné ni une garantie sur toute formulation libre. L'aperçu reste nécessaire : titre, ville, dates, activités et rattachements sont modifiables avant création. Le lot 03 ajoute une extraction locale des PDF texte et DOCX, suivie de la relecture du texte et du même aperçu ; les scans ne sont pas décodés. [Rapport, fixtures binaires, limites et recette hors ligne](lot-03-documents/RAPPORT.md). L'OCR n'est pas inclus. Les trajets complexes, changements de fuseau et détails d'hébergement non structurés restent dans le texte à relire.
+ 
+ ## Corrections de reprise
+ 
+diff --git a/package-lock.json b/package-lock.json
+index e2958f7..64f77b1 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -11,12 +11,15 @@
+         "@fontsource-variable/dm-sans": "^5.3.0",
+         "@fontsource-variable/manrope": "^5.3.0",
+         "@supabase/supabase-js": "^2.117.2",
++        "fflate": "0.8.3",
+         "leaflet": "^1.9.4",
+         "lucide-react": "^0.468.0",
++        "pdfjs-dist": "6.4.299",
+         "react": "^19.1.1",
+         "react-dom": "^19.1.1",
+         "react-markdown": "^10.1.0",
+-        "remark-gfm": "^4.0.1"
++        "remark-gfm": "^4.0.1",
++        "saxes": "6.0.0"
+       },
+       "devDependencies": {
+         "@eslint/js": "10.0.1",
+@@ -1073,6 +1076,271 @@
+       "dev": true,
+       "license": "MIT"
+     },
++    "node_modules/@napi-rs/canvas": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas/-/canvas-1.0.12.tgz",
++      "integrity": "sha512-PSwhRdvizfuiSDlhE4Ld2jl/JqkrbSFFyZO0ycamE6mBpf1H0uUF3Tm8yQaVDeAwCNNDzxjRfrN22KmWLTDwcw==",
++      "license": "MIT",
++      "optional": true,
++      "workspaces": [
++        "e2e/*"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      },
++      "optionalDependencies": {
++        "@napi-rs/canvas-android-arm64": "1.0.12",
++        "@napi-rs/canvas-darwin-arm64": "1.0.12",
++        "@napi-rs/canvas-darwin-x64": "1.0.12",
++        "@napi-rs/canvas-linux-arm-gnueabihf": "1.0.12",
++        "@napi-rs/canvas-linux-arm64-gnu": "1.0.12",
++        "@napi-rs/canvas-linux-arm64-musl": "1.0.12",
++        "@napi-rs/canvas-linux-riscv64-gnu": "1.0.12",
++        "@napi-rs/canvas-linux-x64-gnu": "1.0.12",
++        "@napi-rs/canvas-linux-x64-musl": "1.0.12",
++        "@napi-rs/canvas-win32-arm64-msvc": "1.0.12",
++        "@napi-rs/canvas-win32-x64-msvc": "1.0.12"
++      }
++    },
++    "node_modules/@napi-rs/canvas-android-arm64": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-android-arm64/-/canvas-android-arm64-1.0.12.tgz",
++      "integrity": "sha512-Z8hg9BD7ABaZNhdM8O96IrfBaYLM7KzO/YyKA8eU9BDdc5fZJRTWyOhSAyOv59/ari6bOYa+p96h7zN6wbJRDA==",
++      "cpu": [
++        "arm64"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "android"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
++    "node_modules/@napi-rs/canvas-darwin-arm64": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-darwin-arm64/-/canvas-darwin-arm64-1.0.12.tgz",
++      "integrity": "sha512-dRtZCi/u1IOZyRjEDCA73PqgWakf5689K2jfv4uPRYGMJvEqtV+Eq7MIQkBJLmdfUPe7AktSiBZRml2pggnjRQ==",
++      "cpu": [
++        "arm64"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "darwin"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
++    "node_modules/@napi-rs/canvas-darwin-x64": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-darwin-x64/-/canvas-darwin-x64-1.0.12.tgz",
++      "integrity": "sha512-YwvMgK5NBXwPY1AjZGXfPCG3hp/OFGM0Kw+JZHCOR/FYaeSOftaZRyxaDEGkJQSLEUZZIMNJXKCWgZYSzgWZEA==",
++      "cpu": [
++        "x64"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "darwin"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
++    "node_modules/@napi-rs/canvas-linux-arm-gnueabihf": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-linux-arm-gnueabihf/-/canvas-linux-arm-gnueabihf-1.0.12.tgz",
++      "integrity": "sha512-LlOsZy8qh+qJq1euEvDZqa9muACS1fL1Ag38c7J+axAnA8NeXazMtqmUyKb4NVyft6DqbU/MesEj3C0bAFnv4Q==",
++      "cpu": [
++        "arm"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
++    "node_modules/@napi-rs/canvas-linux-arm64-gnu": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-linux-arm64-gnu/-/canvas-linux-arm64-gnu-1.0.12.tgz",
++      "integrity": "sha512-nvuqhi85GzaFl/6sid4qf7wwjHuGU6gfIuDyywUb/fB+kp6Fp3h8GyIAKss/QPil3zVO2r8g6O9ah+IOUoBrIw==",
++      "cpu": [
++        "arm64"
++      ],
++      "libc": [
++        "glibc"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
++    "node_modules/@napi-rs/canvas-linux-arm64-musl": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-linux-arm64-musl/-/canvas-linux-arm64-musl-1.0.12.tgz",
++      "integrity": "sha512-Bf6+9PoEr9K06P/oyMab7zZOpW90KimbIuNsy/vL0VhZZKsb0B0rCC78cp0jXhK6PIM7v8t6uX1sn7isOZ8KEw==",
++      "cpu": [
++        "arm64"
++      ],
++      "libc": [
++        "musl"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
++    "node_modules/@napi-rs/canvas-linux-riscv64-gnu": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-linux-riscv64-gnu/-/canvas-linux-riscv64-gnu-1.0.12.tgz",
++      "integrity": "sha512-j7VcZduLSRx60nv/wbdyH+fyB5QriWGuO8GrvMDlFlt7GNUKAw5lHAHpcuuQW3QwLOe+3P+3qryzyT3sW5pCqQ==",
++      "cpu": [
++        "riscv64"
++      ],
++      "libc": [
++        "glibc"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
++    "node_modules/@napi-rs/canvas-linux-x64-gnu": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-linux-x64-gnu/-/canvas-linux-x64-gnu-1.0.12.tgz",
++      "integrity": "sha512-twDb8ZNgoCF8EG6ka+Lk4etU+ea9lv6NiV5ptIf+thz3LgWuHBbt85c+YgL1s05VsHe4WYWK0f+GhR45IuqARg==",
++      "cpu": [
++        "x64"
++      ],
++      "libc": [
++        "glibc"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
++    "node_modules/@napi-rs/canvas-linux-x64-musl": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-linux-x64-musl/-/canvas-linux-x64-musl-1.0.12.tgz",
++      "integrity": "sha512-mtZbBeNCdGA0MYQxivPmMOp5JMH80LaJLQeEMg7Nne517fvgGb+DWTJTmoE/qUW8YJ4nkiP2vQyr1XVGrH/Ktg==",
++      "cpu": [
++        "x64"
++      ],
++      "libc": [
++        "musl"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
++    "node_modules/@napi-rs/canvas-win32-arm64-msvc": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-win32-arm64-msvc/-/canvas-win32-arm64-msvc-1.0.12.tgz",
++      "integrity": "sha512-HgGRuBUkFL8U99ogwUnTz3SmwUu7WKjmj0eOVWRqVZTPPyfWGEIMr+ycb8oDoNZcKM9vSiF1rpy3r+UIqqaKqw==",
++      "cpu": [
++        "arm64"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "win32"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
++    "node_modules/@napi-rs/canvas-win32-x64-msvc": {
++      "version": "1.0.12",
++      "resolved": "https://registry.npmjs.org/@napi-rs/canvas-win32-x64-msvc/-/canvas-win32-x64-msvc-1.0.12.tgz",
++      "integrity": "sha512-SEEfblIAnYeS4UkeFPp9jw6ZWuHxaTqumUuksMgnMXmPLW8Ofb21uu7cujhw+lk4E9V3aWgGAE9f8g+CdoAU0Q==",
++      "cpu": [
++        "x64"
++      ],
++      "license": "MIT",
++      "optional": true,
++      "os": [
++        "win32"
++      ],
++      "engines": {
++        "node": ">= 10"
++      },
++      "funding": {
++        "type": "github",
++        "url": "https://github.com/sponsors/Brooooooklyn"
++      }
++    },
+     "node_modules/@napi-rs/lzma-linux-x64-gnu": {
+       "version": "1.5.1",
+       "resolved": "https://registry.npmjs.org/@napi-rs/lzma-linux-x64-gnu/-/lzma-linux-x64-gnu-1.5.1.tgz",
+@@ -2607,6 +2875,12 @@
+         }
+       }
+     },
++    "node_modules/fflate": {
++      "version": "0.8.3",
++      "resolved": "https://registry.npmjs.org/fflate/-/fflate-0.8.3.tgz",
++      "integrity": "sha512-tbZNuJrLwGUp3zshBtdy4W+ORxZuIh8a5ilyIEQDC5rY1f3U20JMry0Ll3WBzU58EZKsEuJFXhb5gwv8CsPvgA==",
++      "license": "MIT"
++    },
+     "node_modules/file-entry-cache": {
+       "version": "11.1.5",
+       "resolved": "https://registry.npmjs.org/file-entry-cache/-/file-entry-cache-11.1.5.tgz",
+@@ -4053,6 +4327,18 @@
+         "node": ">=8"
+       }
+     },
++    "node_modules/pdfjs-dist": {
++      "version": "6.4.299",
++      "resolved": "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-6.4.299.tgz",
++      "integrity": "sha512-AVl138zALtfaAPvADulE0PZThbYzCBS79nL4pOSL/6Sm/4AH5A21BD9VHt97OlCuzJuCpmeZtAtkinisF4Vb1g==",
++      "license": "Apache-2.0",
++      "engines": {
++        "node": ">=22.13.0 || >=24"
++      },
++      "optionalDependencies": {
++        "@napi-rs/canvas": "^1.0.10"
++      }
++    },
+     "node_modules/picocolors": {
+       "version": "1.1.1",
+       "resolved": "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz",
+@@ -4351,6 +4637,18 @@
+         "fsevents": "~2.3.2"
+       }
+     },
++    "node_modules/saxes": {
++      "version": "6.0.0",
++      "resolved": "https://registry.npmjs.org/saxes/-/saxes-6.0.0.tgz",
++      "integrity": "sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==",
++      "license": "ISC",
++      "dependencies": {
++        "xmlchars": "^2.2.0"
++      },
++      "engines": {
++        "node": ">=v12.22.7"
++      }
++    },
+     "node_modules/scheduler": {
+       "version": "0.28.0",
+       "resolved": "https://registry.npmjs.org/scheduler/-/scheduler-0.28.0.tgz",
+@@ -4835,6 +5133,12 @@
+       "dev": true,
+       "license": "ISC"
+     },
++    "node_modules/xmlchars": {
++      "version": "2.2.0",
++      "resolved": "https://registry.npmjs.org/xmlchars/-/xmlchars-2.2.0.tgz",
++      "integrity": "sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==",
++      "license": "MIT"
++    },
+     "node_modules/yallist": {
+       "version": "3.1.1",
+       "resolved": "https://registry.npmjs.org/yallist/-/yallist-3.1.1.tgz",
+diff --git a/package.json b/package.json
+index c0536dc..aaef5cf 100644
+--- a/package.json
++++ b/package.json
+@@ -23,12 +23,15 @@
+     "@fontsource-variable/dm-sans": "^5.3.0",
+     "@fontsource-variable/manrope": "^5.3.0",
+     "@supabase/supabase-js": "^2.117.2",
++    "fflate": "0.8.3",
+     "leaflet": "^1.9.4",
+     "lucide-react": "^0.468.0",
++    "pdfjs-dist": "6.4.299",
+     "react": "^19.1.1",
+     "react-dom": "^19.1.1",
+     "react-markdown": "^10.1.0",
+-    "remark-gfm": "^4.0.1"
++    "remark-gfm": "^4.0.1",
++    "saxes": "6.0.0"
+   },
+   "devDependencies": {
+     "@eslint/js": "10.0.1",
+diff --git a/public/licenses/lot03/cmaps.txt b/public/licenses/lot03/cmaps.txt
+new file mode 100644
+index 0000000..b1ad168
+--- /dev/null
++++ b/public/licenses/lot03/cmaps.txt
+@@ -0,0 +1,36 @@
++%%Copyright: -----------------------------------------------------------
++%%Copyright: Copyright 1990-2009 Adobe Systems Incorporated.
++%%Copyright: All rights reserved.
++%%Copyright:
++%%Copyright: Redistribution and use in source and binary forms, with or
++%%Copyright: without modification, are permitted provided that the
++%%Copyright: following conditions are met:
++%%Copyright:
++%%Copyright: Redistributions of source code must retain the above
++%%Copyright: copyright notice, this list of conditions and the following
++%%Copyright: disclaimer.
++%%Copyright:
++%%Copyright: Redistributions in binary form must reproduce the above
++%%Copyright: copyright notice, this list of conditions and the following
++%%Copyright: disclaimer in the documentation and/or other materials
++%%Copyright: provided with the distribution. 
++%%Copyright:
++%%Copyright: Neither the name of Adobe Systems Incorporated nor the names
++%%Copyright: of its contributors may be used to endorse or promote
++%%Copyright: products derived from this software without specific prior
++%%Copyright: written permission. 
++%%Copyright:
++%%Copyright: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
++%%Copyright: CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
++%%Copyright: INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
++%%Copyright: MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
++%%Copyright: DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
++%%Copyright: CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++%%Copyright: SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
++%%Copyright: NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
++%%Copyright: LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
++%%Copyright: HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++%%Copyright: CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
++%%Copyright: OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
++%%Copyright: SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++%%Copyright: -----------------------------------------------------------
+diff --git a/public/licenses/lot03/fflate.txt b/public/licenses/lot03/fflate.txt
+new file mode 100644
+index 0000000..bd36874
+--- /dev/null
++++ b/public/licenses/lot03/fflate.txt
+@@ -0,0 +1,21 @@
++MIT License
++
++Copyright (c) 2026 Arjun Barrett
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
+\ No newline at end of file
+diff --git a/public/licenses/lot03/foxit.txt b/public/licenses/lot03/foxit.txt
+new file mode 100644
+index 0000000..8b4ed6d
+--- /dev/null
++++ b/public/licenses/lot03/foxit.txt
+@@ -0,0 +1,27 @@
++// Copyright 2014 PDFium Authors. All rights reserved.
++//
++// Redistribution and use in source and binary forms, with or without
++// modification, are permitted provided that the following conditions are
++// met:
++//
++//    * Redistributions of source code must retain the above copyright
++// notice, this list of conditions and the following disclaimer.
++//    * Redistributions in binary form must reproduce the above
++// copyright notice, this list of conditions and the following disclaimer
++// in the documentation and/or other materials provided with the
++// distribution.
++//    * Neither the name of Google Inc. nor the names of its
++// contributors may be used to endorse or promote products derived from
++// this software without specific prior written permission.
++//
++// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+diff --git a/public/licenses/lot03/liberation.txt b/public/licenses/lot03/liberation.txt
+new file mode 100644
+index 0000000..213c182
+--- /dev/null
++++ b/public/licenses/lot03/liberation.txt
+@@ -0,0 +1,363 @@
++LICENSE AGREEMENT AND LIMITED PRODUCT WARRANTY
++LIBERATION FONT SOFTWARE
++
++This agreement governs the use of the Software and any updates to the Software, regardless of the delivery mechanism. Subject to the following terms, Red Hat, Inc. ("Red Hat") grants to the user ("Client") a license to this work pursuant to the GNU General Public License v.2 with the exceptions set forth below and such other terms as are set forth in this End User License Agreement.
++
++ 1. The Software and License Exception. LIBERATION font software  (the "Software") consists of TrueType-OpenType formatted font software for rendering LIBERATION typefaces in sans-serif, serif, and monospaced character styles. You are licensed to use, modify, copy, and distribute the Software pursuant to the GNU General Public License v.2 with the following exceptions:  
++
++  (a) As a special exception, if you create a document which uses this font, and embed this font or unaltered portions of this font into the document, this font does not by itself cause the resulting document to be covered by the GNU General Public License. This exception does not however invalidate any other reasons why the document might be covered by the GNU General Public License. If you modify this font, you may extend this exception to your version of the font, but you are not obligated to do so. If you do not wish to do so, delete this exception statement from your version.
++
++  (b) As a further exception, any distribution of the object code of the Software in a physical product must provide you the right to access and modify the source code for the Software and to reinstall that modified version of the Software in object code form on the same physical product on which you received it.
++
++ 2. Intellectual Property Rights. The Software and each of its components, including the source code, documentation, appearance, structure and organization are owned by Red Hat and others and are protected under copyright and other laws. Title to the Software and any component, or to any copy, modification, or merged portion shall remain with the aforementioned, subject to the applicable license. The "LIBERATION" trademark is a trademark of Red Hat, Inc. in the U.S. and other countries. This agreement does not permit Client to distribute modified versions of the Software using Red Hat's trademarks. If Client makes a redistribution of a modified version of the Software, then Client must modify the files names to remove any reference to the Red Hat trademarks and must not use the Red Hat trademarks in any way to reference or promote the modified Software. 
++
++ 3. Limited Warranty. To the maximum extent permitted under applicable law, the Software is provided and licensed "as is" without warranty of any kind, expressed or implied, including the implied warranties of merchantability, non-infringement or fitness for a particular purpose. Red Hat does not warrant that the functions contained in the Software will meet Client's requirements or that the operation of the Software will be entirely error free or appear precisely as described in the accompanying documentation. 
++
++ 4. Limitation of Remedies and Liability. To the maximum extent permitted by applicable law, Red Hat or any Red Hat authorized dealer will not be liable to Client for any incidental or consequential damages, including lost profits or lost savings arising out of the use or inability to use the Software, even if Red Hat or such dealer has been advised of the possibility of such damages. 
++
++ 5. General. If any provision of this agreement is held to be unenforceable, that shall not affect the enforceability of the remaining provisions. This agreement shall be governed by the laws of the State of North Carolina and of the United States, without regard to any conflict of laws provisions, except that the United Nations Convention on the International Sale of Goods shall not apply.
++Copyright © 2007-2011 Red Hat, Inc. All rights reserved. LIBERATION is a trademark of Red Hat, Inc.
++
++------------------------------------------------------------------------------
++
++The text of the GNU General Public License, version 2, referenced above:
++
++		    GNU GENERAL PUBLIC LICENSE
++		       Version 2, June 1991
++
++ Copyright (C) 1989, 1991 Free Software Foundation, Inc.,
++ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
++ Everyone is permitted to copy and distribute verbatim copies
++ of this license document, but changing it is not allowed.
++
++			    Preamble
++
++  The licenses for most software are designed to take away your
++freedom to share and change it.  By contrast, the GNU General Public
++License is intended to guarantee your freedom to share and change free
++software--to make sure the software is free for all its users.  This
++General Public License applies to most of the Free Software
++Foundation's software and to any other program whose authors commit to
++using it.  (Some other Free Software Foundation software is covered by
++the GNU Lesser General Public License instead.)  You can apply it to
++your programs, too.
++
++  When we speak of free software, we are referring to freedom, not
++price.  Our General Public Licenses are designed to make sure that you
++have the freedom to distribute copies of free software (and charge for
++this service if you wish), that you receive source code or can get it
++if you want it, that you can change the software or use pieces of it
++in new free programs; and that you know you can do these things.
++
++  To protect your rights, we need to make restrictions that forbid
++anyone to deny you these rights or to ask you to surrender the rights.
++These restrictions translate to certain responsibilities for you if you
++distribute copies of the software, or if you modify it.
++
++  For example, if you distribute copies of such a program, whether
++gratis or for a fee, you must give the recipients all the rights that
++you have.  You must make sure that they, too, receive or can get the
++source code.  And you must show them these terms so they know their
++rights.
++
++  We protect your rights with two steps: (1) copyright the software, and
++(2) offer you this license which gives you legal permission to copy,
++distribute and/or modify the software.
++
++  Also, for each author's protection and ours, we want to make certain
++that everyone understands that there is no warranty for this free
++software.  If the software is modified by someone else and passed on, we
++want its recipients to know that what they have is not the original, so
++that any problems introduced by others will not reflect on the original
++authors' reputations.
++
++  Finally, any free program is threatened constantly by software
++patents.  We wish to avoid the danger that redistributors of a free
++program will individually obtain patent licenses, in effect making the
++program proprietary.  To prevent this, we have made it clear that any
++patent must be licensed for everyone's free use or not licensed at all.
++
++  The precise terms and conditions for copying, distribution and
++modification follow.
++
++		    GNU GENERAL PUBLIC LICENSE
++   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
++
++  0. This License applies to any program or other work which contains
++a notice placed by the copyright holder saying it may be distributed
++under the terms of this General Public License.  The "Program", below,
++refers to any such program or work, and a "work based on the Program"
++means either the Program or any derivative work under copyright law:
++that is to say, a work containing the Program or a portion of it,
++either verbatim or with modifications and/or translated into another
++language.  (Hereinafter, translation is included without limitation in
++the term "modification".)  Each licensee is addressed as "you".
++
++Activities other than copying, distribution and modification are not
++covered by this License; they are outside its scope.  The act of
++running the Program is not restricted, and the output from the Program
++is covered only if its contents constitute a work based on the
++Program (independent of having been made by running the Program).
++Whether that is true depends on what the Program does.
++
++  1. You may copy and distribute verbatim copies of the Program's
++source code as you receive it, in any medium, provided that you
++conspicuously and appropriately publish on each copy an appropriate
++copyright notice and disclaimer of warranty; keep intact all the
++notices that refer to this License and to the absence of any warranty;
++and give any other recipients of the Program a copy of this License
++along with the Program.
++
++You may charge a fee for the physical act of transferring a copy, and
++you may at your option offer warranty protection in exchange for a fee.
++
++  2. You may modify your copy or copies of the Program or any portion
++of it, thus forming a work based on the Program, and copy and
++distribute such modifications or work under the terms of Section 1
++above, provided that you also meet all of these conditions:
++
++    a) You must cause the modified files to carry prominent notices
++    stating that you changed the files and the date of any change.
++
++    b) You must cause any work that you distribute or publish, that in
++    whole or in part contains or is derived from the Program or any
++    part thereof, to be licensed as a whole at no charge to all third
++    parties under the terms of this License.
++
++    c) If the modified program normally reads commands interactively
++    when run, you must cause it, when started running for such
++    interactive use in the most ordinary way, to print or display an
++    announcement including an appropriate copyright notice and a
++    notice that there is no warranty (or else, saying that you provide
++    a warranty) and that users may redistribute the program under
++    these conditions, and telling the user how to view a copy of this
++    License.  (Exception: if the Program itself is interactive but
++    does not normally print such an announcement, your work based on
++    the Program is not required to print an announcement.)
++
++These requirements apply to the modified work as a whole.  If
++identifiable sections of that work are not derived from the Program,
++and can be reasonably considered independent and separate works in
++themselves, then this License, and its terms, do not apply to those
++sections when you distribute them as separate works.  But when you
++distribute the same sections as part of a whole which is a work based
++on the Program, the distribution of the whole must be on the terms of
++this License, whose permissions for other licensees extend to the
++entire whole, and thus to each and every part regardless of who wrote it.
++
++Thus, it is not the intent of this section to claim rights or contest
++your rights to work written entirely by you; rather, the intent is to
++exercise the right to control the distribution of derivative or
++collective works based on the Program.
++
++In addition, mere aggregation of another work not based on the Program
++with the Program (or with a work based on the Program) on a volume of
++a storage or distribution medium does not bring the other work under
++the scope of this License.
++
++  3. You may copy and distribute the Program (or a work based on it,
++under Section 2) in object code or executable form under the terms of
++Sections 1 and 2 above provided that you also do one of the following:
++
++    a) Accompany it with the complete corresponding machine-readable
++    source code, which must be distributed under the terms of Sections
++    1 and 2 above on a medium customarily used for software interchange; or,
++
++    b) Accompany it with a written offer, valid for at least three
++    years, to give any third party, for a charge no more than your
++    cost of physically performing source distribution, a complete
++    machine-readable copy of the corresponding source code, to be
++    distributed under the terms of Sections 1 and 2 above on a medium
++    customarily used for software interchange; or,
++
++    c) Accompany it with the information you received as to the offer
++    to distribute corresponding source code.  (This alternative is
++    allowed only for noncommercial distribution and only if you
++    received the program in object code or executable form with such
++    an offer, in accord with Subsection b above.)
++
++The source code for a work means the preferred form of the work for
++making modifications to it.  For an executable work, complete source
++code means all the source code for all modules it contains, plus any
++associated interface definition files, plus the scripts used to
++control compilation and installation of the executable.  However, as a
++special exception, the source code distributed need not include
++anything that is normally distributed (in either source or binary
++form) with the major components (compiler, kernel, and so on) of the
++operating system on which the executable runs, unless that component
++itself accompanies the executable.
++
++If distribution of executable or object code is made by offering
++access to copy from a designated place, then offering equivalent
++access to copy the source code from the same place counts as
++distribution of the source code, even though third parties are not
++compelled to copy the source along with the object code.
++
++  4. You may not copy, modify, sublicense, or distribute the Program
++except as expressly provided under this License.  Any attempt
++otherwise to copy, modify, sublicense or distribute the Program is
++void, and will automatically terminate your rights under this License.
++However, parties who have received copies, or rights, from you under
++this License will not have their licenses terminated so long as such
++parties remain in full compliance.
++
++  5. You are not required to accept this License, since you have not
++signed it.  However, nothing else grants you permission to modify or
++distribute the Program or its derivative works.  These actions are
++prohibited by law if you do not accept this License.  Therefore, by
++modifying or distributing the Program (or any work based on the
++Program), you indicate your acceptance of this License to do so, and
++all its terms and conditions for copying, distributing or modifying
++the Program or works based on it.
++
++  6. Each time you redistribute the Program (or any work based on the
++Program), the recipient automatically receives a license from the
++original licensor to copy, distribute or modify the Program subject to
++these terms and conditions.  You may not impose any further
++restrictions on the recipients' exercise of the rights granted herein.
++You are not responsible for enforcing compliance by third parties to
++this License.
++
++  7. If, as a consequence of a court judgment or allegation of patent
++infringement or for any other reason (not limited to patent issues),
++conditions are imposed on you (whether by court order, agreement or
++otherwise) that contradict the conditions of this License, they do not
++excuse you from the conditions of this License.  If you cannot
++distribute so as to satisfy simultaneously your obligations under this
++License and any other pertinent obligations, then as a consequence you
++may not distribute the Program at all.  For example, if a patent
++license would not permit royalty-free redistribution of the Program by
++all those who receive copies directly or indirectly through you, then
++the only way you could satisfy both it and this License would be to
++refrain entirely from distribution of the Program.
++
++If any portion of this section is held invalid or unenforceable under
++any particular circumstance, the balance of the section is intended to
++apply and the section as a whole is intended to apply in other
++circumstances.
++
++It is not the purpose of this section to induce you to infringe any
++patents or other property right claims or to contest validity of any
++such claims; this section has the sole purpose of protecting the
++integrity of the free software distribution system, which is
++implemented by public license practices.  Many people have made
++generous contributions to the wide range of software distributed
++through that system in reliance on consistent application of that
++system; it is up to the author/donor to decide if he or she is willing
++to distribute software through any other system and a licensee cannot
++impose that choice.
++
++This section is intended to make thoroughly clear what is believed to
++be a consequence of the rest of this License.
++
++  8. If the distribution and/or use of the Program is restricted in
++certain countries either by patents or by copyrighted interfaces, the
++original copyright holder who places the Program under this License
++may add an explicit geographical distribution limitation excluding
++those countries, so that distribution is permitted only in or among
++countries not thus excluded.  In such case, this License incorporates
++the limitation as if written in the body of this License.
++
++  9. The Free Software Foundation may publish revised and/or new versions
++of the General Public License from time to time.  Such new versions will
++be similar in spirit to the present version, but may differ in detail to
++address new problems or concerns.
++
++Each version is given a distinguishing version number.  If the Program
++specifies a version number of this License which applies to it and "any
++later version", you have the option of following the terms and conditions
++either of that version or of any later version published by the Free
++Software Foundation.  If the Program does not specify a version number of
++this License, you may choose any version ever published by the Free Software
++Foundation.
++
++  10. If you wish to incorporate parts of the Program into other free
++programs whose distribution conditions are different, write to the author
++to ask for permission.  For software which is copyrighted by the Free
++Software Foundation, write to the Free Software Foundation; we sometimes
++make exceptions for this.  Our decision will be guided by the two goals
++of preserving the free status of all derivatives of our free software and
++of promoting the sharing and reuse of software generally.
++
++			    NO WARRANTY
++
++  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
++FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
++OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
++PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
++OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
++MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS
++TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE
++PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,
++REPAIR OR CORRECTION.
++
++  12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
++WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
++REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES,
++INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING
++OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED
++TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY
++YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
++PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
++POSSIBILITY OF SUCH DAMAGES.
++
++		     END OF TERMS AND CONDITIONS
++
++	    How to Apply These Terms to Your New Programs
++
++  If you develop a new program, and you want it to be of the greatest
++possible use to the public, the best way to achieve this is to make it
++free software which everyone can redistribute and change under these terms.
++
++  To do so, attach the following notices to the program.  It is safest
++to attach them to the start of each source file to most effectively
++convey the exclusion of warranty; and each file should have at least
++the "copyright" line and a pointer to where the full notice is found.
++
++    <one line to give the program's name and a brief idea of what it does.>
++    Copyright (C) <year>  <name of author>
++
++    This program is free software; you can redistribute it and/or modify
++    it under the terms of the GNU General Public License as published by
++    the Free Software Foundation; either version 2 of the License, or
++    (at your option) any later version.
++
++    This program is distributed in the hope that it will be useful,
++    but WITHOUT ANY WARRANTY; without even the implied warranty of
++    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++    GNU General Public License for more details.
++
++    You should have received a copy of the GNU General Public License along
++    with this program; if not, write to the Free Software Foundation, Inc.,
++    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
++
++Also add information on how to contact you by electronic and paper mail.
++
++If the program is interactive, make it output a short notice like this
++when it starts in an interactive mode:
++
++    Gnomovision version 69, Copyright (C) year name of author
++    Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
++    This is free software, and you are welcome to redistribute it
++    under certain conditions; type `show c' for details.
++
++The hypothetical commands `show w' and `show c' should show the appropriate
++parts of the General Public License.  Of course, the commands you use may
++be called something other than `show w' and `show c'; they could even be
++mouse-clicks or menu items--whatever suits your program.
++
++You should also get your employer (if you work as a programmer) or your
++school, if any, to sign a "copyright disclaimer" for the program, if
++necessary.  Here is a sample; alter the names:
++
++  Yoyodyne, Inc., hereby disclaims all copyright interest in the program
++  `Gnomovision' (which makes passes at compilers) written by James Hacker.
++
++  <signature of Ty Coon>, 1 April 1989
++  Ty Coon, President of Vice
++
++This General Public License does not permit incorporating your program into
++proprietary programs.  If your program is a subroutine library, you may
++consider it more useful to permit linking proprietary applications with the
++library.  If this is what you want to do, use the GNU Lesser General
++Public License instead of this License.
+diff --git a/public/licenses/lot03/pdfjs.txt b/public/licenses/lot03/pdfjs.txt
+new file mode 100644
+index 0000000..f433b1a
+--- /dev/null
++++ b/public/licenses/lot03/pdfjs.txt
+@@ -0,0 +1,177 @@
++
++                                 Apache License
++                           Version 2.0, January 2004
++                        http://www.apache.org/licenses/
++
++   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
++
++   1. Definitions.
++
++      "License" shall mean the terms and conditions for use, reproduction,
++      and distribution as defined by Sections 1 through 9 of this document.
++
++      "Licensor" shall mean the copyright owner or entity authorized by
++      the copyright owner that is granting the License.
++
++      "Legal Entity" shall mean the union of the acting entity and all
++      other entities that control, are controlled by, or are under common
++      control with that entity. For the purposes of this definition,
++      "control" means (i) the power, direct or indirect, to cause the
++      direction or management of such entity, whether by contract or
++      otherwise, or (ii) ownership of fifty percent (50%) or more of the
++      outstanding shares, or (iii) beneficial ownership of such entity.
++
++      "You" (or "Your") shall mean an individual or Legal Entity
++      exercising permissions granted by this License.
++
++      "Source" form shall mean the preferred form for making modifications,
++      including but not limited to software source code, documentation
++      source, and configuration files.
++
++      "Object" form shall mean any form resulting from mechanical
++      transformation or translation of a Source form, including but
++      not limited to compiled object code, generated documentation,
++      and conversions to other media types.
++
++      "Work" shall mean the work of authorship, whether in Source or
++      Object form, made available under the License, as indicated by a
++      copyright notice that is included in or attached to the work
++      (an example is provided in the Appendix below).
++
++      "Derivative Works" shall mean any work, whether in Source or Object
++      form, that is based on (or derived from) the Work and for which the
++      editorial revisions, annotations, elaborations, or other modifications
++      represent, as a whole, an original work of authorship. For the purposes
++      of this License, Derivative Works shall not include works that remain
++      separable from, or merely link (or bind by name) to the interfaces of,
++      the Work and Derivative Works thereof.
++
++      "Contribution" shall mean any work of authorship, including
++      the original version of the Work and any modifications or additions
++      to that Work or Derivative Works thereof, that is intentionally
++      submitted to Licensor for inclusion in the Work by the copyright owner
++      or by an individual or Legal Entity authorized to submit on behalf of
++      the copyright owner. For the purposes of this definition, "submitted"
++      means any form of electronic, verbal, or written communication sent
++      to the Licensor or its representatives, including but not limited to
++      communication on electronic mailing lists, source code control systems,
++      and issue tracking systems that are managed by, or on behalf of, the
++      Licensor for the purpose of discussing and improving the Work, but
++      excluding communication that is conspicuously marked or otherwise
++      designated in writing by the copyright owner as "Not a Contribution."
++
++      "Contributor" shall mean Licensor and any individual or Legal Entity
++      on behalf of whom a Contribution has been received by Licensor and
++      subsequently incorporated within the Work.
++
++   2. Grant of Copyright License. Subject to the terms and conditions of
++      this License, each Contributor hereby grants to You a perpetual,
++      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
++      copyright license to reproduce, prepare Derivative Works of,
++      publicly display, publicly perform, sublicense, and distribute the
++      Work and such Derivative Works in Source or Object form.
++
++   3. Grant of Patent License. Subject to the terms and conditions of
++      this License, each Contributor hereby grants to You a perpetual,
++      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
++      (except as stated in this section) patent license to make, have made,
++      use, offer to sell, sell, import, and otherwise transfer the Work,
++      where such license applies only to those patent claims licensable
++      by such Contributor that are necessarily infringed by their
++      Contribution(s) alone or by combination of their Contribution(s)
++      with the Work to which such Contribution(s) was submitted. If You
++      institute patent litigation against any entity (including a
++      cross-claim or counterclaim in a lawsuit) alleging that the Work
++      or a Contribution incorporated within the Work constitutes direct
++      or contributory patent infringement, then any patent licenses
++      granted to You under this License for that Work shall terminate
++      as of the date such litigation is filed.
++
++   4. Redistribution. You may reproduce and distribute copies of the
++      Work or Derivative Works thereof in any medium, with or without
++      modifications, and in Source or Object form, provided that You
++      meet the following conditions:
++
++      (a) You must give any other recipients of the Work or
++          Derivative Works a copy of this License; and
++
++      (b) You must cause any modified files to carry prominent notices
++          stating that You changed the files; and
++
++      (c) You must retain, in the Source form of any Derivative Works
++          that You distribute, all copyright, patent, trademark, and
++          attribution notices from the Source form of the Work,
++          excluding those notices that do not pertain to any part of
++          the Derivative Works; and
++
++      (d) If the Work includes a "NOTICE" text file as part of its
++          distribution, then any Derivative Works that You distribute must
++          include a readable copy of the attribution notices contained
++          within such NOTICE file, excluding those notices that do not
++          pertain to any part of the Derivative Works, in at least one
++          of the following places: within a NOTICE text file distributed
++          as part of the Derivative Works; within the Source form or
++          documentation, if provided along with the Derivative Works; or,
++          within a display generated by the Derivative Works, if and
++          wherever such third-party notices normally appear. The contents
++          of the NOTICE file are for informational purposes only and
++          do not modify the License. You may add Your own attribution
++          notices within Derivative Works that You distribute, alongside
++          or as an addendum to the NOTICE text from the Work, provided
++          that such additional attribution notices cannot be construed
++          as modifying the License.
++
++      You may add Your own copyright statement to Your modifications and
++      may provide additional or different license terms and conditions
++      for use, reproduction, or distribution of Your modifications, or
++      for any such Derivative Works as a whole, provided Your use,
++      reproduction, and distribution of the Work otherwise complies with
++      the conditions stated in this License.
++
++   5. Submission of Contributions. Unless You explicitly state otherwise,
++      any Contribution intentionally submitted for inclusion in the Work
++      by You to the Licensor shall be under the terms and conditions of
++      this License, without any additional terms or conditions.
++      Notwithstanding the above, nothing herein shall supersede or modify
++      the terms of any separate license agreement you may have executed
++      with Licensor regarding such Contributions.
++
++   6. Trademarks. This License does not grant permission to use the trade
++      names, trademarks, service marks, or product names of the Licensor,
++      except as required for reasonable and customary use in describing the
++      origin of the Work and reproducing the content of the NOTICE file.
++
++   7. Disclaimer of Warranty. Unless required by applicable law or
++      agreed to in writing, Licensor provides the Work (and each
++      Contributor provides its Contributions) on an "AS IS" BASIS,
++      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
++      implied, including, without limitation, any warranties or conditions
++      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
++      PARTICULAR PURPOSE. You are solely responsible for determining the
++      appropriateness of using or redistributing the Work and assume any
++      risks associated with Your exercise of permissions under this License.
++
++   8. Limitation of Liability. In no event and under no legal theory,
++      whether in tort (including negligence), contract, or otherwise,
++      unless required by applicable law (such as deliberate and grossly
++      negligent acts) or agreed to in writing, shall any Contributor be
++      liable to You for damages, including any direct, indirect, special,
++      incidental, or consequential damages of any character arising as a
++      result of this License or out of the use or inability to use the
++      Work (including but not limited to damages for loss of goodwill,
++      work stoppage, computer failure or malfunction, or any and all
++      other commercial damages or losses), even if such Contributor
++      has been advised of the possibility of such damages.
++
++   9. Accepting Warranty or Additional Liability. While redistributing
++      the Work or Derivative Works thereof, You may choose to offer,
++      and charge a fee for, acceptance of support, warranty, indemnity,
++      or other liability obligations and/or rights consistent with this
++      License. However, in accepting such obligations, You may act only
++      on Your own behalf and on Your sole responsibility, not on behalf
++      of any other Contributor, and only if You agree to indemnify,
++      defend, and hold each Contributor harmless for any liability
++      incurred by, or claims asserted against, such Contributor by reason
++      of your accepting any such warranty or additional liability.
++
++   END OF TERMS AND CONDITIONS
+diff --git a/public/licenses/lot03/saxes.txt b/public/licenses/lot03/saxes.txt
+new file mode 100644
+index 0000000..187f3ba
+--- /dev/null
++++ b/public/licenses/lot03/saxes.txt
+@@ -0,0 +1,64 @@
++The ISC License
++
++Copyright (c) Contributors
++
++Permission to use, copy, modify, and/or distribute this software for any
++purpose with or without fee is hereby granted, provided that the above
++copyright notice and this permission notice appear in all copies.
++
++THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
++WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
++MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
++ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
++WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
++ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
++IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++
++====
++
++The following license is the one that governed sax, from which saxes
++was forked. Isaac Schlueter is not *directly* involved with saxes so
++don't go bugging him for saxes issues.
++
++The ISC License
++
++Copyright (c) Isaac Z. Schlueter and Contributors
++
++Permission to use, copy, modify, and/or distribute this software for any
++purpose with or without fee is hereby granted, provided that the above
++copyright notice and this permission notice appear in all copies.
++
++THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
++WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
++MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
++ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
++WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
++ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
++IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++
++====
++
++`String.fromCodePoint` by Mathias Bynens is no longer used, but it can
++still be found in old commits. It was once used according to terms of
++MIT License, as follows:
++
++    Copyright Mathias Bynens <https://mathiasbynens.be/>
++
++    Permission is hereby granted, free of charge, to any person obtaining
++    a copy of this software and associated documentation files (the
++    "Software"), to deal in the Software without restriction, including
++    without limitation the rights to use, copy, modify, merge, publish,
++    distribute, sublicense, and/or sell copies of the Software, and to
++    permit persons to whom the Software is furnished to do so, subject to
++    the following conditions:
++
++    The above copyright notice and this permission notice shall be
++    included in all copies or substantial portions of the Software.
++
++    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
++    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
++    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
++    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+diff --git a/public/licenses/lot03/xmlchars.txt b/public/licenses/lot03/xmlchars.txt
+new file mode 100644
+index 0000000..ec8c59c
+--- /dev/null
++++ b/public/licenses/lot03/xmlchars.txt
+@@ -0,0 +1,18 @@
++Copyright Louis-Dominique Dubeau and contributors to xmlchars
++
++Permission is hereby granted, free of charge, to any person obtaining a copy of
++this software and associated documentation files (the "Software"), to deal in
++the Software without restriction, including without limitation the rights to
++use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
++the Software, and to permit persons to whom the Software is furnished to do so,
++subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
++FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
++COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
++IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
++CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+diff --git a/scripts/production-server.mjs b/scripts/production-server.mjs
+index 7ff1380..a86982c 100644
+--- a/scripts/production-server.mjs
++++ b/scripts/production-server.mjs
+@@ -17,7 +17,7 @@ export async function productionTestServer({ previousPage = false } = {}) {
+       let body=await readFile(file);
+       // Same executable code under an older entry URL, to test release detection.
+       if(previousPage && previous && file===resolve(root,'index.html')) body=Buffer.from(body.toString().replace(/(src="\/assets\/index-[^"]+\.js)(")/, '$1?previous=1$2'));
+-      const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.webmanifest':'application/manifest+json','.svg':'image/svg+xml','.png':'image/png','.woff2':'font/woff2','.md':'text/plain'};
++      const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json','.webmanifest':'application/manifest+json','.svg':'image/svg+xml','.png':'image/png','.woff2':'font/woff2','.md':'text/plain'};
+       response.setHeader('Content-Type',types[extname(file)] || 'application/octet-stream');response.end(body);
+     } catch {response.writeHead(404);response.end();}
+   });
+diff --git a/scripts/smoke-app-update.mjs b/scripts/smoke-app-update.mjs
+index 5bbd25e..d66f309 100644
+--- a/scripts/smoke-app-update.mjs
++++ b/scripts/smoke-app-update.mjs
+@@ -88,7 +88,10 @@ for (const engine of [chromium, webkit]) {
+       // Playwright rejects even literal SW responses under WebKit offline emulation:
+       // https://github.com/microsoft/playwright/issues/42775
+       // Keep this engine's real update/cache checks; Chromium covers offline reload.
+-      assert.equal(await page.evaluate(async () => Boolean(await caches.match('/'))), true);
++      // The active worker and old-cache removal do not establish that a newly
++      // reopened WebKit page can already read the new cache. Wait for the
++      // actual offline entry, with the same required outcome and a deadline.
++      await expect.poll(() => page.evaluate(async () => Boolean(await caches.match('/'))), { timeout: 15000 }).toBe(true);
+       await page.screenshot({ path: 'docs/development/lot-02-pwa/screenshots/iphone-header-webkit.png' });
+       console.log('webkit: resume, manual update, journals and cache verified. Offline emulation excluded (Playwright #42775).');
+       continue;
+diff --git a/scripts/smoke-planning-documents.mjs b/scripts/smoke-planning-documents.mjs
+new file mode 100644
+index 0000000..750b5e8
+--- /dev/null
++++ b/scripts/smoke-planning-documents.mjs
+@@ -0,0 +1,61 @@
++import assert from 'node:assert/strict';
++import { chromium, expect } from '@playwright/test';
++import { mkdir, writeFile, readFile } from 'node:fs/promises';
++import { fileURLToPath } from 'node:url';
++import { createHash } from 'node:crypto';
++import path from 'node:path';
++import { productionTestServer } from './production-server.mjs';
++const output=path.resolve('docs/development/lot-03-documents/compiled');
++await mkdir(output,{recursive:true});
++const server=await productionTestServer();server.update();
++const browser=await chromium.launch({channel:process.platform==='win32'?'chrome':undefined,executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH});
++const context=await browser.newContext({viewport:{width:390,height:844}});
++const page=await context.newPage(),errors=[],uploads=[],external=[],documentExternal=[],extraction=[];
++let phase='setup';
++page.on('pageerror',error=>errors.push(error.message));
++context.on('request',request=>{if(request.method()!=='GET')uploads.push(request.url());if(!request.url().startsWith(server.url)&&!request.url().startsWith('data:')){external.push(request.url());if(phase==='extraction')documentExternal.push(request.url());}});
++const key='detours-planning-draft-v1';
++try {
++ await page.goto(server.url);await page.evaluate(async()=>{await navigator.serviceWorker.ready;});
++ await expect.poll(()=>page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);
++ // No extraction is opened online: both workers and every auxiliary resource
++ // must be ready from the normal PWA preparation alone.
++ await context.setOffline(true);await page.reload();
++ for(const name of ['simple.pdf','columns.pdf','table.pdf','chinese.pdf','lists-table.docx']) {
++  phase='extraction';
++  await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();const dialog=page.getByRole('dialog');
++  const fixture=fileURLToPath(new URL('../tests/fixtures/planning/documents/'+name,import.meta.url));
++  const started=Date.now();await dialog.locator('input[type=file]').setInputFiles(fixture);
++  await expect(dialog.locator('.notice pre')).toContainText(name==='chinese.pdf'?'博物馆':name.endsWith('.docx')?'Musée rouge':name==='columns.pdf'?'Musee gauche':'Musee rouge');
++  await dialog.getByRole('button',{name:'Remplacer le texte',exact:true}).click();
++  const session=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
++  assert.equal(session.source,session.sourceOrigin.originalText);
++  await dialog.getByRole('button',{name:'Reconnaître mon programme',exact:true}).click();
++  const recognized=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)).draft,key);
++  extraction.push({name,sha256:createHash('sha256').update(await readFile(fixture)).digest('hex'),durationMs:Date.now()-started,source:session.source,pages:session.sourceOrigin.pages,
++   parser:{title:recognized.title,cities:recognized.cities.map(c=>({name:c.name,days:c.days.map(d=>({date:d.date,activities:d.items.map(i=>({title:i.title,time:i.time,period:i.period}))}))}))}});
++  if(name==='simple.pdf') {
++   phase='notebook';
++   assert.equal(recognized.cities[0].name,'Albi');assert.equal(recognized.cities[0].days[0].items.length,2);
++   await dialog.getByLabel('Lieu ou activité',{exact:true}).first().fill('Musée corrigé hors ligne');
++   await dialog.getByLabel('Devise de référence',{exact:true}).fill('EUR');await dialog.getByLabel('Fuseau du voyage',{exact:true}).fill('Europe/Paris');
++   await dialog.getByLabel('Conserver le texte original dans le carnet après création',{exact:true}).check();
++   await page.reload();await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();
++   const resumed=page.getByRole('dialog');await expect(resumed.getByLabel('Lieu ou activité',{exact:true}).first()).toHaveValue('Musée corrigé hors ligne');
++   await resumed.getByRole('button',{name:'Créer et ouvrir le carnet',exact:true}).click();await expect(resumed).not.toBeVisible();
++   const trip=await page.evaluate(()=>JSON.parse(localStorage.getItem('a-l-est-trip-v2:'+sessionStorage.getItem('a-l-est-open-trip-v2'))).state);
++   assert.ok(trip.documents.some(d=>d.content===session.source));
++   await page.reload();await expect(page.getByRole('heading',{name:recognized.title,exact:true})).toBeVisible();
++   // Clear only our synthetic draft and UI selection, never any user profile.
++   await page.evaluate(key=>{localStorage.removeItem(key);sessionStorage.clear();},key);await page.goto(server.url);
++  } else {
++   await dialog.getByRole('button',{name:'Fermer',exact:true}).click();
++   await page.evaluate(key=>localStorage.removeItem(key),key);await page.reload();
++  }
++ }
++ assert.deepEqual(errors,[]);assert.deepEqual(uploads,[]);assert.deepEqual(documentExternal,[]);
++ assert.ok(external.every(url=>/^https:\/\/[abc]\.tile\.openstreetmap\.org\/\d+\/\d+\/\d+\.png$/.test(url)));
++ await page.screenshot({path:path.join(output,'offline-documents-390.png')});
++ await writeFile(path.join(output,'validation.json'),JSON.stringify({passed:true,extraction,errors,uploads,documentExternal,offlineMapAttempts:external,offlineFirstUse:true,physicalDevice:false},null,2));
++ console.log(JSON.stringify({passed:true,documents:extraction.length,output}));
++} finally {await browser.close();await server.close();}
+diff --git a/scripts/verify-local.mjs b/scripts/verify-local.mjs
+index 73f683c..0d078de 100644
+--- a/scripts/verify-local.mjs
++++ b/scripts/verify-local.mjs
+@@ -28,11 +28,12 @@ const steps = [
+   local('service worker et manifeste', 'scripts/build-sw.mjs'),
+   local('intégrité du build', 'scripts/check-build.mjs'),
+   local('compatibilité SQL L6', 'scripts/test-l6-sql-local.mjs', [process.env.DETOURS_PGLITE_PATH || '']),
+-  local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts', 'tests/e2e/planning-import.spec.ts', 'tests/e2e/planning-local.spec.ts', 'tests/e2e/planning-lot01.spec.ts', 'tests/e2e/pwa-lot02.spec.ts']),
++  local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts', 'tests/e2e/planning-import.spec.ts', 'tests/e2e/planning-local.spec.ts', 'tests/e2e/planning-lot01.spec.ts', 'tests/e2e/pwa-lot02.spec.ts', 'tests/e2e/planning-documents.spec.ts']),
+   local('palettes, logo et préférences', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/palette-claire.spec.ts', 'tests/e2e/palettes-personnalisees.spec.ts', 'tests/e2e/brand-palettes.spec.ts', 'tests/e2e/preferences.spec.ts', 'tests/e2e/iphone-glass.spec.ts', 'tests/e2e/apple-design.spec.ts']),
+   local('analyse planning simulée dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', '--config', 'playwright.planning.config.ts']),
+   local('états L4/L5/L6 et préférences dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l4-status.spec.ts', 'tests/e2e/l5-now.spec.ts', 'tests/e2e/l5-maps.spec.ts', 'tests/e2e/map-preferences.spec.ts', 'tests/e2e/l6-preparation.spec.ts']),
+   ...['smoke-production', 'smoke-backup', 'smoke-ui', 'smoke-common-sharing', 'smoke-l4-offline', 'smoke-l4-persistence', 'smoke-l5-now', 'smoke-l6-preparation', 'smoke-l8-release'].map(name => local(name, `scripts/${name}.mjs`, [], output)),
++  local('PDF et DOCX compilés hors ligne', 'scripts/smoke-planning-documents.mjs', [], output),
+   local('PWA mobile compilée', 'scripts/smoke-pwa-mobile.mjs', [], output),
+   local('mise à jour Chrome et WebKit', 'scripts/smoke-app-update.mjs', [], output),
+   local('planning compilé, carte, hors ligne et restauration', 'scripts/smoke-planning-import.mjs', [], output),
+diff --git a/src/components/JourneysApp.tsx b/src/components/JourneysApp.tsx
+index d75b8ea..f0103db 100644
+--- a/src/components/JourneysApp.tsx
++++ b/src/components/JourneysApp.tsx
+@@ -187,7 +187,7 @@ export default function JourneysApp() {
+         const journey = trip.journey!, days = trip.cities.reduce((sum, city) => sum + city.days.length, 0);
+         return <article className="journey-card panel" key={journey.id}><button className="journey-cover" aria-label={t('Ouvrir {title}', { title: journey.title })} onClick={() => open(journey.id)}><img src={journey.cover} alt="" loading="lazy" decoding="async" onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = '/travel-landscape.svg'; }}/><span className="journey-cover-tag"><Compass size={14}/>{journey.destinations || t('À imaginer')}</span></button><div className="journey-card-body"><span className="journey-status">{t(statuses[journey.status || 'idea'])}{role(journey.id) !== 'owner' ? ' · ' + t('Partagés avec moi') : ''}</span><button className="journey-title" onClick={() => open(journey.id)}><h2>{journey.title}</h2><ArrowRight size={20}/></button><p className="muted">{journey.description || t('Les beaux détours commencent ici.')}</p><div className="journey-details"><span><MapPin size={14}/>{t('{count} étapes', { count: trip.cities.length })}</span><span><CalendarDays size={14}/>{t('{count} journées', { count: days })}</span>{trip.departureDate && <time dateTime={trip.departureDate}>{formatCivilDate(trip.departureDate, language)}</time>}</div><p className="journey-countries">{(journey.countries || []).map(code => countryName(code, language)).join(' · ')}</p><div className="journey-card-actions">{writable(journey.id) && collection.trips.some(tr => tr.journey!.id === journey.id) && <><button className="text-btn" onClick={() => { edit(readTrip(localStorage, trip.journey!.id)); }}><Pencil size={14}/>{t('Modifier le voyage')}</button><button className="text-btn" onClick={() => { if (persist(duplicateTrip(readTrip(localStorage, journey.id)))) setMessage(t('Copie indépendante créée, avec les dates, réservations et dépenses.')); }}><Copy size={14}/>{t('Dupliquer')}</button></>}</div>{role(journey.id) !== 'owner' && <><button className="text-btn" aria-pressed={world.participation?.includes(journey.id) || false} onClick={() => void changeWorld({ ...world, participation: world.participation?.includes(journey.id) ? world.participation.filter(id => id !== journey.id) : [...world.participation || [], journey.id] }).catch(() => {})}>{t(world.participation?.includes(journey.id) ? 'Ma participation est confirmée' : 'Je participe à ce voyage')}</button><p className="muted small">{t('Participer ne confirme aucune visite. Les séjours réellement effectués se confirment séparément.')}</p></>}<div className="journey-card-actions">{collection.trips.some(tr => tr.journey!.id === journey.id) && <><button className="text-btn" onClick={() => persist(returnTrip(readTrip(localStorage, journey.id), journey.title + ' — ' + t('Nouveau départ')))}>{t('Repartir ici')}</button><button className="text-btn" onClick={() => setSharing(readTrip(localStorage, journey.id))}>{t('Partager et historique')}</button>{role(journey.id) === 'owner' && <><button className="text-btn" onClick={() => setDeleting(trip)}>{t('Supprimer')}</button></>}</>}{journey.endDate && journey.endDate < dateInTimezone(journey.timezone) && ['planning', 'ongoing'].includes(journey.status || '') && role(journey.id) === 'owner' && collection.trips.some(tr => tr.journey!.id === journey.id) && <button className="text-btn" onClick={() => edit({ ...trip, journey: { ...journey, status: 'completed' } })}>{t('Ce voyage est-il terminé ?')}</button>}{journey.status === 'completed' && collection.trips.some(tr => tr.journey!.id === journey.id) && <button className="text-btn" onClick={() => { setClosing(trip); setConfirmed(world.visits.filter(v => v.stayId === journey.id).map(v => v.country)); }}>{t('Confirmer mes visites')}</button>}</div></div></article>;
+       })}</div> : <section className="journeys-empty panel"><BookOpen size={44} strokeWidth={1.2}/><h2>{t(displayTrips.length ? 'Aucun voyage pour ces filtres.' : 'Ton prochain voyage commence ici.')}</h2><p>{t('Crée ton carnet, puis ajoute tes étapes, journées et bonnes adresses. Tu peux aussi importer une sauvegarde existante.')}</p><button className="btn btn-primary" onClick={() => edit('new')}><Plus size={16}/>{t('Créer mon premier carnet')}</button></section>}
+-      <section className="journeys-import panel"><div><p className="eyebrow">{t('À GARDER, À RETROUVER')}</p><h2>{t('Tes carnets voyagent avec toi.')}</h2><p className="muted">{t('Importe un ancien carnet ou une collection JSON. Chaque import ajoute une copie indépendante.')}</p><p className="muted small">{t('La lecture automatique des PDF n’est pas encore disponible.')}</p></div><div className="journeys-import-actions"><button className="btn btn-secondary" onClick={() => fileInput.current?.click()}><Upload size={16}/>{t('Importer un fichier')}</button>{collection.trips.length > 0 && <button className="btn btn-secondary" onClick={exportCollection}><Download size={16}/>{t('Exporter mes voyages')}</button>}<button className="text-btn" onClick={() => persist(chinaTrip(), true)}>{t('Ajouter l’exemple Chine')}<ArrowRight size={14}/></button>{collection.legacyCopy && <button className="text-btn" onClick={() => downloadText(collection.legacyCopy!, 'a-l-est-avant-migration-v1.json')}>{t('Sauvegarde avant migration')}</button>}{collection.legacyRecovery && <button className="text-btn" onClick={()=>{let raw=collection.legacyRecovery!;try {const value=JSON.parse(raw);if(typeof value.raw==='string')raw=value.raw;}catch { /* Preserve an unparsed legacy source for download. */ }downloadText(raw,'a-l-est-ancienne-copie.json');}}>{t('Ancienne copie de secours')}</button>}</div></section>
++      <section className="journeys-import panel"><div><p className="eyebrow">{t('À GARDER, À RETROUVER')}</p><h2>{t('Tes carnets voyagent avec toi.')}</h2><p className="muted">{t('Importe un ancien carnet ou une collection JSON. Chaque import ajoute une copie indépendante.')}</p><p className="muted small">{t('Pour un PDF texte ou Word (.docx), utilise « Créer depuis un planning ».')}</p></div><div className="journeys-import-actions"><button className="btn btn-secondary" onClick={() => fileInput.current?.click()}><Upload size={16}/>{t('Importer un fichier')}</button>{collection.trips.length > 0 && <button className="btn btn-secondary" onClick={exportCollection}><Download size={16}/>{t('Exporter mes voyages')}</button>}<button className="text-btn" onClick={() => persist(chinaTrip(), true)}>{t('Ajouter l’exemple Chine')}<ArrowRight size={14}/></button>{collection.legacyCopy && <button className="text-btn" onClick={() => downloadText(collection.legacyCopy!, 'a-l-est-avant-migration-v1.json')}>{t('Sauvegarde avant migration')}</button>}{collection.legacyRecovery && <button className="text-btn" onClick={()=>{let raw=collection.legacyRecovery!;try {const value=JSON.parse(raw);if(typeof value.raw==='string')raw=value.raw;}catch { /* Preserve an unparsed legacy source for download. */ }downloadText(raw,'a-l-est-ancienne-copie.json');}}>{t('Ancienne copie de secours')}</button>}</div></section>
+       {collection.recoveries.length > 0 && <section className="panel journeys-recovery"><h2>{t('Carnets supprimés : copies de récupération')}</h2><p className="muted">{t('Télécharge une copie, puis importe-la pour créer une nouvelle préparation. Tes souvenirs ne changent pas.')}</p><div className="journeys-recovery-list">{collection.recoveries.map(copy => { let title = copy.id; try { title = parseTrip(copy.raw).state.journey!.title; } catch { /* An unreadable recovery remains downloadable. */ } return <article className="journeys-recovery-item" key={copy.id}><h3>{title}</h3><button className="text-btn" onClick={() => downloadText(copy.raw, 'detours-carnet-supprime-' + copy.id + '.json')}><Download size={14}/>{t('Télécharger la copie de récupération')}</button></article>; })}</div></section>}
+       </>}</section><BackupPanel onChanged={refresh} remoteMissing={displayTrips.filter(trip => !collection.trips.some(local => local.journey!.id === trip.journey!.id)).length}/><footer className="page-footer"><span><BrandMark small/>{t('Le monde, au gré des envies.')}</span><span>{t(cloud.session ? 'Carnets privés par défaut' : 'Carnets sauvegardés sur cet appareil')}</span></footer>
+     </main>{importInput}
+diff --git a/src/components/PlanningImport.tsx b/src/components/PlanningImport.tsx
+index befe8aa..35a09d0 100644
+--- a/src/components/PlanningImport.tsx
++++ b/src/components/PlanningImport.tsx
+@@ -10,7 +10,9 @@ import { clearSession, commitImport, createSession, DRAFT_KEY, loadSession, save
+ import { extractPlanning, getExtractionAvailability } from '../planning-import/extraction';
+ import { activityFromPassage, reviewPassages } from '../planning-import/review';
+ import { parsePlanning } from '../planning-import/parser';
+-import { PlanningFileError, PLANNING_FILE_ACCEPT, readPlanningFile } from '../planning-import/files';
++import { PlanningFileError, PLANNING_FILE_ACCEPT, readPlanningSource } from '../planning-import/files';
++import { DocumentError, type DocumentResult } from '../planning-import/document-contract';
++import { externalPlanningPrompt } from '../planning-import/external-prompt';
+ import { SYNTHETIC_EXAMPLES } from '../planning-import/fixtures';
+ import { MAX_SOURCE_LENGTH, type DraftDay, type DraftItem, type ImportSession, type PlanningDraft, type Provenance } from '../planning-import/types';
+ import './PlanningImport.css';
+@@ -22,7 +24,7 @@ const evidenceLabels: Record<string, string> = { title: 'Titre', name: 'Ville, r
+ const extractionErrors: Record<string, string> = { unavailable: 'Analyse IA indisponible : service non activé ou compte non connecté. La saisie manuelle reste disponible.', authentication: 'Connecte-toi pour analyser ce programme.', input: 'Le texte dépasse 50 000 caractères. Réduis-le avant analyse ; rien n’a été tronqué.', quota: 'Limite d’analyse atteinte. Réessaie plus tard ; ton texte est conservé.', timeout: 'L’analyse a dépassé le délai. Ton texte est conservé.', cancelled: 'Analyse annulée. Ton texte est conservé.', provider: 'Analyse impossible. Le texte est conservé.', invalid: 'Réponse IA invalide. Le texte est conservé.' };
+ 
+ export default function PlanningImport({ storage, scope, token, onCreated, onClose }: { storage: TripStorage; scope: string; token?: string; onCreated: (state: StoredState) => void; onClose: () => void }) {
+-  const { t } = useLocale();
++  const { t, language } = useLocale();
+   const [error, setError] = useState('');
+   const [initial] = useState(() => {
+     try { return { session: loadSession(storage, scope) || createSession(scope), failed: false }; }
+@@ -33,7 +35,8 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
+   const current = useRef(session);
+   const [busy, setBusy] = useState(false);
+   const [reading, setReading] = useState(false);
+-  const [pendingSource, setPendingSource] = useState<{ source: string; draft: PlanningDraft | null } | null>(null);
++  const [pendingSource, setPendingSource] = useState<{ source: string; draft: PlanningDraft | null; sourceOrigin?: ImportSession['sourceOrigin'] } | null>(null);
++  const [copied, setCopied] = useState(false);
+   const [noteTarget, setNoteTarget] = useState('0:0');
+   const [saving, setSaving] = useState(false);
+   const [resetRequested, setResetRequested] = useState(false);
+@@ -49,20 +52,24 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
+   function changeDraft(change: (draft: PlanningDraft) => PlanningDraft) {
+     if (current.current.draft) update({ ...current.current, draft: change(structuredClone(current.current.draft)) });
+   }
++  async function copyPrompt() {
++    try { await navigator.clipboard.writeText(externalPlanningPrompt(language)); setCopied(true); }
++    catch { setError(t('Copie impossible. Sélectionne le modèle et copie-le manuellement.')); }
++  }
+   function stop() { sequence.current++; request.current?.controller.abort(); request.current = null; setBusy(false); setReading(false); setPendingSource(null); }
+-  function proposeSource(source: string, draft: PlanningDraft | null = null) {
+-    if (current.current.source.trim() && current.current.source !== source) setPendingSource({ source, draft });
+-    else update({ ...current.current, source, draft, reviewedQuotes: [] });
++  function proposeSource(source: string, draft: PlanningDraft | null = null, sourceOrigin?: DocumentResult['origin']) {
++    if (sourceOrigin || (current.current.source.trim() && current.current.source !== source)) setPendingSource({ source, draft, sourceOrigin });
++    else update({ ...current.current, source, draft, sourceOrigin, reviewedQuotes: [] });
+   }
+   async function openFile(file: File) {
+     if (blocked || current.current.draft) return;
+-    stop(); const id = ++sequence.current; setReading(true); setError('');
++    stop(); const id = ++sequence.current; const controller = new AbortController(); request.current = { controller, sequence: id }; setReading(true); setError('');
+     try {
+-      const source = await readPlanningFile(file);
+-      if (sequence.current === id) proposeSource(source);
++      const result = await readPlanningSource(file, controller.signal);
++      if (sequence.current === id) proposeSource(result.source, null, result.origin);
+     } catch (failure) {
+-      if (sequence.current === id) setError(t(failure instanceof PlanningFileError ? failure.message : 'Lecture du fichier impossible. Ton texte actuel est conservé.'));
+-    } finally { if (sequence.current === id) setReading(false); }
++      if (sequence.current === id) setError(t(failure instanceof PlanningFileError || failure instanceof DocumentError ? failure.message : 'Lecture du fichier impossible. Ton texte actuel est conservé.'));
++    } finally { if (sequence.current === id) { setReading(false); request.current = null; } }
+   }
+   function recognize() {
+     if (blocked || current.current.draft || !current.current.source.trim() || current.current.source.length > MAX_SOURCE_LENGTH) return;
+@@ -132,19 +139,31 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
+   return <Modal title={t('Créer depuis un planning')} wide onClose={() => { stop(); onClose(); }}><div className="planning-import">
+     {blocked && <div role="alert" className="notice warning-notice"><p>{t('Brouillon illisible. Sa source est conservée ; efface-le explicitement pour recommencer.')}</p><button type="button" className="text-btn" onClick={() => { try { downloadText(storage.getItem(DRAFT_KEY) || '', 'detours-brouillon-a-recuperer.json'); } catch { setError(t('Sauvegarde du brouillon impossible. Télécharge le texte avant de fermer.')); } }}><Download size={16}/>{t('Télécharger le brouillon brut')}</button></div>}
+     {error && <p role="alert" className="notice warning-notice">{error}</p>}
++    {session.sourceOrigin && <details className="planning-origin"><summary>{t('Texte extrait original')} · {session.sourceOrigin.name} · {session.sourceOrigin.kind.toUpperCase()}{session.sourceOrigin.pages ? ` · ${session.sourceOrigin.pages} p.` : ''}</summary>
++      <p className="muted small">{t('Les corrections ne remplacent pas cette copie extraite. Le fichier binaire n’est pas conservé.')}</p>
++      <pre className="planning-source">{session.sourceOrigin.originalText}</pre>
++      <button type="button" className="text-btn" onClick={() => downloadText(session.sourceOrigin!.originalText, 'detours-extraction-originale.txt')}>{t('Télécharger le texte extrait original')}</button>
++    </details>}
+     {!draft ? <>
+       <label className="field">{t('Ton programme')}<textarea rows={10} autoFocus value={session.source} disabled={blocked} onChange={event => { stop(); update({ ...current.current, source: event.target.value }); }} aria-describedby="planning-source-limit"/></label>
+       <p id="planning-source-limit" className="muted small">{session.source.length.toLocaleString()} / {MAX_SOURCE_LENGTH.toLocaleString()} {t('caractères')}</p>
+-      <label className="field">{t('Ouvrir un fichier texte ou Markdown')}<input type="file" accept={PLANNING_FILE_ACCEPT} disabled={blocked || busy || reading} aria-describedby="planning-file-help" onChange={event => { const file = event.currentTarget.files?.[0]; event.currentTarget.value = ''; if (file) void openFile(file); }}/></label>
+-      <p id="planning-file-help" className="muted small">{t('Fichiers .txt, .md et .markdown en UTF-8, 200 Ko et 50 000 caractères maximum. Pour un PDF ou Word, copie le texte ici.')}</p>
+-      {reading && <p role="status">{t('Lecture du fichier…')}</p>}
+-      {pendingSource && <div className="notice warning-notice"><p>{t('Un texte est déjà présent. Vérifie le nouveau texte avant de choisir de le remplacer.')}</p><pre className="planning-source">{pendingSource.source}</pre><div className="planning-actions"><button type="button" className="btn btn-secondary" onClick={() => setPendingSource(null)}>{t('Annuler')}</button><button type="button" className="btn btn-primary" onClick={() => { update({ ...current.current, ...pendingSource, reviewedQuotes: [] }); setPendingSource(null); }}>{t('Remplacer le texte')}</button></div></div>}
++      <label className="field">{t('Ouvrir un fichier texte ou Markdown')} · PDF / DOCX<input type="file" aria-label={t('Ouvrir un fichier texte ou Markdown')} accept={PLANNING_FILE_ACCEPT} disabled={blocked || busy} aria-describedby="planning-file-help" onChange={event => { const file = event.currentTarget.files?.[0]; event.currentTarget.value = ''; if (file) void openFile(file); }}/></label>
++      <p id="planning-file-help" className="muted small">{t('TXT/Markdown UTF-8 : 200 Ko. PDF texte/DOCX : 10 Mo, 50 pages PDF, 50 000 caractères. Aucun OCR. Extraction locale, sans envoi du document.')}</p>
++      <p className="muted small">{t('Hors ligne : ouvre Détours en ligne et attends sa préparation complète avant de partir. Les modules de lecture sont ensuite disponibles sans réseau.')}</p>
++      {reading && <div role="status">{t('Lecture du fichier…')} <button className="btn btn-secondary" onClick={stop}>{t('Annuler')}</button></div>}
++      {pendingSource && <div className="notice warning-notice"><p>{t(pendingSource.sourceOrigin ? 'Vérifie le texte extrait avant de l’utiliser. Colonnes, tableaux et césures peuvent modifier l’ordre de lecture. Ton brouillon précédent reste conservé jusqu’au remplacement.' : 'Un texte est déjà présent. Vérifie le nouveau texte avant de choisir de le remplacer.')}</p>{pendingSource.sourceOrigin?.kind === 'docx' && <p className="muted small">{t('Word : texte du corps uniquement. Images, en-têtes, pieds de page, commentaires et notes de bas de page ne sont pas repris. Vérifie le document original.')}</p>}<pre className="planning-source">{pendingSource.source}</pre><div className="planning-actions"><button type="button" className="btn btn-secondary" onClick={() => setPendingSource(null)}>{t('Annuler')}</button><button type="button" className="btn btn-primary" onClick={() => { update({ ...current.current, ...pendingSource, reviewedQuotes: [] }); setPendingSource(null); }}>{t('Remplacer le texte')}</button></div></div>}
+       {session.source.length > MAX_SOURCE_LENGTH && <p role="alert">{t('Le texte dépasse 50 000 caractères. Réduis-le avant analyse ; rien n’a été tronqué.')}</p>}
+       <p className="muted small">{t('La reconnaissance des journées et activités fonctionne sur cet appareil, sans compte ni envoi du texte. Vérifie ensuite l’aperçu avant de créer le carnet.')}</p>
+       <div className="planning-actions">
+         <button className="btn btn-primary" disabled={busy || reading || blocked || !session.source.trim() || session.source.length > MAX_SOURCE_LENGTH} onClick={recognize}><ListChecks size={16}/>{t('Reconnaître mon programme')}</button>
+         <button className="btn btn-secondary" disabled={busy || reading || blocked || session.source.length > MAX_SOURCE_LENGTH} onClick={manual}><Plus size={16}/>{t('Saisir mon aperçu manuellement')}</button>
+       </div>
++      <details className="planning-remote"><summary>{t('Préparer un programme avec ChatGPT ou une autre IA')}</summary>
++        <p className="muted small">{t('Copie ce modèle vide dans ton propre outil, puis colle sa réponse ici. Aucun carnet personnel n’est copié. Vérifie les conditions et la confidentialité de cet outil.')}</p>
++        <pre className="planning-source">{externalPlanningPrompt(language)}</pre>
++        <button className="btn btn-secondary" onClick={() => void copyPrompt()}>{t('Copier le prompt et le modèle')}</button>
++        {copied && <p role="status">{t('Modèle copié.')}</p>}
++      </details>
+       <section className="planning-remote" aria-label={t('Analyse IA distante (facultative)')}><strong>{t('Analyse IA distante (facultative)')}</strong>
+         <p className="muted small">{t(available ? 'En lançant l’analyse, tu envoies ce texte au fournisseur OpenAI. Aucun envoi pendant la saisie.' : 'Analyse IA distante indisponible : service non activé ou compte non connecté. La reconnaissance locale reste disponible.')}</p>
+         <div className="planning-actions"><button className="btn btn-secondary" disabled={!available || busy || reading || blocked || !session.source.trim() || session.source.length > MAX_SOURCE_LENGTH} onClick={() => void analyze()}><Sparkles size={16}/>{t('Analyser mon programme')}</button>
+diff --git a/src/locales/planning-import.ts b/src/locales/planning-import.ts
+index e1faa80..18b927c 100644
+--- a/src/locales/planning-import.ts
++++ b/src/locales/planning-import.ts
+@@ -1,4 +1,28 @@
+ const rows = [
++  ['Word : texte du corps uniquement. Images, en-têtes, pieds de page, commentaires et notes de bas de page ne sont pas repris. Vérifie le document original.', 'Word: body text only. Images, headers, footers, comments and footnotes are not included. Check the original document.', 'Word：仅提取正文。不包含图片、页眉、页脚、批注和脚注。请检查原文档。', 'Word: solo texto del cuerpo. No incluye imágenes, encabezados, pies de página, comentarios ni notas al pie. Revisa el documento original.'],
++  ['Pour un PDF texte ou Word (.docx), utilise « Créer depuis un planning ».', 'For a text PDF or Word (.docx), use “Create from an itinerary”.', '文本 PDF 或 Word（.docx）请使用“从行程创建”。', 'Para PDF de texto o Word (.docx), usa «Crear desde un itinerario».'],
++  ['TXT/Markdown UTF-8 : 200 Ko. PDF texte/DOCX : 10 Mo, 50 pages PDF, 50 000 caractères. Aucun OCR. Extraction locale, sans envoi du document.', 'UTF-8 TXT/Markdown: 200 KB. Text PDF/DOCX: 10 MB, 50 PDF pages, 50,000 characters. No OCR. Local extraction, no document upload.', 'UTF-8 TXT/Markdown：200 KB。文本 PDF/DOCX：10 MB、PDF 50页、50,000字符。不支持 OCR。本地提取，不上传文档。', 'TXT/Markdown UTF-8: 200 KB. PDF de texto/DOCX: 10 MB, 50 páginas PDF, 50 000 caracteres. Sin OCR. Extracción local, sin subir el documento.'],
++  ['Hors ligne : ouvre Détours en ligne et attends sa préparation complète avant de partir. Les modules de lecture sont ensuite disponibles sans réseau.', 'Offline: open Détours online and wait for full preparation before leaving. Reading modules will then work without a network.', '离线：出发前请联网打开 Détours，等待准备完成。之后读取模块可离线使用。', 'Sin conexión: abre Détours con internet y espera a que termine la preparación antes de salir. Después los módulos de lectura funcionarán sin red.'],
++  ['Vérifie le texte extrait avant de l’utiliser. Colonnes, tableaux et césures peuvent modifier l’ordre de lecture. Ton brouillon précédent reste conservé jusqu’au remplacement.', 'Review extracted text before using it. Columns, tables and hyphenation may affect reading order. Your previous draft is preserved until replacement.', '使用前请检查提取文本。分栏、表格和断字可能影响阅读顺序。替换前保留原草稿。', 'Revisa el texto extraído. Las columnas, tablas y palabras cortadas pueden alterar el orden. El borrador anterior se conserva hasta reemplazarlo.'],
++  ['Préparer un programme avec ChatGPT ou une autre IA', 'Prepare an itinerary with ChatGPT or another AI', '用 ChatGPT 或其他 AI 整理行程', 'Preparar un itinerario con ChatGPT u otra IA'],
++  ['Copie ce modèle vide dans ton propre outil, puis colle sa réponse ici. Aucun carnet personnel n’est copié. Vérifie les conditions et la confidentialité de cet outil.', 'Copy this blank template into your own tool, then paste its response here. No personal notebook is copied. Check that tool’s terms and privacy.', '将空白模板复制到你自己的工具中，再将回复粘贴到这里。不会复制个人手册。请检查该工具的条款和隐私设置。', 'Copia esta plantilla vacía en tu herramienta y pega su respuesta aquí. No se copia ningún cuaderno personal. Revisa las condiciones y privacidad de esa herramienta.'],
++  ['Copier le prompt et le modèle', 'Copy prompt and template', '复制提示词和模板', 'Copiar instrucciones y plantilla'],
++  ['Modèle copié.', 'Template copied.', '模板已复制。', 'Plantilla copiada.'],
++  ['Copie impossible. Sélectionne le modèle et copie-le manuellement.', 'Copy failed. Select the template and copy it manually.', '复制失败。请选择模板并手动复制。', 'No se pudo copiar. Selecciona la plantilla y cópiala manualmente.'],
++  ['Texte extrait original', 'Original extracted text', '原始提取文本', 'Texto extraído original'],
++  ['Les corrections ne remplacent pas cette copie extraite. Le fichier binaire n’est pas conservé.', 'Edits do not replace this extracted copy. The binary file is not stored.', '修改不会替换此提取副本。不保存二进制文件。', 'Las correcciones no reemplazan esta copia extraída. No se guarda el archivo binario.'],
++  ['Télécharger le texte extrait original', 'Download original extracted text', '下载原始提取文本', 'Descargar texto extraído original'],
++  ['Format non supporté ou extension incorrecte. Choisis un PDF texte ou un DOCX, sans macros.', 'Unsupported format or incorrect extension. Choose a text PDF or a macro-free DOCX.', '不支持的格式或扩展名不正确。请选择文本 PDF 或无宏 DOCX。', 'Formato no compatible o extensión incorrecta. Elige un PDF de texto o un DOCX sin macros.'],
++  ['Le document dépasse 10 Mo. Le texte précédent est conservé.', 'The document exceeds 10 MB. Your previous text is preserved.', '文档超过10 MB。保留原文本。', 'El documento supera los 10 MB. El texto anterior se conserva.'],
++  ['Le PDF dépasse 50 pages. Rien n’a été tronqué.', 'The PDF exceeds 50 pages. Nothing was truncated.', 'PDF 超过50页。未截断内容。', 'El PDF supera las 50 páginas. No se ha truncado nada.'],
++  ['Le texte extrait dépasse 50 000 caractères. Rien n’a été tronqué.', 'Extracted text exceeds 50,000 characters. Nothing was truncated.', '提取文本超过50,000字符。未截断内容。', 'El texto extraído supera los 50 000 caracteres. No se ha truncado nada.'],
++  ['Aucun texte extractible : ce document peut être un scan. L’OCR n’est pas disponible.', 'No extractable text: this may be a scanned document. OCR is unavailable.', '无可提取文本：可能是扫描文档。不支持 OCR。', 'No hay texto extraíble: puede ser un documento escaneado. OCR no disponible.'],
++  ['Ce PDF est protégé par un mot de passe. Fournis une copie texte non protégée.', 'This PDF is password protected. Supply an unprotected text copy.', '此 PDF 受密码保护。请提供未加密的文本副本。', 'Este PDF está protegido con contraseña. Proporciona una copia de texto sin protección.'],
++  ['Document corrompu ou structure non supportée. Le texte précédent est conservé.', 'Corrupt document or unsupported structure. Your previous text is preserved.', '文档损坏或结构不支持。保留原文本。', 'Documento dañado o estructura no compatible. El texto anterior se conserva.'],
++  ['Archive Word excessive ou non supportée : 1 000 entrées, 20 Mo décompressés, 2 Mo par XML maximum.', 'Excessive or unsupported Word archive: maximum 1,000 entries, 20 MB expanded, 2 MB per XML.', 'Word 压缩包过大或不支持：最多1,000条目，解压后20 MB，每个 XML 2 MB。', 'Archivo Word excesivo o no compatible: máximo 1000 entradas, 20 MB descomprimidos, 2 MB por XML.'],
++  ['Extraction trop longue (20 secondes maximum). Le texte précédent est conservé.', 'Extraction timed out (20 seconds maximum). Your previous text is preserved.', '提取超时（最长20秒）。保留原文本。', 'Extracción demasiado larga (máximo 20 segundos). El texto anterior se conserva.'],
++  ['Extraction annulée. Le texte précédent est conservé.', 'Extraction cancelled. Your previous text is preserved.', '已取消提取。保留原文本。', 'Extracción cancelada. El texto anterior se conserva.'],
++  ['Module de lecture indisponible. Ouvre Détours en ligne et attends sa préparation hors ligne, puis réessaie.', 'Reading module unavailable. Open Détours online, wait for offline preparation, then retry.', '读取模块不可用。请联网打开 Détours，等待离线准备完成后重试。', 'Módulo de lectura no disponible. Abre Détours con internet, espera la preparación sin conexión y vuelve a intentarlo.'],
+   ['Reconnaître mon programme', 'Recognize my itinerary', '识别我的行程', 'Reconocer mi itinerario'],
+   ['Ouvrir un fichier texte ou Markdown', 'Open a text or Markdown file', '打开文本或 Markdown 文件', 'Abrir un archivo de texto o Markdown'],
+   ['Fichiers .txt, .md et .markdown en UTF-8, 200 Ko et 50 000 caractères maximum. Pour un PDF ou Word, copie le texte ici.', 'UTF-8 .txt, .md and .markdown files, up to 200 KB and 50,000 characters. For PDF or Word, paste the text here.', '支持 UTF-8 编码的 .txt、.md 和 .markdown 文件，最多 200 KB、50,000 个字符。PDF 或 Word 请将文本复制到此处。', 'Archivos .txt, .md y .markdown en UTF-8, hasta 200 KB y 50 000 caracteres. Para PDF o Word, pega el texto aquí.'],
+diff --git a/src/planning-import/document-contract.ts b/src/planning-import/document-contract.ts
+new file mode 100644
+index 0000000..2deb1e2
+--- /dev/null
++++ b/src/planning-import/document-contract.ts
+@@ -0,0 +1,30 @@
++import { MAX_SOURCE_LENGTH } from './types.ts';
++
++// All binary extraction limits live here. Text/Markdown retain their existing contract.
++export const DOCUMENT_LIMITS = Object.freeze({ bytes: 10 * 1024 * 1024, pages: 50, text: MAX_SOURCE_LENGTH,
++  zipEntries: 1000, expandedBytes: 20 * 1024 * 1024, xmlBytes: 2 * 1024 * 1024, timeoutMs: 20_000 });
++export const documentErrors = {
++  format: 'Format non supporté ou extension incorrecte. Choisis un PDF texte ou un DOCX, sans macros.',
++  size: 'Le document dépasse 10 Mo. Le texte précédent est conservé.',
++  pages: 'Le PDF dépasse 50 pages. Rien n’a été tronqué.',
++  length: 'Le texte extrait dépasse 50 000 caractères. Rien n’a été tronqué.',
++  empty: 'Aucun texte extractible : ce document peut être un scan. L’OCR n’est pas disponible.',
++  protected: 'Ce PDF est protégé par un mot de passe. Fournis une copie texte non protégée.',
++  corrupt: 'Document corrompu ou structure non supportée. Le texte précédent est conservé.',
++  zip: 'Archive Word excessive ou non supportée : 1 000 entrées, 20 Mo décompressés, 2 Mo par XML maximum.',
++  timeout: 'Extraction trop longue (20 secondes maximum). Le texte précédent est conservé.',
++  cancelled: 'Extraction annulée. Le texte précédent est conservé.',
++  unavailable: 'Module de lecture indisponible. Ouvre Détours en ligne et attends sa préparation hors ligne, puis réessaie.',
++} as const;
++export type DocumentErrorCode = keyof typeof documentErrors;
++export class DocumentError extends Error {
++  readonly code: DocumentErrorCode;
++  constructor(code: DocumentErrorCode) { super(documentErrors[code]); this.name = 'DocumentError'; this.code = code; }
++}
++export type DocumentOrigin = { kind: 'pdf' | 'docx'; name: string; originalText: string; pages?: number };
++export type DocumentResult = { source: string; origin?: DocumentOrigin };
++export function checkExtractedText(text: string): string {
++  if (text.length > DOCUMENT_LIMITS.text) throw new DocumentError('length');
++  if (!text.trim()) throw new DocumentError('empty');
++  return text;
++}
+diff --git a/src/planning-import/document-docx.ts b/src/planning-import/document-docx.ts
+new file mode 100644
+index 0000000..99ba6ca
+--- /dev/null
++++ b/src/planning-import/document-docx.ts
+@@ -0,0 +1,112 @@
++import { Inflate } from 'fflate';
++import { SaxesParser } from 'saxes';
++import { DOCUMENT_LIMITS as limits, DocumentError, checkExtractedText } from './document-contract.ts';
++
++function crc32(bytes: Uint8Array): number {
++  let crc = 0xffffffff;
++  for (const byte of bytes) { crc ^= byte; for (let bit = 0; bit < 8; bit++) crc = (crc >>> 1) ^ ((crc & 1) ? 0xedb88320 : 0); }
++  return (crc ^ 0xffffffff) >>> 0;
++}
++
++/** Central directory checked before inflation. Stream output is bounded independently
++ * of declared ZIP sizes (including forged sizes). Nothing is written to a filesystem. */
++export function extractDocx(bytes: Uint8Array): string {
++  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
++  const u16 = (at: number) => view.getUint16(at, true), u32 = (at: number) => view.getUint32(at, true);
++  let end = bytes.length - 22;
++  while (end >= Math.max(0, bytes.length - 65557) && u32(end) !== 0x06054b50) end--;
++  if (end < 0 || end < bytes.length - 65557 || end + 22 + u16(end + 20) !== bytes.length) throw new DocumentError('corrupt');
++  const count = u16(end + 10);
++  if (u16(end + 4) || u16(end + 6) || count !== u16(end + 8) || count > limits.zipEntries || !count) throw new DocumentError('zip');
++  let pos = u32(end + 16), total = 0;
++  const centralEnd = pos + u32(end + 12);
++  if (centralEnd !== end) throw new DocumentError('zip'); // Includes ZIP64 and multi-disk archives.
++  const names = new Set<string>(), xml: Record<string, string> = {};
++  for (let i = 0; i < count; i++) {
++    if (pos + 46 > end || u32(pos) !== 0x02014b50) throw new DocumentError('corrupt');
++    const method = u16(pos + 10), compressed = u32(pos + 20), expanded = u32(pos + 24);
++    const nameLength = u16(pos + 28), offset = u32(pos + 42);
++    const next = pos + 46 + nameLength + u16(pos + 30) + u16(pos + 32);
++    if (next > end || offset + 30 > u32(end + 16) || u32(offset) !== 0x04034b50) throw new DocumentError('corrupt');
++    const name = new TextDecoder('utf-8', { fatal: true }).decode(bytes.subarray(pos + 46, pos + 46 + nameLength));
++    if (names.has(name) || name.includes('..') || name.startsWith('/') || name.includes('\\') || (u16(pos + 8) & 1) || ![0, 8].includes(method) || u16(pos + 34)) throw new DocumentError('zip');
++    names.add(name);
++    total += expanded;
++    if (total > limits.expandedBytes || expanded === 0xffffffff || compressed === 0xffffffff || (name.endsWith('.xml') && expanded > limits.xmlBytes)) throw new DocumentError('zip');
++    if (/vbaProject|\.bin$/i.test(name)) throw new DocumentError('format');
++    const start = offset + 30 + u16(offset + 26) + u16(offset + 28);
++    if (start + compressed > u32(end + 16) || u16(offset + 8) !== method) throw new DocumentError('corrupt');
++    if (name === '[Content_Types].xml' || name === 'word/document.xml') {
++      const parts: Uint8Array[] = []; let actual = 0;
++      const receive = (part: Uint8Array) => {
++        actual += part.length;
++        if (actual > limits.xmlBytes || actual > expanded) throw new DocumentError('zip');
++        parts.push(part.slice());
++      };
++      if (method === 0) receive(bytes.subarray(start, start + compressed));
++      else {
++        const inflate = new Inflate(receive);
++        for (let at = start; at < start + compressed; at += 1024) inflate.push(bytes.subarray(at, Math.min(at + 1024, start + compressed)), at + 1024 >= start + compressed);
++      }
++      if (actual !== expanded) throw new DocumentError('corrupt');
++      const all = new Uint8Array(actual); let at = 0;
++      for (const part of parts) { all.set(part, at); at += part.length; }
++      if (crc32(all) !== u32(pos + 16)) throw new DocumentError('corrupt');
++      xml[name] = new TextDecoder('utf-8', { fatal: true }).decode(all);
++    }
++    pos = next;
++  }
++  if (pos !== centralEnd || !xml['word/document.xml'] || !xml['[Content_Types].xml']?.includes('application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml')) throw new DocumentError('format');
++  if (/macroEnabled|vbaProject/i.test(xml['[Content_Types].xml'])) throw new DocumentError('format');
++  return wordXmlToText(xml['word/document.xml']);
++}
++
++const W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
++/** SAX emits text only, never HTML, links, images, fields or external entities. */
++export function wordXmlToText(xml: string): string {
++  const parser = new SaxesParser({ xmlns: true });
++  let output = '', paragraph = '', heading = '', list = false, text = false, depth = 0, nodes = 0, ignored = 0, root = false;
++  let cell: string | null = null, cells: string[] = [], firstRow = false;
++  const append = (value: string) => { output += value; if (output.length > limits.text) throw new DocumentError('length'); };
++  parser.on('doctype', () => { throw new DocumentError('corrupt'); });
++  parser.on('opentag', tag => {
++    if (++depth > 100 || ++nodes > 100_000) throw new DocumentError('zip');
++    if (depth === 1) root = tag.uri === W && tag.local === 'document';
++    if (tag.uri !== W) return;
++    if (['del', 'instrText'].includes(tag.local)) ignored++;
++    if (ignored) return;
++    if (tag.local === 'tbl') firstRow = true;
++    if (tag.local === 'tr') cells = [];
++    if (tag.local === 'tc') cell = '';
++    if (tag.local === 'p') { paragraph = ''; heading = ''; list = false; }
++    if (tag.local === 'pStyle') { const style = Object.values(tag.attributes).find(a => a.local === 'val')?.value || ''; heading = /^(?:Heading|Titre)([1-6])$/i.exec(style)?.[1] || ''; }
++    if (tag.local === 'numPr') list = true;
++    if (tag.local === 't') text = true;
++    if (tag.local === 'tab') paragraph += '\t';
++    if (tag.local === 'br' || tag.local === 'cr') paragraph += '\n';
++  });
++  parser.on('text', value => { if (text && !ignored) { paragraph += value; if (paragraph.length > limits.text) throw new DocumentError('length'); } });
++  parser.on('closetag', tag => {
++    if (tag.uri === W) {
++      if (['del', 'instrText'].includes(tag.local)) ignored--;
++      else if (!ignored) {
++        if (tag.local === 't') text = false;
++        if (tag.local === 'p' && paragraph) {
++          if (cell !== null) cell += (cell ? ' / ' : '') + paragraph;
++          else append(`${heading ? '#'.repeat(Number(heading)) + ' ' : list ? '- ' : ''}${paragraph}\n`);
++        }
++        if (tag.local === 'tc') { cells.push((cell || '').replaceAll('|', '\\|').replaceAll('\n', ' ')); cell = null; }
++        if (tag.local === 'tr') {
++          append(`| ${cells.join(' | ')} |\n`);
++          if (firstRow) { append(`| ${cells.map(() => '---').join(' | ')} |\n`); firstRow = false; }
++        }
++        if (tag.local === 'tbl') append('\n');
++      }
++    }
++    depth--;
++  });
++  parser.on('error', () => { throw new DocumentError('corrupt'); });
++  parser.write(xml).close();
++  if (!root) throw new DocumentError('format');
++  return checkExtractedText(output.trim());
++}
+diff --git a/src/planning-import/document-pdf.ts b/src/planning-import/document-pdf.ts
+new file mode 100644
+index 0000000..1c4b3b0
+--- /dev/null
++++ b/src/planning-import/document-pdf.ts
+@@ -0,0 +1,60 @@
++import { getDocument, PDFWorker } from 'pdfjs-dist';
++import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
++import { DOCUMENT_LIMITS as limits, DocumentError, checkExtractedText } from './document-contract.ts';
++
++// Only bundled, allowlisted resources may be requested. Some CJK PDFs depend on
++// predefined CMaps; standard fonts improve spacing without using system fonts.
++const resources = import.meta.glob<string>('/node_modules/pdfjs-dist/{cmaps/*.bcmap,standard_fonts/*.{pfb,ttf}}', { eager: true, query: '?url', import: 'default' });
++class LocalBinaryDataFactory {
++  async fetch({ kind, filename }: { kind: string; filename: string }): Promise<Uint8Array> {
++    const folder = kind === 'cMapUrl' ? 'cmaps' : kind === 'standardFontDataUrl' ? 'standard_fonts' : '';
++    const url = folder && resources[`/node_modules/pdfjs-dist/${folder}/${filename}`];
++    if (!url) throw new Error('Unsupported bundled PDF resource');
++    const response = await fetch(url); if (!response.ok) throw new Error('PDF resource unavailable');
++    return new Uint8Array(await response.arrayBuffer());
++  }
++}
++
++export async function extractPdf(buffer: ArrayBuffer, signal: AbortSignal): Promise<{ source: string; pages: number }> {
++  const port = new Worker(workerUrl, { type: 'module' });
++  const worker = PDFWorker.create({ port });
++  const task = getDocument({ data: new Uint8Array(buffer), worker, useSystemFonts: false, BinaryDataFactory: LocalBinaryDataFactory,
++    useWorkerFetch: false, useWasm: false, disableFontFace: true, stopAtErrors: true, isOffscreenCanvasSupported: false });
++  const abort = () => { void task.destroy().catch(() => {}); worker.destroy(); port.terminate(); };
++  signal.addEventListener('abort', abort, { once: true });
++  try {
++    signal.throwIfAborted();
++    const pdf = await task.promise;
++    if (pdf.numPages > limits.pages) throw new DocumentError('pages');
++    let source = '', characters = 0;
++    for (let number = 1; number <= pdf.numPages; number++) {
++      signal.throwIfAborted();
++      const page = await pdf.getPage(number);
++      const reader = page.streamTextContent().getReader();
++      // Use the existing parser's page-reference syntax, so metadata cannot
++      // become a trip title or an activity.
++      const marker = `Page ${number} / ${pdf.numPages}\n`;
++      let pageText = '', lastY: number | undefined;
++      while (true) {
++        const chunk = await reader.read(); if (chunk.done) break;
++        for (const item of chunk.value.items) {
++          if (!('str' in item)) continue;
++          // Keep the PDF content stream order; vertical movement provides line breaks.
++          // Columns remain explicitly subject to review, never reordered by guesswork.
++          const y = item.transform[5];
++          const separator = lastY !== undefined && Math.abs(y - lastY) > 2 ? '\n' : pageText && !pageText.endsWith('\n') ? ' ' : '';
++          pageText += separator + item.str + (item.hasEOL ? '\n' : ''); lastY = y;
++          if (source.length + marker.length + pageText.trimEnd().length > limits.text) throw new DocumentError('length');
++          characters += item.str.trim().length;
++        }
++      }
++      source += `${marker}${pageText.trim()}\n\n`; page.cleanup();
++    }
++    if (!characters) throw new DocumentError('empty');
++    return { source: checkExtractedText(source.trim()), pages: pdf.numPages };
++  } catch (error) {
++    if (signal.aborted) throw signal.reason;
++    if (error instanceof DocumentError) throw error;
++    throw new DocumentError((error as Error)?.name === 'PasswordException' ? 'protected' : 'corrupt');
++  } finally { signal.removeEventListener('abort', abort); if (!signal.aborted) await task.destroy(); worker.destroy(); port.terminate(); }
++}
+diff --git a/src/planning-import/documents.ts b/src/planning-import/documents.ts
+new file mode 100644
+index 0000000..7943b90
+--- /dev/null
++++ b/src/planning-import/documents.ts
+@@ -0,0 +1,42 @@
++import { DOCUMENT_LIMITS, DocumentError, type DocumentResult, type DocumentErrorCode } from './document-contract.ts';
++
++export async function readPlanningDocument(file: Pick<File, 'name' | 'size' | 'arrayBuffer'>, signal?: AbortSignal): Promise<DocumentResult> {
++  if (!/\.(pdf|docx)$/i.test(file.name)) throw new DocumentError('format');
++  if (file.size > DOCUMENT_LIMITS.bytes) throw new DocumentError('size');
++  const controller = new AbortController();
++  const abort = () => controller.abort(new DocumentError('cancelled'));
++  signal?.addEventListener('abort', abort, { once: true });
++  if (signal?.aborted) abort();
++  const timer = setTimeout(() => controller.abort(new DocumentError('timeout')), DOCUMENT_LIMITS.timeoutMs);
++  let onAbort: () => void = () => {};
++  const cancelled = new Promise<never>((_, reject) => { onAbort = () => reject(controller.signal.reason); controller.signal.addEventListener('abort', onAbort, { once: true }); });
++  const work = async (): Promise<DocumentResult> => {
++    controller.signal.throwIfAborted();
++    const buffer = await file.arrayBuffer(); controller.signal.throwIfAborted();
++    if (buffer.byteLength > DOCUMENT_LIMITS.bytes) throw new DocumentError('size');
++    const magic = new Uint8Array(buffer, 0, Math.min(buffer.byteLength, 5));
++    let source: string, pages: number | undefined;
++    const kind = /\.pdf$/i.test(file.name) ? 'pdf' : 'docx';
++    if (kind === 'pdf') {
++      if (new TextDecoder().decode(magic) !== '%PDF-') throw new DocumentError('format');
++      let pdf;
++      try { pdf = await import('./document-pdf.ts'); } catch { throw new DocumentError('unavailable'); }
++      controller.signal.throwIfAborted();
++      ({ source, pages } = await pdf.extractPdf(buffer, controller.signal));
++    } else {
++      if (magic[0] !== 80 || magic[1] !== 75 || magic[2] !== 3 || magic[3] !== 4) throw new DocumentError('format');
++      source = await new Promise<string>((resolve, reject) => {
++        const worker = new Worker(new URL('./docx.worker.ts', import.meta.url), { type: 'module' });
++        const stop = () => { worker.terminate(); controller.signal.removeEventListener('abort', stop); };
++        controller.signal.addEventListener('abort', stop, { once: true });
++        worker.onmessage = (event: MessageEvent<{ source: string; error?: DocumentErrorCode }>) => { stop(); if (event.data.error) reject(new DocumentError(event.data.error)); else resolve(event.data.source); };
++        worker.onerror = () => { stop(); reject(new DocumentError('unavailable')); };
++        worker.postMessage(buffer, [buffer]);
++      });
++    }
++    return { source, origin: { kind, name: file.name.slice(0, 255), originalText: source, ...(pages ? { pages } : {}) } };
++  };
++  try { return await Promise.race([work(), cancelled]); }
++  catch (error) { if (error instanceof DocumentError) throw error; throw new DocumentError('corrupt'); }
++  finally { clearTimeout(timer); signal?.removeEventListener('abort', abort); controller.signal.removeEventListener('abort', onAbort); }
++}
+diff --git a/src/planning-import/docx.worker.ts b/src/planning-import/docx.worker.ts
+new file mode 100644
+index 0000000..b0ddb78
+--- /dev/null
++++ b/src/planning-import/docx.worker.ts
+@@ -0,0 +1,6 @@
++import { extractDocx } from './document-docx.ts';
++import { DocumentError } from './document-contract.ts';
++self.onmessage = (event: MessageEvent<ArrayBuffer>) => {
++  try { self.postMessage({ source: extractDocx(new Uint8Array(event.data)) }); }
++  catch (error) { self.postMessage({ error: error instanceof DocumentError ? error.code : 'corrupt' }); }
++};
+diff --git a/src/planning-import/external-prompt.ts b/src/planning-import/external-prompt.ts
+new file mode 100644
+index 0000000..d32f924
+--- /dev/null
++++ b/src/planning-import/external-prompt.ts
+@@ -0,0 +1,60 @@
++// Static instructions only: no notebook, account or source is interpolated here.
++const prompts = {
++  fr: `Mets mon programme au format Markdown ci-dessous pour Détours. Utilise seulement les informations que je fournis. Remplace les champs entre crochets si connus, sinon omets-les. Garde les inconnues et ambiguïtés en Notes. Date seulement si connue explicitement, au format AAAA-MM-JJ ; ne déduis pas l’année. Une activité par ligne ; heure 24 h ou période seulement si fournie. Adresse facultative sur une ligne distincte. Sépare les suggestions du programme décidé. N’invente aucune réservation, confirmation, référence, dépense ou coordonnée géographique. Ne marque une réservation confirmée que si je le dis explicitement. Réponds en Markdown simple, sans tableau ni bloc de code.
++
++# [Titre du voyage]
++Ville: [Ville connue]
++## Jour 1 — [AAAA-MM-JJ si connue]
++- [HH:MM ou Matin/Après-midi/Soir si connu] : [Activité prévue]
++Adresse: [Adresse fournie, facultative]
++### Suggestions
++- Suggestion: [Idée distincte, non réservée]
++## Notes
++[Inconnues et points à vérifier]
++
++Mon programme à reformater :
++`,
++  en: `Format my itinerary as the Markdown template below for Détours. Use only information I supply. Replace bracketed fields if known; otherwise omit them. Keep unknowns and ambiguities under Notes. Include a date only when explicit, as YYYY-MM-DD; never infer the year. One activity per line, with a 24-hour time or period only if supplied. Optional addresses on separate lines. Keep suggestions separate from decided plans. Never invent bookings, confirmations, references, expenses or geographic coordinates. Mark a booking confirmed only if I explicitly say so. Return plain Markdown without tables or code fences.
++
++# [Trip title]
++City: [Known city]
++## Day 1 — [YYYY-MM-DD if known]
++- [HH:MM or Morning/Afternoon/Evening if known]: [Planned activity]
++Address: [Supplied address, optional]
++### Suggestions
++- Suggestion: [Separate idea, not booked]
++## Notes
++[Unknowns and checks]
++
++My itinerary to reformat:
++`,
++  'zh-CN': `请按照以下 Markdown 模板整理我的行程，以便导入 Détours。仅使用我提供的信息。已知时替换方括号字段，未知则省略。未知或有歧义的信息放入备注。仅在明确提供日期时使用 YYYY-MM-DD，不要推测年份。每行一个活动，仅在已提供时写24小时制时间或时段。地址可选，另起一行。建议与已决定的安排分开。不要编造预订、确认、编号、费用或地理坐标。只有我明确说明已确认预订时才标记确认。输出简单 Markdown，不用表格或代码块。
++
++# [旅行标题]
++城市：[已知城市]
++## 第1天 — [已知时填写 YYYY-MM-DD]
++- [已知时填写 HH:MM 或上午/下午/晚上]：[计划活动]
++地址：[已提供的地址，可选]
++### 建议
++- 建议：[独立建议，未预订]
++## 备注
++[未知信息和待核实事项]
++
++需要整理的行程：
++`,
++  es: `Ordena mi itinerario con esta plantilla Markdown para Détours. Usa solo la información que proporciono. Sustituye los campos entre corchetes si se conocen; si no, omítelos. Conserva las dudas y ambigüedades en Notas. Incluye fechas solo si son explícitas, como AAAA-MM-DD; no deduzcas el año. Una actividad por línea, con hora de 24 h o período solo si se facilita. Dirección opcional en otra línea. Separa sugerencias de planes decididos. No inventes reservas, confirmaciones, referencias, gastos ni coordenadas geográficas. Marca una reserva confirmada solo si lo digo expresamente. Devuelve Markdown sencillo, sin tablas ni bloques de código.
++
++# [Título del viaje]
++Ciudad: [Ciudad conocida]
++## Día 1 — [AAAA-MM-DD si se conoce]
++- [HH:MM o Mañana/Tarde/Noche si se conoce]: [Actividad prevista]
++Dirección: [Dirección facilitada, opcional]
++### Sugerencias
++- Sugerencia: [Idea separada, sin reservar]
++## Notas
++[Dudas y comprobaciones]
++
++Mi itinerario para reformatear:
++`,
++};
++export function externalPlanningPrompt(language: keyof typeof prompts): string { return prompts[language]; }
+diff --git a/src/planning-import/files.ts b/src/planning-import/files.ts
+index 05aa4a2..593ef51 100644
+--- a/src/planning-import/files.ts
++++ b/src/planning-import/files.ts
+@@ -2,7 +2,7 @@ import { MAX_SOURCE_LENGTH } from './types.ts';
+ 
+ // Bound bytes before allocating a buffer; the text limit is checked after UTF-8 decoding.
+ export const MAX_PLANNING_FILE_BYTES = MAX_SOURCE_LENGTH * 4;
+-export const PLANNING_FILE_ACCEPT = '.txt,.md,.markdown,text/plain,text/markdown';
++export const PLANNING_FILE_ACCEPT = '.txt,.md,.markdown,.pdf,.docx,text/plain,text/markdown,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+ export const planningFileErrors = {
+   format: 'Choisis un fichier texte ou Markdown (.txt, .md, .markdown). Pour un PDF ou Word, copie le texte du planning ici.',
+   size: 'Ce fichier dépasse 200 Ko. Choisis un fichier plus petit ; ton texte actuel est conservé.',
+@@ -39,3 +39,11 @@ export async function readPlanningFile(file: Pick<File, 'name' | 'size' | 'array
+   if (source.length > MAX_SOURCE_LENGTH) throw new PlanningFileError('length');
+   return source;
+ }
++
++export async function readPlanningSource(file: Pick<File, 'name' | 'size' | 'arrayBuffer'>, signal?: AbortSignal): Promise<import('./document-contract.ts').DocumentResult> {
++  if (/\.(?:pdf|docx|doc|docm)$/i.test(file.name)) {
++    const { readPlanningDocument } = await import('./documents.ts');
++    return readPlanningDocument(file, signal);
++  }
++  return { source: await readPlanningFile(file) };
++}
+diff --git a/src/planning-import/persistence.ts b/src/planning-import/persistence.ts
+index e946eb7..bb2b7a7 100644
+--- a/src/planning-import/persistence.ts
++++ b/src/planning-import/persistence.ts
+@@ -13,6 +13,10 @@ export function createSession(scope: string, source = ''): ImportSession { retur
+ function validateSession(value: unknown, scope: string): ImportSession {
+   if (!isObj(value) || value.version !== 1 || value.scope !== scope || typeof value.id !== 'string' || !/^trip-[0-9a-f-]{36}$/.test(value.id) || typeof value.source !== 'string' || value.source.length > MAX_SOURCE_LENGTH || typeof value.keepSource !== 'boolean' || typeof value.currency !== 'string' || typeof value.timezone !== 'string' || typeof value.departureDate !== 'string' || (value.departureDate && !isValidDate(value.departureDate)) || (value.committedId !== null && value.committedId !== value.id)) throw new Error('Brouillon illisible. La source est conservée.');
+   if (value.reviewedQuotes !== undefined && (!Array.isArray(value.reviewedQuotes) || value.reviewedQuotes.length > 1000 || value.reviewedQuotes.some(q => typeof q !== 'string' || !q || !(value.source as string).includes(q)))) throw new Error('Brouillon illisible. La source est conservée.');
++  if (value.sourceOrigin !== undefined) {
++    const origin = value.sourceOrigin;
++    if (!isObj(origin) || !['pdf', 'docx'].includes(String(origin.kind)) || typeof origin.name !== 'string' || origin.name.length > 255 || typeof origin.originalText !== 'string' || !origin.originalText.trim() || origin.originalText.length > MAX_SOURCE_LENGTH || Object.keys(origin).some(key => !['kind', 'name', 'originalText', 'pages'].includes(key)) || (origin.pages !== undefined && (origin.kind !== 'pdf' || !Number.isInteger(origin.pages) || Number(origin.pages) < 1 || Number(origin.pages) > 50))) throw new Error('Brouillon illisible. La source est conservée.');
++  }
+   if (value.draft !== null) validateDraft(value.draft, value.source, true, true);
+   if (value.preparedTrip !== undefined && (!validateState(value.preparedTrip) || value.preparedTrip.journey?.id !== value.id)) throw new Error('Brouillon illisible. La source est conservée.');
+   return value as ImportSession;
+diff --git a/src/planning-import/types.ts b/src/planning-import/types.ts
+index 11f0f3e..9b2a7c9 100644
+--- a/src/planning-import/types.ts
++++ b/src/planning-import/types.ts
+@@ -23,5 +23,6 @@ export type ImportSession = {
+   keepSource: boolean; departureDate: string; currency: string; timezone: string;
+   committedId: string | null;
+   reviewedQuotes?: string[];
++  sourceOrigin?: import('./document-contract.ts').DocumentOrigin;
+   preparedTrip?: import('../types').StoredState;
+ };
+diff --git a/tests/e2e/planning-documents.spec.ts b/tests/e2e/planning-documents.spec.ts
+new file mode 100644
+index 0000000..ce2bc44
+--- /dev/null
++++ b/tests/e2e/planning-documents.spec.ts
+@@ -0,0 +1,79 @@
++import { test, expect, type Page } from '@playwright/test';
++import path from 'node:path';
++const fixture = (name: string) => path.resolve('tests/fixtures/planning/documents', name);
++const key = 'detours-planning-draft-v1';
++async function open(page: Page) {
++  await page.goto('/'); await page.getByRole('button', { name: 'Créer depuis un planning', exact: true }).click();
++  return page.getByRole('dialog');
++}
++test('PDF and DOCX binaries are reviewed locally; corrections and original extraction survive reload', async ({ page }) => {
++  const requests: string[] = [];
++  page.on('request', r => { if (r.method() !== 'GET' || !/^(127\.0\.0\.1|localhost)$/.test(new URL(r.url()).hostname)) requests.push(r.method() + ' ' + r.url()); });
++  let dialog = await open(page);
++  const source = dialog.getByRole('textbox', { name: 'Ton programme', exact: true });
++  await source.fill('PRIVATE SOURCE TO PRESERVE');
++  for (const name of ['simple.pdf', 'columns.pdf', 'table.pdf', 'lists-table.docx']) {
++    await dialog.locator('input[type=file]').setInputFiles(fixture(name));
++    await expect(dialog.locator('.notice pre')).toContainText(name.endsWith('.docx') ? 'Musée rouge' : name === 'columns.pdf' ? 'Musee gauche' : 'Musee rouge');
++    await expect(source).toHaveValue('PRIVATE SOURCE TO PRESERVE');
++    await dialog.getByRole('button', { name: 'Annuler', exact: true }).click();
++  }
++  await dialog.locator('input[type=file]').setInputFiles(fixture('lists-table.docx'));
++  await dialog.getByRole('button', { name: 'Remplacer le texte', exact: true }).click();
++  const original = await source.inputValue(); await source.fill(original + '\nCorrection personnelle');
++  await page.reload(); await page.getByRole('button', { name: 'Créer depuis un planning', exact: true }).click(); dialog = page.getByRole('dialog');
++  await expect(dialog.getByRole('textbox', { name: 'Ton programme', exact: true })).toHaveValue(original + '\nCorrection personnelle');
++  await dialog.locator('.planning-origin summary').click(); await expect(dialog.locator('.planning-origin pre')).toHaveText(original);
++  const saved = await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), key);
++  expect(saved.sourceOrigin).toEqual({ kind: 'docx', name: 'lists-table.docx', originalText: original });
++  await dialog.getByRole('button', { name: 'Reconnaître mon programme', exact: true }).click();
++  await expect(dialog.getByLabel('Ville, région ou lieu de séjour', { exact: true })).toHaveValue('Albi'); expect(requests).toEqual([]);
++});
++test('protected, scanned, corrupt, false-extension and excessive binaries preserve the previous source', async ({ page }) => {
++  const dialog = await open(page); const source = dialog.getByRole('textbox', { name: 'Ton programme', exact: true }); await source.fill('Texte précédent');
++  for (const [name, message] of [['scan.pdf', 'Aucun texte extractible'], ['protected.pdf', 'mot de passe'], ['corrupt.pdf', 'corrompu'], ['fake.docx', 'extension incorrecte'], ['pages-51.pdf', '50 pages'], ['long.pdf', '50 000'], ['long.docx', '50 000'], ['zip-bomb.docx', 'Archive Word excessive'], ['entries.docx', 'Archive Word excessive'], ['forged-size.docx', 'Archive Word excessive'], ['active.docx', 'sans macros'], ['entity.docx', 'corrompu']]) {
++    await dialog.locator('input[type=file]').setInputFiles(fixture(name));
++    await expect(dialog.getByRole('alert'), name).toContainText(message); await expect(source).toHaveValue('Texte précédent');
++  }
++  for (const name of ['old.doc','macro.docm','renamed.pdf']) {
++    await dialog.locator('input[type=file]').setInputFiles({ name, mimeType: 'application/octet-stream', buffer: Buffer.from('text only') });
++    await expect(dialog.getByRole('alert')).toContainText('extension incorrecte');
++  }
++  await dialog.locator('input[type=file]').setInputFiles({ name:'big.pdf', mimeType:'application/pdf', buffer:Buffer.alloc(10*1024*1024+1) });
++  await expect(dialog.getByRole('alert')).toContainText('10 Mo'); await expect(source).toHaveValue('Texte précédent');
++  await dialog.locator('input[type=file]').setInputFiles(fixture('simple.pdf')); await dialog.getByRole('button', { name:'Remplacer le texte', exact:true }).click(); await expect(source).toHaveValue(/Musee rouge/);
++});
++test('cancellation, timeout and a later file cannot overwrite a newer source', async ({ page }) => {
++  const dialog = await open(page); const source = dialog.getByRole('textbox', { name:'Ton programme', exact:true }); await source.fill('Ancien brouillon');
++  let release!: () => void; const hold = new Promise<void>(resolve => { release=resolve; });
++  await page.route('**/document-pdf.ts*', async route => { await hold; await route.continue(); });
++  await dialog.locator('input[type=file]').setInputFiles(fixture('simple.pdf')); await expect(dialog.getByRole('status')).toContainText('Lecture');
++  await dialog.getByRole('button', { name:'Annuler', exact:true }).click(); await source.fill('Nouvelle saisie'); release(); await page.unrouteAll({behavior:'wait'});
++  await dialog.locator('input[type=file]').setInputFiles(fixture('lists-table.docx'));
++  await dialog.getByRole('button', { name:'Remplacer le texte', exact:true }).click(); await expect(source).toHaveValue(/Musée rouge/);
++  await page.reload(); await page.getByRole('button', {name:'Créer depuis un planning',exact:true}).click();
++  let releaseWorker!: () => void; const heldWorker=new Promise<void>(resolve=>{releaseWorker=resolve;});
++  await page.route('**/docx.worker.ts*', async route=>{await heldWorker;await route.continue();});
++  await page.clock.install(); await page.getByRole('dialog').locator('input[type=file]').setInputFiles(fixture('lists-table.docx'));
++  await expect(page.getByRole('status')).toContainText('Lecture'); await page.clock.fastForward(20_001);
++  await expect(page.getByRole('alert')).toContainText('20 secondes');releaseWorker();await page.unrouteAll({behavior:'wait'});
++  await expect(page.getByRole('textbox',{name:'Ton programme',exact:true})).toHaveValue(/Musée rouge/);
++});
++for (const [language, trigger, promptLabel, copy, copied, original] of [
++  ['fr','Créer depuis un planning','Préparer un programme avec ChatGPT ou une autre IA','Copier le prompt et le modèle','Modèle copié.','Texte extrait original'],
++  ['en','Create from an itinerary','Prepare an itinerary with ChatGPT or another AI','Copy prompt and template','Template copied.','Original extracted text'],
++  ['zh-CN','从行程创建','用 ChatGPT 或其他 AI 整理行程','复制提示词和模板','模板已复制。','原始提取文本'],
++  ['es','Crear desde un itinerario','Preparar un itinerario con ChatGPT u otra IA','Copiar instrucciones y plantilla','Plantilla copiada.','Texto extraído original'],
++]) test(`localized document review and static clipboard at 320px: ${language}`, async ({ page, context }, info) => {
++  await page.setViewportSize({width:320,height:844}); await context.grantPermissions(['clipboard-read','clipboard-write']);
++  await page.addInitScript(language=>localStorage.setItem('a-l-est-preferences-v1',JSON.stringify({language,theme:'light'})),language);
++  await page.goto('/');await page.getByRole('button',{name:trigger,exact:true}).click();const dialog=page.getByRole('dialog');
++  await dialog.locator('textarea').fill('PRIVATE NOTE NEVER TO COPY');
++  await dialog.locator('summary').filter({hasText:promptLabel}).click(); await dialog.getByRole('button',{name:copy,exact:true}).click();
++  await expect(dialog.getByRole('status')).toHaveText(copied); const clipboard=await page.evaluate(()=>navigator.clipboard.readText());expect(clipboard).not.toContain('PRIVATE NOTE');expect(clipboard).toContain('# ');
++  await dialog.locator('input[type=file]').setInputFiles(fixture('lists-table.docx'));
++  const replace=['Remplacer le texte','Replace the text','替换文本','Reemplazar el texto'][['fr','en','zh-CN','es'].indexOf(language)];
++  await dialog.getByRole('button',{name:replace,exact:true}).click(); await dialog.locator('summary').filter({hasText:original}).click();
++  expect(await dialog.evaluate(e=>e.scrollWidth<=e.clientWidth)).toBe(true); await page.keyboard.press('Tab');expect(await dialog.evaluate(e=>e.contains(document.activeElement))).toBe(true);
++  await page.screenshot({path:info.outputPath(`documents-${language}.png`)});
++});
+diff --git a/tests/e2e/planning-local.spec.ts b/tests/e2e/planning-local.spec.ts
+index bf1e3bb..f302324 100644
+--- a/tests/e2e/planning-local.spec.ts
++++ b/tests/e2e/planning-local.spec.ts
+@@ -88,7 +88,7 @@ test('invalid real files preserve the current source and valid replacement needs
+   const source = 'Mon texte à conserver\nJour 1 : promenade';
+   await dialog.getByRole('textbox', { name: 'Ton programme', exact: true }).fill(source);
+   const invalid = [
+-    { name: 'voyage.pdf', content: Buffer.from('%PDF-1.7'), message: 'Choisis un fichier texte ou Markdown' },
++    { name: 'voyage.pdf', content: Buffer.from('%PDF-1.7'), message: 'Document corrompu' },
+     { name: 'binaire.txt', content: Buffer.from('Jour 1\u0000corrompu'), message: 'données binaires' },
+     { name: 'encodage.txt', content: Buffer.from([0xc3, 0x28]), message: 'UTF-8 lisible' },
+     { name: 'vide.md', content: Buffer.from('\n  '), message: 'ne contient pas de texte' },
+diff --git a/tests/fixtures/planning/documents/active.docx b/tests/fixtures/planning/documents/active.docx
+new file mode 100644
+index 0000000000000000000000000000000000000000..10d6dc1bb1b1041d3f6ce355e63a64ed9a77de13
+GIT binary patch
+literal 1230
+zcmWIWW@Zs#U|`^2Xx9jhU6UsiH4n(U1H{5W9PON+SCX1n5+71okXjt8SCN|&+rN?T
+zkb!`6{nAriw^mC?1l(?wmH5#ZT$HOkD`tue>%Vy{OZa-Gy-nY_doT0SS5L*}SDALV
+zC_7v-w)Ej;|8!H*(rSv%V;07*vg%E>x8)o*i+>98PF%5Y_ZpGKrXjJ0rzB;+a?O+B
+zmAJ+~eX{Sem9M_6p87N{k)!*n#x&bC_x|Kwv*`=Fd`*9gKxDAjHUGR!v*QcD?rv&d
+z*!+IwL*@V!@7%xkBc_j$fuWC?fk6=Ho$~ym6#bO^<kDQApFp0O8hqM|*-+%~RD<7E
+znY9lSxSN`|nilNvPtUuZpe8xVC%gRBG5vyt8cG@w=6ZLyV!s5hd3!0|;G~cDM%}Bv
+zd6TN&?R@@Z<4rCl!DWU8z2}mSg<jCA=3P7a!1vG_4Kr4#PGm6OIctL9#Wc;=b>1g5
+zCMvNk)mVT0jDF&tXUAKL^p{VpUnsa$iZ{_(e8NPJ1ef50q0MTiR!cO73U1Byxl^DK
+zYjG);ZH1@_r*`#j2c^Y}U;LcvTi;XIyzb442@)$_F3A+miL;*K8U1F4W&8YqV+sz@
+zYrMphzPoA#3W^4BPQS)ov9)3P^XpGmRY;`^pPH4E!VvvbZ@YN!H@Cb`O`7o)$_FG^
+zUnqp`<x|kS^ed-)*QuBjuMXW;D^r}hnd@yIv;Xv*n~Rt1x;`^L&ADyf<!w8Xp8Q|`
+z)^6gnS%Fg>cWv0nJM+C~+xq3J5B@&={rKAl?@E7sxbxnQPw(EZyT2cPJ^TFU(=(T|
+zw+K(@`4p_eEH%~E;<AEe;=4@0BKg}qT|q}QKHU6uEGBR2-fUyZzXwk7qefo)(ZI_~
+zfsrN;j6fM!<i!`I<`knup&m%2_riWIV4`IE5UzRiYgcpgmboPb1%mMpJl6SU{44bI
+zuB~Q{+VJ2(h0Oi;cI$RdKAO|yf9pty?zvxAxaJnyFsiIPnRu(+V_(j%1AN7jl?@$5
+zM;adlTz7wv?_46idDp723zIr+qXKQ`P5k%K`M$L0a|LyGyZ;u<yF7Aw<+;0T0_rxe
+z-0@2Iw&7BPjZ5}^G>%%VuxX~@WvQL4p|@hLm0d91@YDS}6RP+0K4vcjrAdAu24yvH
+z+AK>-3@FOaN=+`&OUlgiKJBA-^2~YfGl3_3ee_PTGX!`uGKnzY&aOaXkN}p<i*5jV
+z20`dP4`gCw7j*6DQH0Rm!vxiiBf`*4LJtjuN!h@>izRFVyjj^midcY<8<;}Y0+lf^
+F005t3+y?*v
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/chinese.pdf b/tests/fixtures/planning/documents/chinese.pdf
+new file mode 100644
+index 0000000000000000000000000000000000000000..895868d8c97469a557927d33e19a0e78e333df49
+GIT binary patch
+literal 2439
+zcmai0U02&i5PjFLn5J=Jnq#D0Y4t%I6Jujgu?_J@NMcALTZ<7fk|W72^r3&Ced~LF
+zYwt=19MW@wv9&upd*{yG-C0#m+MOEPHnqw>fB*F_4dgOO^KLMu0~yOS$Yn_IpfH)O
+zu4SB4HCf6yOIGPjZfT4RN~Tv@y{_pUMjYJ%=^aj{YH5vzCgV^!sF6Fzy&#jF1W@{+
+zT>K{UXcmyZAJ397isz)CMsYLFq6b4ixRwBAqz_lq{C0`X2*2p72S$Lk5lV&rKGbkD
+zOyYU18_h2fxGl38m<4gJCTBDumB9nCZ@pW7dw84W^4gCtlEU*i4P~m>RuA^r7U=^y
+zkFq?yrD_xDN?3-g<#Hhl#SD-`$Wvm5VU%=L{4`qTNm{@)6`PzK!AWlg%R^bPbWG=t
+zX-+lnAmPp;m}g{{AbWes4Vc%sP+zNrcU^<d%kfgTGL>N-u5;IjbUzOk(X1KI7ZPIW
+zT^SV8Gs`8t7u=jiVSc%0+l#UciIygz_zxk(A$e*!(0WV4C58F078}Xw@7B2pVHPUf
+zuOKv4(yLj(e3)EdogyuUFE<?GjzOly$+8`MIXRv~4l{_G9+{4XWYL)vO^cgk8v;Wv
+z`s=4@71QA661R&s2P!)70&xx)R!lRw!m%uJpo8sNBy59hPmqI9!Zt}TMh^TP&r~x_
+zAexMmZQCRO?Rqwr&?U#=BoqvuHUh!bvIRnbxG+JUk*9_%2g8T}yGq0~OH?#%1BlRC
+z<!CVnZIdjp76@)JBxYL$DuM`=mW88d8f1YhM?l3-6z)nMS1BntTn!ZjoJ||50u9KP
+z00C?}3prSLDy{_|1V<_+#8--*)45tcY^;Z4IgX=)z1p}n<h4W6*M}4v_<o7MTicC8
+zYHb|S7WM(Qe?~5hC?7o;MnSo^4OoOHwz(squf?`q*K-w(lOQclOgUp9%Yu{@r>Uqd
+zsxkrVBu!>RnL`0xRWW@eZ*ctm>tHVT*3Z`Z>6ba`gCs}Q!*qR=25|wYa)&bOZF+*q
+z8>tAm-qjm5)JsAXrEw<vNsNXvW#p7}%6;AnaQ>3{28O+X(Ol)1s0-B~PU73^WR;<s
+zv{D)5Q4+Tmvub;Xqmmd5pW^R@VLZqGo!{fhNAmXfBn>mF!UODn1Om;%)l7oI!)2hv
+z>qgTwK#i->*~TSswzXAggJr*xGu#iWI9tkDbP>rA@kUXOA_HTt8igedmP_0!dM8+9
+zn?fp$?u2Y5n1LFgA4MQOA+=uyYT-)-3sE=pQ#<EwYA0IcAdeMq4qLwOinhenqV9<W
+z)LVCe)RplZWsY;9fKa_<aIGB#8E;$T^A~5&ULK|Id(ETcpOz8pF1Et{X*kMO%gU5@
+z`o~Y}AIF1qXSdq#1&97}|Lf<3&(G7tEaJ^4wr=Q+`jf8)j~ed}j@_-+*X`Esq<yx}
+zh99;%=E;}-r#IvJ^H{|GRsL#JG0(c&r~I8M^Ty}C|Fhfe4G#UM^5m`lrGNag`RnDl
+z(;U5gGpfAqi;vs$t6$8koyM~F$?3_3Kiut&s~?&N-j#m+MfWey%!!}rt@o2!ef8|^
+zv--9^Jv#sVDxU22cm8bP)?25#zL{@Qd7&BPY2{v0zo-bp6m&uNHXFyO7>Vy~%)p)g
+z$i@xtv5hg*?ni#iv~Xy?oy#nSi~EtyMlF17b5JJlZFw3*3z-)0AAXy(NuAA@<1){^
+zn1&aDU{fwUPlT=)S|Ds#X5+^m=UQdsHE90-uR*mMg%M8nqZcAgFWwQ<c^+seB}q=I
+bKA=5}{*X|)*lIzV7qWwpt5qud#~tlI1vrko
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/columns.pdf b/tests/fixtures/planning/documents/columns.pdf
+new file mode 100644
+index 0000000000000000000000000000000000000000..77c618f43bf3c19b8bca8a870149a7f860f3444b
+GIT binary patch
+literal 1441
+zcmah}QFG!p5PtWs*rvw-Nx?SYU{gavAly+BN)622gg`26!Rcx&N0!^95B&q}Ti^Rz
+zyE4#tlFpoAEbnS}_3fwKElm1@idn5|g}?v$^B?eN%!RxmYj{s1Du|>3palfnPj@tu
+zP~tI-5}pd5mNgR$;Oj4%>uUPIgc^#T*6C<83Y1#O$L%YU&;iE)`Ue{RN+t6N=+}|Y
+z0~T#T|Hz_ll&}}YnCvL1p!zgj%jXz{8NN|g3+`a7+)?%1Q9ay3s0lO`9?)-Tz{nMU
+zf(6P3SdLY#HLY{78)ntE9UGRQPl!<2o$oz7y3a6yEHedLrHZj8g8Ne{F_f-o(P#7t
+zQyT8bmR=p!-eDcW5&?qlafvjdyFL>n%0eo=2FFw;=$uQXfu={+)YdHzFyDDX$2`Ih
+zrAm%K_gwUdBq87CVpzEt-Bf<&0!k#}(esX{Ng4E>phPkr^%b&Gzg08vG4Yo@XNFP4
+z|IzNX^N2qG#zl}o2`v!a*McBtLF!Y4@KRlhyc@O_L_9+U?sHXjUoL0d;I)6DJ{DXW
+zB{B8chS31en=u(8<TR4%Bhv^H$5^KNfP_h&NOhS<B6}P?@DlYAL*NTg_2Q|E-!qtz
+zn&VGZ&e3(iLW$t<#=FzraA;e7idCyhFhuqa0!F%_(N=y2(=k+_L?XpI?L853p)p^c
+z-IrE+V6N^?-^r7^R^#KW)fzt*m*1R@yC;Rpr^Q8;iQ$9a9eLl$Ms>V6+1UQ>al_}K
+zo2J(Evh7i8o*Ja%`*iHG3R%>ui^{{@W%1$ar*}lB1@rsa53}N^HR}xB`LsQ1C%3<x
+zmap&KPwPqO?N+PaqrLh0Wb7?&OXUfTdv{~EB|<ii9~1Y(S#h;ZPw9p2U)t?(*0#UB
+z_@je;e8}U_(NBVIGy`mHUnuGg=ayBsU<3c@&aqdro#;j9;4FBhGacuRu3@~jYc#QI
+zU->rcZ_j8tIXfu`3#rH^)36WP!Zm%fX`7C{SqB?pnd_S6I96agLBlj^Mx);Oy2Vl}
+z<ObyS{|98H0s+GoeKjgIeHd*xsK)d(oC#clYIOXbvfn8(n$-*uGNafunub;=T>m)G
+F{sly{mBj!6
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/corrupt.pdf b/tests/fixtures/planning/documents/corrupt.pdf
+new file mode 100644
+index 0000000000000000000000000000000000000000..e53d392a9165f7578d2262930238c2c26e7ed26b
+GIT binary patch
+literal 24
+fcmY!laB<T$)HCNw&Mzt|Ehte)%d99VElLFdR*VP(
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/entity.docx b/tests/fixtures/planning/documents/entity.docx
+new file mode 100644
+index 0000000000000000000000000000000000000000..7db69ca1db95060a349bc5e12041a843d7d0e9dd
+GIT binary patch
+literal 788
+zcmWIWW@Zs#U|`^2Xx9jhU6UsiH4n(U1H{5W9PON+SCX1n5+71okXjt8SCN|&+rN?T
+zkb!`6{nAriw^mC?1l(?wmH5#ZT$HOkD`tue>%Vy{OZa-Gy-nY_doT0SS5L*}SDALV
+zC_7v-w)Ej;|8!H*(rSv%V;07*vg%E>x8)o*i+>98PF%5Y_ZpGKrXjJ0rzB;+a?O+B
+zmAJ+~eX{Sem9M_6p87N{k)!*n#x&bC_x|Kwv*`=Fd`*9gKxDAjHUGR!v*QcD?rv&d
+z*!+IwL*@V!?=a5ZA{P$yMi>wa0&#hMQHp*_esXCp&`%)GYz{2>SkBkUQxLi$pkrHL
+z$ye@=Je?sPp&WfYe1%^_15RmZYHDn|blv}?zusBjv)UJRy>!p%>w5WJJ$**o`^-t7
+zi|kx!(?Yav9=&xl<i^USQMX@&-(X}wbw&Hpz{^X4w#zdzFv!4M5nq&=Q;gykJ&;K6
+zh5cN>&}I7&u6groS99~0xg`Y!g7FVL*7;`qEA;fPt!9qe@Zdp(%>DOv>vm2)n$zTe
+z>qv<1xnEbf<`&y9s;oSjc&puGU(T-se8rNL4IM>C8Xp8)cYl!YTq3=B*Q&4!lR9mq
+z0&V9_{P)rMzO?6a1$B43{}#-<JaT&Fxw~uv>Nc<3@k;o%;ZlQ*OZI*=j#{j+X{O<2
+zshzB$w_>i9T`=A7)BQVBfHxzP2m|g^1N0*jz><d04M2}4gzob|CPu8GYex@Yg!WKi
+Zkb|}32<`xHRyL4oW*|HTq)nJWJOE~w7_tBW
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/entries.docx b/tests/fixtures/planning/documents/entries.docx
+new file mode 100644
+index 0000000000000000000000000000000000000000..da6c3729abe5d264d0c19fefecad6249d21bef2d
+GIT binary patch
+literal 97978
+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
+P`Ix<BWl7<$mX-Z4nI2gU
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/fake.docx b/tests/fixtures/planning/documents/fake.docx
+new file mode 100644
+index 0000000000000000000000000000000000000000..3becb57503fccf7f727403989cdb4a58a13eb15e
+GIT binary patch
+literal 28
+jcmY!laB<T$)HCPG%P&z#R0z*6N>ND3PcF?(%_{)_Z_^0c
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/forged-size.docx b/tests/fixtures/planning/documents/forged-size.docx
+new file mode 100644
+index 0000000000000000000000000000000000000000..7adaf90d1304704b00a94078907cdf2ca1f3c5f8
+GIT binary patch
+literal 1158
+zcmWIWW@Zs#U|`^2Xx9jhU6UsiH4n(U1H{5W9PON+SCX1n5+71okXjt8SCN|&+rN?T
+zkb!`6{nAriw^mC?1l(?wmH5#ZT$HOkD`tue>%Vy{OZa-Gy-nY_doT0SS5L*}SDALV
+zC_7v-w)Ej;|8!H*(rSv%V;07*vg%E>x8)o*i+>98PF%5Y_ZpGKrXjJ0rzB;+a?O+B
+zmAJ+~eX{Sem9M_6p87N{k)!*n#x&bC_x|Kwv*`=Fd`*9gKxDAjHUGR!v*QcD?rv&d
+z*!+IwL*@V!?>tJ5I)9Rpf#JXu76w6}cgpjNQuI^ulS^}fegb*s?K#Ihpl4VwtPYV`
+z;22vXcyUeD#0e}NE^khlaoyRc@{}Pq{JrizTd9}XeBO7Dzcb@qxaaQj>=R!<ZQVV^
+z=z8eX-KPz<{<J;kT=CA&&^NcT?`4dx;n(7>yAwW3oV&dB*Nyk~t5?b%eiu6VUy!i>
+z@{Q8_;@SU9Tk`PMG{d$U$>)2r=dsHr|Btv|*}KIp^BvHIqX2IReCU^1wN&rytjyDu
+zr<32v-(KE-H&@CjvyK5Z-rJ7`US0|`NFEsXGC&#}@9{;cImIZkuLlz8y|AAPm;~59
+zglpdX+SS~=Wo}79fnfXtk9EEo{|Y_5Ypa=~HavJxA#?w|-MXEVkLEP_-#QYad+yg2
+zuDQiFj4CTnCf;iI*q8I`0AI0WWkW~Nk;VrB*WDlFJC{gr-nA<1!lX{ys6g9!6aRg5
+zzAx?hTtVI4?!N`|E{~jEdG0QofV#~qcf1n5ZMf86<C47}jiVMTY?^6!S!yS1=&hJ*
+zWfx30{B-}$6yVLsB*K6@pP~jDmRyT&04!&u0Cj?L1_GQ1GBNTAx_0ycMrc3Igg>|g
+Tyjj^ms+ocC6p&uV4B`O*!{1HS
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/generate.mjs b/tests/fixtures/planning/documents/generate.mjs
+new file mode 100644
+index 0000000..5191158
+--- /dev/null
++++ b/tests/fixtures/planning/documents/generate.mjs
+@@ -0,0 +1,21 @@
++import { zipSync, strToU8 } from 'fflate';
++import { writeFile } from 'node:fs/promises';
++const root = new URL('./', import.meta.url);
++const contentTypes = '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>';
++const p = (text, props = '') => `<w:p>${props}<w:r><w:t>${text}</w:t></w:r></w:p>`;
++const body = p('Escale fictive', '<w:pPr><w:pStyle w:val="Heading1"/></w:pPr>') + p('Ville: Albi') + p('Jour 1 - 2027-05-03') + p('09:00 : Musée rouge', '<w:pPr><w:numPr><w:ilvl w:val="0"/><w:numId w:val="1"/></w:numPr></w:pPr>') +
++  '<w:tbl><w:tr><w:tc>'+p('Heure')+'</w:tc><w:tc>'+p('Activité')+'</w:tc></w:tr><w:tr><w:tc>'+p('14:00')+'</w:tc><w:tc>'+p('Jardin bleu')+'</w:tc></w:tr></w:tbl>'+p('备注：未知信息保留。') + '<w:hyperlink r:id="external">'+p('Texte du lien')+'</w:hyperlink>';
++const doc = text => strToU8(`<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><w:body>${text}</w:body></w:document>`);
++const base = { '[Content_Types].xml':strToU8(contentTypes), 'word/document.xml':doc(body), 'word/_rels/document.xml.rels':strToU8('<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="external" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" Target="https://document-resource.invalid/private" TargetMode="External"/></Relationships>') };
++const write = (name, entries) => writeFile(new URL(name, root), zipSync(entries));
++await write('lists-table.docx', base);
++await write('long.docx', { ...base, 'word/document.xml':doc(p('x'.repeat(50_001))) });
++await write('zip-bomb.docx', { ...base, 'word/document.xml':doc(p('x'.repeat(3 * 1024 * 1024))) });
++await write('entries.docx', { ...base, ...Object.fromEntries(Array.from({length:1001}, (_,i)=>[`extra/${i}`,strToU8('x')])) });
++await write('active.docx', { ...base, 'word/vbaProject.bin':strToU8('fictional macro') });
++await write('entity.docx', { ...base, 'word/document.xml':strToU8('<!DOCTYPE x [<!ENTITY e SYSTEM "https://document-resource.invalid/entity">]><x>&e;</x>') });
++await writeFile(new URL('fake.docx',root), '%PDF-1.7\nnot a Word document');
++const forged = zipSync({ ...base, 'word/document.xml':doc(p('x'.repeat(300_000))) });
++// Lie about the expanded size: output guard must stop inflation independently.
++for(let at=0;at<forged.length-46;at++) if(new DataView(forged.buffer).getUint32(at,true)===0x02014b50 && new TextDecoder().decode(forged.subarray(at+46,at+46+17))==='word/document.xml') new DataView(forged.buffer).setUint32(at+24,100,true);
++await writeFile(new URL('forged-size.docx',root), forged);
+diff --git a/tests/fixtures/planning/documents/generate.py b/tests/fixtures/planning/documents/generate.py
+new file mode 100644
+index 0000000..b8a6c73
+--- /dev/null
++++ b/tests/fixtures/planning/documents/generate.py
+@@ -0,0 +1,27 @@
++# Synthetic, reproducible fixtures only. Requires reportlab 4.5.1; runtime app does not.
++from pathlib import Path
++from reportlab.pdfgen import canvas
++from reportlab.lib.pdfencrypt import StandardEncryption
++from reportlab.lib.utils import ImageReader
++from PIL import Image, ImageDraw
++from reportlab.pdfbase import pdfmetrics
++from reportlab.pdfbase.cidfonts import UnicodeCIDFont
++root=Path(__file__).parent
++
++def pdf(name, lines=None, pages=1, encrypted=False, scan=False):
++ c=canvas.Canvas(str(root/name), pageCompression=1, encrypt=StandardEncryption('fixture-only') if encrypted else None, invariant=1)
++ for page in range(pages):
++  if scan:
++   image=Image.new('RGB',(500,100),'white');ImageDraw.Draw(image).text((10,30),'Fictional scanned itinerary',fill='black');c.drawImage(ImageReader(image),40,700,width=500,height=100)
++  else:
++   for x,y,text in (lines or [(40,780,'# Escale fictive'),(40,750,'Ville: Albi'),(40,720,'Jour 1 - 2027-05-03'),(40,690,'- 09:00 : Musee rouge'),(40,660,'- Matin : Jardin bleu')]):
++    c.drawString(x,y,text)
++  c.showPage()
++ c.save()
++pdf('simple.pdf');pdf('columns.pdf',[(40,780,'# Escale fictive'),(40,750,'Ville: Albi'),(40,720,'Jour 1'),(40,690,'- Musee gauche'),(320,720,'Jour 2'),(320,690,'- Jardin droit')]);pdf('table.pdf',[(40,780,'# Escale fictive'),(40,750,'Ville: Albi'),(40,720,'Jour 1'),(40,690,'Heure'),(180,690,'Activite'),(40,660,'09:00'),(180,660,'Musee rouge')]);pdf('scan.pdf',scan=True);pdf('protected.pdf',encrypted=True);pdf('pages-51.pdf',pages=51)
++pdf('long.pdf',[(40,780-i*12,'a'*70) for i in range(60)],pages=13)
++(root/'corrupt.pdf').write_bytes(b'%PDF-1.7\ncorrupt fixture')
++pdfmetrics.registerFont(UnicodeCIDFont('STSong-Light'))
++c=canvas.Canvas(str(root/'chinese.pdf'),invariant=1);c.setFont('STSong-Light',12)
++for i,text in enumerate(['# 上海旅行','城市：上海','第1天 - 2027-05-03','- 上午：博物馆']): c.drawString(40,780-i*30,text)
++c.save()
+diff --git a/tests/fixtures/planning/documents/lists-table.docx b/tests/fixtures/planning/documents/lists-table.docx
+new file mode 100644
+index 0000000000000000000000000000000000000000..4a895f8bfea38775462d8d77f5cdb01b79ef8ff5
+GIT binary patch
+literal 1099
+zcmWIWW@Zs#U|`^2Xx9jhU6UsiH4n(U1H{5W9PON+SCX1n5+71okXjt8SCN|&+rN?T
+zkb!`6{nAriw^mC?1l(?wmH5#ZT$HOkD`tue>%Vy{OZa-Gy-nY_doT0SS5L*}SDALV
+zC_7v-w)Ej;|8!H*(rSv%V;07*vg%E>x8)o*i+>98PF%5Y_ZpGKrXjJ0rzB;+a?O+B
+zmAJ+~eX{Sem9M_6p87N{k)!*n#x&bC_x|Kwv*`=Fd`*9gKxDAjHUGR!v*QcD?rv&d
+z*!+IwL*@V!@7%xkBc_j$fuWC?fk6=Ho$~ym6#bO^<kDQApFp0O8hqM|*-+%~RD<7E
+znY9lSxSN`|nilNvPtUuZpe8xVC%gRBG5vyt8cG@w=6ZLyV!s5hd3!0|;G~cDM%}Bv
+zd6TN&?R@@Z<4rCl!DWU8z2}mSg<jCA=3P7a!1vG_4Kr4#PGm6OIctL9#Wc;=b>1g5
+zCMvNk)mVT0jDF&tXUAKL^p{VpUnsa$iZ{_(e8NPJ1ef50q0MTiR!cO73U1Byxl^DK
+zYjG);ZH1@_r*`#j2c^Y}U;LcvTi;XIyzb442@)$_F3A+miL;*K8U1F4W&8YqV+sz@
+zYrMphzPoA#3W^4BPQS)ov9)3P^XpGmRY;`^pPH4E!VvvbZ@YN!H@Cb`O`7o)$_FG^
+zUnqp`<x|kS^ed-)*QuBjuMXW;D^r}hnd@yIv;Xv*n~Rt1x;`^L&ADyf<!w8Xp8Q|`
+z)^6gnS%Fg>cWv0nJM+C~+xq3J5B@&={rKAl?@E7sxbxnQPw(EZyT2cPJ^TFU(=(T|
+zw+K(@`4p_eEH%~E;<AEe;=4@0BKg}qT|q}QKHU6uEGBR2-fUyZzXwk7qefo)(ZI_~
+zfsrN;j6fM!<i!`I<`knup&m%2_riWIV4`IE5UzRiYgcpgmboPb1%mMpJl6SU{44bI
+zuB~Q{+VJ2(h0Oi;cI$RdKAO|yf9pty?zvxAxaJnyFsiIPnRu(+V_(j%1AN7jl?@$5
+zM;adlTz7wv?_46idDp723zIr+qXKQ`P5k%K`M$L0a|LyGyZ;u<yF7Aw<+;0T0_rxe
+z-0@2Iw&7BPjZ5}^G>%%VuxX~@WvQL4p|@hLm0d91@YDS}Q-C)klL!Ou%m(x$62Ox6
+v&<#LO-U!|2flQ3Vj;<X&fDzhzn4sEm1b2WpD;r2PGZ3Bv(%HcL#lQdn?<l;9
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/long.docx b/tests/fixtures/planning/documents/long.docx
+new file mode 100644
+index 0000000000000000000000000000000000000000..a9a58df65cf9d382ac3c2c3521ad564a91d4c702
+GIT binary patch
+literal 915
+zcmWIWW@Zs#U|`^2Xx9jhU6UsiH4n(U1H{5W9PON+SCX1n5+71okXjt8SCN|&+rN?T
+zkb!`6{nAriw^mC?1l(?wmH5#ZT$HOkD`tue>%Vy{OZa-Gy-nY_doT0SS5L*}SDALV
+zC_7v-w)Ej;|8!H*(rSv%V;07*vg%E>x8)o*i+>98PF%5Y_ZpGKrXjJ0rzB;+a?O+B
+zmAJ+~eX{Sem9M_6p87N{k)!*n#x&bC_x|Kwv*`=Fd`*9gKxDAjHUGR!v*QcD?rv&d
+z*!+IwL*@V!@5Jv>d4CP)4Z|Z041z$qJijPKKP5l8G#BV6kZ0bWbIb#JhV{bg5Sayz
+zu_b~R*HlfMz|!IJ=7bs7oqZ}#8DhiV>+Z9adYR4VefRh~Gv0-J?k>+h@%7Wz-BXON
+zhfdvn+F<KX+jGtp@B9pXb1VB^#^@S;E$+HI;j_fK%UgflcyGUYrR?E%p_Bgw3HvYK
+zD7`P9{m--|4{uE~Y^#xcz9)MgyIk`Bi2IejTii0=0bNKE_@m#RwbFZY+O48{pCo=C
+z|MoJue0E#FEP2#GXg?Zwc`49bc}4~X86XV~g!rP=oMM!q&;yC|Uf9nC3=g&s;hHzU
+zb~QI|nOjm&AQ=C^W1Vltzd}#%+G^&g4G$hv$lQN#w{GX;qd86fw~mD9p8Iu$Yi_X(
+zqsq#YiMQH4_T~IKz*j6;+0apRr13$(b@vDP&Lz^DcdZJ$FsaivD$sV`#D5>1?@N0=
+zS5SAi`)|R#%Oj^(p1aE?pl<WZ9j}CM8!k22xMc4~<EX_7n`RnbmfFc0dMoBy*#*-L
+zKi$7G1$Z+ui7?<!w5VZ-B?+S&fSybc2Aqe57jmLO*Nz^*2<=yZL5?rD1H4(;K&qL6
+M@Dz~V%mm^A0RJmavH$=8
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/long.pdf b/tests/fixtures/planning/documents/long.pdf
+new file mode 100644
+index 0000000000000000000000000000000000000000..de4d5ce1f958e1ef8acc5e0174659f60ea41fe1f
+GIT binary patch
+literal 9659
+zcmeHNUsvKd6o2ohh#)E|w&_1wbsa&dqKF8L<LaP>Hb4~`rj%LThy4P(Z~MNVb#Gc6
+zJCt+g70v-Yl-%Cr=H}O%{BqMwy=3L^o+4!a{pauhP=k(`A5=*Pol=kbB%lrg4dgI;
+zGNfLBw%CYzV>a<^niVjT5bHb(hlhe_VI)JbAsihE)N{C)m)~y}$(ULU8W7Lu;5!Xm
+zn;^05+01dh9umK}Ucno?AA%YgQp6h-o0CrPHiAM6zM;%7a0l9onNnh=PT&@Fb&Rmd
+zJA}kb>bRuHUeP_2C8U|!o}AZoWT<%0FiZorkys}_cMls;l?IJ`9HY=T-f`|MG*<VS
+z-J}7uCGvq0Tl5v2stiew7N^&f>9vB|&_yIRSO5bF)y0-iys$|w7tp&ib*LP3Mg`UP
+zar@zn%)7pX&S-O;nGWW%A*0WACVcLf?=j2Ib%saM5<X@;Zj&*?BWVep;qz9~86HVX
+z=nUo)SJE3EO3Ua?e9ilqoOvuQqc`y-`oo*)BDid`GoH%=<RxVRcrFc4mXrqIxjaBw
+zQXYWgM1ZrmOXdJ6{XC{M=D`mx0{%ITqlmGdkbn$WFUIq5d<8B{f<E)n7V(((He{1=
+z7KtZ5C4tMl5~q(_rF~g~4~D<+vm;5H@c*tiTls>%{lR=^jJ7}n`uD3wfY>?{n?e^p
+zHUXUBR^5(I{5O<CUt{F|Yc?AaSYYSR)P{Y*#2b&O?RH)2fW4L*44}&sFW^5yiBCo&
+z*iDEQ8I0p>Hyovp^#Q6N2xRfXg|6SDh>k?-c(edU3r95JMgtrLc(~3q5RM)x9Fa2M
+z*x{@I@~DmQIc#voAE6Q=6~`pL_FC>BfB^xjUud3GDuz~~uwmi5j{zVuEkILM>h*#?
+zQe>02G!6i^p>Rqj=c#u8u7WqzdcCk;Gt+FX_~kO!Z)~)b%L^sFxzm=4w|==;Ui(bX
+zy1Tcx{()trS-F(KH>taC;<;ZR^mm@E-*yVcr`+E4H*18+8os_U%V)Rr*srn1;huZj
+zoNPagQ%<AZI2P^ef>i7G$myfkULQV`jGcY`ifl~o@^Z`CF`nwFPtH@S;%^pS^aE)#
+zy?t%(8ad@TwGpI_CsL)BSu-o9bG^}j`Tgm<x_;>GKAPwD^)peQTq{-jYBrm4p`3B|
+zj?yAEI!d~{Azl=E@?blaZ!{mp%PlKYm3sR{k!7FKr<?sVT;8v~TzsOZkJ-%mgQceq
+z2Ho}N8>iMf&zDcCs&mn?UxvE;NOGO>Wx%fV)<Y|+$>hb+rR-lvu$!C?>HEGi&L~zG
+zEha{Bp0vVfF)@m>zZFJ{iBX)>t}t3mjN(jvh0$VS6yJZWFj`EE;=8I9MvIA2e9yYV
+zXfZL0C&O15Eha{*Jj2508NyuaduD1CM++H8VFr1H(L(3zUVYjXBuI}6QR13^BVE%J
+z4Rz5EnGPAF@Q(K(Ga*AUBf}=loHH_2f*sh5OqY^+22TS2tOwcjgdUdVq@K#pk!I@Z
+zN>a~IAv^iAo-C=rY-eP$mheqhHCVZ4^mIL8LpJhB8)nk3B1;JyilQdkQ}Rh0DmD^&
+zs-7HYO-hcHrY3D@M$(2ZCvE8Yq>VgI+Q@^E*|Ex-NgIX|w-NZn9Z)}fVX0C=!u=t(
+zao)hD(d{^0qT!CLnWp9#rlVpBa8r(ct<e@TvG=BW^WU4w<&fjTq0r15RDxLXx(tOU
+nK@9=k6k>4t5uR`eV$=PT@}LQi6o?;$VPqJRDr7R{D@*tv(+zR#
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/pages-51.pdf b/tests/fixtures/planning/documents/pages-51.pdf
+new file mode 100644
+index 0000000000000000000000000000000000000000..6d6d437259dd17f7c1b4a6dec114d171a6c095b6
+GIT binary patch
+literal 28991
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/protected.pdf b/tests/fixtures/planning/documents/protected.pdf
+new file mode 100644
+index 0000000000000000000000000000000000000000..38753d0a5045130320ce885c2ae7a413ac83b15d
+GIT binary patch
+literal 1925
+zcmb_dU1%It6!ygy2Yjm)qz~7Jq=_b(d+*GhA6!~?{@S%aNjDo6Gf`%DZqkXHnRRy3
+zCejwM4G6W=Qqcz?sL(1Xg=#Al6N<&EAc}oaDcTl=QV~j86#L-cxtrZ)O$2>#VQ1!^
+zpYNXU+;h(D7;wB^(x*rrM_)KNi;BFKq}kS>j5hI@r$NR;1QsYvDw7jD&QMoU<8eKi
+zOe?%wA_$|TJTB#OlI#&gVOf+mY>;>y3b9zX)K*aEUIGB}W?tRJv#1gv*^Mhn7{y~q
+zel&{naXnfRY!4<l5}@+nWI3Cz!J-6DSc?~E0IO{)rEM!4R1j(%86qAeZ{uMUSjiL`
+zhBZdaWPMa;8ZuPUXBeh|Mvy!Zq=KEk=uza04C|=DOoT0{0@gs9R0eqlP_jsiT;fwe
+zsW1_YajW^Zo9_Y|fdG+QOfpC#xXYz9h#QbXE}<5c0dQ`kqJn8FYeKax34!lWoo`QK
+z_z<FcE6~MU*g+Olld(1o)`pRv%yuRz>hg)M7ksP`pKAJ(KGk(!A<S2(?o+CDBiT-Q
+zkVQ%Ch;X|e2UF(w3L`$Iny;u7%*0;-7q%A^s`zkxs$jnxmef};>3A&i6@jektOfa>
+zHs8XhcPD9BM_u3sl>f&d;LO6w3WpSIwS0^<;IEZ@ssbqnf2{Zv>s6l;6@&yR5<CPp
+zASQUs$AsjBhp%Y*#vXWLU<_O-yqOMakw#@7xZ(yLRhV!DrPAFvWT@Y9UV+Ye3bKzu
+z$%qYrM7Y83uqkZZ4d;P@c`3@Oko<-zM55s$C`6F33l@h2HB_rXQ_5aYt+$tr)^_Ax
+zRLy{|JeUP>7^Gm`k8-+BJ(D_)!R);28kPs8V5o{oO~ocU*0nsv%u#g1cJrnMbclyF
+z!=seJ6MGm+c>wjQP|(om@({|YM6=91HkoPKmZci5u9LjxsE(oLHN#bHrsXZq^8nr?
+zEN`j?b}fflrfplU;c5W*2qJA&E4r^$`F1kd=sI~z1Vu57M1vPar!JO!qYK(xMXR@5
+zo9v-Q^MiJwU@(Wnm=QCh3YFbl0Mb?-k7YX%#hL)BXHfnVQtr^5zwLkP$k}(+Pk*|5
+z&r$zowr3%|5&pX4{by^hT-$$U^=mV`aOaKJM}J!X`OXi&zW&{htL2`3Uv;i~p!1?T
+z{+W7f?=RQp<_cHcOGlOW&P<<IUOx26ar>jY`U?m8*Ol)-yz11BV>4Zs)u;Q9&A)ix
+zg_(sD7Y^79@BZ=S+W9xD(fn-DEgt{<)b*JkW_!*(yy^6x#@WqRzQ5z4llN}C`^Xc|
+zy?T7r+xyncSm$nDKJokq9~%eHU+p~nlKsV%Zyvm7j$ax+{d1pl@xmLWwcpO&%CG4>
+z27|cCt2vUVQa&nSWJ>t<4{3}k42`1OG7W~E_@Q`7X2LLECL^Y~LZ;%CcB&3zcbTuL
+zt?(s8gVFbQI|AcoNtUHSROM;ox`CS_ovvj_lzmZ>3l5TobEHCagP6u>IUEfbDN`s-
+z78+)#5=^nGZ1{JJ5vil?5*+*IOR%>Wg%OP5W!E8u5sxNF3||PTm?Rkz!yLW`qh~lI
+Vy-{XCnl(;=Fk(s_9d5rT{RN^5G;{y}
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/scan.pdf b/tests/fixtures/planning/documents/scan.pdf
+new file mode 100644
+index 0000000000000000000000000000000000000000..59460932e1d3f014c4a44ca49234b0e7fbb3ed52
+GIT binary patch
+literal 2987
+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
+A?*IS*
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/simple.pdf b/tests/fixtures/planning/documents/simple.pdf
+new file mode 100644
+index 0000000000000000000000000000000000000000..0c80f9c97a41cd624d09c2d2ba3e8a828e7a9fbc
+GIT binary patch
+literal 1457
+zcmah}(RSiC5PkPoD75TC6R-^!>=f7%2!sug#1PURLWpe3j<X;+vfNGfp+C^R^}XNP
+zk%7i1={ajSmS;3Gx^p!%`O99vq?fBo{_ns3{0G@2VqA={g9d~Wjs@`$SRjwN$%asY
+z3M?WtW(jvmQPGixnDeMKn~K`kQ3XU>X}1+ZJ*k%Re)|N+q|YFLdPdg26A`)?si)Ls
+zUPuF^-h{M6<M356!5e~PP<5I(;w1uM25*q%0y_{Zb5u2RR2Q}YYK$5Z4^qd(3-Jki
+zMhlQNWLQSI(lF}Ctm$Rbv`n-_>LunfyZY9{Cff{Slx8Mj%TyuOC1>uG2neN0TGSbN
+zhLnaI9FUXU+TE=~v;=@iwV41K!CjqkOw*83ub_P@m*AX9r3R*Z*5uZhd64gQOeT!N
+zhg8LTpj$4wSl~4aGBJ!yj7}mR7)J$68GYHXBrYPg%Lx`CqdkeN&^xYZ@aXVMpF>Ui
+z2>-p^Tjz7~@|AHfMg_0{bl(dCoOy{$0K#i^N%BUa!!dtBC3Ksqs@q~Q<p!?(k+@KB
+z35_G-hJHvqIByn;H9$_NkRPdr<0yhMRr`1yXNi=TxhJyAzymH(Jr4o+0?B%@<;8Cq
+zOi9h~Co5;~+7H(Pz{8DqrrqJtG<pQ8R+iuz*xLyZX+&rs9#BQA%RsRJiZ{vt^C<6Z
+z&hviZOZ0TtDn4#Xx#dN3U^MHk-`Xvr4FWT$_!`kl6LwF3Jv&UWRx&=UoU7b4Vs37E
+z+G(rWtbcou+zpOs>ErFZ+`73)K9?s%4T1%~ugniuvy<_$eKUVbo(7?{nhE#w%~^{K
+z4;E$nteIN}*H5e3(G?%Nzih7j<?74iVB+J#>G_Bbr_-O+`pjOI@1ps&_36U{z8`gd
+zaK>JqHGlf?`YK0@^W&pdzw}2N`g)hwuEU=>@f8i3%C>Oi8`TY?Y9Jr|r>jHnq&xIg
+zXTfZEqth+xovx<6x2rXvi{JP*s_)NeSQ$IPakwTtom9gfQWj0!)f=X6nZD!s*wCGd
+zVOfS}T3$`pDq5}D{=UUh$!7*;@c#p|R6<?|E&FD4D(aB>49P~d6_^oBAldlvJq^DR
+WU^J~E%tcDEu9<ZupFh3mEB^wTKAR>0
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/table.pdf b/tests/fixtures/planning/documents/table.pdf
+new file mode 100644
+index 0000000000000000000000000000000000000000..050294c44b89ceb70c3cb71a3bd350d9e105c1a9
+GIT binary patch
+literal 1447
+zcmah}-FD(e48HeMsGEf)Kg2d*Y^NN$U;;Hu5<(!^O+wPKJ%BmJ<BW$k=|x|lz3Y9S
+zwHgDBPttSNa6Fbq(tP?xQeoKXmi6PRQuzC?KmUOdO&Avg;z5tbloLS%Knn<%zh2Q;
+zK#3(ZPT89KbYIay1LiH2Mnh4%I#f^`Db1!r<3OsVyxVS*ly(^gP=BV;uT+FS0rfQY
+zSrEo^P;bJx6{q2=;+(7~$e`-g+7mAc3S)euEEn9tSh=IBxuYE1LZ~U25)Y_nGzdwX
+zJ;NQ!8W^^5TrrJ0ST+6FvTO^cpbiO_+0{25Bf7~jg)B1(Tc(P!hMf6VRA4Ao(xQ&(
+zGp6LO$egyftFv8Qm?A(>M@%4%=&p`AiL;PWufQ&qAv)($siEnPHMw=h0?c=k(sLH$
+zhg79Ipc^h6B1pvMxfn(+Mr$n=j6;dUEPh$Bb-E9#!zmFVi#rlosdG}%@X_&?J%^h1
+z3I990x6WVa%WsSaDU{Fx(S0unau%$8iV$9_OOiJTJx=%wl;J*CRrmY*88>+COX_36
+zt>ZMIemDzhfai@v5h3JtEaXR~;Ur10Ow}%l(mav!GIvBe3_b7?)h{6ezXMq>BYE)~
+z1~XD~{K?AMxpu=yAb7m-)|KPBmeHYDwXy^wWN#~AqydfRVgb5cmw{4&6t9#XNvmaJ
+z#ci!ve*92+xGfBO(T|$lyS~2J>kXc2#S8oM;ulf8ylt-!_1fuVe(1W+;-WJ=F7_sO
+zPGQ<U=LdZ=Tz$M=KB~)}`9s~BKla_dg*drC7|*nF{q}3R`1+XK9GyIPP4D*XTZ1M~
+zlf8?Hb71ywqK{;rG`>Y@;lX|KokaVoQM>d%^gX?`Y7GwfQVcG`vC}`&2i7V5Y_X}Z
+z?%C0&W#eexFFyRy#BSbZv+e6=PG^b+ma-`q`G&e-R1KKHf4Vw$Oturh>TH|{Z*;nC
+zzth#U_jWZCd-sj6S$%(oY3J+&Ct*Z+HlN%MD0dCr*G)^et(h0hh@pEG!?umUvV)qg
+zRkT{Q`F)G2Qpk<T`Tvi}av6dU8}-e=R8%*fF_7&!QgAXb0kYlk`zrjMBBNR55H2!`
+Ob<M0Rg~I7YSNRu1I+q{-
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/fixtures/planning/documents/zip-bomb.docx b/tests/fixtures/planning/documents/zip-bomb.docx
+new file mode 100644
+index 0000000000000000000000000000000000000000..97d4d54168c5ffb85ca58bfa2c53fe9a5ad7e3f3
+GIT binary patch
+literal 3939
+zcmWIWW@Zs#U|`^2Xx9jhU6UsiH4n(U1H{5W9PON+SCX1n5+71okXjt8SCN|&+rN?T
+zkb!`6{nAriw^mC?1l(?wmH5#ZT$HOkD`tue>%Vy{OZa-Gy-nY_doT0SS5L*}SDALV
+zC_7v-w)Ej;|8!H*(rSv%V;07*vg%E>x8)o*i+>98PF%5Y_ZpGKrXjJ0rzB;+a?O+B
+zmAJ+~eX{Sem9M_6p87N{k)!*n#x&bC_x|Kwv*`=Fd`*9gKxDAjHUGR!v*QcD?rv&d
+z*!+IwL*@V!@3b7@a9zg3!0>><fI$%Go$~ym6#bO^<kDQApFo~@bIv!b#X*4e!D<$M
+zfp(ou6H>x<c6>}1*%H0W+G1zzlrxOa818Rhu}Gt0PygPR$=^5gE!=bGy6Tg(|7(^7
+zZCkdk*qk?ecKl<rmdEDDwrqQ9ae3{%<X788b}K%&ymM`7-R_usueZ*1{@USr{>YKS
+zIlCXe4t!v*!s{LVOyZMC{?1);toxJySHF8J^HSz%6+6&@qhK@yMnhmU1V%$(Gz5l2
+z2>iR%+bqK1sKKzvJxl&!;;Ct=ErR#r{%jYx7tO;w96UJchtUui4S~@Rpi&4Nc(Uzj
+ze702WV*e8TokyP()m*Q<euWXWQ`3Gl@bXfiee#S93^G6(+^LB#O3f)o>DuUlM0zjm
+z=K^-t*gk}7-u&9t+`MIONkM^N`~#15z8U`tJ-utInWHv5cu*m8|GnM1os*B|H2L2;
+z5~6$V*A=e0#Wsv8D^DigYWLWe^XmX#v1DaKN70eS2LadJALKiiNN?V?D(u3fPTQzJ
+z+j$fJeRRGr?fG0m-QDiL1@kVCoL+hEE}MY5%`11j625J?)L`S1y&sLE7AtI;X?R&`
+zCu``fm}_MhOgH>=|IQTP&B!FefV&fl8n#%vr052qcl!_qoQH)Mawia7J9+>kv@hYs
+VAKU@ntZX3F%s_YwNH_C=cmP2%S%v@r
+
+literal 0
+HcmV?d00001
+
+diff --git a/tests/planning-documents.test.mjs b/tests/planning-documents.test.mjs
+new file mode 100644
+index 0000000..3e4451f
+--- /dev/null
++++ b/tests/planning-documents.test.mjs
+@@ -0,0 +1,39 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { readFile } from 'node:fs/promises';
++import { extractDocx, wordXmlToText } from '../src/planning-import/document-docx.ts';
++import { DOCUMENT_LIMITS, checkExtractedText } from '../src/planning-import/document-contract.ts';
++import { createSession, saveSession, loadSession } from '../src/planning-import/persistence.ts';
++import { externalPlanningPrompt } from '../src/planning-import/external-prompt.ts';
++import { translate } from '../src/locale-utils.ts';
++import { documentErrors } from '../src/planning-import/document-contract.ts';
++import { parsePlanning } from '../src/planning-import/parser.ts';
++const fixture = async name => new Uint8Array(await readFile(new URL('./fixtures/planning/documents/'+name,import.meta.url)));
++test('real DOCX preserves headings, list items, table cells, Unicode and link text without following links',async()=>{
++ const source=extractDocx(await fixture('lists-table.docx'));
++ assert.match(source,/# Escale fictive/);assert.match(source,/- 09:00 : Musée rouge/);assert.match(source,/\| 14:00 \| Jardin bleu \|/);assert.match(source,/备注/);
++ assert.ok(!source.includes('https://'));assert.ok(!source.includes('<w:'));
++ const draft=parsePlanning(source);assert.equal(draft.cities[0].name,'Albi');assert.deepEqual(draft.cities[0].days[0].items.map(item=>item.title),['Musée rouge','Jardin bleu','Texte du lien']);
++});
++test('real excessive, forged, active, fake and entity packages reject without truncation',async()=>{
++ for(const [name,code] of [['long.docx','length'],['zip-bomb.docx','zip'],['entries.docx','zip'],['active.docx','format'],['entity.docx','corrupt'],['forged-size.docx','zip']]) { const bytes=await fixture(name);assert.throws(()=>extractDocx(bytes),{code}); }
++});
++test('XML cannot expand entities; depth is bounded; text limit is UTF-16 without truncation',()=>{
++ assert.throws(()=>wordXmlToText('<!DOCTYPE a><a/>'),{code:'corrupt'});
++ assert.throws(()=>wordXmlToText('<a>'.repeat(101)+'x'+'</a>'.repeat(101)),{code:'zip'});
++ assert.equal(checkExtractedText('x'.repeat(DOCUMENT_LIMITS.text)).length,50_000);assert.throws(()=>checkExtractedText('😀'.repeat(25_001)),{code:'length'});
++});
++test('old and corrected document drafts round-trip in scope, preserving exact original extraction and no binary',()=>{
++ const map=new Map(),storage={getItem:key=>map.get(key)||null,setItem:(key,val)=>map.set(key,val)};
++ const old=createSession('local','typed source');saveSession(storage,old);assert.deepEqual(loadSession(storage,'local'),old);
++ const session={...old,source:'edited source',sourceOrigin:{kind:'pdf',name:'fictional.pdf',originalText:'original extraction',pages:2}};
++ saveSession(storage,session);assert.deepEqual(loadSession(storage,'local'),session);assert.throws(()=>loadSession(storage,'other'));
++ assert.throws(()=>saveSession(storage,{...session,sourceOrigin:{...session.sourceOrigin,binary:'unwanted'}}));
++ assert.throws(()=>saveSession(storage,{...session,sourceOrigin:{...session.sourceOrigin,pages:51}}));
++});
++test('external templates are static, localized, and document errors have four interface languages',()=>{
++ for(const language of ['fr','en','zh-CN','es']) {
++  const prompt=externalPlanningPrompt(language);assert.ok(prompt.includes('# '));assert.ok(prompt.includes('1'));assert.ok(!prompt.includes('localStorage'));
++  for(const message of Object.values(documentErrors)) { assert.ok(translate(message,language));if(language!=='fr') assert.notEqual(translate(message,language),message); }
++ }
++});
+diff --git a/vite.config.ts b/vite.config.ts
+index e76cbcd..dd28380 100644
+--- a/vite.config.ts
++++ b/vite.config.ts
+@@ -2,6 +2,9 @@ import { defineConfig } from 'vite';
+ import react from '@vitejs/plugin-react';
+ export default defineConfig({
+   plugins: [react()],
++  // Dependencies used only inside the DOCX worker must be discovered before
++  // first import, otherwise dev optimization reloads an open review dialog.
++  optimizeDeps: { include: ['fflate', 'saxes', 'pdfjs-dist'] },
+   build: { rollupOptions: { output: {
+     // Keep shared React/runtime helpers out of deferred feature chunks.
+     onlyExplicitManualChunks: true,

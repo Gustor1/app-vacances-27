@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-24",
+  "timezone": "Asia/Shanghai",
+  "implemented": true,
+  "lot09UnitTests": 5,
+  "lot09BrowserTests": 9,
+  "unitTests": 330,
+  "browserGateAndContinuation": {
+    "passed": 187,
+    "failed": 1
+  },
+  "planningTargetedRetry": {
+    "passed": 3,
+    "failed": 0
+  },
+  "commonGate": {
+    "passed": false,
+    "successfulSteps": 10,
+    "failedStep": "analyse planning simulée dans le navigateur",
+    "notRunInOriginalGate": 23
+  },
+  "continuation": {
+    "passed": true,
+    "successfulSteps": 23
+  },
+  "compiledSmokes": 19,
+  "sourceFingerprint": "79870f5c6eff957f91498f09a68e89e4c94860a5bdf2daebc15ed0738060a526",
+  "sourceUnchanged": true,
+  "buildId": "9e48e06eaa1e13e2c08479f6c0f22e10f42850f823065bb94b7a74651dee4440",
+  "preservationPassed": true,
+  "restoredHistoricalCaptures": 10,
+  "physicalDevice": false,
+  "realService": false,
+  "published": false,
+  "nextLotStarted": false,
+  "processesRunning": false
+}

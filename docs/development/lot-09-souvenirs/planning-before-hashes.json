@@ -1,0 +1,32 @@
+[
+  {
+    "file": "tests/e2e/planning-analysis.spec.ts",
+    "before": "4a13f64055c97c582ac328a72a2db1234c2508e36c431130785ad18da6548e9f",
+    "current": "4a13f64055c97c582ac328a72a2db1234c2508e36c431130785ad18da6548e9f",
+    "identical": true
+  },
+  {
+    "file": "src/components/JourneysApp.tsx",
+    "before": "4eb39aee70f10c30db6c56fc03404b69fbf4d2cf222398149dac7a8c6b1e693e",
+    "current": "4eb39aee70f10c30db6c56fc03404b69fbf4d2cf222398149dac7a8c6b1e693e",
+    "identical": true
+  },
+  {
+    "file": "src/components/PlanningImport.tsx",
+    "before": "c4808c78f2f8b43945208032b201c1269985af722666d821e088462f41c12180",
+    "current": "c4808c78f2f8b43945208032b201c1269985af722666d821e088462f41c12180",
+    "identical": true
+  },
+  {
+    "file": "src/cloud/CloudProvider.tsx",
+    "before": "af791a1cac67675010e069807a3a699f8f1eb466e6185f9a92c6712fa5046455",
+    "current": "af791a1cac67675010e069807a3a699f8f1eb466e6185f9a92c6712fa5046455",
+    "identical": true
+  },
+  {
+    "file": "src/planning-import/persistence.ts",
+    "before": "82b1e17617135f638c3403f915e1596358ca11f4d7c0f7a7ad3f692d22927220",
+    "current": "82b1e17617135f638c3403f915e1596358ca11f4d7c0f7a7ad3f692d22927220",
+    "identical": true
+  }
+]

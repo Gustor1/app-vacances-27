@@ -45,8 +45,11 @@ try {
     await expect(page.getByRole('textbox', { name: translate('Notes personnelles', language), exact: true })).toHaveValue('Note L4 enregistrée hors ligne');
     await expect(preparation).toHaveClass(/offline-ready/);
     await expect(preparation.locator('time')).toBeVisible();
-    await preparation.locator('summary').focus(); await page.keyboard.press('Enter');
-    await expect(preparation.locator('details')).toHaveAttribute('open','');
+    for (const label of ['Installer sur iPhone ou iPad', 'Retrouver mes données']) {
+      const disclosure = preparation.locator('details').filter({ has: page.locator('summary', { hasText: translate(label, language) }) });
+      await disclosure.locator('summary').focus(); await page.keyboard.press('Enter');
+      await expect(disclosure).toHaveAttribute('open','');
+    }
     for (const width of [320,390,1440]) {
       await page.setViewportSize({width,height:1000});
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${language}: no overflow at ${width}`);

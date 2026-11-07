@@ -1,0 +1,118 @@
+[
+  {
+    "lang": "fr",
+    "theme": "dark",
+    "view": "Mon carnet pratique",
+    "width": 768,
+    "overflow": 0
+  },
+  {
+    "lang": "fr",
+    "theme": "dark",
+    "view": "Mes outils sur place",
+    "width": 768,
+    "overflow": 0
+  },
+  {
+    "lang": "fr",
+    "count": 0,
+    "summary": "1 journée · 0 propositions · 0 passages à vérifier"
+  },
+  {
+    "lang": "fr",
+    "count": 1,
+    "summary": "1 journée · 1 proposition · 0 passages à vérifier"
+  },
+  {
+    "lang": "fr",
+    "count": 2,
+    "summary": "1 journée · 2 propositions · 0 passages à vérifier"
+  },
+  {
+    "lang": "en",
+    "theme": "dark",
+    "view": "Mon carnet pratique",
+    "width": 768,
+    "overflow": 0
+  },
+  {
+    "lang": "en",
+    "theme": "dark",
+    "view": "Mes outils sur place",
+    "width": 768,
+    "overflow": 0
+  },
+  {
+    "lang": "en",
+    "count": 0,
+    "summary": "1 day · 0 proposals · 0 passages to review"
+  },
+  {
+    "lang": "en",
+    "count": 1,
+    "summary": "1 day · 1 proposal · 0 passages to review"
+  },
+  {
+    "lang": "en",
+    "count": 2,
+    "summary": "1 day · 2 proposals · 0 passages to review"
+  },
+  {
+    "lang": "zh-CN",
+    "theme": "dark",
+    "view": "Mon carnet pratique",
+    "width": 768,
+    "overflow": 0
+  },
+  {
+    "lang": "zh-CN",
+    "theme": "dark",
+    "view": "Mes outils sur place",
+    "width": 768,
+    "overflow": 0
+  },
+  {
+    "lang": "zh-CN",
+    "count": 0,
+    "summary": "1 天 · 0 项建议 · 0 处待检查"
+  },
+  {
+    "lang": "zh-CN",
+    "count": 1,
+    "summary": "1 天 · 1 项建议 · 0 处待检查"
+  },
+  {
+    "lang": "zh-CN",
+    "count": 2,
+    "summary": "1 天 · 2 项建议 · 0 处待检查"
+  },
+  {
+    "lang": "es",
+    "theme": "dark",
+    "view": "Mon carnet pratique",
+    "width": 768,
+    "overflow": 0
+  },
+  {
+    "lang": "es",
+    "theme": "dark",
+    "view": "Mes outils sur place",
+    "width": 768,
+    "overflow": 0
+  },
+  {
+    "lang": "es",
+    "count": 0,
+    "summary": "1 día · 0 propuestas · 0 pasajes por revisar"
+  },
+  {
+    "lang": "es",
+    "count": 1,
+    "summary": "1 día · 1 propuesta · 0 pasajes por revisar"
+  },
+  {
+    "lang": "es",
+    "count": 2,
+    "summary": "1 día · 2 propuestas · 0 pasajes por revisar"
+  }
+]

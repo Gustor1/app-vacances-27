@@ -1,0 +1,32 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const base=path.resolve('docs/development/audit-impeccable-2026-11-02'),out=path.join(base,'preuves');
+const json=async name=>JSON.parse(await readFile(path.join(out,name),'utf8'));
+const previous=await json('e2e-completed-before-final.json');
+const final=await json('e2e-final.json');
+const cases=[];
+function collect(suites){for(const suite of suites||[]){for(const spec of suite.specs||[]){for(const test of spec.tests||[]){cases.push({title:spec.title,location:`${spec.file||suite.file}:${spec.line}:${spec.column}`,status:test.status==='expected'?'passed':test.status==='skipped'?'skipped':test.status==='flaky'?'flaky':'failed',error:test.results?.find(r=>r.error)?.error?.message?.slice(0,1500)});}}collect(suite.suites);}}
+collect(final.suites);
+assert.equal(previous.length,110);assert.equal(cases.length,139);
+const all=[...previous,...cases];assert.equal(all.length,249);
+const totals=Object.fromEntries(['passed','failed','skipped','flaky'].map(s=>[s,all.filter(x=>x.status===s).length]));
+const independent=await json('independent-results.json');assert.equal(independent.results.length,30);
+const retry=await json('offline-retry.json');
+const stress=await json('planning-stress/results.json');
+const simple=await json('planning-evaluation.json');
+const result={generatedAt:new Date().toISOString(),scope:'current local source; disjoint completed E2E sets; no product/test assertion changes',unit:{passed:336,failed:0},browser:{total:249,...totals,cases:all},simulatedAnalysis:{passed:3,failed:0},recognition:{regression:{cases:simple.cases,passed:simple.passed,checks:simple.checks,failedChecks:simple.failedChecks},stress:stress.summary},offlineRetry:retry,independent:independent.results};
+await writeFile(path.join(out,'RESULTATS.json'),JSON.stringify(result,null,2));
+const smoke=independent.results.filter(x=>x.name.startsWith('smoke-'));
+const smokePassed=smoke.filter(x=>x.code===0).length+(retry.code===0?1:0);
+const rows=independent.results.filter(x=>x.name!=='e2e-all').map(x=>{
+ let verdict=x.code===0?'réussi':'échec';
+ if(x.name==='smoke-l4-offline')verdict=retry.code===0?'échec initial ; reprise exacte isolée réussie':'échec initial et reprise isolée échouée ; attribution à instruire';
+ if(x.name==='smoke-palette-claire')verdict='12 rendus réussis ; comparaison historique bloquée (fixture absente)';
+ if(x.name==='measure-l8')verdict='10 mesures produites ; aucun seuil de rapidité vérifié, charge concurrente';
+ if(x.name==='evaluate-planning-stress')verdict=`évaluation produite : ${stress.summary.passed}/${stress.summary.cases} conformes, ${stress.summary.cases-stress.summary.passed} non conformes`;
+ return `| ${x.name} | ${x.code} | ${verdict} | [log](preuves/${x.name}.log) |`;
+});
+const text=`\n<!-- FINAL-RESULTS -->\n## Bilan final des exécutions\n\n| Famille | Réussis | Échoués / non conformes | Bloqués / non exécutés |\n|---|---:|---:|---|\n| Gate original (35 étapes) | 8 étapes | arrêt brut code 1 à l’étape navigateur | port 5173 occupé ; 26 étapes non lancées par ce gate |\n| Unitaires | 336 | 0 | 0 ignoré |\n| E2E principal, ensembles disjoints | ${totals.passed}/249 | ${totals.failed} | ${totals.skipped} ignoré, ${totals.flaky} flaky déclaré par Playwright |\n| Analyse planning simulée | 3 | 0 | 0 |\n| SQL supplémentaire | 3 scripts | 0 | 0, bases en mémoire |\n| Smokes compilés distincts | ${smokePassed}/22 après reprise ciblée | ${retry.code===0?'aucun échec de parcours restant ; L4 a échoué au premier passage':'L4 demeure en échec au délai du test'} | comparaison palette historique bloquée après 12 rendus réussis |\n| Corpus de reconnaissance structuré | ${simple.passed}/${simple.cases}, ${simple.checks} assertions | ${simple.failedChecks} | 0 |\n| Corpus de stress | ${stress.summary.passed}/${stress.summary.cases} conformes | ${stress.summary.cases-stress.summary.passed} non conformes | 0 exception ; pas un taux de précision représentatif |\n| Mesure L8 | 10 mesures | aucun seuil temporel testé | vitaux Web terrain et mesure isolée non réalisés |\n\nLes échecs E2E finaux ne sont pas requalifiés en réussites : les trois attentes Amap et les deux attentes alpha décrites en T01/T05 sont obsolètes. Les six échecs contaminés du premier dispositif ont été rejoués et réussis ; ils restent visibles dans leurs logs mais ne sont pas comptés deux fois.\n\n### Reprise L4 hors ligne\n\nCode final **${retry.code}**, après fin de la suite principale et du runner de mesures : [résultat](preuves/offline-retry.json), [log](preuves/smoke-l4-offline-retry.log). ${retry.code===0?'Les mêmes assertions ont passé dans un profil neuf, sans changement de code, d’attente ou de permission. Sensibilité au temps/charge locale : l’échec initial reste documenté, sans le présenter comme un défaut de persistance.':'La même attente reste en échec. Cela confirme un échec reproductible du scénario sous son délai de 5 s, sans établir que le contrôle ne finit jamais ni qu’il certifie à tort le cache. Priorité P2 d’investigation du produit et du protocole ; aucune correction tentée.'}\n\n### Résultats indépendants bruts\n\n| Contrôle | Code original | Interprétation | Preuve |\n|---|---:|---|---|\n${rows.join('\n')}\n\nSQL détaillé : 35 contrôles du script de base ; 27 contrôles historiques et scénario de carnet commun avec rollback ; 31 contrôles participation/monnaie. Le SQL L6 du gate est distinct et réussi. Aucun de ces résultats ne prouve Supabase Auth/PostgREST distant.\n\n### Contrôles non exécutés\n\nRéseau Supabase/taux/Wikimedia, OAuth réel, comptes/appareils physiques, tests de déploiement distant, scripts de génération et benchmarks API/modèles : hors périmètre autorisé. La comparaison historique palette n’a pas abouti. Zoom navigateur réel200 %, lecteur d’écran et FPS/vitaux Web terrain non réalisés. Voir COUVERTURE.md pour les limites de chaque surface.\n\n### Résumé machine exploitable\n\n[RESULTATS.json](preuves/RESULTATS.json) rassemble les 249 résultats E2E, les codes indépendants, la reprise L4 et les deux corpus. Les rapports et logs originaux sont conservés ; aucune réussite n’est déduite d’un test non exécuté.\n`;
+let doc=await readFile(path.join(base,'TESTS.md'),'utf8');doc=doc.split('\n<!-- FINAL-RESULTS -->')[0]+text;await writeFile(path.join(base,'TESTS.md'),doc);
+console.log(JSON.stringify({browser:totals,smokePassed,offlineRetry:retry.code,stress:stress.summary}));

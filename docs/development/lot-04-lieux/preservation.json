@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-21T08:43:21.770453+00:00",
+  "initialFiles": 1097,
+  "identicalInitialFiles": 1087,
+  "expectedModifiedFiles": [
+    "README.md",
+    "scripts/verify-local.mjs",
+    "src/App.tsx",
+    "src/cloud/engine.ts",
+    "src/components/TripMap.tsx",
+    "src/lib.ts",
+    "src/locale-utils.ts",
+    "src/persistence.ts",
+    "src/types.ts",
+    "tests/e2e/world-languages.spec.ts"
+  ],
+  "missingInitialFiles": [],
+  "unexpectedInitialChanges": [],
+  "unexpectedNewFiles": [],
+  "codePatchHashMismatches": [],
+  "regeneratedHistoricalFilesArchivedAndRestored": [
+    {
+      "path": "docs/development/import-fiable-lot-01/screenshots/review-320.png",
+      "regeneratedCopy": "docs\\development\\lot-04-lieux\\regenerated-historical\\docs\\development\\import-fiable-lot-01\\screenshots\\review-320.png"
+    },
+    {
+      "path": "docs/development/import-fiable-lot-01/screenshots/review-390.png",
+      "regeneratedCopy": "docs\\development\\lot-04-lieux\\regenerated-historical\\docs\\development\\import-fiable-lot-01\\screenshots\\review-390.png"
+    }
+  ],
+  "baseRevision": "c1dd8a686e5962a156bad1489e4e4d3f2c731d64",
+  "branch": "codex/lot-04-lieux",
+  "preexistingUnicodeEvidenceOutsideInitialCopy": [
+    {
+      "path": "docs/development/palettes-personnalisees/premier-gate/world-languages-\u4e2d\u6587\uff08\u7b80\u4f53\uff09-320-eb7c0-erences-and-both-themes-fit/error-context.md",
+      "sha256": "57fcd3a711d897021ab48d1ad3336c0802e0dd511d96b1cd779935d95361a491",
+      "createdAt": "2026-10-19T09:56:12.139350+00:00",
+      "modifiedAt": "2026-10-19T09:56:12.139350+00:00",
+      "recoveryCopy": "C:\\Users\\eliot\\Documents\\detours-lot04-recovery-20261021\\supplemental-preserved\\docs\\development\\palettes-personnalisees\\premier-gate\\world-languages-\u4e2d\u6587\uff08\u7b80\u4f53\uff09-320-eb7c0-erences-and-both-themes-fit\\error-context.md",
+      "modifiedByLot04": false
+    },
+    {
+      "path": "docs/development/palettes-personnalisees/premier-gate/world-languages-\u4e2d\u6587\uff08\u7b80\u4f53\uff09-320-eb7c0-erences-and-both-themes-fit/test-failed-1.png",
+      "sha256": "4656f8e06b0f1b98dc5cd4a78797210b0558b3408aae7d5ce4ae945f14ea346c",
+      "createdAt": "2026-10-19T09:56:12.154150+00:00",
+      "modifiedAt": "2026-10-19T09:56:12.154150+00:00",
+      "recoveryCopy": "C:\\Users\\eliot\\Documents\\detours-lot04-recovery-20261021\\supplemental-preserved\\docs\\development\\palettes-personnalisees\\premier-gate\\world-languages-\u4e2d\u6587\uff08\u7b80\u4f53\uff09-320-eb7c0-erences-and-both-themes-fit\\test-failed-1.png",
+      "modifiedByLot04": false
+    },
+    {
+      "path": "docs/development/palettes-personnalisees/premier-gate/world-languages-\u4e2d\u6587\uff08\u7b80\u4f53\uff09-lib-98ac9-dates-forms-and-saved-notes/error-context.md",
+      "sha256": "036b09429991caa92335838d86052dc63957b6209ceff90ea8daf48dc74a97a3",
+      "createdAt": "2026-10-19T09:56:12.154150+00:00",
+      "modifiedAt": "2026-10-19T09:56:12.157770+00:00",
+      "recoveryCopy": "C:\\Users\\eliot\\Documents\\detours-lot04-recovery-20261021\\supplemental-preserved\\docs\\development\\palettes-personnalisees\\premier-gate\\world-languages-\u4e2d\u6587\uff08\u7b80\u4f53\uff09-lib-98ac9-dates-forms-and-saved-notes\\error-context.md",
+      "modifiedByLot04": false
+    },
+    {
+      "path": "docs/development/palettes-personnalisees/premier-gate/world-languages-\u4e2d\u6587\uff08\u7b80\u4f53\uff09-lib-98ac9-dates-forms-and-saved-notes/test-failed-1.png",
+      "sha256": "7b760ac36446bfde1e0a44b1db8c1a81557fc3e46625f1cb0fd91f505f2b3fd7",
+      "createdAt": "2026-10-19T09:56:12.164261+00:00",
+      "modifiedAt": "2026-10-19T09:56:12.164261+00:00",
+      "recoveryCopy": "C:\\Users\\eliot\\Documents\\detours-lot04-recovery-20261021\\supplemental-preserved\\docs\\development\\palettes-personnalisees\\premier-gate\\world-languages-\u4e2d\u6587\uff08\u7b80\u4f53\uff09-lib-98ac9-dates-forms-and-saved-notes\\test-failed-1.png",
+      "modifiedByLot04": false
+    }
+  ],
+  "snapshotLimitation": "Initial PowerShell copy used quoted git output and skipped four preexisting Unicode paths. These evidence files were never edited by this lot; supplementary recovery copies and hashes made at completion. Initial hashes are unavailable for these four files."
+}

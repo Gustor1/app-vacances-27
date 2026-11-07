@@ -1,0 +1,83 @@
+import { test, expect, type Page } from '@playwright/test';
+import { mkdir, readFile } from 'node:fs/promises';
+import { fixture } from '../../scripts/assistant-fixture.mjs';
+import { archive, parseTrip, tripKey } from '../../src/journeys';
+import { translate, type Language } from '../../src/locale-utils';
+import { ACCOUNT_HINT_KEY } from '../../src/cloud/session-cache';
+const trip=fixture(),key=tripKey(trip.journey!.id);
+async function seed(page:Page,language:Language='fr') {
+ await page.goto('/');await page.evaluate(({key,raw,language})=>{localStorage.setItem(key,raw);localStorage.setItem('a-l-est-preferences-v1',JSON.stringify({language,theme:language==='en'?'dark':'light'}));},{key,raw:JSON.stringify(archive(trip)),language});await page.reload();
+ await page.getByRole('button',{name:translate('Ouvrir {title}',language,{title:trip.journey!.title}),exact:true}).click();
+ await page.getByRole('button',{name:translate('Assistant du carnet',language),exact:true}).click();
+}
+async function proposeNote(page:Page,text='Note ajoutée') {
+ const dialog=page.getByRole('dialog');await dialog.getByLabel('Activité concernée',{exact:true}).selectOption('b');await dialog.getByLabel('Texte à ajouter',{exact:true}).fill(text);await dialog.getByRole('button',{name:'Prévisualiser cette action',exact:true}).click();
+}
+for(const language of ['fr','en','zh-CN','es'] as Language[])test('assistant '+language+' search, safe sources, preview, actual note, undo, keyboard and mobile',async({page})=>{
+ const t=(v:string)=>translate(v,language);await page.emulateMedia({reducedMotion:'reduce'});await seed(page,language);const dialog=page.getByRole('dialog');
+ await dialog.getByLabel(t('Rechercher dans ce carnet'),{exact:true}).fill('delete all');await expect(dialog.locator('.assistant-results')).toContainText('<script>');expect(await page.evaluate(()=>Object.hasOwn(window,'injected'))).toBe(false);
+ await dialog.getByLabel(t('Activité concernée'),{exact:true}).selectOption('b');await dialog.getByLabel(t('Texte à ajouter'),{exact:true}).fill('Note '+language);const preview=dialog.getByRole('button',{name:t('Prévisualiser cette action'),exact:true});await preview.focus();await page.keyboard.press('Enter');await expect(dialog.locator('.assistant-preview')).toContainText('Note '+language);
+ await expect.poll(()=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state.notes.b||'',key)).toBe('');
+ await dialog.getByRole('button',{name:t('Annuler'),exact:true}).click();await preview.click();await dialog.getByRole('button',{name:t('Confirmer cette action'),exact:true}).evaluate((b:HTMLButtonElement)=>{b.click();b.click();});await expect(dialog).toContainText(t('Action enregistrée. L’annulation reste possible tant que le carnet ne change pas.'));
+ expect(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state.notes.b,key)).toBe('Note '+language);
+ await dialog.getByRole('button',{name:t('Prévisualiser l’annulation'),exact:true}).click();await expect(dialog.locator('.assistant-preview')).toContainText(t('Annuler cette action'));await dialog.getByRole('button',{name:t('Confirmer cette action'),exact:true}).click();
+ await expect.poll(()=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state.notes.b||'',key)).toBe('');
+ for(const width of [320,390,1440]) {await page.setViewportSize({width,height:1000});expect(await dialog.evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);}
+ await page.setViewportSize({width:390,height:900});await page.evaluate(()=>document.documentElement.style.zoom='2');expect(await dialog.evaluate(e=>e.scrollWidth<=e.clientWidth+1)).toBe(true);await page.evaluate(()=>document.documentElement.style.zoom='1');
+ await mkdir('docs/development/lot-07-assistant/screenshots',{recursive:true});await page.screenshot({path:`docs/development/lot-07-assistant/screenshots/${language}.png`});
+ await page.keyboard.press('Escape');await expect(page.getByRole('button',{name:t('Assistant du carnet'),exact:true})).toBeFocused();await page.getByRole('button',{name:t('Assistant du carnet'),exact:true}).click();await expect(dialog.getByLabel(t('Rechercher dans ce carnet'),{exact:true})).toHaveValue('');
+});
+test('actual field, move and coherent lightened day retain original history and export',async({page})=>{
+ await seed(page);const d=page.getByRole('dialog'),action=d.getByLabel('Action guidée',{exact:true});
+ await action.selectOption('field');await d.getByLabel('Activité concernée',{exact:true}).selectOption('b');await d.getByLabel('Champ à modifier',{exact:true}).selectOption('address');await d.getByLabel('Nouvelle valeur',{exact:true}).fill('Adresse explicite');await d.getByRole('button',{name:'Prévisualiser cette action',exact:true}).click();await expect(d.locator('.assistant-preview')).toContainText('Adresse explicite');await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await expect(d.locator('.assistant-preview')).toHaveCount(0);
+ await action.selectOption('move');await d.getByLabel('Activité concernée',{exact:true}).selectOption('a');await d.getByLabel('Journée de destination',{exact:true}).selectOption('spare');await d.getByRole('button',{name:'Prévisualiser cette action',exact:true}).click();await expect(d.getByRole('alert')).toContainText('réservée');
+ await d.getByLabel('Activité concernée',{exact:true}).selectOption('short');await d.getByLabel('Journée de destination',{exact:true}).selectOption('d');await d.getByRole('button',{name:'Prévisualiser cette action',exact:true}).click();await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await expect(d.locator('.assistant-preview')).toHaveCount(0);
+ await action.selectOption('lighten');await d.getByLabel('Journée à alléger',{exact:true}).selectOption('d');await d.getByLabel('Nom de l’alternative',{exact:true}).fill('Repos choisi');await expect(d.getByRole('checkbox',{name:'Musée · À conserver',exact:true})).toBeDisabled();await d.getByRole('button',{name:'Prévisualiser cette action',exact:true}).click();await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await expect(d.locator('.assistant-preview')).toHaveCount(0);
+ const saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state,key);expect(saved.cities[0].days[0].steps.at(-1).id).toBe('short');expect(saved.cities[0].days[1].steps).toHaveLength(1);expect(saved.cities[0].days[0].steps[2].address).toBe('Adresse explicite');expect(saved.cities[0].days[0].preparation.alternatives).toHaveLength(2);expect(saved.notes.a).toBe('PRIVATE_REF');
+ await page.keyboard.press('Escape');const download=page.waitForEvent('download');await page.getByRole('button',{name:'Exporter le carnet',exact:true}).click();const exported=parseTrip(await readFile((await (await download).path())!,'utf8'));expect(exported.state.cities).toEqual(saved.cities);
+ await page.reload();await page.getByRole('button',{name:'Assistant du carnet',exact:true}).click();await expect(d.getByRole('button',{name:'Prévisualiser l’annulation',exact:true})).toHaveCount(0);
+});
+test('concurrent revision blocks application and undo, preserving the other tab',async({page,context})=>{
+ await seed(page);await proposeNote(page);const d=page.getByRole('dialog'),other=await context.newPage();await other.goto('/');
+ const change=async(text:string)=>{await other.evaluate(({key,text})=>{const s=JSON.parse(localStorage.getItem(key)!);s.state.notes.a=text;localStorage.setItem(key,JSON.stringify(s));},{key,text});};
+ await change('Other tab 1');await expect(d.getByRole('button',{name:'Confirmer cette action',exact:true})).toBeDisabled();await d.getByRole('button',{name:'Annuler',exact:true}).click();await proposeNote(page);await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await expect(d.locator('.assistant-preview')).toHaveCount(0);
+ await change('Other tab 2');await d.getByRole('button',{name:'Prévisualiser l’annulation',exact:true}).click();await expect(d.getByRole('button',{name:'Confirmer cette action',exact:true})).toBeDisabled();expect(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state.notes.a,key)).toBe('Other tab 2');await other.close();
+});
+for(const stage of ['before','after'] as const)test('storage '+stage+' failure keeps explicit retry idempotent',async({page})=>{
+ await seed(page);await proposeNote(page,'Une seule note');await page.evaluate(({key,stage})=>{const original=Storage.prototype.setItem;let once=true;Storage.prototype.setItem=function(k,v){if(k===key&&once){once=false;if(stage==='after')original.call(this,k,v);throw new DOMException('fixture quota','QuotaExceededError');}original.call(this,k,v);};},{key,stage});
+ const d=page.getByRole('dialog');await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await expect(d.getByRole('alert')).toContainText('Écriture non confirmée');await expect(d.locator('.assistant-preview')).toBeVisible();await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await expect(d.locator('.assistant-preview')).toHaveCount(0);expect(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state.notes.b,key)).toBe('Une seule note');
+});
+for(const role of ['reader','editor'] as const)test('shared '+role+' controls, revoked rights are rechecked at commit',async({page,context})=>{
+ await context.route('https://*.supabase.co/**',r=>r.fulfill({status:401,json:{message:'fixture'}}));await page.goto('/');const id='00000000-0000-4000-8000-000000000077',physical=`detours-account-v1:${id}:${key}`;
+ await page.evaluate(({id,key,raw,hint,role})=>{localStorage.setItem(hint,JSON.stringify({version:1,id}));localStorage.setItem(`detours-account-v1:${id}:${key}`,JSON.stringify({version:1,raw,base:null,revision:1,privateRevision:0,pending:false,operation:'fixture',role,fullSharing:true,allowedFields:['preparation']}));},{id,key,raw:JSON.stringify(archive(trip)),hint:ACCOUNT_HINT_KEY,role});await page.reload();await page.getByRole('button',{name:'Ouvrir '+trip.journey!.title,exact:true}).click();await page.getByRole('button',{name:'Assistant du carnet',exact:true}).click();await proposeNote(page);
+ const d=page.getByRole('dialog');await expect(d.getByRole('button',{name:'Confirmer cette action',exact:true})).toBeDisabled();await d.getByRole('button',{name:'Annuler',exact:true}).click();
+ await d.getByLabel('Action guidée',{exact:true}).selectOption('field');await d.getByLabel('Activité concernée',{exact:true}).selectOption('b');await d.getByLabel('Nouvelle valeur',{exact:true}).fill('Change');await d.getByRole('button',{name:'Prévisualiser cette action',exact:true}).click();
+ if(role==='reader')await expect(d.getByRole('button',{name:'Confirmer cette action',exact:true})).toBeDisabled();
+ else {await page.evaluate(physical=>{const r=JSON.parse(localStorage.getItem(physical)!);r.role='reader';localStorage.setItem(physical,JSON.stringify(r));},physical);await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await expect(d.getByRole('alert')).toContainText('droits ont changé');}
+ expect(await page.evaluate(physical=>JSON.parse(JSON.parse(localStorage.getItem(physical)!).raw).state.cities[0].days[0].steps[2].description,physical)).toBe('');
+});
+test('closing a pending action cancels its late lock callback without writing',async({page,context})=>{
+ await seed(page);await proposeNote(page);const other=await context.newPage();await other.goto('/');
+ await other.evaluate(key=>new Promise<void>(acquired=>{void navigator.locks.request(key,()=>{acquired();return new Promise<void>(resolve=>{(window as unknown as {release:()=>void}).release=resolve;});});}),key);
+ await page.getByRole('dialog').getByRole('button',{name:'Confirmer cette action',exact:true}).click();await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).toHaveCount(0);
+ await other.evaluate(()=>(window as unknown as {release:()=>void}).release());await page.getByRole('button',{name:'Assistant du carnet',exact:true}).click();await proposeNote(page,'After cancellation');await page.getByRole('dialog').getByRole('button',{name:'Confirmer cette action',exact:true}).click();await expect(page.getByRole('dialog').locator('.assistant-preview')).toHaveCount(0);
+ expect(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state.notes.b,key)).toBe('After cancellation');await other.close();
+});
+test('ambiguous tomorrow near midnight requires an explicit dated destination',async({page})=>{
+ await page.clock.setFixedTime(new Date('2027-05-10T15:59:59Z'));await seed(page);await page.evaluate(key=>{const a=JSON.parse(localStorage.getItem(key)!);a.state.cities[0].days[0].date='2027-05-11';localStorage.setItem(key,JSON.stringify(a));window.dispatchEvent(new StorageEvent('storage',{key,newValue:JSON.stringify(a)}));},key);
+ const d=page.getByRole('dialog');await d.getByLabel('Action guidée',{exact:true}).selectOption('move');await d.getByRole('button',{name:'Voir les journées de demain',exact:true}).click();const destination=d.getByLabel('Journée de destination',{exact:true});await expect(destination.locator('option')).toHaveCount(3);await expect(destination).toHaveValue('');await expect(destination).toContainText('Asia/Shanghai');
+ await page.clock.setFixedTime(new Date('2027-05-10T16:00:00Z'));await d.getByRole('button',{name:'Voir les journées de demain',exact:true}).click();await expect(destination.locator('option')).toHaveCount(1);await expect(d).toContainText('Aucune journée datée ne correspond.');
+});
+test('account switch while waiting for lock clears session and rejects late action',async({page,context})=>{
+ await context.route('https://*.supabase.co/**',r=>r.fulfill({status:401,json:{message:'fixture'}}));await seed(page);await proposeNote(page,'Never write');const other=await context.newPage();await other.goto('/');
+ await other.evaluate(key=>new Promise<void>(acquired=>{void navigator.locks.request(key,()=>{acquired();return new Promise<void>(resolve=>{(window as unknown as {release:()=>void}).release=resolve;});});}),key);
+ await page.getByRole('dialog').getByRole('button',{name:'Confirmer cette action',exact:true}).click();const id='00000000-0000-4000-8000-000000000078';await other.evaluate(({hint,id,key,raw})=>{localStorage.setItem(`detours-account-v1:${id}:${key}`,JSON.stringify({version:1,raw,base:null,revision:1,privateRevision:0,pending:false,operation:'fixture',role:'owner'}));localStorage.setItem(hint,JSON.stringify({version:1,id}));},{hint:ACCOUNT_HINT_KEY,id,key,raw:JSON.stringify(archive(trip))});
+ await expect(page.getByRole('dialog')).toHaveCount(0);await other.evaluate(()=>(window as unknown as {release:()=>void}).release());await page.getByRole('button',{name:'Ouvrir '+trip.journey!.title,exact:true}).click();await page.getByRole('button',{name:'Assistant du carnet',exact:true}).click();await expect(page.getByRole('dialog').getByLabel('Texte à ajouter',{exact:true})).toHaveValue('');
+ expect(await page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state.notes.b||'',key)).toBe('');expect(await page.evaluate(({id,key})=>JSON.parse(JSON.parse(localStorage.getItem(`detours-account-v1:${id}:${key}`)!).raw).state.notes.b||'',{id,key})).toBe('');await other.close();
+});
+test('revision arriving during pending lock is preserved and refreshed for a new preview',async({page,context})=>{
+ await seed(page);await proposeNote(page,'Retried after conflict');const other=await context.newPage();await other.goto('/');
+ await other.evaluate(key=>new Promise<void>(acquired=>{void navigator.locks.request(key,()=>{acquired();return new Promise<void>(resolve=>{(window as unknown as {release:()=>void}).release=resolve;});});}),key);
+ const d=page.getByRole('dialog');await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await other.evaluate(key=>{const a=JSON.parse(localStorage.getItem(key)!);a.state.notes.a='Written while waiting';localStorage.setItem(key,JSON.stringify(a));(window as unknown as {release:()=>void}).release();},key);
+ await expect(d.getByRole('alert')).toContainText('droits ont changé');await d.getByRole('button',{name:'Annuler',exact:true}).click();await proposeNote(page,'Retried after conflict');await d.getByRole('button',{name:'Confirmer cette action',exact:true}).click();await expect(d.locator('.assistant-preview')).toHaveCount(0);const saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)!).state,key);expect(saved.notes.a).toBe('Written while waiting');expect(saved.notes.b).toBe('Retried after conflict');await other.close();
+});

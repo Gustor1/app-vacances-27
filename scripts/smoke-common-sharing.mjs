@@ -55,7 +55,7 @@ async function profile(id,seed=false,intent=false){
 }
 async function nav(page,label){const menu=page.getByRole('button',{name:'Ouvrir le menu',exact:true});if(await menu.isVisible())await menu.click();await page.getByRole('button',{name:label,exact:true}).click();}
 async function sync(page){await page.getByRole('button',{name:'Mon compte',exact:true}).click();await page.getByRole('group',{name:'Actions du compte'}).getByRole('button',{name:'Synchroniser maintenant',exact:true}).click();}
-async function layout(page,selector){assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'no page overflow');for(const box of await page.locator(selector).evaluateAll(nodes=>nodes.filter(el=>el.getClientRects().length).map(el=>{const r=el.getBoundingClientRect();return {x:r.x,right:r.right,width:r.width};})))assert.ok(box.width>0&&box.x>=0&&box.right<=await page.evaluate(()=>innerWidth)+1,selector+' fits viewport');}
+async function layout(page,selector){await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),{message:'no page overflow after viewport layout settles'}).toBe(true);for(const box of await page.locator(selector).evaluateAll(nodes=>nodes.filter(el=>el.getClientRects().length).map(el=>{const r=el.getBoundingClientRect();return {x:r.x,right:r.right,width:r.width};})))assert.ok(box.width>0&&box.x>=0&&box.right<=await page.evaluate(()=>innerWidth)+1,selector+' fits viewport');}
 async function share(page){await page.getByRole('button',{name:'Partager',exact:true}).click();await page.getByRole('dialog',{name:'Partager et historique'}).waitFor();}
 try{
  await mkdir('docs/sync/screenshots',{recursive:true});

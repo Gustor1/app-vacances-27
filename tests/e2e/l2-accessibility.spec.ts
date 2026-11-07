@@ -4,7 +4,7 @@ import { PREFERENCES_KEY, translate, localeFor, type Language } from '../../src/
 
 for (const language of ['fr', 'en', 'zh-CN', 'es'] as Language[]) {
   test(`accueil ${language} : onglets, clavier, focus et date civile dans un fuseau occidental`, async ({ browser }) => {
-    const context = await browser.newContext({ baseURL: 'http://127.0.0.1:5173', timezoneId: 'America/Los_Angeles', viewport: { width: 320, height: 1000 }, reducedMotion: 'reduce' });
+    const context = await browser.newContext({ baseURL: String(test.info().project.use.baseURL), timezoneId: 'America/Los_Angeles', viewport: { width: 320, height: 1000 }, reducedMotion: 'reduce' });
     try {
       const page = await context.newPage();
       await page.goto('/');
@@ -34,7 +34,7 @@ for (const language of ['fr', 'en', 'zh-CN', 'es'] as Language[]) {
       await trips.focus(); await page.keyboard.press('Enter'); await expect(trips).toHaveAttribute('aria-selected', 'true');
       const tripPanel = page.getByRole('tabpanel', { name: translate('Mes voyages', language), exact: true });
       await expect(tripPanel).toBeVisible();
-      const date = tripPanel.locator('time[datetime="2027-05-01"]');
+      const date = tripPanel.locator('.journey-details time[datetime="2027-05-01"]');
       const expected = new Intl.DateTimeFormat(localeFor(language), { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' }).format(new Date('2027-05-01T00:00:00Z'));
       await expect(date).toHaveText(expected);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

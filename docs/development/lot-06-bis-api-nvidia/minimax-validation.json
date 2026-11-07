@@ -1,0 +1,135 @@
+{
+  "status": "real-minimax-evaluation-finished-with-two-429-cases",
+  "model": "minimaxai/minimax-m3.1-flash",
+  "unitTests": {
+    "passed": 304,
+    "failed": 0,
+    "log": "minimax-unit-tests.log"
+  },
+  "targetedNvidia": {
+    "passed": 34,
+    "failed": 0,
+    "log": "minimax-targeted-tests.log"
+  },
+  "analysisTests": {
+    "passed": 2,
+    "failed": 0,
+    "log": "minimax-analysis-tests.log"
+  },
+  "typecheck": {
+    "exitCode": 0,
+    "log": "minimax-typecheck.log"
+  },
+  "lint": {
+    "exitCode": 0,
+    "log": "minimax-lint.log"
+  },
+  "explicitLint": {
+    "exitCode": 0,
+    "log": "minimax-explicit-lint.log"
+  },
+  "browserReplayedThisPhase": false,
+  "previousBrowserScenarios": 7,
+  "live": {
+    "attempts": 12,
+    "responses": 10,
+    "errors": [
+      {
+        "id": "es-prose",
+        "code": "rate-limit",
+        "status": 429,
+        "retryAfterSeconds": null,
+        "latencyMs": 72.85979999999836,
+        "requestBytes": 15462,
+        "provider": null
+      },
+      {
+        "id": "injection",
+        "code": "rate-limit",
+        "status": 429,
+        "retryAfterSeconds": null,
+        "latencyMs": 78.87999999999738,
+        "requestBytes": 15552,
+        "provider": null
+      }
+    ],
+    "notAttempted": [],
+    "raw": {
+      "summary": {
+        "cases": 10,
+        "passed": 10,
+        "rejected": 0,
+        "expectedItems": 27,
+        "separateItems": 27,
+        "assignedItems": 27,
+        "omissions": 0,
+        "fieldErrors": 0,
+        "falseBookings": 0,
+        "inventedCoordinates": 0,
+        "unexpectedDates": 0,
+        "unexpectedTimes": 0,
+        "alternativeErrors": 0
+      },
+      "expectedItemsInRespondedCases": 27,
+      "expectedItemsFullCorpus": 31,
+      "limit": "Raw title-anchor metrics exclude transport failures; not a proof of every generated field."
+    },
+    "accepted": {
+      "cases": 12,
+      "passed": 6,
+      "rejected": 6,
+      "expectedItems": 31,
+      "separateItems": 17,
+      "assignedItems": 17,
+      "omissions": 14,
+      "fieldErrors": 0,
+      "falseBookings": 0,
+      "inventedCoordinates": 0,
+      "unexpectedDates": 0,
+      "unexpectedTimes": 0,
+      "alternativeErrors": 0,
+      "jsonValid": 10,
+      "contractValid": 10,
+      "sourceIssues": 7,
+      "expectedNotePassages": 1,
+      "preservedNotePassages": 0
+    },
+    "latencyMs": {
+      "count": 10,
+      "min": 5450.8667,
+      "median": 6881.736750000001,
+      "max": 40736.5636
+    },
+    "tokens": {
+      "responsesWithCounters": 10,
+      "attemptsWithoutCounters": 2,
+      "observed": {
+        "prompt_tokens": 34330,
+        "completion_tokens": 10639,
+        "total_tokens": 44969
+      }
+    }
+  },
+  "criteria": {
+    "allCasesReceived": false,
+    "noAcceptedRegression": false,
+    "assignmentGain": false,
+    "omissionsDecreased": false,
+    "medianUnder20Seconds": true,
+    "allSafetyCasesResponded": false,
+    "noNewSafetyBookingsOrCoordinates": false
+  },
+  "decision": "benchmark-only-no-ui",
+  "key": {
+    "storedInIgnoredEnvFile": true,
+    "valueNotRecorded": true,
+    "nonIgnoredSecretScanPassed": true,
+    "rotationRequiredBecausePastedInChat": true
+  },
+  "appOrServerChanged": false,
+  "gateExecuted": false,
+  "physicalDeviceTested": false,
+  "published": false,
+  "activeBenchmarkProcesses": 0,
+  "analysisSha256": "f6f763e30165f9bd5779566316807baff77f033ffdc03dea2c8f4df46d047f11"
+}

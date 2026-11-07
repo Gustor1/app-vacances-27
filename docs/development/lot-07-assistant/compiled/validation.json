@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "generatedAt": "2026-10-23T11:31:36.724Z",
+  "offlineReload": true,
+  "actualMutation": true,
+  "noDoubleNote": true,
+  "sessionClearedOnReload": true,
+  "exportAndImportCopy": true,
+  "bootstrapExternal": [
+    "https://c.tile.openstreetmap.org/2/1/1.png",
+    "https://a.tile.openstreetmap.org/2/2/1.png",
+    "https://a.tile.openstreetmap.org/2/1/2.png",
+    "https://b.tile.openstreetmap.org/2/2/2.png"
+  ],
+  "restoreBootstrapExternal": [
+    "https://c.tile.openstreetmap.org/2/1/1.png",
+    "https://a.tile.openstreetmap.org/2/2/1.png",
+    "https://a.tile.openstreetmap.org/2/1/2.png",
+    "https://b.tile.openstreetmap.org/2/2/2.png"
+  ],
+  "firstAssistantExternal": [],
+  "assistantExternal": [],
+  "errors": []
+}

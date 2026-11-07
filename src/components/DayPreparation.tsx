@@ -6,11 +6,14 @@ import { useLocale } from '../i18n';
 import { EditButton, EditInput, EditSelect } from './EditControls';
 import './DayPreparation.css';
 
-type Props = { day: Day; bookings: string[]; onSave: (base: Day, preparation: DayPreparation) => void };
+type Props = { day: Day; bookings: string[]; onSave: (base: Day, preparation: DayPreparation, guard?: boolean) => void };
 export default function DayPreparationPanel({ day, bookings, onSave }: Props) {
   const { t }=useLocale();
   const [editing,setEditing]=useState(false),[adding,setAdding]=useState(false),[compare,setCompare]=useState(''),[error,setError]=useState('');
   const [editBase,setEditBase]=useState(day);
+  const [comparisonBase,setComparisonBase]=useState(day);
+  const [adoption,setAdoption]=useState<{id:string;previous?:string}|null>(null);
+  const stale=JSON.stringify(comparisonBase)!==JSON.stringify(day);
   const formP=editBase.preparation||{},formSteps=activeSteps(editBase);
   const p=day.preparation||{},analysis=analyzeDay(day),selected=p.alternatives?.find(a=>a.id===compare);
   const label=p.alternatives?.find(a=>a.id===p.activeAlternativeId)?.label;
@@ -27,7 +30,7 @@ export default function DayPreparationPanel({ day, bookings, onSave }: Props) {
     const alternative={id:uid('alternative'),label:String(data.get('label')||'').trim(),reason:data.get('reason')==='rain'?'rain' as const:'fatigue' as const,stepIds:editBase.steps.filter((_,index)=>data.get('step-'+index)==='on').map(step=>step.id)};
     const next={...formP,alternatives:[...(formP.alternatives||[]),alternative]};
     if(!validPreparation(next,editBase.steps)){setError(t('Choisis au moins une activité et un nom ; huit alternatives maximum.'));return;}
-    onSave(editBase,next);setAdding(false);setCompare(alternative.id);setError('');
+    onSave(editBase,next);setAdding(false);setCompare(alternative.id);setComparisonBase({...editBase,preparation:next});setError('');
   }
   const summary=(id?:string)=>{
     const a=analyzeDay(day,id||'original');
@@ -57,8 +60,8 @@ export default function DayPreparationPanel({ day, bookings, onSave }: Props) {
         <div className="form-actions"><button type="button" className="btn btn-secondary" onClick={()=>{setEditing(false);setError('');}}>{t('Annuler')}</button><EditButton className="btn btn-primary" type="submit">{t('Enregistrer la préparation')}</EditButton></div>
       </form>}
       <div className="day-timing-sources">{day.steps.filter(step=>p.timings?.[step.id]?.source||p.timings?.[step.id]?.checkedAt).map(step=>{const timing=p.timings![step.id];return <p key={step.id}><strong>{step.title}</strong> : {safeExternalUrl(timing.source)?<a href={safeExternalUrl(timing.source)} target="_blank" rel="noopener noreferrer">{timing.source}</a>:timing.source||t('Source non renseignée')} · {timing.checkedAt||t('Date de vérification non renseignée')}</p>;})}</div>
-      <h3>{t('Plan pluie ou fatigue')}</h3><p className="muted small">{t('Une alternative utilise les activités déjà saisies. Ajoute une option au planning si nécessaire. Le plan initial, les billets et les dépenses sont conservés.')}</p>
-      {(p.alternatives||[]).map(a=><div className="day-alternative-row" key={a.id}><span>{a.label} · {t(a.reason==='rain'?'Pluie':'Fatigue')}{p.activeAlternativeId===a.id?' · '+t('Plan actif'):''}</span><button className="btn btn-secondary" onClick={()=>setCompare(a.id)}>{t('Comparer {name}',{name:a.label})}</button></div>)}
+      <h3>{t('Plan pluie ou fatigue')}</h3><p className="muted small">{t('Étiquette toi-même une alternative couverte ou moins fatigante dans son nom. Aucune météo ni fatigue ne sont déduites.')}</p><p className="muted small">{t('Une alternative utilise les activités déjà saisies. Ajoute une option au planning si nécessaire. Le plan initial, les billets et les dépenses sont conservés.')}</p>
+      {(p.alternatives||[]).map(a=><div className="day-alternative-row" key={a.id}><span>{a.label} · {t(a.reason==='rain'?'Pluie':'Fatigue')}{p.activeAlternativeId===a.id?' · '+t('Plan actif'):''}</span><button className="btn btn-secondary" onClick={()=>{setCompare(a.id);setComparisonBase(day);}}>{t('Comparer {name}',{name:a.label})}</button></div>)}
       {!adding&&<EditButton className="btn btn-secondary" disabled={!day.steps.length||(p.alternatives?.length||0)>=8} onClick={()=>{setEditBase(day);setAdding(true);}}>{t('Créer une alternative')}</EditButton>}
       {adding&&<form className="day-alternative-form" onSubmit={saveAlternative}>
         <label className="field">{t('Nom de l’alternative')}<EditInput name="label" required maxLength={100}/></label><label className="field">{t('Pour quelle situation ?')}<EditSelect aria-label={t('Pour quelle situation ?')} name="reason"><option value="rain">{t('Pluie')}</option><option value="fatigue">{t('Fatigue')}</option></EditSelect></label>
@@ -68,8 +71,9 @@ export default function DayPreparationPanel({ day, bookings, onSave }: Props) {
       {selected&&<div className="day-alternative-comparison"><div><h4>{t('Plan initial')}</h4><ol>{day.steps.map(step=><li key={step.id}>{step.title}</li>)}</ol>{summary()}</div>
         <div><h4>{selected.label}</h4><ol>{selected.stepIds.map(id=><li key={id}>{day.steps.find(s=>s.id===id)?.title}</li>)}</ol>{summary(selected.id)}
           {day.steps.some(step=>bookings.includes(step.id)&&!selected.stepIds.includes(step.id))&&<p role="status">{t('Cette alternative laisse de côté une activité réservée. Le billet reste confirmé : vérifie toi-même son changement ou son annulation.')}</p>}
-          <EditButton className="btn btn-primary" onClick={()=>{onSave(day,{...p,activeAlternativeId:selected.id});setCompare('');}}>{t('Adopter cette alternative')}</EditButton><button className="btn btn-secondary" onClick={()=>setCompare('')}>{t('Fermer la comparaison')}</button>
+          {stale&&<p role="status">{t('La journée a changé. Actualise la comparaison avant de confirmer.')}</p>}{stale&&<button className="btn btn-secondary" onClick={()=>setComparisonBase(day)}>{t('Actualiser la comparaison')}</button>}<EditButton className="btn btn-primary" disabled={stale} onClick={()=>{onSave(comparisonBase,{...p,activeAlternativeId:selected.id},true);setAdoption({id:selected.id,previous:p.activeAlternativeId});setCompare('');}}>{t('Adopter cette alternative')}</EditButton><button className="btn btn-secondary" onClick={()=>setCompare('')}>{t('Fermer la comparaison')}</button>
         </div></div>}
+      {adoption&&p.activeAlternativeId===adoption.id&&<EditButton className="btn btn-secondary" onClick={()=>{onSave(day,{...p,activeAlternativeId:adoption.previous},true);setAdoption(null);}}>{t('Annuler cet échange')}</EditButton>}
       {p.activeAlternativeId&&<EditButton className="btn btn-secondary" onClick={()=>onSave(day,{...p,activeAlternativeId:undefined})}>{t('Revenir au plan initial')}</EditButton>}
       {error&&<p role="alert">{error}</p>}
     </div></details>;

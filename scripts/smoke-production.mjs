@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdir } from 'node:fs/promises';
 import { productionTestServer } from './production-server.mjs';
 import { checkServedBuild } from './build-identity.mjs';
-import { chromium } from '@playwright/test';
+import { chromium, expect } from '@playwright/test';
 import { translate } from '../src/locale-utils.ts';
 
 if (process.env.PRODUCTION_TEST_URL && process.env.DETOURS_ALLOW_NETWORK !== '1') {
@@ -16,20 +16,30 @@ const browser = await chromium.launch(chromiumTestOptions()).catch(async error =
 await mkdir('docs/transition/screenshots',{recursive:true});
 try {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
-  const page = await context.newPage();
+  let page = await context.newPage();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(process.env.PRODUCTION_TEST_URL || server.url);
   const build = await checkServedBuild(page);
   console.log(`Served build verified: ${build.id}`);
   await page.getByRole('button',{name:'Ajouter l’exemple Chine',exact:true}).click();
-  await page.getByRole('heading', { name: 'Un grand voyage, de beaux détours.' }).waitFor();
+  await page.getByRole('heading', { name: 'Mon planning' }).waitFor();
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
   if(server) {
     assert.ok(await page.evaluate(async()=> (await caches.keys()).includes('a-l-est-previous-test')));
     server.update();
     await page.evaluate(async()=>{const registration=await navigator.serviceWorker.getRegistration();await registration.update();});
+    await page.waitForFunction(async () => !!(await navigator.serviceWorker.getRegistration())?.waiting);
+    assert.ok(await page.evaluate(async () => (await caches.keys()).includes('a-l-est-previous-test')), 'Old cache must survive while its window is open');
+    await page.close();
+    // Reopening immediately can create another client of the old worker before
+    // its asynchronous activation task runs. Observe the worker with no windows.
+    await expect.poll(async () => (await Promise.all(context.serviceWorkers().map(worker => worker.evaluate(async () => !(await caches.keys()).includes('a-l-est-previous-test')).catch(() => false)))).some(Boolean), { timeout: 15000 }).toBe(true);
+    page = await context.newPage();
+    page.on('pageerror', error => errors.push(error.message));
+    await page.goto(server.url);
+    await page.getByRole('button', { name: 'Ouvrir Chine 2027', exact: true }).click();
     await page.evaluate(async()=>{
       for(let attempt=0;attempt<150;attempt++) {
         const names=await caches.keys();
@@ -61,7 +71,7 @@ try {
   await context.setOffline(true);
   await page.getByText('Tu es hors ligne.', { exact: false }).waitFor();
   await page.reload();
-  await page.getByRole('heading', { name: 'Un grand voyage, de beaux détours.' }).waitFor();
+  await page.getByRole('heading', { name: 'Mon planning' }).waitFor();
   assert.equal(await page.evaluate(async () => { try { await fetch('/__uncached_offline_probe'); return false; } catch { return true; } }), true, 'Uncached network requests must fail in offline mode');
   await page.getByLabel('Ma note pour Shenzhen').fill('Note conservée hors ligne');
   await page.reload();
@@ -79,8 +89,10 @@ try {
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   await page.screenshot({ path: 'docs/transition/screenshots/production-china-mobile.png', fullPage: true });
   await page.getByRole('button', { name: 'Préférences', exact: true }).click();
-  await page.getByRole('dialog').getByRole('radio', { name: 'Sombre', exact: true }).check();
-  await page.getByRole('dialog').getByRole('radio', { name: 'English', exact: true }).check();
+  await page.getByRole('dialog').locator('label').filter({ has: page.getByRole('radio', { name: 'Sombre', exact: true }) }).click();
+  assert.equal(await page.getByRole('dialog').getByRole('radio', { name: 'Sombre', exact: true }).isChecked(), true);
+  await page.getByRole('dialog').locator('label').filter({ has: page.getByRole('radio', { name: 'English', exact: true }) }).click();
+  assert.equal(await page.getByRole('dialog').getByRole('radio', { name: 'English', exact: true }).isChecked(), true);
   await page.keyboard.press('Escape');
   await page.reload();
   assert.equal(await page.locator('html').getAttribute('lang'), 'en');
@@ -122,7 +134,8 @@ try {
   for (const [language, label] of [['zh-CN', '中文（简体）'], ['es', 'Español']]) {
     const t = source => translate(source, language);
     await page.getByRole('button', { name: preferenceLabel, exact: true }).click();
-    await page.getByRole('dialog').getByRole('radio', { name: label, exact: true }).check();
+    await page.getByRole('dialog').locator('label').filter({ has: page.getByRole('radio', { name: label, exact: true }) }).click();
+  assert.equal(await page.getByRole('dialog').getByRole('radio', { name: label, exact: true }).isChecked(), true);
     await page.keyboard.press('Escape');
     await page.reload();
     assert.equal(await page.locator('html').getAttribute('lang'), language);

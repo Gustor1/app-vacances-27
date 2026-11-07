@@ -28,8 +28,12 @@ Application de carnets de voyage React 19 / TypeScript / Vite / Leaflet. Lire `R
 Node.js >= 22.18, npm ; installation par `npm ci`.
 
 - Développement : `npm run dev`.
-- Contrôles ciblés : `npm test`, `npm run typecheck`, `npm run lint`.
-- Avant une livraison de code : `npm run verify:local`, avec PGlite installé hors dépôt et `DETOURS_PGLITE_PATH` configuré (voir le guide). Le port 5173 doit être libre. Le gate valide un backend simulé et s'arrête au premier échec.
+- Choisir les contrôles selon le risque et les fichiers réellement modifiés. Ne pas lancer une batterie complète à chaque tâche ou itération.
+- Pour du CSS, de la mise en page ou des ajustements visuels sans changement de comportement : privilégier la revue des écrans touchés sur desktop/mobile, et le clavier si pertinent. Exécuter seulement les tests UI ciblés utiles ; ne pas lancer automatiquement les tests unitaires globaux, SQL, sauvegardes ou hors ligne.
+- Pour de la logique frontend ou du TypeScript : tests ciblés du comportement modifié, puis `npm run typecheck` et `npm run lint` si pertinents. `npm test` reste disponible lorsque le périmètre le justifie.
+- Après un contrôle réussi, ne le répéter que si une modification ultérieure invalide son résultat, ou si un échec ou un doute concret le nécessite. Regrouper les vérifications à la fin d'un ensemble cohérent de changements.
+- Le gate complet `npm run verify:local` est réservé aux changements transversaux à risque (persistance, migrations, sauvegardes, synchronisation), à la préparation d'une publication ou à une demande explicite de l'utilisateur. Il n'est pas une condition automatique pour terminer une tâche UI, créer un commit ou préparer une pull request.
+- Si le gate complet est nécessaire : PGlite installé hors dépôt et `DETOURS_PGLITE_PATH` configuré (voir le guide), port 5173 libre. Il valide un backend simulé et s'arrête au premier échec.
 - Rapporter les contrôles réellement exécutés, les échecs et les étapes non exécutées. Ne pas affirmer qu'un contrôle local valide OAuth ou des appareils réels.
 - Le gate remplace `dist/` par un build de test avec configuration factice : reconstruire avec la configuration de la cible pour publier.
 

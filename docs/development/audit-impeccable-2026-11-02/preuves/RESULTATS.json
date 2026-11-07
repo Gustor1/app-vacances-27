@@ -1,0 +1,1472 @@
+{
+  "generatedAt": "2026-11-01T20:04:05.782Z",
+  "scope": "current local source; disjoint completed E2E sets; no product/test assertion changes",
+  "unit": {
+    "passed": 336,
+    "failed": 0
+  },
+  "browser": {
+    "total": 249,
+    "passed": 244,
+    "failed": 5,
+    "skipped": 0,
+    "flaky": 0,
+    "cases": [
+      {
+        "location": "tests\\e2e\\apple-design.spec.ts:15:1",
+        "title": "a mobile sheet follows a drag, reverses without losing the draft, then dismisses on a flick",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\apple-design.spec.ts:44:1",
+        "title": "reduced motion uses a static sheet and retains all keyboard controls",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:16:62",
+        "title": "assistant fr search, safe sources, preview, actual note, undo, keyboard and mobile",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:16:62",
+        "title": "assistant en search, safe sources, preview, actual note, undo, keyboard and mobile",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:16:62",
+        "title": "assistant zh-CN search, safe sources, preview, actual note, undo, keyboard and mobile",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:16:62",
+        "title": "assistant es search, safe sources, preview, actual note, undo, keyboard and mobile",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:46:48",
+        "title": "storage before failure keeps explicit retry idempotent",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:46:48",
+        "title": "storage after failure keeps explicit retry idempotent",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:50:48",
+        "title": "shared reader controls, revoked rights are rechecked at commit",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:50:48",
+        "title": "shared editor controls, revoked rights are rechecked at commit",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:66:1",
+        "title": "ambiguous tomorrow near midnight requires an explicit dated destination",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:16:1",
+        "title": "deux onglets conservent des notes distinctes et une visite après rechargement",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\apple-design.spec.ts:3:1",
+        "title": "closing a sheet preserves keyboard navigation and an unsaved trip stays unsaved",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:30:1",
+        "title": "actual field, move and coherent lightened day retain original history and export",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:40:1",
+        "title": "concurrent revision blocks application and undo, preserving the other tab",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:59:1",
+        "title": "closing a pending action cancels its late lock callback without writing",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:71:1",
+        "title": "account switch while waiting for lock clears session and rejects late action",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\assistant.spec.ts:78:1",
+        "title": "revision arriving during pending lock is preserved and refreshed for a new preview",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:30:1",
+        "title": "sauvegarde corrompue télécharge exactement les octets originaux",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:39:1",
+        "title": "nouvelle ville sans coordonnées n’invente aucun repère",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:53:1",
+        "title": "budget garde les devises séparées puis convertit au taux manuel",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:75:1",
+        "title": "hébergement conserve nom chinois et adresse précise dans Amap",
+        "status": "failed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:89:1",
+        "title": "trajet garde référence billet et heures chinoises après rechargement",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:103:1",
+        "title": "valise coche un essentiel et garde une liste vide après suppression",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:117:1",
+        "title": "phrases chinoises s’agrandissent et se copient",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:127:1",
+        "title": "vue d’ensemble exporte seulement les journées explicitement datées",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:139:1",
+        "title": "adresse personnelle ajoutée au programme conserve sa recherche Amap",
+        "status": "failed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:154:1",
+        "title": "mobile Escape ferme le menu et les favoris ne volent pas le focus du dialogue",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\audit-features.spec.ts:170:1",
+        "title": "une nouvelle activité peut être ajoutée directement dans une autre journée",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\beta.spec.ts:10:1",
+        "title": "voyage multi-pays terminé, confirmation explicite, copie et suppression sans nouveau souvenir",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\beta.spec.ts:44:1",
+        "title": "ancien séjour indépendant, envie, palette et nouveau voyage prérempli",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\beta.spec.ts:65:1",
+        "title": "partage local sans notes sensibles ; menu de compte conforme à la configuration",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\beta.spec.ts:81:1",
+        "title": "Mon monde : mobile, clavier, quatre langues et thèmes sans débordement",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\beta.spec.ts:98:1",
+        "title": "souvenirs corrompus conservés et aucune visite ajoutée sur erreur",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\beta.spec.ts:108:1",
+        "title": "fin de voyage passée : proposition de clôture sans statut imposé",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\brand-palettes.spec.ts:19:1",
+        "title": "the rendered bird and its badge follow all 24 palettes without changing the notebook",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\brand-palettes.spec.ts:67:1",
+        "title": "palette-colored brand survives reload and reaches the notebook footer",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\budget-currencies.spec.ts:22:1",
+        "title": "devise suggérée reste modifiable, choix explicite pour plusieurs pays",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\budget-currencies.spec.ts:32:1",
+        "title": "taux daté figé par dépense, rechargement et conversion manquante",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\budget-currencies.spec.ts:48:1",
+        "title": "proposition Frankfurter datée et erreur réseau sans faux total",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\budget-currencies.spec.ts:60:1",
+        "title": "un ancien taux sans date ne convertit pas implicitement une nouvelle dépense",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\companion.spec.ts:12:1",
+        "title": "departure corrections, explicit requirements, versioned dismissal, restore and no optional-empty warnings",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\companion.spec.ts:21:63",
+        "title": "companion fr safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\companion.spec.ts:21:63",
+        "title": "companion en safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\companion.spec.ts:21:63",
+        "title": "companion zh-CN safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\companion.spec.ts:21:63",
+        "title": "companion es safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\companion.spec.ts:33:1",
+        "title": "concurrent edits invalidate idea and plan B previews and preserve notes, bookings and original history",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\companion.spec.ts:42:48",
+        "title": "companion shared reader permissions and private exclusions",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\companion.spec.ts:42:48",
+        "title": "companion shared editor permissions and private exclusions",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\floating-mascot.spec.ts:5:1",
+        "title": "animated companions: three characters, narrow hitbox, drag, preferences and real trip shortcuts",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\floating-mascot.spec.ts:53:1",
+        "title": "touch drag, cancellation, reduced motion and viewport resizing",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\floating-mascot.spec.ts:82:39",
+        "title": "companion and menu stay reachable at every edge (home)",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\floating-mascot.spec.ts:82:39",
+        "title": "companion and menu stay reachable at every edge (notebook)",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\fluid-navigation.spec.ts:4:3",
+        "title": "compact connection leaves space for search at 320px",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\fluid-navigation.spec.ts:4:3",
+        "title": "compact connection leaves space for search at 390px",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\fluid-navigation.spec.ts:4:3",
+        "title": "compact connection leaves space for search at 740px",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\fluid-navigation.spec.ts:4:3",
+        "title": "compact connection leaves space for search at 1000px",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\fluid-navigation.spec.ts:27:1",
+        "title": "glass selection travels between mobile buttons and can reverse before settling",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\fluid-navigation.spec.ts:64:1",
+        "title": "reduced motion places selection immediately and desktop navigation stays usable",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\fluid-navigation.spec.ts:81:1",
+        "title": "glass stays inside its dock when an animation starts after the frame timestamp",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\fluid-navigation.spec.ts:102:3",
+        "title": "glass bubble opens a bridge to Carte then closes on the selected button",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\fluid-navigation.spec.ts:102:3",
+        "title": "glass bubble opens a bridge to Bonus then closes on the selected button",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\fluid-navigation.spec.ts:134:1",
+        "title": "the sidebar bubble opens vertically and closes without displacing the buttons",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\full-backup.spec.ts:9:1",
+        "title": "export réel puis restauration vierge retrouve contenus, relations et documents ; réessai sans doublon",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\full-backup.spec.ts:65:1",
+        "title": "corruption et manque de quota préservent les données ; reprise explicite après interruption",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\full-backup.spec.ts:89:1",
+        "title": "collection réelle de plus de 5 Mo restaurée dans Chrome sans doubler le quota",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\full-backup.spec.ts:116:3",
+        "title": "bilan de sauvegarde fr : mobile, clavier et annulation sans écriture",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\full-backup.spec.ts:116:3",
+        "title": "bilan de sauvegarde en : mobile, clavier et annulation sans écriture",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\full-backup.spec.ts:116:3",
+        "title": "bilan de sauvegarde zh-CN : mobile, clavier et annulation sans écriture",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\full-backup.spec.ts:116:3",
+        "title": "bilan de sauvegarde es : mobile, clavier et annulation sans écriture",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\iphone-glass.spec.ts:5:1",
+        "title": "header fills the viewport and has no seam in both themes, before and after scrolling",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\iphone-glass.spec.ts:31:1",
+        "title": "a real touch opens and closes the glass bridge",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\journey.spec.ts:12:1",
+        "title": "naviguer entre villes et journées puis rechercher un lieu chinois",
+        "status": "failed"
+      },
+      {
+        "location": "tests\\e2e\\journey.spec.ts:30:1",
+        "title": "modifier une étape, la marquer visitée et retrouver les changements après rechargement",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\journey.spec.ts:43:1",
+        "title": "ajouter une ville, une journée et une étape avec son repère",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\journey.spec.ts:72:1",
+        "title": "garder un bonus favori puis l’ajouter au bon jour",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\journey.spec.ts:91:1",
+        "title": "enregistrer réservations, date et notes personnelles",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\journey.spec.ts:106:1",
+        "title": "exporter puis importer une copie indépendante sans remplacer le carnet courant",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\journey.spec.ts:129:1",
+        "title": "source corrompue récupérable et import dans un nouveau carnet sans l’écraser",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\journey.spec.ts:144:1",
+        "title": "utiliser le menu et les vues sur mobile sans débordement horizontal",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l2-accessibility.spec.ts:6:3",
+        "title": "accueil fr : onglets, clavier, focus et date civile dans un fuseau occidental",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l2-accessibility.spec.ts:6:3",
+        "title": "accueil en : onglets, clavier, focus et date civile dans un fuseau occidental",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l2-accessibility.spec.ts:6:3",
+        "title": "accueil zh-CN : onglets, clavier, focus et date civile dans un fuseau occidental",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l2-accessibility.spec.ts:6:3",
+        "title": "accueil es : onglets, clavier, focus et date civile dans un fuseau occidental",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l4-status.spec.ts:5:1",
+        "title": "compte sans session : file conservée, changement de compte isolé et échec local explicite",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:7:51",
+        "title": "cartes google : recherche distincte du trajet, modes et prochaine étape",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:7:51",
+        "title": "cartes amap : recherche distincte du trajet, modes et prochaine étape",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:36:35",
+        "title": "voyage CN : préférence personnelle Google par défaut",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:36:35",
+        "title": "voyage FR : préférence personnelle Google par défaut",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:49:5",
+        "title": "liens sans clé : fr, google, clavier, hors ligne et reflow",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:49:5",
+        "title": "liens sans clé : fr, amap, clavier, hors ligne et reflow",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:49:5",
+        "title": "liens sans clé : en, google, clavier, hors ligne et reflow",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:49:5",
+        "title": "liens sans clé : en, amap, clavier, hors ligne et reflow",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:49:5",
+        "title": "liens sans clé : zh-CN, google, clavier, hors ligne et reflow",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:49:5",
+        "title": "liens sans clé : zh-CN, amap, clavier, hors ligne et reflow",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:49:5",
+        "title": "liens sans clé : es, google, clavier, hors ligne et reflow",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-maps.spec.ts:49:5",
+        "title": "liens sans clé : es, amap, clavier, hors ligne et reflow",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-now.spec.ts:7:63",
+        "title": "Maintenant fr : deux actions, adresse locale, données du jour, clavier et dates",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-now.spec.ts:7:63",
+        "title": "Maintenant en : deux actions, adresse locale, données du jour, clavier et dates",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-now.spec.ts:7:63",
+        "title": "Maintenant zh-CN : deux actions, adresse locale, données du jour, clavier et dates",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l5-now.spec.ts:7:63",
+        "title": "Maintenant es : deux actions, adresse locale, données du jour, clavier et dates",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l6-preparation.spec.ts:7:52",
+        "title": "L6 urban : comparer, annuler, adopter et revenir sans perdre billets/dépenses",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l6-preparation.spec.ts:7:52",
+        "title": "L6 excursion : comparer, annuler, adopter et revenir sans perdre billets/dépenses",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l6-preparation.spec.ts:7:52",
+        "title": "L6 transfer : comparer, annuler, adopter et revenir sans perdre billets/dépenses",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l6-preparation.spec.ts:21:62",
+        "title": "L6 fr : saisie, inconnues, comparaison, clavier et 320px",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l6-preparation.spec.ts:21:62",
+        "title": "L6 en : saisie, inconnues, comparaison, clavier et 320px",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l6-preparation.spec.ts:21:62",
+        "title": "L6 zh-CN : saisie, inconnues, comparaison, clavier et 320px",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l6-preparation.spec.ts:21:62",
+        "title": "L6 es : saisie, inconnues, comparaison, clavier et 320px",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\l6-preparation.spec.ts:35:1",
+        "title": "L6 lecteur : comparaison disponible, adoption et formulaires bloqués",
+        "status": "passed"
+      },
+      {
+        "location": "tests\\e2e\\liquid-glass.spec.ts:4:3",
+        "title": "mobile glass dock stays compact, centred and touchable at 320px",
+        "status": "failed"
+      },
+      {
+        "title": "mobile glass dock stays compact, centred and touchable at 390px",
+        "location": "liquid-glass.spec.ts:4:3",
+        "status": "failed",
+        "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatch\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected pattern: \u001b[32m/, 0\\.96\\)$/\u001b[39m\nReceived string:  \u001b[31m\"rgba(247, 242, 233, 0.98)\"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate"
+      },
+      {
+        "title": "scroll glass changes its material without changing dock position or travel data",
+        "location": "liquid-glass.spec.ts:28:1",
+        "status": "passed"
+      },
+      {
+        "title": "increased contrast gives glass chrome a solid background",
+        "location": "liquid-glass.spec.ts:42:1",
+        "status": "passed"
+      },
+      {
+        "title": "convertisseur connecté et dépenses synchronisées en devise locale et personnelle, taux enregistrés conservés",
+        "location": "live-converter.spec.ts:10:1",
+        "status": "passed"
+      },
+      {
+        "title": "inversion, arrondis, montants invalides et changement de paire pendant une requête",
+        "location": "live-converter.spec.ts:25:1",
+        "status": "passed"
+      },
+      {
+        "title": "hors ligne : cache daté disponible et paire manquante signalée, reprise automatique",
+        "location": "live-converter.spec.ts:34:1",
+        "status": "passed"
+      },
+      {
+        "title": "choix personnel : Google par défaut, Amap dans toutes les vues, conservation après rechargement sans modifier le carnet",
+        "location": "map-preferences.spec.ts:25:1",
+        "status": "passed"
+      },
+      {
+        "title": "préférence entre onglets et sauvegarde refusée : choix actif mais échec annoncé",
+        "location": "map-preferences.spec.ts:46:1",
+        "status": "passed"
+      },
+      {
+        "title": "préférences des comptes A et B et du mode local isolées, sans envoi de carnet",
+        "location": "map-preferences.spec.ts:55:1",
+        "status": "passed"
+      },
+      {
+        "title": "mascot fr: genuine states, themes, widths, zoom, keyboard and accessible text",
+        "location": "mascot.spec.ts:17:64",
+        "status": "passed"
+      },
+      {
+        "title": "mascot en: genuine states, themes, widths, zoom, keyboard and accessible text",
+        "location": "mascot.spec.ts:17:64",
+        "status": "passed"
+      },
+      {
+        "title": "mascot zh-CN: genuine states, themes, widths, zoom, keyboard and accessible text",
+        "location": "mascot.spec.ts:17:64",
+        "status": "passed"
+      },
+      {
+        "title": "mascot es: genuine states, themes, widths, zoom, keyboard and accessible text",
+        "location": "mascot.spec.ts:17:64",
+        "status": "passed"
+      },
+      {
+        "title": "toggle is immediate, durable, keyboard accessible and leaves the import untouched",
+        "location": "mascot.spec.ts:51:1",
+        "status": "passed"
+      },
+      {
+        "title": "failed image and failed preference write leave all ordinary actions available",
+        "location": "mascot.spec.ts:68:1",
+        "status": "passed"
+      },
+      {
+        "title": "account switch resets personal visibility and welcome without touching another scope",
+        "location": "mascot.spec.ts:82:1",
+        "status": "passed"
+      },
+      {
+        "title": "installation vierge, voyages vides et première étape sans journée sur mobile",
+        "location": "multi-trip.spec.ts:27:1",
+        "status": "passed"
+      },
+      {
+        "title": "Chine, Japon et France restent isolés après notes, recherche, export et rechargement",
+        "location": "multi-trip.spec.ts:42:1",
+        "status": "passed"
+      },
+      {
+        "title": "duplication puis notes, activité, favoris et valise de la copie préservent l’original",
+        "location": "multi-trip.spec.ts:56:1",
+        "status": "passed"
+      },
+      {
+        "title": "deux onglets ouverts sur des carnets différents ne partagent aucune écriture",
+        "location": "multi-trip.spec.ts:69:1",
+        "status": "passed"
+      },
+      {
+        "title": "écriture en attente du carnet A après ouverture par import du carnet B",
+        "location": "multi-trip.spec.ts:78:1",
+        "status": "passed"
+      },
+      {
+        "title": "échec de sauvegarde exportable puis reprise sans perdre la modification précédente",
+        "location": "multi-trip.spec.ts:90:1",
+        "status": "passed"
+      },
+      {
+        "title": "deux onglets sur le même carnet, brouillon ouvert et changement distant conservé",
+        "location": "multi-trip.spec.ts:100:1",
+        "status": "passed"
+      },
+      {
+        "title": "nouvelle devise de référence préserve le budget et les montants originaux",
+        "location": "multi-trip.spec.ts:110:1",
+        "status": "passed"
+      },
+      {
+        "title": "document personnel répertorié, conservé et exporté uniquement dans son carnet",
+        "location": "multi-trip.spec.ts:118:1",
+        "status": "passed"
+      },
+      {
+        "title": "Reprendre retrouve la première activité restante de la ville sélectionnée",
+        "location": "navigation-shortcuts.spec.ts:3:1",
+        "status": "passed"
+      },
+      {
+        "title": "Aujourd’hui retrouve une journée datée en heure chinoise depuis une autre ville",
+        "location": "navigation-shortcuts.spec.ts:12:1",
+        "status": "passed"
+      },
+      {
+        "title": "the approved bird is loaded and selection menus use the softened light field surface",
+        "location": "palette-claire.spec.ts:7:1",
+        "status": "passed"
+      },
+      {
+        "title": "bootstrap resolves the palette before React, including an explicit dark preference",
+        "location": "palette-claire.spec.ts:24:1",
+        "status": "passed"
+      },
+      {
+        "title": "theme changes sync between tabs, follow system settings and preserve notebook data",
+        "location": "palette-claire.spec.ts:42:1",
+        "status": "passed"
+      },
+      {
+        "title": "rendered light surfaces, controls and composed translucent colors meet their contrast targets",
+        "location": "palette-claire.spec.ts:66:1",
+        "status": "passed"
+      },
+      {
+        "title": "light palette reflows preferences, form and import in fr, including zoom and landscape",
+        "location": "palette-claire.spec.ts:113:3",
+        "status": "passed"
+      },
+      {
+        "title": "light palette reflows preferences, form and import in en, including zoom and landscape",
+        "location": "palette-claire.spec.ts:113:3",
+        "status": "passed"
+      },
+      {
+        "title": "light palette reflows preferences, form and import in zh-CN, including zoom and landscape",
+        "location": "palette-claire.spec.ts:113:3",
+        "status": "passed"
+      },
+      {
+        "title": "light palette reflows preferences, form and import in es, including zoom and landscape",
+        "location": "palette-claire.spec.ts:113:3",
+        "status": "passed"
+      },
+      {
+        "title": "all twelve families apply both appearances, keep notebooks intact and remain usable at 390px",
+        "location": "palettes-personnalisees.spec.ts:17:1",
+        "status": "passed"
+      },
+      {
+        "title": "independent day/night choices survive reload, tab changes and legacy preference writes",
+        "location": "palettes-personnalisees.spec.ts:59:1",
+        "status": "passed"
+      },
+      {
+        "title": "palette saving throw: session choices work, failure is visible, notebooks and old settings are preserved",
+        "location": "palettes-personnalisees.spec.ts:78:3",
+        "status": "passed"
+      },
+      {
+        "title": "palette saving silent: session choices work, failure is visible, notebooks and old settings are preserved",
+        "location": "palettes-personnalisees.spec.ts:78:3",
+        "status": "passed"
+      },
+      {
+        "title": "unknown stored version is retained, defaults stay usable and changing language does not overwrite it",
+        "location": "palettes-personnalisees.spec.ts:97:1",
+        "status": "passed"
+      },
+      {
+        "title": "palette collection keyboard, narrow layout and 200% reflow in fr",
+        "location": "palettes-personnalisees.spec.ts:107:3",
+        "status": "passed"
+      },
+      {
+        "title": "palette collection keyboard, narrow layout and 200% reflow in en",
+        "location": "palettes-personnalisees.spec.ts:107:3",
+        "status": "passed"
+      },
+      {
+        "title": "palette collection keyboard, narrow layout and 200% reflow in zh-CN",
+        "location": "palettes-personnalisees.spec.ts:107:3",
+        "status": "passed"
+      },
+      {
+        "title": "palette collection keyboard, narrow layout and 200% reflow in es",
+        "location": "palettes-personnalisees.spec.ts:107:3",
+        "status": "passed"
+      },
+      {
+        "title": "automatic appearance follows the system while keeping both choices, including before React loads",
+        "location": "palettes-personnalisees.spec.ts:122:1",
+        "status": "passed"
+      },
+      {
+        "title": "explicit candidate/field confirmation, original correction, remote credits, export/restore and offline removal",
+        "location": "places.spec.ts:20:1",
+        "status": "passed"
+      },
+      {
+        "title": "places fr keyboard, reduced motion, 320px and 200% zoom",
+        "location": "places.spec.ts:40:62",
+        "status": "passed"
+      },
+      {
+        "title": "places en keyboard, reduced motion, 320px and 200% zoom",
+        "location": "places.spec.ts:40:62",
+        "status": "passed"
+      },
+      {
+        "title": "places zh-CN keyboard, reduced motion, 320px and 200% zoom",
+        "location": "places.spec.ts:40:62",
+        "status": "passed"
+      },
+      {
+        "title": "places es keyboard, reduced motion, 320px and 200% zoom",
+        "location": "places.spec.ts:40:62",
+        "status": "passed"
+      },
+      {
+        "title": "empty, malformed, 429, cancellation and late response after switching activity",
+        "location": "places.spec.ts:50:1",
+        "status": "passed"
+      },
+      {
+        "title": "a late entity response cannot associate a different notebook",
+        "location": "places.spec.ts:64:1",
+        "status": "passed"
+      },
+      {
+        "title": "places account reader respects role and keeps associations personal",
+        "location": "places.spec.ts:73:48",
+        "status": "passed"
+      },
+      {
+        "title": "places account editor respects role and keeps associations personal",
+        "location": "places.spec.ts:73:48",
+        "status": "passed"
+      },
+      {
+        "title": "PDF and DOCX binaries are reviewed locally; corrections and original extraction survive reload",
+        "location": "planning-documents.spec.ts:9:1",
+        "status": "passed"
+      },
+      {
+        "title": "protected, scanned, corrupt, false-extension and excessive binaries preserve the previous source",
+        "location": "planning-documents.spec.ts:33:1",
+        "status": "passed"
+      },
+      {
+        "title": "cancellation, timeout and a later file cannot overwrite a newer source",
+        "location": "planning-documents.spec.ts:47:1",
+        "status": "passed"
+      },
+      {
+        "title": "localized document review and static clipboard at 320px: fr",
+        "location": "planning-documents.spec.ts:68:4",
+        "status": "passed"
+      },
+      {
+        "title": "localized document review and static clipboard at 320px: en",
+        "location": "planning-documents.spec.ts:68:4",
+        "status": "passed"
+      },
+      {
+        "title": "localized document review and static clipboard at 320px: zh-CN",
+        "location": "planning-documents.spec.ts:68:4",
+        "status": "passed"
+      },
+      {
+        "title": "localized document review and static clipboard at 320px: es",
+        "location": "planning-documents.spec.ts:68:4",
+        "status": "passed"
+      },
+      {
+        "title": "manual source, corrections and new notebook survive reload without replacing an existing notebook",
+        "location": "planning-import.spec.ts:5:1",
+        "status": "passed"
+      },
+      {
+        "title": "ambiguous fixture keeps conflicts visible and exclusion permits creating a notebook",
+        "location": "planning-import.spec.ts:50:1",
+        "status": "passed"
+      },
+      {
+        "title": "review fits 320px and keyboard focus stays in dialog (fr)",
+        "location": "planning-import.spec.ts:73:5",
+        "status": "passed"
+      },
+      {
+        "title": "review fits 390px and keyboard focus stays in dialog (fr)",
+        "location": "planning-import.spec.ts:73:5",
+        "status": "passed"
+      },
+      {
+        "title": "review fits 320px and keyboard focus stays in dialog (en)",
+        "location": "planning-import.spec.ts:73:5",
+        "status": "passed"
+      },
+      {
+        "title": "review fits 390px and keyboard focus stays in dialog (en)",
+        "location": "planning-import.spec.ts:73:5",
+        "status": "passed"
+      },
+      {
+        "title": "review fits 320px and keyboard focus stays in dialog (zh-CN)",
+        "location": "planning-import.spec.ts:73:5",
+        "status": "passed"
+      },
+      {
+        "title": "review fits 390px and keyboard focus stays in dialog (zh-CN)",
+        "location": "planning-import.spec.ts:73:5",
+        "status": "passed"
+      },
+      {
+        "title": "review fits 320px and keyboard focus stays in dialog (es)",
+        "location": "planning-import.spec.ts:73:5",
+        "status": "passed"
+      },
+      {
+        "title": "review fits 390px and keyboard focus stays in dialog (es)",
+        "location": "planning-import.spec.ts:73:5",
+        "status": "passed"
+      },
+      {
+        "title": "a real Markdown file becomes corrected days and activities, survives reload and preserves the existing notebook",
+        "location": "planning-local.spec.ts:14:1",
+        "status": "passed"
+      },
+      {
+        "title": "pasted source without a city keeps the missing city visible and requires correction before creation",
+        "location": "planning-local.spec.ts:59:1",
+        "status": "passed"
+      },
+      {
+        "title": "invalid real files preserve the current source and valid replacement needs an explicit choice",
+        "location": "planning-local.spec.ts:86:1",
+        "status": "passed"
+      },
+      {
+        "title": "local file recognition works in en at 320px without overflow",
+        "location": "planning-local.spec.ts:129:3",
+        "status": "passed"
+      },
+      {
+        "title": "local file recognition works in zh-CN at 320px without overflow",
+        "location": "planning-local.spec.ts:129:3",
+        "status": "passed"
+      },
+      {
+        "title": "local file recognition works in es at 320px without overflow",
+        "location": "planning-local.spec.ts:129:3",
+        "status": "passed"
+      },
+      {
+        "title": "unprocessed source can become an activity or a durable note; assignment survives reload",
+        "location": "planning-lot01.spec.ts:4:1",
+        "status": "passed"
+      },
+      {
+        "title": "nearly empty recognition gives an explicit factual summary and source links",
+        "location": "planning-lot01.spec.ts:34:1",
+        "status": "passed"
+      },
+      {
+        "title": "a long passage can become a durable activity without truncating its provenance",
+        "location": "planning-lot01.spec.ts:44:1",
+        "status": "passed"
+      },
+      {
+        "title": "real JSON download/import, explicit replacement, correction, reload, confirmation and replay preserve the previous notebook",
+        "location": "planning-structured.spec.ts:10:1",
+        "status": "passed"
+      },
+      {
+        "title": "invalid JSON, versions, backup, fields and executable URLs do not overwrite a draft; errors export contains no values",
+        "location": "planning-structured.spec.ts:48:1",
+        "status": "passed"
+      },
+      {
+        "title": "structured quota failure and interrupted write remain recoverable through reload",
+        "location": "planning-structured.spec.ts:62:1",
+        "status": "passed"
+      },
+      {
+        "title": "downloaded localized kit, keyboard, JSON and 200% reflow: fr",
+        "location": "planning-structured.spec.ts:76:3",
+        "status": "passed"
+      },
+      {
+        "title": "downloaded localized kit, keyboard, JSON and 200% reflow: en",
+        "location": "planning-structured.spec.ts:76:3",
+        "status": "passed"
+      },
+      {
+        "title": "downloaded localized kit, keyboard, JSON and 200% reflow: zh-CN",
+        "location": "planning-structured.spec.ts:76:3",
+        "status": "passed"
+      },
+      {
+        "title": "downloaded localized kit, keyboard, JSON and 200% reflow: es",
+        "location": "planning-structured.spec.ts:76:3",
+        "status": "passed"
+      },
+      {
+        "title": "installation has the correct name and keeps the existing identity",
+        "location": "preferences-refresh.spec.ts:4:1",
+        "status": "passed"
+      },
+      {
+        "title": "mascot previews work while hidden, with keyboard selection and persistence",
+        "location": "preferences-refresh.spec.ts:13:1",
+        "status": "passed"
+      },
+      {
+        "title": "black palette persists, follows automatic mode and is translated in every language",
+        "location": "preferences-refresh.spec.ts:48:1",
+        "status": "passed"
+      },
+      {
+        "title": "dark preference persists and readable surfaces follow it",
+        "location": "preferences.spec.ts:19:1",
+        "status": "passed"
+      },
+      {
+        "title": "automatic theme follows device changes but an explicit theme remains stable",
+        "location": "preferences.spec.ts:33:1",
+        "status": "passed"
+      },
+      {
+        "title": "English navigation and editable forms cover all main views",
+        "location": "preferences.spec.ts:47:1",
+        "status": "passed"
+      },
+      {
+        "title": "interface language does not translate or rewrite personal notes and source content",
+        "location": "preferences.spec.ts:80:1",
+        "status": "passed"
+      },
+      {
+        "title": "two tabs synchronise theme and language preferences",
+        "location": "preferences.spec.ts:93:1",
+        "status": "passed"
+      },
+      {
+        "title": "preferences keyboard Escape returns focus to its trigger",
+        "location": "preferences.spec.ts:108:1",
+        "status": "passed"
+      },
+      {
+        "title": "mobile navigation and layouts fit 320px in both languages and themes",
+        "location": "preferences.spec.ts:121:3",
+        "status": "passed"
+      },
+      {
+        "title": "mobile navigation and layouts fit 390px in both languages and themes",
+        "location": "preferences.spec.ts:121:3",
+        "status": "passed"
+      },
+      {
+        "title": "selected map markers remain selected and their Amap popup follows the language",
+        "location": "preferences.spec.ts:151:1",
+        "status": "passed"
+      },
+      {
+        "title": "installation offer received before Preferences, dismissal and installed state",
+        "location": "pwa-lot02.spec.ts:4:1",
+        "status": "passed"
+      },
+      {
+        "title": "storage persistence denied: no startup request, no notebook mutation",
+        "location": "pwa-lot02.spec.ts:22:3",
+        "status": "passed"
+      },
+      {
+        "title": "storage persistence granted: no startup request, no notebook mutation",
+        "location": "pwa-lot02.spec.ts:22:3",
+        "status": "passed"
+      },
+      {
+        "title": "storage persistence error: no startup request, no notebook mutation",
+        "location": "pwa-lot02.spec.ts:22:3",
+        "status": "passed"
+      },
+      {
+        "title": "storage persistence unsupported: no startup request, no notebook mutation",
+        "location": "pwa-lot02.spec.ts:22:3",
+        "status": "passed"
+      },
+      {
+        "title": "maps external window and return preserve the notebook for Google and Amap",
+        "location": "pwa-lot02.spec.ts:54:1",
+        "status": "passed"
+      },
+      {
+        "title": "personal memory fr: durable caption, explicit print consent, keyboard, widths and no private leaks",
+        "location": "souvenirs.spec.ts:15:64",
+        "status": "passed"
+      },
+      {
+        "title": "personal memory en: durable caption, explicit print consent, keyboard, widths and no private leaks",
+        "location": "souvenirs.spec.ts:15:64",
+        "status": "passed"
+      },
+      {
+        "title": "personal memory zh-CN: durable caption, explicit print consent, keyboard, widths and no private leaks",
+        "location": "souvenirs.spec.ts:15:64",
+        "status": "passed"
+      },
+      {
+        "title": "personal memory es: durable caption, explicit print consent, keyboard, widths and no private leaks",
+        "location": "souvenirs.spec.ts:15:64",
+        "status": "passed"
+      },
+      {
+        "title": "real decoder: EXIF rotation, metadata removal, signatures, unsupported formats and bounded output",
+        "location": "souvenirs.spec.ts:36:1",
+        "status": "passed"
+      },
+      {
+        "title": "IndexedDB atomic abort, quota failure, missing media, conflicts and account/trip isolation",
+        "location": "souvenirs.spec.ts:58:1",
+        "status": "passed"
+      },
+      {
+        "title": "photo package is bounded, integrity checked, restored without overwrite and idempotent",
+        "location": "souvenirs.spec.ts:80:1",
+        "status": "passed"
+      },
+      {
+        "title": "global media budget refuses a large batch atomically and concurrent tabs preserve revisions",
+        "location": "souvenirs.spec.ts:95:1",
+        "status": "passed"
+      },
+      {
+        "title": "cancel and unreadable photo recovery; deleting all days leaves the package accessible",
+        "location": "souvenirs.spec.ts:112:1",
+        "status": "passed"
+      },
+      {
+        "title": "empty document folder is visible and opens the real file picker: fr",
+        "location": "travel-delight-visibility.spec.ts:24:3",
+        "status": "passed"
+      },
+      {
+        "title": "expense chart remains visible with no data or missing rates: fr",
+        "location": "travel-delight-visibility.spec.ts:35:3",
+        "status": "passed"
+      },
+      {
+        "title": "empty document folder is visible and opens the real file picker: en",
+        "location": "travel-delight-visibility.spec.ts:24:3",
+        "status": "passed"
+      },
+      {
+        "title": "expense chart remains visible with no data or missing rates: en",
+        "location": "travel-delight-visibility.spec.ts:35:3",
+        "status": "passed"
+      },
+      {
+        "title": "empty document folder is visible and opens the real file picker: zh-CN",
+        "location": "travel-delight-visibility.spec.ts:24:3",
+        "status": "passed"
+      },
+      {
+        "title": "expense chart remains visible with no data or missing rates: zh-CN",
+        "location": "travel-delight-visibility.spec.ts:35:3",
+        "status": "passed"
+      },
+      {
+        "title": "empty document folder is visible and opens the real file picker: es",
+        "location": "travel-delight-visibility.spec.ts:24:3",
+        "status": "passed"
+      },
+      {
+        "title": "expense chart remains visible with no data or missing rates: es",
+        "location": "travel-delight-visibility.spec.ts:35:3",
+        "status": "passed"
+      },
+      {
+        "title": "import progress stays visible while scrolling on a small screen",
+        "location": "travel-delight-visibility.spec.ts:56:1",
+        "status": "passed"
+      },
+      {
+        "title": "terrain movement is perceptible within the first two seconds",
+        "location": "travel-delight-visibility.spec.ts:65:1",
+        "status": "passed"
+      },
+      {
+        "title": "reduced motion starts static but an explicit terrain play action works",
+        "location": "travel-delight-visibility.spec.ts:74:1",
+        "status": "passed"
+      },
+      {
+        "title": "photo box and album fr: keyboard, isolation, widths and reduced motion",
+        "location": "travel-delight.spec.ts:41:67",
+        "status": "passed"
+      },
+      {
+        "title": "photo box and album en: keyboard, isolation, widths and reduced motion",
+        "location": "travel-delight.spec.ts:41:67",
+        "status": "passed"
+      },
+      {
+        "title": "photo box and album zh-CN: keyboard, isolation, widths and reduced motion",
+        "location": "travel-delight.spec.ts:41:67",
+        "status": "passed"
+      },
+      {
+        "title": "photo box and album es: keyboard, isolation, widths and reduced motion",
+        "location": "travel-delight.spec.ts:41:67",
+        "status": "passed"
+      },
+      {
+        "title": "empty memories, native peek, story navigation and import stepper",
+        "location": "travel-delight.spec.ts:76:1",
+        "status": "passed"
+      },
+      {
+        "title": "budget chart uses converted amounts; documents retain open and download actions",
+        "location": "travel-delight.spec.ts:95:1",
+        "status": "passed"
+      },
+      {
+        "title": "move undo preserves order and a subsequent step edit prevents stale undo",
+        "location": "travel-delight.spec.ts:111:1",
+        "status": "passed"
+      },
+      {
+        "title": "terrain animation can pause and remains static with reduced motion",
+        "location": "travel-delight.spec.ts:126:1",
+        "status": "passed"
+      },
+      {
+        "title": "memory read failure can retry; caption-only memories remain available",
+        "location": "travel-delight.spec.ts:136:1",
+        "status": "passed"
+      },
+      {
+        "title": "home memory entry, mobile chart and folders remain usable at 320px",
+        "location": "travel-delight.spec.ts:155:1",
+        "status": "passed"
+      },
+      {
+        "title": "中文（简体）: library, all views, dates, forms and saved notes",
+        "location": "world-languages.spec.ts:8:3",
+        "status": "passed"
+      },
+      {
+        "title": "中文（简体）: 320px navigation, preferences and both themes fit",
+        "location": "world-languages.spec.ts:83:3",
+        "status": "passed"
+      },
+      {
+        "title": "Español: library, all views, dates, forms and saved notes",
+        "location": "world-languages.spec.ts:8:3",
+        "status": "passed"
+      },
+      {
+        "title": "Español: 320px navigation, preferences and both themes fit",
+        "location": "world-languages.spec.ts:83:3",
+        "status": "passed"
+      }
+    ]
+  },
+  "simulatedAnalysis": {
+    "passed": 3,
+    "failed": 0
+  },
+  "recognition": {
+    "regression": {
+      "cases": 42,
+      "passed": 42,
+      "checks": 219,
+      "failedChecks": 0
+    },
+    "stress": {
+      "cases": 36,
+      "passed": 27,
+      "errors": 0,
+      "expectedItems": 114,
+      "separateItems": 85,
+      "assignedItems": 83,
+      "fieldErrors": 0
+    }
+  },
+  "offlineRetry": {
+    "code": 0,
+    "startedAt": "2026-11-01T20:02:22.162Z",
+    "finishedAt": "2026-11-01T20:02:37.700Z",
+    "isolation": "after both main browser suite and measure runner completed; assertions unchanged"
+  },
+  "independent": [
+    {
+      "name": "e2e-all",
+      "code": 1,
+      "startedAt": "2026-11-01T19:13:37.061Z",
+      "finishedAt": "2026-11-01T19:13:37.971Z"
+    },
+    {
+      "name": "planning-analysis",
+      "code": 0,
+      "startedAt": "2026-11-01T19:13:37.973Z",
+      "finishedAt": "2026-11-01T19:14:55.882Z"
+    },
+    {
+      "name": "test-sql-local",
+      "code": 0,
+      "startedAt": "2026-11-01T19:14:56.067Z",
+      "finishedAt": "2026-11-01T19:15:18.644Z"
+    },
+    {
+      "name": "test-collaboration-sql-local",
+      "code": 0,
+      "startedAt": "2026-11-01T19:15:18.646Z",
+      "finishedAt": "2026-11-01T19:15:21.222Z"
+    },
+    {
+      "name": "test-participation-money-sql-local",
+      "code": 0,
+      "startedAt": "2026-11-01T19:15:21.224Z",
+      "finishedAt": "2026-11-01T19:15:23.828Z"
+    },
+    {
+      "name": "smoke-production",
+      "code": 0,
+      "startedAt": "2026-11-01T19:15:23.831Z",
+      "finishedAt": "2026-11-01T19:16:34.410Z"
+    },
+    {
+      "name": "smoke-backup",
+      "code": 0,
+      "startedAt": "2026-11-01T19:16:34.412Z",
+      "finishedAt": "2026-11-01T19:17:21.631Z"
+    },
+    {
+      "name": "smoke-ui",
+      "code": 0,
+      "startedAt": "2026-11-01T19:17:21.634Z",
+      "finishedAt": "2026-11-01T19:18:27.672Z"
+    },
+    {
+      "name": "smoke-common-sharing",
+      "code": 0,
+      "startedAt": "2026-11-01T19:18:27.675Z",
+      "finishedAt": "2026-11-01T19:19:17.981Z"
+    },
+    {
+      "name": "smoke-l4-offline",
+      "code": 1,
+      "startedAt": "2026-11-01T19:19:17.985Z",
+      "finishedAt": "2026-11-01T19:20:18.636Z"
+    },
+    {
+      "name": "smoke-l4-persistence",
+      "code": 0,
+      "startedAt": "2026-11-01T19:20:18.638Z",
+      "finishedAt": "2026-11-01T19:21:11.369Z"
+    },
+    {
+      "name": "smoke-l5-now",
+      "code": 0,
+      "startedAt": "2026-11-01T19:21:11.373Z",
+      "finishedAt": "2026-11-01T19:21:31.793Z"
+    },
+    {
+      "name": "smoke-l6-preparation",
+      "code": 0,
+      "startedAt": "2026-11-01T19:21:31.797Z",
+      "finishedAt": "2026-11-01T19:21:51.662Z"
+    },
+    {
+      "name": "smoke-l8-release",
+      "code": 0,
+      "startedAt": "2026-11-01T19:21:51.664Z",
+      "finishedAt": "2026-11-01T19:22:01.894Z"
+    },
+    {
+      "name": "smoke-planning-structured",
+      "code": 0,
+      "startedAt": "2026-11-01T19:22:01.896Z",
+      "finishedAt": "2026-11-01T19:22:29.116Z"
+    },
+    {
+      "name": "smoke-planning-documents",
+      "code": 0,
+      "startedAt": "2026-11-01T19:22:29.119Z",
+      "finishedAt": "2026-11-01T19:22:56.410Z"
+    },
+    {
+      "name": "smoke-companion",
+      "code": 0,
+      "startedAt": "2026-11-01T19:22:56.411Z",
+      "finishedAt": "2026-11-01T19:23:02.966Z"
+    },
+    {
+      "name": "smoke-souvenirs",
+      "code": 0,
+      "startedAt": "2026-11-01T19:23:02.968Z",
+      "finishedAt": "2026-11-01T19:23:11.670Z"
+    },
+    {
+      "name": "smoke-assistant",
+      "code": 0,
+      "startedAt": "2026-11-01T19:23:11.672Z",
+      "finishedAt": "2026-11-01T19:23:28.144Z"
+    },
+    {
+      "name": "smoke-mascot",
+      "code": 0,
+      "startedAt": "2026-11-01T19:23:28.145Z",
+      "finishedAt": "2026-11-01T19:23:51.726Z"
+    },
+    {
+      "name": "smoke-places",
+      "code": 0,
+      "startedAt": "2026-11-01T19:23:51.742Z",
+      "finishedAt": "2026-11-01T19:24:08.051Z"
+    },
+    {
+      "name": "smoke-pwa-mobile",
+      "code": 0,
+      "startedAt": "2026-11-01T19:24:08.053Z",
+      "finishedAt": "2026-11-01T19:24:42.080Z"
+    },
+    {
+      "name": "smoke-app-update",
+      "code": 0,
+      "startedAt": "2026-11-01T19:24:42.081Z",
+      "finishedAt": "2026-11-01T19:25:11.374Z"
+    },
+    {
+      "name": "smoke-install-manifest",
+      "code": 0,
+      "startedAt": "2026-11-01T19:25:11.376Z",
+      "finishedAt": "2026-11-01T19:25:24.220Z"
+    },
+    {
+      "name": "smoke-planning-import",
+      "code": 0,
+      "startedAt": "2026-11-01T19:25:24.222Z",
+      "finishedAt": "2026-11-01T19:25:56.698Z"
+    },
+    {
+      "name": "smoke-notebook",
+      "code": 0,
+      "startedAt": "2026-11-01T19:25:56.700Z",
+      "finishedAt": "2026-11-01T19:26:03.093Z"
+    },
+    {
+      "name": "smoke-palette-claire",
+      "code": 1,
+      "startedAt": "2026-11-01T19:26:03.096Z",
+      "finishedAt": "2026-11-01T19:27:52.694Z"
+    },
+    {
+      "name": "measure-l8",
+      "code": 0,
+      "startedAt": "2026-11-01T19:27:52.697Z",
+      "finishedAt": "2026-11-01T19:35:43.939Z"
+    },
+    {
+      "name": "evaluate-planning",
+      "code": 0,
+      "startedAt": "2026-11-01T19:35:43.943Z",
+      "finishedAt": "2026-11-01T19:35:44.281Z"
+    },
+    {
+      "name": "evaluate-planning-stress",
+      "code": 0,
+      "startedAt": "2026-11-01T19:35:44.283Z",
+      "finishedAt": "2026-11-01T19:35:45.013Z"
+    }
+  ]
+}

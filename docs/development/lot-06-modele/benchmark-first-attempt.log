@@ -1,0 +1,24 @@
+fr-structure model rejected 41188ms
+en-structure model rejected 19707ms
+es-structure model rejected 31096ms
+zh-structure model rejected 27805ms
+fr-prose model rejected 55097ms
+fr-prose hybrid rejected 86046ms
+en-prose model rejected 40752ms
+en-prose hybrid rejected 41939ms
+es-prose model rejected 67175ms
+es-prose hybrid rejected 49560ms
+zh-prose model rejected 23433ms
+zh-prose hybrid rejected 26419ms
+booking-negation model rejected 22434ms
+alternative model rejected 26054ms
+alternative hybrid rejected 34151ms
+injection model rejected 28932ms
+late-change model rejected 27326ms
+late-change hybrid rejected 51514ms
+Warning: Detected unsettled top-level await at file:///C:/Users/eliot/Documents/app-vacances-27/scripts/benchmark-lot06.mjs:74
+finally{await stop();report.endedAt=new Date().toISOString();await save();}
+        ^
+
+
+

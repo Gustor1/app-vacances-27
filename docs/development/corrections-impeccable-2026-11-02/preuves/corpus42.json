@@ -1,0 +1,1223 @@
+{
+  "generatedAt": "2026-11-02T12:10:16.850Z",
+  "node": "v24.15.0",
+  "method": "Actual local parser on synthetic source text; no mocked extraction responses and no model.",
+  "cases": 42,
+  "passed": 42,
+  "checks": 219,
+  "failedChecks": 0,
+  "rows": [
+    {
+      "name": "French Markdown",
+      "milliseconds": 16.284,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "first clock time",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "English numbered list",
+      "milliseconds": 1.122,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "first clock time",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "Spanish accents",
+      "milliseconds": 0.614,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "first clock time",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "Chinese date and period",
+      "milliseconds": 3.412,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "times",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "French natural date",
+      "milliseconds": 0.386,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "first clock time",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "English month first",
+      "milliseconds": 0.303,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "first clock time",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "midnight and noon",
+      "milliseconds": 0.283,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "times",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "undated relative days",
+      "milliseconds": 0.264,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "no inferred year",
+      "milliseconds": 0.301,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "first clock time",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "ambiguous numeric date",
+      "milliseconds": 0.224,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "invalid calendar date",
+      "milliseconds": 0.769,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "period is not a clock time",
+      "milliseconds": 0.349,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "times",
+          "passed": true
+        },
+        {
+          "name": "periods",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "suggestions remain optional",
+      "milliseconds": 0.663,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "kinds",
+          "passed": true
+        },
+        {
+          "name": "booked",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "positive reservation statement",
+      "milliseconds": 0.842,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "booked",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "English negative reservation",
+      "milliseconds": 0.245,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "booked",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "Chinese negative reservation",
+      "milliseconds": 0.579,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "booked",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "multiple city blocks",
+      "milliseconds": 0.269,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "plain city before day",
+      "milliseconds": 0.758,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "missing city stays empty",
+      "milliseconds": 0.149,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first clock time",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "Markdown table",
+      "milliseconds": 0.894,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first clock time",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "table day and city columns",
+      "milliseconds": 0.419,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "indented multiline descriptions",
+      "milliseconds": 0.504,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "continuation retained",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "unknown prose retained",
+      "milliseconds": 0.263,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "unstructured note retained",
+          "passed": true
+        },
+        {
+          "name": "unstructured note retained",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "CRLF and Unicode bullets",
+      "milliseconds": 0.203,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "bold day and bullet title",
+      "milliseconds": 0.235,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "clock range retains end in description",
+      "milliseconds": 0.192,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first clock time",
+          "passed": true
+        },
+        {
+          "name": "continuation retained",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "instructions are ordinary source text",
+      "milliseconds": 0.142,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "unstructured note retained",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "unknown headings retained",
+      "milliseconds": 0.815,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "unstructured note retained",
+          "passed": true
+        },
+        {
+          "name": "unstructured note retained",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "no structure produces reviewable empty draft",
+      "milliseconds": 0.681,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "unstructured note retained",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "Chinese table",
+      "milliseconds": 0.634,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "times",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "partial date headings retain missing year",
+      "milliseconds": 0.225,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "ambiguous numeric date headings keep their structure",
+      "milliseconds": 0.18,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first date",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "numbered day headings",
+      "milliseconds": 0.158,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "period subheadings apply to activities",
+      "milliseconds": 0.272,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "periods",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "plain period subtitles and explicit item override",
+      "milliseconds": 0.304,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "times",
+          "passed": true
+        },
+        {
+          "name": "periods",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "plain city blocks repeat",
+      "milliseconds": 0.225,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "clock-led activity containing a date is not a day",
+      "milliseconds": 0.215,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "first clock time",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "numbered activity containing a date is not a day",
+      "milliseconds": 0.167,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "future reservation is not confirmed",
+      "milliseconds": 0.251,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "booked",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "past reservation cancelled is not confirmed",
+      "milliseconds": 0.19,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "booked",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "reservation uncertainty and restricted access are not bookings",
+      "milliseconds": 0.327,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "booked",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "uppercase twelve hour clocks",
+      "milliseconds": 0.56,
+      "checks": [
+        {
+          "name": "cities in source order",
+          "passed": true
+        },
+        {
+          "name": "day count",
+          "passed": true
+        },
+        {
+          "name": "item count",
+          "passed": true
+        },
+        {
+          "name": "times",
+          "passed": true
+        },
+        {
+          "name": "titles",
+          "passed": true
+        },
+        {
+          "name": "no coordinates invented",
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "bundled": {
+    "file": "public/documents/planning-original.md",
+    "milliseconds": 4.077,
+    "cities": [
+      {
+        "name": "SHENZHEN",
+        "days": 3,
+        "items": 15
+      },
+      {
+        "name": "GUANGZHOU",
+        "days": 3,
+        "items": 12
+      },
+      {
+        "name": "YANGSHUO",
+        "days": 3,
+        "items": 12
+      },
+      {
+        "name": "CHONGQING / WULONG",
+        "days": 4,
+        "items": 23
+      },
+      {
+        "name": "CHENGDU",
+        "days": 3,
+        "items": 21
+      },
+      {
+        "name": "Suzhou",
+        "days": 1,
+        "items": 9
+      }
+    ],
+    "notes": 4,
+    "limitation": "Structural inspection of the existing bundled document; not an independently annotated activity-level accuracy score."
+  },
+  "limits": [
+    "This corpus is a regression set, not a representative traveler evaluation.",
+    "PDF, Word, OCR and arbitrary narrative understanding are outside this benchmark."
+  ]
+}

@@ -13,13 +13,18 @@ const id = buildId(assets);
 const html = await readFile('dist/index.html', 'utf8');
 const entry = html.match(/<script[^>]+type="module"[^>]+src="([^"]+)"/)?.[1];
 if (!entry || !assets.some(file => file.path === entry)) throw new Error('Build entry missing');
+const installManifest = html.match(/href="(\/manifest\.webmanifest\?v=[a-f0-9]{12})"/)?.[1];
+if (!installManifest) throw new Error('Versioned installation manifest missing');
 let baseRevision = null;
 try { baseRevision = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim(); } catch { /* Source archives may omit Git metadata. */ }
 await writeFile('dist/build-info.json', JSON.stringify({ version: 1, id, baseRevision, entry, files: assets }, null, 2));
-files.push('/build-info.json');
+// Keep this exact URL offline too: old workers match the complete request URL.
+files.push('/build-info.json', installManifest);
 const cacheName = `a-l-est-${id.slice(0, 12)}`;
 await writeFile('dist/sw.js', `const CACHE = ${JSON.stringify(cacheName)};\nconst FILES = ${JSON.stringify(['/', ...files])};
-self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES.map(file => new Request(file, { cache: 'reload' })))).then(() => self.skipWaiting())); });
+// Let an update wait until existing windows close: their lazy modules still use
+// the old build. A failed addAll must leave the active worker/cache intact.
+self.addEventListener('install', event => { event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES.map(file => new Request(file, { cache: 'reload' }))))); });
 self.addEventListener('activate', event => { event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('a-l-est-') && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())); });
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin) return;

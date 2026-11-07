@@ -1,0 +1,29 @@
+[WebServer] (node:19204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 20 tests using 1 worker
+
+(node:1884) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\companion.spec.ts:12:1 › departure corrections, explicit requirements, versioned dismissal, restore and no optional-empty warnings (5.4s)
+  ok  2 tests\e2e\companion.spec.ts:21:63 › companion fr safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile (3.5s)
+  ok  3 tests\e2e\companion.spec.ts:21:63 › companion en safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile (3.6s)
+  ok  4 tests\e2e\companion.spec.ts:21:63 › companion zh-CN safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile (4.1s)
+  ok  5 tests\e2e\companion.spec.ts:21:63 › companion es safe show card, saved ideas, preview, exclusion, undo, keyboard and mobile (3.7s)
+  ok  6 tests\e2e\companion.spec.ts:33:1 › concurrent edits invalidate idea and plan B previews and preserve notes, bookings and original history (5.9s)
+  ok  7 tests\e2e\companion.spec.ts:42:48 › companion shared reader permissions and private exclusions (2.2s)
+  ok  8 tests\e2e\companion.spec.ts:42:48 › companion shared editor permissions and private exclusions (2.3s)
+  ok  9 tests\e2e\l5-now.spec.ts:7:63 › Maintenant fr : deux actions, adresse locale, données du jour, clavier et dates (3.8s)
+  ok 10 tests\e2e\l5-now.spec.ts:7:63 › Maintenant en : deux actions, adresse locale, données du jour, clavier et dates (3.8s)
+  ok 11 tests\e2e\l5-now.spec.ts:7:63 › Maintenant zh-CN : deux actions, adresse locale, données du jour, clavier et dates (3.7s)
+  ok 12 tests\e2e\l5-now.spec.ts:7:63 › Maintenant es : deux actions, adresse locale, données du jour, clavier et dates (3.7s)
+  ok 13 tests\e2e\l6-preparation.spec.ts:7:52 › L6 urban : comparer, annuler, adopter et revenir sans perdre billets/dépenses (3.2s)
+  ok 14 tests\e2e\l6-preparation.spec.ts:7:52 › L6 excursion : comparer, annuler, adopter et revenir sans perdre billets/dépenses (3.4s)
+  ok 15 tests\e2e\l6-preparation.spec.ts:7:52 › L6 transfer : comparer, annuler, adopter et revenir sans perdre billets/dépenses (3.2s)
+  ok 16 tests\e2e\l6-preparation.spec.ts:21:62 › L6 fr : saisie, inconnues, comparaison, clavier et 320px (2.8s)
+  ok 17 tests\e2e\l6-preparation.spec.ts:21:62 › L6 en : saisie, inconnues, comparaison, clavier et 320px (2.8s)
+  ok 18 tests\e2e\l6-preparation.spec.ts:21:62 › L6 zh-CN : saisie, inconnues, comparaison, clavier et 320px (3.0s)
+  ok 19 tests\e2e\l6-preparation.spec.ts:21:62 › L6 es : saisie, inconnues, comparaison, clavier et 320px (2.8s)
+  ok 20 tests\e2e\l6-preparation.spec.ts:35:1 › L6 lecteur : comparaison disponible, adoption et formulaires bloqués (2.1s)
+
+  20 passed (1.2m)

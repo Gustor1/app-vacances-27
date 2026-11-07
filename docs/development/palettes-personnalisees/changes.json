@@ -1,0 +1,106 @@
+{
+  "baseline": "C:\\Users\\eliot\\Documents\\detours-palettes-recovery-20261019",
+  "branch": "codex/palettes-personnalisees",
+  "baseRevision": "c1dd8a686e5962a156bad1489e4e4d3f2c731d64",
+  "unchangedInitialFiles": 749,
+  "missingInitialFiles": [],
+  "modifiedInitialFiles": [
+    {
+      "file": "index.html",
+      "before": "af103eae1d5f98887e9fe488406e439be29916f47cfc65e94051ce73ace7c815",
+      "after": "53d727b03b845bfa66c0828cb9b642cb712962434850a53d4b2bc256024538a9"
+    },
+    {
+      "file": "scripts/generate-pwa-icons.mjs",
+      "before": "3dd57fc355f3bc0b0c531b6509a66bd8e994247e3ee025c1ed41e9a1d0ccce2b",
+      "after": "3b7c45e4403680b973dba8aa6ea6013e4defd11a5c04973db25acc8329c61a98"
+    },
+    {
+      "file": "scripts/smoke-pwa-mobile.mjs",
+      "before": "2bdca0c6dbed12e0fe666e19ff774d93c1e081fd5af1cc206f03c324d2cae4d9",
+      "after": "5040078aaec583467458caad81e59fe4be4e9956bcf11147b9b5930b40251186"
+    },
+    {
+      "file": "scripts/verify-local.mjs",
+      "before": "177979529c455883aca27cfd39f1d57c2dd2cedf20d5b3dc43c89d528353ec13",
+      "after": "97d0640770a073e3bfd9a1d904b55640bffdddc4a5c605cd8076d42aa68d1b40"
+    },
+    {
+      "file": "src/apple-design.css",
+      "before": "44ddd97ea9e0b2b5043b59fd50ed438d8e465f37e0b692a22dc19affe2730070",
+      "after": "82df807d6228c9fae67403de6c1676e02401b7458a642bc8e12ed0e69872fe0c"
+    },
+    {
+      "file": "src/components/BrandMark.tsx",
+      "before": "c47117b899b16983cec9c6a6d2a4ad97b5eb4d7f993a86cd8a4e1cad9043bbbb",
+      "after": "e1c4de669c01f8fde1aaea284cfb90985fed6d1612a1018ba20a74e7b54e5616"
+    },
+    {
+      "file": "src/components/Preferences.css",
+      "before": "85115910a2f332bb41b2c558f24ab48464b51ae2e8b51419440ada9ed9de9f32",
+      "after": "69d45a134bbeb666425d29d58609c18868ea0cf8405ed83b4748249145ee9360"
+    },
+    {
+      "file": "src/components/Preferences.tsx",
+      "before": "33aa5dccd2a820ce135fb3a40abd73676c3423623200e8e888d598ea7e324024",
+      "after": "a3254c77d93b6ea0740c70016d54bcde2ae12a856b81d86d6aff55002f925db7"
+    },
+    {
+      "file": "src/i18n.tsx",
+      "before": "22a9711137f6310ced7a0f899028f40a5442e62e2d1908e025e87e12eccdc96d",
+      "after": "c4c542bf9ec63c26c4bd8e615ed017e9a41f75a2d69aaec5883e33d34aa19f82"
+    },
+    {
+      "file": "src/locale-utils.ts",
+      "before": "b5d8e983343d72344256db204a3b3f49be56d837669f95389dd33686d8edfb0e",
+      "after": "0362ac9d2b98de76c1e87e6f74f9966aa67e0a5794ad098ac92a7d19c36fe497"
+    },
+    {
+      "file": "tests/e2e/palette-claire.spec.ts",
+      "before": "a4ab7f0e02276a8d7c56babc86dea1f447adfb2912797e2a215b9834f32632b7",
+      "after": "5c678b61e6d2edd574b4f1584f2e6120a8f1d4b207cc30bd9bc958f33c8e8f63"
+    }
+  ],
+  "addedContributionFiles": [
+    {
+      "file": "docs/design/palette-claire-detours/oiseau-sombre-ivoire-sable.png",
+      "sha256": "98c5f29fe4768b1a48d7da5438d8d0ec3bdd55b986851dff4b11324f1f0fd871"
+    },
+    {
+      "file": "public/icons/brand-dark-128.png",
+      "sha256": "d462d5a073d82a76b1df15690615d245eceb6b0aab27a36bbc4e4319520c05be"
+    },
+    {
+      "file": "public/palette-bootstrap.js",
+      "sha256": "be89876a95ac79fd39d3d5864261bf21d85e4da36ad4d66b3c5ea2c0b56a6ce5"
+    },
+    {
+      "file": "public/palettes.css",
+      "sha256": "a4b4c83f99babade95fde015628b87e869f76013fb35e8c25b2d9cd38ef14c0e"
+    },
+    {
+      "file": "scripts/generate-palettes.mjs",
+      "sha256": "4f61fd84e9bf701d99543b054713cecb74de352e4594dbd873c294c44c5347ef"
+    },
+    {
+      "file": "scripts/palette-assets.mjs",
+      "sha256": "3be7c1cb46e097f2f1a93bc762e2bc1849a985e4936824dba84ef495ba203898"
+    },
+    {
+      "file": "src/locales/palettes.ts",
+      "sha256": "c0794142c2ec885bbe9fc13bcfb1e8fd58b8d6780bc5890671f159a1ceb9c7bf"
+    },
+    {
+      "file": "src/palettes.ts",
+      "sha256": "61156bb39dd58623ef67e63e8413ea7e5bdde9c5ed39bff2c61829acf013a178"
+    },
+    {
+      "file": "tests/e2e/palettes-personnalisees.spec.ts",
+      "sha256": "4d47913ad63570705e3779b03b30332d27570fd11fe28f319dac80ac9f7c0d22"
+    },
+    {
+      "file": "tests/palettes.test.mjs",
+      "sha256": "0dec2805051b7c42cd6163f59837b0ba0a3dd49f39da1dab132ceb791f6ce57d"
+    }
+  ]
+}

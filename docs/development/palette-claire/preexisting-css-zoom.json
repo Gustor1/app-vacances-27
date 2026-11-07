@@ -1,0 +1,9 @@
+{
+  "recipe": "CSS zoom=2, viewport640x1000, exact original stylesheet reapplied",
+  "inputTop": -616.921875,
+  "inputBottom": -144.921875,
+  "modalTop": -970,
+  "modalBottom": 1000,
+  "viewportHeight": 1000,
+  "cssZoom": "2"
+}

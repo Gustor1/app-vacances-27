@@ -1,0 +1,66 @@
+{
+  "destination": "C:\\Users\\eliot\\Documents\\app-vacances-27\\docs\\development\\audit-impeccable-2026-11-02\\preuves\\planning-stress",
+  "cases": 36,
+  "passed": 27,
+  "errors": 0,
+  "expectedItems": 114,
+  "separateItems": 85,
+  "assignedItems": 83,
+  "fieldErrors": 0,
+  "byFamily": {
+    "Structuré": {
+      "cases": 6,
+      "passed": 6,
+      "errors": 0,
+      "expectedItems": 20,
+      "separateItems": 20,
+      "assignedItems": 20,
+      "fieldErrors": 0
+    },
+    "Brouillon": {
+      "cases": 6,
+      "passed": 3,
+      "errors": 0,
+      "expectedItems": 23,
+      "separateItems": 11,
+      "assignedItems": 11,
+      "fieldErrors": 0
+    },
+    "Récit et messages": {
+      "cases": 6,
+      "passed": 3,
+      "errors": 0,
+      "expectedItems": 19,
+      "separateItems": 11,
+      "assignedItems": 9,
+      "fieldErrors": 0
+    },
+    "Dates et horaires": {
+      "cases": 6,
+      "passed": 6,
+      "errors": 0,
+      "expectedItems": 15,
+      "separateItems": 15,
+      "assignedItems": 15,
+      "fieldErrors": 0
+    },
+    "Langues": {
+      "cases": 6,
+      "passed": 4,
+      "errors": 0,
+      "expectedItems": 19,
+      "separateItems": 12,
+      "assignedItems": 12,
+      "fieldErrors": 0
+    },
+    "Ambiguïtés": {
+      "cases": 6,
+      "passed": 5,
+      "errors": 0,
+      "expectedItems": 18,
+      "separateItems": 16,
+      "assignedItems": 16,
+      "fieldErrors": 0
+    }
+  }
+}

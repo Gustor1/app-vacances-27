@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-21T07:39:33.179Z",
+  "passed": true,
+  "realBrowserCORS": true,
+  "requests": [
+    {
+      "url": "https://www.wikidata.org/w/api.php?format=json&origin=*&maxlag=5&action=wbsearchentities&search=Tour+Eiffel+Paris&language=fr&uselang=fr&type=item&limit=6",
+      "status": 200
+    },
+    {
+      "url": "https://www.wikidata.org/w/api.php?format=json&origin=*&maxlag=5&action=wbsearchentities&search=Tour+Eiffel&language=fr&uselang=fr&type=item&limit=6",
+      "status": 200
+    },
+    {
+      "url": "https://www.wikidata.org/w/api.php?format=json&origin=*&maxlag=5&action=wbgetentities&ids=Q243&props=labels%7Cdescriptions%7Cclaims&languages=fr%7Cmul%7Cen%7Czh%7Cfr%7Ces",
+      "status": 200
+    },
+    {
+      "url": "https://commons.wikimedia.org/w/api.php?format=json&origin=*&maxlag=5&action=query&titles=File%3ATour+Eiffel+Wikimedia+Commons.jpg&prop=imageinfo&iiprop=url%7Csize%7Cmime%7Cextmetadata&iiurlwidth=640&iiurlheight=1280&iiextmetadatalanguage=en",
+      "status": 200
+    }
+  ],
+  "errors": [],
+  "accepted": false,
+  "personalDataUsed": false
+}

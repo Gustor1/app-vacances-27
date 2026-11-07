@@ -1,0 +1,24 @@
+# Sources NVIDIA — vérifiées le 23 octobre 2026
+
+Consultation publique uniquement, sans connexion personnelle ni appel d’inférence. Ces faits documentaires ne prouvent pas une compatibilité réelle ou un droit d’accès du compte.
+
+| Point | Constat et source primaire |
+| --- | --- |
+| Catalogue | [build.nvidia.com](https://build.nvidia.com/) annonce des endpoints de développement. Le modèle final sera choisi avec l’utilisateur après livraison du socle. |
+| Endpoint | La [référence LLM](https://docs.api.nvidia.com/nim/reference/llm-apis) décrit `POST https://integrate.api.nvidia.com/v1/chat/completions`. |
+| Profil documentaire, non sélection finale | [Qwen3-Next-80B-A3B-Instruct chez NVIDIA](https://docs.api.nvidia.com/nim/reference/qwen-qwen3-next-80b-a3b-instruct) : texte, mode instruct sans thinking, contexte annoncé 262 144 tokens. Licence modèle source Apache-2.0 ; NVIDIA indique aussi ses conditions modèle/service. Ce profil multilingue sert à préparer le transport, sans classement qualitatif. |
+| Paramètres exposés | [API de ce profil](https://docs.api.nvidia.com/nim/reference/qwen-qwen3-next-80b-a3b-instruct-infer) : identifiant `qwen/qwen3-next-80b-a3b-instruct`, messages système/utilisateur, température 0–1, max_tokens 1–4096, stream false possible. Pas de preuve documentée de JSON Schema contraint sur cette page : aucun response_format supposé dans le client. |
+| Licence du modèle source | [Carte Qwen](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct) déclare Apache-2.0. Cela ne remplace pas les conditions du service hébergé. Aucun poids téléchargé. |
+| Gratuité d’essai, production | La [FAQ NVIDIA](https://docs.api.nvidia.com/nim/docs/product) distingue prototypage/développement et production. Un usage chez les proches n’est pas automatiquement un essai parce qu’il est privé. Aucun abonnement, paiement ou activation entrepris. |
+| Quotas | La [réponse NVIDIA du 10 septembre 2025](https://forums.developer.nvidia.com/t/request-more-4-000-credits-option-on-build-nvidia-com/344567) explique le remplacement des crédits par des limites dépendant du modèle, visibles dans le compte. Aucun plafond propre au compte vérifié ; aucun chiffre RPM/TPM promis. |
+| Disponibilité et coût réel | Accès du compte, quota restant, capacité effective et coût : inconnus, aucune clé utilisée. Le code s’arrête sur 402 et ne propose aucune option payante. |
+
+Les [conditions API d’essai](https://assets.ngc.nvidia.com/products/api-catalog/legal/NVIDIA%20API%20Trial%20Terms%20of%20Service.pdf), §1.4, réservent l’accès d’essai à l’évaluation interne et distinguent un abonnement de production. Aux §2.3–2.4, elles décrivent une fin de conservation à la session pour certains services, mais des exceptions et durées particulières pour d’autres. Le §3.3 prévoit l’usage de contenus et journaux pour amélioration et sécurité ; les §2.6/4.3 restreignent les données confidentielles/personnelles sauf permission expresse du service. **Aucune absence générale de conservation ni option de non-réutilisation propre à ce modèle n’est établie.** Aucun document personnel ne doit être envoyé dans ce benchmark ; seules les fixtures fictives gelées sont autorisées par le runner.
+
+La vérification documentaire ne remplace pas la lecture des conditions effectivement présentées au compte avant essai. Les conditions d’un usage régulier restent non établies. CORS n’est pas utilisé comme protection : le navigateur n’appelle pas NVIDIA et aucun endpoint web n’est créé. Le kit local et l’import manuel restent disponibles.
+
+## Modèle choisi ensuite par l’utilisateur : MiniMax M3.1 Flash
+
+Le 23 octobre 2026, l’utilisateur a retenu `minimaxai/minimax-m3.1-flash` et autorisé le premier essai. Le [catalogue officiel NVIDIA](https://build.nvidia.com/minimaxai/minimax-m3.1-flash) confirme cet identifiant, l’endpoint chat/completions, un accès d’essai disponible et un contexte affiché 262K. Son exemple fournit température 1, top_p 0,95, seed 0 et 16 384 tokens. Notre protocole limite volontairement la sortie à **8192 tokens**, plafond déjà prévu par le lot, et demande une réponse complète non diffusée. Le texte seul est envoyé ; pas d’image ou outil. Le lien « API Reference » du catalogue mène à une page 404 lors de cette vérification : pas de capacité JSON Schema contraint supposée.
+
+L’[annonce MiniMax du 19 octobre 2026](https://www.minimax.io/blog/minimax-m31f) présente M3.1 Flash et indique une publication ultérieure des poids. Aucune licence Apache-2.0 propre à ce modèle n’est déduite du profil Qwen précédent. Les conditions détaillées supplémentaires du modèle ne sont pas entièrement établies ; cet essai utilise le service d’évaluation NVIDIA sur textes fictifs, sans redistribution de poids ni activation régulière. Les tarifs MiniMax directs ne sont pas ceux de l’endpoint NVIDIA et ne sont pas utilisés pour inventer un coût.

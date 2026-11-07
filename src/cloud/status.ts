@@ -8,6 +8,7 @@ export function tripSaveStatus({ account, record, saving = false, storageError =
   if (!account) return 'Enregistré sur cet appareil';
   if (!record) return 'Carnet non téléchargé';
   if (record.revoked) return 'Accès retiré';
+  if (record.localOnly) return 'Enregistré sur cet appareil';
   if (record.conflict) return 'Conflit à résoudre';
   if (record.pending) return working && online && connected ? 'Synchronisation en cours…' : 'En attente d’envoi';
   if (!connected) return 'Enregistré sur cet appareil';

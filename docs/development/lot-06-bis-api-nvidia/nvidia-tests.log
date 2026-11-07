@@ -1,0 +1,41 @@
+✔ disabled, missing key, unknown model and invalid settings never make a request (4.501ms)
+✔ fixed endpoint, no redirect, key only in header, exact original text and strict public provenance (102.2782ms)
+✔ transport oracle covers all frozen languages and is explicitly distinct from real model quality (43.3338ms)
+✔ hostile source stays in one data message and never becomes tools or extra roles (0.7366ms)
+✔ public validator rejects version without altering source (0.7185ms)
+✔ public validator rejects coordinates without altering source (0.9125ms)
+✔ public validator rejects field without altering source (0.519ms)
+✔ structurally valid invented city is refused by additional source guard (0.9399ms)
+✔ structurally valid invented date is refused by additional source guard (3.4599ms)
+✔ structurally valid invented booking is refused by additional source guard (4.8414ms)
+✔ structurally valid invented address is refused by additional source guard (0.7369ms)
+✔ negative reservation and valid literal date/time normalization are handled conservatively (3.7191ms)
+✔ an explicitly confirmed booking is permitted without changing external evidence into user evidence (2.1051ms)
+✔ CLI refuses live execution without model choice or key, without creating a live run (1527.1147ms)
+✔ wrong assignment and lost alternatives fail business metrics even if structure is valid (2.9236ms)
+✔ omissions, merges, false bookings and missing notes are not hidden by JSON validity (1.7736ms)
+✔ invalid JSON and Markdown fences remain visible errors, not repaired responses (3.0738ms)
+✔ HTTP 401 is sanitized, counted and never retried (3.1325ms)
+✔ HTTP 403 is sanitized, counted and never retried (1.5264ms)
+✔ HTTP 402 is sanitized, counted and never retried (1.0745ms)
+✔ HTTP 429 is sanitized, counted and never retried (1.0791ms)
+✔ HTTP 500 is sanitized, counted and never retried (0.9654ms)
+✔ HTTP 503 is sanitized, counted and never retried (1.2385ms)
+✔ refusal, tool response, truncated output and malformed envelope do not become plannings (5.801ms)
+✔ provider token counters are retained, absent or malformed counters are unavailable (5.0898ms)
+✔ body byte limits, UTF-8 errors and API-key echo are rejected safely (6.8118ms)
+✔ double submission makes one call, cancellation rejects late fetch and allows another request (11.6903ms)
+✔ pre-cancelled requests consume no attempt and timeout rejects fetch that ignores abort (12.9831ms)
+✔ timeout includes reading a delayed response body (27.7521ms)
+✔ in-process budget is bounded and durable reservation runs before each fetch (5.4197ms)
+✔ journal persists interruption, refuses replay, and a lock excludes simultaneous runs (53.6763ms)
+✔ 100 durable attempts cannot be reset by a new client or fresh process state (20.964ms)
+✔ existing review correction, reload and idempotent creation preserve the previous notebook (56.9673ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2483.4144

@@ -1,0 +1,185 @@
+{
+  "sandbox": "C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-audit-independent-UniiiU",
+  "results": [
+    {
+      "name": "e2e-all",
+      "code": 1,
+      "startedAt": "2026-11-01T19:13:37.061Z",
+      "finishedAt": "2026-11-01T19:13:37.971Z"
+    },
+    {
+      "name": "planning-analysis",
+      "code": 0,
+      "startedAt": "2026-11-01T19:13:37.973Z",
+      "finishedAt": "2026-11-01T19:14:55.882Z"
+    },
+    {
+      "name": "test-sql-local",
+      "code": 0,
+      "startedAt": "2026-11-01T19:14:56.067Z",
+      "finishedAt": "2026-11-01T19:15:18.644Z"
+    },
+    {
+      "name": "test-collaboration-sql-local",
+      "code": 0,
+      "startedAt": "2026-11-01T19:15:18.646Z",
+      "finishedAt": "2026-11-01T19:15:21.222Z"
+    },
+    {
+      "name": "test-participation-money-sql-local",
+      "code": 0,
+      "startedAt": "2026-11-01T19:15:21.224Z",
+      "finishedAt": "2026-11-01T19:15:23.828Z"
+    },
+    {
+      "name": "smoke-production",
+      "code": 0,
+      "startedAt": "2026-11-01T19:15:23.831Z",
+      "finishedAt": "2026-11-01T19:16:34.410Z"
+    },
+    {
+      "name": "smoke-backup",
+      "code": 0,
+      "startedAt": "2026-11-01T19:16:34.412Z",
+      "finishedAt": "2026-11-01T19:17:21.631Z"
+    },
+    {
+      "name": "smoke-ui",
+      "code": 0,
+      "startedAt": "2026-11-01T19:17:21.634Z",
+      "finishedAt": "2026-11-01T19:18:27.672Z"
+    },
+    {
+      "name": "smoke-common-sharing",
+      "code": 0,
+      "startedAt": "2026-11-01T19:18:27.675Z",
+      "finishedAt": "2026-11-01T19:19:17.981Z"
+    },
+    {
+      "name": "smoke-l4-offline",
+      "code": 1,
+      "startedAt": "2026-11-01T19:19:17.985Z",
+      "finishedAt": "2026-11-01T19:20:18.636Z"
+    },
+    {
+      "name": "smoke-l4-persistence",
+      "code": 0,
+      "startedAt": "2026-11-01T19:20:18.638Z",
+      "finishedAt": "2026-11-01T19:21:11.369Z"
+    },
+    {
+      "name": "smoke-l5-now",
+      "code": 0,
+      "startedAt": "2026-11-01T19:21:11.373Z",
+      "finishedAt": "2026-11-01T19:21:31.793Z"
+    },
+    {
+      "name": "smoke-l6-preparation",
+      "code": 0,
+      "startedAt": "2026-11-01T19:21:31.797Z",
+      "finishedAt": "2026-11-01T19:21:51.662Z"
+    },
+    {
+      "name": "smoke-l8-release",
+      "code": 0,
+      "startedAt": "2026-11-01T19:21:51.664Z",
+      "finishedAt": "2026-11-01T19:22:01.894Z"
+    },
+    {
+      "name": "smoke-planning-structured",
+      "code": 0,
+      "startedAt": "2026-11-01T19:22:01.896Z",
+      "finishedAt": "2026-11-01T19:22:29.116Z"
+    },
+    {
+      "name": "smoke-planning-documents",
+      "code": 0,
+      "startedAt": "2026-11-01T19:22:29.119Z",
+      "finishedAt": "2026-11-01T19:22:56.410Z"
+    },
+    {
+      "name": "smoke-companion",
+      "code": 0,
+      "startedAt": "2026-11-01T19:22:56.411Z",
+      "finishedAt": "2026-11-01T19:23:02.966Z"
+    },
+    {
+      "name": "smoke-souvenirs",
+      "code": 0,
+      "startedAt": "2026-11-01T19:23:02.968Z",
+      "finishedAt": "2026-11-01T19:23:11.670Z"
+    },
+    {
+      "name": "smoke-assistant",
+      "code": 0,
+      "startedAt": "2026-11-01T19:23:11.672Z",
+      "finishedAt": "2026-11-01T19:23:28.144Z"
+    },
+    {
+      "name": "smoke-mascot",
+      "code": 0,
+      "startedAt": "2026-11-01T19:23:28.145Z",
+      "finishedAt": "2026-11-01T19:23:51.726Z"
+    },
+    {
+      "name": "smoke-places",
+      "code": 0,
+      "startedAt": "2026-11-01T19:23:51.742Z",
+      "finishedAt": "2026-11-01T19:24:08.051Z"
+    },
+    {
+      "name": "smoke-pwa-mobile",
+      "code": 0,
+      "startedAt": "2026-11-01T19:24:08.053Z",
+      "finishedAt": "2026-11-01T19:24:42.080Z"
+    },
+    {
+      "name": "smoke-app-update",
+      "code": 0,
+      "startedAt": "2026-11-01T19:24:42.081Z",
+      "finishedAt": "2026-11-01T19:25:11.374Z"
+    },
+    {
+      "name": "smoke-install-manifest",
+      "code": 0,
+      "startedAt": "2026-11-01T19:25:11.376Z",
+      "finishedAt": "2026-11-01T19:25:24.220Z"
+    },
+    {
+      "name": "smoke-planning-import",
+      "code": 0,
+      "startedAt": "2026-11-01T19:25:24.222Z",
+      "finishedAt": "2026-11-01T19:25:56.698Z"
+    },
+    {
+      "name": "smoke-notebook",
+      "code": 0,
+      "startedAt": "2026-11-01T19:25:56.700Z",
+      "finishedAt": "2026-11-01T19:26:03.093Z"
+    },
+    {
+      "name": "smoke-palette-claire",
+      "code": 1,
+      "startedAt": "2026-11-01T19:26:03.096Z",
+      "finishedAt": "2026-11-01T19:27:52.694Z"
+    },
+    {
+      "name": "measure-l8",
+      "code": 0,
+      "startedAt": "2026-11-01T19:27:52.697Z",
+      "finishedAt": "2026-11-01T19:35:43.939Z"
+    },
+    {
+      "name": "evaluate-planning",
+      "code": 0,
+      "startedAt": "2026-11-01T19:35:43.943Z",
+      "finishedAt": "2026-11-01T19:35:44.281Z"
+    },
+    {
+      "name": "evaluate-planning-stress",
+      "code": 0,
+      "startedAt": "2026-11-01T19:35:44.283Z",
+      "finishedAt": "2026-11-01T19:35:45.013Z"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+import assert from 'node:assert/strict';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { chromium, expect } from '@playwright/test';
+import { chromiumTestOptions } from './browser-test-options.ts';
+import { productionTestServer } from './production-server.mjs';
+
+const wrongName = 'DÃ©tours â€” Mes voyages';
+const manifest = JSON.parse(await readFile('dist/manifest.webmanifest', 'utf8'));
+const server = await productionTestServer({ previousManifest: { ...manifest, name: wrongName, short_name: 'DÃ©tours' } });
+const browser = await chromium.launch(chromiumTestOptions());
+try {
+  const context = await browser.newContext();
+  await context.route('https://**/*', route => route.abort());
+  let page = await context.newPage();
+  await page.goto(server.url);
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true);
+  await page.getByRole('button', { name: 'Ajouter l’exemple Chine', exact: true }).click();
+  const notebooks = () => page.evaluate(() => Object.fromEntries(Object.entries(localStorage).filter(([key]) => key.startsWith('a-l-est-trip-v2:'))));
+  const before = await notebooks();
+  assert.ok(Object.keys(before).length > 0);
+  // Read Chrome's installation metadata, not a network request outside the worker.
+  await page.evaluate(() => { document.querySelector('link[rel=manifest]').href = '/manifest.webmanifest'; });
+  let cdp = await context.newCDPSession(page);
+  const legacy = await cdp.send('Page.getAppManifest');
+  assert.equal(legacy.manifest.name, wrongName, 'The old worker must reproduce the broken installation title');
+  const previousAppId = await cdp.send('Page.getAppId');
+  await page.reload();
+  const online = await cdp.send('Page.getAppManifest');
+  assert.equal(online.manifest.name, 'Détours', 'Chrome installation must receive the corrected name while the old worker is still active');
+  assert.equal(JSON.parse(online.data).short_name, 'Détours');
+  assert.equal((await cdp.send('Page.getAppId')).appId, previousAppId.appId, 'Manifest URL changes must keep the installed application identity');
+  assert.equal(await page.evaluate(async () => (await (await fetch('/manifest.webmanifest')).json()).name), wrongName, 'The regression requires a real stale cached canonical manifest');
+  assert.deepEqual(await notebooks(), before);
+  server.update();
+  await page.evaluate(async () => (await navigator.serviceWorker.getRegistration()).update());
+  await expect.poll(() => page.evaluate(async () => !!(await navigator.serviceWorker.getRegistration())?.waiting), { timeout: 30000 }).toBe(true);
+  await page.close();
+  await expect.poll(async () => (await Promise.all(context.serviceWorkers().map(worker => worker.evaluate(async () => !(await caches.keys()).includes('a-l-est-previous-test')).catch(() => false)))).some(Boolean), { timeout: 15000 }).toBe(true);
+  page = await context.newPage();
+  await page.goto(server.url);
+  await expect.poll(() => page.evaluate(() => !!navigator.serviceWorker.controller)).toBe(true);
+  await context.setOffline(true);
+  await page.reload();
+  cdp = await context.newCDPSession(page);
+  const offline = await cdp.send('Page.getAppManifest');
+  assert.equal(offline.manifest.name, 'Détours', 'The versioned installation manifest must also work offline');
+  assert.equal((await cdp.send('Page.getAppId')).appId, previousAppId.appId);
+  assert.deepEqual(await notebooks(), before);
+  const output = 'docs/development/installation-manifeste-cache';
+  await mkdir(output, { recursive: true });
+  await writeFile(`${output}/chrome-manifest.json`, JSON.stringify({ legacyName: legacy.manifest.name, correctedName: online.manifest.name, offlineName: offline.manifest.name, manifestUrl: online.url, appIdUnchanged: true, notebookUnchanged: true }, null, 2));
+  await context.close();
+  console.log('Chrome installation manifest: stale worker reproduced, corrected name online/offline, app identity and notebook preserved.');
+} finally { await browser.close(); await server.close(); }

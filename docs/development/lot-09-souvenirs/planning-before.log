@@ -1,0 +1,52 @@
+[WebServer] (node:788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:22800) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 tests\e2e\planning-analysis.spec.ts:26:1 › SIMULATED provider: paste, analyze, correct, create and open an account-local notebook (32.2s)
+(node:30696) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 tests\e2e\planning-analysis.spec.ts:26:1 › SIMULATED provider: paste, analyze, correct, create and open an account-local notebook (12.0s)
+(node:17448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 3 tests\e2e\planning-analysis.spec.ts:26:1 › SIMULATED provider: paste, analyze, correct, create and open an account-local notebook (11.3s)
+
+
+  1) tests\e2e\planning-analysis.spec.ts:26:1 › SIMULATED provider: paste, analyze, correct, create and open an account-local notebook 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.goto: Test timeout of 30000ms exceeded.
+    Call log:
+      - navigating to "http://127.0.0.1:5175/", waiting until "domcontentloaded"
+
+
+      19 | }
+      20 | async function openImport(page: Page) {
+    > 21 |   await page.goto('/', { waitUntil: 'domcontentloaded' });
+         |              ^
+      22 |   await page.getByRole('button', { name: 'Créer depuis un planning', exact: true }).click();
+      23 |   return page.getByRole('dialog');
+      24 | }
+        at openImport (C:\Users\eliot\Documents\detours-lot09-before-validation-20261024\tests\e2e\planning-analysis.spec.ts:21:14)
+        at C:\Users\eliot\Documents\detours-lot09-before-validation-20261024\tests\e2e\planning-analysis.spec.ts:35:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\planning-analysis\planning-analysis-SIMULATE-34e55-n-an-account-local-notebook\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\planning-analysis\planning-analysis-SIMULATE-34e55-n-an-account-local-notebook\error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\planning-analysis\planning-analysis-SIMULATE-34e55-n-an-account-local-notebook\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\planning-analysis\planning-analysis-SIMULATE-34e55-n-an-account-local-notebook\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests\e2e\planning-analysis.spec.ts:26:1 › SIMULATED provider: paste, analyze, correct, create and open an account-local notebook 
+  2 passed (1.4m)

@@ -171,8 +171,12 @@ test('octets autour des limites historiques et v3, journal compact sous quota', 
   await parseFullBackup(old.padEnd(5_000_001, ' '));
   assert.throws(() => parseImport(old.padEnd(5_000_001, ' ')), /5 Mo/);
   const raw = await exportBackup(new Memory(), new Memory());
-  await parseFullBackup(raw.padEnd(MAX_BACKUP_BYTES, ' '));
-  await assert.rejects(parseFullBackup(raw.padEnd(MAX_BACKUP_BYTES + 1, ' ')), /backup-size/);
+  // Exclusion messages can contain non-ASCII text: the contract is UTF-8 bytes.
+  const extraUtf8Bytes = Buffer.byteLength(raw, 'utf8') - raw.length;
+  const atLimit = raw.padEnd(MAX_BACKUP_BYTES - extraUtf8Bytes, ' ');
+  assert.equal(Buffer.byteLength(atLimit, 'utf8'), MAX_BACKUP_BYTES);
+  await parseFullBackup(atLimit);
+  await assert.rejects(parseFullBackup(atLimit + ' '), /backup-size/);
   const source = new Memory(), trip = blankTrip({ title: 'Sous quota' });
   trip.documents = [{ id: 'doc', title: 'Large', content: 'a'.repeat(450_000) }];
   writeTrip(source, trip);

@@ -1,0 +1,36 @@
+{
+  "allIdentical": true,
+  "files": [
+    {
+      "file": "src/hooks/useTravelState.ts",
+      "current": "1d08a92fcf04fc71f45215539d463edbe75bd8582fd4dbe1a48fd45134c38ac4",
+      "beforeLot08": "1d08a92fcf04fc71f45215539d463edbe75bd8582fd4dbe1a48fd45134c38ac4",
+      "identical": true
+    },
+    {
+      "file": "src/travel-write.ts",
+      "current": "c48d3dff1e02e875e1a40520aec37a4c46f35a9e1975ffb11ce499074d4b9407",
+      "beforeLot08": "c48d3dff1e02e875e1a40520aec37a4c46f35a9e1975ffb11ce499074d4b9407",
+      "identical": true
+    },
+    {
+      "file": "src/assistant.ts",
+      "current": "c2dd55cbdc6322fdcbefe1ef32108c597fcc0daa8cea1c2d9110da3af3d4ec7f",
+      "beforeLot08": "c2dd55cbdc6322fdcbefe1ef32108c597fcc0daa8cea1c2d9110da3af3d4ec7f",
+      "identical": true
+    },
+    {
+      "file": "src/components/GuidedAssistant.tsx",
+      "current": "a84af916ab9c196fdd7eb61c71eb0e32f71e4d0d4e6e9caa37f909c80105ff1c",
+      "beforeLot08": "a84af916ab9c196fdd7eb61c71eb0e32f71e4d0d4e6e9caa37f909c80105ff1c",
+      "identical": true
+    },
+    {
+      "file": "tests/e2e/assistant.spec.ts",
+      "current": "d19f10b0a91638bc3a3270989c1cc17f4cfc6b71815648cfcb9096b038edf2bb",
+      "beforeLot08": "d19f10b0a91638bc3a3270989c1cc17f4cfc6b71815648cfcb9096b038edf2bb",
+      "identical": true
+    }
+  ],
+  "previousEvidence": "../lot-08-mascotte/assistant-preexisting.json"
+}

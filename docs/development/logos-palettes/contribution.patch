@@ -1,0 +1,257 @@
+diff --git a/public/palettes.css b/public/palettes.css
+index 4e8d9c3..d0b17f4 100644
+--- a/public/palettes.css
++++ b/public/palettes.css
+@@ -91,7 +91,7 @@ html:root:root[data-theme=light][data-palette=porcelaine] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(233, 238, 235, 0.92);
+   --header-opaque: rgba(233, 238, 235, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #eef3ef;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+@@ -155,7 +155,7 @@ html:root:root[data-theme=light][data-palette=eucalyptus] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(232, 223, 208, 0.92);
+   --header-opaque: rgba(232, 223, 208, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #f2ebdf;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+@@ -219,7 +219,7 @@ html:root:root[data-theme=light][data-palette=sauge] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(227, 232, 220, 0.92);
+   --header-opaque: rgba(227, 232, 220, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #eaf0e3;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+@@ -283,7 +283,7 @@ html:root:root[data-theme=light][data-palette=ocean] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(225, 233, 239, 0.92);
+   --header-opaque: rgba(225, 233, 239, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #e9f0f5;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+@@ -347,7 +347,7 @@ html:root:root[data-theme=light][data-palette=glacier] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(228, 234, 240, 0.92);
+   --header-opaque: rgba(228, 234, 240, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #ecf2f8;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+@@ -411,7 +411,7 @@ html:root:root[data-theme=light][data-palette=foret] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(226, 233, 223, 0.92);
+   --header-opaque: rgba(226, 233, 223, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #e9f0e5;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+@@ -475,7 +475,7 @@ html:root:root[data-theme=light][data-palette=bordeaux] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(239, 223, 223, 0.92);
+   --header-opaque: rgba(239, 223, 223, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #f4e8e5;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+@@ -539,7 +539,7 @@ html:root:root[data-theme=light][data-palette=corail] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(240, 223, 211, 0.92);
+   --header-opaque: rgba(240, 223, 211, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #f5e8dd;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+@@ -603,7 +603,7 @@ html:root:root[data-theme=light][data-palette=abricot] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(241, 216, 193, 0.92);
+   --header-opaque: rgba(241, 216, 193, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #f7e5d4;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+@@ -667,7 +667,7 @@ html:root:root[data-theme=light][data-palette=soleil] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(234, 228, 207, 0.92);
+   --header-opaque: rgba(234, 228, 207, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #f2ecd9;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+@@ -731,7 +731,7 @@ html:root:root[data-theme=light][data-palette=violet] {
+   --liquid-highlight: rgba(250, 246, 238, 0.4);
+   --header-liquid: rgba(234, 224, 239, 0.92);
+   --header-opaque: rgba(234, 224, 239, 0.99);
+-  --brand-surface: #e1d6c4;
++  --brand-surface: #f0e6f4;
+   --shadow: 0 4px 24px rgba(37, 59, 50, 0.025);
+   --floating-shadow: 0 16px 50px rgba(59, 53, 43, 0.16);
+   background: var(--surface-alt); color: var(--text);
+diff --git a/scripts/smoke-pwa-mobile.mjs b/scripts/smoke-pwa-mobile.mjs
+index 9b9df54..075ce52 100644
+--- a/scripts/smoke-pwa-mobile.mjs
++++ b/scripts/smoke-pwa-mobile.mjs
+@@ -107,6 +107,8 @@ try {
+   await expect(custom.locator('html')).toHaveAttribute('data-palette', 'violet');
+   await custom.locator('.brand-icon').evaluate(el => el.decode());
+   assert.equal(await custom.locator('.brand-icon').getAttribute('src'), '/icons/brand-dark-128.png');
++  assert.equal(await custom.locator('.brand-icon').getAttribute('data-logo-palette'), 'violet');
++  assert.match(await custom.locator('.brand-icon').evaluate(el => getComputedStyle(el).filter), /^url\(/);
+   assert.equal(await custom.locator('meta[name=theme-color]').getAttribute('content'), paletteTokens('violet', 'dark')['--surface-alt']);
+   assert.equal(await custom.locator('body').evaluate(el => getComputedStyle(el).getPropertyValue('--surface-alt').trim()), paletteTokens('violet', 'dark')['--surface-alt']);
+   assert.deepEqual(await custom.evaluate(() => Object.fromEntries(Object.entries(localStorage).filter(([key]) => key.startsWith('a-l-est-trip-v2:')))), notebooksBefore);
+diff --git a/scripts/verify-local.mjs b/scripts/verify-local.mjs
+index c0dd30e..a3b1f3e 100644
+--- a/scripts/verify-local.mjs
++++ b/scripts/verify-local.mjs
+@@ -29,7 +29,7 @@ const steps = [
+   local('intégrité du build', 'scripts/check-build.mjs'),
+   local('compatibilité SQL L6', 'scripts/test-l6-sql-local.mjs', [process.env.DETOURS_PGLITE_PATH || '']),
+   local('tests navigateur retenus', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l2-accessibility.spec.ts', 'tests/e2e/full-backup.spec.ts', 'tests/e2e/multi-trip.spec.ts', 'tests/e2e/world-languages.spec.ts', 'tests/e2e/fluid-navigation.spec.ts', 'tests/e2e/live-converter.spec.ts', 'tests/e2e/planning-import.spec.ts', 'tests/e2e/planning-local.spec.ts', 'tests/e2e/planning-lot01.spec.ts', 'tests/e2e/pwa-lot02.spec.ts']),
+-  local('palettes, logo et préférences', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/palette-claire.spec.ts', 'tests/e2e/palettes-personnalisees.spec.ts', 'tests/e2e/preferences.spec.ts', 'tests/e2e/iphone-glass.spec.ts', 'tests/e2e/apple-design.spec.ts']),
++  local('palettes, logo et préférences', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/palette-claire.spec.ts', 'tests/e2e/palettes-personnalisees.spec.ts', 'tests/e2e/brand-palettes.spec.ts', 'tests/e2e/preferences.spec.ts', 'tests/e2e/iphone-glass.spec.ts', 'tests/e2e/apple-design.spec.ts']),
+   local('analyse planning simulée dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', '--config', 'playwright.planning.config.ts']),
+   local('états L4/L5/L6 et préférences dans le navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/l4-status.spec.ts', 'tests/e2e/l5-now.spec.ts', 'tests/e2e/l5-maps.spec.ts', 'tests/e2e/map-preferences.spec.ts', 'tests/e2e/l6-preparation.spec.ts']),
+   ...['smoke-production', 'smoke-backup', 'smoke-ui', 'smoke-common-sharing', 'smoke-l4-offline', 'smoke-l4-persistence', 'smoke-l5-now', 'smoke-l6-preparation', 'smoke-l8-release'].map(name => local(name, `scripts/${name}.mjs`, [], output)),
+diff --git a/src/components/BrandMark.tsx b/src/components/BrandMark.tsx
+index e7416d5..b745975 100644
+--- a/src/components/BrandMark.tsx
++++ b/src/components/BrandMark.tsx
+@@ -1,6 +1,24 @@
++import { useId } from 'react';
+ import { useLocale } from '../i18n';
++import { paletteTokens } from '../palettes';
+ /** Decorative next to the visible Détours name; never duplicate it for screen readers. */
+ export default function BrandMark({ small = false }: { small?: boolean }) {
+-  const { resolvedTheme } = useLocale();
+-  return <img className={small ? 'brand-symbol' : 'brand-icon'} src={resolvedTheme === 'dark' ? '/icons/brand-dark-128.png' : '/icons/brand-128.png'} width={small ? 15 : 42} height={small ? 15 : 42} alt="" aria-hidden="true"/>;
++  const { resolvedTheme, palettes } = useLocale();
++  const filterId = `bird-${useId()}`;
++  const palette = palettes[resolvedTheme];
++  const signature = palette === 'signature';
++  const accent = paletteTokens(palette, resolvedTheme)['--action'].slice(1).match(/../g)!.map(value => parseInt(value, 16) / 255);
++  // Remap the existing paper folds to three shades of this palette's accent.
++  // Alpha and the bird silhouette stay intact; Signature keeps its approved artwork.
++  const channels = accent.map(value => [value * .42, value, value + (1 - value) * .42].join(' '));
++  return <>
++    {!signature && <svg width="0" height="0" aria-hidden="true" focusable="false" style={{ position: 'absolute', pointerEvents: 'none' }}><defs>
++      <filter id={filterId} colorInterpolationFilters="sRGB">
++        <feColorMatrix type="saturate" values="0"/>
++        <feComponentTransfer><feFuncR type="linear" slope="1.6" intercept="-.6"/><feFuncG type="linear" slope="1.6" intercept="-.6"/><feFuncB type="linear" slope="1.6" intercept="-.6"/></feComponentTransfer>
++        <feComponentTransfer><feFuncR type="table" tableValues={channels[0]}/><feFuncG type="table" tableValues={channels[1]}/><feFuncB type="table" tableValues={channels[2]}/></feComponentTransfer>
++      </filter>
++    </defs></svg>}
++    <img className={small ? 'brand-symbol' : 'brand-icon'} data-logo-palette={palette} src={signature && resolvedTheme === 'light' ? '/icons/brand-128.png' : '/icons/brand-dark-128.png'} style={signature ? undefined : { filter: `url("#${filterId}")` }} width={small ? 15 : 42} height={small ? 15 : 42} alt="" aria-hidden="true"/>
++  </>;
+ }
+diff --git a/src/palettes.ts b/src/palettes.ts
+index d9b1646..dd475da 100644
+--- a/src/palettes.ts
++++ b/src/palettes.ts
+@@ -70,7 +70,7 @@ export function paletteTokens(id: PaletteId, appearance: Appearance): Record<str
+     '--liquid-edge': rgba(dark ? '#ffffff' : '#faf6ee', dark ? .13 : .8),
+     '--liquid-highlight': rgba(dark ? '#ffffff' : '#faf6ee', dark ? .04 : .4),
+     '--header-liquid': rgba(background, .92), '--header-opaque': rgba(background, .99),
+-    '--brand-surface': dark ? surface : '#e1d6c4',
++    '--brand-surface': dark ? surface : id === 'signature' ? '#e1d6c4' : field,
+     '--shadow': `0 4px 24px ${rgba(dark ? '#000000' : '#253b32', .025)}`,
+     '--floating-shadow': `0 16px 50px ${rgba(dark ? '#000000' : '#3b352b', dark ? .4 : .16)}`,
+   };
+diff --git a/tests/e2e/brand-palettes.spec.ts b/tests/e2e/brand-palettes.spec.ts
+new file mode 100644
+index 0000000..7d9ec51
+--- /dev/null
++++ b/tests/e2e/brand-palettes.spec.ts
+@@ -0,0 +1,78 @@
++import { test, expect } from '@playwright/test';
++import { mkdir, writeFile } from 'node:fs/promises';
++import { paletteIds, paletteNames, paletteTokens } from '../../src/palettes';
++import { archive, chinaTrip } from '../../src/journeys';
++
++test.use({ reducedMotion: 'reduce', deviceScaleFactor: 2 });
++const output = 'docs/development/logos-palettes';
++const hue = (rgb: number[]) => {
++  const [r,g,b] = rgb.map(v=>v/255), max=Math.max(r,g,b), min=Math.min(r,g,b), d=max-min;
++  if (!d) return 0;
++  const angle = max===r ? ((g-b)/d)%6 : max===g ? (b-r)/d+2 : (r-g)/d+4;
++  return (angle*60+360)%360;
++};
++async function preferences(page: import('@playwright/test').Page) {
++  await page.getByRole('button',{name:'Préférences',exact:true}).click();
++  await page.locator('.palette-collection > summary').click();
++}
++
++test('the rendered bird and its badge follow all 24 palettes without changing the notebook',async({page,browserName})=>{
++  test.setTimeout(180000);await page.setViewportSize({width:390,height:844});
++  await page.route('https://**/*',route=>route.abort());
++  const value=JSON.stringify(archive(chinaTrip(undefined,'brand-preserved')));
++  await page.addInitScript(value=>{if(!localStorage.getItem('a-l-est-trip-v2:brand-preserved'))localStorage.setItem('a-l-est-trip-v2:brand-preserved',value);},value);
++  await page.goto('/');
++  const original=await page.evaluate(()=>localStorage.getItem('a-l-est-trip-v2:brand-preserved'));
++  await mkdir(output+'/screenshots',{recursive:true});const rows=[];const cards=[];
++  for(const theme of ['light','dark'] as const){
++    for(const id of paletteIds){
++      await preferences(page);await page.getByRole('radio',{name:theme==='light'?'Clair':'Sombre',exact:true}).check();
++      await page.getByRole('radio',{name:paletteNames[id],exact:true}).check();await page.keyboard.press('Escape');
++      const image=page.locator('.brand-icon');await image.evaluate(el=>(el as HTMLImageElement).decode());
++      await expect(image).toHaveAttribute('data-logo-palette',id);
++      const filter=await image.evaluate(el=>getComputedStyle(el).filter);
++      expect(filter==='none').toBe(id==='signature');
++      const colors=paletteTokens(id,theme);
++      const badge=await page.locator('.brand-mark').evaluate(el=>getComputedStyle(el).backgroundColor);
++      expect(badge).toBe('rgb('+colors['--brand-surface'].slice(1).match(/../g)!.map(v=>parseInt(v,16)).join(', ')+')');
++      const png=await image.screenshot({path:`${output}/screenshots/${browserName}-${theme}-${id}.png`,animations:'disabled'});
++      let difference=0;
++      if(id!=='signature'){
++        const average=await page.evaluate(async png=>{
++          const image=new Image();image.src='data:image/png;base64,'+png;await image.decode();
++          const mask=new Image();mask.src='/icons/brand-dark-128.png';await mask.decode();
++          const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;
++          const ctx=canvas.getContext('2d')!;ctx.drawImage(image,0,0);const pixels=ctx.getImageData(0,0,image.width,image.height).data;
++          ctx.clearRect(0,0,image.width,image.height);ctx.drawImage(mask,0,0,image.width,image.height);const alpha=ctx.getImageData(0,0,image.width,image.height).data;
++          const sum=[0,0,0];let count=0;
++          for(let i=0;i<pixels.length;i+=4)if(alpha[i+3]>250&&alpha[i]>200){count++;sum.forEach((_,j)=>sum[j]+=pixels[i+j]);}
++          if(!count)throw Error('No visible bird pixels');return sum.map(value=>value/count);
++        },png.toString('base64'));
++        const target=colors['--action'].slice(1).match(/../g)!.map(v=>parseInt(v,16));
++        const distance=Math.abs(hue(average)-hue(target));difference=Math.min(distance,360-distance);
++        expect(difference,`${theme}/${id}: rendered bird follows accent hue`).toBeLessThan(18);
++        expect(Math.max(...average)-Math.min(...average),'bird retains its palette color').toBeGreaterThan(8);
++      }
++      expect(await page.evaluate(()=>localStorage.getItem('a-l-est-trip-v2:brand-preserved'))).toBe(original);
++      rows.push({theme,id,filter:filter==='none'?'approved original':'palette paper relief',badge,hueDifference:difference,notebookUnchanged:true});
++      cards.push(`<article style="background:${colors['--surface-alt']};color:${colors['--text']}"><img style="background:${colors['--brand-surface']}" src="data:image/png;base64,${png.toString('base64')}"><strong>${paletteNames[id]}</strong><span>${theme==='light'?'Clair':'Sombre'}</span></article>`);
++    }
++  }
++  await writeFile(`${output}/matrix-${browserName}.json`,JSON.stringify(rows,null,2));
++  const board=await page.context().newPage();await board.setViewportSize({width:1120,height:820});
++  await board.setContent(`<html lang="fr"><style>body{margin:0;padding:24px;background:#e7e3dc;font-family:system-ui}h1{font-size:24px;margin:0 0 18px;color:#253b32}.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}article{border-radius:16px;padding:14px;display:flex;align-items:center;flex-direction:column;gap:8px}img{width:68px;height:68px;border-radius:18px}strong{font-size:12px}span{font-size:10px;opacity:.75}</style><h1>Détours — un oiseau accordé à chaque palette</h1><div class="grid">${cards.join('')}</div></html>`);
++  await board.screenshot({path:`${output}/${browserName}-24-logos.png`,fullPage:true});await board.close();
++});
++
++test('palette-colored brand survives reload and reaches the notebook footer',async({page})=>{
++  await page.setViewportSize({width:1440,height:980});await page.route('https://**/*',route=>route.abort());
++  await page.goto('/');await preferences(page);
++  await page.getByRole('radio',{name:'Clair',exact:true}).check();await page.getByRole('radio',{name:'Bordeaux & ivoire',exact:true}).check();
++  await page.keyboard.press('Escape');await page.reload();
++  await expect(page.locator('.brand-icon')).toHaveAttribute('data-logo-palette','bordeaux');
++  await page.getByRole('button',{name:'Ajouter l’exemple Chine',exact:true}).click();
++  await expect(page.locator('.brand-icon')).toHaveAttribute('data-logo-palette','bordeaux');
++  const small=page.locator('.brand-symbol');await expect(small).toHaveCount(1);await expect(small).toHaveAttribute('data-logo-palette','bordeaux');
++  expect(await small.evaluate(el=>getComputedStyle(el).filter)).toContain('url(');
++  await expect(small).toHaveAttribute('alt','');
++});

@@ -1,3 +1,6 @@
+import typographyStyles from '../typography.css?inline';
+import TravelMemories from './TravelMemories';
+import { PeekCard, ScrollProgressNav, StoryRail } from './TravelInteractions';
 import { activeSteps } from '../day-preparation';
 import { EditInput, EditButton } from './EditControls';
 import { useLocale, translate } from '../i18n';
@@ -34,7 +37,7 @@ export function printWholeTrip(state: StoredState, language: Language = 'fr', pr
   const dateLocale = localeFor(language);
   const displayDate = (value: string) => validCalendarDate(value) ? new Intl.DateTimeFormat(dateLocale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(`${value}T12:00:00Z`)) : value;
   const style = doc.createElement('style');
-  style.textContent = `@page { margin: 16mm; } body { font: 12pt system-ui,sans-serif; color:#172a27; line-height:1.5; } h1 {font-size:25pt} h2 {font-size:20pt;break-after:avoid} h3 {break-after:avoid} article {border-top:1px solid #aaa;padding-top:8px} p {white-space:pre-wrap;overflow-wrap:anywhere} a {color:#172a27;overflow-wrap:anywhere} .city {break-before:page} .city:first-of-type {break-before:auto} .step {break-inside:avoid} @media print {body {margin:0}}`;
+  style.textContent = typographyStyles + `@page { margin: 16mm; } body { font: 12pt var(--font-ui); color:#172a27; line-height:1.5; } h1,h2,h3 {font-family:var(--font-heading);font-weight:500;letter-spacing:-.015em} h1 {font-size:25pt} h2 {font-size:20pt;break-after:avoid} h3 {break-after:avoid} article {border-top:1px solid #aaa;padding-top:8px} p {white-space:pre-wrap;overflow-wrap:anywhere} a {color:#172a27;overflow-wrap:anywhere} .city {break-before:page} .city:first-of-type {break-before:auto} .step {break-inside:avoid} @media print {body {margin:0}}`;
   doc.head.append(style);
   const add = (parent: HTMLElement, tag: string, content: string, className = '') => {
     const node = doc.createElement(tag); node.textContent = content; node.className = className; parent.append(node); return node;
@@ -121,13 +124,16 @@ export default function TripOverview({ state, onChange, onNavigate, notify }: Pr
       <div className="overview-actions"><button type="button" disabled={!dated} onClick={exportCalendar}><Download size={18} aria-hidden="true" /> {t("Exporter le calendrier ({count})", { count: dated })}</button><button type="button" onClick={() => { try { printWholeTrip(state, language, provider); } catch (error) { notify(error instanceof Error ? error.message : t("Impression indisponible.")); } }}><Printer size={18} aria-hidden="true" />{t("Imprimer tout le voyage")}</button></div>
     </header>
     <div className="overview-summary"><span><MapPin size={18} aria-hidden="true" /> {t("{count} villes", { count: state.cities.length })}</span><span><CalendarDays size={18} aria-hidden="true" /> {t("{count} journées · {dated} datées", { count: days.length, dated })}</span><span>{t("{done} / {total} activités faites", { done: completed, total: steps.length })}</span><progress max={steps.length || 1} value={completed} aria-label={t("Avancement des activités du voyage")} /></div>
+    <TravelMemories key={state.journey!.id} state={state} onNavigate={(city, day) => { onNavigate(city, day); requestAnimationFrame(() => { const panel = document.querySelector<HTMLDetailsElement>('.souvenirs'); if (panel) { panel.open = true; panel.scrollIntoView({ block: 'center' }); } }); }}/>
+    <StoryRail cities={state.cities} onNavigate={onNavigate}/>
+    <ScrollProgressNav items={state.cities.map(city => ({ id: `overview-section-${city.id}`, title: city.name }))}/>
     <p className="overview-date-hint">{t("Attribue une date à chaque journée. Les journées de départ et d’arrivée peuvent se chevaucher entre deux villes : les dates ne sont donc pas calculées automatiquement depuis le départ. Seules les journées datées sont exportées, en événements sur la journée entière.")}</p>
-    {state.cities.map(city => <section className="overview-city" key={city.id} aria-labelledby={`overview-city-${city.id}`}>
-      <h2 id={`overview-city-${city.id}`}>{city.name} <small>{city.chineseName}</small></h2>
+    {state.cities.map(city => <section className="overview-city" id={`overview-section-${city.id}`} key={city.id} aria-labelledby={`overview-city-${city.id}`}>
+      <h2 tabIndex={-1} id={`overview-city-${city.id}`}>{city.name} <small>{city.chineseName}</small></h2>
       {city.days.length ? city.days.map(day => {
         const done = activeSteps(day).filter(step => state.done.includes(step.id)).length;
         return <article className="overview-day" key={day.id}>
-          <div><button type="button" className="overview-day-link" onClick={() => onNavigate(city.id, day.id)} aria-label={t("Ouvrir {day} à {city}", { day: day.title, city: city.name })}>{day.title}</button><p>{activeSteps(day).length ? t("{done} / {total} activités faites", { done, total: activeSteps(day).length }) : t("Journée à compléter")}{day.steps.some(step => step.booking && !state.bookings.includes(step.id)) ? t(" · Réservations à prévoir") : ''}</p></div>
+          <div><div className="overview-day-main"><button type="button" className="overview-day-link" onClick={() => onNavigate(city.id, day.id)} aria-label={t("Ouvrir {day} à {city}", { day: day.title, city: city.name })}>{day.title}</button><PeekCard title={day.title}><p>{city.name}</p>{activeSteps(day).length ? <ul>{activeSteps(day).slice(0, 5).map(step => <li key={step.id}>{step.title}{step.period ? ` · ${step.period}` : ''}</li>)}</ul> : <p>{t('Journée à compléter')}</p>}<button type="button" className="text-btn" onClick={() => onNavigate(city.id, day.id)}>{t('Ouvrir cette journée')}</button></PeekCard></div><p>{activeSteps(day).length ? t("{done} / {total} activités faites", { done, total: activeSteps(day).length }) : t("Journée à compléter")}{day.steps.some(step => step.booking && !state.bookings.includes(step.id)) ? t(" · Réservations à prévoir") : ''}</p></div>
           <label className="overview-date">{t("Date de {day}", { day: day.title })}<EditInput type="date" min="0001-01-01" max="9999-12-30" value={day.date || ''} onChange={event => {
             const date = event.target.value;
             if (date && (!validCalendarDate(date) || date > '9999-12-30')) { notify(t("Choisis une date valide.")); return; }

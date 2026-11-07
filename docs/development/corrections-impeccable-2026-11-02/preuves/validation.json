@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-02",
+  "branch": "codex/corrections-audit-impeccable",
+  "startingRevision": "480c0f8257274d0ebfaa630e50933da90a16e5f6",
+  "finalBuildId": "084e01499b1e79d449a2beb9e9c780176cd50216c98340600e82bc997b371979",
+  "typecheck": "passed",
+  "lint": "passed",
+  "unitDistinct": 120,
+  "e2eSelections": [
+    {
+      "selected": 23,
+      "passedInitially": 22,
+      "failedInitially": 1
+    },
+    {
+      "selected": 46,
+      "passedInitially": 35,
+      "failedInitially": 11
+    },
+    {
+      "selected": 16,
+      "passed": 16,
+      "reason": "11 failed scenarios, 1 initial import scenario, 4 responsive scenarios after final cover change"
+    }
+  ],
+  "paletteCaptures": 88,
+  "detector": [],
+  "fullGate": "not run; no persistence or server contract change",
+  "remoteChanges": false,
+  "physicalDevices": false
+}

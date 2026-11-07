@@ -1,0 +1,72 @@
+{
+  "mobile": [
+    {
+      "h1": 279.390625,
+      "scroll": 390,
+      "url": "http://127.0.0.1:4318/?direction=editorial&screen=home",
+      "width": 390
+    },
+    {
+      "h1": 306.390625,
+      "scroll": 390,
+      "url": "http://127.0.0.1:4318/?direction=editorial&screen=day",
+      "width": 390
+    },
+    {
+      "h1": 279.390625,
+      "scroll": 390,
+      "url": "http://127.0.0.1:4318/?direction=editorial&screen=import",
+      "width": 390
+    },
+    {
+      "h1": 284.390625,
+      "scroll": 390,
+      "url": "http://127.0.0.1:4318/?direction=practical&screen=home",
+      "width": 390
+    },
+    {
+      "h1": 311.390625,
+      "scroll": 390,
+      "url": "http://127.0.0.1:4318/?direction=practical&screen=day",
+      "width": 390
+    },
+    {
+      "h1": 284.390625,
+      "scroll": 390,
+      "url": "http://127.0.0.1:4318/?direction=practical&screen=import",
+      "width": 390
+    }
+  ],
+  "narrow": [
+    {
+      "scroll": 305,
+      "url": "http://127.0.0.1:4318/?direction=editorial&screen=home",
+      "width": 320
+    },
+    {
+      "scroll": 305,
+      "url": "http://127.0.0.1:4318/?direction=editorial&screen=day",
+      "width": 320
+    },
+    {
+      "scroll": 305,
+      "url": "http://127.0.0.1:4318/?direction=editorial&screen=import",
+      "width": 320
+    },
+    {
+      "scroll": 305,
+      "url": "http://127.0.0.1:4318/?direction=practical&screen=home",
+      "width": 320
+    },
+    {
+      "scroll": 305,
+      "url": "http://127.0.0.1:4318/?direction=practical&screen=day",
+      "width": 320
+    },
+    {
+      "scroll": 305,
+      "url": "http://127.0.0.1:4318/?direction=practical&screen=import",
+      "width": 320
+    }
+  ]
+}

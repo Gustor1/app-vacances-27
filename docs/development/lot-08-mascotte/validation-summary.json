@@ -1,0 +1,32 @@
+{
+  "sourceFingerprint": "bb019c9bff0c8c2f254896c34822ffb710e10d4391d841d7c85020558b6d2ed8",
+  "buildId": "887128f78468f88214e958f6251a558518fa6e2b67ad41a1b5c97c7d88724338",
+  "initialGate": {
+    "exitCode": 1,
+    "passed": 24,
+    "failed": 1,
+    "notRun": 7
+  },
+  "continuation": {
+    "exitCode": 0,
+    "passed": 7,
+    "notRun": 0
+  },
+  "sourceUnchanged": true,
+  "allRequestedChecksExecuted": true,
+  "globalGatePassed": false,
+  "knownPreexistingFailure": "assistant.spec.ts: revision arriving during pending lock",
+  "unitTests": {
+    "passed": 325,
+    "failed": 0
+  },
+  "browserScenarios": {
+    "passed": 178,
+    "failed": 1
+  },
+  "compiledChecks": {
+    "passed": 18,
+    "failed": 0
+  },
+  "baselineFailureReproduced": true
+}

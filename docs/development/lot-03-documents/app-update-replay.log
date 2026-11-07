@@ -1,0 +1,21 @@
+chromium: update detected and applied; cache upgraded and new worker controls the page.
+chromium: resume detects release through the old HTML cache; manual update preserves journals; new release works offline.
+webkit: update detected and applied; cache upgraded and new worker controls the page.
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+false !== true
+
+    at file:///C:/Users/eliot/Documents/app-vacances-27/scripts/smoke-app-update.mjs:91:14 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0

@@ -1,0 +1,95 @@
+import assert from 'node:assert/strict';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { createRequire } from 'node:module';
+const require = createRequire('C:/Users/eliot/Documents/app-vacances-27/package.json');
+const { chromium, expect } = require('@playwright/test');
+const { chromiumTestOptions } = await import('file:///C:/Users/eliot/Documents/app-vacances-27/scripts/browser-test-options.ts');
+const { archive, chinaTrip } = await import('file:///C:/Users/eliot/Documents/app-vacances-27/src/journeys.ts');
+const { validateIdentity } = await import('file:///C:/Users/eliot/Documents/app-vacances-27/scripts/build-identity.mjs');
+const base = 'https://app-vacances-27-beta-eliottle.vercel.app';
+const root = 'C:/Users/eliot/Documents/detours-release-logos-palettes-20261019';
+const expected = JSON.parse(await readFile(root + '/dist/build-info.json', 'utf8'));
+const browser = await chromium.launch(chromiumTestOptions());
+const context = await browser.newContext({ viewport: {width:390,height:844}, reducedMotion:'reduce', colorScheme:'light' });
+const errors=[];
+context.on('page',page=>page.on('pageerror',error=>errors.push({message:error.message,stack:error.stack})));
+await context.route('https://**/*', route => new URL(route.request().url()).origin === base ? route.continue() : route.abort());
+const trip = chinaTrip(undefined, 'published-palette-proof');
+await context.addInitScript(value => { if (location.origin !== 'https://app-vacances-27-beta-eliottle.vercel.app') return; if (!localStorage.getItem('a-l-est-trip-v2:published-palette-proof')) localStorage.setItem('a-l-est-trip-v2:published-palette-proof', value); }, JSON.stringify(archive(trip)));
+try {
+  const page=await context.newPage();
+  let info;
+  await expect.poll(async()=>{const response=await context.request.get(base+'/build-info.json?release='+Date.now());info=await response.json();return info.id;},{timeout:45000}).toBe(expected.id);
+  validateIdentity(info, expected.id);
+  const verified=[];
+  for(let start=0;start<info.files.length;start+=5) {
+    await Promise.all(info.files.slice(start,start+5).map(async file=>{
+      const response=await context.request.get(base+file.path+'?release='+Date.now());assert.equal(response.status(),200,file.path);
+      const bytes=await response.body();assert.equal(bytes.length,file.bytes,file.path);assert.equal(createHash('sha256').update(bytes).digest('hex'),file.sha256,file.path);verified.push(file.path);
+    }));
+  }
+  const worker=await context.request.get(base+'/sw.js?release='+Date.now());assert.equal(worker.status(),200);
+  assert.equal(createHash('sha256').update(await worker.body()).digest('hex'),createHash('sha256').update(await readFile(root+'/dist/sw.js')).digest('hex'));
+  await page.goto(base);
+  await page.getByRole('button',{name:'Préférences',exact:true}).click();
+  await page.getByRole('radio',{name:'Clair',exact:true}).check();
+  await page.locator('.palette-collection > summary').click();
+  await page.getByRole('radio',{name:'Bordeaux & ivoire',exact:true}).check();
+  await page.keyboard.press('Escape');
+  const logo=page.locator('.brand-icon');await logo.evaluate(el=>el.decode());
+  await expect(logo).toHaveAttribute('data-logo-palette','bordeaux');
+  assert.match(await logo.evaluate(el=>getComputedStyle(el).filter),/^url\(/);
+  const png=await logo.screenshot({path:root+'/published-bordeaux-light.png',animations:'disabled'});
+  const birdColor=await page.evaluate(async png=>{
+    const image=new Image();image.src='data:image/png;base64,'+png;await image.decode();
+    const mask=new Image();mask.src='/icons/brand-dark-128.png';await mask.decode();
+    const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;
+    const ctx=canvas.getContext('2d');ctx.drawImage(image,0,0);const pixels=ctx.getImageData(0,0,image.width,image.height).data;
+    ctx.clearRect(0,0,image.width,image.height);ctx.drawImage(mask,0,0,image.width,image.height);const alpha=ctx.getImageData(0,0,image.width,image.height).data;
+    const sum=[0,0,0];let count=0;
+    for(let i=0;i<pixels.length;i+=4)if(alpha[i+3]>250&&alpha[i]>200){count++;sum.forEach((_,j)=>sum[j]+=pixels[i+j]);}
+    if(!count)throw Error('No bird pixels');return sum.map(value=>value/count);
+  },png.toString('base64'));
+  assert.ok(birdColor[0]>birdColor[1]+15&&birdColor[2]>birdColor[1]+5,'light bird is burgundy, not the old green logo');
+  assert.equal(await page.locator('.brand-mark').evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(244, 232, 229)');
+  await page.getByRole('button',{name:'Préférences',exact:true}).click();
+  await page.getByRole('radio',{name:'Sombre',exact:true}).check();
+  await page.locator('.palette-collection > summary').click();
+  assert.equal(await page.locator('.palette-options input').count(),12);
+  await expect(page.getByRole('radio',{name:'中文（简体）',exact:true})).toHaveCount(1);
+  const before=await page.evaluate(()=>localStorage.getItem('a-l-est-trip-v2:published-palette-proof'));
+  await page.getByRole('radio',{name:'Violet origami',exact:true}).check();
+  await expect(page.locator('html')).toHaveAttribute('data-palette','violet');
+  await page.keyboard.press('Escape');await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-theme','dark');await expect(page.locator('html')).toHaveAttribute('data-palette','violet');
+  await page.locator('.brand-icon').evaluate(el=>el.decode());await expect(page.locator('.brand-icon')).toHaveAttribute('src','/icons/brand-dark-128.png');
+  await expect(page.locator('.brand-icon')).toHaveAttribute('data-logo-palette','violet');
+  assert.match(await page.locator('.brand-icon').evaluate(el=>getComputedStyle(el).filter),/^url\(/);
+  assert.equal(await page.evaluate(()=>localStorage.getItem('a-l-est-trip-v2:published-palette-proof')),before);
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+  await page.getByRole('button',{name:'Ouvrir Chine 2027',exact:true}).click();
+  await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Mon carnet pratique',exact:true}).click();
+  await expect(page.locator('.offline-status')).toHaveClass(/offline-ready/);
+  await expect.poll(()=>page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);
+  await context.setOffline(true);
+  await page.getByRole('textbox',{name:'Notes personnelles',exact:true}).fill('Publication palettes : note locale conservée 中文');
+  await expect(page.locator('.local-status')).toHaveText('Carnet sauvegardé sur cet appareil');
+  await page.close();
+  const reopened=await context.newPage();await reopened.goto(base);
+  await expect(reopened.locator('html')).toHaveAttribute('data-palette','violet');
+  await expect(reopened.locator('.brand-icon')).toHaveAttribute('data-logo-palette','violet');
+  assert.match(await reopened.locator('.brand-icon').evaluate(el=>getComputedStyle(el).filter),/^url\(/);
+  await reopened.getByRole('button',{name:'Ouvrir Chine 2027',exact:true}).click();
+  await reopened.getByRole('button',{name:'Menu',exact:true}).click();await reopened.getByRole('button',{name:'Mon carnet pratique',exact:true}).click();
+  await expect(reopened.getByRole('textbox',{name:'Notes personnelles',exact:true})).toHaveValue('Publication palettes : note locale conservée 中文');
+  await expect(reopened.locator('.offline-status')).toHaveClass(/offline-ready/);
+  await context.setOffline(false);await reopened.reload();
+  await expect(reopened.getByRole('textbox',{name:'Notes personnelles',exact:true})).toHaveValue('Publication palettes : note locale conservée 中文');
+  await reopened.screenshot({path:root+'/published-390.png'});
+  assert.deepEqual(errors,[]);
+  const report={url:base,buildId:info.id,sourceFingerprint:info.sourceFingerprint,filesVerified:verified.length,allAssetHashesMatch:true,workerMatches:true,allTwelvePalettes:true,themeAndPalettePersist:true,darkBirdLoaded:true,lightBurgundyBirdPixels:birdColor,lightBurgundyBackground:true,coloredBirdRestoredOffline:true,notebookUnchangedByPalette:true,offlineNote:true,closeReopenOffline:true,reconnect:true,noOverflow390:true,errors,limits:['Disposable synthetic profile; backend requests blocked','No real OAuth, cloud write, OS installation or physical iPhone verification']};
+  await writeFile(root+'/published-verification.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
+} catch(error) {
+  await context.setOffline(false);await context.pages().at(-1)?.screenshot({path:root+'/failure.png',fullPage:true});throw error;
+} finally {await context.close();await browser.close();}

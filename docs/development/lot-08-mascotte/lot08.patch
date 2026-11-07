@@ -1,0 +1,615 @@
+diff --git a/README.md b/README.md
+index 10d211b..f069cf9 100644
+--- a/README.md
++++ b/README.md
+@@ -8,6 +8,8 @@ L’interface est disponible en français, anglais, chinois simplifié et espagn
+ 
+ ## Démarrer
+ 
++La mascotte locale « Détour » accompagne le premier carnet, les passages d’import à relire et le contrôle hors ligne réussi. **Préférences → Afficher la mascotte** la masque immédiatement. Ce choix et l’accueil déjà vu restent personnels au compte et au navigateur sur cet appareil, hors carnets partagés et exports ; ils ne sont pas synchronisés. Les textes et actions ordinaires restent disponibles sans les images. [Rapport, provenance et limites du lot 08](docs/development/lot-08-mascotte/RAPPORT.md).
++
+ Node.js 22.18+ et npm. Vérifié avec Node 24 sous Windows.
+ 
+ ```sh
+diff --git a/public/licenses/mascot.md b/public/licenses/mascot.md
+new file mode 100644
+index 0000000..222b5c1
+--- /dev/null
++++ b/public/licenses/mascot.md
+@@ -0,0 +1,31 @@
++# Détour — original vector swallow
++
++Editable sources: `src/assets/mascot/welcome.svg`, `attention.svg`, `ready.svg`.
++Vite includes them as data URLs inside the application bundle; displaying them requires no image request.
++Created on 2026-10-23 for Détours by Codex, using original SVG path instructions.
++No downloaded image, font, icon, reference artwork, image-generation service or external asset was used.
++Each SVG is its own editable source. The three poses share the same swallow and satchel.
++Working name: Détour. Trademark availability has not been checked.
++Application icons and the existing BrandMark are separate and remain unchanged.
++
++## MIT License (these three SVG files)
++
++Copyright (c) 2026 Détours contributors
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
+diff --git a/scripts/mascot-preservation.mjs b/scripts/mascot-preservation.mjs
+new file mode 100644
+index 0000000..cf27b7a
+--- /dev/null
++++ b/scripts/mascot-preservation.mjs
+@@ -0,0 +1,49 @@
++import { readFile, writeFile, mkdir, copyFile, mkdtemp } from 'node:fs/promises';
++import { createHash } from 'node:crypto';
++import { execFileSync } from 'node:child_process';
++import { tmpdir } from 'node:os';
++import { resolve, join, dirname } from 'node:path';
++
++const directory='docs/development/lot-08-mascotte/';
++const snapshot=resolve(process.argv[2]||'../detours-lot08-recovery-20261023');
++const manifest=JSON.parse(await readFile(join(snapshot,'manifest.json'),'utf8'));
++const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
++const modifications=new Set(['README.md','src/main.tsx','src/locale-utils.ts','src/components/Preferences.tsx','src/components/JourneysApp.tsx','src/components/PlanningImport.tsx','src/components/OfflineStatus.tsx','scripts/verify-local.mjs']);
++const additions=new Set(['src/mascot.ts','src/MascotPreferences.tsx','src/components/Mascot.tsx','src/components/Mascot.css','src/locales/mascot.ts','src/assets/mascot/welcome.svg','src/assets/mascot/attention.svg','src/assets/mascot/ready.svg','public/licenses/mascot.md','tests/mascot.test.mjs','tests/e2e/mascot.spec.ts','scripts/smoke-mascot.mjs','scripts/mascot-preservation.mjs']);
++const changed=[],missing=[],restored=[];
++for(const row of manifest.files) {
++  let bytes;
++  try { bytes=await readFile(row.file); } catch(e) { if(e.code==='ENOENT') {missing.push(row.file);continue;}throw e; }
++  if(hash(bytes)===row.sha256)continue;
++  // Only generated historical screenshots are eligible for automatic restoration.
++  if(process.argv.includes('--restore-evidence') && row.file.startsWith('docs/development/') && row.file.endsWith('.png') && !modifications.has(row.file)) {
++    const original=await readFile(join(snapshot,'source',row.file));
++    if(hash(original)!==row.sha256)throw new Error('Snapshot hash differs: '+row.file);
++    const preserved=join(directory,'regenerated',row.file);await mkdir(dirname(preserved),{recursive:true});await writeFile(preserved,bytes);await writeFile(row.file,original);
++    restored.push({file:row.file,generatedHash:hash(bytes),restoredHash:row.sha256});
++  } else changed.push(row.file);
++}
++const initial=new Set(manifest.files.map(r=>r.file));
++const files=execFileSync('git',['ls-files','-z','--cached','--others','--exclude-standard'],{encoding:'utf8',maxBuffer:10000000}).split('\0').filter(Boolean);
++const added=files.filter(f=>!initial.has(f));
++const unexpectedChanges=changed.filter(f=>!modifications.has(f)),unexpectedAdditions=added.filter(f=>!additions.has(f)&&!f.startsWith(directory));
++const result={snapshot,initialFingerprint:manifest.fingerprint,initialFiles:manifest.files.length,identical:manifest.files.length-changed.length-missing.length,changed,missing,unexpectedChanges,unexpectedAdditions,passed:!missing.length&&!unexpectedChanges.length&&!unexpectedAdditions.length};
++await writeFile(directory+'preservation.json',JSON.stringify(result,null,2)+'\n');
++if(restored.length)await writeFile(directory+'restored-evidence.json',JSON.stringify(restored,null,2)+'\n');
++const excluded=new Set(['changes.json','preservation.json','lot08.patch','patch-check.json'].map(f=>directory+f));
++const rows=await Promise.all([...changed,...added].filter(f=>!excluded.has(f)).map(async file=>{const bytes=await readFile(file);return {file,kind:initial.has(file)?'modified':'added',bytes:bytes.length,sha256:hash(bytes)};}));
++await writeFile(directory+'changes.json',JSON.stringify(rows,null,2)+'\n');
++if(!result.passed) {console.log(JSON.stringify(result));process.exitCode=1;} else {
++  const temp=await mkdtemp(join(tmpdir(),'detours-lot08-patch-'));await mkdir(join(temp,'before'));await mkdir(join(temp,'after'));
++  for(const file of [...changed,...added.filter(f=>additions.has(f))]) {
++    for(const name of initial.has(file)?['before','after']:['after']) {const target=join(temp,name,file);await mkdir(dirname(target),{recursive:true});await copyFile(name==='before'?join(snapshot,'source',file):file,target);}
++  }
++  let patch;
++  try {patch=execFileSync('git',['diff','--no-index','--binary','--','before','after'],{cwd:temp,encoding:'utf8',maxBuffer:20000000,stdio:['ignore','pipe','pipe']});}
++  catch(e) {if(e.status!==1)throw e;patch=e.stdout;}
++  patch=patch.split('\n').map(line=> /^(?:diff --git |--- |\+\+\+ )/.test(line) ? line.replaceAll('a/before/','a/').replaceAll('b/after/','b/').replaceAll('a/after/','a/').replaceAll('b/before/','b/') : line).join('\n');
++  await writeFile(directory+'lot08.patch',patch);
++  execFileSync('git',['apply','--reverse','--check','--ignore-space-change',directory+'lot08.patch'],{stdio:['ignore','pipe','pipe']});
++  await writeFile(directory+'patch-check.json',JSON.stringify({passed:true,reverseCheckOnly:true,patch:'lot08.patch',sourceTemp:temp},null,2)+'\n');
++  console.log(JSON.stringify({...result,patchReverseCheck:true,restored:restored.length}));
++}
+diff --git a/scripts/smoke-mascot.mjs b/scripts/smoke-mascot.mjs
+new file mode 100644
+index 0000000..a6eb79c
+--- /dev/null
++++ b/scripts/smoke-mascot.mjs
+@@ -0,0 +1,82 @@
++import assert from 'node:assert/strict';
++import { mkdir, writeFile } from 'node:fs/promises';
++import { chromium, expect } from '@playwright/test';
++import { productionTestServer } from './production-server.mjs';
++import { chromiumTestOptions } from './browser-test-options.ts';
++import { fixture } from './assistant-fixture.mjs';
++import { archive, tripKey } from '../src/journeys.ts';
++
++const before = process.argv.includes('--before');
++const out = `docs/development/lot-08-mascotte/${before ? 'before' : 'compiled'}`;
++const server = await productionTestServer(); server.update();
++const browser = await chromium.launch(chromiumTestOptions());
++const trip=fixture(), key=tripKey(trip.journey.id), errors=[], external=[];
++async function layout(page,state,theme) {
++  const hint=page.locator(`[data-mascot="${state}"]`);
++  for(const width of [320,390,1440]) {
++    await page.setViewportSize({width,height:950});await hint.evaluate(e=>e.scrollIntoView({block:'center'}));
++    assert.equal(await hint.evaluate(e=>e.scrollWidth<=e.clientWidth+1),true);
++    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
++    await page.screenshot({path:`${out}/${state}-${theme}-${width}.png`});
++  }
++  await page.setViewportSize({width:390,height:950});await page.evaluate(()=>document.documentElement.style.zoom='2');
++  assert.equal(await hint.evaluate(e=>e.scrollWidth<=e.clientWidth+1),true,JSON.stringify(await hint.evaluate(e=>({state:e.getAttribute('data-mascot'),client:e.clientWidth,scroll:e.scrollWidth,children:[...e.children].map(c=>({tag:c.tagName,width:c.getBoundingClientRect().width,scroll:c.scrollWidth,flex:getComputedStyle(c).flex,padding:getComputedStyle(c).padding,margin:getComputedStyle(c).margin}))}))));
++  await page.evaluate(()=>document.documentElement.style.zoom='1');
++}
++try {
++  await mkdir(out,{recursive:true});
++  for (const theme of ['light','dark']) {
++    const context=await browser.newContext({viewport:{width:390,height:950},reducedMotion:'reduce'});
++    await context.route('https://**/*',r=>r.abort());
++    const page=await context.newPage(); page.on('pageerror',e=>errors.push(e.message));
++    page.on('request',r=>{if(!r.url().startsWith(server.url)&&!r.url().startsWith('data:'))external.push(r.url());});
++    // Seed before the first render so the real first welcome is captured.
++    await page.addInitScript(theme => { if(!localStorage.getItem('a-l-est-preferences-v1'))localStorage.setItem('a-l-est-preferences-v1',JSON.stringify({language:'fr',theme})); },theme);
++    await page.goto(server.url);
++    if(!before) await expect(page.locator('[data-mascot="welcome"]')).toBeVisible();
++    await page.screenshot({path:`${out}/welcome-${theme}.png`});
++    if(!before) await layout(page,'welcome',theme);
++    await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();
++    const dialog=page.getByRole('dialog');await dialog.getByLabel('Ton programme',{exact:true}).fill('# Escale\nVille: Albi\nJour 1\n- Musée rouge\nUn passage encore incompris.');
++    await dialog.getByRole('button',{name:'Reconnaître mon programme',exact:true}).click();
++    await expect(dialog.locator('.planning-passages')).toBeVisible();
++    if(!before) await expect(page.locator('[data-mascot="attention"]')).toBeVisible();
++    await dialog.locator('.planning-passages').scrollIntoViewIfNeeded(); await page.screenshot({path:`${out}/attention-${theme}.png`});
++    if(!before) await layout(page,'attention',theme);
++    await page.keyboard.press('Escape');
++    await page.evaluate(({key,raw})=>localStorage.setItem(key,raw),{key,raw:JSON.stringify(archive(trip))});await page.reload();
++    await page.getByRole('button',{name:'Ouvrir '+trip.journey.title,exact:true}).click();
++    await page.getByRole('button',{name:'Menu',exact:true}).click();await page.getByRole('button',{name:'Mon carnet pratique',exact:true}).click();
++    await expect(page.locator('.offline-status')).toHaveClass(/offline-ready/);
++    if(!before) await expect(page.locator('[data-mascot="ready"]')).toBeVisible();
++    await page.locator('.offline-status').scrollIntoViewIfNeeded();await page.screenshot({path:`${out}/ready-${theme}.png`});
++    if(!before) {
++      await layout(page,'ready',theme);
++      assert.equal(await page.locator('[data-mascot="ready"]').ariaSnapshot(),'- paragraph: Cette copie du carnet et l’application sont disponibles hors ligne ici. Les liens et cartes de rues demandent Internet ; garde aussi une sauvegarde.');
++    }
++    if(!before) {
++      external.length=0;await context.setOffline(true);await page.reload();
++      await expect(page.locator('[data-mascot="ready"]')).toBeVisible();
++      await expect.poll(()=>page.locator('[data-mascot="ready"] img').evaluate(img=>img.naturalWidth)).toBeGreaterThan(0);
++      assert.match(await page.locator('[data-mascot="ready"] img').getAttribute('src'),/^data:image\/svg\+xml/);
++      assert.deepEqual(external,[]);
++      const raw=await page.evaluate(key=>localStorage.getItem(key),key);
++      await page.getByRole('button',{name:'Préférences',exact:true}).click();await page.getByRole('checkbox',{name:'Afficher la mascotte',exact:true}).uncheck();
++      await expect(page.locator('.mascot-hint')).toHaveCount(0);await page.keyboard.press('Escape');await page.reload();await expect(page.locator('.mascot-hint')).toHaveCount(0);
++      assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),raw);
++      await page.getByRole('button',{name:'Préférences',exact:true}).click();await page.getByRole('checkbox',{name:'Afficher la mascotte',exact:true}).check();await page.keyboard.press('Escape');
++      await expect(page.locator('[data-mascot="ready"]')).toBeVisible();
++      // A modified, unsaved notebook must withdraw "ready" immediately.
++      await page.evaluate(key=>{const a=JSON.parse(localStorage.getItem(key));a.state.notes.b='new revision';const raw=JSON.stringify(a);localStorage.setItem(key,raw);window.dispatchEvent(new StorageEvent('storage',{key,newValue:raw}));},key);
++      await expect(page.locator('[data-mascot="ready"]')).toHaveCount(0);
++      // Recheck succeeds on the new persisted copy, then deleting a cached resource invalidates it.
++      await page.locator('.offline-status').getByRole('button',{name:'Vérifier',exact:true}).click();await expect(page.locator('[data-mascot="ready"]')).toBeVisible();
++      await page.evaluate(async()=>{for(const name of await caches.keys())if(name.startsWith('a-l-est-')){const cache=await caches.open(name);for(const req of await cache.keys())if(new URL(req.url).pathname.includes('/assets/index-')&&req.url.endsWith('.js'))await cache.delete(req);}});
++      await page.locator('.offline-status').getByRole('button',{name:'Vérifier',exact:true}).click();await expect(page.locator('[data-mascot="ready"]')).toHaveCount(0);
++    }
++    await context.close();
++  }
++  assert.deepEqual(errors,[]);
++  await writeFile(`${out}/validation.json`,JSON.stringify({passed:true,before,generatedAt:new Date().toISOString(),errors,offline:!before,preferenceSurvivesReload:!before,tripUnchangedByPreference:!before,readyWithdrawnAfterRevisionAndCacheLoss:!before},null,2));
++  console.log(`Mascot ${before?'baseline screenshots':'compiled offline, preference and readiness checks'} passed.`);
++} finally { await browser.close(); await server.close(); }
+diff --git a/scripts/verify-local.mjs b/scripts/verify-local.mjs
+index 9b242c3..a6e2372 100644
+--- a/scripts/verify-local.mjs
++++ b/scripts/verify-local.mjs
+@@ -38,6 +38,8 @@ const steps = [
+   local('compagnon compilé hors ligne', 'scripts/smoke-companion.mjs', [], output),
+   local('assistant navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/assistant.spec.ts']),
+   local('assistant compilé hors ligne', 'scripts/smoke-assistant.mjs', [], output),
++  local('mascotte navigateur', 'node_modules/@playwright/test/cli.js', ['test', 'tests/e2e/mascot.spec.ts']),
++  local('mascotte compilée hors ligne', 'scripts/smoke-mascot.mjs', [], output),
+   local('lieux compilés hors ligne', 'scripts/smoke-places.mjs', [], output),
+   local('PWA mobile compilée', 'scripts/smoke-pwa-mobile.mjs', [], output),
+   local('mise à jour Chrome et WebKit', 'scripts/smoke-app-update.mjs', [], output),
+diff --git a/src/MascotPreferences.tsx b/src/MascotPreferences.tsx
+new file mode 100644
+index 0000000..3ccdf0c
+--- /dev/null
++++ b/src/MascotPreferences.tsx
+@@ -0,0 +1,41 @@
++import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
++import { useCloud } from './cloud/CloudProvider';
++import { defaultMascotPreferences, MASCOT_KEY, parseMascotPreferences, type MascotPreferences } from './mascot';
++
++type Preference = MascotPreferences & { error: boolean; setEnabled: (enabled: boolean) => void; markWelcomeSeen: () => void };
++const Context = createContext<Preference | null>(null);
++
++/** Mounted with key=scope: this device's personal preference never enters a trip or sync record. */
++export function MascotPreferencesProvider({ children }: { children: ReactNode }) {
++  const { storage } = useCloud();
++  const read = () => {
++    try { return { ...parseMascotPreferences(storage.getItem(MASCOT_KEY)), error: false }; }
++    catch { return { ...defaultMascotPreferences, error: true }; }
++  };
++  const [value, setValue] = useState(read);
++  useEffect(() => {
++    const receive = (event: StorageEvent) => {
++      if (event.key === null || event.key === storage.physicalKey(MASCOT_KEY)) setValue(read());
++    };
++    window.addEventListener('storage', receive);
++    return () => window.removeEventListener('storage', receive);
++  }, [storage]);
++  const update = useCallback((patch: Partial<Pick<MascotPreferences, 'enabled' | 'welcomeSeen'>>) => {
++    let next: MascotPreferences = { version: 1, enabled: value.enabled, welcomeSeen: value.welcomeSeen, ...patch };
++    let error = false;
++    try {
++      if (!value.error) next = { ...parseMascotPreferences(storage.getItem(MASCOT_KEY)), ...patch };
++      const raw = JSON.stringify(next);
++      storage.setItem(MASCOT_KEY, raw);
++      if (storage.getItem(MASCOT_KEY) !== raw) throw new Error('Mascot preference not retained');
++    } catch { error = true; }
++    setValue({ ...next, error });
++  }, [storage, value]);
++  const markWelcomeSeen = useCallback(() => { if (!value.welcomeSeen) update({ welcomeSeen: true }); }, [value.welcomeSeen, update]);
++  return <Context.Provider value={{ ...value, setEnabled: enabled => update({ enabled }), markWelcomeSeen }}>{children}</Context.Provider>;
++}
++export function useMascotPreferences() {
++  const context = useContext(Context);
++  if (!context) throw new Error('MascotPreferencesProvider is required.');
++  return context;
++}
+diff --git a/src/assets/mascot/attention.svg b/src/assets/mascot/attention.svg
+new file mode 100644
+index 0000000..d0aa01c
+--- /dev/null
++++ b/src/assets/mascot/attention.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><!-- Original Detours swallow, 2026-10-23. See public/licenses/mascot.md. --><circle cx="40" cy="40" r="38" fill="#f4eedc"/><g stroke="#244b44" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 32Q12 33 9 24Q22 19 33 28" fill="#52756a"/><path d="M27 43 12 59 24 56 26 67 37 48" fill="#244b44"/><path d="M24 35Q26 24 39 27Q45 13 57 24Q65 34 52 43Q46 60 31 51Q22 47 24 35Z" fill="#52756a"/><path d="M37 35Q45 31 54 35Q51 50 39 50Q34 45 37 35Z" fill="#fff9e9"/><path d="m59 27 9 5-10 2" fill="#bb7845"/><circle cx="53" cy="27" r="1.5" fill="#244b44" stroke="none"/><path d="M29 32q3 11 14 17" fill="none"/><rect x="25" y="43" width="17" height="13" rx="4" fill="#bb7845"/><path d="M25 47q8 7 17 0m-8 2v3" fill="none"/><path d="M66 45v6m0 5v1" fill="none"/></g></svg>
+diff --git a/src/assets/mascot/ready.svg b/src/assets/mascot/ready.svg
+new file mode 100644
+index 0000000..1e99673
+--- /dev/null
++++ b/src/assets/mascot/ready.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><!-- Original Detours swallow, 2026-10-23. See public/licenses/mascot.md. --><circle cx="40" cy="40" r="38" fill="#f4eedc"/><g stroke="#244b44" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 32Q12 25 16 10Q27 16 33 28" fill="#52756a"/><path d="M27 43 12 59 24 56 26 67 37 48" fill="#244b44"/><path d="M24 35Q26 24 39 27Q45 13 57 24Q65 34 52 43Q46 60 31 51Q22 47 24 35Z" fill="#52756a"/><path d="M37 35Q45 31 54 35Q51 50 39 50Q34 45 37 35Z" fill="#fff9e9"/><path d="m59 27 9 5-10 2" fill="#bb7845"/><circle cx="53" cy="27" r="1.5" fill="#244b44" stroke="none"/><path d="M29 32q3 11 14 17" fill="none"/><rect x="25" y="43" width="17" height="13" rx="4" fill="#bb7845"/><path d="M25 47q8 7 17 0m-8 2v3" fill="none"/><path d="m53 54 5 5 10-12" fill="none" stroke-width="3"/></g></svg>
+diff --git a/src/assets/mascot/welcome.svg b/src/assets/mascot/welcome.svg
+new file mode 100644
+index 0000000..689fa49
+--- /dev/null
++++ b/src/assets/mascot/welcome.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><!-- Original Detours swallow, 2026-10-23. See public/licenses/mascot.md. --><circle cx="40" cy="40" r="38" fill="#f4eedc"/><g stroke="#244b44" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 32Q9 28 9 13Q22 16 33 28" fill="#52756a"/><path d="M27 43 12 59 24 56 26 67 37 48" fill="#244b44"/><path d="M24 35Q26 24 39 27Q45 13 57 24Q65 34 52 43Q46 60 31 51Q22 47 24 35Z" fill="#52756a"/><path d="M37 35Q45 31 54 35Q51 50 39 50Q34 45 37 35Z" fill="#fff9e9"/><path d="m59 27 9 5-10 2" fill="#bb7845"/><circle cx="53" cy="27" r="1.5" fill="#244b44" stroke="none"/><path d="M29 32q3 11 14 17" fill="none"/><rect x="25" y="43" width="17" height="13" rx="4" fill="#bb7845"/><path d="M25 47q8 7 17 0m-8 2v3" fill="none"/></g></svg>
+diff --git a/src/components/JourneysApp.tsx b/src/components/JourneysApp.tsx
+index f0103db..8043c21 100644
+--- a/src/components/JourneysApp.tsx
++++ b/src/components/JourneysApp.tsx
+@@ -1,4 +1,5 @@
+ import BrandMark from './BrandMark';
++import { FirstNotebookMascot } from './Mascot';
+ import { lazy, Suspense, useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
+ import { BookOpen, CalendarDays, Compass, Copy, Download, Globe2, MapPin, Pencil, Plus, ArrowRight, Upload } from 'lucide-react';
+ import App, { Modal } from '../App';
+@@ -186,7 +187,7 @@ export default function JourneysApp() {
+       {visibleTrips.length ? <div className="journeys-grid">{visibleTrips.map(trip => {
+         const journey = trip.journey!, days = trip.cities.reduce((sum, city) => sum + city.days.length, 0);
+         return <article className="journey-card panel" key={journey.id}><button className="journey-cover" aria-label={t('Ouvrir {title}', { title: journey.title })} onClick={() => open(journey.id)}><img src={journey.cover} alt="" loading="lazy" decoding="async" onError={event => { event.currentTarget.onerror = null; event.currentTarget.src = '/travel-landscape.svg'; }}/><span className="journey-cover-tag"><Compass size={14}/>{journey.destinations || t('À imaginer')}</span></button><div className="journey-card-body"><span className="journey-status">{t(statuses[journey.status || 'idea'])}{role(journey.id) !== 'owner' ? ' · ' + t('Partagés avec moi') : ''}</span><button className="journey-title" onClick={() => open(journey.id)}><h2>{journey.title}</h2><ArrowRight size={20}/></button><p className="muted">{journey.description || t('Les beaux détours commencent ici.')}</p><div className="journey-details"><span><MapPin size={14}/>{t('{count} étapes', { count: trip.cities.length })}</span><span><CalendarDays size={14}/>{t('{count} journées', { count: days })}</span>{trip.departureDate && <time dateTime={trip.departureDate}>{formatCivilDate(trip.departureDate, language)}</time>}</div><p className="journey-countries">{(journey.countries || []).map(code => countryName(code, language)).join(' · ')}</p><div className="journey-card-actions">{writable(journey.id) && collection.trips.some(tr => tr.journey!.id === journey.id) && <><button className="text-btn" onClick={() => { edit(readTrip(localStorage, trip.journey!.id)); }}><Pencil size={14}/>{t('Modifier le voyage')}</button><button className="text-btn" onClick={() => { if (persist(duplicateTrip(readTrip(localStorage, journey.id)))) setMessage(t('Copie indépendante créée, avec les dates, réservations et dépenses.')); }}><Copy size={14}/>{t('Dupliquer')}</button></>}</div>{role(journey.id) !== 'owner' && <><button className="text-btn" aria-pressed={world.participation?.includes(journey.id) || false} onClick={() => void changeWorld({ ...world, participation: world.participation?.includes(journey.id) ? world.participation.filter(id => id !== journey.id) : [...world.participation || [], journey.id] }).catch(() => {})}>{t(world.participation?.includes(journey.id) ? 'Ma participation est confirmée' : 'Je participe à ce voyage')}</button><p className="muted small">{t('Participer ne confirme aucune visite. Les séjours réellement effectués se confirment séparément.')}</p></>}<div className="journey-card-actions">{collection.trips.some(tr => tr.journey!.id === journey.id) && <><button className="text-btn" onClick={() => persist(returnTrip(readTrip(localStorage, journey.id), journey.title + ' — ' + t('Nouveau départ')))}>{t('Repartir ici')}</button><button className="text-btn" onClick={() => setSharing(readTrip(localStorage, journey.id))}>{t('Partager et historique')}</button>{role(journey.id) === 'owner' && <><button className="text-btn" onClick={() => setDeleting(trip)}>{t('Supprimer')}</button></>}</>}{journey.endDate && journey.endDate < dateInTimezone(journey.timezone) && ['planning', 'ongoing'].includes(journey.status || '') && role(journey.id) === 'owner' && collection.trips.some(tr => tr.journey!.id === journey.id) && <button className="text-btn" onClick={() => edit({ ...trip, journey: { ...journey, status: 'completed' } })}>{t('Ce voyage est-il terminé ?')}</button>}{journey.status === 'completed' && collection.trips.some(tr => tr.journey!.id === journey.id) && <button className="text-btn" onClick={() => { setClosing(trip); setConfirmed(world.visits.filter(v => v.stayId === journey.id).map(v => v.country)); }}>{t('Confirmer mes visites')}</button>}</div></div></article>;
+-      })}</div> : <section className="journeys-empty panel"><BookOpen size={44} strokeWidth={1.2}/><h2>{t(displayTrips.length ? 'Aucun voyage pour ces filtres.' : 'Ton prochain voyage commence ici.')}</h2><p>{t('Crée ton carnet, puis ajoute tes étapes, journées et bonnes adresses. Tu peux aussi importer une sauvegarde existante.')}</p><button className="btn btn-primary" onClick={() => edit('new')}><Plus size={16}/>{t('Créer mon premier carnet')}</button></section>}
++      })}</div> : <section className="journeys-empty panel">{!displayTrips.length && !collection.problems.length && !collection.recoveries.length && !collection.divergence && <FirstNotebookMascot/>}<BookOpen size={44} strokeWidth={1.2}/><h2>{t(displayTrips.length ? 'Aucun voyage pour ces filtres.' : 'Ton prochain voyage commence ici.')}</h2><p>{t('Crée ton carnet, puis ajoute tes étapes, journées et bonnes adresses. Tu peux aussi importer une sauvegarde existante.')}</p><button className="btn btn-primary" onClick={() => edit('new')}><Plus size={16}/>{t('Créer mon premier carnet')}</button></section>}
+       <section className="journeys-import panel"><div><p className="eyebrow">{t('À GARDER, À RETROUVER')}</p><h2>{t('Tes carnets voyagent avec toi.')}</h2><p className="muted">{t('Importe un ancien carnet ou une collection JSON. Chaque import ajoute une copie indépendante.')}</p><p className="muted small">{t('Pour un PDF texte ou Word (.docx), utilise « Créer depuis un planning ».')}</p></div><div className="journeys-import-actions"><button className="btn btn-secondary" onClick={() => fileInput.current?.click()}><Upload size={16}/>{t('Importer un fichier')}</button>{collection.trips.length > 0 && <button className="btn btn-secondary" onClick={exportCollection}><Download size={16}/>{t('Exporter mes voyages')}</button>}<button className="text-btn" onClick={() => persist(chinaTrip(), true)}>{t('Ajouter l’exemple Chine')}<ArrowRight size={14}/></button>{collection.legacyCopy && <button className="text-btn" onClick={() => downloadText(collection.legacyCopy!, 'a-l-est-avant-migration-v1.json')}>{t('Sauvegarde avant migration')}</button>}{collection.legacyRecovery && <button className="text-btn" onClick={()=>{let raw=collection.legacyRecovery!;try {const value=JSON.parse(raw);if(typeof value.raw==='string')raw=value.raw;}catch { /* Preserve an unparsed legacy source for download. */ }downloadText(raw,'a-l-est-ancienne-copie.json');}}>{t('Ancienne copie de secours')}</button>}</div></section>
+       {collection.recoveries.length > 0 && <section className="panel journeys-recovery"><h2>{t('Carnets supprimés : copies de récupération')}</h2><p className="muted">{t('Télécharge une copie, puis importe-la pour créer une nouvelle préparation. Tes souvenirs ne changent pas.')}</p><div className="journeys-recovery-list">{collection.recoveries.map(copy => { let title = copy.id; try { title = parseTrip(copy.raw).state.journey!.title; } catch { /* An unreadable recovery remains downloadable. */ } return <article className="journeys-recovery-item" key={copy.id}><h3>{title}</h3><button className="text-btn" onClick={() => downloadText(copy.raw, 'detours-carnet-supprime-' + copy.id + '.json')}><Download size={14}/>{t('Télécharger la copie de récupération')}</button></article>; })}</div></section>}
+       </>}</section><BackupPanel onChanged={refresh} remoteMissing={displayTrips.filter(trip => !collection.trips.some(local => local.journey!.id === trip.journey!.id)).length}/><footer className="page-footer"><span><BrandMark small/>{t('Le monde, au gré des envies.')}</span><span>{t(cloud.session ? 'Carnets privés par défaut' : 'Carnets sauvegardés sur cet appareil')}</span></footer>
+diff --git a/src/components/Mascot.css b/src/components/Mascot.css
+new file mode 100644
+index 0000000..f5707e6
+--- /dev/null
++++ b/src/components/Mascot.css
+@@ -0,0 +1,6 @@
++.mascot-hint { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-block: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-alt); color: var(--text); text-align: start; }
++.mascot-hint img { flex: 0 0 64px; width: 64px; height: 64px; object-fit: contain; }
++.mascot-hint p, .journeys-empty .mascot-hint p { flex: 1 1 150px; min-width: 0; margin: 0; color: var(--text); font-size: .875rem; line-height: 1.5; overflow-wrap: anywhere; }
++.journeys-empty .mascot-hint { max-width: 520px; margin-inline: auto; }
++.mascot-preference { display: flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer; }
++.mascot-preference input { width: 20px; height: 20px; flex: 0 0 auto; accent-color: var(--action); }
+diff --git a/src/components/Mascot.tsx b/src/components/Mascot.tsx
+new file mode 100644
+index 0000000..ad31510
+--- /dev/null
++++ b/src/components/Mascot.tsx
+@@ -0,0 +1,34 @@
++import { useEffect, useState } from 'react';
++import { useLocale } from '../i18n';
++import { useMascotPreferences } from '../MascotPreferences';
++import './Mascot.css';
++import welcomeImage from '../assets/mascot/welcome.svg?inline';
++import attentionImage from '../assets/mascot/attention.svg?inline';
++import readyImage from '../assets/mascot/ready.svg?inline';
++
++export type MascotState = 'welcome' | 'attention' | 'ready';
++const images: Record<MascotState, string> = { welcome: welcomeImage, attention: attentionImage, ready: readyImage };
++const messages: Record<MascotState, string> = {
++  welcome: 'Un premier détour ? Crée ton carnet ou pars d’un planning à vérifier.',
++  attention: 'Un passage demande ta relecture. Compare avec la source avant de créer le carnet.',
++  ready: 'Cette copie du carnet et l’application sont disponibles hors ligne ici. Les liens et cartes de rues demandent Internet ; garde aussi une sauvegarde.',
++};
++
++export default function Mascot({ state }: { state: MascotState }) {
++  const { enabled } = useMascotPreferences();
++  const { t } = useLocale();
++  const [failed, setFailed] = useState(false);
++  if (!enabled) return null;
++  return <div className="mascot-hint" data-mascot={state}>
++    {!failed && <img src={images[state]} width="64" height="64" alt="" aria-hidden="true" decoding="async" onError={() => setFailed(true)}/>}
++    <p>{t(messages[state])}</p>
++  </div>;
++}
++
++export function FirstNotebookMascot() {
++  const { enabled, welcomeSeen, markWelcomeSeen } = useMascotPreferences();
++  // Keep the first display stable, then suppress future mounts/openings for this scope.
++  const [firstDisplay] = useState(!welcomeSeen);
++  useEffect(() => { if (enabled && firstDisplay) markWelcomeSeen(); }, [enabled, firstDisplay, markWelcomeSeen]);
++  return firstDisplay ? <Mascot state="welcome"/> : null;
++}
+diff --git a/src/components/OfflineStatus.tsx b/src/components/OfflineStatus.tsx
+index d3c0064..ca60e52 100644
+--- a/src/components/OfflineStatus.tsx
++++ b/src/components/OfflineStatus.tsx
+@@ -9,6 +9,7 @@ import type { StoredState } from '../types';
+ import './OfflineStatus.css';
+ import InstallHelp from './InstallHelp';
+ import StoragePersistence from './StoragePersistence';
++import Mascot from './Mascot';
+ 
+ export default function OfflineStatus({ state, saving, storageError }: { state: StoredState; saving: boolean; storageError: string }) {
+   const { t, language } = useLocale();
+@@ -64,6 +65,7 @@ export default function OfflineStatus({ state, saving, storageError }: { state:
+     <div className="offline-status-icon">{ready ? <CheckCircle2/> : <WifiOff/>}</div>
+     <div className="offline-status-body">
+       <h2 id="offline-heading">{t(ready ? 'Ton carnet est prêt pour le hors-ligne' : status === 'checking' ? 'Vérification du carnet hors ligne…' : status === 'dev' ? 'Préparer le carnet pour le départ' : 'Le carnet hors ligne n’est pas encore prêt')}</h2>
++      {ready && <Mascot state="ready"/>}
+       <p className="muted">{t(cloud.online ? 'Internet disponible. Cela ne confirme ni un envoi ni une sauvegarde externe.' : 'Internet indisponible. Les changements peuvent rester enregistrés ici en attendant l’envoi.')}</p>
+       <ul className="offline-checklist">
+         <li><span>{t('Planning, adresses, réservations et notes')}</span><strong>{available(current && !!result?.saved)}</strong></li>
+diff --git a/src/components/PlanningImport.tsx b/src/components/PlanningImport.tsx
+index fec369b..799a180 100644
+--- a/src/components/PlanningImport.tsx
++++ b/src/components/PlanningImport.tsx
+@@ -19,6 +19,7 @@ import { readStructuredFile, StructuredPlanningError } from '../planning-import/
+ import { SYNTHETIC_EXAMPLES } from '../planning-import/fixtures';
+ import { MAX_SOURCE_LENGTH, type DraftDay, type DraftItem, type ImportSession, type PlanningDraft, type Provenance } from '../planning-import/types';
+ import './PlanningImport.css';
++import Mascot from './Mascot';
+ 
+ const userEvidence = (): Provenance => ({ title: { origin: 'user', quote: '' } });
+ const emptyDay = (): DraftDay => ({ title: '', date: '', items: [], evidence: userEvidence() });
+@@ -213,6 +214,7 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
+       <div className="planning-summary" role="status">{t('{days} journées · {items} propositions · {review} passages à vérifier', { days: summary!.days, items: summary!.activities + summary!.suggestions, review: passages.length })}</div>
+       {summary!.activities + summary!.suggestions === 0 && <p className="notice warning-notice">{t('Aucune activité proposée. Le texte est conservé ; ajoute les éléments manquants avant la création.')}</p>}
+       {passages.length > 0 && <section className="planning-passages" aria-label={t('Passages à vérifier')}>
++        <Mascot state="attention"/>
+         <p className="muted small">{t('Blocs non traités, conflits, rattachements incomplets ou champs ambigus. Les notes explicites restent accessibles plus bas.')}</p>
+         {passages.map((passage,index) => <details key={`${passage.kind}:${passage.target}:${index}`}>
+           <summary>{t('Passage à vérifier {count}', {count:index+1})} · {t(passage.kind === 'conflict' ? 'Conflit' : passage.kind === 'assignment' ? 'Affectation ville / journée' : passage.kind === 'ambiguous' ? 'Champ ambigu' : 'Bloc non traité')}</summary>
+diff --git a/src/components/Preferences.tsx b/src/components/Preferences.tsx
+index 5f8c360..9caedde 100644
+--- a/src/components/Preferences.tsx
++++ b/src/components/Preferences.tsx
+@@ -6,8 +6,10 @@ import { interfaceLanguages } from '../locale-utils';
+ import { paletteIds, paletteNames, paletteTokens } from '../palettes';
+ import './Preferences.css';
+ import InstallHelp from './InstallHelp';
++import { useMascotPreferences } from '../MascotPreferences';
+ 
+ export default function PreferencesButton() {
++  const mascot = useMascotPreferences();
+   const { t, theme, resolvedTheme, palettes, setPalette, resetPalettes, language, setTheme, setLanguage, preferenceError } = useLocale();
+   const [open, setOpen] = useState(false);
+   const dialog = useRef<HTMLDialogElement>(null);
+@@ -46,6 +48,7 @@ export default function PreferencesButton() {
+         </details>
+       </fieldset>
+       <fieldset><legend><Languages size={17}/> {t('Langue de l’interface')}</legend><div className="language-options">{interfaceLanguages.map(({id, label}) => <label key={id} className={language === id ? 'selected' : ''}><input type="radio" name="language" value={id} checked={language === id} onChange={() => setLanguage(id)}/><span lang={id}>{label}</span>{language === id && <Check size={15} aria-hidden="true"/>}</label>)}</div><p className="muted">{t('Les documents d’origine et tes notes gardent leur langue.')}</p></fieldset>
++      <fieldset><legend>{t('Afficher la mascotte')}</legend><label className="mascot-preference"><input type="checkbox" name="mascot" checked={mascot.enabled} onChange={event => mascot.setEnabled(event.target.checked)}/><span>{t('Afficher la mascotte')}</span></label><p className="muted">{t('Une hirondelle discrète pour les premiers pas, la relecture et le hors-ligne. Ce choix reste personnel sur cet appareil.')}</p>{mascot.error && <p role="status">{t('La mascotte suit ton choix pour cette session, mais son réglage n’a pas pu être sauvegardé. Réessaie dans Préférences.')}</p>}</fieldset>
+       <fieldset><legend>{t('Installer Détours')}</legend><InstallHelp/></fieldset>
+       <p className="preferences-save-note" role="status">{t(preferenceError ? 'Ces réglages restent actifs pour cette session, mais leur sauvegarde est indisponible.' : 'Ces réglages sont mémorisés sur cet appareil.')}</p>
+     </dialog>}
+diff --git a/src/locale-utils.ts b/src/locale-utils.ts
+index bf783fe..5938b7a 100644
+--- a/src/locale-utils.ts
++++ b/src/locale-utils.ts
+@@ -1,3 +1,4 @@
++import { mascotDictionary } from './locales/mascot.ts';
+ import { companionDictionary } from './locales/companion.ts';
+ import { assistantDictionary } from './locales/assistant.ts';
+ import { placesDictionary } from './locales/places.ts';
+@@ -48,8 +49,8 @@ export function parsePreferences(raw: string | null): Preferences {
+     };
+   } catch { return defaults; }
+ }
+-const dictionary: Record<string, string> = { ...commonEnglish, ...appEnglish, ...toolsEnglish, ...journeysEnglish, ...betaDictionary(0), ...backupDictionary(0), ...offlineDictionary(0), ...nowDictionary(0), ...preparationDictionary(0), ...planningImportDictionary(0), ...paletteDictionary(0), ...placesDictionary(0), ...companionDictionary(0), ...assistantDictionary(0) };
+-const dictionaries: Record<Exclude<Language, 'fr'>, Record<string, string>> = { en: dictionary, 'zh-CN': { ...chinese, ...betaDictionary(1), ...backupDictionary(1), ...offlineDictionary(1), ...nowDictionary(1), ...preparationDictionary(1), ...planningImportDictionary(1), ...paletteDictionary(1), ...placesDictionary(1), ...companionDictionary(1), ...assistantDictionary(1) }, es: { ...spanish, ...betaDictionary(2), ...backupDictionary(2), ...offlineDictionary(2), ...nowDictionary(2), ...preparationDictionary(2), ...planningImportDictionary(2), ...paletteDictionary(2), ...placesDictionary(2), ...companionDictionary(2), ...assistantDictionary(2) } };
++const dictionary: Record<string, string> = { ...commonEnglish, ...appEnglish, ...toolsEnglish, ...journeysEnglish, ...betaDictionary(0), ...backupDictionary(0), ...offlineDictionary(0), ...nowDictionary(0), ...preparationDictionary(0), ...planningImportDictionary(0), ...paletteDictionary(0), ...placesDictionary(0), ...companionDictionary(0), ...assistantDictionary(0), ...mascotDictionary(0) };
++const dictionaries: Record<Exclude<Language, 'fr'>, Record<string, string>> = { en: dictionary, 'zh-CN': { ...chinese, ...betaDictionary(1), ...backupDictionary(1), ...offlineDictionary(1), ...nowDictionary(1), ...preparationDictionary(1), ...planningImportDictionary(1), ...paletteDictionary(1), ...placesDictionary(1), ...companionDictionary(1), ...assistantDictionary(1), ...mascotDictionary(1) }, es: { ...spanish, ...betaDictionary(2), ...backupDictionary(2), ...offlineDictionary(2), ...nowDictionary(2), ...preparationDictionary(2), ...planningImportDictionary(2), ...paletteDictionary(2), ...placesDictionary(2), ...companionDictionary(2), ...assistantDictionary(2), ...mascotDictionary(2) } };
+ export function translate(text: string, language: Language, values: TranslationValues = {}): string {
+   const selected = language === 'fr' ? undefined : dictionaries[language];
+   const translated = selected && Object.hasOwn(selected, text) ? selected[text] : text;
+diff --git a/src/locales/mascot.ts b/src/locales/mascot.ts
+new file mode 100644
+index 0000000..4667deb
+--- /dev/null
++++ b/src/locales/mascot.ts
+@@ -0,0 +1,9 @@
++const rows: [string, string, string, string][] = [
++  ['Afficher la mascotte', 'Show the mascot', '显示吉祥物', 'Mostrar la mascota'],
++  ['Une hirondelle discrète pour les premiers pas, la relecture et le hors-ligne. Ce choix reste personnel sur cet appareil.', 'A quiet swallow for first steps, review and offline preparation. This choice stays personal on this device.', '小燕子在初次使用、检查导入和离线准备时提供提示。此设置仅保存在本设备，属于个人偏好。', 'Una golondrina discreta para los primeros pasos, la revisión y la preparación sin conexión. Esta elección es personal en este dispositivo.'],
++  ['Un premier détour ? Crée ton carnet ou pars d’un planning à vérifier.', 'Your first detour? Create a notebook or start with a plan to review.', '第一次启程？创建手册，或从待检查的行程开始。', '¿Tu primer desvío? Crea un cuaderno o empieza con un plan para revisar.'],
++  ['Un passage demande ta relecture. Compare avec la source avant de créer le carnet.', 'A passage needs your review. Compare it with the source before creating the notebook.', '有一段内容需要检查。创建手册前请对照原文。', 'Un pasaje necesita tu revisión. Compáralo con la fuente antes de crear el cuaderno.'],
++  ['Cette copie du carnet et l’application sont disponibles hors ligne ici. Les liens et cartes de rues demandent Internet ; garde aussi une sauvegarde.', 'This copy of the notebook and the app are available offline here. Links and street maps need Internet; keep a backup too.', '此手册副本和应用已可在本设备离线使用。链接和街道地图需要网络；请另存备份。', 'Esta copia del cuaderno y la aplicación están disponibles sin conexión aquí. Los enlaces y mapas de calles requieren Internet; guarda también una copia de seguridad.'],
++  ['La mascotte suit ton choix pour cette session, mais son réglage n’a pas pu être sauvegardé. Réessaie dans Préférences.', 'The mascot follows your choice for this session, but its setting could not be saved. Try again in Preferences.', '吉祥物设置在本次使用中有效，但未能保存。请在偏好设置中重试。', 'La mascota respeta tu elección durante esta sesión, pero no se pudo guardar el ajuste. Vuelve a intentarlo en Preferencias.'],
++];
++export function mascotDictionary(index: number): Record<string, string> { return Object.fromEntries(rows.map(row => [row[0], row[index + 1]])); }
+diff --git a/src/main.tsx b/src/main.tsx
+index bf9c19d..4dc56ab 100644
+--- a/src/main.tsx
++++ b/src/main.tsx
+@@ -7,8 +7,9 @@ import { useScrollMaterial } from './hooks/useScrollMaterial';
+ import AppUpdate from './components/AppUpdate';
+ import { InstallProvider } from './components/InstallHelp';
+ import { MapPreferencesProvider } from './MapPreferences';
++import { MascotPreferencesProvider } from './MascotPreferences';
+ import './styles.css';
+ import './theme.css';
+ import './apple-design.css';
+-function Root() { useScrollMaterial(); const { scope, ready } = useCloud(); return <>{ready ? <MapPreferencesProvider key={scope}><App/></MapPreferencesProvider> : <p role="status">Détours…</p>}<AppUpdate/></>; }
++function Root() { useScrollMaterial(); const { scope, ready } = useCloud(); return <>{ready ? <MapPreferencesProvider key={scope}><MascotPreferencesProvider key={scope}><App/></MascotPreferencesProvider></MapPreferencesProvider> : <p role="status">Détours…</p>}<AppUpdate/></>; }
+ ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><LocaleProvider><CloudProvider><InstallProvider><Root /></InstallProvider></CloudProvider></LocaleProvider></React.StrictMode>);
+diff --git a/src/mascot.ts b/src/mascot.ts
+new file mode 100644
+index 0000000..796952d
+--- /dev/null
++++ b/src/mascot.ts
+@@ -0,0 +1,11 @@
++export const MASCOT_KEY = 'detours-mascot-v1';
++export type MascotPreferences = { version: 1; enabled: boolean; welcomeSeen: boolean };
++export const defaultMascotPreferences: MascotPreferences = { version: 1, enabled: true, welcomeSeen: false };
++
++export function parseMascotPreferences(raw: string | null): MascotPreferences {
++  try {
++    const value = JSON.parse(raw || 'null');
++    if (value?.version !== 1) return { ...defaultMascotPreferences };
++    return { version: 1, enabled: typeof value.enabled === 'boolean' ? value.enabled : true, welcomeSeen: value.welcomeSeen === true };
++  } catch { return { ...defaultMascotPreferences }; }
++}
+diff --git a/tests/e2e/mascot.spec.ts b/tests/e2e/mascot.spec.ts
+new file mode 100644
+index 0000000..6157c35
+--- /dev/null
++++ b/tests/e2e/mascot.spec.ts
+@@ -0,0 +1,96 @@
++import { test, expect, type Page } from '@playwright/test';
++import { mkdir } from 'node:fs/promises';
++import { translate, type Language } from '../../src/locale-utils';
++import { MASCOT_KEY } from '../../src/mascot';
++import { ACCOUNT_HINT_KEY } from '../../src/cloud/session-cache';
++
++async function review(page: Page, language: Language = 'fr') {
++  const t = (s: string) => translate(s, language);
++  await page.getByRole('button', { name:t('Créer depuis un planning'), exact:true }).click();
++  const dialog = page.getByRole('dialog');
++  await dialog.getByLabel(t('Ton programme'), {exact:true}).fill('# Escale\nVille: Albi\nJour 1\n- Musée rouge\nUn passage encore incompris.');
++  await dialog.getByRole('button', {name:t('Reconnaître mon programme'),exact:true}).click();
++  await expect(dialog.locator('[data-mascot="attention"]')).toBeVisible();
++  return dialog;
++}
++
++for (const language of ['fr','en','zh-CN','es'] as Language[]) test(`mascot ${language}: genuine states, themes, widths, zoom, keyboard and accessible text`, async ({page}) => {
++  const t = (s: string) => translate(s, language);
++  await page.emulateMedia({reducedMotion:'reduce'});
++  await page.goto('/');
++  await page.evaluate(language => { localStorage.clear(); sessionStorage.clear(); localStorage.setItem('a-l-est-preferences-v1', JSON.stringify({language,theme:'light'})); }, language);
++  await page.reload();
++  await expect(page.locator('[data-mascot="welcome"]')).toBeVisible();
++  // Decorative artwork is absent from the accessibility tree; the same adjacent text remains readable.
++  await expect(page.locator('[data-mascot="welcome"]')).toMatchAriaSnapshot(`- paragraph: ${t('Un premier détour ? Crée ton carnet ou pars d’un planning à vérifier.')}`);
++  await page.reload(); await expect(page.locator('[data-mascot="welcome"]')).toHaveCount(0);
++  const dialog = await review(page, language);
++  await expect(dialog.locator('[data-mascot="attention"]')).toMatchAriaSnapshot(`- paragraph: ${t('Un passage demande ta relecture. Compare avec la source avant de créer le carnet.')}`);
++  for (const theme of ['light','dark']) {
++    await page.evaluate(theme => { const v=JSON.stringify({language:document.documentElement.lang,theme}); localStorage.setItem('a-l-est-preferences-v1',v); window.dispatchEvent(new StorageEvent('storage',{key:'a-l-est-preferences-v1',newValue:v})); }, theme);
++    for (const width of [320,390,1440]) {
++      await page.setViewportSize({width,height:950});
++      expect(await dialog.evaluate(e => e.scrollWidth <= e.clientWidth+1)).toBe(true);
++      await dialog.locator('[data-mascot="attention"]').scrollIntoViewIfNeeded();
++      await mkdir('docs/development/lot-08-mascotte/screenshots', {recursive:true});
++      await page.screenshot({path:`docs/development/lot-08-mascotte/screenshots/review-${language}-${theme}-${width}.png`});
++    }
++  }
++  await page.setViewportSize({width:390,height:950});
++  await page.evaluate(() => { document.documentElement.style.zoom='2'; });
++  expect(await dialog.evaluate(e => e.scrollWidth <= e.clientWidth+1)).toBe(true);
++  await page.evaluate(() => { document.documentElement.style.zoom='1'; });
++  expect(await page.locator('.mascot-hint').evaluate(e => getComputedStyle(e).animationName)).toBe('none');
++  await dialog.locator('.planning-passages summary').first().focus(); await page.keyboard.press('Enter');
++  await expect(dialog.locator('.planning-passages details').first()).toHaveAttribute('open','');
++  await dialog.getByRole('button',{name:t('Conserver comme note'),exact:true}).click();
++  await expect(dialog.locator('[data-mascot="attention"]')).toHaveCount(0);
++  await expect(page.locator('[data-mascot="ready"]')).toHaveCount(0);
++});
++
++test('toggle is immediate, durable, keyboard accessible and leaves the import untouched', async ({page,context}) => {
++  await page.goto('/'); await review(page); await page.keyboard.press('Escape');
++  const before = await page.evaluate(() => localStorage.getItem('detours-planning-draft-v1'));
++  await page.getByRole('button',{name:'Préférences',exact:true}).click();
++  const toggle = page.getByRole('checkbox',{name:'Afficher la mascotte',exact:true});
++  await toggle.focus(); await page.keyboard.press('Space'); await expect(toggle).not.toBeChecked();
++  await expect(page.locator('.mascot-hint')).toHaveCount(0);
++  await page.keyboard.press('Escape'); await page.reload();
++  await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();
++  await expect(page.locator('.planning-passages')).toBeVisible(); await expect(page.locator('.mascot-hint')).toHaveCount(0);
++  expect(await page.evaluate(() => localStorage.getItem('detours-planning-draft-v1'))).toBe(before);
++  const other = await context.newPage(); await other.goto('/'); await other.getByRole('button',{name:'Préférences',exact:true}).click();
++  await other.getByRole('checkbox',{name:'Afficher la mascotte',exact:true}).check();
++  await expect(page.locator('[data-mascot="attention"]')).toBeVisible();
++  await other.close();
++});
++
++test('failed image and failed preference write leave all ordinary actions available', async ({page}) => {
++  await page.goto('/'); await review(page);
++  await page.locator('[data-mascot="attention"] img').evaluate((img: HTMLImageElement) => { img.src='data:image/svg+xml,broken'; });
++  await expect(page.locator('[data-mascot="attention"] img')).toHaveCount(0);
++  await expect(page.locator('[data-mascot="attention"] p')).toContainText('Compare avec la source');
++  await page.keyboard.press('Escape');
++  await page.evaluate(key => { const original=Storage.prototype.setItem; Storage.prototype.setItem=function(k,v) { if(k.endsWith(key))throw new DOMException('full','QuotaExceededError'); original.call(this,k,v); }; }, MASCOT_KEY);
++  await page.getByRole('button',{name:'Préférences',exact:true}).click();
++  await page.getByRole('checkbox',{name:'Afficher la mascotte',exact:true}).uncheck();
++  await expect(page.getByRole('status').filter({hasText:'son réglage n’a pas pu être sauvegardé'})).toBeVisible();
++  await page.keyboard.press('Escape'); await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();
++  await expect(page.locator('.mascot-hint')).toHaveCount(0); await expect(page.locator('.planning-passages')).toBeVisible();
++});
++
++test('account switch resets personal visibility and welcome without touching another scope', async ({page,context}) => {
++  await context.route('https://*.supabase.co/**', r => r.fulfill({status:401,json:{message:'fixture'}}));
++  await page.goto('/'); await page.getByRole('button',{name:'Préférences',exact:true}).click(); await page.getByRole('checkbox',{name:'Afficher la mascotte',exact:true}).uncheck(); await page.keyboard.press('Escape');
++  const a='00000000-0000-4000-8000-000000000081', b='00000000-0000-4000-8000-000000000082';
++  let visitedA = false;
++  for (const id of [a,b,a]) {
++    await page.evaluate(({id,hint}) => { const v=JSON.stringify({version:1,id});localStorage.setItem(hint,v);window.dispatchEvent(new StorageEvent('storage',{key:hint,newValue:v})); }, {id,hint:ACCOUNT_HINT_KEY});
++    await page.getByRole('button',{name:'Préférences',exact:true}).click();
++    const toggle=page.getByRole('checkbox',{name:'Afficher la mascotte',exact:true});
++    if (id===a && visitedA) { await expect(toggle).not.toBeChecked(); }
++    else { await expect(toggle).toBeChecked(); }
++    if (id===a && !visitedA) { await toggle.uncheck(); visitedA=true; }
++    await page.keyboard.press('Escape');
++  }
++});
+diff --git a/tests/mascot.test.mjs b/tests/mascot.test.mjs
+new file mode 100644
+index 0000000..c3c2e75
+--- /dev/null
++++ b/tests/mascot.test.mjs
+@@ -0,0 +1,32 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { MASCOT_KEY, defaultMascotPreferences, parseMascotPreferences } from '../src/mascot.ts';
++import { mascotDictionary } from '../src/locales/mascot.ts';
++import { AccountStorage, localTripStorage } from '../src/cloud/storage.ts';
++
++test('mascot preference validates booleans and keeps old, corrupt and future data harmless', () => {
++  for (const raw of [null, '', 'null', '[]', '{', '{"version":2,"enabled":false}']) assert.deepEqual(parseMascotPreferences(raw), defaultMascotPreferences);
++  assert.deepEqual(parseMascotPreferences('{"version":1,"enabled":false,"welcomeSeen":true}'), { version:1, enabled:false, welcomeSeen:true });
++  assert.deepEqual(parseMascotPreferences('{"version":1,"enabled":"false","welcomeSeen":"true"}'), defaultMascotPreferences);
++});
++
++test('personal mascot settings never enter trip records or another account', () => {
++  const data = new Map();
++  const backing = { get length() { return data.size; }, key: i => [...data.keys()][i] ?? null, getItem: k => data.get(k) ?? null, setItem: (k,v) => data.set(k,v), removeItem: k => data.delete(k) };
++  const a = new AccountStorage(backing, 'a'), b = new AccountStorage(backing, 'b'), local = localTripStorage(backing);
++  a.setItem(MASCOT_KEY, JSON.stringify({version:1, enabled:false, welcomeSeen:true}));
++  assert.equal(parseMascotPreferences(a.getItem(MASCOT_KEY)).enabled, false);
++  assert.equal(parseMascotPreferences(b.getItem(MASCOT_KEY)).enabled, true);
++  assert.equal(parseMascotPreferences(local.getItem(MASCOT_KEY)).welcomeSeen, false);
++  assert.deepEqual(a.records(), []);
++  assert.deepEqual([...data.keys()], [a.physicalKey(MASCOT_KEY)]);
++});
++
++test('every mascot message and preference has all four language versions', () => {
++  const en = mascotDictionary(0);
++  for (const index of [0,1,2]) {
++    const dictionary = mascotDictionary(index);
++    assert.deepEqual(Object.keys(dictionary), Object.keys(en));
++    for (const [source, target] of Object.entries(dictionary)) { assert.ok(target.length); assert.notEqual(source, target); }
++  }
++});

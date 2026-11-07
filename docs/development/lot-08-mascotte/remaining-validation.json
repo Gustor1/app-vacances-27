@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-10-23T12:47:25.780Z",
+  "initialGate": "C:/Users/eliot/AppData/Local/Temp/detours-verify-LxCXez/validation.json",
+  "sourceFingerprint": "bb019c9bff0c8c2f254896c34822ffb710e10d4391d841d7c85020558b6d2ed8",
+  "sourceUnchanged": true,
+  "doesNotOverrideInitialGateFailure": true,
+  "exitCode": 0,
+  "checks": [
+    {
+      "name": "assistant compilé hors ligne",
+      "startedAt": "2026-10-23T12:44:53.446Z",
+      "finishedAt": "2026-10-23T12:44:58.593Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "mascotte navigateur",
+      "startedAt": "2026-10-23T12:44:58.593Z",
+      "finishedAt": "2026-10-23T12:45:58.052Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "mascotte compilée hors ligne",
+      "startedAt": "2026-10-23T12:45:58.052Z",
+      "finishedAt": "2026-10-23T12:46:13.840Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "lieux compilés hors ligne",
+      "startedAt": "2026-10-23T12:46:13.840Z",
+      "finishedAt": "2026-10-23T12:46:18.796Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "PWA mobile compilée",
+      "startedAt": "2026-10-23T12:46:18.796Z",
+      "finishedAt": "2026-10-23T12:46:34.611Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "mise à jour Chrome et WebKit",
+      "startedAt": "2026-10-23T12:46:34.611Z",
+      "finishedAt": "2026-10-23T12:47:03.461Z",
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "name": "planning compilé, carte, hors ligne et restauration",
+      "startedAt": "2026-10-23T12:47:03.461Z",
+      "finishedAt": "2026-10-23T12:47:25.197Z",
+      "exitCode": 0,
+      "status": "passed"
+    }
+  ],
+  "notRun": []
+}

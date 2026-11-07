@@ -1,0 +1,106 @@
+{
+  "baseline": "C:/Users/eliot/Documents/detours-palette-claire-recovery-20261019",
+  "branch": "codex/palette-claire-lin",
+  "baseRevision": "c1dd8a686e5962a156bad1489e4e4d3f2c731d64",
+  "unchangedInitialFiles": 547,
+  "missingInitialFiles": [],
+  "modifiedInitialFiles": [
+    {
+      "file": "index.html",
+      "before": "0f600fe891515dfad7f965ba407c5b5215b6e321c7b20bae31e8533c9a1917c5",
+      "after": "af103eae1d5f98887e9fe488406e439be29916f47cfc65e94051ce73ace7c815"
+    },
+    {
+      "file": "public/favicon.svg",
+      "before": "55a33d6c9f1aca7e0c07a8997abff785acc6279e4608a6aa94aa7c062ce97331",
+      "after": "6f49162254d6c0e66eed3e202a4007aba90d01418402d51d837c5cf86ecc5087"
+    },
+    {
+      "file": "public/icons/apple-touch-icon.png",
+      "before": "b5dde41735540fa87ea7e1bd1905fd48f603bf2cc347c6b4eb9394ea3f18fbe2",
+      "after": "2f113b533684a9a767fcf534488ccb1d8c4a993074dcfb341b29ec7616197c27"
+    },
+    {
+      "file": "public/icons/icon-192.png",
+      "before": "c44186b0a692c401529fae71d4b21614115dd6aaae6ab15e7f5cf8186eeae727",
+      "after": "09b1bb34644152635044a94c5e062d56802a993c9242366484146cce95bbc204"
+    },
+    {
+      "file": "public/icons/icon-512.png",
+      "before": "6e30782fea4e881be94fc5235e56c2457ac5ea6dd29261b0a2581da66d88ef33",
+      "after": "de850901a2425ad459c54656a44991134612aecefd7fe7c6cff423152ab2fc8a"
+    },
+    {
+      "file": "public/icons/maskable-512.png",
+      "before": "e9ef1a6174af061bc7538e868d4efb17ded5fc33087213878d83dee5d62add1c",
+      "after": "ecc092600dfe071160d14d7d60631fa2b6e0d5d9065aedc85a9545bd8699e962"
+    },
+    {
+      "file": "public/manifest.webmanifest",
+      "before": "2901b870fc07bb89b5a812a4932353ea2510af542c79744f43353150243867f6",
+      "after": "a5c5232703e3dcb8bd267c65db28da9f4f8fa9df31062001f1440caee2f9f483"
+    },
+    {
+      "file": "scripts/generate-pwa-icons.mjs",
+      "before": "2a866b122108bca36b124f109eaf9aa76662d58e95cf0f8059cc4ffd47aebaf5",
+      "after": "3dd57fc355f3bc0b0c531b6509a66bd8e994247e3ee025c1ed41e9a1d0ccce2b"
+    },
+    {
+      "file": "scripts/smoke-pwa-mobile.mjs",
+      "before": "4050f4a7da132eae6a39273744edb4122a8dbb6c44ae3e7555d889dff317dfaa",
+      "after": "2bdca0c6dbed12e0fe666e19ff774d93c1e081fd5af1cc206f03c324d2cae4d9"
+    },
+    {
+      "file": "scripts/verify-local.mjs",
+      "before": "3898d3e32209005e3dfa73e96d2161124a1f75c119b724352d2f193bd91d39a6",
+      "after": "177979529c455883aca27cfd39f1d57c2dd2cedf20d5b3dc43c89d528353ec13"
+    },
+    {
+      "file": "src/App.tsx",
+      "before": "19c30c2b1074e8ed70ed67b425f1b76fdc08ff14086f39d6fa31a9412e200ae3",
+      "after": "d3dffd1d2a5496cb01a9eb474b0f708478a634b228d18c531495d7d55c817acd"
+    },
+    {
+      "file": "src/apple-design.css",
+      "before": "bd761a0a12d3d1d3e22fb58c447a3546577fd5637363dfe258946db4cc61c628",
+      "after": "44ddd97ea9e0b2b5043b59fd50ed438d8e465f37e0b692a22dc19affe2730070"
+    },
+    {
+      "file": "src/components/JourneysApp.tsx",
+      "before": "b4242644eaf3ccc3b030ff1d93808bb69e41a3fa4a46316fda692b44ca354551",
+      "after": "c6d7bbfbb9ea1315edc1ab18bef09c0e59a3aca6d2b5c036bd7bf174af22a627"
+    },
+    {
+      "file": "src/i18n.tsx",
+      "before": "e670d4256492b08bb852d99389f013e68e329cd5da4b8f2332b445ee30c22186",
+      "after": "22a9711137f6310ced7a0f899028f40a5442e62e2d1908e025e87e12eccdc96d"
+    }
+  ],
+  "addedCodeFiles": [
+    {
+      "file": "public/icons/brand-128.png",
+      "sha256": "1fd99f2611022f520d80b606d10d87618b644e000031afdc403e366fee0414e3"
+    },
+    {
+      "file": "public/icons/favicon-32.png",
+      "sha256": "2bf18945f67a3206705017204782e76a597ada73ec153a0ff8c143e9fb8d3d27"
+    },
+    {
+      "file": "public/icons/favicon-48.png",
+      "sha256": "184e3cfa32724cb72f29f3c865fb2ed5d431b922455401c7e1e84d46bf1e9767"
+    },
+    {
+      "file": "scripts/smoke-palette-claire.mjs",
+      "sha256": "8e36bb68273ebe640dce2ae2cfeb5c7cbc020db139af5a98e260d1515386430a"
+    },
+    {
+      "file": "src/components/BrandMark.tsx",
+      "sha256": "c47117b899b16983cec9c6a6d2a4ad97b5eb4d7f993a86cd8a4e1cad9043bbbb"
+    },
+    {
+      "file": "tests/e2e/palette-claire.spec.ts",
+      "sha256": "a4ab7f0e02276a8d7c56babc86dea1f447adfb2912797e2a215b9834f32632b7"
+    }
+  ],
+  "patchSha256": "ea074870bd93004a6f2cd06463b385fb87eccea2a9b9daca30f38ecfc3d45ce5"
+}

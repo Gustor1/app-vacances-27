@@ -1,0 +1,104 @@
+{
+  "file": "test-results\\world-languages-中文（简体）-lib-98ac9-dates-forms-and-saved-notes\\trace.zip",
+  "actions": 97,
+  "slowest": [
+    {
+      "milliseconds": 11966,
+      "method": "pw:api",
+      "selector": null,
+      "error": ""
+    },
+    {
+      "milliseconds": 11833,
+      "method": "goto",
+      "selector": null,
+      "error": ""
+    },
+    {
+      "milliseconds": 4566,
+      "method": "hook",
+      "selector": null,
+      "error": ""
+    },
+    {
+      "milliseconds": 3738,
+      "method": "fixture",
+      "selector": null,
+      "error": ""
+    },
+    {
+      "milliseconds": 2249,
+      "method": "pw:api",
+      "selector": null,
+      "error": ""
+    },
+    {
+      "milliseconds": 2048,
+      "method": "hook",
+      "selector": null,
+      "error": ""
+    },
+    {
+      "milliseconds": 1746,
+      "method": "expect",
+      "selector": null,
+      "error": ""
+    },
+    {
+      "milliseconds": 1649,
+      "method": "expect",
+      "selector": null,
+      "error": ""
+    },
+    {
+      "milliseconds": 1526,
+      "method": "pw:api",
+      "selector": null,
+      "error": ""
+    },
+    {
+      "milliseconds": 1450,
+      "method": "click",
+      "selector": "internal:role=button[name=\"打印整个旅行\"s]",
+      "error": ""
+    },
+    {
+      "milliseconds": 1324,
+      "method": "expect",
+      "selector": null,
+      "error": ""
+    },
+    {
+      "milliseconds": 1262,
+      "method": "pw:api",
+      "selector": null,
+      "error": ""
+    }
+  ],
+  "last": [
+    {
+      "milliseconds": 1004,
+      "method": "click",
+      "selector": "internal:role=navigation[name=\"主导航\"s] >> internal:role=button[name=\"心愿与备选\"i]",
+      "error": ""
+    },
+    {
+      "milliseconds": 1072,
+      "method": "click",
+      "selector": "internal:role=button[name=\"添加地点\"s]",
+      "error": ""
+    },
+    {
+      "milliseconds": 43,
+      "method": "expect",
+      "selector": "internal:role=dialog >> internal:label=\"地点名称\"s",
+      "error": ""
+    },
+    {
+      "milliseconds": 68,
+      "method": "keyboardPress",
+      "selector": null,
+      "error": ""
+    }
+  ]
+}

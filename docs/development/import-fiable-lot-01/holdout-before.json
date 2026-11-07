@@ -1,0 +1,2138 @@
+[
+  {
+    "id": "fr-1",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 3,
+    "mentions": 3,
+    "separateItems": 3,
+    "assignedItems": 0,
+    "fieldErrors": 0,
+    "shapeCorrect": false,
+    "passed": false,
+    "expectedShape": [
+      [
+        "saumur",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "abbaye",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": {
+          "title": "abbaye",
+          "city": "",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "jardin clos",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": {
+          "title": "jardin clos",
+          "city": "",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "musée municipal",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": {
+          "title": "musée municipal",
+          "city": "",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "fr-2",
+    "expectedDays": 2,
+    "actualDays": 0,
+    "expectedItems": 3,
+    "actualItems": 0,
+    "mentions": 0,
+    "separateItems": 0,
+    "assignedItems": 0,
+    "fieldErrors": 0,
+    "shapeCorrect": false,
+    "passed": false,
+    "expectedShape": [
+      [
+        "saumur",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "",
+        []
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "abbaye",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "jardin clos",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "musée municipal",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "fr-3",
+    "expectedDays": 2,
+    "actualDays": 0,
+    "expectedItems": 2,
+    "actualItems": 0,
+    "mentions": 0,
+    "separateItems": 0,
+    "assignedItems": 0,
+    "fieldErrors": 0,
+    "shapeCorrect": false,
+    "passed": false,
+    "expectedShape": [
+      [
+        "saumur",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "",
+        []
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "abbaye",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "musée municipal",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "fr-4",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 2,
+    "mentions": 3,
+    "separateItems": 1,
+    "assignedItems": 1,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": false,
+    "expectedShape": [
+      [
+        "saumur",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "saumur",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "abbaye",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": [
+          "abbaye -> jardin clos"
+        ]
+      },
+      {
+        "anchor": "jardin clos",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": [
+          "abbaye -> jardin clos"
+        ]
+      },
+      {
+        "anchor": "musée municipal",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "musée municipal",
+          "city": "saumur",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": [
+      {
+        "title": "abbaye -> jardin clos",
+        "city": "saumur",
+        "group": [
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fr-5",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 3,
+    "mentions": 3,
+    "separateItems": 3,
+    "assignedItems": 3,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "saumur",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "saumur",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "abbaye",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "abbaye",
+          "city": "saumur",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "jardin clos",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "jardin clos",
+          "city": "saumur",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "musée municipal",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "musée municipal",
+          "city": "saumur",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "fr-6",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 2,
+    "actualItems": 2,
+    "mentions": 2,
+    "separateItems": 2,
+    "assignedItems": 2,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "saumur",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "saumur",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "abbaye",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "abbaye",
+          "city": "saumur",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "musée municipal",
+        "expectedCity": "saumur",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "musée municipal",
+          "city": "saumur",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "en-1",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 3,
+    "mentions": 3,
+    "separateItems": 3,
+    "assignedItems": 3,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "durham",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "durham",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "old observatory",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "old observatory",
+          "city": "Durham",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "river garden",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "river garden",
+          "city": "Durham",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "local museum",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "local museum",
+          "city": "Durham",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "en-2",
+    "expectedDays": 2,
+    "actualDays": 0,
+    "expectedItems": 3,
+    "actualItems": 0,
+    "mentions": 0,
+    "separateItems": 0,
+    "assignedItems": 0,
+    "fieldErrors": 0,
+    "shapeCorrect": false,
+    "passed": false,
+    "expectedShape": [
+      [
+        "durham",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "",
+        []
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "old observatory",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "river garden",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "local museum",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "en-3",
+    "expectedDays": 2,
+    "actualDays": 0,
+    "expectedItems": 2,
+    "actualItems": 0,
+    "mentions": 0,
+    "separateItems": 0,
+    "assignedItems": 0,
+    "fieldErrors": 0,
+    "shapeCorrect": false,
+    "passed": false,
+    "expectedShape": [
+      [
+        "durham",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "",
+        []
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "old observatory",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "local museum",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "en-4",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 2,
+    "mentions": 3,
+    "separateItems": 1,
+    "assignedItems": 1,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": false,
+    "expectedShape": [
+      [
+        "durham",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "durham",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "old observatory",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": [
+          "old observatory -> river garden"
+        ]
+      },
+      {
+        "anchor": "river garden",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": [
+          "old observatory -> river garden"
+        ]
+      },
+      {
+        "anchor": "local museum",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "local museum",
+          "city": "Durham",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": [
+      {
+        "title": "old observatory -> river garden",
+        "city": "Durham",
+        "group": [
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "en-5",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 3,
+    "mentions": 3,
+    "separateItems": 3,
+    "assignedItems": 3,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "durham",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "durham",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "old observatory",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "old observatory",
+          "city": "Durham",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "river garden",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "river garden",
+          "city": "Durham",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "local museum",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "local museum",
+          "city": "Durham",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "en-6",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 2,
+    "actualItems": 2,
+    "mentions": 2,
+    "separateItems": 2,
+    "assignedItems": 2,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "durham",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "durham",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "old observatory",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "old observatory",
+          "city": "Durham",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "local museum",
+        "expectedCity": "Durham",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "local museum",
+          "city": "Durham",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "es-1",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 3,
+    "mentions": 3,
+    "separateItems": 3,
+    "assignedItems": 3,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "cordoba",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "cordoba",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "torre antigua",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "torre antigua",
+          "city": "Córdoba",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "jardín botánico",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "jardín botánico",
+          "city": "Córdoba",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "museo local",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "museo local",
+          "city": "Córdoba",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "es-2",
+    "expectedDays": 2,
+    "actualDays": 0,
+    "expectedItems": 3,
+    "actualItems": 0,
+    "mentions": 0,
+    "separateItems": 0,
+    "assignedItems": 0,
+    "fieldErrors": 0,
+    "shapeCorrect": false,
+    "passed": false,
+    "expectedShape": [
+      [
+        "cordoba",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "",
+        []
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "torre antigua",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "jardín botánico",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "museo local",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "es-3",
+    "expectedDays": 2,
+    "actualDays": 0,
+    "expectedItems": 2,
+    "actualItems": 0,
+    "mentions": 0,
+    "separateItems": 0,
+    "assignedItems": 0,
+    "fieldErrors": 0,
+    "shapeCorrect": false,
+    "passed": false,
+    "expectedShape": [
+      [
+        "cordoba",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "",
+        []
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "torre antigua",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "museo local",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "es-4",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 2,
+    "mentions": 3,
+    "separateItems": 1,
+    "assignedItems": 1,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": false,
+    "expectedShape": [
+      [
+        "cordoba",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "cordoba",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "torre antigua",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": [
+          "torre antigua -> jardín botánico"
+        ]
+      },
+      {
+        "anchor": "jardín botánico",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": [
+          "torre antigua -> jardín botánico"
+        ]
+      },
+      {
+        "anchor": "museo local",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "museo local",
+          "city": "Córdoba",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": [
+      {
+        "title": "torre antigua -> jardín botánico",
+        "city": "Córdoba",
+        "group": [
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "es-5",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 3,
+    "mentions": 3,
+    "separateItems": 3,
+    "assignedItems": 3,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "cordoba",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "cordoba",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "torre antigua",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "torre antigua",
+          "city": "Córdoba",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "jardín botánico",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "jardín botánico",
+          "city": "Córdoba",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "museo local",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "museo local",
+          "city": "Córdoba",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "es-6",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 2,
+    "actualItems": 2,
+    "mentions": 2,
+    "separateItems": 2,
+    "assignedItems": 2,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "cordoba",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "cordoba",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "torre antigua",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "torre antigua",
+          "city": "Córdoba",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "museo local",
+        "expectedCity": "Córdoba",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "museo local",
+          "city": "Córdoba",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "zh-1",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 3,
+    "mentions": 3,
+    "separateItems": 3,
+    "assignedItems": 3,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "苏州",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "苏州",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "古城门",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "古城门",
+          "city": "苏州",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "植物园",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "植物园",
+          "city": "苏州",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "地方博物馆",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "地方博物馆",
+          "city": "苏州",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "zh-2",
+    "expectedDays": 2,
+    "actualDays": 0,
+    "expectedItems": 3,
+    "actualItems": 0,
+    "mentions": 0,
+    "separateItems": 0,
+    "assignedItems": 0,
+    "fieldErrors": 0,
+    "shapeCorrect": false,
+    "passed": false,
+    "expectedShape": [
+      [
+        "苏州",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "",
+        []
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "古城门",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "植物园",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "地方博物馆",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "zh-3",
+    "expectedDays": 2,
+    "actualDays": 0,
+    "expectedItems": 2,
+    "actualItems": 0,
+    "mentions": 0,
+    "separateItems": 0,
+    "assignedItems": 0,
+    "fieldErrors": 0,
+    "shapeCorrect": false,
+    "passed": false,
+    "expectedShape": [
+      [
+        "苏州",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "",
+        []
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "古城门",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      },
+      {
+        "anchor": "地方博物馆",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": false,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "zh-4",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 2,
+    "mentions": 3,
+    "separateItems": 1,
+    "assignedItems": 1,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": false,
+    "expectedShape": [
+      [
+        "苏州",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "苏州",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "古城门",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": [
+          "古城门 -> 植物园"
+        ]
+      },
+      {
+        "anchor": "植物园",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": false,
+        "assigned": false,
+        "fieldErrors": [],
+        "actual": null,
+        "mergedInto": [
+          "古城门 -> 植物园"
+        ]
+      },
+      {
+        "anchor": "地方博物馆",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "地方博物馆",
+          "city": "苏州",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": [
+      {
+        "title": "古城门 -> 植物园",
+        "city": "苏州",
+        "group": [
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "zh-5",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 3,
+    "actualItems": 3,
+    "mentions": 3,
+    "separateItems": 3,
+    "assignedItems": 3,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "苏州",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "苏州",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "古城门",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "古城门",
+          "city": "苏州",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "植物园",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "植物园",
+          "city": "苏州",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "地方博物馆",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "地方博物馆",
+          "city": "苏州",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  },
+  {
+    "id": "zh-6",
+    "expectedDays": 2,
+    "actualDays": 2,
+    "expectedItems": 2,
+    "actualItems": 2,
+    "mentions": 2,
+    "separateItems": 2,
+    "assignedItems": 2,
+    "fieldErrors": 0,
+    "shapeCorrect": true,
+    "passed": true,
+    "expectedShape": [
+      [
+        "苏州",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "actualShape": [
+      [
+        "苏州",
+        [
+          "",
+          ""
+        ]
+      ]
+    ],
+    "details": [
+      {
+        "anchor": "古城门",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          0
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "古城门",
+          "city": "苏州",
+          "group": [
+            0,
+            0
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      },
+      {
+        "anchor": "地方博物馆",
+        "expectedCity": "苏州",
+        "expectedGroup": [
+          0,
+          1
+        ],
+        "mentioned": true,
+        "separate": true,
+        "assigned": true,
+        "fieldErrors": [],
+        "actual": {
+          "title": "地方博物馆",
+          "city": "苏州",
+          "group": [
+            0,
+            1
+          ],
+          "time": "",
+          "period": "",
+          "kind": "activity",
+          "booked": false
+        },
+        "mergedInto": []
+      }
+    ],
+    "unexpected": []
+  }
+]

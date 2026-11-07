@@ -1,3 +1,5 @@
+import { validAssociation } from './places/model.ts';
+import { validCompanion } from './companion.ts';
 import type { City, Step, StoredState } from './types';
 import { validTimezone, transferTimeError } from './time.ts';
 import { countryCodes, statuses } from './countries.ts';
@@ -13,8 +15,16 @@ export function safeExternalUrl(url?: string): string | undefined {
   if (!url) return;
   try { const parsed = new URL(url); return parsed.protocol === 'https:' && !parsed.username && !parsed.password ? parsed.href : undefined; } catch { return; }
 }
+/** Text search preserves the journal's names; it does not certify a Google listing. */
+export function placeQuery(city: City, place: Pick<Step, 'title' | 'chineseName' | 'address'>): string {
+  return [place.chineseName || place.title, place.address, city.chineseName || city.name].filter(value => value?.trim()).join(' ');
+}
+/** Explicit Google action, independent of the personal directions preference. No API call. */
+export function googlePlaceLink(city: City, place: Pick<Step, 'title' | 'chineseName' | 'address'>): string {
+  return `https://www.google.com/maps/search/?${new URLSearchParams({ api: '1', query: placeQuery(city, place) })}`;
+}
 export function amapLink(city: City, step: Pick<Step, 'title' | 'chineseName' | 'amapUrl' | 'address'>) {
-  if (city.mapProvider === 'google') return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([city.chineseName || city.name, step.chineseName || step.title, step.address].filter(Boolean).join(' '))}`;
+  if (city.mapProvider === 'google') return googlePlaceLink(city, step);
   const safe = safeExternalUrl(step.amapUrl);
   if (safe && /(^|\.)amap\.com$/.test(new URL(safe).hostname)) return safe;
   return amapSearch(city.chineseName || city.name, step.chineseName || step.title, step.address);
@@ -47,13 +57,14 @@ const validRateQuotes = (x: unknown): boolean => isObj(x) && Object.entries(x).e
 const uniqueIds = (rows: { id: string }[]) => new Set(rows.map(x => x.id)).size === rows.length;
 function validCities(value: unknown, allowEmpty = false): value is City[] {
   if (!Array.isArray(value) || (!allowEmpty && !value.length) || value.length > 100) return false;
-  if (!value.every(c => isObj(c) && id(c.id) && id(c.name) && text(c.chineseName) && text(c.subtitle) && text(c.color) && text(c.image) && (c.coordinates === undefined || coords(c.coordinates)) && (c.mapProvider === undefined || ['amap','google'].includes(c.mapProvider as string)) && (c.timezone === undefined || validTimezone(c.timezone)) && texts(c.notes) && (c.nights === undefined || (typeof c.nights === 'number' && Number.isFinite(c.nights) && Number.isInteger(c.nights) && c.nights >= 0)) && Array.isArray(c.days) && c.days.length <= 365 && c.days.every(d => isObj(d) && id(d.id) && id(d.title) && optionalDate(d.date) && Array.isArray(d.steps) && d.steps.length <= 1000 && d.steps.every(s => isObj(s) && id(s.id) && id(s.title) && text(s.description) && ['visit','food','transport','hotel','walk','shopping'].includes(s.category as string) && optionalText(s.chineseName) && optionalText(s.address) && optionalText(s.period) && optionalText(s.amapUrl) && optionalBool(s.optional) && optionalBool(s.booking) && (s.coordinates === undefined || coords(s.coordinates)))))) return false;
+  if (!value.every(c => isObj(c) && id(c.id) && id(c.name) && text(c.chineseName) && text(c.subtitle) && text(c.color) && text(c.image) && (c.coordinates === undefined || coords(c.coordinates)) && (c.mapProvider === undefined || ['amap','google'].includes(c.mapProvider as string)) && (c.timezone === undefined || validTimezone(c.timezone)) && texts(c.notes) && (c.nights === undefined || (typeof c.nights === 'number' && Number.isFinite(c.nights) && Number.isInteger(c.nights) && c.nights >= 0)) && Array.isArray(c.days) && c.days.length <= 365 && c.days.every(d => isObj(d) && id(d.id) && id(d.title) && optionalDate(d.date) && Array.isArray(d.steps) && d.steps.length <= 1000 && d.steps.every(s => isObj(s) && id(s.id) && id(s.title) && text(s.description) && ['visit','food','transport','hotel','walk','shopping'].includes(s.category as string) && optionalText(s.chineseName) && optionalText(s.address) && optionalText(s.period) && optionalText(s.amapUrl) && (s.place === undefined || validAssociation(s.place)) && optionalBool(s.optional) && optionalBool(s.booking) && (s.coordinates === undefined || coords(s.coordinates)))))) return false;
   const cities = value as City[];
   const days = cities.flatMap(c => c.days);
   const steps = days.flatMap(d => d.steps);
   return uniqueIds(cities) && uniqueIds(days) && uniqueIds(steps) && days.every(day=>validPreparation(day.preparation,day.steps));
 }
 export function validateState(value: unknown): value is StoredState {
+  if (isObj(value) && !validCompanion(value.companion)) return false;
   if (!isObj(value) || value.version !== 1 || !validCities(value.cities, true) || !texts(value.favorites) || !texts(value.done) || !texts(value.bookings) || !isObj(value.notes) || !Object.values(value.notes).every(text) || !date(value.departureDate)) return false;
   if (value.journey !== undefined && (!isObj(value.journey) || !id(value.journey.id) || !id(value.journey.title) || ![value.journey.destinations,value.journey.description,value.journey.cover].every(text) || !validCurrency(value.journey.currency) || !validTimezone(value.journey.timezone) || !['china','custom'].includes(value.journey.source as string) || typeof value.journey.followsCatalog !== 'boolean')) return false;
   if (isObj(value.journey) && ((value.journey.status !== undefined && !Object.hasOwn(statuses, String(value.journey.status))) || (value.journey.countries !== undefined && (!texts(value.journey.countries) || !value.journey.countries.every(c => countryCodes.has(c)) || new Set(value.journey.countries).size !== value.journey.countries.length)) || !optionalDate(value.journey.endDate) || !optionalText(value.journey.highlights) || (value.departureDate && value.journey.endDate && String(value.journey.endDate) < value.departureDate))) return false;

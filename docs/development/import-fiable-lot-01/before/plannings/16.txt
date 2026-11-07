@@ -1,0 +1,7 @@
+# Séjour
+Ville: Paris
+Jour 1
+- Louvre
+Jour 2
+- Musée d’Orsay
+Correction finale : déplacer le Louvre au Jour 2 et le Musée d’Orsay au Jour 1.

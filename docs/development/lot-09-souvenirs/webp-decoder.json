@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "sourceType": "image/webp",
+  "sourceBytes": 102,
+  "outputType": "image/jpeg",
+  "outputBytes": 767,
+  "dimensions": {
+    "type": "image/jpeg",
+    "width": 37,
+    "height": 29
+  }
+}

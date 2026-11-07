@@ -1,0 +1,172 @@
+Continuation distincte — sorties C:\Users\eliot\AppData\Local\Temp\detours-verify-SKbZJo
+
+Contrôle restant : états L4/L5/L6 et préférences dans le navigateur
+[WebServer] (node:26676) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 28 tests using 1 worker
+
+(node:22144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\l4-status.spec.ts:5:1 › compte sans session : file conservée, changement de compte isolé et échec local explicite (15.2s)
+  ok  2 tests\e2e\l5-maps.spec.ts:7:51 › cartes google : recherche distincte du trajet, modes et prochaine étape (6.9s)
+  ok  3 tests\e2e\l5-maps.spec.ts:7:51 › cartes amap : recherche distincte du trajet, modes et prochaine étape (7.1s)
+  ok  4 tests\e2e\l5-maps.spec.ts:36:35 › voyage CN : préférence personnelle Google par défaut (5.8s)
+  ok  5 tests\e2e\l5-maps.spec.ts:36:35 › voyage FR : préférence personnelle Google par défaut (5.5s)
+  ok  6 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : fr, google, clavier, hors ligne et reflow (16.0s)
+  ok  7 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : fr, amap, clavier, hors ligne et reflow (19.2s)
+  ok  8 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : en, google, clavier, hors ligne et reflow (10.8s)
+  ok  9 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : en, amap, clavier, hors ligne et reflow (11.2s)
+  ok 10 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : zh-CN, google, clavier, hors ligne et reflow (11.5s)
+  ok 11 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : zh-CN, amap, clavier, hors ligne et reflow (10.1s)
+  ok 12 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : es, google, clavier, hors ligne et reflow (9.6s)
+  ok 13 tests\e2e\l5-maps.spec.ts:49:5 › liens sans clé : es, amap, clavier, hors ligne et reflow (9.6s)
+  ok 14 tests\e2e\l5-now.spec.ts:7:63 › Maintenant fr : deux actions, adresse locale, données du jour, clavier et dates (8.8s)
+  ok 15 tests\e2e\l5-now.spec.ts:7:63 › Maintenant en : deux actions, adresse locale, données du jour, clavier et dates (8.8s)
+  ok 16 tests\e2e\l5-now.spec.ts:7:63 › Maintenant zh-CN : deux actions, adresse locale, données du jour, clavier et dates (9.1s)
+  ok 17 tests\e2e\l5-now.spec.ts:7:63 › Maintenant es : deux actions, adresse locale, données du jour, clavier et dates (9.4s)
+  ok 18 tests\e2e\l6-preparation.spec.ts:7:52 › L6 urban : comparer, annuler, adopter et revenir sans perdre billets/dépenses (9.1s)
+  ok 19 tests\e2e\l6-preparation.spec.ts:7:52 › L6 excursion : comparer, annuler, adopter et revenir sans perdre billets/dépenses (9.1s)
+  ok 20 tests\e2e\l6-preparation.spec.ts:7:52 › L6 transfer : comparer, annuler, adopter et revenir sans perdre billets/dépenses (9.0s)
+  ok 21 tests\e2e\l6-preparation.spec.ts:21:62 › L6 fr : saisie, inconnues, comparaison, clavier et 320px (8.0s)
+  ok 22 tests\e2e\l6-preparation.spec.ts:21:62 › L6 en : saisie, inconnues, comparaison, clavier et 320px (7.7s)
+  ok 23 tests\e2e\l6-preparation.spec.ts:21:62 › L6 zh-CN : saisie, inconnues, comparaison, clavier et 320px (8.1s)
+  ok 24 tests\e2e\l6-preparation.spec.ts:21:62 › L6 es : saisie, inconnues, comparaison, clavier et 320px (7.7s)
+  ok 25 tests\e2e\l6-preparation.spec.ts:35:1 › L6 lecteur : comparaison disponible, adoption et formulaires bloqués (6.0s)
+  ok 26 tests\e2e\map-preferences.spec.ts:25:1 › choix personnel : Google par défaut, Amap dans toutes les vues, conservation après rechargement sans modifier le carnet (10.5s)
+  ok 27 tests\e2e\map-preferences.spec.ts:46:1 › préférence entre onglets et sauvegarde refusée : choix actif mais échec annoncé (8.7s)
+  ok 28 tests\e2e\map-preferences.spec.ts:55:1 › préférences des comptes A et B et du mode local isolées, sans envoi de carnet (7.8s)
+
+  28 passed (4.6m)
+
+Contrôle restant : smoke-production
+Served build verified: 9e48e06eaa1e13e2c08479f6c0f22e10f42850f823065bb94b7a74651dee4440
+Service worker upgrade verified: previous cache replaced by current compiled assets.
+Production smoke passed: map selection, local geography, service worker, offline reload, offline notes, both source documents, mobile overflow, four interface languages offline, Chinese phrases, zero runtime errors, several journals offline, no China content in Japan, world first opened offline and personal visits persisted.
+Offline cache verified: 102 requests.
+
+Contrôle restant : smoke-backup
+Backup production smoke passed: export and restore offline in separate Chrome profiles, document and note content, reload, 390px, reduced motion, no runtime errors.
+
+Contrôle restant : smoke-ui
+Account errors, long text, layouts, 200% reflow and keyboard verified: fr.
+Account errors, long text, layouts, 200% reflow and keyboard verified: en.
+Account errors, long text, layouts, 200% reflow and keyboard verified: zh-CN.
+Account errors, long text, layouts, 200% reflow and keyboard verified: es.
+UI smoke passed: conflict export spacing and both download contents, radio choices, cold/reload tabs, lazy world, account menu keyboard, compiled Google config, 320/390/1440 layouts, recovery labels, modal spacing and pending sign-out cache preservation.
+
+Contrôle restant : smoke-common-sharing
+UI commune validée : trois profils créateur/éditeur/lecteur, rôles individuels, annulation et confirmation du départ, réinvitation, refus des anciens liens, contributions intactes, partage direct, conflit hors ligne, révocation et 320/390/1440px. API et sessions simulées.
+
+Contrôle restant : smoke-l4-offline
+L4 offline smoke passed: missing/corrected lazy cache, offline edit and reload, dated checks, bounded receipts, recovery keyboard, four languages, 320/390/1440.
+
+Contrôle restant : smoke-l4-persistence
+L4 disk-profile persistence passed: installed Chrome fully closed, reopened offline, note/document/cache preserved, reconnected. Isolated profile: C:\Users\eliot\AppData\Local\Temp\detours-l4-disk-jV5oME. Network emulation; no real-account or iPhone proof.
+
+Contrôle restant : smoke-l5-now
+L5 compiled offline passed: hotel/show card, next step, booking, day note, personal map choice changed offline and preserved after reload, reduced motion, zero runtime errors.
+
+Contrôle restant : smoke-l6-preparation
+L6 compiled offline passed: compare/adopt, reload, booked activity warning, original restored, reservations/expenses preserved, reduced motion, no runtime errors.
+
+Contrôle restant : smoke-l8-release
+L8 compiled passed: served identity 9e48e06eaa1e13e2c08479f6c0f22e10f42850f823065bb94b7a74651dee4440; unopened world/Markdown modules offline; all views, note/reload; native cross-tab alternative/title/reader/revocation invalidation; no runtime errors. Account permissions simulated locally, not remote proof.
+
+Contrôle restant : kit et JSON structurés compilés hors ligne
+{"passed":true,"downloads":4,"output":"C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-verify-SKbZJo\\docs\\development\\lot-03-bis-kit-import\\compiled"}
+
+Contrôle restant : PDF et DOCX compilés hors ligne
+{"passed":true,"documents":5,"output":"C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-verify-SKbZJo\\docs\\development\\lot-03-documents\\compiled"}
+
+Contrôle restant : compagnon compilé hors ligne
+Companion compiled offline passed: checks, safe card, ideas, preview, undo, export and reload; no external requests during companion use (initial map requests recorded separately).
+
+Contrôle restant : souvenirs navigateur
+[WebServer] (node:22252) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 9 tests using 1 worker
+
+(node:17168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\souvenirs.spec.ts:15:64 › personal memory fr: durable caption, explicit print consent, keyboard, widths and no private leaks (19.9s)
+  ok 2 tests\e2e\souvenirs.spec.ts:15:64 › personal memory en: durable caption, explicit print consent, keyboard, widths and no private leaks (12.0s)
+  ok 3 tests\e2e\souvenirs.spec.ts:15:64 › personal memory zh-CN: durable caption, explicit print consent, keyboard, widths and no private leaks (12.9s)
+  ok 4 tests\e2e\souvenirs.spec.ts:15:64 › personal memory es: durable caption, explicit print consent, keyboard, widths and no private leaks (11.9s)
+  ok 5 tests\e2e\souvenirs.spec.ts:36:1 › real decoder: EXIF rotation, metadata removal, signatures, unsupported formats and bounded output (3.0s)
+  ok 6 tests\e2e\souvenirs.spec.ts:58:1 › IndexedDB atomic abort, quota failure, missing media, conflicts and account/trip isolation (2.3s)
+  ok 7 tests\e2e\souvenirs.spec.ts:80:1 › photo package is bounded, integrity checked, restored without overwrite and idempotent (2.5s)
+  ok 8 tests\e2e\souvenirs.spec.ts:95:1 › global media budget refuses a large batch atomically and concurrent tabs preserve revisions (4.3s)
+  ok 9 tests\e2e\souvenirs.spec.ts:112:1 › cancel and unreadable photo recovery; deleting all days leaves the package accessible (11.7s)
+
+  9 passed (1.5m)
+
+Contrôle restant : souvenirs compilés hors ligne
+Souvenirs compiled: offline photo, explicit print choices, separate backup, fresh restore, retry and delete passed.
+
+Contrôle restant : assistant navigateur
+[WebServer] (node:31140) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 14 tests using 1 worker
+
+(node:33616) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\assistant.spec.ts:16:62 › assistant fr search, safe sources, preview, actual note, undo, keyboard and mobile (16.7s)
+  ok  2 tests\e2e\assistant.spec.ts:16:62 › assistant en search, safe sources, preview, actual note, undo, keyboard and mobile (9.6s)
+  ok  3 tests\e2e\assistant.spec.ts:16:62 › assistant zh-CN search, safe sources, preview, actual note, undo, keyboard and mobile (9.7s)
+  ok  4 tests\e2e\assistant.spec.ts:16:62 › assistant es search, safe sources, preview, actual note, undo, keyboard and mobile (9.5s)
+  ok  5 tests\e2e\assistant.spec.ts:30:1 › actual field, move and coherent lightened day retain original history and export (13.4s)
+  ok  6 tests\e2e\assistant.spec.ts:40:1 › concurrent revision blocks application and undo, preserving the other tab (9.5s)
+  ok  7 tests\e2e\assistant.spec.ts:46:48 › storage before failure keeps explicit retry idempotent (6.9s)
+  ok  8 tests\e2e\assistant.spec.ts:46:48 › storage after failure keeps explicit retry idempotent (6.9s)
+  ok  9 tests\e2e\assistant.spec.ts:50:48 › shared reader controls, revoked rights are rechecked at commit (6.8s)
+  ok 10 tests\e2e\assistant.spec.ts:50:48 › shared editor controls, revoked rights are rechecked at commit (7.3s)
+  ok 11 tests\e2e\assistant.spec.ts:59:1 › closing a pending action cancels its late lock callback without writing (9.5s)
+  ok 12 tests\e2e\assistant.spec.ts:66:1 › ambiguous tomorrow near midnight requires an explicit dated destination (6.1s)
+  ok 13 tests\e2e\assistant.spec.ts:71:1 › account switch while waiting for lock clears session and rejects late action (11.1s)
+  ok 14 tests\e2e\assistant.spec.ts:78:1 › revision arriving during pending lock is preserved and refreshed for a new preview (9.5s)
+
+  14 passed (2.4m)
+
+Contrôle restant : assistant compilé hors ligne
+Assistant compiled offline passed: local search, preview, actual mutation, double click, reload, export and imported copy; no assistant external requests.
+
+Contrôle restant : mascotte navigateur
+[WebServer] (node:22808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 7 tests using 1 worker
+
+(node:29272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\mascot.spec.ts:17:64 › mascot fr: genuine states, themes, widths, zoom, keyboard and accessible text (19.0s)
+  ok 2 tests\e2e\mascot.spec.ts:17:64 › mascot en: genuine states, themes, widths, zoom, keyboard and accessible text (9.2s)
+  ok 3 tests\e2e\mascot.spec.ts:17:64 › mascot zh-CN: genuine states, themes, widths, zoom, keyboard and accessible text (10.1s)
+  ok 4 tests\e2e\mascot.spec.ts:17:64 › mascot es: genuine states, themes, widths, zoom, keyboard and accessible text (9.4s)
+  ok 5 tests\e2e\mascot.spec.ts:51:1 › toggle is immediate, durable, keyboard accessible and leaves the import untouched (8.8s)
+  ok 6 tests\e2e\mascot.spec.ts:68:1 › failed image and failed preference write leave all ordinary actions available (5.0s)
+  ok 7 tests\e2e\mascot.spec.ts:82:1 › account switch resets personal visibility and welcome without touching another scope (4.3s)
+
+  7 passed (1.2m)
+
+Contrôle restant : mascotte compilée hors ligne
+Mascot compiled offline, preference and readiness checks passed.
+
+Contrôle restant : lieux compilés hors ligne
+Places compiled offline passed: reload, credits, export, remote photo opt-in, unavailable search, removal and originals.
+
+Contrôle restant : PWA mobile compilée
+PWA mobile compiled passed: 40 layouts, icons served/cached, manifest/installability, four languages, offline edit/close/reopen/reconnect; build 9e48e06eaa1e13e2c08479f6c0f22e10f42850f823065bb94b7a74651dee4440.
+
+Contrôle restant : mise à jour Chrome et WebKit
+chromium: update detected and applied; cache upgraded and new worker controls the page.
+chromium: resume detects release through the old HTML cache; manual update preserves journals; new release works offline.
+webkit: update detected and applied; cache upgraded and new worker controls the page.
+webkit: resume, manual update, journals and cache verified. Offline emulation excluded (Playwright #42775).
+
+Contrôle restant : planning compilé, carte, hors ligne et restauration
+Planning import production smoke passed: real local file recognition while offline (days, dates, times, activities, suggestion), explicit demonstration for one Louvre map marker, disabled remote extraction, keyboard/source choice, corrected preview, durable creation, unknown places without invented coordinates/dates, reload, worker/offline planning and map, real downloaded archive restored equivalently in another profile, 320/390/1440px, zero runtime errors.
+Temporary screenshots: C:\Users\eliot\AppData\Local\Temp\detours-planning-import-Ki5EOl
+{"globalGatePassed":false,"sourceFingerprint":"79870f5c6eff957f91498f09a68e89e4c94860a5bdf2daebc15ed0738060a526","sourceUnchanged":true,"output":"C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-verify-SKbZJo","checks":[{"name":"états L4/L5/L6 et préférences dans le navigateur","startedAt":"2026-10-24T04:58:57.378Z","finishedAt":"2026-10-24T05:03:38.134Z","exitCode":0,"status":"passed"},{"name":"smoke-production","startedAt":"2026-10-24T05:03:40.362Z","finishedAt":"2026-10-24T05:04:26.493Z","exitCode":0,"status":"passed"},{"name":"smoke-backup","startedAt":"2026-10-24T05:04:27.710Z","finishedAt":"2026-10-24T05:04:37.728Z","exitCode":0,"status":"passed"},{"name":"smoke-ui","startedAt":"2026-10-24T05:04:39.193Z","finishedAt":"2026-10-24T05:05:10.585Z","exitCode":0,"status":"passed"},{"name":"smoke-common-sharing","startedAt":"2026-10-24T05:05:11.891Z","finishedAt":"2026-10-24T05:05:36.747Z","exitCode":0,"status":"passed"},{"name":"smoke-l4-offline","startedAt":"2026-10-24T05:05:38.092Z","finishedAt":"2026-10-24T05:05:53.893Z","exitCode":0,"status":"passed"},{"name":"smoke-l4-persistence","startedAt":"2026-10-24T05:05:54.709Z","finishedAt":"2026-10-24T05:06:05.790Z","exitCode":0,"status":"passed"},{"name":"smoke-l5-now","startedAt":"2026-10-24T05:06:07.033Z","finishedAt":"2026-10-24T05:06:16.389Z","exitCode":0,"status":"passed"},{"name":"smoke-l6-preparation","startedAt":"2026-10-24T05:06:17.836Z","finishedAt":"2026-10-24T05:06:28.236Z","exitCode":0,"status":"passed"},{"name":"smoke-l8-release","startedAt":"2026-10-24T05:06:29.746Z","finishedAt":"2026-10-24T05:06:44.851Z","exitCode":0,"status":"passed"},{"name":"kit et JSON structurés compilés hors ligne","startedAt":"2026-10-24T05:06:46.610Z","finishedAt":"2026-10-24T05:07:03.298Z","exitCode":0,"status":"passed"},{"name":"PDF et DOCX compilés hors ligne","startedAt":"2026-10-24T05:07:04.509Z","finishedAt":"2026-10-24T05:07:21.591Z","exitCode":0,"status":"passed"},{"name":"compagnon compilé hors ligne","startedAt":"2026-10-24T05:07:22.671Z","finishedAt":"2026-10-24T05:07:31.599Z","exitCode":0,"status":"passed"},{"name":"souvenirs navigateur","startedAt":"2026-10-24T05:07:32.679Z","finishedAt":"2026-10-24T05:09:04.138Z","exitCode":0,"status":"passed"},{"name":"souvenirs compilés hors ligne","startedAt":"2026-10-24T05:09:05.110Z","finishedAt":"2026-10-24T05:09:21.443Z","exitCode":0,"status":"passed"},{"name":"assistant navigateur","startedAt":"2026-10-24T05:09:22.789Z","finishedAt":"2026-10-24T05:11:45.656Z","exitCode":0,"status":"passed"},{"name":"assistant compilé hors ligne","startedAt":"2026-10-24T05:11:46.785Z","finishedAt":"2026-10-24T05:11:58.375Z","exitCode":0,"status":"passed"},{"name":"mascotte navigateur","startedAt":"2026-10-24T05:11:59.227Z","finishedAt":"2026-10-24T05:13:14.489Z","exitCode":0,"status":"passed"},{"name":"mascotte compilée hors ligne","startedAt":"2026-10-24T05:13:15.616Z","finishedAt":"2026-10-24T05:13:41.813Z","exitCode":0,"status":"passed"},{"name":"lieux compilés hors ligne","startedAt":"2026-10-24T05:13:43.226Z","finishedAt":"2026-10-24T05:13:54.346Z","exitCode":0,"status":"passed"},{"name":"PWA mobile compilée","startedAt":"2026-10-24T05:13:55.743Z","finishedAt":"2026-10-24T05:14:20.398Z","exitCode":0,"status":"passed"},{"name":"mise à jour Chrome et WebKit","startedAt":"2026-10-24T05:14:21.596Z","finishedAt":"2026-10-24T05:14:56.159Z","exitCode":0,"status":"passed"},{"name":"planning compilé, carte, hors ligne et restauration","startedAt":"2026-10-24T05:14:57.627Z","finishedAt":"2026-10-24T05:15:30.014Z","exitCode":0,"status":"passed"}],"inProgress":false,"passed":true}

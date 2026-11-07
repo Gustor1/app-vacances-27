@@ -21,7 +21,8 @@ try{
  await page.getByRole('dialog').getByRole('button',{name:'Fermer',exact:true}).click();
  await expect(page.getByRole('dialog')).toHaveCount(0);
  await page.locator('.now-shortcut').click();
- await expect(page.locator('.now-view .map-place-actions a')).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
+ await page.locator('.now-view .map-route-toggle').click();
+ await expect(page.locator('.now-view .map-actions').getByRole('link',{name:'Y aller · Amap ↗',exact:true})).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
  await expect(page.locator('.now-view')).toContainText('Le Bund — exemple de lieu public');
  await expect(page.locator('.now-view')).toContainText('Référence fictive L5-123');
  await page.getByRole('button',{name:'À montrer',exact:true}).click();
@@ -29,7 +30,8 @@ try{
  await mkdir('docs/development/screenshots',{recursive:true});await page.screenshot({path:'docs/development/screenshots/l5-show-offline-390.png'});
  await page.getByRole('button',{name:'Revenir au carnet',exact:true}).click();await page.reload();
  await expect(page.locator('.now-view')).toContainText('Prendre le billet factice avant de partir.');
- await expect(page.locator('.now-view .map-place-actions a')).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
+ await page.locator('.now-view .map-route-toggle').click();
+ await expect(page.locator('.now-view .map-actions').getByRole('link',{name:'Y aller · Amap ↗',exact:true})).toHaveAttribute('href',/^https:\/\/uri.amap.com/);
  await page.screenshot({path:'docs/development/screenshots/l5-now-offline-390.png',fullPage:true});
  assert.deepEqual(errors,[]);console.log('L5 compiled offline passed: hotel/show card, next step, booking, day note, personal map choice changed offline and preserved after reload, reduced motion, zero runtime errors.');
 }finally{await browser.close();await server.close();}

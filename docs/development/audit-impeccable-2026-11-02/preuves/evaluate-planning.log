@@ -1,0 +1,44 @@
+{
+  "cases": 42,
+  "passed": 42,
+  "checks": 219,
+  "failedChecks": 0,
+  "bundled": {
+    "file": "public/documents/planning-original.md",
+    "milliseconds": 6.589,
+    "cities": [
+      {
+        "name": "SHENZHEN",
+        "days": 3,
+        "items": 15
+      },
+      {
+        "name": "GUANGZHOU",
+        "days": 3,
+        "items": 12
+      },
+      {
+        "name": "YANGSHUO",
+        "days": 3,
+        "items": 12
+      },
+      {
+        "name": "CHONGQING / WULONG",
+        "days": 4,
+        "items": 23
+      },
+      {
+        "name": "CHENGDU",
+        "days": 3,
+        "items": 21
+      },
+      {
+        "name": "Suzhou",
+        "days": 1,
+        "items": 9
+      }
+    ],
+    "notes": 4,
+    "limitation": "Structural inspection of the existing bundled document; not an independently annotated activity-level accuracy score."
+  }
+}

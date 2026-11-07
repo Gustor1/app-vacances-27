@@ -1,0 +1,488 @@
+{
+  "contrast": [
+    {
+      "theme": "light",
+      "palette": "signature",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        232,
+        223,
+        208
+      ],
+      "ratio": 9.082434008992017,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "porcelaine",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        233,
+        238,
+        235
+      ],
+      "ratio": 10.22345051808853,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "eucalyptus",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        232,
+        223,
+        208
+      ],
+      "ratio": 9.082434008992017,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "sauge",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        227,
+        232,
+        220
+      ],
+      "ratio": 9.622476741608315,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "ocean",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        225,
+        233,
+        239
+      ],
+      "ratio": 9.77170173711828,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "glacier",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        228,
+        234,
+        240
+      ],
+      "ratio": 9.8989382589522,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "foret",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        226,
+        233,
+        223
+      ],
+      "ratio": 9.68679290332396,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "bordeaux",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        239,
+        223,
+        223
+      ],
+      "ratio": 9.307373332469576,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "corail",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        240,
+        223,
+        211
+      ],
+      "ratio": 9.255951274641987,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "abricot",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        241,
+        216,
+        193
+      ],
+      "ratio": 8.759923368750947,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "soleil",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        234,
+        228,
+        207
+      ],
+      "ratio": 9.425116845135117,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "violet",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        234,
+        224,
+        239
+      ],
+      "ratio": 9.373869261709775,
+      "backgroundImages": []
+    },
+    {
+      "theme": "light",
+      "palette": "noir",
+      "text": "深圳",
+      "foreground": [
+        37,
+        59,
+        50
+      ],
+      "background": [
+        238,
+        238,
+        238
+      ],
+      "ratio": 10.340960536600083,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "signature",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        25,
+        21,
+        27
+      ],
+      "ratio": 15.396358639049925,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "porcelaine",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        22,
+        27,
+        25
+      ],
+      "ratio": 14.878879925417348,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "eucalyptus",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        23,
+        34,
+        30
+      ],
+      "ratio": 13.962675619527095,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "sauge",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        17,
+        22,
+        20
+      ],
+      "ratio": 15.607164322261271,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "ocean",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        24,
+        43,
+        58
+      ],
+      "ratio": 12.402702020701062,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "glacier",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        17,
+        21,
+        27
+      ],
+      "ratio": 15.631285460562896,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "foret",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        19,
+        43,
+        37
+      ],
+      "ratio": 12.8060861402901,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "bordeaux",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        43,
+        20,
+        32
+      ],
+      "ratio": 14.65134714737784,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "corail",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        37,
+        26,
+        23
+      ],
+      "ratio": 14.472100288582984,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "abricot",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        34,
+        28,
+        24
+      ],
+      "ratio": 14.373311909582348,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "soleil",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        16,
+        42,
+        48
+      ],
+      "ratio": 12.843304261335716,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "violet",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        33,
+        24,
+        44
+      ],
+      "ratio": 14.555560155817094,
+      "backgroundImages": []
+    },
+    {
+      "theme": "dark",
+      "palette": "noir",
+      "text": "深圳",
+      "foreground": [
+        240,
+        237,
+        227
+      ],
+      "background": [
+        0,
+        0,
+        0
+      ],
+      "ratio": 17.927937950975693,
+      "backgroundImages": []
+    }
+  ],
+  "positions": [
+    {
+      "width": 320,
+      "day": {
+        "x": 16.5,
+        "y": 881.40625,
+        "width": 287,
+        "height": 1389.09375
+      },
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "day": {
+        "x": 16.5,
+        "y": 815.046875,
+        "width": 357,
+        "height": 1356.375
+      },
+      "overflow": 0
+    },
+    {
+      "width": 768,
+      "day": {
+        "x": 294,
+        "y": 806.671875,
+        "width": 444,
+        "height": 1330.0625
+      },
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "day": {
+        "x": 294,
+        "y": 664.671875,
+        "width": 736.390625,
+        "height": 1282.625
+      },
+      "overflow": 0
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "10",
+    "source": "ville: Toulouse\nj1 matin: capitole / aprem: jardin japonais / soir: canal du midi\nj2: couvent des jacobins + musée saint raymond",
+    "review": [],
+    "cities": [
+      {
+        "name": "Toulouse",
+        "days": [
+          {
+            "title": "j1 matin: capitole / aprem: jardin japonais / soir: canal du midi",
+            "items": []
+          },
+          {
+            "title": "j2",
+            "items": [
+              "couvent des jacobins + musée saint raymond"
+            ]
+          }
+        ]
+      }
+    ],
+    "notes": []
+  },
+  {
+    "id": "16",
+    "source": "# Séjour\nVille: Paris\nJour 1\n- Louvre\nJour 2\n- Musée d’Orsay\nCorrection finale : déplacer le Louvre au Jour 2 et le Musée d’Orsay au Jour 1.",
+    "review": [
+      {
+        "kind": "ambiguous",
+        "quote": "Correction finale : déplacer le Louvre au Jour 2 et le Musée d’Orsay au Jour 1."
+      }
+    ],
+    "cities": [
+      {
+        "name": "Paris",
+        "days": [
+          {
+            "title": "Jour 1",
+            "items": [
+              "Louvre"
+            ]
+          },
+          {
+            "title": "Jour 2",
+            "items": [
+              "Musée d’Orsay"
+            ]
+          }
+        ]
+      }
+    ],
+    "notes": [
+      "Correction finale : déplacer le Louvre au Jour 2 et le Musée d’Orsay au Jour 1."
+    ]
+  },
+  {
+    "id": "28",
+    "source": "杭州两日游\nD1上午西湖，下午灵隐寺\nD2：中国茶叶博物馆、河坊街",
+    "review": [
+      {
+        "kind": "assignment",
+        "quote": "杭州两日游",
+        "target": "planning-city-0"
+      },
+      {
+        "kind": "unprocessed",
+        "quote": "D1上午西湖，下午灵隐寺"
+      },
+      {
+        "kind": "unprocessed",
+        "quote": "D2：中国茶叶博物馆、河坊街"
+      }
+    ],
+    "cities": [
+      {
+        "name": "",
+        "days": []
+      }
+    ],
+    "notes": [
+      "D1上午西湖，下午灵隐寺",
+      "D2：中国茶叶博物馆、河坊街"
+    ]
+  }
+]
