@@ -202,6 +202,8 @@ try {
   const localDownload=await localDownloading, localExport=await readFile(await localDownload.path(),'utf8');
   const localTarget=await profile(); await readyOffline(localTarget.context,localTarget.page);
   await localTarget.page.getByLabel('Choisir une sauvegarde JSON',{exact:true}).setInputFiles({name:'lot01.json',mimeType:'application/json',buffer:Buffer.from(localExport)});
+  // The import reads the file asynchronously: reload only once the notebook is written.
+  await localTarget.page.waitForFunction(() => Object.keys(localStorage).some(key => key.startsWith('a-l-est-trip-v2:')));
   await localTarget.page.reload();
   assert.deepEqual(equivalentContent((await states(localTarget.page))[0]),equivalentContent(localTrip));
 
