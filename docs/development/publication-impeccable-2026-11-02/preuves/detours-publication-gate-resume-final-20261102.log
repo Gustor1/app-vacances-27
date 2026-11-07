@@ -1,0 +1,128 @@
+Continuation: 15 successful checks reused; 20 outstanding checks; same source and build.
+Vérification locale : profils jetables, URL Supabase factice, sorties C:\Users\eliot\AppData\Local\Temp\detours-verify-Qdc5Ri
+
+Contrôle : smoke-common-sharing
+UI commune validée : trois profils créateur/éditeur/lecteur, rôles individuels, annulation et confirmation du départ, réinvitation, refus des anciens liens, contributions intactes, partage direct, conflit hors ligne, révocation et 320/390/1440px. API et sessions simulées.
+
+Contrôle : smoke-l4-offline
+L4 offline smoke passed: missing/corrected lazy cache, offline edit and reload, dated checks, bounded receipts, recovery keyboard, four languages, 320/390/1440.
+
+Contrôle : smoke-l4-persistence
+L4 disk-profile persistence passed: installed Chrome fully closed, reopened offline, note/document/cache preserved, reconnected. Isolated profile: C:\Users\eliot\AppData\Local\Temp\detours-l4-disk-FpNcDF. Network emulation; no real-account or iPhone proof.
+
+Contrôle : smoke-l5-now
+L5 compiled offline passed: hotel/show card, next step, booking, day note, personal map choice changed offline and preserved after reload, reduced motion, zero runtime errors.
+
+Contrôle : smoke-l6-preparation
+L6 compiled offline passed: compare/adopt, reload, booked activity warning, original restored, reservations/expenses preserved, reduced motion, no runtime errors.
+
+Contrôle : smoke-l8-release
+L8 compiled passed: served identity 728569b4b6759a479bc505563804655e5a666b5f4b0fecdb6a1dd198f6870758; unopened world/Markdown modules offline; all views, note/reload; native cross-tab alternative/title/reader/revocation invalidation; no runtime errors. Account permissions simulated locally, not remote proof.
+
+Contrôle : kit et JSON structurés compilés hors ligne
+{"passed":true,"downloads":4,"output":"C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-verify-Qdc5Ri\\docs\\development\\lot-03-bis-kit-import\\compiled"}
+
+Contrôle : PDF et DOCX compilés hors ligne
+{"passed":true,"documents":5,"output":"C:\\Users\\eliot\\AppData\\Local\\Temp\\detours-verify-Qdc5Ri\\docs\\development\\lot-03-documents\\compiled"}
+
+Contrôle : compagnon compilé hors ligne
+Companion compiled offline passed: checks, safe card, ideas, preview, undo, export and reload; no external requests during companion use (initial map requests recorded separately).
+
+Contrôle : souvenirs navigateur
+[WebServer] (node:15460) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 9 tests using 1 worker
+
+(node:16032) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 tests\e2e\souvenirs.spec.ts:15:64 › personal memory fr: durable caption, explicit print consent, keyboard, widths and no private leaks (7.6s)
+  ok 2 tests\e2e\souvenirs.spec.ts:15:64 › personal memory en: durable caption, explicit print consent, keyboard, widths and no private leaks (4.6s)
+  ok 3 tests\e2e\souvenirs.spec.ts:15:64 › personal memory zh-CN: durable caption, explicit print consent, keyboard, widths and no private leaks (4.9s)
+  ok 4 tests\e2e\souvenirs.spec.ts:15:64 › personal memory es: durable caption, explicit print consent, keyboard, widths and no private leaks (4.7s)
+  ok 5 tests\e2e\souvenirs.spec.ts:36:1 › real decoder: EXIF rotation, metadata removal, signatures, unsupported formats and bounded output (1.4s)
+  ok 6 tests\e2e\souvenirs.spec.ts:58:1 › IndexedDB atomic abort, quota failure, missing media, conflicts and account/trip isolation (1.1s)
+  ok 7 tests\e2e\souvenirs.spec.ts:80:1 › photo package is bounded, integrity checked, restored without overwrite and idempotent (1.2s)
+  ok 8 tests\e2e\souvenirs.spec.ts:95:1 › global media budget refuses a large batch atomically and concurrent tabs preserve revisions (2.2s)
+  ok 9 tests\e2e\souvenirs.spec.ts:112:1 › cancel and unreadable photo recovery; deleting all days leaves the package accessible (6.0s)
+
+  9 passed (37.9s)
+
+Contrôle : souvenirs compilés hors ligne
+Souvenirs compiled: offline photo, explicit print choices, separate backup, fresh restore, retry and delete passed.
+
+Contrôle : assistant navigateur
+[WebServer] (node:24228) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 14 tests using 1 worker
+
+(node:11456) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\assistant.spec.ts:16:62 › assistant fr search, safe sources, preview, actual note, undo, keyboard and mobile (6.2s)
+  ok  2 tests\e2e\assistant.spec.ts:16:62 › assistant en search, safe sources, preview, actual note, undo, keyboard and mobile (3.4s)
+  ok  3 tests\e2e\assistant.spec.ts:16:62 › assistant zh-CN search, safe sources, preview, actual note, undo, keyboard and mobile (3.5s)
+  ok  4 tests\e2e\assistant.spec.ts:16:62 › assistant es search, safe sources, preview, actual note, undo, keyboard and mobile (3.4s)
+  ok  5 tests\e2e\assistant.spec.ts:30:1 › actual field, move and coherent lightened day retain original history and export (5.8s)
+  ok  6 tests\e2e\assistant.spec.ts:40:1 › concurrent revision blocks application and undo, preserving the other tab (4.9s)
+  ok  7 tests\e2e\assistant.spec.ts:46:48 › storage before failure keeps explicit retry idempotent (2.9s)
+  ok  8 tests\e2e\assistant.spec.ts:46:48 › storage after failure keeps explicit retry idempotent (2.8s)
+  ok  9 tests\e2e\assistant.spec.ts:50:48 › shared reader controls, revoked rights are rechecked at commit (3.3s)
+  ok 10 tests\e2e\assistant.spec.ts:50:48 › shared editor controls, revoked rights are rechecked at commit (3.4s)
+  ok 11 tests\e2e\assistant.spec.ts:59:1 › closing a pending action cancels its late lock callback without writing (4.9s)
+  ok 12 tests\e2e\assistant.spec.ts:66:1 › ambiguous tomorrow near midnight requires an explicit dated destination (2.6s)
+  ok 13 tests\e2e\assistant.spec.ts:71:1 › account switch while waiting for lock clears session and rejects late action (5.5s)
+  ok 14 tests\e2e\assistant.spec.ts:78:1 › revision arriving during pending lock is preserved and refreshed for a new preview (4.9s)
+
+  14 passed (1.0m)
+
+Contrôle : assistant compilé hors ligne
+Assistant compiled offline passed: local search, preview, actual mutation, double click, reload, export and imported copy; no assistant external requests.
+
+Contrôle : mascotte navigateur
+[WebServer] (node:20076) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 11 tests using 1 worker
+
+(node:6260) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 tests\e2e\floating-mascot.spec.ts:5:1 › animated companions: three characters, narrow hitbox, drag, preferences and real trip shortcuts (7.3s)
+  ok  2 tests\e2e\floating-mascot.spec.ts:53:1 › touch drag, cancellation, reduced motion and viewport resizing (1.9s)
+  ok  3 tests\e2e\floating-mascot.spec.ts:82:39 › companion and menu stay reachable at every edge (home) (3.5s)
+  ok  4 tests\e2e\floating-mascot.spec.ts:82:39 › companion and menu stay reachable at every edge (notebook) (4.8s)
+  ok  5 tests\e2e\mascot.spec.ts:17:64 › mascot fr: genuine states, themes, widths, zoom, keyboard and accessible text (3.9s)
+  ok  6 tests\e2e\mascot.spec.ts:17:64 › mascot en: genuine states, themes, widths, zoom, keyboard and accessible text (3.8s)
+  ok  7 tests\e2e\mascot.spec.ts:17:64 › mascot zh-CN: genuine states, themes, widths, zoom, keyboard and accessible text (4.3s)
+  ok  8 tests\e2e\mascot.spec.ts:17:64 › mascot es: genuine states, themes, widths, zoom, keyboard and accessible text (4.1s)
+  ok  9 tests\e2e\mascot.spec.ts:51:1 › toggle is immediate, durable, keyboard accessible and leaves the import untouched (5.8s)
+  ok 10 tests\e2e\mascot.spec.ts:68:1 › failed image and failed preference write leave all ordinary actions available (3.0s)
+  ok 11 tests\e2e\mascot.spec.ts:82:1 › account switch resets personal visibility and welcome without touching another scope (2.4s)
+
+  11 passed (49.4s)
+
+Contrôle : mascotte compilée hors ligne
+Mascot compiled offline, preference and readiness checks passed.
+
+Contrôle : lieux compilés hors ligne
+Places compiled offline passed: reload, credits, export, remote photo opt-in, unavailable search, removal and originals.
+
+Contrôle : PWA mobile compilée
+PWA mobile compiled passed: 40 layouts, icons served/cached, manifest/installability, four languages, offline edit/close/reopen/reconnect; build 728569b4b6759a479bc505563804655e5a666b5f4b0fecdb6a1dd198f6870758.
+
+Contrôle : mise à jour Chrome et WebKit
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator('.app-shell') to be visible
+
+    at C:\Users\eliot\Documents\app-vacances-27\scripts\smoke-app-update.mjs:20:38 {
+  log: [ "  - waiting for locator('.app-shell') to be visible" ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.15.0
+Rapport : C:\Users\eliot\AppData\Local\Temp\detours-verify-Qdc5Ri\publication-resumed-validation.json — ÉCHEC

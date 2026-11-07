@@ -1,0 +1,61 @@
+Sandbox: C:\Users\eliot\AppData\Local\Temp\detours-audit-independent-UniiiU
+START e2e-all
+END e2e-all 1
+START planning-analysis
+END planning-analysis 0
+START test-sql-local
+END test-sql-local 0
+START test-collaboration-sql-local
+END test-collaboration-sql-local 0
+START test-participation-money-sql-local
+END test-participation-money-sql-local 0
+START smoke-production
+END smoke-production 0
+START smoke-backup
+END smoke-backup 0
+START smoke-ui
+END smoke-ui 0
+START smoke-common-sharing
+END smoke-common-sharing 0
+START smoke-l4-offline
+END smoke-l4-offline 1
+START smoke-l4-persistence
+END smoke-l4-persistence 0
+START smoke-l5-now
+END smoke-l5-now 0
+START smoke-l6-preparation
+END smoke-l6-preparation 0
+START smoke-l8-release
+END smoke-l8-release 0
+START smoke-planning-structured
+END smoke-planning-structured 0
+START smoke-planning-documents
+END smoke-planning-documents 0
+START smoke-companion
+END smoke-companion 0
+START smoke-souvenirs
+END smoke-souvenirs 0
+START smoke-assistant
+END smoke-assistant 0
+START smoke-mascot
+END smoke-mascot 0
+START smoke-places
+END smoke-places 0
+START smoke-pwa-mobile
+END smoke-pwa-mobile 0
+START smoke-app-update
+END smoke-app-update 0
+START smoke-install-manifest
+END smoke-install-manifest 0
+START smoke-planning-import
+END smoke-planning-import 0
+START smoke-notebook
+END smoke-notebook 0
+START smoke-palette-claire
+END smoke-palette-claire 1
+START measure-l8
+END measure-l8 0
+START evaluate-planning
+END evaluate-planning 0
+START evaluate-planning-stress
+END evaluate-planning-stress 0

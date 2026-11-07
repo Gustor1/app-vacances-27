@@ -5,7 +5,7 @@ import { wikimedia, WikimediaError } from '../places/wikimedia';
 import type { Candidate, PlaceDetails } from '../places/wikimedia';
 import { useLocale } from '../i18n';
 import { EditButton, ReadOnlyContext } from './EditControls';
-import { Modal } from '../App';
+import { Modal } from './Modal';
 import './PlaceEnrichment.css';
 
 function Photo({ photo }: { photo: CommonsPhoto }) {

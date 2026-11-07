@@ -10,3 +10,10 @@
 .mascot-shortcuts button:hover { background: var(--selected-surface); }
 .mascot-fallback { position: absolute; inset: 20px; font-size: 40px; color: var(--action); }
 @media print { .floating-mascot { display: none; } }
+/* This drag surface is the sole exception to the general button touch rule. */
+html:root:root .floating-mascot .pet-button { touch-action: none; }
+/* Focused panels own the screen; their controls must never be under the pet. */
+body:has([role="dialog"], dialog[open]) .floating-mascot { visibility: hidden; }
+@media (max-width: 760px) {
+  body:has(.floating-mascot[data-docked="true"]) :is(.topbar, .journeys-topbar) { padding-inline-end: 88px; min-height: 88px; }
+}

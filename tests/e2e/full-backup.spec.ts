@@ -26,7 +26,7 @@ test('export réel puis restauration vierge retrouve contenus, relations et docu
   const download = await downloadEvent;
   const raw = await readFile((await download.path())!, 'utf8');
   expect(raw).not.toContain('SESSION_NOT_EXPORTED');
-  const context = await browser.newContext({ baseURL: 'http://127.0.0.1:5173', viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+  const context = await browser.newContext({ baseURL: String(test.info().project.use.baseURL), viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   try {
     const target = await context.newPage();
     await target.goto('/');
@@ -99,7 +99,7 @@ test('collection réelle de plus de 5 Mo restaurée dans Chrome sans doubler le 
   await page.getByRole('button', { name: 'Télécharger ma sauvegarde complète', exact: true }).click();
   const raw = await readFile((await (await downloaded).path())!, 'utf8');
   expect(Buffer.byteLength(raw)).toBeGreaterThan(5_000_000);
-  const context = await browser.newContext({ baseURL: 'http://127.0.0.1:5173' });
+  const context = await browser.newContext({ baseURL: String(test.info().project.use.baseURL) });
   try {
     const target = await context.newPage(); await target.goto('/');
     await target.getByLabel('Choisir une sauvegarde complète').setInputFiles({ name: 'large-backup.json', mimeType: 'application/json', buffer: Buffer.from(raw) });

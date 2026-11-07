@@ -1,0 +1,1 @@
+35 contrôles SQL locaux réussis (PostgreSQL/WASM + pgcrypto, deux identités JWT simulées). Supabase Auth, PostgREST et les appareils réels restent non vérifiés.

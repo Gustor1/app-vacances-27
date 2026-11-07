@@ -8,6 +8,20 @@ for (const id of ['07','08','12','15','17','19','20','23','33']) test(`lot01 def
  assert.equal(assessPlanning(e,d).passed,true,JSON.stringify(assessPlanning(e,d)));
 });
 import { reviewPassages } from '../src/planning-import/review.ts';
+
+test('compact programmes stay visible for review without rewriting their source or decisions',()=> {
+ const source='ville: Toulouse\nj1 matin: capitole / aprem: jardin japonais / soir: canal du midi\nj2: couvent des jacobins + musée saint raymond';
+ const d=parsePlanning(source), before=JSON.stringify(d), p=reviewPassages(d,source).filter(p=>p.kind==='compact');
+ assert.equal(p.length,2); assert.equal(JSON.stringify(d),before);
+ assert.equal(reviewPassages(d,source,p.map(p=>p.quote)).filter(p=>p.kind==='compact').length,0);
+ for(const source of ['Ville: Nîmes\nJour 1: arènes + musée','City: York\nDay 1: morning: market / afternoon: museum','Ciudad: Toledo\nDía 1: mañana: plaza / tarde: museo','城市：杭州\n第1天：上午：西湖 / 下午：博物馆']) {
+  assert.ok(reviewPassages(parsePlanning(source),source).some(p=>p.kind==='compact'));
+ }
+ for(const title of ['2027/05/02','https://example.com/a/b','Saint-Rémy-de-Provence']) {
+  const copy=structuredClone(d); copy.cities[0].days[0].title=title; copy.cities[0].days[1].items=[];
+  assert.ok(!reviewPassages(copy,source).some(p=>p.kind==='compact'));
+ }
+});
 test('review separates explicit notes from unprocessed material and links incomplete assignments',()=> {
  const source='# Programme\nJour 1\n- Musée\nCorrection finale : changer le jour.\nNote : prendre de l’eau.';
  const d=parsePlanning(source), p=reviewPassages(d,source);

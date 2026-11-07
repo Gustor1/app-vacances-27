@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { ArrowLeft, BookOpen, Copy, Download, LockKeyhole, MapPin, Users } from 'lucide-react';
-import { Modal } from '../App';
+import { Modal } from './Modal';
 import { useLocale } from '../i18n';
 import { useCloud } from '../cloud/CloudProvider';
 import { supabase } from '../cloud/client';

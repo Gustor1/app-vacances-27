@@ -4,7 +4,7 @@ import { PREFERENCES_KEY, translate, localeFor, type Language } from '../../src/
 
 for (const language of ['fr', 'en', 'zh-CN', 'es'] as Language[]) {
   test(`accueil ${language} : onglets, clavier, focus et date civile dans un fuseau occidental`, async ({ browser }) => {
-    const context = await browser.newContext({ baseURL: 'http://127.0.0.1:5173', timezoneId: 'America/Los_Angeles', viewport: { width: 320, height: 1000 }, reducedMotion: 'reduce' });
+    const context = await browser.newContext({ baseURL: String(test.info().project.use.baseURL), timezoneId: 'America/Los_Angeles', viewport: { width: 320, height: 1000 }, reducedMotion: 'reduce' });
     try {
       const page = await context.newPage();
       await page.goto('/');

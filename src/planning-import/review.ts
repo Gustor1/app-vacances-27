@@ -1,7 +1,13 @@
 import { blankItem } from './draft.ts';
 import { beginsWithPlanningDate, findExplicitDates } from './normalizations.ts';
 import type { PlanningDraft, Provenance } from './types.ts';
-export type ReviewPassage = { kind: 'unprocessed' | 'conflict' | 'assignment' | 'ambiguous'; quote: string; target?: string };
+export type ReviewPassage = { kind: 'unprocessed' | 'conflict' | 'assignment' | 'ambiguous' | 'compact'; quote: string; target?: string };
+// Deliberately a review heuristic, never a parser: slashes in dates/URLs and
+// ordinary compound names alone must not split or rewrite a user's programme.
+function compactProgramme(title: string) {
+  return /\s(?:\/|\+|;|；)\s/u.test(title) ||
+    (title.match(/(?:\b(?:matin|aprem|après-midi|soir|morning|afternoon|evening|mañana|tarde|noche)\s*[:：]|(?:上午|下午|晚上)\s*[:：])/giu)?.length || 0) > 1;
+}
 const explicitNote = /^(?:#{1,6}\s|[-*_]{3,}$|(?:>\s*)?(?:notes?|nota|备注|budget|conseil|page\s+\d+\s*\/|objet\s*:)|(?:suggestions?|alternatives?)\s*[:：]?$)/iu;
 /** A review passage is an unmapped source block, conflict, incomplete assignment or ambiguous field.
  * Missing optional addresses/coordinates/dates alone are not extraction failures.
@@ -20,11 +26,17 @@ export function reviewPassages(draft: PlanningDraft, source: string, reviewedQuo
       const target=`planning-day-${ci}-${di}`, quote=day.evidence.title?.quote || fallback;
       if (!day.title.trim()) add({kind:'assignment',quote,target});
       conflicts(day.evidence,target);
+      const compact = (title: string, evidence: Provenance, target: string) => {
+        const quote = evidence.title?.quote;
+        if (source && quote && evidence.title?.origin !== 'user' && compactProgramme(title) && !reviewedQuotes.includes(quote)) add({kind:'compact',quote,target});
+      };
+      compact(day.title, day.evidence, target);
       if (!day.date && (beginsWithPlanningDate(day.title) || /\b\d{1,2}[/.-]\d{1,2}(?:[/.-]\d{2,4})?\b/u.test(day.title)) && !findExplicitDates(day.title).length && day.evidence.date?.origin!=='user') add({kind:'ambiguous',quote,target:`${target}-date`});
       day.items.forEach((item,ii)=> {
         if (item.excluded) return;
         const target=`planning-item-${ci}-${di}-${ii}`;
         conflicts(item.evidence,target);
+        compact(item.title, item.evidence, target);
         if (item.kind==='alternative' && item.evidence.title?.origin!=='user' && /(?:\b(?:si|if|sinon|otherwise)\b|如果|否则)/iu.test(item.title)) add({kind:'ambiguous',quote:item.evidence.title?.quote || item.description,target});
       });
     });

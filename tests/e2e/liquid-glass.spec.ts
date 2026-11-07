@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures';
+import { paletteTokens } from '../../src/palettes';
 
 for (const width of [320, 390]) {
   test(`mobile glass dock stays compact, centred and touchable at ${width}px`, async ({ page }) => {
@@ -18,7 +19,7 @@ for (const width of [320, 390]) {
     for (const target of layout.targets) { expect(target.width).toBeGreaterThanOrEqual(44); expect(target.height).toBeGreaterThanOrEqual(44); }
     await page.locator('.day-panel').scrollIntoViewIfNeeded();
     await expect(page.locator('html')).toHaveAttribute('data-scrolled', 'true');
-    await expect.poll(() => dock.evaluate(el => getComputedStyle(el).backgroundColor)).toMatch(/, 0\.96\)$/);
+    await expect.poll(() => dock.evaluate(el => getComputedStyle(el).backgroundColor)).toBe(paletteTokens('signature', 'light')['--liquid-opaque']);
     await dock.getByRole('button', { name: 'Carte', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Les petits points d’un grand voyage', exact: true })).toBeVisible();
     await expect(page.locator('html')).toHaveAttribute('data-scrolled', 'false');

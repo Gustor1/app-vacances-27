@@ -3,7 +3,7 @@ import type { City, Day, Step, StoredState } from '../types';
 import { addIdea, departureIssues, dismissIssue, emptyCompanion, localIdeas, undoIdea, type DepartureIssue, type LocalIdea, type RequiredField } from '../companion';
 import { uid } from '../lib';
 import { useLocale } from '../i18n';
-import { Modal } from '../App';
+import { Modal } from './Modal';
 import { EditButton, EditSelect } from './EditControls';
 import './Companion.css';
 

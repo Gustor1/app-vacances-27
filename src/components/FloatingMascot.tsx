@@ -50,17 +50,21 @@ function Companion({ actions }: { actions: Action[] }) {
   const [open, setOpen] = useState(false);
   const [failed, setFailed] = useState(false);
   const position = useRef({ x: 1, y: .82 });
-  const gesture = useRef<{ id: number; x: number; y: number; left: number; top: number; moved: boolean; previous: { x: number; y: number } } | null>(null);
+  const docked = useRef(true);
+  const gesture = useRef<{ id: number; x: number; y: number; left: number; top: number; moved: boolean; docked: boolean; previous: { x: number; y: number } } | null>(null);
   const suppressClick = useRef(false);
   const accent = paletteTokens(palettes[resolvedTheme], resolvedTheme)['--action'];
   const render = () => {
     if (!root.current) return;
     const area = availableArea(root.current);
     const width = area.right - area.left, height = area.bottom - area.top;
-    const size = Math.min(96, width, height);
+    const mobile = (window.visualViewport?.width || innerWidth) <= 760;
+    root.current.dataset.docked = String(mobile && docked.current);
+    const size = Math.min(mobile ? 64 : 96, width, height);
     root.current.style.width = `${size}px`; root.current.style.height = `${size}px`;
     const x = area.left + clamp(position.current.x) * Math.max(0, width - size);
-    const y = area.top + clamp(position.current.y) * Math.max(0, height - size);
+    const header = document.querySelector('.topbar, .journeys-topbar')?.getBoundingClientRect();
+    const y = mobile && docked.current && header ? header.top + 12 : area.top + clamp(position.current.y) * Math.max(0, height - size);
     root.current.style.left = `${x}px`; root.current.style.top = `${y}px`;
     if (menu.current) {
       // Apply constraints BEFORE measuring: wrapping and scrollbars affect height.
@@ -82,12 +86,13 @@ function Companion({ actions }: { actions: Action[] }) {
   const save = () => { try { storage.setItem(POSITION_KEY, JSON.stringify(position.current)); } catch { /* Drag remains available this session. */ } };
   const move = (x: number, y: number) => {
     if (!root.current) return;
+    docked.current = false;
     const area = availableArea(root.current), size = root.current.offsetWidth;
     position.current = { x: clamp((x - area.left) / Math.max(1, area.right - area.left - size)), y: clamp((y - area.top) / Math.max(1, area.bottom - area.top - size)) };
     render();
   };
   useLayoutEffect(() => {
-    try { const p = JSON.parse(storage.getItem(POSITION_KEY) || 'null'); if (p && Number.isFinite(p.x) && Number.isFinite(p.y)) position.current = { x: clamp(p.x), y: clamp(p.y) }; } catch { /* Default position. */ }
+    try { const p = JSON.parse(storage.getItem(POSITION_KEY) || 'null'); if (p && Number.isFinite(p.x) && Number.isFinite(p.y)) { position.current = { x: clamp(p.x), y: clamp(p.y) }; docked.current = false; } } catch { /* Default position. */ }
     render();
     const observer = new ResizeObserver(render);
     document.querySelectorAll('.topbar, .journeys-topbar, .mobile-bottom-nav, .sidebar').forEach(bar => observer.observe(bar));
@@ -119,12 +124,12 @@ function Companion({ actions }: { actions: Action[] }) {
     menu.current?.querySelector('button')?.focus({ preventScroll: true });
     return () => { observer.disconnect(); document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', escape); };
   }, [open]);
-  const cancel = () => { if (gesture.current) { position.current = gesture.current.previous; gesture.current = null; render(); } };
+  const cancel = () => { if (gesture.current) { position.current = gesture.current.previous; docked.current = gesture.current.docked; gesture.current = null; render(); } };
   const preferences = () => window.dispatchEvent(new Event('detours-open-preferences'));
   return createPortal(<div ref={root} className="floating-mascot" data-character={character}>
     <span className="mascot-safe-area" aria-hidden="true"/>
     <button ref={trigger} className="pet-button" type="button" aria-label={t('Ouvrir les raccourcis de la mascotte')} aria-expanded={open} aria-controls="mascot-shortcuts"
-      onPointerDown={e => { if (!e.isPrimary || e.button !== 0) return; const r = root.current!.getBoundingClientRect(); gesture.current = { id: e.pointerId, x: e.clientX, y: e.clientY, left: r.left, top: r.top, moved: false, previous: { ...position.current } }; suppressClick.current = false; e.currentTarget.setPointerCapture(e.pointerId); }}
+      onPointerDown={e => { if (!e.isPrimary || e.button !== 0) return; const r = root.current!.getBoundingClientRect(); gesture.current = { id: e.pointerId, x: e.clientX, y: e.clientY, left: r.left, top: r.top, moved: false, docked: docked.current, previous: { ...position.current } }; suppressClick.current = false; e.currentTarget.setPointerCapture(e.pointerId); }}
       onPointerMove={e => { const g = gesture.current; if (!g || g.id !== e.pointerId) return; const dx = e.clientX - g.x, dy = e.clientY - g.y; if (!g.moved && Math.hypot(dx, dy) < 7) return; g.moved = true; suppressClick.current = true; setOpen(false); move(g.left + dx, g.top + dy); }}
       onPointerUp={e => { const g = gesture.current; if (!g || g.id !== e.pointerId) return; gesture.current = null; if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId); if (g.moved) { save(); sprite.current?.play('greet'); } }}
       onPointerCancel={cancel} onLostPointerCapture={cancel}

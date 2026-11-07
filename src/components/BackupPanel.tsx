@@ -1,7 +1,7 @@
 import { SOUVENIR_EXCLUSION } from '../souvenirs';
 import { useEffect, useRef, useState } from 'react';
 import { Download, Upload } from 'lucide-react';
-import { Modal } from '../App';
+import { Modal } from './Modal';
 import { useLocale } from '../i18n';
 import { useCloud } from '../cloud/CloudProvider';
 import { applyRestore, exportBackup, MAX_BACKUP_BYTES, pendingRestores, prepareRestore, SOURCE_PREFIX, type RestorePlan, type PendingRestore } from '../backup';
@@ -82,7 +82,7 @@ export default function BackupPanel({ onChanged, remoteMissing = 0 }: { onChange
     } catch (failure) { fail(failure); } finally { refresh(); onChanged(); setBusy(false); }
   }
   return <section className="journeys-import panel backup-panel" aria-labelledby="full-backup-title">
-    <div><h2 id="full-backup-title">{t('Sauvegarder et restaurer mes données')}</h2><p className="muted">{t('Carnets, documents embarqués, souvenirs et préférences utiles dans un seul fichier vérifié (64 Mo maximum).')}</p><p className="muted small">{t(baseExclusions)}</p><p className="muted small">{t(SOUVENIR_EXCLUSION)}</p>{remoteMissing > 0 && <p role="status">{t('{count} carnet(s) distant(s) non téléchargé(s).', { count: remoteMissing })}</p>}</div>
+    <div><h2 id="full-backup-title">{t('Sauvegarder et restaurer mes données')}</h2><p className="muted">{t('Carnets, documents, visites et pays de Mon monde et préférences dans un fichier vérifié (64 Mo maximum). Pour les photos et légendes quotidiennes, conserve aussi le paquet souvenirs de chaque carnet.')}</p><p className="muted small">{t(baseExclusions)}</p><p className="muted small">{t(SOUVENIR_EXCLUSION)}</p>{remoteMissing > 0 && <p role="status">{t('{count} carnet(s) distant(s) non téléchargé(s).', { count: remoteMissing })}</p>}</div>
     <div className="journeys-import-actions"><button className="btn btn-secondary" disabled={busy} onClick={() => void download()}><Download size={16}/>{t('Télécharger ma sauvegarde complète')}</button><button className="btn btn-secondary" disabled={busy} onClick={() => input.current?.click()}><Upload size={16}/>{t('Restaurer mes données')}</button></div>
     <input ref={input} type="file" accept=".json,application/json" hidden aria-label={t('Choisir une sauvegarde complète')} onChange={event => { const file = event.target.files?.[0]; if (file) void preview(file); event.target.value = ''; }}/>
     {busy && <p role="status">{t('Vérification de la sauvegarde…')}</p>}

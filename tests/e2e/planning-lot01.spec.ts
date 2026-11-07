@@ -15,6 +15,7 @@ test('unprocessed source can become an activity or a durable note; assignment su
  await passages.locator('summary').first().click();
  await passages.getByRole('button',{name:'Conserver comme note',exact:true}).click();
  await expect(passages).toHaveCount(0);
+ await dialog.locator('.planning-item-details > summary').first().click();
  await dialog.getByLabel('Affectation ville / journée',{exact:true}).first().selectOption('0:1');
  await page.reload();await page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();dialog=page.getByRole('dialog');
  await expect(dialog.locator('.planning-passages')).toHaveCount(0);

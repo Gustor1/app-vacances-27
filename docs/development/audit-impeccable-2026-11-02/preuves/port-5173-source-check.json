@@ -1,0 +1,30 @@
+{
+  "url": "http://127.0.0.1:5173",
+  "method": "Vite inline source-map sourcesContent compared byte-for-byte to owning local source; public keys not read or printed",
+  "rows": [
+    {
+      "file": "src/main.tsx",
+      "sameSource": true,
+      "localSha256": "384e5608f31341d65c62f46a84e806e7ccd8fd91424642d8dbaafb3dc7dd5316",
+      "servedSourceSha256": "384e5608f31341d65c62f46a84e806e7ccd8fd91424642d8dbaafb3dc7dd5316"
+    },
+    {
+      "file": "src/App.tsx",
+      "sameSource": true,
+      "localSha256": "8bddc1d9fc210e96c7205691da46dedc610908057c54df2f32805f55686696d4",
+      "servedSourceSha256": "8bddc1d9fc210e96c7205691da46dedc610908057c54df2f32805f55686696d4"
+    },
+    {
+      "file": "src/components/JourneysApp.tsx",
+      "sameSource": true,
+      "localSha256": "225c615518110af522276c8d20b7376f880ea6be244dad0e07a2a1cbc56ca67f",
+      "servedSourceSha256": "225c615518110af522276c8d20b7376f880ea6be244dad0e07a2a1cbc56ca67f"
+    },
+    {
+      "file": "src/backup.ts",
+      "sameSource": true,
+      "localSha256": "81253e3056ed2e5041f1ff56ef94cdbd3588e86c33fcf9e5c28c6e7e245d5123",
+      "servedSourceSha256": "81253e3056ed2e5041f1ff56ef94cdbd3588e86c33fcf9e5c28c6e7e245d5123"
+    }
+  ]
+}

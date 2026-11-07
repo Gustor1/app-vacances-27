@@ -1,0 +1,60 @@
+Continuation: 32 successful checks reused; 3 outstanding checks; same source and build.
+Vérification locale : profils jetables, URL Supabase factice, sorties C:\Users\eliot\AppData\Local\Temp\detours-verify-Qdc5Ri
+
+Contrôle : mise à jour Chrome et WebKit
+chromium: update detected and applied; cache upgraded and new worker controls the page.
+chromium: resume detects release through the old HTML cache; manual update preserves journals; new release works offline.
+webkit: update detected and applied; cache upgraded and new worker controls the page.
+webkit: resume, manual update, journals and cache verified. Offline emulation excluded (Playwright #42775).
+
+Contrôle : titre installation Chrome avec ancien manifeste en cache
+Chrome installation manifest: stale worker reproduced, corrected name online/offline, app identity and notebook preserved.
+
+Contrôle : planning compilé, carte, hors ligne et restauration
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.fill: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('dialog').getByLabel('Détails et informations', { exact: true }).first()
+    - locator resolved to <textarea rows="2"></textarea>
+    - fill("Correction personnelle conservée hors ligne.")
+  - attempting fill action
+    2 × waiting for element to be visible, enabled and editable
+      - element is not visible
+    - retrying fill action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and editable
+      - element is not visible
+    - retrying fill action
+      - waiting 100ms
+    59 × waiting for element to be visible, enabled and editable
+       - element is not visible
+     - retrying fill action
+       - waiting 500ms
+
+    at C:\Users\eliot\Documents\app-vacances-27\scripts\smoke-planning-import.mjs:91:79 {
+  log: [
+    "  - waiting for getByRole('dialog').getByLabel('Détails et informations', { exact: true }).first()",
+    '    - locator resolved to <textarea rows="2"></textarea>',
+    '    - fill("Correction personnelle conservée hors ligne.")',
+    '  - attempting fill action',
+    '    2 × waiting for element to be visible, enabled and editable',
+    '      - element is not visible',
+    '    - retrying fill action',
+    '    - waiting 20ms',
+    '    2 × waiting for element to be visible, enabled and editable',
+    '      - element is not visible',
+    '    - retrying fill action',
+    '      - waiting 100ms',
+    '    59 × waiting for element to be visible, enabled and editable',
+    '       - element is not visible',
+    '     - retrying fill action',
+    '       - waiting 500ms'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.15.0
+Rapport : C:\Users\eliot\AppData\Local\Temp\detours-verify-Qdc5Ri\publication-resumed-validation.json — ÉCHEC

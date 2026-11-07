@@ -133,6 +133,8 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
       const marker = L.marker(item.coordinates, { icon: markerIcon(item.index), title: `${item.index + 1}. ${item.title}`, keyboard: true })
         .bindPopup(content)
         .addTo(layer);
+      marker.getElement()?.addEventListener('keydown', event => { if (event.key === 'Escape') { event.stopPropagation(); marker.closePopup(); } });
+      marker.getElement()?.setAttribute('aria-label', `${item.index + 1}. ${item.title}${item.chineseName ? ` · ${item.chineseName}` : ''}`);
       if (overview) {
         const label = document.createElement('span');
         label.textContent = item.title;
@@ -155,11 +157,13 @@ export default function TripMap({ cities, city, steps, selectedStepId, onSelectS
       link.rel = 'noopener noreferrer';
       link.textContent = t('Ouvrir la carte ↗');
       content.append(heading, link);
-      L.marker([centerLat, centerLng], {
+      const centerMarker = L.marker([centerLat, centerLng], {
         icon: L.divIcon({ className: 'trip-map-marker trip-map-center-marker', html: '<span>·</span>', iconSize: [30, 30], iconAnchor: [15, 15], popupAnchor: [0, -18] }),
         title: t('{city} · centre indicatif', {city: city.name}),
         keyboard: true,
       }).bindPopup(content).bindTooltip(label, { permanent: true, direction: 'bottom', offset: [0, 18], className: 'trip-map-city-label', opacity: 1 }).addTo(layer);
+      centerMarker.getElement()?.addEventListener('keydown', event => { if (event.key === 'Escape') { event.stopPropagation(); centerMarker.closePopup(); } });
+      centerMarker.getElement()?.setAttribute('aria-label', t('{city} · centre indicatif', {city: city.name}));
     }
     if (overview && coordinates.length > 1) L.polyline(coordinates, { color: '#64826c', weight: 2, opacity: 0.75, dashArray: '6 9', interactive: false }).addTo(layer);
     if (coordinates.length > 1) map.fitBounds(L.latLngBounds(coordinates), { padding: [46, 46], maxZoom: 14, animate: false });

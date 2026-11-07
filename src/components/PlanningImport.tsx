@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { ArrowDown, ArrowUp, Check, Download, ListChecks, Plus, Sparkles, Square, Trash2 } from 'lucide-react';
-import { Modal } from '../App';
+import { Modal } from './Modal';
 import { useLocale } from '../i18n';
 import { categoryLabels, downloadText } from '../lib';
 import type { TripStorage } from '../cloud/storage';
@@ -210,18 +210,18 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
         {busy && <p role="status">{t('Analyse en cours… Ton texte reste disponible sur cet appareil.')}</p>}
       </section>
       <div className="planning-examples"><span className="muted small">{t('Exemples fictifs de démonstration, sans analyse IA')}</span>{SYNTHETIC_EXAMPLES.map((example, index) => <button className="text-btn" key={index} disabled={busy || reading || blocked} onClick={() => { stop(); proposeSource(example.source, structuredClone(example.draft)); }}>{t('Charger l’exemple {count}', { count: index + 1 })}</button>)}</div>
-    </> : <form onSubmit={event => void create(event)}>
+    </> : <form onInvalidCapture={event => { let parent=(event.target as HTMLElement).parentElement; while(parent) { if(parent instanceof HTMLDetailsElement) parent.open=true; parent=parent.parentElement; } }} onSubmit={event => void create(event)}>
       {session.preparedTrip && <p className="notice">{t('Création préparée. Réessayer termine le même carnet sauvegardé ; les corrections sont verrouillées.')}</p>}
       <fieldset className="planning-review-fields" disabled={!!session.preparedTrip}>
-      <div className="planning-summary" role="status">{t('{days} journées · {items} propositions · {review} passages à vérifier', { days: summary!.days, items: summary!.activities + summary!.suggestions, review: passages.length })}</div>
+      <div className="planning-summary" role="status">{[t(summary!.days === 1 ? '{count} journée' : '{count} journées', {count:summary!.days}), t(summary!.activities + summary!.suggestions === 1 ? '{count} proposition' : '{count} propositions', {count:summary!.activities + summary!.suggestions}), t(passages.length === 1 ? '{count} passage à vérifier' : '{count} passages à vérifier', {count:passages.length})].join(' · ')}</div>
       {summary!.activities + summary!.suggestions === 0 && <p className="notice warning-notice">{t('Aucune activité proposée. Le texte est conservé ; ajoute les éléments manquants avant la création.')}</p>}
       {passages.length > 0 && <section className="planning-passages" aria-label={t('Passages à vérifier')}>
         <Mascot state="attention"/>
         <p className="muted small">{t('Blocs non traités, conflits, rattachements incomplets ou champs ambigus. Les notes explicites restent accessibles plus bas.')}</p>
         {passages.map((passage,index) => <details key={`${passage.kind}:${passage.target}:${index}`}>
-          <summary>{t('Passage à vérifier {count}', {count:index+1})} · {t(passage.kind === 'conflict' ? 'Conflit' : passage.kind === 'assignment' ? 'Affectation ville / journée' : passage.kind === 'ambiguous' ? 'Champ ambigu' : 'Bloc non traité')}</summary>
-          <pre className="planning-source">{passage.quote}</pre>
-          {passage.target ? <a href={`#${passage.target}`} onClick={event => { event.preventDefault(); const element=document.getElementById(passage.target!); element?.scrollIntoView({block:'center'}); element?.focus(); }}>{t('Corriger la proposition')}</a> : <div className="planning-actions">
+          <summary>{t('Passage à vérifier {count}', {count:index+1})} · {t(passage.kind === 'conflict' ? 'Conflit' : passage.kind === 'assignment' ? 'Affectation ville / journée' : passage.kind === 'compact' ? 'Programme compact à vérifier' : passage.kind === 'ambiguous' ? 'Champ ambigu' : 'Bloc non traité')}</summary>
+          <pre className="planning-source">{passage.quote}</pre>{passage.kind === 'compact' && <><p>{t('Plusieurs moments ou lieux semblent réunis dans un titre. Vérifie les activités : cette ligne n’a pas été découpée automatiquement.')}</p><button type="button" className="text-btn" onClick={()=>keepNote(passage.quote)}>{t('J’ai vérifié ce regroupement')}</button></>}
+          {passage.target ? <a href={`#${passage.target}`} onClick={event => { event.preventDefault(); const element=document.getElementById(passage.target!); if (element) { let parent=element.parentElement; while (parent) { if (parent instanceof HTMLDetailsElement) parent.open=true; parent=parent.parentElement; } } element?.scrollIntoView({block:'center'}); element?.focus(); }}>{t('Corriger la proposition')}</a> : <div className="planning-actions">
             <label className="field">{t('Journée de destination')}<select aria-label={t('Journée de destination')} value={noteTarget} onChange={e=>setNoteTarget(e.target.value)}>{draft.cities.flatMap((c,ci)=>c.days.map((d,di)=><option key={`${ci}:${di}`} value={`${ci}:${di}`}>{c.name} · {d.title || t('Jour {count}',{count:di+1})}</option>))}</select></label>
             <button type="button" className="text-btn" disabled={!draft.cities.some(c=>c.days.length)} onClick={()=>promote(passage.quote)}>{t('Transformer en activité')}</button>
             <button type="button" className="text-btn" onClick={()=>keepNote(passage.quote)}>{t('Conserver comme note')}</button>
@@ -244,6 +244,7 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
             <fieldset disabled={item.excluded}>
               {!item.title && (item.evidence.description?.quote.length || 0) > 300 && <p className="notice">{t('Nomme cette activité. Le passage long reste intégralement accessible dans sa provenance et les notes.')}</p>}
               <label className="field">{t('Lieu ou activité')}<input id={`planning-item-${ci}-${di}-${ii}`} required={!item.excluded} maxLength={180} value={item.title} onChange={e => editItem(ci, di, ii, 'title', e.target.value)}/></label>
+              <details className="planning-item-details"><summary>{t('Détails de l’activité')}</summary>
               <div className="form-row"><label className="field">{t('Type')}<select value={item.kind} onChange={e => editItem(ci, di, ii, 'kind', e.target.value as DraftItem['kind'])}>{(['activity', 'stay', 'transfer', 'suggestion', 'alternative'] as const).map((kind, index) => <option key={kind} value={kind}>{t(['Activité', 'Hébergement', 'Transport', 'Suggestion', 'Alternative'][index])}</option>)}</select></label><label className="field">{t('Catégorie')}<select value={item.category} onChange={e => editItem(ci, di, ii, 'category', e.target.value as DraftItem['category'])}>{Object.entries(categoryLabels).filter(([key]) => key !== 'photo').map(([key, label]) => <option key={key} value={key}>{t(label)}</option>)}</select></label></div>
               <label className="field">{t('Adresse précise')}<input value={item.address} onChange={e => editItem(ci, di, ii, 'address', e.target.value)}/></label>
               {!item.address && !item.coordinates && <p className="muted small">{t('Lieu à préciser : aucun repère géographique ajouté.')}</p>}
@@ -254,6 +255,7 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
               <label className="field">{t('Référence de réservation')}<input value={item.reference} onChange={e => editItem(ci, di, ii, 'reference', e.target.value)}/></label>
               <div className="planning-actions"><label className="checkbox-label"><input type="checkbox" checked={item.optional} onChange={e => editItem(ci, di, ii, 'optional', e.target.checked)}/>{t('Facultatif')}</label><label className="checkbox-label"><input type="checkbox" checked={item.booked} onChange={e => editItem(ci, di, ii, 'booked', e.target.checked)}/>{t('Réservation confirmée')}</label></div>
               <label className="field">{t('Affectation ville / journée')}<select aria-label={t('Affectation ville / journée')} value={`${ci}:${di}`} onChange={e => move(ci, di, ii, e.target.value)}>{draft.cities.flatMap((c, cIndex) => c.days.map((d, dIndex) => <option key={`${cIndex}:${dIndex}`} value={`${cIndex}:${dIndex}`}>{c.name} · {d.title || t('Jour {count}', { count: dIndex + 1 })}</option>))}</select></label>
+              </details>
             </fieldset>
             {provenance(item.evidence)}
           </article>)}
@@ -265,7 +267,7 @@ export default function PlanningImport({ storage, scope, token, onCreated, onClo
       <label className="field">{t('Notes non structurées')}<textarea rows={4} value={draft.notes.join('\n')} onChange={e => changeDraft(d => ({ ...d, notes: e.target.value.split('\n').filter(Boolean) }))}/></label>
       <details><summary>{t('Texte source')}</summary><pre className="planning-source">{session.source}</pre></details>
       {preservedNotes.length > 0 && <details><summary>{t('Extraits conservés en notes')}</summary><pre className="planning-source">{preservedNotes.join('\n\n')}</pre></details>}
-      <div className="planning-summary" role="status">{summary && t('{days} journées · {activities} activités · {suggestions} suggestions · {unstructured} notes · {missing} absences · {conflicts} conflits · {unknownPlaces} lieux à préciser', summary)}</div>
+      <details><summary>{t('Bilan détaillé')}</summary><div className="planning-summary" role="status">{summary && [t('Journées : {count}',{count:summary.days}), t('Activités : {count}',{count:summary.activities}), t('Suggestions : {count}',{count:summary.suggestions}), t('Notes : {count}',{count:summary.unstructured}), t('Informations absentes : {count}',{count:summary.missing}), t('Conflits : {count}',{count:summary.conflicts}), t('Lieux à préciser : {count}',{count:summary.unknownPlaces})].join(' · ')}</div></details>
       <label className="checkbox-label"><input type="checkbox" checked={session.keepSource} onChange={e => update({ ...current.current, keepSource: e.target.checked })}/>{t(session.structuredSource ? 'Conserver le fichier IA externe dans le carnet après création' : 'Conserver le texte original dans le carnet après création')}</label>
       </fieldset>
       <div className="planning-actions"><button className="btn btn-primary" disabled={saving || busy || blocked}><Check size={16}/>{t(session.committedId ? 'Ouvrir le carnet créé' : 'Créer et ouvrir le carnet')}</button><button type="button" className="btn btn-secondary" onClick={() => setResetRequested(true)}><Trash2 size={16}/>{t('Effacer et recommencer')}</button></div>

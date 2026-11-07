@@ -5,7 +5,7 @@ import { useCloud } from '../cloud/CloudProvider';
 import { AccountStorage } from '../cloud/storage';
 import { tripSaveStatus } from '../cloud/status';
 import { tripKey, parseTrip } from '../journeys';
-import { Modal } from '../App';
+import { Modal } from './Modal';
 import ConflictCard from './ConflictCard';
 import './TripCollaboration.css';
 
@@ -47,7 +47,7 @@ export default function TripCollaboration({id,onShare,onCopy,saving=false,storag
     <section className="trip-collaboration" aria-label={t('Partage et synchronisation')}>
       <div className="trip-collaboration-heading"><div><span className="trip-access-badge"><Users size={15}/>{t(shared?'Voyage partagé':'Mon voyage')} · {t(record?.role==='reader'?'Lecteur':record?.role==='editor'?'Éditeur':'Propriétaire')}</span>{owner&&shared&&<p>{t('Partagé par :')} <strong>{owner.email||owner.display_name}</strong></p>}{members.length>0&&<p>{t('Partagé avec :')} {members.map(p=>p.email||p.display_name).join(' · ')}</p>}{error&&shared&&<p className="muted">{t(error)}</p>}</div><div className="trip-collaboration-actions"><button className="btn btn-primary" onClick={onShare}><Users size={16}/>{t('Partager')}</button>{record?.role==='reader'&&<button className="btn btn-secondary" onClick={onCopy}>{t('Créer ma copie')}</button>}</div></div>
       <div className="trip-sync-row"><span role="status">{record?.conflict?<Cloud size={15}/>:<CheckCircle2 size={15}/>} {t(status)}</span><button className="text-btn" onClick={()=>setOpened(true)}>{t(record?.conflict?'Résoudre les différences':'Voir la synchronisation')}</button></div>
-      <p className="trip-sync-hint">{t(cloud.online?'Internet disponible. Cela ne confirme ni un envoi ni une sauvegarde externe.':'Internet indisponible. Les changements peuvent rester enregistrés ici en attendant l’envoi.')}</p>{record?.lastSynced&&Number.isFinite(Date.parse(record.lastSynced))&&<p className="trip-sync-hint">{t('Dernier échange avec le compte :')} <time dateTime={record.lastSynced}>{new Intl.DateTimeFormat(dateLocale,{dateStyle:'medium',timeStyle:'short'}).format(new Date(record.lastSynced))}</time></p>}{record?.role==='reader'&&<p className="trip-sync-hint">{t('Tu consultes le même carnet que le propriétaire. Demande un accès éditeur pour le modifier.')}</p>}
+      <details className="trip-sync-details" open={!!storageError || !!record?.pending || !!record?.conflict || !!cloud.error || !cloud.online}><summary>{t('Enregistrement et connexion')}</summary>      <p className="trip-sync-hint">{t(cloud.online?'Internet disponible. Cela ne confirme ni un envoi ni une sauvegarde externe.':'Internet indisponible. Les changements peuvent rester enregistrés ici en attendant l’envoi.')}</p>{record?.lastSynced&&Number.isFinite(Date.parse(record.lastSynced))&&<p className="trip-sync-hint">{t('Dernier échange avec le compte :')} <time dateTime={record.lastSynced}>{new Intl.DateTimeFormat(dateLocale,{dateStyle:'medium',timeStyle:'short'}).format(new Date(record.lastSynced))}</time></p>}</details>{record?.role==='reader'&&<p className="trip-sync-hint">{t('Tu consultes le même carnet que le propriétaire. Demande un accès éditeur pour le modifier.')}</p>}
       {record?.fullSharing&&<p className="trip-sync-hint">{t('Carnet commun : les modifications autorisées sont partagées avec les autres membres.')}</p>}
       {record?.accessChanged&&<p className="trip-sync-hint">{t('Les droits ont changé. Le carnet affiche les informations autorisées ; ton travail en attente reste dans les copies de récupération.')}</p>}
     </section>

@@ -1,6 +1,6 @@
 import { useEffect, useId, useState, type CSSProperties } from 'react';
 import { ArrowLeft, ArrowRight, Camera, Images, LockKeyhole, Plus } from 'lucide-react';
-import { Modal } from '../App';
+import { Modal } from './Modal';
 import { useCloud } from '../cloud/CloudProvider';
 import { useLocale } from '../i18n';
 import { formatCivilDate } from '../locale-utils';

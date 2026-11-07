@@ -1,3 +1,4 @@
+import { tmpdir } from 'node:os';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
@@ -6,10 +7,12 @@ import { chromiumTestOptions } from './browser-test-options.ts';
 import { archive, chinaTrip } from '../src/journeys.ts';
 
 // Disposable profiles, synthetic example only. Run before and after on the same source server.
-const phase = process.argv[2] || 'after';
+const phase = process.argv[2] || 'current';
 const mapOnly = process.argv.includes('--map-only');
-assert.ok(['before', 'after'].includes(phase));
-const output = 'docs/development/palette-claire';
+assert.ok(['before', 'after', 'current'].includes(phase));
+const output = process.env.PALETTE_TEST_OUTPUT || `${tmpdir()}/detours-palette-${Date.now()}`;
+const baseline = process.env.PALETTE_BASELINE;
+if (phase === 'after') assert.ok(baseline, 'PALETTE_BASELINE must name an explicit baseline JSON for historical comparison; use current for rendering checks.');
 await mkdir(`${output}/${phase}`, { recursive: true });
 const url = process.env.PALETTE_TEST_URL || 'http://127.0.0.1:5173';
 const trip = chinaTrip(undefined, 'palette-fixture');
@@ -96,7 +99,7 @@ if (mapOnly) {
 }
 await writeFile(`${output}/${phase}.json`, JSON.stringify(results, null, 2));
 if (phase === 'after') {
-  const before = JSON.parse(await readFile(`${output}/before.json`, 'utf8'));
+  const before = JSON.parse(await readFile(baseline, 'utf8'));
   // The user subsequently authorized replacing the brand artwork in both themes.
   // Compare common semantic HTML classes, excluding native map DOM whose loading is asynchronous.
   // Initial all-element comparison before the logo replacement is retained separately.

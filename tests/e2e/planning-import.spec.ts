@@ -20,6 +20,7 @@ test('manual source, corrections and new notebook survive reload without replaci
   await dialog.getByLabel('Titre de la journée', { exact: true }).fill('Jour 1');
   await dialog.getByRole('button', { name: 'Ajouter une activité', exact: true }).click();
   await dialog.getByLabel('Lieu ou activité', { exact: true }).fill('Musée corrigé');
+  await dialog.locator('.planning-item-details > summary').click();
   await dialog.getByLabel('Période', { exact: true }).fill('Matin');
   await expect(dialog.getByLabel('Heure explicite (facultative)', { exact: true })).toHaveValue('');
   await page.reload();

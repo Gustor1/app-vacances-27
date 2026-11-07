@@ -81,6 +81,8 @@ test('hébergement conserve nom chinois et adresse précise dans Amap', async ({
   await card.getByLabel('Adresse', { exact: true }).fill('福田区 101号');
   await card.getByRole('button', { name: 'Enregistrer', exact: true }).click();
   await page.reload(); await nav(page, 'Mes outils sur place');
+  await page.evaluate(() => { localStorage.setItem('detours-map-preferences-v1', JSON.stringify({provider:'amap'})); });
+  await page.reload(); await nav(page, 'Mes outils sur place');
   const href = await card.getByRole('link', { name: /Amap/ }).getAttribute('href');
   const keyword = new URL(href!).searchParams.get('keyword');
   expect(keyword).toContain('深圳酒店'); expect(keyword).toContain('福田区 101号');
@@ -147,7 +149,10 @@ test('adresse personnelle ajoutée au programme conserve sa recherche Amap', asy
   await dialog.getByRole('button', { name: 'Ajouter', exact: true }).click(); await nav(page, 'Mon planning');
   const card = page.locator('article').filter({ has: page.getByRole('heading', { name: 'Restaurant audit', exact: true }) });
   await expect(card).toContainText('福田区 12号');
-  const href = await card.getByRole('link', { name: 'Ouvrir dans Amap', exact: true }).getAttribute('href');
+  await page.evaluate(() => { localStorage.setItem('detours-map-preferences-v1', JSON.stringify({provider:'amap'})); });
+  await page.reload();
+  await card.locator('.map-route > summary').first().click();
+  const href = await card.getByRole('link', { name: /Y aller.*Amap/ }).getAttribute('href');
   expect(new URL(href!).searchParams.get('keyword')).toContain('福田区 12号');
 });
 

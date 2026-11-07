@@ -1,0 +1,7 @@
+ M AGENTS.md
+ M README.md
+ M docs/development/COLLABORATION.md
+?? docs/development/PLAN-AUDIT-GLOBAL.md
+?? docs/development/PLAN-RECHERCHE-TYPOGRAPHIE.md
+?? docs/development/audit-global-2026-10-31/
+?? docs/development/audit-impeccable-2026-11-02/

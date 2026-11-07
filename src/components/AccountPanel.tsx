@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { Cloud, Download, RefreshCw, LogIn, LogOut, UserRound, ChevronDown } from 'lucide-react';
-import { Modal } from '../App';
+import { Modal } from './Modal';
 import { useLocale } from '../i18n';
 import { useCloud } from '../cloud/CloudProvider';
 import { AccountStorage } from '../cloud/storage';

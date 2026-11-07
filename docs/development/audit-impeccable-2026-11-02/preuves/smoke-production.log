@@ -1,0 +1,4 @@
+Served build verified: 4907752d02f39f89d33753841f5dbec16ed9d2faa101ec26325b90f72ae0425d
+Service worker upgrade verified: previous cache replaced by current compiled assets.
+Production smoke passed: map selection, local geography, service worker, offline reload, offline notes, both source documents, mobile overflow, four interface languages offline, Chinese phrases, zero runtime errors, several journals offline, no China content in Japan, world first opened offline and personal visits persisted.
+Offline cache verified: 114 requests.

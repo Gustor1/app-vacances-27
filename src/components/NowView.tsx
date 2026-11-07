@@ -6,7 +6,7 @@ import { useLocale } from '../i18n';
 import { formatCivilDate } from '../locale-utils';
 import { dateInTimezone } from '../time';
 import { nowDays, nowDetails, stageTimezone } from '../now';
-import { Modal } from '../App';
+import { Modal } from './Modal';
 import MapActions from './MapActions';
 import type { StoredState, View } from '../types';
 import './NowView.css';

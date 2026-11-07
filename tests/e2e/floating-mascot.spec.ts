@@ -12,8 +12,8 @@ test('animated companions: three characters, narrow hitbox, drag, preferences an
   const root = page.locator('.floating-mascot');
   expect(await button.evaluate(e => { const r = e.getBoundingClientRect(); return e.contains(document.elementFromPoint(r.x + r.width / 2, r.y + 2)); })).toBe(false);
   const before = (await root.boundingBox())!;
-  await page.mouse.move(before.x + 48, before.y + 65);
-  await page.mouse.down(); await page.mouse.move(before.x - 100 + 48, before.y - 100 + 65, { steps: 10 }); await page.mouse.up();
+  await page.mouse.move(before.x + before.width / 2, before.y + before.height * .7);
+  await page.mouse.down(); await page.mouse.move(before.x - 100 + before.width / 2, before.y + 150 + before.height * .7, { steps: 10 }); await page.mouse.up();
   expect((await root.boundingBox())!.x).toBeLessThan(before.x - 70);
   await expect(page.locator('#mascot-shortcuts')).toHaveCount(0);
   await button.focus(); await page.keyboard.press('Enter');

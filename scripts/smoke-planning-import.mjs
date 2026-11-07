@@ -88,6 +88,7 @@ try {
   await dialog.getByLabel('Titre du voyage', { exact: true }).fill('Paris fictif corrigé');
   await dialog.getByLabel('Devise de référence', { exact: true }).fill('EUR');
   await dialog.getByLabel('Fuseau du voyage', { exact: true }).fill('Europe/Paris');
+  await dialog.locator('.planning-item-details > summary').first().click();
   await dialog.getByLabel('Détails et informations', { exact: true }).first().fill('Correction personnelle conservée hors ligne.');
   const keepSource = dialog.getByRole('checkbox', { name: 'Conserver le texte original dans le carnet après création', exact: true });
   await keepSource.focus();
@@ -167,6 +168,7 @@ try {
   await localDialog.locator('.planning-passages summary').filter({hasText:'Passage à vérifier'}).first().click();
   await expect(localDialog.locator('.planning-passages pre').first()).toContainText('Correction finale');
   await localDialog.getByRole('button',{name:'Conserver comme note',exact:true}).click();
+  await localDialog.locator('.planning-item-details > summary').nth(1).click();
   await localDialog.getByLabel('Affectation ville / journée',{exact:true}).nth(1).selectOption('0:1');
   await recognized.page.reload();
   await recognized.page.getByRole('button',{name:'Créer depuis un planning',exact:true}).click();

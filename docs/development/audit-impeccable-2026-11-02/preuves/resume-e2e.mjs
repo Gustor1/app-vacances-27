@@ -1,0 +1,11 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {spawn} from 'node:child_process';
+import path from 'node:path';
+const out=path.resolve('docs/development/audit-impeccable-2026-11-02/preuves');
+const log=await readFile(path.join(out,'e2e-all-retry.log'),'utf8');
+const passed=[...log.matchAll(/^\s+ok\s+\d+\s+(.+?) › (.+?) \([\d.]+s\)/gm)].map(m=>({location:m[1],title:m[2]}));
+await writeFile(path.join(out,'e2e-first-passed.json'),JSON.stringify(passed,null,2));
+const escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const skip=passed.map(p=>escape(p.title)+'$').join('|');
+const p=spawn(process.execPath,['node_modules/@playwright/test/cli.js','test','--config',path.join(out,'audit.playwright.config.mts'),'--grep-invert',skip],{stdio:'inherit',env:{...process.env,CI:'1',DETOURS_LOCAL_VERIFY:'1',PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH:'C:/Program Files/Google/Chrome/Application/chrome.exe',VITE_SUPABASE_URL:'https://detourstest.supabase.co',VITE_SUPABASE_PUBLISHABLE_KEY:'sb_publishable_local_fixture',VITE_ENABLE_COLLABORATION:'true'}});
+p.on('exit',code=>process.exitCode=code??1);

@@ -1,0 +1,6 @@
+# Séjour
+| Ville | Jour | Date | Heure | Activité |
+| --- | --- | --- | --- | --- |
+| Tours | Jour 1 | 2027-06-12 | 10:00 | Musée du Compagnonnage |
+| Tours | Jour 1 | 2027-06-12 | 15:00 | Jardin des Prébendes |
+| Tours | Jour 2 | 2027-06-13 | Matin | Place Plumereau |

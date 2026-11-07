@@ -1,0 +1,3 @@
+ville: Toulouse
+j1 matin: capitole / aprem: jardin japonais / soir: canal du midi
+j2: couvent des jacobins + musée saint raymond

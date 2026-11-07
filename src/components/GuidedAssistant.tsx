@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState, type FormEvent } from 'react';
-import { Modal } from '../App';
+import { Modal } from './Modal';
 import { useCloud } from '../cloud/CloudProvider';
 import { useLocale } from '../i18n';
 import { uid } from '../lib';

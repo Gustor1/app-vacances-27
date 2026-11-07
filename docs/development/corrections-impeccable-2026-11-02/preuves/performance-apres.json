@@ -1,0 +1,217 @@
+{
+  "buildId": "05f88d4b84518b5a6a74607202ce7e0298e58b0c52809806b20eefaccb76b94a",
+  "browser": "156.0.8078.74",
+  "protocol": "3 fresh contexts; one China fixture, local cover; CPU x4; no bandwidth throttle, cache, SW or external network; same PC",
+  "results": [
+    {
+      "run": 1,
+      "home": {
+        "ms": 2083.300000000745,
+        "resources": [
+          {
+            "name": "/palette-bootstrap.js",
+            "bytes": 1942
+          },
+          {
+            "name": "/palettes.css",
+            "bytes": 28983
+          },
+          {
+            "name": "/assets/index-BfzSTVz7.js",
+            "bytes": 434641
+          },
+          {
+            "name": "/assets/react-7_dknjxo.js",
+            "bytes": 222172
+          },
+          {
+            "name": "/assets/index-B4CftUe7.js",
+            "bytes": 6334
+          },
+          {
+            "name": "/assets/cloud-2-wFLFeG.js",
+            "bytes": 217703
+          },
+          {
+            "name": "/assets/translations-BSKsgNsi.js",
+            "bytes": 199629
+          },
+          {
+            "name": "/assets/index-BEz6JBM-.css",
+            "bytes": 168216
+          },
+          {
+            "name": "/fonts/hanken-grotesk/hanken-grotesk-latin-wght-normal.woff2",
+            "bytes": 35004
+          },
+          {
+            "name": "/index.html",
+            "bytes": 1571
+          },
+          {
+            "name": "/icons/favicon-32.png",
+            "bytes": 2546
+          },
+          {
+            "name": "/fonts/newsreader/newsreader-latin-wght-normal.woff2",
+            "bytes": 58384
+          },
+          {
+            "name": "/icons/brand-128.png",
+            "bytes": 24489
+          },
+          {
+            "name": "/travel-landscape.svg",
+            "bytes": 920
+          },
+          {
+            "name": "/assets/pico-CqwbONyM.png",
+            "bytes": 1975573
+          }
+        ]
+      },
+      "openMs": 1106,
+      "errors": []
+    },
+    {
+      "run": 2,
+      "home": {
+        "ms": 1940.5999999996275,
+        "resources": [
+          {
+            "name": "/palette-bootstrap.js",
+            "bytes": 1942
+          },
+          {
+            "name": "/palettes.css",
+            "bytes": 28983
+          },
+          {
+            "name": "/assets/index-BfzSTVz7.js",
+            "bytes": 434641
+          },
+          {
+            "name": "/assets/react-7_dknjxo.js",
+            "bytes": 222172
+          },
+          {
+            "name": "/assets/index-B4CftUe7.js",
+            "bytes": 6334
+          },
+          {
+            "name": "/assets/cloud-2-wFLFeG.js",
+            "bytes": 217703
+          },
+          {
+            "name": "/assets/translations-BSKsgNsi.js",
+            "bytes": 199629
+          },
+          {
+            "name": "/assets/index-BEz6JBM-.css",
+            "bytes": 168216
+          },
+          {
+            "name": "/fonts/hanken-grotesk/hanken-grotesk-latin-wght-normal.woff2",
+            "bytes": 35004
+          },
+          {
+            "name": "/index.html",
+            "bytes": 1571
+          },
+          {
+            "name": "/icons/favicon-32.png",
+            "bytes": 2546
+          },
+          {
+            "name": "/fonts/newsreader/newsreader-latin-wght-normal.woff2",
+            "bytes": 58384
+          },
+          {
+            "name": "/icons/brand-128.png",
+            "bytes": 24489
+          },
+          {
+            "name": "/travel-landscape.svg",
+            "bytes": 920
+          },
+          {
+            "name": "/assets/pico-CqwbONyM.png",
+            "bytes": 1975573
+          }
+        ]
+      },
+      "openMs": 1102,
+      "errors": []
+    },
+    {
+      "run": 3,
+      "home": {
+        "ms": 2023.5999999996275,
+        "resources": [
+          {
+            "name": "/palette-bootstrap.js",
+            "bytes": 1942
+          },
+          {
+            "name": "/palettes.css",
+            "bytes": 28983
+          },
+          {
+            "name": "/assets/index-BfzSTVz7.js",
+            "bytes": 434641
+          },
+          {
+            "name": "/assets/react-7_dknjxo.js",
+            "bytes": 222172
+          },
+          {
+            "name": "/assets/index-B4CftUe7.js",
+            "bytes": 6334
+          },
+          {
+            "name": "/assets/cloud-2-wFLFeG.js",
+            "bytes": 217703
+          },
+          {
+            "name": "/assets/translations-BSKsgNsi.js",
+            "bytes": 199629
+          },
+          {
+            "name": "/assets/index-BEz6JBM-.css",
+            "bytes": 168216
+          },
+          {
+            "name": "/fonts/hanken-grotesk/hanken-grotesk-latin-wght-normal.woff2",
+            "bytes": 35004
+          },
+          {
+            "name": "/index.html",
+            "bytes": 1571
+          },
+          {
+            "name": "/icons/favicon-32.png",
+            "bytes": 2546
+          },
+          {
+            "name": "/fonts/newsreader/newsreader-latin-wght-normal.woff2",
+            "bytes": 58384
+          },
+          {
+            "name": "/icons/brand-128.png",
+            "bytes": 24489
+          },
+          {
+            "name": "/travel-landscape.svg",
+            "bytes": 920
+          },
+          {
+            "name": "/assets/pico-CqwbONyM.png",
+            "bytes": 1975573
+          }
+        ]
+      },
+      "openMs": 1193,
+      "errors": []
+    }
+  ]
+}

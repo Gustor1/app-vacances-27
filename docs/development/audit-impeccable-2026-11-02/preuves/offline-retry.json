@@ -1,0 +1,6 @@
+{
+  "code": 0,
+  "startedAt": "2026-11-01T20:02:22.162Z",
+  "finishedAt": "2026-11-01T20:02:37.700Z",
+  "isolation": "after both main browser suite and measure runner completed; assertions unchanged"
+}

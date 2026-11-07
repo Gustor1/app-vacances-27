@@ -1,0 +1,63 @@
+# Matrice des lots — référence 6e319457ec9f20fe5720979640e950b7a4c0dccc
+
+Audit du 31 octobre 2026 (Asia/Shanghai). Cette matrice distingue l'intégration constatée par lecture des sources, les preuves historiques et la validation exécutée pendant cet audit. Les résultats dynamiques du coordinateur sont dans VALIDATION.md ; aucune suite n'a été exécutée par l'auteur de cette matrice. « Présent, à recetter » signifie présent dans le code actuel, pas garanti sans défaut. La publication historique ne prouve pas ce qui est servi aujourd'hui.
+
+## Socle L0–L8
+
+| Lot / intention | Sources produit et accès | Contrôles existants / preuve historique | État à cette référence | Publication actuelle |
+|---|---|---|---|---|
+| L0 : contrat de données, préservation | src/journeys.ts:18-75 ; src/backup.ts ; Mes voyages | tests/backup.test.mjs ; docs/development/L0-L1.md | Présent ; validation de format, copie récupérable et conservation des anciennes clés examinées ; corruption réelle navigateur à recetter | Non vérifiée ici |
+| L1 : sauvegarde complète et reprise | src/components/BackupPanel.tsx:51-74 ; src/backup.ts:162-253 | tests/e2e/full-backup.spec.ts ; scripts/smoke-backup.mjs ; L0-L1.md | Présent, à recetter ; v3 distinct des exports v1/v2 et des médias lot 09 | Non vérifiée ici |
+| L2 : accessibilité/reflow/navigation | src/components/JourneysApp.tsx ; src/locale-utils.ts | tests/e2e/l2-accessibility.spec.ts ; docs/development/L2.md | Présent, à recetter sur écrans et langues ; pas de certification lecteur d'écran | Non vérifiée ici |
+| L3 : preuves/build/gate | scripts/verify-local.mjs ; scripts/check-build.mjs ; scripts/verify-runner.mjs | tests du runner ; docs/development/L3.md | Présent ; gate fail-fast, empreinte de sources, build factice explicités | Identité servie à vérifier séparément |
+| L4 : statuts, pays, Mon monde, repartir | src/world.ts ; src/journeys.ts:104 ; src/components/WorldView.tsx ; accueil | tests/e2e/l4-status.spec.ts ; scripts/smoke-l4-offline.mjs ; scripts/smoke-l4-persistence.mjs ; L4.md | Présent, à recetter ; Mon monde ne désigne pas les photos quotidiennes | Non vérifiée ici |
+| L5 : Maintenant, horaires/fuseaux/navigation | src/components/NowView.tsx ; src/time.ts ; src/components/MapActions.tsx | tests/e2e/l5-now.spec.ts ; tests/e2e/l5-maps.spec.ts ; L5.md | Présent, à recetter ; lien Google/Amap ne fournit ni notes ni avis Google | Non vérifiée ici |
+| L6 : préparation de journée | src/day-preparation.ts ; src/components/DayPreparation.tsx ; supabase/migrations/202610090001_day_preparation.sql | tests/e2e/l6-preparation.spec.ts ; scripts/test-l6-sql-local.mjs ; L6.md | Présent ; persistance et droits SQL examinés statiquement ; SQL exécuté par coordinateur uniquement si indiqué dans VALIDATION | Non vérifiée ici |
+| L7 : coordination légère | ORCHESTRATION-DEVELOPPEMENT.md:129,179 ; L8.md:3 | Pas de fichier L7 inventé | Reporté explicitement ; votes/tâches/commentaires absents volontairement du périmètre livré | Sans objet |
+| L8 : mesure et livraison | scripts/measure-l8.mjs ; scripts/smoke-l8-release.mjs ; L8.md | Publication historique du 9 octobre décrite dans L8.md:82 | Outillage présent ; aucune nouvelle publication dans cet audit ; anciennes mesures non transposées | Non vérifiée ici |
+| Comptes/carnet commun | src/cloud/CloudProvider.tsx ; engine.ts ; storage.ts ; projection.ts ; migrations | docs/sync/CONFIGURATION.md ; SHARED-EXPERIENCE.md ; scripts/test-supabase.mjs ; scripts/smoke-common-sharing.mjs | Présent ; isolation locale et refus serveur visibles dans les sources ; OAuth/production non validés par lecture | Non vérifiée ici |
+
+## Lots 01–09 et évolutions
+
+Les rapports cités ci-dessous sont sous docs/development/. Ils ont été consultés pour leur périmètre et leurs conclusions ; leurs nombres de tests sont datés et ne constituent pas les résultats du présent audit.
+
+| Ensemble / intention | Sources produit → interface | Tests et rapport | État actuel et écart | Version publiée |
+|---|---|---|---|---|
+| Import initial | src/planning-import/parser.ts, draft.ts ; PlanningImport.tsx → Créer depuis un planning | planning-import.test.mjs ; planning-parser.test.mjs ; planning-import.spec.ts ; IMPORT-RECOGNITION.md | Présent, à recetter ; règles locales, non compréhension générale par modèle | Non vérifiée ici |
+| 01 : import fiable | planning-import/review.ts, persistence.ts ; aperçu/corrections/provenance | planning-lot01.test.mjs ; planning-lot01.spec.ts ; import-fiable-lot-01/RAPPORT.md | Présent ; décisions reviewedQuotes persistées et validées contre source ; pas de score universel de fidélité | Non vérifiée ici |
+| Stress planning | tests/fixtures/planning/stress-corpus.mjs ; évaluateur scripts/tests | planning-stress-2026-10-16/RAPPORT.md ; planning-stress-evaluator.test.mjs | Corpus présent ; anciens scores ne mesurent pas les erreurs actuelles sur un nouveau corpus | Sans preuve actuelle |
+| 02 : PWA mobile | InstallHelp.tsx ; worker public généré ; OfflineStatus.tsx ; Préférences | pwa-lot02.spec.ts ; smoke-pwa-mobile.mjs ; lot-02-pwa/RAPPORT.md | Présent ; installation native conditionnelle ; Safari physique reste une recette distincte | Rapport historique seulement |
+| 03 : PDF texte/DOCX | documents.ts ; document-pdf.ts ; document-docx.ts ; docx.worker.ts → fichier/planning | planning-documents.test.mjs ; planning-documents.spec.ts ; smoke-planning-documents.mjs ; lot-03-documents/RAPPORT.md | Présent ; bornes binaires/texte/temps ; sans OCR ; texte original récupérable dans brouillon | Non vérifiée ici |
+| Pont IA externe | external-prompt.ts ; export du prompt vide depuis PlanningImport | lot-03-documents/RAPPORT.md ; tests planning | Présent ; copier dans outil personnel ne constitue pas un appel intégré | Non vérifiée ici |
+| 03 bis : kit universel JSON | public/import-kit/ ; public-contract.ts ; structured.ts ; import-kit.ts → résultat JSON | planning-structured.test.mjs ; planning-structured.spec.ts ; lot-03-bis-kit-import/RAPPORT.md | Présent ; contrat detours-planning v1 ; validation structurelle distincte de fidélité | Non vérifiée ici |
+| 04 : Wikidata/Commons | src/places/ ; association choisie sur activité | places.spec.ts ; smoke-places.mjs ; lot-04-lieux/RAPPORT.md | Présent, à recetter ; service optionnel ; aucun ajout automatique de coordonnées à partir du seul titre | Services live non retestés |
+| 05 : compagnon | companion.ts ; Companion.tsx ; Maintenant | companion.spec.ts ; smoke-companion.mjs ; lot-05-compagnon/RAPPORT.md | Présent ; exigences/alternatives/bonus locaux ; météo et recherche externe ne sont pas annoncées livrées | Non vérifiée ici |
+| 06 : modèle local | scripts/benchmark-lot06.mjs ; scripts/lot06-analyze.mjs ; corpus fixtures | lot-06-modele/RAPPORT.md:3,37,107 ; analysis.json | Expérimentation volontairement non intégrée : candidat rejeté ; ne pas compter son absence comme bug | Sans objet |
+| 06 bis : NVIDIA/MiniMax | scripts/nvidia-import/ ; benchmark-nvidia-import.mjs | lot-06-bis-api-nvidia/RAPPORT.md ; ESSAI-MINIMAX.md:11-37 | Benchmark conservé, pas de bouton/end-point NVIDIA produit ; critères d'intégration non atteints | Sans objet |
+| Contrat extraction serveur historique | src/planning-import/extraction.ts:10-30 ; server/planning-extraction.mjs | planning-extraction.test.mjs ; planning-analysis.spec.ts | Présent derrière VITE_PLANNING_EXTRACTION_ENABLED ; exige jeton et endpoint autorisé ; activation réelle non inférée | Configuration déployée inconnue |
+| 07 : assistant contrôlé | assistant.ts ; travel-write.ts ; GuidedAssistant.tsx → carnet | assistant.test.mjs ; assistant.spec.ts ; smoke-assistant.mjs ; lot-07-assistant/RAPPORT.md | Présent ; recherche littérale et quatre commandes fermées ; aucun chatbot général ; attente verrou à revalider | Non vérifiée ici |
+| 08 : première mascotte | mascot.ts ; Mascot.tsx ; textes accueil/hors ligne | lot-08-mascotte/RAPPORT.md | Illustration historique remplacée dans l'interface par personnages flottants ; textes utiles conservés selon évolution | Version historique |
+| 08 bis : prototype | prototypes/mascot-lab/ → /mascotte/ | lot-08-bis-prototype/RAPPORT.md | Prototype indépendant conservé ; ses raccourcis fictifs ne valident pas ceux du carnet réel | Route à vérifier dans build actuel |
+| Mascottes intégrées | FloatingMascot.tsx ; MascotPicker.tsx ; accueil/carnet | floating-mascot.spec.ts ; mascottes-integrees/RAPPORT.md | Présent ; Pico/Mochi/Bivouac ; préférence personnelle et raccourcis réels ; recette tactile physique manquante | Publication historique b1f243b ; non recontrôlée ici |
+| Mascotte limites écran | FloatingMascot.tsx/CSS ; viewport/menu | mascotte-limites-ecran/RAPPORT.md ; tests flottants | Correctif présent ; ne pas inférer sécurité de toutes zones iOS depuis Chromium | Publication historique seulement |
+| 09 : photos/légendes | souvenirs.ts ; Souvenirs.tsx → journée/export/import médias | souvenirs.test.mjs ; souvenirs.spec.ts ; smoke-souvenirs.mjs ; lot-09-souvenirs/RAPPORT.md | Présent ; privé par scope/trip/jour ; hors sync et backup v3 ; paquet indépendant requis | Non vérifiée ici |
+| Logos/palettes | src/theme.css ; src/apple-design.css ; Préférences | brand-palettes.spec.ts ; palettes-personnalisees.spec.ts ; demo-progression-20261025/RAPPORT.md | Présent, à recetter ; contraste doit être évalué par palette effective, pas seulement thème | Rapport historique seulement |
+| Préférences 26 octobre | Preferences.tsx ; InstallHelp.tsx | preferences-refresh.spec.ts ; preferences-20261026/RAPPORT.md | Présent ; ancien gate 34/34 n'est pas le gate de ce SHA | Rapport historique a6ba26e |
+| Manifeste cache ancien | public/sw-update.js ; scripts/smoke-install-manifest.mjs | installation-manifeste-cache/RAPPORT.md | Correctif 578e1b1 inclus ; ancien échec Companion à requalifier ; navigateur consommateur distinct du GET réseau | Rapport à 6e31945, version live non vérifiée ici |
+| Quatre langues | src/locales/ ; LocaleProvider ; dates/print | world-languages.spec.ts ; suites import/souvenirs ; README | Présent ; contenu personnel conserve sa langue ; couverture visuelle complète à documenter séparément | Non vérifiée ici |
+
+## Promesses à maintenir précises
+
+- La sauvegarde « complète » v3 couvre les carnets téléchargés, documents, Mon monde et préférences ; elle exclut photos/légendes du lot 09. BackupPanel.tsx:85 affiche l'exclusion, mais le même écran commence par « souvenirs ... dans un seul fichier ». Une clarification terminologique est utile : les deux sens de souvenirs restent une friction à vérifier avec un utilisateur, pas une perte de données démontrée.
+- Hors ligne : les modules et médias doivent d'abord être préparés ; la présence de liens Google/Wikimedia/outil IA externe ne rend pas ces services disponibles sans réseau.
+- Gratuité et viabilité API : aucun coût de production NVIDIA n'est établi. ESSAI-MINIMAX.md rapporte deux 429, dont injection, et aucun gain après garde-fous : ne pas transformer le benchmark en promesse produit.
+- Synchro : sources client/SQL et tests simulés ne remplacent pas OAuth, PostgREST, droits réellement déployés et deux appareils.
+- Aucun nouveau numéro de lot n'annule automatiquement les exclusions des anciens contrats. Les choix récents priment sur les interdictions historiques « ne pas commencer le lot suivant ».
+
+## Limites de couverture
+
+La matrice fournit les routes de vérification, pas un certificat exhaustif de toutes les exigences des plans. Les tests existants indiquent des scénarios disponibles ; seuls leurs résultats effectivement exécutés, recensés dans VALIDATION.md, sont actuels. Les rapports historiques ont été lus de manière ciblée (conclusions, contrats et incidents), pas tous leurs journaux/captures bruts. Les versions servies et toutes les combinaisons langue/thème/taille non exécutées restent explicitement à vérifier.
+
+## Résultats dynamiques rattachés à cette référence
+
+Voir VALIDATION pour le détail, sans extrapoler à toutes les exigences :332/332 unitaires, SQL L6 réussi ; premier groupe navigateur92/93 avec timeout démarrage Compagnon ; sauvegarde/UI compilées, partage simulé, L4–L6, documents/kit, souvenirs9/9, assistant14/14 et mascottes11/11 réussis dans les contrôles complémentaires. Assistant:78 et planning-analysis (3tests) historiques non reproduits. Smoke restauration officiel échoué par reload avant fin d’import, diagnostic externe acquitté3/3 réussi. Tests de thème et deux smokes expirent sur input masqué;28scénarios palettes non validés. Mise à jour Chromium/WebKit et manifeste ancien cache réussis; mode hors ligne WebKit exclu. Rien de cela ne valide OAuth, appareils ou droits déployés.

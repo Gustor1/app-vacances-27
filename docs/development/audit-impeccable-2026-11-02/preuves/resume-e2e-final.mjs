@@ -1,0 +1,14 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {spawn} from 'node:child_process';
+import path from 'node:path';
+const out=path.resolve('docs/development/audit-impeccable-2026-11-02/preuves');
+const first=JSON.parse(await readFile(path.join(out,'e2e-first-passed.json'),'utf8')).map(x=>({...x,status:'passed'}));
+const log=await readFile(path.join(out,'e2e-resume.log'),'utf8');
+const completed=[...log.matchAll(/^\s+(ok|x)\s+\d+\s+(.+?) › (.+?) \([\d.]+s\)/gm)].map(m=>({location:m[2],title:m[3],status:m[1]==='ok'?'passed':'failed'}));
+const all=[...first,...completed];
+await writeFile(path.join(out,'e2e-completed-before-final.json'),JSON.stringify(all,null,2));
+const escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+const skip=all.map(p=>escape(p.title)+'$').join('|');
+console.log('Preserved completed scenarios:',all.length);
+const p=spawn(process.execPath,['node_modules/@playwright/test/cli.js','test','--config',path.join(out,'audit.playwright.config.mts'),'--grep-invert',skip],{stdio:'inherit',env:{...process.env,CI:'1',DETOURS_LOCAL_VERIFY:'1',PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH:'C:/Program Files/Google/Chrome/Application/chrome.exe',VITE_SUPABASE_URL:'https://detourstest.supabase.co',VITE_SUPABASE_PUBLISHABLE_KEY:'sb_publishable_local_fixture',VITE_ENABLE_COLLABORATION:'true'}});
+p.on('exit',code=>process.exitCode=code??1);

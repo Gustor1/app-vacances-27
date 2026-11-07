@@ -6,7 +6,7 @@ const planning = (page: Page) => page.getByRole('button', { name: 'Mon planning'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Un grand voyage, de beaux détours.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Mon planning' })).toBeVisible();
 });
 
 test('naviguer entre villes et journées puis rechercher un lieu chinois', async ({ page }) => {
@@ -22,7 +22,10 @@ test('naviguer entre villes et journées puis rechercher un lieu chinois', async
   await expect(page.getByRole('heading', { name: 'Jardins, vieille ville et lac Jinji', exact: true })).toBeVisible();
   const place = page.locator('article').filter({ has: page.getByRole('heading', { name: 'Jardin de l’Humble Administrateur', exact: true }) });
   await expect(place).toHaveClass(/highlighted/);
-  const destination = await place.getByRole('link', { name: 'Ouvrir dans Amap' }).getAttribute('href');
+  await page.evaluate(() => localStorage.setItem('detours-map-preferences-v1', JSON.stringify({provider:'amap'})));
+  await page.reload();
+  await place.locator('.map-route > summary').first().click();
+  const destination = await place.getByRole('link', { name: /Y aller.*Amap/ }).getAttribute('href');
   expect(new URL(destination!).hostname).toBe('uri.amap.com');
   expect(new URL(destination!).searchParams.get('keyword')).toContain('拙政园');
 });

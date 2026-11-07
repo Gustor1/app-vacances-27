@@ -23,7 +23,7 @@ try {
   const build = await checkServedBuild(page);
   console.log(`Served build verified: ${build.id}`);
   await page.getByRole('button',{name:'Ajouter l’exemple Chine',exact:true}).click();
-  await page.getByRole('heading', { name: 'Un grand voyage, de beaux détours.' }).waitFor();
+  await page.getByRole('heading', { name: 'Mon planning' }).waitFor();
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.waitForFunction(() => navigator.serviceWorker.controller !== null);
   if(server) {
@@ -71,7 +71,7 @@ try {
   await context.setOffline(true);
   await page.getByText('Tu es hors ligne.', { exact: false }).waitFor();
   await page.reload();
-  await page.getByRole('heading', { name: 'Un grand voyage, de beaux détours.' }).waitFor();
+  await page.getByRole('heading', { name: 'Mon planning' }).waitFor();
   assert.equal(await page.evaluate(async () => { try { await fetch('/__uncached_offline_probe'); return false; } catch { return true; } }), true, 'Uncached network requests must fail in offline mode');
   await page.getByLabel('Ma note pour Shenzhen').fill('Note conservée hors ligne');
   await page.reload();

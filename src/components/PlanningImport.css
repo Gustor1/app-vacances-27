@@ -1,4 +1,5 @@
 .planning-import { min-width: 0; display: grid; gap: 16px; }
+.planning-import .travel-import-progress { position: static; }
 .planning-import form { display: grid; gap: 16px; min-width: 0; }
 .planning-review-fields { display: grid; gap: 16px; min-width: 0; padding: 0; margin: 0; border: 0; }
 .planning-import .field, .planning-import input, .planning-import textarea, .planning-import select { min-width: 0; max-width: 100%; }

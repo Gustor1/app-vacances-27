@@ -655,3 +655,36 @@ html:root:root[data-theme] .glass-selection-group > button:active { background: 
   html:root:root .workspace > main { padding: 0; }
   html:root:root .hero { print-color-adjust: exact; }
 }
+
+/* Headers wrap according to their available workspace, including tablets. */
+html:root:root .page-intro { flex-wrap: wrap; gap: .75rem 1rem; margin-bottom: 1rem; }
+html:root:root .page-intro > div:first-child { min-width: 0; flex: 1 1 15rem; }
+html:root:root .page-intro h1 { font-size: clamp(1.6rem, 2.4vw, 2rem); }
+html:root:root .page-intro > .intro-actions { flex: 1 1 18rem; justify-content: flex-start; max-width: 100%; }
+html:root:root .page-intro .export-button { width: auto; height: auto; margin: 0; white-space: normal; }
+html:root:root .intro-actions .btn { max-width: 100%; }
+html:root:root .city-heading h2 > span { color: var(--text); }
+html:root:root .trip-collaboration { padding: .8rem 1rem; gap: .5rem; margin-bottom: .75rem; }
+html:root:root .trip-collaboration-heading { flex-direction: row; align-items: center; gap: .5rem; }
+html:root:root .trip-access-badge { margin-bottom: 0; }
+html:root:root .trip-sync-row { padding-top: .4rem; }
+html:root:root .trip-collaboration-actions { width: auto; }
+html:root:root .trip-sync-details { font-size: .8rem; color: var(--muted); }
+html:root:root .trip-sync-details summary { cursor: pointer; }
+
+html:root:root .assistant-entry { justify-content: flex-start; align-items: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; }
+html:root:root .cities-section { margin-bottom: 1rem; }
+html:root:root .cities-section .section-label { margin-bottom: .5rem; }
+@media (max-width: 760px) {
+  html:root:root body:has(.floating-mascot[data-docked="true"]) :is(.topbar, .journeys-topbar) { padding-inline-end: 88px; min-height: 88px; }
+  html:root:root body:has(.floating-mascot[data-docked="true"]) .topbar { padding-inline-end: max(1rem, env(safe-area-inset-right)); }
+  html:root:root body:has(.floating-mascot[data-docked="true"]) .topbar > .breadcrumb { padding-inline-end: 76px; min-height: 64px; align-items: center; }
+  html:root:root .city-tab { padding: .6rem .75rem; min-width: 130px; }
+  html:root:root .city-tab-number { display: none; }
+  html:root:root .cities-section .section-label > span { display: none; }
+}
+
+html:root:root .notebook-cover { margin-bottom: 1rem; }
+html:root:root .notebook-cover > summary { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem 1rem; flex-wrap: wrap; cursor: pointer; padding-block: .5rem; }
+html:root:root .notebook-cover > summary h2 { font-family: var(--font-heading); font-weight: 500; font-size: 1.45rem; overflow-wrap: anywhere; }
+html:root:root .notebook-cover > summary span { color: var(--green); text-decoration: underline; text-underline-offset: .2em; font-size: .8rem; }
