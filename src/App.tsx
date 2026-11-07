@@ -1,3 +1,5 @@
+import { TimingReminder } from './components/TripTiming';
+import { useTripClock } from './hooks/useTripClock';
 import FloatingMascot from './components/FloatingMascot';
 import Souvenirs from './components/Souvenirs';
 import { placeStep } from './places/model';
@@ -61,6 +63,7 @@ export default function App({ seed, onHome, onImport, externalError, accountCont
   const [navigation] = useState(()=>initialNavigation(state));
   const [view, setView] = useState<View>(navigation?.view || 'planning');
   const journey = state.journey!;
+  const timingInstant = useTripClock();
   const isChina = journey.source === 'china';
   const [cityId, setCityId] = useState(navigation?.cityId || state.cities[0]?.id || '');
   const [dayId, setDayId] = useState(navigation?.dayId || state.cities[0]?.days[0]?.id || '');
@@ -204,7 +207,7 @@ export default function App({ seed, onHome, onImport, externalError, accountCont
     </aside>
     <div className="workspace" inert={!!modal || mobileMenu}>
       <header className="topbar"><div className="breadcrumb"><button className="icon-btn mobile-only" aria-label={t("Ouvrir le menu")} aria-expanded={mobileMenu} aria-controls="sidebar" onClick={() => setMobileMenu(true)}><Menu size={21}/></button><span>{t("Mon carnet de voyage")}</span><ChevronRight size={14}/><strong>{journey.title}</strong></div><div className="topbar-actions"><label className="search-box"><Search size={17}/><input value={query} onChange={e => setQuery(e.target.value)} placeholder={t("Retrouver un lieu, une envie…")} aria-label={t("Rechercher dans le carnet")}/>{query && <button onClick={() => setQuery('')} aria-label={t("Effacer la recherche")}><X size={14}/></button>}<span className="search-shortcut">⌕</span></label><button className="icon-btn help-btn" onClick={() => navigate('notebook')} aria-label={t("Informations pratiques")}><CircleHelp size={20}/></button><PreferencesButton/>{accountControl}</div></header>
-      <main id="main">{!day && <Souvenirs state={state}/>}{typeof collaborationControl === "function" ? collaborationControl({saving,storageError}) : collaborationControl}{externalError && <div className="notice warning-notice" role="alert">{externalError}</div>}
+      <main id="main"><TimingReminder trip={state} instant={timingInstant} onOpen={navigate}/>{!day && <Souvenirs state={state}/>}{typeof collaborationControl === "function" ? collaborationControl({saving,storageError}) : collaborationControl}{externalError && <div className="notice warning-notice" role="alert">{externalError}</div>}
         <div className="assistant-entry"><button type="button" className="btn btn-secondary now-shortcut" hidden={view === 'now'} onClick={() => navigate('now')}>{t('Voir Maintenant')}</button><GuidedAssistant state={state} saving={saving} onCommit={applyAssistant} onNavigate={(cid,did)=>{setCityId(cid);setDayId(did);navigate('planning');}}/></div>
         {storageError && <div className="notice warning-notice" role="alert">{t(storageError)}<div className="recovery-actions"><button className="text-btn" onClick={corruptRaw ? exportOriginal : exportData}>{corruptRaw ? t('Télécharger le fichier original') : t('Exporter le carnet actuel')}</button>{recovery?.readable && <EditButton className="text-btn" onClick={()=>setModal({type:'confirm',title:t('Restaurer la copie précédente ?'),description:t('Cette copie automatique date du {date}. Elle remplacera le carnet actuel.', {date:new Date(recovery.savedAt).toLocaleString(dateLocale)}),action:()=>{replaceState(recoveryState(recovery.raw));setModal(null);setToast(t('Copie précédente restaurée.'));}})}>{t("Restaurer la copie précédente")}</EditButton>}</div></div>}
         {!isOnline && <div className="notice" role="status">{t("Tu es hors ligne. Ton planning et le fond général de la carte restent accessibles ; les cartes de rues et les liens externes nécessitent Internet.")}</div>}
