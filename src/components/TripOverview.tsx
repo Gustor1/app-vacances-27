@@ -120,7 +120,7 @@ export default function TripOverview({ state, onChange, onNavigate, notify }: Pr
   };
   return <section className="trip-overview" aria-labelledby="overview-title">
     <header className="section-header">
-      <div><p className="eyebrow">{t("Tout le voyage en un regard")}</p><h2 id="overview-title">{t("Vue d’ensemble")}</h2><p className="muted">{t("Retrouve chaque journée, sa date et ton avancement.")}</p></div>
+      <div><p className="eyebrow sr-only">{t("Tout le voyage en un regard")}</p><h2 id="overview-title" className="sr-only">{t("Vue d’ensemble")}</h2><p className="muted">{t("Retrouve chaque journée, sa date et ton avancement.")}</p></div>
       <div className="overview-actions"><button type="button" disabled={!dated} onClick={exportCalendar}><Download size={18} aria-hidden="true" /> {t("Exporter le calendrier ({count})", { count: dated })}</button><button type="button" onClick={() => { try { printWholeTrip(state, language, provider); } catch (error) { notify(error instanceof Error ? error.message : t("Impression indisponible.")); } }}><Printer size={18} aria-hidden="true" />{t("Imprimer tout le voyage")}</button></div>
     </header>
     <div className="overview-summary"><span><MapPin size={18} aria-hidden="true" /> {t("{count} villes", { count: state.cities.length })}</span><span><CalendarDays size={18} aria-hidden="true" /> {t("{count} journées · {dated} datées", { count: days.length, dated })}</span><span>{t("{done} / {total} activités faites", { done: completed, total: steps.length })}</span><progress max={steps.length || 1} value={completed} aria-label={t("Avancement des activités du voyage")} /></div>

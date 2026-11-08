@@ -692,3 +692,28 @@ html:root:root .notebook-cover { margin-bottom: 1rem; }
 html:root:root .notebook-cover > summary { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem 1rem; flex-wrap: wrap; cursor: pointer; padding-block: .5rem; }
 html:root:root .notebook-cover > summary h2 { font-family: var(--font-heading); font-weight: 500; font-size: 1.45rem; overflow-wrap: anywhere; }
 html:root:root .notebook-cover > summary span { color: var(--green); text-decoration: underline; text-underline-offset: .2em; font-size: .8rem; }
+
+/* En-têtes allégés : partage/synchro sur une seule ligne, actions de vue regroupées. */
+html:root:root .trip-collaboration { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1rem; padding: .45rem .5rem .45rem 1rem; margin-bottom: .75rem; border-radius: 999px; }
+html:root:root .trip-collaboration-heading { display: contents; }
+html:root:root .trip-collaboration-heading > div:first-child { flex: 0 1 auto; min-width: 0; }
+html:root:root .trip-access-badge { font-size: .8rem; }
+html:root:root .trip-collaboration-heading:has(p) .trip-access-badge { margin-bottom: .15rem; }
+html:root:root .trip-collaboration .trip-sync-row { order: 2; flex: 1 1 auto; min-width: 0; justify-content: flex-start; gap: .25rem .75rem; padding: 0; border: 0; font-size: .78rem; }
+html:root:root .trip-collaboration-actions { order: 3; margin-inline-start: auto; width: auto; }
+html:root:root .trip-collaboration-actions .btn { padding-inline: 1rem; font-size: .8rem; }
+html:root:root .trip-collaboration > :is(details, p) { order: 4; flex: 1 1 100%; }
+html:root:root .trip-collaboration:has(> :is(details, p)) { border-radius: 16px; }
+html:root:root .page-intro { margin-bottom: .75rem; align-items: center; }
+html:root:root .page-intro > .intro-actions { flex: 0 0 auto; max-width: 100%; }
+html:root:root .page-intro + * .section-header { margin-top: 0; }
+@media (max-width: 760px) {
+  html:root:root .trip-collaboration { border-radius: 16px; padding: .6rem .75rem; }
+  html:root:root .trip-collaboration .trip-sync-row { order: 4; flex-basis: 100%; }
+  html:root:root .page-intro > .intro-actions { flex: 1 1 100%; flex-direction: row; flex-wrap: wrap; align-items: center; gap: .5rem; }
+  html:root:root .intro-actions .btn { padding-inline: .85rem; }
+}
+@media (max-width: 470px) {
+  html:root:root .page-intro .export-button { width: 44px; min-width: 44px; padding: 0; justify-content: center; }
+  html:root:root .page-intro .export-button .export-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+}

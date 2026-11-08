@@ -57,7 +57,7 @@ export default function PracticalView({ state, onChange, notify }: Props) {
     form.reset();setPhraseError('');notify(t('Phrase ajoutée.'));
   }
   return <section className="practical-view">
-    <div className="section-header"><div><div className="eyebrow">{t("Votre compagnon de voyage")}</div><h2>{t("Pratique")}</h2><p className="practical-muted">{t("Adresses, dépenses et essentiels à garder sous la main.")}</p></div></div>
+    <div className="section-header"><div><div className="eyebrow sr-only">{t("Votre compagnon de voyage")}</div><h2 className="sr-only">{t("Pratique")}</h2><p className="practical-muted">{t("Adresses, dépenses et essentiels à garder sous la main.")}</p></div></div>
     <div className="practical-tabs" role="tablist" aria-label={t("Outils pratiques")}>{tabs.map((label, index) => <button key={label} id={`practical-tab-${index}`} role="tab" aria-selected={tab === index} aria-controls={`practical-panel-${index}`} tabIndex={tab === index ? 0 : -1} onClick={() => setTab(index)} onKeyDown={event => keyTab(event, index)}>{t(label)}</button>)}</div>
     <div id={`practical-panel-${tab}`} role="tabpanel" aria-labelledby={`practical-tab-${tab}`} tabIndex={0}>
       {tab === 0 && <div className="practical-grid">{state.cities.length === 0 && <p>{t("Ajoutez une ville dans le planning pour renseigner votre hébergement.")}</p>}{state.cities.map(city => {

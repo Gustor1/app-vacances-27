@@ -36,7 +36,7 @@ export default function NowView({state,onNavigate,notify,onChange,onCorrect}:{st
   const copy=async()=>{try{await navigator.clipboard.writeText(text);notify(t('Texte copié.'));}catch{notify(t('Copie indisponible : sélectionne le nom affiché pour le copier.'));}};
   const jump=(view:View)=>{if(current)onNavigate(current.city.id,current.day.id,view);};
   return <section className="now-view" aria-labelledby="now-title">
-    <header className="section-header"><div><p className="eyebrow">{t('Les informations du carnet, au bon endroit')}</p><h2 id="now-title">{t('Maintenant')}</h2><p className="muted">{t('Sans suivi de position. Choisis la journée que tu veux consulter.')}</p></div></header>
+    <header className="section-header"><div><p className="eyebrow sr-only">{t('Les informations du carnet, au bon endroit')}</p><h2 id="now-title" className="sr-only">{t('Maintenant')}</h2><p className="muted">{t('Sans suivi de position. Choisis la journée que tu veux consulter.')}</p></div></header>
     <div className="now-controls panel">
       <label className="field">{t('Date choisie')}<input aria-label={t('Date choisie')} type="date" value={date||''} onChange={e=>{setDate(e.target.value||null);setSelected('');setShow(false);}}/></label>
       <button className="btn btn-secondary" onClick={()=>{setDate(null);setSelected('');setInstant(new Date());setShow(false);}}>{t('Aujourd’hui dans le fuseau de chaque étape')}</button>
