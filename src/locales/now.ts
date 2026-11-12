@@ -36,5 +36,24 @@ Ouvrir mes transports|Open my transport|查看我的交通|Ver mis transportes
 Note du jour|Day’s note|当日备注|Nota del día
 Aucune note saisie pour cette journée.|No note entered for this day.|尚未填写此日的备注。|Sin nota para este día.
 Copier le texte|Copy text|复制文字|Copiar texto
-Revenir au carnet|Back to journal|返回旅行笔记|Volver al cuaderno`;
+Revenir au carnet|Back to journal|返回旅行笔记|Volver al cuaderno
+En direct du carnet|Live from your journal|旅行笔记实时动态|En directo del cuaderno
+Heure de l’étape|Stop’s local time|站点当地时间|Hora de la etapa
+Le jour se lève|Day is breaking|天刚亮|Amanece
+En pleine journée|Middle of the day|正值白天|En pleno día
+Le soir tombe|Evening is falling|夜幕降临|Cae la tarde
+C’est la nuit|It’s night|夜深了|Es de noche
+Même heure que chez toi|Same time as home|与家中时间相同|Misma hora que en casa
+Chez toi : {time}|At home: {time}|家中：{time}|En casa: {time}
+Décalage {diff}|Offset {diff}|时差 {diff}|Diferencia {diff}
+Carnet|Journal|旅行笔记|Cuaderno
+Hors ligne|Offline|离线|Sin conexión
+Dans ce carnet : étapes {steps} · hébergements {stays}|In this journal: stops {steps} · stays {stays}|此旅行笔记：站点 {steps} · 住宿 {stays}|En este cuaderno: etapas {steps} · alojamientos {stays}
+Le détour du jour|Today’s detour|今日绕行|El desvío del día
+Faites avant leur tour : {count}|Done ahead of their turn: {count}|提前完成：{count}|Hechas antes de su turno: {count}
+Dans l’ordre prévu, pour l’instant|In the planned order, so far|目前按计划顺序进行|En el orden previsto, por ahora
+Aucune étape prévue pour cette journée.|No stops planned for this day.|此日未安排站点。|No hay etapas previstas para este día.
+prévu|planned|计划|previsto
+vécu|lived|实际|vivido
+D’après l’ordre où tu coches les étapes.|Based on the order you tick off stops.|依据你勾选站点的顺序。|Según el orden en que marcas las etapas.`;
 export function nowDictionary(index:number):Record<string,string>{return Object.fromEntries(rows.split('\n').map(row=>{const parts=row.split('|');return [parts[0],parts[index+1]];}));}

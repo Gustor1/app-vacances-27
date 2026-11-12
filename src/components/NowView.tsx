@@ -8,6 +8,7 @@ import { dateInTimezone } from '../time';
 import { nowDays, nowDetails, stageTimezone } from '../now';
 import { Modal } from './Modal';
 import MapActions from './MapActions';
+import LiveActivities from './LiveActivities';
 import type { StoredState, View } from '../types';
 import './NowView.css';
 
@@ -43,6 +44,7 @@ export default function NowView({state,onNavigate,notify,onChange,onCorrect}:{st
       <label className="field">{t('Journée à consulter')}<select aria-label={t('Journée à consulter')} value={current?.day.id||''} onChange={e=>{setSelected(e.target.value);setShow(false);}}><option value="" disabled>{t('Choisir une journée')}</option>{all.filter(item=>!date||item.day.date===date).map(({city,day})=><option key={day.id} value={day.id}>{city.name} · {day.title}{day.date?` · ${formatCivilDate(day.date,language)}`:` · ${t('Date à renseigner')}`}</option>)}</select></label>
       {current&&<p className="muted">{formatCivilDate(displayDate,language)} · {timezone}{!current.day.date&&` · ${t('Journée sans date : sélection manuelle')}`}</p>}
     </div>
+    {current&&details&&<LiveActivities state={state} city={current.city} day={current.day} timezone={timezone}/>}
     {!current?<p className="panel">{t('Aucune journée datée ne correspond. Choisis une journée ou attribue ses dates dans la vue d’ensemble.')}</p>:details&&<div className="now-grid">
       <article className="panel now-card"><h3>{t('Mon hébergement')}</h3>{details.stay?<><h4>{details.stay.name}</h4><p className="now-local">{localName||t('Nom local non renseigné')}</p><p className="now-address">{address||t('Adresse non renseignée')}</p><p className="muted small">{t('Adresse recopiée du carnet : langue à vérifier, aucune traduction automatique.')}</p>{!details.stayDateMatches&&<p role="status">{t('Les dates de cet hébergement ne couvrent pas cette journée.')}</p>}<button className="btn btn-primary" onClick={()=>{setSelected(current.day.id);setDestination('stay');setReturnCity('');setShow(true);}}>{t('À montrer')}</button></>:<p>{t('Aucun hébergement renseigné pour cette ville.')}</p>}<button className="text-btn" onClick={()=>jump('practical')}>{t('Ouvrir les hébergements')}</button></article>
       <article className="panel now-card"><h3>{t('Prochaine étape du planning')}</h3><p className="muted small">{t('Première activité encore à faire dans l’ordre saisi, sans estimation horaire.')}</p>{details.next?<><h4>{details.next.title}</h4>{details.next.chineseName&&<p className="now-local">{details.next.chineseName}</p>}<p>{details.next.period}</p><MapActions city={current.city} place={placeStep(details.next)} next={details.following?placeStep(details.following):undefined}/><button className="btn btn-secondary" onClick={()=>{setDestination(details.next!.id);setReturnCity('');setShow(true);}}>{t('Montrer ce lieu')}</button></>:<p>{t('Aucune activité restante pour cette journée.')}</p>}<button className="text-btn" onClick={()=>jump('planning')}>{t('Ouvrir cette journée')}</button></article>
