@@ -5,7 +5,7 @@ import FloatingMascot from './FloatingMascot';
 import BrandMark from './BrandMark';
 import { FirstNotebookMascot } from './Mascot';
 import { lazy, Suspense, useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
-import { BookOpen, CalendarDays, Compass, Copy, Download, Globe2, Images, MapPin, Pause, Play, Pencil, Plus, ArrowRight, Upload } from 'lucide-react';
+import { BookOpen, CalendarDays, Compass, Copy, Download, Globe2, Images, MapPin, Pencil, Plus, ArrowRight, Upload } from 'lucide-react';
 import { Modal } from './Modal';
 import { useLocale } from '../i18n';
 import PreferencesButton from './Preferences';
@@ -23,6 +23,7 @@ import CountryPicker from './CountryPicker';
 import { freezeLegacyConversions, suggestedCurrency } from '../money';
 import AccountPanel from './AccountPanel';
 import { useCloud } from '../cloud/CloudProvider';
+import { useIllustrationMotion } from '../illustration-motion';
 import { AccountStorage, type TripStorage } from '../cloud/storage';
 import { readWorld, writeWorld, emptyWorld, confirmVisits, WORLD_KEY } from '../world';
 import type { PersonalWorld, JourneyStatus } from '../types';
@@ -99,14 +100,7 @@ export default function JourneysApp() {
   const [currencyTouched, setCurrencyTouched] = useState(false);
   const [editor, setEditor] = useState<StoredState | 'new' | null>(null);
   const [planningImport, setPlanningImport] = useState(false);
-  const [terrainAnimated, setTerrainAnimated] = useState(() => !matchMedia('(prefers-reduced-motion: reduce)').matches);
-  const [terrainMotionOverride, setTerrainMotionOverride] = useState(false);
-  useEffect(() => {
-    const media = matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => { setTerrainAnimated(!media.matches); setTerrainMotionOverride(false); };
-    media.addEventListener('change', update);
-    return () => media.removeEventListener('change', update);
-  }, []);
+  const illustration = useIllustrationMotion();
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const fileInput = useRef<HTMLInputElement>(null);
@@ -204,7 +198,7 @@ export default function JourneysApp() {
     <a className="skip-link" href="#journeys-main">{t('Aller au contenu')}</a>
     <header className="journeys-topbar"><a className="brand" href="#journeys-main"><span className="brand-mark"><BrandMark/></span><span>détours<span className="brand-dot">.</span><small>{t('LES BEAUX DÉTOURS')}</small></span></a><div className="journeys-topbar-actions"><PreferencesButton/><AccountPanel/></div></header>
     <main id="journeys-main" className="journeys-main">
-      <section className="journeys-intro"><Suspense fallback={null}><WorldLineArt animated={terrainAnimated} forceMotion={terrainMotionOverride}/></Suspense><button type="button" className="terrain-toggle" aria-label={t(terrainAnimated ? 'Mettre l’illustration en pause' : 'Animer l’illustration')} aria-pressed={terrainAnimated} onClick={() => { setTerrainAnimated(!terrainAnimated); if (matchMedia('(prefers-reduced-motion: reduce)').matches) setTerrainMotionOverride(true); }}>{terrainAnimated ? <Pause size={14}/> : <Play size={14}/>}<span>{t(terrainAnimated ? 'Mettre l’illustration en pause' : 'Animer l’illustration')}</span></button><div><h1>{t('Mes voyages')}</h1><p className="muted">{t('Un week-end, une ville, un grand détour. Retrouve chaque voyage à son rythme.')}</p></div><div className="planning-actions"><button className="btn btn-secondary" onClick={() => setPlanningImport(true)}><Upload size={18}/>{t('Créer depuis un planning')}</button><button className="btn btn-primary" onClick={() => { edit('new'); }}><Plus size={18}/>{t('Créer un voyage')}</button></div></section>
+      <section className="journeys-intro"><Suspense fallback={null}><WorldLineArt animated={illustration.animated} forceMotion={illustration.forceMotion}/></Suspense><div><h1>{t('Mes voyages')}</h1><p className="muted">{t('Un week-end, une ville, un grand détour. Retrouve chaque voyage à son rythme.')}</p></div><div className="planning-actions"><button className="btn btn-secondary" onClick={() => setPlanningImport(true)}><Upload size={18}/>{t('Créer depuis un planning')}</button><button className="btn btn-primary" onClick={() => { edit('new'); }}><Plus size={18}/>{t('Créer un voyage')}</button></div></section>
       <div className="collection-toolbar"><div className="journeys-tabs glass-selection-group" role="tablist" aria-label={t('Accueil')} onKeyDown={navigateTabs}><GlassSelection selection={tab}/><button id={`${tabsId}-trips-tab`} role="tab" aria-controls={`${tabsId}-trips-panel`} tabIndex={tab === 'trips' ? 0 : -1} aria-selected={tab === 'trips'} onClick={() => setTab('trips')}><BookOpen size={17}/>{t('Mes voyages')}</button><button id={`${tabsId}-world-tab`} role="tab" aria-controls={`${tabsId}-world-panel`} tabIndex={tab === 'world' ? 0 : -1} aria-selected={tab === 'world'} onClick={() => setTab('world')}><Globe2 size={17}/>{t('Mon monde')}</button></div>{displayTrips.length > 0 && <div className="collection-summary"><span><BookOpen size={15}/><strong>{displayTrips.length}</strong> {t('Mes voyages')}</span><span><MapPin size={15}/>{t('{count} étapes', { count: displayTrips.reduce((sum, trip) => sum + trip.cities.length, 0) })}</span><span><CalendarDays size={15}/>{t('{count} journées', { count: displayTrips.reduce((sum, trip) => sum + trip.cities.reduce((total, city) => total + city.days.length, 0), 0) })}</span></div>}</div><HomeSyncStatus onResolve={setSyncTripId}/>{worldError && <div className="notice warning-notice" role="alert">{worldError}<button className="text-btn" onClick={() => downloadText(safeRaw(WORLD_KEY, localStorage) || '', 'detours-souvenirs-a-recuperer.json')}>{t('Télécharger le fichier original')}</button></div>}
       {error && <div className="notice warning-notice" role="alert">{error}</div>}
       {message && <div className="notice" role="status">{message}</div>}

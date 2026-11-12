@@ -72,17 +72,19 @@ test('line-art tour movement is perceptible within the first two seconds', async
   await expect.poll(async () => Math.abs((await worldShift(page)) - start), { timeout: 1800, intervals: [200] }).toBeGreaterThan(2);
 });
 
-test('reduced motion starts on a still line-art frame but an explicit play action works', async ({ page }) => {
+test('reduced motion starts on a still line-art frame but the Preferences switch can play it', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' }); await page.goto('/');
   await page.locator('.world-line-art .line-art-world').waitFor({ state: 'attached' });
-  await expect(page.getByRole('button', { name: 'Animer l’illustration', exact: true })).toBeVisible();
+  await expect(page.locator('.terrain-toggle')).toHaveCount(0);
   const still = await worldShift(page);
   await page.waitForTimeout(600);
   expect(await worldShift(page)).toBe(still);
-  await page.getByRole('button', { name: 'Animer l’illustration', exact: true }).click();
+  await page.getByRole('button', { name: 'Préférences', exact: true }).click();
+  const toggle = page.getByRole('checkbox', { name: 'Animer le tour du monde', exact: true });
+  await expect(toggle).not.toBeChecked();
+  await toggle.check();
+  await page.getByRole('button', { name: 'Fermer', exact: true }).click();
   await expect.poll(async () => Math.abs((await worldShift(page)) - still), { timeout: 1800, intervals: [200] }).toBeGreaterThan(2);
-  await page.getByRole('button', { name: 'Mettre l’illustration en pause', exact: true }).click();
-  const paused = await worldShift(page);
-  await page.waitForTimeout(500);
-  expect(await worldShift(page)).toBe(paused);
+  await page.reload();
+  await expect(page.locator('.world-line-art')).toHaveAttribute('data-user-motion', 'true');
 });

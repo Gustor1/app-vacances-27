@@ -123,11 +123,13 @@ test('move undo preserves order and a subsequent step edit prevents stale undo',
   await expect(page.locator('.travel-toast').getByRole('button', { name: 'Annuler', exact: true })).toHaveCount(0);
 });
 
-test('line-art animation can pause and remains static with reduced motion', async ({ page }) => {
+test('line-art animation can be stopped from Preferences and remains static with reduced motion', async ({ page }) => {
   const shift = () => page.locator('.world-line-art .line-art-world').evaluate(element => element.getAttribute('transform'));
   await page.goto('/');
   await expect(page.locator('.world-line-art')).toHaveAttribute('data-play', 'true');
-  await page.getByRole('button', { name: 'Mettre l’illustration en pause', exact: true }).click();
+  await page.getByRole('button', { name: 'Préférences', exact: true }).click();
+  await page.getByRole('checkbox', { name: 'Animer le tour du monde', exact: true }).uncheck();
+  await page.getByRole('button', { name: 'Fermer', exact: true }).click();
   await expect(page.locator('.world-line-art')).toHaveAttribute('data-animated', 'false');
   const paused = await shift();
   await page.waitForTimeout(400);
