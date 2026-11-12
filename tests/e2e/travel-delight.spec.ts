@@ -123,14 +123,18 @@ test('move undo preserves order and a subsequent step edit prevents stale undo',
   await expect(page.locator('.travel-toast').getByRole('button', { name: 'Annuler', exact: true })).toHaveCount(0);
 });
 
-test('terrain animation can pause and remains static with reduced motion', async ({ page }) => {
+test('line-art animation can pause and remains static with reduced motion', async ({ page }) => {
+  const shift = () => page.locator('.world-line-art .line-art-world').evaluate(element => element.getAttribute('transform'));
   await page.goto('/');
-  await expect(page.locator('.topographic-art')).toHaveAttribute('data-play', 'true');
-  await page.getByRole('button', { name: 'Mettre le relief en pause', exact: true }).click();
-  await expect(page.locator('.topographic-art')).toHaveAttribute('data-animated', 'false');
-  expect(await page.locator('.topographic-art g').evaluate(element => getComputedStyle(element).animationPlayState)).toBe('paused');
+  await expect(page.locator('.world-line-art')).toHaveAttribute('data-play', 'true');
+  await page.getByRole('button', { name: 'Mettre l’illustration en pause', exact: true }).click();
+  await expect(page.locator('.world-line-art')).toHaveAttribute('data-animated', 'false');
+  const paused = await shift();
+  await page.waitForTimeout(400);
+  expect(await shift()).toBe(paused);
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  expect(await page.locator('.topographic-art g').evaluate(element => getComputedStyle(element).animationName)).toBe('none');
+  await page.waitForTimeout(400);
+  expect(await shift()).toBe(paused);
 });
 
 test('memory read failure can retry; caption-only memories remain available', async ({ page }) => {

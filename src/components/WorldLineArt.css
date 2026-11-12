@@ -1,0 +1,22 @@
+/* Line-art tour of the world behind the home intro. Ink follows the active palette
+   (--action is the readable accent), paper is the page background so drawn shapes
+   occlude each other without showing as boxes. */
+.journeys-intro > .world-line-art.world-line-art {
+  position: absolute; inset: -36px -30px -20px 38%; z-index: -1;
+  overflow: hidden; pointer-events: none;
+  --line-art-ink: var(--action); --paper: var(--surface-alt);
+  mask-image: linear-gradient(90deg, transparent, #000 26%, #000 92%, transparent);
+}
+.world-line-art svg { display: block; width: 100%; height: 100%; }
+.world-line-art .pp { fill: var(--paper); }
+/* colours are mixed, not faded: the traveller must occlude the scenery behind him */
+.world-line-art .line-art-world { color: color-mix(in srgb, var(--line-art-ink) 34%, var(--paper)); }
+.world-line-art .line-art-hero { color: color-mix(in srgb, var(--line-art-ink) 72%, var(--paper)); }
+
+@media (max-width: 760px) {
+  .journeys-intro > .world-line-art.world-line-art { inset: auto -15px 44px -15px; height: 58%; /* ground sits above the pause button */ mask-image: linear-gradient(180deg, transparent, #000 40%); }
+  .world-line-art .line-art-world { color: color-mix(in srgb, var(--line-art-ink) 26%, var(--paper)); }
+  .world-line-art .line-art-hero { color: color-mix(in srgb, var(--line-art-ink) 60%, var(--paper)); }
+}
+
+@media print { .world-line-art { display: none !important; } }
