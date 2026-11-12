@@ -62,23 +62,29 @@ test('import progress stays visible while scrolling on a small screen', async ({
   await expect(progress).toContainText('1 / 3');
 });
 
-test('terrain movement is perceptible within the first two seconds', async ({ page }) => {
+const worldShift = (page: import('@playwright/test').Page) => page.locator('.world-line-art .line-art-world').evaluate(element => Number(/translate\((-?[\d.]+)/.exec(element.getAttribute('transform') ?? '')?.[1] ?? 0));
+
+test('line-art tour movement is perceptible within the first two seconds', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' }); await page.goto('/');
-  await page.locator('.topographic-art[data-play=true]').waitFor();
-  const layer = page.locator('.topographic-art g');
-  const position = () => layer.evaluate(element => { const m = new DOMMatrix(getComputedStyle(element).transform); return { x: m.m41, y: m.m42 }; });
-  const start = await position();
-  await expect.poll(async () => { const next = await position(); return Math.hypot(next.x - start.x, next.y - start.y); }, { timeout: 1800, intervals: [200] }).toBeGreaterThan(2);
+  await page.locator('.world-line-art[data-play=true]').waitFor();
+  await expect(page.locator('.world-line-art')).toHaveAttribute('aria-hidden', 'true');
+  const start = await worldShift(page);
+  await expect.poll(async () => Math.abs((await worldShift(page)) - start), { timeout: 1800, intervals: [200] }).toBeGreaterThan(2);
 });
 
-test('reduced motion starts static but an explicit terrain play action works', async ({ page }) => {
+test('reduced motion starts on a still line-art frame but the Preferences switch can play it', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' }); await page.goto('/');
-  const layer = page.locator('.topographic-art g');
-  await expect(page.getByRole('button', { name: 'Animer le relief', exact: true })).toBeVisible();
-  expect(await layer.evaluate(element => getComputedStyle(element).animationName)).toBe('none');
-  await page.getByRole('button', { name: 'Animer le relief', exact: true }).click();
-  await expect.poll(() => layer.evaluate(element => getComputedStyle(element).animationPlayState)).toBe('running');
-  expect(await layer.evaluate(element => getComputedStyle(element).animationName)).toBe('detours-terrain-flow');
-  await page.getByRole('button', { name: 'Mettre le relief en pause', exact: true }).click();
-  expect(await layer.evaluate(element => getComputedStyle(element).animationPlayState)).toBe('paused');
+  await page.locator('.world-line-art .line-art-world').waitFor({ state: 'attached' });
+  await expect(page.locator('.terrain-toggle')).toHaveCount(0);
+  const still = await worldShift(page);
+  await page.waitForTimeout(600);
+  expect(await worldShift(page)).toBe(still);
+  await page.getByRole('button', { name: 'Préférences', exact: true }).click();
+  const toggle = page.getByRole('checkbox', { name: 'Animer le tour du monde', exact: true });
+  await expect(toggle).not.toBeChecked();
+  await toggle.check();
+  await page.getByRole('button', { name: 'Fermer', exact: true }).click();
+  await expect.poll(async () => Math.abs((await worldShift(page)) - still), { timeout: 1800, intervals: [200] }).toBeGreaterThan(2);
+  await page.reload();
+  await expect(page.locator('.world-line-art')).toHaveAttribute('data-user-motion', 'true');
 });
