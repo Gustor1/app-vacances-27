@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { CheckCircle2, Cloud, LogOut, RefreshCw, Users } from 'lucide-react';
 import { useLocale } from '../i18n';
 import { useCloud } from '../cloud/CloudProvider';
@@ -43,14 +44,20 @@ export default function TripCollaboration({id,onShare,onCopy,saving=false,storag
   },[!!record?.revision,record?.role,members.length,cloud.session?.user.id,cloud.sync]);
   const status=tripSaveStatus({account:!!storage,record,saving,storageError,working:cloud.working,online:cloud.online,connected:!!cloud.session});
 
-  return <>
-    <section className="trip-collaboration" aria-label={t('Partage et synchronisation')}>
+  // Calme : le bloc se range en colophon, en bas de page. Dès qu'il demande une décision
+  // (différences, erreur, carnet d'un autre, droits modifiés), il remonte sous le titre.
+  const attention=!!storageError||!!cloud.error||!!record?.conflict||!!record?.accessChanged||(!!record&&record.role!=='owner');
+  const [slot,setSlot]=useState<HTMLElement|null>(null);
+  useLayoutEffect(()=>{setSlot(document.getElementById(attention?'trip-collaboration-top':'trip-collaboration-colophon'));},[attention]);
+  const panel=<section className="trip-collaboration" aria-label={t('Partage et synchronisation')}>
       <div className="trip-collaboration-heading"><div><span className="trip-access-badge"><Users size={15}/>{t(shared?'Voyage partagé':'Mon voyage')} · {t(record?.role==='reader'?'Lecteur':record?.role==='editor'?'Éditeur':'Propriétaire')}</span>{owner&&shared&&<p>{t('Partagé par :')} <strong>{owner.email||owner.display_name}</strong></p>}{members.length>0&&<p>{t('Partagé avec :')} {members.map(p=>p.email||p.display_name).join(' · ')}</p>}{error&&shared&&<p className="muted">{t(error)}</p>}</div><div className="trip-collaboration-actions"><button className="btn btn-primary" onClick={onShare}><Users size={16}/>{t('Partager')}</button>{record?.role==='reader'&&<button className="btn btn-secondary" onClick={onCopy}>{t('Créer ma copie')}</button>}</div></div>
       <div className="trip-sync-row"><span role="status">{record?.conflict?<Cloud size={15}/>:<CheckCircle2 size={15}/>} {t(status)}</span><button className="text-btn" onClick={()=>setOpened(true)}>{t(record?.conflict?'Résoudre les différences':'Voir la synchronisation')}</button></div>
       <details className="trip-sync-details" open={!!storageError || !!record?.pending || !!record?.conflict || !!cloud.error || !cloud.online}><summary>{t('Enregistrement et connexion')}</summary>      <p className="trip-sync-hint">{t(cloud.online?'Internet disponible. Cela ne confirme ni un envoi ni une sauvegarde externe.':'Internet indisponible. Les changements peuvent rester enregistrés ici en attendant l’envoi.')}</p>{record?.lastSynced&&Number.isFinite(Date.parse(record.lastSynced))&&<p className="trip-sync-hint">{t('Dernier échange avec le compte :')} <time dateTime={record.lastSynced}>{new Intl.DateTimeFormat(dateLocale,{dateStyle:'medium',timeStyle:'short'}).format(new Date(record.lastSynced))}</time></p>}</details>{record?.role==='reader'&&<p className="trip-sync-hint">{t('Tu consultes le même carnet que le propriétaire. Demande un accès éditeur pour le modifier.')}</p>}
       {record?.fullSharing&&<p className="trip-sync-hint">{t('Carnet commun : les modifications autorisées sont partagées avec les autres membres.')}</p>}
       {record?.accessChanged&&<p className="trip-sync-hint">{t('Les droits ont changé. Le carnet affiche les informations autorisées ; ton travail en attente reste dans les copies de récupération.')}</p>}
-    </section>
+    </section>;
+  return <>
+    {slot?createPortal(panel,slot):panel}
     {record && record.role !== 'owner' && <button className="text-btn leave-trip" onClick={()=>{setLeaveError('');setLeaving(true);}}><LogOut size={16}/>{t('Quitter ce voyage')}</button>}
     {leaving&&<Modal title={t('Quitter ce voyage ?')} onClose={()=>{if(!busy)setLeaving(false);}}><div className="account-panel"><p>{t('Ce voyage disparaîtra de ton carnet et tu perdras ton accès, y compris depuis un ancien lien.')}</p><p>{t('Le voyage et tes contributions restent disponibles pour le créateur et les autres participants. Une nouvelle invitation te permettra de revenir.')}</p>{record?.pending&&<p>{t('Des modifications sont encore en attente sur cet appareil. Seules les contributions déjà synchronisées sont partagées.')}</p>}{leaveError&&<p role="alert">{leaveError}</p>}<div className="trip-collaboration-actions"><button className="btn btn-secondary" disabled={busy} onClick={()=>setLeaving(false)}>{t('Annuler')}</button><button className="btn btn-primary" disabled={busy||!cloud.session||!navigator.onLine} onClick={async()=>{setBusy(true);try{await cloud.leave(id);setLeaving(false);}catch{setLeaveError(t('Impossible de quitter le voyage. Vérifie ta connexion et réessaie.'));}finally{setBusy(false);}}}>{t('Confirmer et quitter')}</button></div>{(!cloud.session||!navigator.onLine)&&<p>{t('Connecte-toi avec Internet pour quitter ce voyage.')}</p>}</div></Modal>}
     {opened&&<TripSyncPanel id={id} saving={saving} storageError={storageError} onClose={()=>setOpened(false)}/>}

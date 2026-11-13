@@ -1,0 +1,196 @@
+/* Folio : l'en-tête unique d'un carnet (lot 1 « guide de poche »).
+   Le titre vient en premier. Dates, actions et partage tiennent ensuite en
+   lignes plates séparées par des filets, sans carte ni pilule.
+   Les préfixes html:root:root reprennent la spécificité d'apple-design.css. */
+
+html:root:root[data-theme] main .folio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: .25rem 1.5rem;
+  margin: 0 0 1.5rem;
+  padding: 0 0 .5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+html:root:root main .folio-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 1rem;
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+html:root:root main .folio h1 {
+  margin: 0;
+  max-width: none;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+/* La date du voyage se lit comme une mention sous le titre, pas comme un bouton. */
+html:root:root[data-theme] main :is(.folio, .assistant-entry) .trip-timing-reminder {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  box-shadow: none;
+  color: var(--muted);
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+
+html:root:root[data-theme] main :is(.folio, .assistant-entry) .trip-timing-reminder:hover {
+  color: var(--green);
+}
+
+/* Les actions du carnet : du texte encré, aligné à droite du titre. */
+html:root:root main .folio > .intro-actions {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0 .25rem;
+  width: auto;
+  max-width: 100%;
+  margin-inline-end: -.6rem;
+}
+
+html:root:root[data-theme] main .folio > .intro-actions :is(.btn, .daily-shortcut, .export-button) {
+  width: auto;
+  height: auto;
+  min-height: 44px;
+  margin: 0;
+  padding: .5rem .6rem;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  box-shadow: none;
+  color: var(--green);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+html:root:root[data-theme] main .folio > .intro-actions :is(.btn, .daily-shortcut, .export-button):hover:not(:disabled) {
+  background: var(--selected-surface);
+  transform: none;
+}
+
+/* Résultats de recherche : les mêmes raccourcis restent disponibles sur une ligne. */
+html:root:root main > .assistant-entry {
+  justify-content: flex-start;
+  gap: .25rem 1rem;
+  margin: 0 0 1rem;
+}
+
+/* Partage et synchronisation : une ligne de colophon, plus une carte. */
+html:root:root[data-theme] .workspace > main .trip-collaboration {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 1.5rem;
+  margin: 0 0 1.5rem;
+  padding: .25rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+html:root:root main .trip-collaboration .trip-collaboration-heading {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 1rem;
+  width: auto;
+}
+
+html:root:root main .trip-collaboration .trip-collaboration-heading > div:first-child {
+  flex: 0 1 auto;
+}
+
+html:root:root main .trip-collaboration .trip-access-badge {
+  font-size: var(--fs-small);
+}
+
+html:root:root main .trip-collaboration .trip-collaboration-actions {
+  width: auto;
+  gap: .5rem;
+}
+
+html:root:root main .trip-collaboration .trip-collaboration-actions .btn {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding-block: .4rem;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+html:root:root main .trip-collaboration .trip-sync-row {
+  flex: 1 1 18rem;
+  justify-content: flex-start;
+  width: auto;
+  gap: 0 1rem;
+  padding: 0;
+  border: 0;
+}
+
+html:root:root main .trip-collaboration .trip-sync-row .text-btn {
+  min-height: 44px;
+}
+
+/* Au calme, le bloc partage se range en colophon, en bas de page.
+   S'il demande une décision, il remonte sous le titre. */
+html:root:root[data-theme] .workspace > main #trip-collaboration-colophon .trip-collaboration {
+  margin: 2rem 0 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  html:root:root .workspace > main {
+    padding-top: .75rem;
+  }
+
+  html:root:root[data-theme] main .folio {
+    margin-bottom: 1rem;
+  }
+
+  html:root:root main .folio > .intro-actions {
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    margin-inline: -.6rem 0;
+  }
+
+  html:root:root[data-theme] .workspace > main .trip-collaboration {
+    margin-bottom: 1rem;
+  }
+
+  html:root:root main .trip-collaboration .trip-collaboration-heading {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+
+  html:root:root main .trip-collaboration .trip-sync-row {
+    justify-content: space-between;
+  }
+}
+
+@media print {
+  html:root:root main .folio > .intro-actions,
+  html:root:root main .trip-collaboration {
+    display: none;
+  }
+}

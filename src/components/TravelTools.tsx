@@ -68,7 +68,7 @@ export function TransportView({ state, onChange, notify }: TransportProps) {
   }
   return <section className="transport-view" aria-labelledby="transport-title">
     <header className="section-header">
-      <div><p className="eyebrow">{t("D’une escale à l’autre")}</p><h2 id="transport-title">{t("Les trajets du voyage")}</h2><p className="muted">{t("Garde les gares exactes, les horaires et les références de tes billets à portée de main.")}</p></div>
+      <div><h2 id="transport-title">{t("Les trajets du voyage")}</h2><p className="muted">{t("Garde les gares exactes, les horaires et les références de tes billets à portée de main.")}</p></div>
       <EditButton className="btn btn-primary" type="button" disabled={cities.length === 0} onClick={() => editTransfer()}>{t("Ajouter un trajet")}</EditButton>
     </header>
     <div className="notice"><Info size={18} aria-hidden="true" /><p>{t("Les horaires sont locaux, avec le fuseau de chaque départ et arrivée. Vérifie les lieux et les conditions sur ton billet.")}</p></div>
@@ -157,7 +157,7 @@ export function NotebookView({ state, onChange, onExport, onImport, onOpenSource
   const bookings = state.cities.flatMap(city => city.days.flatMap(day => day.steps.filter(step => step.booking).map(step => ({ city, day, step }))));
   const bookedCount = bookings.filter(({ step }) => state.bookings.includes(step.id)).length;
   return <section className="notebook-view" aria-labelledby="notebook-title">
-    <header className="section-header"><div><p className="eyebrow">{t("L’esprit tranquille")}</p><h2 id="notebook-title">{t("Le carnet de voyage")}</h2><p className="muted">{t("Tes réservations, tes notes et les petits repères utiles, au même endroit.")}</p></div></header>
+    <header className="section-header"><div><h2 id="notebook-title">{t("Le carnet de voyage")}</h2><p className="muted">{t("Tes réservations, tes notes et les petits repères utiles, au même endroit.")}</p></div></header>
     <div className="tools-grid">
       <section className="panel notebook-card" aria-labelledby="bookings-title">
         <div className="panel-heading"><CheckCheck size={21} aria-hidden="true" /><h2 id="bookings-title">{t("À réserver")}</h2><span className="tag">{bookedCount} / {bookings.length}</span></div>
