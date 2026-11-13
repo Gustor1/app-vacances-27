@@ -34,3 +34,15 @@
   --font-ui: 'Hanken Grotesk', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
   --font-heading: 'Newsreader', Georgia, 'Songti SC', 'SimSun', serif;
 }
+
+/* Échelle typographique du carnet : sept paliers, plus le grand titre de l'accueil.
+   Toute taille de texte de l'interface passe par ces jetons. */
+:root {
+  --fs-micro: .75rem;
+  --fs-small: .8125rem;
+  --fs-body: .9375rem;
+  --fs-lead: 1.0625rem;
+  --fs-h3: 1.3125rem;
+  --fs-h2: 1.625rem;
+  --fs-h1: 2.125rem;
+}

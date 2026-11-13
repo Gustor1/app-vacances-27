@@ -1,0 +1,50 @@
+/* Voix typographique (lot 2 « guide de poche »).
+   Newsreader porte les titres h1 à h3, Hanken Grotesk porte l'interface. */
+
+/* Quatre :root : il faut passer devant la règle de famille d'apple-design.css. */
+html:root:root:root:root :is(h1, h2, h3) {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+html:root:root:root:root :is(h4, h5, h6) {
+  font-family: var(--font-ui);
+}
+
+html:root:root main .folio h1 {
+  font-size: var(--fs-h1);
+}
+
+html:root:root :is(p, li, dd) {
+  text-wrap: pretty;
+}
+
+html:root:root body {
+  font-size: var(--fs-body);
+}
+
+/* Les mentions qui restent (étape, jour, catégorie) informent : elles s'écrivent
+   comme du texte courant, sans capitales ni interlettrage. */
+html:root:root:root :is(.eyebrow, .nav-caption, .sidebar-route-title, .day-heading .eyebrow, .bonus-card-top .eyebrow, .shared-trip-intro .eyebrow) {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Ces libellés sont saisis en capitales dans les traductions : on les ramène
+   en bas de casse avec une majuscule initiale, sans toucher aux textes. */
+html:root:root:root :is(.city-heading .eyebrow, .day-heading .eyebrow, .nav-caption, .sidebar-route-title > span:first-child) {
+  display: block;
+  text-transform: lowercase;
+}
+
+html:root:root:root :is(.city-heading .eyebrow, .day-heading .eyebrow, .nav-caption, .sidebar-route-title > span:first-child)::first-letter {
+  text-transform: uppercase;
+}
+
+html:root:root:root .day-heading .eyebrow span {
+  font-size: inherit;
+}

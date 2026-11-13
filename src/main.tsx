@@ -13,5 +13,7 @@ import './styles.css';
 import './theme.css';
 import './apple-design.css';
 import './components/TravelDelight.css';
+import './folio.css';
+import './type.css';
 function Root() { useScrollMaterial(); const { scope, ready } = useCloud(); return <>{ready ? <MapPreferencesProvider key={scope}><MascotPreferencesProvider key={scope}><App/></MascotPreferencesProvider></MapPreferencesProvider> : <p role="status">Détours…</p>}<AppUpdate/></>; }
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><LocaleProvider><CloudProvider><InstallProvider><Root /></InstallProvider></CloudProvider></LocaleProvider></React.StrictMode>);
