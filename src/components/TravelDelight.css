@@ -1,6 +1,15 @@
 /* Détours: tactile paper, photographic keepsakes and moving contour lines. */
 .journeys-intro { position: relative; isolation: isolate; min-height: 240px; }
 .journeys-intro > :not(.topographic-art) { position: relative; z-index: 1; }
+/* Home intro with the line-art tour: title, text and actions stay on the left, the drawing owns the right.
+   On phones the drawing becomes a band under the actions; its room is reserved here (this file loads
+   eagerly, the drawing lazily) so nothing jumps when it arrives. */
+html:root:root .journeys-main .journeys-intro { flex-direction: column; align-items: flex-start; justify-content: center; min-height: 250px; }
+html:root:root .journeys-main .journeys-intro > div:not(.world-line-art) { max-width: min(560px, 50%); }
+@media (max-width: 760px) {
+  html:root:root .journeys-main .journeys-intro { min-height: 0; padding-bottom: 150px; }
+  html:root:root .journeys-main .journeys-intro > div:not(.world-line-art) { max-width: none; }
+}
 .journeys-intro > div:first-of-type { max-width: 620px; }
 .topographic-art { position: absolute; inset: -36px -30px -20px 42%; overflow: hidden; pointer-events: none; z-index: -1; color: var(--action); opacity: .32; mask-image: linear-gradient(90deg, transparent, #000 30%, #000 85%, transparent); }
 .topographic-art svg { width: 100%; height: 100%; overflow: visible; }
